@@ -1,3 +1,13 @@
+##---Python---
+**/.idea/
+*.pyc
+
+
+##---TeX---
+
+## Binary output
+*.pdf
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

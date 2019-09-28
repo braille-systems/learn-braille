@@ -1,0 +1,38 @@
+%XeLaTeX+makeIndex+BibTeX
+
+\documentclass[a4paper,12pt]{article} %14pt - extarticle
+\usepackage[utf8]{inputenc} %русский язык, не менять
+\usepackage[T2A, T1]{fontenc} %русский язык, не менять
+\usepackage[english, russian]{babel} %русский язык, не менять
+\usepackage{fontspec} %различные шрифты
+\setmainfont{Times New Roman}
+\defaultfontfeatures{Ligatures={TeX},Renderer=Basic}
+\usepackage{hyperref} %гиперссылки
+\hypersetup{pdfstartview=FitH,  linkcolor=blue, urlcolor=blue, colorlinks=true} %гиперссылки
+\usepackage{subfiles}%включение тех-текста
+\usepackage{graphicx} %изображения
+\usepackage{float}%картинки где угодно
+\usepackage{textcomp}
+\usepackage{fancyvrb} %fancy verbatim for \VerbatimInput
+\usepackage{dsfont}%мат. символы
+\newcommand{\ovr}[1]{\overrightarrow{#1}} %своя команда для векторов: \ovr{a} вместо \overrightarrow{w}
+\usepackage{listings} %code formatting
+\lstset{language=python,
+	%keywordstyle=\color{blue},
+	%commentstyle=\color{},
+	%stringstyle=\color{red},
+	tabsize=1,
+	breaklines=true,
+	columns=fullflexible,
+	%numbers=left,
+	escapechar=@,
+	morekeywords={numpy, np}
+}
+
+
+
+\begin{document}
+	\subfile{titlepage}
+	\subfile{body}
+	\subfile{bibliography}
+\end{document}
