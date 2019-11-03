@@ -1,0 +1,10 @@
+# IDEA
+**/.idea/
+
+#binaries
+*.png
+*.PNG
+*.jpg
+*.JPG
+*.gif
+*.GIF
