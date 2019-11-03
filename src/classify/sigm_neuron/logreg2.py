@@ -42,7 +42,7 @@ def gradient_descent(x_mtx, y_vec, theta_vec, learn_rate=0.001, num_iter=100000)
             theta_vec[i] -= grad_vec[i] * learn_rate
         if not it % 500:
             sys.stdout.write('\r cost:' + str(round(cost, 4)) + ', iteration: ' + str(it))
-        print('')
+    print('')
     return theta_vec, cost
 
 
@@ -53,7 +53,7 @@ if __name__ == '__main__':
     init_theta = [0 for _ in range(nparams)]
     # init_theta = [-25, 0.2, 0.2] # nearly the right answer
     init_cost, init_grad = cost_and_grad(x_mtx, y_vec, init_theta)
-    print(init_cost)
+    print('initial cost: ' + str(init_cost))
     print('running gradient descent...')
     res_theta, res_cost = gradient_descent(x_mtx, y_vec, init_theta)
     print('model trained!')
