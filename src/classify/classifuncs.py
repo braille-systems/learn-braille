@@ -8,6 +8,15 @@ def sigm(x):
     return 1 / (1 + math.exp(-x))
 
 
+@np.vectorize
+def _single_cost(ans, predict):
+    return -ans * np.log(predict) - (1 - ans) * np.log(1 - predict)
+
+
+def cross_entropy(ans_mtx, predict_mtx):
+    return np.sum(_single_cost(ans_mtx, predict_mtx)) / len(ans_mtx)
+
+
 def getxy(filename):
     delimiter = ','
     x_mtx = []
