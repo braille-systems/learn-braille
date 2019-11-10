@@ -1,5 +1,6 @@
 import numpy as np
-from classify import getxy, sigm, cross_entropy, gradient_descent
+from classify import getxy, sigm, sigm_grad, cross_entropy, gradient_descent
+# TODO: layers: list->np.array (make 3-d array for speed and simplicity)
 
 
 def __bias() -> int:
@@ -54,8 +55,9 @@ def gradients(x_mtx: np.array, y_mtx: np.array, layers: list) -> list:
     a_list = __activations(layers, x_mtx)
     # calculating errors of each node in each layer
     num_layers = len(layers)
+    num_train = len(x_mtx)
     grads = [np.zeros(layer.shape) for layer in layers]  # initialize gradients with zeros
-    for x_idx in range(len(x_mtx)):
+    for x_idx in range(num_train):
         ai_list = []
         for a_mtx in a_list:
             ai_list.append(a_mtx[x_idx])
@@ -63,12 +65,14 @@ def gradients(x_mtx: np.array, y_mtx: np.array, layers: list) -> list:
         deltai_list = [ai_list[-1] - y_vec]
         for layer_idx in range(num_layers - 1, -1, -1):  # for layers in reversed order...
             delta_next = deltai_list[0]  # errors of the next layer (or of hypothesis, if the layer is last)
-            activ_vec = ai_list[layer_idx]
+            activ_vec = np.insert(ai_list[layer_idx], 0, __bias())
             weight_mtx = layers[layer_idx]
-            delta_vec = weight_mtx.T.dot(delta_next).dot(np.multiply(activ_vec, (1 - activ_vec)))
-            delta_vec = delta_vec.take(indices=range(1, len(delta_vec)), axis=1)  # exclude bias terms
+            delta_vec = np.multiply(weight_mtx.T.dot(delta_next),sigm_grad(activ_vec))
+            delta_vec = delta_vec[1:]  # exclude bias term
             deltai_list.insert(0, delta_vec)
             grads[layer_idx] += np.array([delta_next]).T.dot(np.array([activ_vec]))
+    for layer_idx in range(num_layers):
+        grads[layer_idx] /= num_train
     return grads
 
 
@@ -80,10 +84,9 @@ def cost_crossentropy(x_mtx: np.array, y_mtx: np.array, layers: list) -> float:
 
 def cost_and_grad(x_mtx: np.array, y_mtx: np.array, layers: list):
     cost = cost_crossentropy(x_mtx, y_mtx, layers)
-    grads = gradients(x_mtx, y_mtx, layers)
+    grads = np.array(gradients(x_mtx, y_mtx, layers))
+    grads = grads.reshape(np.product(grads.shape))
     return cost, grads
-
-
 
 
 if __name__ == '__main__':

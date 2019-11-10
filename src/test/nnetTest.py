@@ -51,10 +51,29 @@ def cost_test():
     assert 0.5 <= cost_wrong
 
 
-def grad_test():
+def grad_test1():
+    layers = [np.array([[-30, 20, 20]])]  # 1 layer, 1 neuron (AND switch)
+    x_mtx = np.array(((0, 0), (0, 1), (1, 0), (1, 1)))
+    y_mtx = np.array([[0], [0], [0], [1]])
+    grad = nn.gradients(x_mtx, y_mtx, layers)  # compute gradients in optimal point
+    assert len(grad) == 1
+    grad = grad[0]  # only one 2-dimensional matrix, so we may reduce dimensions
+    assert grad.shape == layers[0].shape
+    assert np.max(np.abs(grad)) < 1e-4
+    y_mtx[0][0] = 1
+    grad = nn.gradients(x_mtx, y_mtx, layers)[0]  # not optimal point
+    assert np.max(np.abs(grad)) > 0.2
+
+
+def grad_test2():
     layers, x_mtx = init_xor_switch()
     y_right = np.array([[0, 1, 1, 0]]).T
     grad_right = nn.gradients(x_mtx, y_right, layers)
+    assert len(grad_right) == 2  # one grad matrix for one layer
+    assert grad_right[0].shape == layers[0].shape  # one grad matrix for one layer
+    assert grad_right[1].shape == layers[1].shape  # one grad matrix for one layer
+    assert np.max(np.abs(grad_right[0])) < 1e-3
+    assert np.max(np.abs(grad_right[1])) < 1e-3
 
 
 if __name__ == '__main__':
@@ -62,4 +81,5 @@ if __name__ == '__main__':
     predict_test2()
     predict_test3()
     cost_test()
-    # grad_test()  # fails
+    grad_test1()
+    grad_test2()

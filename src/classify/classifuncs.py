@@ -8,6 +8,10 @@ def sigm(x):
     return 1 / (1 + math.exp(-x))
 
 
+def sigm_grad(x: np.array) -> np.array:
+    return np.multiply(sigm(x), 1 - sigm(x))
+
+
 @np.vectorize
 def _single_cost(ans, predict):
     return -ans * np.log(predict) - (1 - ans) * np.log(1 - predict)
