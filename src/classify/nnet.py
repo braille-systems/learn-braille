@@ -1,6 +1,6 @@
+import sys
 import numpy as np
-from classify import getxy, sigm, sigm_grad, cross_entropy, gradient_descent
-# TODO: layers: list->np.array (make 3-d array for speed and simplicity)
+from classify import getxy, sigm, sigm_grad, cross_entropy
 
 
 def __bias() -> int:
@@ -82,12 +82,32 @@ def cost_crossentropy(x_mtx: np.array, y_mtx: np.array, layers: list) -> float:
     return cost
 
 
-def cost_and_grad(x_mtx: np.array, y_mtx: np.array, layers: list):
-    cost = cost_crossentropy(x_mtx, y_mtx, layers)
-    grads = np.array(gradients(x_mtx, y_mtx, layers))
-    grads = grads.reshape(np.product(grads.shape))
-    return cost, grads
+def grad_descent(x_mtx, y_vec, layers, learn_rate=0.03, num_iter=100):
+    for it in range(num_iter):
+        cost = cost_crossentropy(x_mtx, y_vec, layers)
+        grads = gradients(x_mtx, y_vec, layers)
+        for weight_mtx, grad_mtx in zip(layers, grads):
+            weight_mtx -= grad_mtx * learn_rate
+        if not it % 5:
+            sys.stdout.write('\r cost:' + str(round(cost, 4)) + ', iteration: ' + str(it))
+    print('')
+    return layers, cost
+
+
+def init_weights(input_layer_size: int):
+    epsilon_init = 1.2
+    layer1 = np.random.random((5, 3)) * 2 * epsilon_init - epsilon_init
+    layer2 = np.random.random((1, 6)) * 2 * epsilon_init - epsilon_init
+    layers = [layer1, layer2]
+    return layers
 
 
 if __name__ == '__main__':
     x_mtx, y_vec = getxy('nnet/matlab/data2.txt')
+    layers = init_weights(len(y_vec))
+    print(layers)
+    layers, cost = grad_descent(x_mtx, y_vec, layers)
+    for layer in layers:
+        print(layer)
+
+
