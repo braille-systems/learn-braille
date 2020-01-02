@@ -15,7 +15,8 @@
 \usepackage{textcomp}
 \usepackage{fancyvrb} %fancy verbatim for \VerbatimInput
 \usepackage{dsfont}%мат. символы
-\newcommand{\ovr}[1]{\overrightarrow{#1}} %своя команда для векторов: \ovr{a} вместо \overrightarrow{w}
+\usepackage{amsmath} %common math symbols
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \usepackage{listings} %code formatting
 \lstset{language=python,
 	%keywordstyle=\color{blue},
@@ -29,10 +30,16 @@
 	morekeywords={numpy, np}
 }
 
-
+\textwidth=16cm
+\oddsidemargin=0cm %поля (отступ слева)
+\topmargin=-1cm %поля (отступ сверху)
+\textheight=23cm
 
 \begin{document}
 	\subfile{titlepage}
+	\tableofcontents
+	\newpage
 	\subfile{body}
+	\newpage
 	\subfile{bibliography}
 \end{document}
