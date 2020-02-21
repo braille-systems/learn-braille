@@ -21,4 +21,4 @@ OCR (optical character recognition) system for Braille Trainer
 ## Руководства для разработки
 1. [Code Style](https://github.com/zuevval/braille4/wiki/codestyle)
 1. [Git Workflow (правила оформления веток)](https://github.com/zuevval/braille4/wiki/gitflow)
-1. [CONTRIBUTING.md](CONTRIBUTING.md)
+1. [CONTRIBUTING.ru.md](CONTRIBUTING.ru.md)
