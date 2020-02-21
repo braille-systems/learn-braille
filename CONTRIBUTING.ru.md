@@ -7,3 +7,7 @@
  то коммит может выглядеть так: `#1.6 rewrite some tests for some function`
 
 Для интересующихся есть [статья о написании commit message](https://gist.github.com/robertpainsi/b632364184e70900af4ab688decf6f53)
+# Git Workflow
+[Git Workflow (правила оформления веток) - вики-статья](https://github.com/zuevval/braille4/wiki/gitflow)
+# Стиль кодирования
+[Стиль кодирования - Вики-статья](https://github.com/zuevval/braille4/wiki/codestyle)
