@@ -3,4 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="exit_question">Вы хотите выйти из приложения?</string>
 </resources>
