@@ -10,4 +10,7 @@
     <string name="greeting">Hello!</string>
     <string name="greeting_exit">Выйти</string>
     <string name="greeting_start">Начать</string>
+    <string name="menu_practice">ПРАКТИКА</string>
+    <string name="menu_exit">ВЫХОД</string>
 </resources>
+
