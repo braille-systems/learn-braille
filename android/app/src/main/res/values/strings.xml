@@ -4,4 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="practice_next">Next</string>
     <string name="practice_menu">Menu</string>
+    <string name="exit_yes">Да</string>
+    <string name="exit_no">Нет</string>
+    <string name="exit_question">Вы хотите выйти из приложения?</string>
 </resources>
