@@ -44,9 +44,7 @@
         tools:layout="@layout/fragment_practice" >
         <action
             android:id="@+id/action_practiceFragment_to_menuFragment"
-            app:destination="@id/menuFragment" />
-        <action
-            android:id="@+id/action_practiceFragment_self"
-            app:destination="@id/practiceFragment" />
+            app:destination="@id/menuFragment"
+            app:popUpTo="@+id/menuFragment" />
     </fragment>
 </navigation>
