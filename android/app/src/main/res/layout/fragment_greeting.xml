@@ -9,7 +9,7 @@
         tools:context=".GreetingFragment">
 
         <TextView
-            android:id="@+id/greetingMessage"
+            android:id="@+id/message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:contentDescription="@string/greeting"
@@ -22,20 +22,20 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/greetingContinueButton"
+            android:id="@+id/start_button"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/green"
             android:text="@string/greeting_start"
             android:textSize="36sp"
-            app:layout_constraintBottom_toTopOf="@+id/greetingExitButton"
+            app:layout_constraintBottom_toTopOf="@+id/exit_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/greetingMessage" />
+            app:layout_constraintTop_toBottomOf="@+id/message" />
 
         <Button
-            android:id="@+id/greetingExitButton"
+            android:id="@+id/exit_button"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/red"
@@ -45,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/greetingContinueButton" />
+            app:layout_constraintTop_toBottomOf="@+id/start_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

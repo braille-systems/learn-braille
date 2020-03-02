@@ -15,10 +15,10 @@ class GreetingFragment : Fragment() {
     ) = DataBindingUtil.inflate<FragmentGreetingBinding>(
         inflater, R.layout.fragment_greeting, container, false
     ).apply {
-        greetingContinueButton.setOnClickListener(
+        startButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_greetingFragment_to_menuFragment)
         )
-        greetingExitButton.setOnClickListener(
+        exitButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_greetingFragment_to_exitFragment)
         )
     }.root
