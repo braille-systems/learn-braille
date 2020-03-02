@@ -12,7 +12,10 @@
         tools:layout="@layout/fragment_greeting" >
         <action
             android:id="@+id/action_greetingFragment_to_menuFragment"
-            app:destination="@id/menuFragment" />
+            app:destination="@id/menuFragment"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popUpTo="@+id/greetingFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_greetingFragment_to_exitFragment"
             app:destination="@id/exitFragment" />
