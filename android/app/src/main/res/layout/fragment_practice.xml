@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,6 +22,7 @@
             <RadioButton
                 android:id="@+id/brailleDot1"
                 style="@style/brailleDots"
+                android:contentDescription="@string/braille_dot_1"
                 app:layout_constraintBottom_toTopOf="@+id/brailleDot2"
                 app:layout_constraintEnd_toStartOf="@+id/brailleDot4"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -30,6 +32,7 @@
             <RadioButton
                 android:id="@+id/brailleDot2"
                 style="@style/brailleDots"
+                android:contentDescription="@string/braille_dot_2"
                 app:layout_constraintBottom_toTopOf="@+id/brailleDot3"
                 app:layout_constraintEnd_toStartOf="@+id/brailleDot5"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -39,6 +42,7 @@
             <RadioButton
                 android:id="@+id/brailleDot5"
                 style="@style/brailleDots"
+                android:contentDescription="@string/braille_dot_5"
                 app:layout_constraintBottom_toTopOf="@+id/brailleDot6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -48,6 +52,7 @@
             <RadioButton
                 android:id="@+id/brailleDot3"
                 style="@style/brailleDots"
+                android:contentDescription="@string/braille_dot_3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/brailleDot6"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -56,6 +61,7 @@
             <RadioButton
                 android:id="@+id/brailleDot6"
                 style="@style/brailleDots"
+                android:contentDescription="@string/braille_dot_6"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -64,6 +70,7 @@
             <RadioButton
                 android:id="@+id/brailleDot4"
                 style="@style/brailleDots"
+                android:contentDescription="@string/braille_dot_4"
                 app:layout_constraintBottom_toTopOf="@+id/brailleDot5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
