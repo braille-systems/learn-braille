@@ -2,9 +2,9 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
     <stroke
-        android:width="3dp"
+        android:width="@dimen/braille_dots_unchecked_width"
         android:color="@android:color/black"/>
     <size
-        android:width="35dp"
-        android:height="35dp"/>
+        android:width="@dimen/braille_dot_size"
+        android:height="@dimen/braille_dot_size"/>
 </shape>

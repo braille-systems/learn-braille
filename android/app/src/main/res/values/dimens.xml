@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="exitButtonHeight">265</dimen>
+    <dimen name="braille_dot_size">25dp</dimen>
+    <dimen name="braille_dots_unchecked_width">3dp</dimen>
+    <dimen name="braille_dots_outer_horizontal_margin">30dp</dimen>
+    <dimen name="braille_dots_outer_vertical_margin">30dp</dimen>
+    <dimen name="braille_dots_inner_horizontal_margin">20dp</dimen>
+    <dimen name="braille_dots_inner_vertical_margin">25dp</dimen>
 </resources>

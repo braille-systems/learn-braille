@@ -18,8 +18,5 @@ class GreetingFragment : Fragment() {
         startButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_greetingFragment_to_menuFragment)
         )
-        exitButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_greetingFragment_to_exitFragment)
-        )
     }.root
 }

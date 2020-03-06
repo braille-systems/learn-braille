@@ -16,9 +16,6 @@
             app:popEnterAnim="@anim/fragment_close_enter"
             app:popUpTo="@+id/greetingFragment"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_greetingFragment_to_exitFragment"
-            app:destination="@id/exitFragment" />
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
