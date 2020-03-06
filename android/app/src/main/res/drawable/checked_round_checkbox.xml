@@ -4,6 +4,6 @@
     <solid
         android:color="@android:color/black" />
     <size
-        android:width="35dp"
-        android:height="35dp"/>
+        android:width="@dimen/braille_dot_size"
+        android:height="@dimen/braille_dot_size"/>
 </shape>
