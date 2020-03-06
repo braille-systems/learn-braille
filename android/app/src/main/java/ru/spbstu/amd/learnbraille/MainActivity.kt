@@ -1,7 +1,7 @@
 package ru.spbstu.amd.learnbraille
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import ru.spbstu.amd.learnbraille.databinding.ActivityMainBinding
 

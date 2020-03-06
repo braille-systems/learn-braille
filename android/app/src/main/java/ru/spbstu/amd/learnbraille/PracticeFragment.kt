@@ -102,8 +102,8 @@ class PracticeFragment : Fragment() {
             "Incorrect: letter = ${binding.letter.text}, dots = $enteredDots"
         ) // Logging should be before clearing checkboxes
         clearCheckBoxes()
-        vibrator.vibrate(incorrectVibrationDiration)  // Use deprecated for API level compatibility
-        Toast.makeText(context,"Incorrect! :(", Toast.LENGTH_SHORT).show()
+        vibrator.vibrate(incorrectVibrationDuration)  // Use deprecated for API level compatibility
+        Toast.makeText(context, "Incorrect! :(", Toast.LENGTH_SHORT).show()
     }
 
     private fun randomRuLetter() = dotsToRuLetters.values.random().toString()
@@ -112,7 +112,7 @@ class PracticeFragment : Fragment() {
 
     private companion object {
         private const val correctVibrationDuration = 100L
-        private const val incorrectVibrationDiration = 500L
+        private const val incorrectVibrationDuration = 500L
         private val dotsToRuLetters = mapOf(
             BrailleDots(F, E, E, E, E, E) to 'А',
             BrailleDots(F, F, E, E, E, E) to 'Б',
