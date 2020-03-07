@@ -49,4 +49,7 @@ dependencies {
     // Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.1'
+
+    // Timber logging
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }
