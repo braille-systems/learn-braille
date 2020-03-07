@@ -21,7 +21,16 @@ class PracticeFragment : Fragment() {
     private lateinit var vibrator: Vibrator
     private lateinit var dotCheckBoxes: Array<CheckBox>
 
-    private var enteredDots = BrailleDots(E, E, E, E, E, E)
+    private val enteredDots: BrailleDots
+        get() = BrailleDots(
+            dotCheckBoxes.map { it.isChecked }
+        )
+
+    private var currentLetter: Char
+        get() = binding.letter.text.first()
+        set(value) {
+            binding.letter.text = value.toString()
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -39,9 +48,8 @@ class PracticeFragment : Fragment() {
             dotButton4, dotButton5, dotButton6
         )
 
-        val navigate = Navigation.createNavigateOnClickListener(
-            R.id.action_practiceFragment_to_menuFragment
-        )
+        val navigate = Navigation
+            .createNavigateOnClickListener(R.id.action_practiceFragment_to_menuFragment)
         mainMenuButton.setOnClickListener(navigate)
 
         nextButton.setOnClickListener {
@@ -52,45 +60,25 @@ class PracticeFragment : Fragment() {
             }
         }
 
-        assert(dotCheckBoxes.size == 6)
-        dotCheckBoxes.forEachIndexed { index, checkBox ->
-            checkBox.setOnCheckedChangeListener { _, isChecked ->
-                val toSet = if (isChecked) F else E
-                enteredDots = when (index + 1) {
-                    1 -> enteredDots.copy(b1 = toSet)
-                    2 -> enteredDots.copy(b2 = toSet)
-                    3 -> enteredDots.copy(b3 = toSet)
-                    4 -> enteredDots.copy(b4 = toSet)
-                    5 -> enteredDots.copy(b5 = toSet)
-                    6 -> enteredDots.copy(b6 = toSet)
-                    else -> throw IllegalArgumentException(
-                        "Wrong button index: $index, not in range from 0 to 5 inclusive"
-                    )
-                }
-            }
-        }
-
-        updateCard()
+        initCard()
 
     }.root
 
-    private fun updateCard() {
-        enteredDots = BrailleDots()
-        binding.letter.text = randomRuLetter()
-        clearCheckBoxes()
+    private fun initCard() {
+        currentLetter = randomRuLetter()
     }
 
-    private fun clearCheckBoxes() = dotCheckBoxes.forEach {
-        if (it.isChecked) {
-            it.toggle()
-        }
-    }
+    private fun randomRuLetter() = dotsToRuLetters.values.random()
+
+    private fun checkRuLetter() = dotsToRuLetters[enteredDots] == currentLetter
 
     private fun correctAnswer() {
         // Logging should be before clearing checkboxes
         Timber.i("Correct: letter = ${binding.letter.text}, dots = $enteredDots")
         Toast.makeText(context, "Correct! :)", Toast.LENGTH_SHORT).show()
-        updateCard()
+
+        currentLetter = randomRuLetter()
+        clearCheckBoxes()
 
         // todo check vibration
         vibrator.vibrate(correctVibrationDuration)  // Use deprecated for API level compatibility
@@ -100,15 +88,18 @@ class PracticeFragment : Fragment() {
         // Logging should be before clearing checkboxes
         Timber.i("Correct: letter = ${binding.letter.text}, dots = $enteredDots")
         Toast.makeText(context, "Incorrect! :(", Toast.LENGTH_SHORT).show()
+
         clearCheckBoxes()
 
         // todo check vibration
         vibrator.vibrate(incorrectVibrationDuration)  // Use deprecated for API level compatibility
     }
 
-    private fun randomRuLetter() = dotsToRuLetters.values.random().toString()
-
-    private fun checkRuLetter() = dotsToRuLetters[enteredDots].toString() == binding.letter.text
+    private fun clearCheckBoxes() = dotCheckBoxes.forEach {
+        if (it.isChecked) {
+            it.toggle()
+        }
+    }
 
     private companion object {
         private const val correctVibrationDuration = 100L
@@ -153,10 +144,23 @@ class PracticeFragment : Fragment() {
 
 private enum class BrailleDot {
     E,  // Empty
-    F   // Filled
+    F;  // Filled
+
+    companion object {
+        fun valueOf(b: Boolean) = if (b) F else E
+    }
 }
 
 private data class BrailleDots(
-    val b1: BrailleDot = E, val b2: BrailleDot = E, val b3: BrailleDot = E,
-    val b4: BrailleDot = E, val b5: BrailleDot = E, val b6: BrailleDot = E
-)
+    val b0: BrailleDot = E, val b1: BrailleDot = E, val b2: BrailleDot = E,
+    val b3: BrailleDot = E, val b4: BrailleDot = E, val b5: BrailleDot = E
+) {
+    constructor(dots: List<Boolean>) : this(
+        b0 = BrailleDot.valueOf(dots[0]),
+        b1 = BrailleDot.valueOf(dots[1]),
+        b2 = BrailleDot.valueOf(dots[2]),
+        b3 = BrailleDot.valueOf(dots[3]),
+        b4 = BrailleDot.valueOf(dots[4]),
+        b5 = BrailleDot.valueOf(dots[5])
+    )
+}
