@@ -3,7 +3,6 @@ package ru.spbstu.amd.learnbraille
 import android.content.Context
 import android.os.Bundle
 import android.os.Vibrator
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.CheckBox
@@ -14,6 +13,7 @@ import androidx.navigation.Navigation
 import ru.spbstu.amd.learnbraille.BrailleDot.E
 import ru.spbstu.amd.learnbraille.BrailleDot.F
 import ru.spbstu.amd.learnbraille.databinding.FragmentPracticeBinding
+import timber.log.Timber
 
 class PracticeFragment : Fragment() {
 
@@ -87,23 +87,23 @@ class PracticeFragment : Fragment() {
     }
 
     private fun correctAnswer() {
-        Log.i(
-            "PracticeFragment",
-            "Correct: letter = ${binding.letter.text}, dots = $enteredDots"
-        ) // Logging should be before clearing checkboxes
-        updateCard()
-        vibrator.vibrate(correctVibrationDuration)  // Use deprecated for API level compatibility
+        // Logging should be before clearing checkboxes
+        Timber.i("Correct: letter = ${binding.letter.text}, dots = $enteredDots")
         Toast.makeText(context, "Correct! :)", Toast.LENGTH_SHORT).show()
+        updateCard()
+
+        // todo check vibration
+        vibrator.vibrate(correctVibrationDuration)  // Use deprecated for API level compatibility
     }
 
     private fun incorrectAnswer() {
-        Log.i(
-            "PracticeFragment",
-            "Incorrect: letter = ${binding.letter.text}, dots = $enteredDots"
-        ) // Logging should be before clearing checkboxes
-        clearCheckBoxes()
-        vibrator.vibrate(incorrectVibrationDuration)  // Use deprecated for API level compatibility
+        // Logging should be before clearing checkboxes
+        Timber.i("Correct: letter = ${binding.letter.text}, dots = $enteredDots")
         Toast.makeText(context, "Incorrect! :(", Toast.LENGTH_SHORT).show()
+        clearCheckBoxes()
+
+        // todo check vibration
+        vibrator.vibrate(incorrectVibrationDuration)  // Use deprecated for API level compatibility
     }
 
     private fun randomRuLetter() = dotsToRuLetters.values.random().toString()
