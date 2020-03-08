@@ -1,4 +1,4 @@
-package ru.spbstu.amd.learnbraille
+package ru.spbstu.amd.learnbraille.screens.practice
 
 import android.content.Context
 import android.os.Bundle
@@ -10,9 +10,10 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import ru.spbstu.amd.learnbraille.BrailleDot.E
-import ru.spbstu.amd.learnbraille.BrailleDot.F
+import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentPracticeBinding
+import ru.spbstu.amd.learnbraille.screens.practice.BrailleDot.E
+import ru.spbstu.amd.learnbraille.screens.practice.BrailleDot.F
 import timber.log.Timber
 
 class PracticeFragment : Fragment() {
@@ -35,7 +36,8 @@ class PracticeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ) = DataBindingUtil.inflate<FragmentPracticeBinding>(
-        inflater, R.layout.fragment_practice, container, false
+        inflater,
+        R.layout.fragment_practice, container, false
     ).apply {
         assert(dotsToRuLetters.size == 33) {
             "33 letters are in russian"

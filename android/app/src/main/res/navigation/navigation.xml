@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/greetingFragment"
-        android:name="ru.spbstu.amd.learnbraille.GreetingFragment"
+        android:name="ru.spbstu.amd.learnbraille.screens.greeting.GreetingFragment"
         android:label="fragment_greeting"
         tools:layout="@layout/fragment_greeting" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
-        android:name="ru.spbstu.amd.learnbraille.MenuFragment"
+        android:name="ru.spbstu.amd.learnbraille.screens.menu.MenuFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" >
         <action
@@ -31,12 +31,12 @@
     </fragment>
     <fragment
         android:id="@+id/exitFragment"
-        android:name="ru.spbstu.amd.learnbraille.ExitFragment"
+        android:name="ru.spbstu.amd.learnbraille.screens.exit.ExitFragment"
         android:label="fragment_exit"
         tools:layout="@layout/fragment_exit" />
     <fragment
         android:id="@+id/practiceFragment"
-        android:name="ru.spbstu.amd.learnbraille.PracticeFragment"
+        android:name="ru.spbstu.amd.learnbraille.screens.practice.PracticeFragment"
         android:label="fragment_practice"
         tools:layout="@layout/fragment_practice" >
         <action
