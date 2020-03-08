@@ -1,0 +1,38 @@
+    1  ls 
+    2  cd Documents/
+    3  ls
+    4  git clone https://github.com/zuevval/braille4.git
+    5  ls
+    6  cd braille4/
+    7  ls
+    8  git status
+    9  git branch
+   10  git branch playground origin/playground
+   11  git branch
+   12  git checkout playground
+   13  touch goodfile1.txt
+   14  ls
+   15  nano goodfile1.txt
+   16  git status
+   17  touch goodfile2.txt
+   18  git status
+   19  git add goodfile1.txt
+   20  git status
+   21  git add --o
+   22  git add --all
+   23  git status
+   24  git checkout HEAD
+   25  git status
+   26  git checkout HEAD goodfile2.txt
+   27  git status
+   28  git reset HEAD goodfile2.txt
+   29  git status
+   30  git commit
+   31  git config annainterior14@gmail.com
+   32  git config --global user.email "annainterior14@gmail.com"
+   33  git config --global user.name "katonapng"
+   34  git commit
+   35  git push 
+   36  git push 
+   37  history
+   38  history &> instruction.txt
