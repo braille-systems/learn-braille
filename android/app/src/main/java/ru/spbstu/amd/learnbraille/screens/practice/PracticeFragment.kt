@@ -55,10 +55,10 @@ class PracticeFragment : Fragment() {
         mainMenuButton.setOnClickListener(navigate)
 
         nextButton.setOnClickListener {
-            if (checkRuLetter()) {
-                correctAnswer()
+            if (isCorrectRuLetter()) {
+                onCorrectAnswer()
             } else {
-                incorrectAnswer()
+                onIncorrectAnswer()
             }
         }
 
@@ -72,9 +72,9 @@ class PracticeFragment : Fragment() {
 
     private fun randomRuLetter() = dotsToRuLetters.values.random()
 
-    private fun checkRuLetter() = dotsToRuLetters[enteredDots] == currentLetter
+    private fun isCorrectRuLetter() = dotsToRuLetters[enteredDots] == currentLetter
 
-    private fun correctAnswer() {
+    private fun onCorrectAnswer() {
         // Logging should be before clearing checkboxes
         Timber.i("Correct: letter = ${binding.letter.text}, dots = $enteredDots")
         Toast.makeText(context, "Correct! :)", Toast.LENGTH_SHORT).show()
@@ -86,7 +86,7 @@ class PracticeFragment : Fragment() {
         vibrator.vibrate(correctVibrationDuration)  // Use deprecated for API level compatibility
     }
 
-    private fun incorrectAnswer() {
+    private fun onIncorrectAnswer() {
         // Logging should be before clearing checkboxes
         Timber.i("Correct: letter = ${binding.letter.text}, dots = $enteredDots")
         Toast.makeText(context, "Incorrect! :(", Toast.LENGTH_SHORT).show()
