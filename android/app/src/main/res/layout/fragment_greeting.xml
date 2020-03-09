@@ -7,7 +7,7 @@
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".GreetingFragment">
+            tools:context=".screens.greeting.GreetingFragment">
 
         <TextView
                 android:id="@+id/message"
