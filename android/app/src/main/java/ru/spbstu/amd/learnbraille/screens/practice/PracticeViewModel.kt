@@ -4,10 +4,24 @@ import android.widget.CheckBox
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import ru.spbstu.amd.learnbraille.screens.practice.BrailleDot.E
 import ru.spbstu.amd.learnbraille.screens.practice.BrailleDot.F
 
-class PracticeViewModel : ViewModel() {
+@Suppress("UNCHECKED_CAST")
+class PracticeViewModelFactory(
+    private val tryAgainLetter: Char? = null
+) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(PracticeViewModel::class.java)) {
+            return PracticeViewModel(tryAgainLetter) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+class PracticeViewModel(tryAgainLetter: Char? = null) : ViewModel() {
 
     companion object {
         private val dotsToRuLetters = mapOf(
@@ -77,7 +91,7 @@ class PracticeViewModel : ViewModel() {
         assert(dotsToRuLetters.size == 33) {
             "33 letters are in russian"
         }
-        _letter = randomRuLetter()
+        _letter = tryAgainLetter ?: randomRuLetter()
     }
 
     fun onNext() {

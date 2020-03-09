@@ -47,5 +47,10 @@
                 android:id="@+id/action_practiceFragment_self"
                 app:destination="@id/practiceFragment"
                 app:popUpTo="@+id/menuFragment" />
+        <argument
+                android:name="tryAgainLetter"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
     </fragment>
 </navigation>
