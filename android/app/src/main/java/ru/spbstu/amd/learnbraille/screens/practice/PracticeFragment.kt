@@ -31,12 +31,13 @@ class PracticeFragment : Fragment() {
     ).apply {
 
         val tryAgainLetter = arguments!!.getString("tryAgainLetter")?.first()
+        Timber.i("tryAgainLetter = $tryAgainLetter")
+
         viewModelFactory = PracticeViewModelFactory(tryAgainLetter)
         viewModel =
             ViewModelProvider(this@PracticeFragment, viewModelFactory)
                 .get(PracticeViewModel::class.java)
 
-        Timber.i("tryAgain = $tryAgainLetter")
 
         viewModel.dotCheckBoxes = arrayOf(
             dotButton1, dotButton2, dotButton3,

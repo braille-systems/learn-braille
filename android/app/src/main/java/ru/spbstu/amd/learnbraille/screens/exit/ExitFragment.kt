@@ -12,9 +12,14 @@ import kotlin.system.exitProcess
 class ExitFragment : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ) = DataBindingUtil.inflate<FragmentExitBinding>(
-        inflater, R.layout.fragment_exit, container, false
+        inflater,
+        R.layout.fragment_exit,
+        container,
+        false
     ).apply {
         exitButton.setOnClickListener {
             exitProcess(0)

@@ -12,9 +12,14 @@ import ru.spbstu.amd.learnbraille.databinding.FragmentGreetingBinding
 class GreetingFragment : Fragment() {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ) = DataBindingUtil.inflate<FragmentGreetingBinding>(
-        inflater, R.layout.fragment_greeting, container, false
+        inflater,
+        R.layout.fragment_greeting,
+        container,
+        false
     ).apply {
         startButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_greetingFragment_to_menuFragment)
