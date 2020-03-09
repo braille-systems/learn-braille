@@ -8,13 +8,13 @@ import androidx.lifecycle.ViewModelProvider
 import ru.spbstu.amd.learnbraille.screens.practice.BrailleDot.E
 import ru.spbstu.amd.learnbraille.screens.practice.BrailleDot.F
 
-@Suppress("UNCHECKED_CAST")
 class PracticeViewModelFactory(
     private val tryAgainLetter: Char? = null
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(PracticeViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
             return PracticeViewModel(tryAgainLetter) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
