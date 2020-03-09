@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.spbstu.amd.learnbraille.screens.practice.BrailleDot.E
 import ru.spbstu.amd.learnbraille.screens.practice.BrailleDot.F
-import timber.log.Timber
 
 class PracticeViewModel : ViewModel() {
 
