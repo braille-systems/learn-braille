@@ -51,7 +51,7 @@ class PracticeViewModel(
     val eventIncorrect: LiveData<Boolean>
         get() = _eventIncorrect
 
-    private var expectedDots: BrailleDots? = null
+    var expectedDots: BrailleDots? = null
     private val enteredDots
         get() = BrailleDots(dotCheckBoxes.map { it.isChecked }.toBooleanArray())
 

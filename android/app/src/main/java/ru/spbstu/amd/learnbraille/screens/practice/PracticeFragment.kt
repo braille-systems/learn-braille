@@ -106,6 +106,7 @@ class PracticeFragment : Fragment() {
 
             val action = PracticeFragmentDirections.actionPracticeFragmentSelf()
             action.tryAgainLetter = viewModel.letter.value.toString()
+            action.tryAgainDots = viewModel.expectedDots.toString()
             findNavController().navigate(action)
             viewModel.onIncorrectComplete()
         })
