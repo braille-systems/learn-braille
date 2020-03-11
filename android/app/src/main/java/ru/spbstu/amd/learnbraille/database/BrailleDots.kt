@@ -9,6 +9,8 @@ enum class BrailleDot {
     F;  // Filled
 }
 
+fun brailleDot(b: Boolean) = if (b) F else E
+
 data class BrailleDots(private val dots: String) {
 
     constructor(
@@ -41,5 +43,3 @@ class BrailleDotsConverters {
     @TypeConverter
     fun from(data: String): BrailleDots = BrailleDots(data)
 }
-
-fun brailleDot(b: Boolean) = if (b) F else E

@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import ru.spbstu.amd.learnbraille.R
+import ru.spbstu.amd.learnbraille.database.BrailleDots
+import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.databinding.FragmentPracticeBinding
 import timber.log.Timber
 
@@ -39,18 +41,30 @@ class PracticeFragment : Fragment() {
     ).apply {
 
         val tryAgainLetter = arguments!!.getString("tryAgainLetter")?.first()
-        Timber.i("tryAgainLetter = $tryAgainLetter")
+        val tryAgainDots = arguments!!.getString("tryAgainDots")
+        assert((tryAgainLetter == null) == (tryAgainDots == null))
+        Timber.i("tryAgainLetter = $tryAgainLetter, tryAgainDots = $tryAgainDots")
+        val tryAgainData = if (tryAgainLetter != null && tryAgainDots != null) {
+            TryAgainData(tryAgainLetter, BrailleDots(tryAgainDots))
+        } else {
+            null
+        }
 
-        viewModelFactory = PracticeViewModelFactory(tryAgainLetter)
-        viewModel =
-            ViewModelProvider(this@PracticeFragment, viewModelFactory)
-                .get(PracticeViewModel::class.java)
-        buzzer = activity?.getSystemService()
-
-        viewModel.dotCheckBoxes = arrayOf(
+        val application = requireNotNull(activity).application
+        val dataSource = LearnBrailleDatabase.getInstance(application).symbolDao
+        val dotCheckBoxes = arrayOf(
             dotButton1, dotButton2, dotButton3,
             dotButton4, dotButton5, dotButton6
         )
+
+        viewModelFactory = PracticeViewModelFactory(
+            dataSource, application, dotCheckBoxes, tryAgainData
+        )
+        viewModel = ViewModelProvider(
+            this@PracticeFragment, viewModelFactory
+        ).get(PracticeViewModel::class.java)
+
+        buzzer = activity?.getSystemService()
 
         practiceViewModel = viewModel
         lifecycleOwner = this@PracticeFragment

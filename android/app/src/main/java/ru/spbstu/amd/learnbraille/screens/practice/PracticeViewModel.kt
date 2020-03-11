@@ -1,74 +1,41 @@
 package ru.spbstu.amd.learnbraille.screens.practice
 
+import android.app.Application
 import android.widget.CheckBox
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import ru.spbstu.amd.learnbraille.screens.practice.BrailleDot.E
-import ru.spbstu.amd.learnbraille.screens.practice.BrailleDot.F
+import androidx.lifecycle.*
+import kotlinx.coroutines.*
+import ru.spbstu.amd.learnbraille.database.BrailleDots
+import ru.spbstu.amd.learnbraille.database.Language
+import ru.spbstu.amd.learnbraille.database.SymbolDao
+import timber.log.Timber
+
+data class TryAgainData(val letter: Char, val brailleDots: BrailleDots)
 
 class PracticeViewModelFactory(
-    private val tryAgainLetter: Char? = null
+    private val dataSource: SymbolDao,
+    private val application: Application,
+    private val dotCheckBoxes: Array<CheckBox>,
+    private val tryAgainData: TryAgainData? = null
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T =
         if (modelClass.isAssignableFrom(PracticeViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return PracticeViewModel(tryAgainLetter) as T
+            PracticeViewModel(dataSource, application, dotCheckBoxes, tryAgainData) as T
+        } else {
+            throw IllegalArgumentException("Unknown ViewModel class")
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
 }
 
-class PracticeViewModel(tryAgainLetter: Char? = null) : ViewModel() {
+class PracticeViewModel(
+    private val database: SymbolDao,
+    application: Application,
+    private val dotCheckBoxes: Array<CheckBox>,
+    tryAgainData: TryAgainData?
+) : AndroidViewModel(application) {
 
-    companion object {
-        private val dotsToRuLetters = mapOf(
-            BrailleDots(F, E, E, E, E, E) to 'А',
-            BrailleDots(F, F, E, E, E, E) to 'Б',
-            BrailleDots(E, F, E, F, F, F) to 'В',
-            BrailleDots(F, F, E, F, F, E) to 'Г',
-            BrailleDots(F, E, E, F, F, E) to 'Д',
-            BrailleDots(F, E, E, E, F, E) to 'Е',
-            BrailleDots(F, E, E, E, E, F) to 'Ё',
-            BrailleDots(E, F, E, F, F, E) to 'Ж',
-            BrailleDots(F, E, F, E, F, F) to 'З',
-            BrailleDots(E, F, E, F, E, E) to 'И',
-            BrailleDots(F, F, F, F, E, F) to 'Й',
-            BrailleDots(F, E, F, E, E, E) to 'К',
-            BrailleDots(F, F, F, E, E, E) to 'Л',
-            BrailleDots(F, E, F, F, E, E) to 'М',
-            BrailleDots(F, E, F, F, F, E) to 'Н',
-            BrailleDots(F, E, F, E, F, E) to 'О',
-            BrailleDots(F, F, F, F, E, E) to 'П',
-            BrailleDots(F, F, F, E, F, E) to 'Р',
-            BrailleDots(E, F, F, F, E, E) to 'С',
-            BrailleDots(E, F, F, F, F, E) to 'Т',
-            BrailleDots(F, E, F, E, E, F) to 'У',
-            BrailleDots(F, F, E, F, E, E) to 'Ф',
-            BrailleDots(F, F, E, E, F, E) to 'Х',
-            BrailleDots(F, E, E, F, E, E) to 'Ц',
-            BrailleDots(F, F, F, F, F, E) to 'Ч',
-            BrailleDots(F, E, E, E, F, F) to 'Ш',
-            BrailleDots(F, E, F, F, E, F) to 'Щ',
-            BrailleDots(F, F, F, E, F, F) to 'Ъ',
-            BrailleDots(E, F, F, F, E, F) to 'Ы',
-            BrailleDots(E, F, F, F, F, F) to 'Ь',
-            BrailleDots(E, F, E, F, E, F) to 'Э',
-            BrailleDots(F, F, E, E, F, F) to 'Ю',
-            BrailleDots(F, F, E, F, E, F) to 'Я'
-        )
-    }
-
-    private val enteredDots
-        get() = BrailleDots(dotCheckBoxes.map { it.isChecked })
-
-    private val isCorrect
-        get() = _letter == dotsToRuLetters[enteredDots]
-
-    private val _backingLetter = MutableLiveData<String>()
-    private var _letter: Char
+    private val _backingLetter = MutableLiveData<String>() // True backing field
+    private var _letter: Char // This class interface to the true backing filed
         get() = _backingLetter.value!!.first()
         set(value) {
             _backingLetter.value = value.toString()
@@ -84,14 +51,32 @@ class PracticeViewModel(tryAgainLetter: Char? = null) : ViewModel() {
     val eventIncorrect: LiveData<Boolean>
         get() = _eventIncorrect
 
-    // Need to be initialized after binding to the fragment
-    lateinit var dotCheckBoxes: Array<CheckBox>
+    private var expectedDots: BrailleDots? = null
+    private val enteredDots
+        get() = BrailleDots(dotCheckBoxes.map { it.isChecked }.toBooleanArray())
+
+    private val isCorrect: Boolean
+        get() {
+            val res = enteredDots == expectedDots
+            Timber.i(
+                if (res) "Correct: " else "Incorrect: " +
+                        "entered = $enteredDots, expected = $expectedDots"
+            )
+            return res
+        }
+
+    private val language = Language.RU
+
+    private var job = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
     init {
-        assert(dotsToRuLetters.size == 33) {
-            "33 letters are in russian"
-        }
-        _letter = tryAgainLetter ?: randomRuLetter()
+        initializeLetter(tryAgainData)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        job.cancel()
     }
 
     fun onNext() {
@@ -110,32 +95,19 @@ class PracticeViewModel(tryAgainLetter: Char? = null) : ViewModel() {
         _eventIncorrect.value = false
     }
 
-    private fun randomRuLetter() = dotsToRuLetters.values.random()
-}
-
-enum class BrailleDot {
-    E,  // Empty
-    F;  // Filled
-
-    companion object {
-        fun valueOf(b: Boolean) = if (b) F else E
-    }
-}
-
-data class BrailleDots(
-    val b1: BrailleDot = E, val b2: BrailleDot = E, val b3: BrailleDot = E,
-    val b4: BrailleDot = E, val b5: BrailleDot = E, val b6: BrailleDot = E
-) {
-    constructor(dots: List<Boolean>) : this(
-        b1 = BrailleDot.valueOf(dots[0]),
-        b2 = BrailleDot.valueOf(dots[1]),
-        b3 = BrailleDot.valueOf(dots[2]),
-        b4 = BrailleDot.valueOf(dots[3]),
-        b5 = BrailleDot.valueOf(dots[4]),
-        b6 = BrailleDot.valueOf(dots[5])
-    ) {
-        require(dots.size == 6) {
-            "Only 6 dots Braille system supported"
+    private fun initializeLetter(tryAgainData: TryAgainData?) = uiScope.launch {
+        if (tryAgainData != null) {
+            _letter = tryAgainData.letter
+            expectedDots = tryAgainData.brailleDots
+        } else {
+            val entry = getEntryFromDatabase(language)
+                ?: throw IllegalStateException("No letters in database")
+            _letter = entry.symbol
+            expectedDots = entry.brailleDots
         }
+    }
+
+    private suspend fun getEntryFromDatabase(language: Language) = withContext(Dispatchers.IO) {
+        database.getRandomEntry(language)
     }
 }
