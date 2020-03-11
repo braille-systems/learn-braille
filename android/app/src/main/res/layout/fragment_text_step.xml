@@ -41,16 +41,18 @@
                     android:background="@color/YellowButton"
                     android:text="@string/to_previous" />
 
-            <TextView
-                    android:id="@+id/educational_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="6"
-                    android:lineSpacingMultiplier="1.2"
-                    android:paddingStart="5sp"
-                    android:paddingEnd="5sp"
-                    android:text="@string/text_step_sample"
-                    android:textSize="24sp" />
+            <ViewStub
+                android:id="@+id/lesson_text_stub"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="6" />
+
+            <ViewStub
+                android:id="@+id/lesson_show_stub"
+                android:inflatedId="@+id/lesson_show_stub_inflated"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="6" />
 
             <Button
                     android:id="@+id/next_button"

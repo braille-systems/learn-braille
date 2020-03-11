@@ -21,6 +21,9 @@ class MenuFragment : Fragment() {
         container,
         false
     ).apply {
+        lessonsButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_lessonFragment)
+        )
         practiceButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_practiceFragment)
         )
