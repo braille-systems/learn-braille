@@ -6,6 +6,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_text_step.view.*
 import ru.spbstu.amd.learnbraille.R
@@ -28,9 +29,11 @@ class LessonStepFragment: Fragment(){
 
         view.next_button.setOnClickListener {
             if (clickCounter % 2 == 0){
+                (activity as AppCompatActivity).supportActionBar?.title = "Ознакомьтесь с буквой"
                 this.stubTextView.visibility = GONE
                 this.stubShowView.visibility = VISIBLE
             } else {
+                (activity as AppCompatActivity).supportActionBar?.title = "Прочтите текст"
                 this.stubTextView.visibility = VISIBLE
                 this.stubShowView.visibility = GONE
             }
