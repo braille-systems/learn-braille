@@ -1,4 +1,6 @@
-# Правила написания сообщений к коммитам (commit message)
+# Вклад в Learn Braille
+
+## Правила написания сообщений к коммитам (commit message)
 1. В коммите достаточно только краткое описание, опциональное расширенное описание требовать не будем.
 1. Краткое описание - одна строка (<= 72 символа, хотя вряд ли превышение - серьёзное нарушение).
 1. Сообщение пишем по-английски, оно содержит глагол в неопределённой форме (add, change, remove, rewrite, reformat, move, replace, enhance...)
@@ -7,7 +9,11 @@
  то коммит может выглядеть так: `#1.6 rewrite some tests for some function`
 
 Для интересующихся есть [статья о написании commit message](https://gist.github.com/robertpainsi/b632364184e70900af4ab688decf6f53)
-# Git Workflow
+## Git Workflow
 [Git Workflow (правила оформления веток) - вики-статья](https://github.com/zuevval/braille4/wiki/gitflow)
-# Стиль кодирования
+## Стиль кодирования
 [Стиль кодирования - Вики-статья](https://github.com/zuevval/braille4/wiki/codestyle)
+
+## Сборка
+
+См. [CONTRIBUTING.md](https://github.com/zuevval/braille4/blob/master/CONTRIBUTING.md)
