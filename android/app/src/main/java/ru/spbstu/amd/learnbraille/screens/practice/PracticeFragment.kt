@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
@@ -11,9 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import ru.spbstu.amd.learnbraille.R
-import ru.spbstu.amd.learnbraille.database.BrailleDots
 import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.databinding.FragmentPracticeBinding
 import timber.log.Timber
@@ -40,16 +39,6 @@ class PracticeFragment : Fragment() {
         false
     ).apply {
 
-        val tryAgainLetter = arguments!!.getString("tryAgainLetter")?.first()
-        val tryAgainDots = arguments!!.getString("tryAgainDots")
-        assert((tryAgainLetter == null) == (tryAgainDots == null))
-        Timber.i("tryAgainLetter = $tryAgainLetter, tryAgainDots = $tryAgainDots")
-        val tryAgainData = if (tryAgainLetter != null && tryAgainDots != null) {
-            TryAgainData(tryAgainLetter, BrailleDots(tryAgainDots))
-        } else {
-            null
-        }
-
         val application = requireNotNull(activity).application
         val dataSource = LearnBrailleDatabase.getInstance(application).symbolDao
         val dotCheckBoxes = arrayOf(
@@ -58,7 +47,7 @@ class PracticeFragment : Fragment() {
         )
 
         viewModelFactory = PracticeViewModelFactory(
-            dataSource, application, dotCheckBoxes, tryAgainData
+            dataSource, application, dotCheckBoxes.map { BrailleDotState(it) }.toTypedArray()
         )
         viewModel = ViewModelProvider(
             this@PracticeFragment, viewModelFactory
@@ -87,8 +76,7 @@ class PracticeFragment : Fragment() {
             @Suppress("DEPRECATION")
             buzzer?.vibrate(CORRECT_BUZZ_PATTERN, -1)
 
-            val action = PracticeFragmentDirections.actionPracticeFragmentSelf()
-            findNavController().navigate(action)
+            makeUnchecked(dotCheckBoxes)
             viewModel.onCorrectComplete()
         })
 
@@ -104,14 +92,15 @@ class PracticeFragment : Fragment() {
             @Suppress("DEPRECATION")
             buzzer?.vibrate(INCORRECT_BUZZ_PATTERN, -1)
 
-            val action = PracticeFragmentDirections.actionPracticeFragmentSelf()
-            action.tryAgainLetter = viewModel.letter.value.toString()
-            action.tryAgainDots = viewModel.expectedDots.toString()
-            findNavController().navigate(action)
+            makeUnchecked(dotCheckBoxes)
             viewModel.onIncorrectComplete()
         })
 
     }.root
+
+    private fun makeUnchecked(checkBoxes: Array<CheckBox>) = checkBoxes.forEach {
+        if (it.isChecked) {
+            it.toggle()
+        }
+    }
 }
-
-
