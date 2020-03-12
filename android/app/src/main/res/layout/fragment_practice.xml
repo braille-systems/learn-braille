@@ -20,7 +20,7 @@
                 android:id="@+id/letter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{practiceViewModel.letter}"
+                android:text="@{practiceViewModel.symbol}"
                 android:textSize="170sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
