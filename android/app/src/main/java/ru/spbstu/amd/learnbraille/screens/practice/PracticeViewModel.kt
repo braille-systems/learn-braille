@@ -101,7 +101,7 @@ class PracticeViewModel(
             expectedDots = tryAgainData.brailleDots
         } else {
             val entry = getEntryFromDatabase(language)
-                ?: throw IllegalStateException("No letters in database")
+                ?: throw IllegalStateException("No letters in DB") // unreachable code; serves as assert
             _letter = entry.symbol
             expectedDots = entry.brailleDots
         }
