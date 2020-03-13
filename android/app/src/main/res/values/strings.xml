@@ -27,5 +27,7 @@
     <string name="to_next">Вперёд</string>
     <string name="to_previous">Назад</string>
     <string name="continue_course">ПРОДОЛЖИТЬ КУРС</string>
+    <string name="menu_actionbar_text">Изучение системы Брайля. Главное меню</string>
+    <string name="practice_actionbar_title">Практика: введите букву точечным шрифтом</string>
 </resources>
 

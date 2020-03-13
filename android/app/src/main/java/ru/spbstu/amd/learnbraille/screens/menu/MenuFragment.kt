@@ -3,6 +3,7 @@ package ru.spbstu.amd.learnbraille.screens.menu
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -21,6 +22,7 @@ class MenuFragment : Fragment() {
         container,
         false
     ).apply {
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.menu_actionbar_text)
         lessonsButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_lessonFragment)
         )

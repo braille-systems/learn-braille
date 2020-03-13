@@ -26,6 +26,7 @@ class LessonStepFragment: Fragment(){
         this.stubTextView = view.lesson_text_stub.inflate()
         this.stubShowView = view.lesson_show_stub.inflate()
         this.stubShowView.visibility = GONE
+        (activity as AppCompatActivity).supportActionBar?.title = "Прочтите текст"
 
         view.next_button.setOnClickListener {
             if (clickCounter % 2 == 0){
