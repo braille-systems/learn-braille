@@ -2,6 +2,7 @@ package ru.spbstu.amd.learnbraille.screens.lessons
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
@@ -17,11 +18,12 @@ class LessonStepFragment : Fragment() {
 
     // TODO place string literals to resources
     // TODO remove unsafe casts
+    // TODO make type safe: use DataBinging
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = inflater.inflate(
+    ): View = inflater.inflate(
         R.layout.fragment_text_step,
         container,
         false
