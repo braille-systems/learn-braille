@@ -59,7 +59,11 @@ class PracticeFragment : Fragment() {
         practiceViewModel = viewModel
         lifecycleOwner = this@PracticeFragment
 
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.practice_actionbar_title)
+        // TODO remove cast
+        // TODO refactor title bar management
+        (activity as AppCompatActivity).supportActionBar?.title =
+            getString(R.string.practice_actionbar_title)
+
         mainMenuButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(
                 R.id.action_practiceFragment_to_menuFragment

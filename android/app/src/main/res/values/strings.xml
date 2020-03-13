@@ -20,6 +20,7 @@
     <string name="braille_dot_6">точка 6</string>
     <string name="to_menu">Выйти в меню</string>
     <string name="to_help">Справка</string>
+    <!--    TODO place to step information storage-->
     <string name="text_step_sample">
         В рельефной азбуке Брайля любой символ - это шеститочие.
         Каждая точка из шести может быть выдавлена или пропущена. \n
@@ -27,7 +28,9 @@
     <string name="to_next">Вперёд</string>
     <string name="to_previous">Назад</string>
     <string name="continue_course">ПРОДОЛЖИТЬ КУРС</string>
+    <!--    TODO too long for title bar -->
     <string name="menu_actionbar_text">Изучение системы Брайля. Главное меню</string>
+    <!--    TODO too long for title bar -->
     <string name="practice_actionbar_title">Практика: введите букву точечным шрифтом</string>
 </resources>
 

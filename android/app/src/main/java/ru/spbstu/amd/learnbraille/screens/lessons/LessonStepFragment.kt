@@ -2,7 +2,6 @@ package ru.spbstu.amd.learnbraille.screens.lessons
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
@@ -11,36 +10,44 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_text_step.view.*
 import ru.spbstu.amd.learnbraille.R
 
-class LessonStepFragment: Fragment(){
-    private var clickCounter = 0
-    private lateinit var stubTextView: View
-    private lateinit var stubShowView: View
+// TODO refactor
+class LessonStepFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_text_step, container, false)
+    private var clickCounter = 0
+
+    // TODO place string literals to resources
+    // TODO remove unsafe casts
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) = inflater.inflate(
+        R.layout.fragment_text_step,
+        container,
+        false
+    ).apply {
+
         // TODO try <include> instead of <stubView>
-        view.lesson_text_stub.layoutResource = R.layout.fragment_text_step_inner
-        view.lesson_show_stub.layoutResource = R.layout.fragment_show_step_inner
-        this.stubTextView = view.lesson_text_stub.inflate()
-        this.stubShowView = view.lesson_show_stub.inflate()
-        this.stubShowView.visibility = GONE
+        // TODO fix naming code style
+        lesson_text_stub.layoutResource = R.layout.fragment_text_step_inner
+        lesson_show_stub.layoutResource = R.layout.fragment_show_step_inner
+
+        val stubTextView = lesson_text_stub.inflate()
+        val stubShowView = lesson_show_stub.inflate()
+        stubShowView.visibility = GONE
         (activity as AppCompatActivity).supportActionBar?.title = "Прочтите текст"
 
-        view.next_button.setOnClickListener {
-            if (clickCounter % 2 == 0){
+        next_button.setOnClickListener {
+            if (clickCounter % 2 == 0) {
                 (activity as AppCompatActivity).supportActionBar?.title = "Ознакомьтесь с буквой"
-                this.stubTextView.visibility = GONE
-                this.stubShowView.visibility = VISIBLE
+                stubTextView.visibility = GONE
+                stubShowView.visibility = VISIBLE
             } else {
                 (activity as AppCompatActivity).supportActionBar?.title = "Прочтите текст"
-                this.stubTextView.visibility = VISIBLE
-                this.stubShowView.visibility = GONE
+                stubTextView.visibility = VISIBLE
+                stubShowView.visibility = GONE
             }
             clickCounter++
         }
-        return view
     }
-
 }
