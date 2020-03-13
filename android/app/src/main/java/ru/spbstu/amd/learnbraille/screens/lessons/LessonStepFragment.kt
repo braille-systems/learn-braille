@@ -21,11 +21,12 @@ class LessonStepFragment : Fragment() {
     // TODO should be lessons ecosystem be separate activity?
     // TODO place string literals to resources
     // TODO remove unsafe casts
+    // TODO make type safe: use DataBinging
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = inflater.inflate(
+    ): View = inflater.inflate(
         R.layout.fragment_text_step,
         container,
         false
