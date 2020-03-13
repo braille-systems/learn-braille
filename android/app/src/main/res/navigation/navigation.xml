@@ -41,7 +41,12 @@
         android:id="@+id/lessonStepFragment"
         android:name="ru.spbstu.amd.learnbraille.screens.lessons.LessonStepFragment"
         android:label="fragment_lesson"
-        tools:layout="@layout/fragment_text_step" />
+        tools:layout="@layout/fragment_text_step" >
+        <action
+                android:id="@+id/action_lessonStepFragment_to_menuFragment"
+                app:destination="@id/menuFragment"
+                app:popUpTo="@+id/menuFragment" />
+    </fragment>
     <fragment
         android:id="@+id/practiceFragment"
         android:name="ru.spbstu.amd.learnbraille.screens.practice.PracticeFragment"
