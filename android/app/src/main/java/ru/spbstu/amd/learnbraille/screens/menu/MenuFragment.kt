@@ -28,7 +28,6 @@ class MenuFragment : Fragment() {
             .supportActionBar
             ?.title = getString(R.string.menu_actionbar_text)
 
-        // TODO should be activity ecosystem be separate activity?
         lessonsButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_lessonFragment)
         )
