@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentExitBinding
 import kotlin.system.exitProcess
@@ -24,5 +25,8 @@ class ExitFragment : Fragment() {
         exitButton.setOnClickListener {
             exitProcess(0)
         }
+        continueButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_exitFragment_to_menuFragment)
+        )
     }.root
 }
