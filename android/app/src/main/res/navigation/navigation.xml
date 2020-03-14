@@ -35,8 +35,9 @@
         android:label="fragment_exit"
         tools:layout="@layout/fragment_exit" >
         <action
-            android:id="@+id/action_exitFragment_to_menuFragment"
-            app:destination="@id/menuFragment" />
+                android:id="@+id/action_exitFragment_to_menuFragment"
+                app:destination="@id/menuFragment"
+                app:popUpTo="@+id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/practiceFragment"
