@@ -123,5 +123,6 @@ class LessonStepFragment : Fragment() {
         prev_button.setOnClickListener(navigateBack)
 
         steps[currentStep].show()
+        (activity as AppCompatActivity).supportActionBar?.title = steps[currentStep].getTitle()
     }
 }
