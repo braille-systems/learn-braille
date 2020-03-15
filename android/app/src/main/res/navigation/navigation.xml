@@ -36,7 +36,12 @@
         android:id="@+id/exitFragment"
         android:name="ru.spbstu.amd.learnbraille.screens.exit.ExitFragment"
         android:label="fragment_exit"
-        tools:layout="@layout/fragment_exit" />
+        tools:layout="@layout/fragment_exit" >
+        <action
+                android:id="@+id/action_exitFragment_to_menuFragment"
+                app:destination="@id/menuFragment"
+                app:popUpTo="@+id/menuFragment" />
+    </fragment>
     <fragment
         android:id="@+id/lessonStepFragment"
         android:name="ru.spbstu.amd.learnbraille.screens.lessons.LessonStepFragment"
