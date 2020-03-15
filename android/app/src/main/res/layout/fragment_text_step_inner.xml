@@ -9,6 +9,6 @@
         android:lineSpacingMultiplier="1.2"
         android:paddingStart="5sp"
         android:paddingEnd="5sp"
-        android:text="@string/text_step_sample"
+        android:text="@string/text_step1"
         android:textSize="24sp" />
 </layout>
