@@ -1,51 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".GreetingFragment">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".screens.greeting.GreetingFragment">
 
         <TextView
-            android:id="@+id/message"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/greeting"
-            android:text="@string/greeting"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/message"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/greeting"
+                android:text="@string/greeting"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/start_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/green"
-            android:text="@string/greeting_start"
-            android:textSize="36sp"
-            app:layout_constraintBottom_toTopOf="@+id/exit_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/message" />
-
-        <Button
-            android:id="@+id/exit_button"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/red"
-            android:text="@string/greeting_exit"
-            android:textSize="36sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/start_button" />
+                android:id="@+id/start_button"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/green"
+                android:text="@string/greeting_start"
+                android:textSize="36sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/message" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

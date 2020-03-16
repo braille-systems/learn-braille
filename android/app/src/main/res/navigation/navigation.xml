@@ -1,50 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation"
-    app:startDestination="@id/greetingFragment">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/navigation"
+        app:startDestination="@id/menuFragment">
 
     <fragment
-        android:id="@+id/greetingFragment"
-        android:name="ru.spbstu.amd.learnbraille.GreetingFragment"
-        android:label="fragment_greeting"
-        tools:layout="@layout/fragment_greeting" >
+            android:id="@+id/greetingFragment"
+            android:name="ru.spbstu.amd.learnbraille.screens.greeting.GreetingFragment"
+            android:label="fragment_greeting"
+            tools:layout="@layout/fragment_greeting">
         <action
-            android:id="@+id/action_greetingFragment_to_menuFragment"
-            app:destination="@id/menuFragment"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popUpTo="@+id/greetingFragment"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_greetingFragment_to_exitFragment"
-            app:destination="@id/exitFragment" />
+                android:id="@+id/action_greetingFragment_to_menuFragment"
+                app:destination="@id/menuFragment"
+                app:popEnterAnim="@anim/fragment_close_enter"
+                app:popUpTo="@+id/greetingFragment"
+                app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/menuFragment"
-        android:name="ru.spbstu.amd.learnbraille.MenuFragment"
-        android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu" >
+            android:id="@+id/menuFragment"
+            android:name="ru.spbstu.amd.learnbraille.screens.menu.MenuFragment"
+            android:label="fragment_menu"
+            tools:layout="@layout/fragment_menu">
         <action
-            android:id="@+id/action_menuFragment_to_practiceFragment"
-            app:destination="@id/practiceFragment" />
+                android:id="@+id/action_menuFragment_to_practiceFragment"
+                app:destination="@id/practiceFragment" />
         <action
-            android:id="@+id/action_menuFragment_to_exitFragment"
-            app:destination="@id/exitFragment" />
+                android:id="@+id/action_menuFragment_to_exitFragment"
+                app:destination="@id/exitFragment" />
     </fragment>
     <fragment
-        android:id="@+id/exitFragment"
-        android:name="ru.spbstu.amd.learnbraille.ExitFragment"
-        android:label="fragment_exit"
-        tools:layout="@layout/fragment_exit" />
-    <fragment
-        android:id="@+id/practiceFragment"
-        android:name="ru.spbstu.amd.learnbraille.PracticeFragment"
-        android:label="fragment_practice"
-        tools:layout="@layout/fragment_practice" >
+            android:id="@+id/exitFragment"
+            android:name="ru.spbstu.amd.learnbraille.screens.exit.ExitFragment"
+            android:label="fragment_exit"
+            tools:layout="@layout/fragment_exit">
         <action
-            android:id="@+id/action_practiceFragment_to_menuFragment"
-            app:destination="@id/menuFragment"
-            app:popUpTo="@+id/menuFragment" />
+                android:id="@+id/action_exitFragment_to_menuFragment"
+                app:destination="@id/menuFragment"
+                app:popUpTo="@+id/menuFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/practiceFragment"
+            android:name="ru.spbstu.amd.learnbraille.screens.practice.PracticeFragment"
+            android:label="fragment_practice"
+            tools:layout="@layout/fragment_practice">
+        <action
+                android:id="@+id/action_practiceFragment_to_menuFragment"
+                app:destination="@id/menuFragment"
+                app:popUpTo="@+id/menuFragment" />
     </fragment>
 </navigation>

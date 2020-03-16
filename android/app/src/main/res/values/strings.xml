@@ -12,5 +12,20 @@
     <string name="greeting_start">Начать</string>
     <string name="menu_practice">ПРАКТИКА</string>
     <string name="menu_exit">ВЫХОД</string>
+    <string name="braille_dot_1">точка 1</string>
+    <string name="braille_dot_2">точка 2</string>
+    <string name="braille_dot_3">точка 3</string>
+    <string name="braille_dot_4">точка 4</string>
+    <string name="braille_dot_5">точка 5</string>
+    <string name="braille_dot_6">точка 6</string>
+    <string name="to_menu">Выйти в меню</string>
+    <string name="to_help">Справка</string>
+    <string name="text_step_sample">
+        В рельефной азбуке Брайля любой символ - это шеститочие.
+        Каждая точка из шести может быть выдавлена или пропущена. \n
+        В следующем шаге все 6 точек выведены на экран.</string>
+    <string name="to_next">Вперёд</string>
+    <string name="to_previous">Назад</string>
+    <string name="offline_practice">СКАНИРОВАТЬ QR-КОД</string>
 </resources>
 
