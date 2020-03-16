@@ -1,17 +1,25 @@
 package ru.spbstu.amd.learnbraille.screens.menu
 
+import android.app.Activity.RESULT_CANCELED
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentMenuBinding
 
+
 class MenuFragment : Fragment() {
+
+    companion object {
+        const val qtResultCode = 0
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,19 +31,41 @@ class MenuFragment : Fragment() {
         container,
         false
     ).apply {
+
         practiceButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_practiceFragment)
         )
-        offlinePracticeButton.setOnClickListener{
-            var intent: Intent? = context?.packageManager?.getLaunchIntentForPackage("com.kaspersky.qrscanner")
-            if (intent == null){
-                intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse("https://play.google.com/store/apps/details?id=com.kaspersky.qrscanner")
+
+        offlinePracticeButton.setOnClickListener {
+            try {
+                val intent = Intent("com.google.zxing.client.android.SCAN")
+                intent.putExtra("SCAN_MODE", "QR_CODE_MODE") // "PRODUCT_MODE for bar codes
+                startActivityForResult(intent, 0)
+            } catch (e: Exception) {
+                // TODO process rejection
+                val marketUri = Uri.parse("market://details?id=com.google.zxing.client.android")
+                val marketIntent = Intent(Intent.ACTION_VIEW, marketUri)
+                startActivity(marketIntent)
             }
-            startActivity(intent)
         }
+
         exitButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_exitFragment)
         )
+
     }.root
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == qtResultCode) {
+            if (resultCode == RESULT_OK) {
+                val contents = data!!.getStringExtra("SCAN_RESULT")
+                Toast.makeText(context, contents, Toast.LENGTH_SHORT).show()
+            }
+            if (resultCode == RESULT_CANCELED) {
+                // TODO process rejection
+                Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 }
