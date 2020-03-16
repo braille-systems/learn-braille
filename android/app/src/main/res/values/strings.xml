@@ -12,5 +12,6 @@
     <string name="greeting_start">Начать</string>
     <string name="menu_practice">ПРАКТИКА</string>
     <string name="menu_exit">ВЫХОД</string>
+    <string name="offline_practice">СКАНИРОВАТЬ QR-КОД</string>
 </resources>
 
