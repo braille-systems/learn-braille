@@ -46,5 +46,6 @@
     <string name="menu_actionbar_text">Learn Braille. Меню</string>
     <!--    TODO too long for title bar -->
     <string name="practice_actionbar_title">Практика. Введите символ</string>
+    <string name="offline_practice">СКАНИРОВАТЬ QR-КОД</string>
 </resources>
 
