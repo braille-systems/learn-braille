@@ -39,7 +39,7 @@ class MenuFragment : Fragment() {
         offlinePracticeButton.setOnClickListener {
             try {
                 val intent = Intent("com.google.zxing.client.android.SCAN")
-                intent.putExtra("SCAN_MODE", "QR_CODE_MODE") // "PRODUCT_MODE for bar codes
+                intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
                 startActivityForResult(intent, 0)
             } catch (e: Exception) {
                 // TODO process rejection
