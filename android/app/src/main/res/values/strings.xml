@@ -20,12 +20,32 @@
     <string name="braille_dot_6">точка 6</string>
     <string name="to_menu">Выйти в меню</string>
     <string name="to_help">Справка</string>
-    <string name="text_step_sample">
+    <!--    TODO place to step information storage-->
+    <string name="text_step1">
         В рельефной азбуке Брайля любой символ - это шеститочие.
         Каждая точка из шести может быть выдавлена или пропущена. \n
         В следующем шаге все 6 точек выведены на экран.</string>
+    <string name="text_step2">
+        Откройте букварь на странице 12.
+        В верхней строке 14 раз повторён символ полного шеститочия.</string>
+    <string name="text_step3">
+        Некоторые символы Брайля обозначают как букву, так и цифру. Это буквы А, Б, Ц и так далее.
+        С добавлением цифрового знака, который мы изучим в следующем уроке,
+        из них получаются цифры 1, 2, 3 и так далее.</string>
+    <string name="text_step4">
+        Буква А обозначается одной точкой, точкой номер один. Ознакомьтесь с ней.</string>
+    <string name="text_step5">
+        Откройте букварь на странице 13. Вверху слева рельефно-грфаическое изображение буквы А.
+        Рядом после полного шеститочия пять раз повторена буква А точечным шрифтом. </string>
+    <string name="text_step6">
+        Буква Б в рельефной азбуке - две точки, номер 1 и 2.</string>
     <string name="to_next">Вперёд</string>
     <string name="to_previous">Назад</string>
+    <string name="continue_course">ПРОДОЛЖИТЬ КУРС</string>
+    <!--    TODO too long for title bar -->
+    <string name="menu_actionbar_text">Learn Braille. Меню</string>
+    <!--    TODO too long for title bar -->
+    <string name="practice_actionbar_title">Практика. Введите символ</string>
     <string name="offline_practice">СКАНИРОВАТЬ QR-КОД</string>
 </resources>
 

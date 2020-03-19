@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -57,6 +58,11 @@ class PracticeFragment : Fragment() {
 
         practiceViewModel = viewModel
         lifecycleOwner = this@PracticeFragment
+
+        // TODO remove cast
+        // TODO refactor title bar management
+        (activity as AppCompatActivity).supportActionBar?.title =
+            getString(R.string.practice_actionbar_title)
 
         mainMenuButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(
