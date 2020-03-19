@@ -1,47 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
         <Button
-            android:id="@+id/lessons_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/continue_course"
-            android:textSize="36sp"
-            />
+                android:id="@+id/lessons_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/continue_course"
+                android:textSize="36sp" />
 
         <Button
-            android:id="@+id/practice_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/menu_practice"
-            android:textSize="36sp"
-            />
+                android:id="@+id/practice_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/menu_practice"
+                android:textSize="36sp" />
 
         <Button
-            android:id="@+id/offline_practice_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/offline_practice"
-            android:textSize="36sp"
-            />
+                android:id="@+id/offline_practice_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/offline_practice"
+                android:textSize="36sp" />
+
         <Button
-            android:id="@+id/exit_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/menu_exit"
-            android:textSize="36sp"
-            />
+                android:id="@+id/exit_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/menu_exit"
+                android:textSize="36sp" />
 
     </LinearLayout>
 </layout>
