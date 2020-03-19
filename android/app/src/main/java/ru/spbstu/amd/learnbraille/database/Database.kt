@@ -26,15 +26,17 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
             }
 
         private fun buildDatabase(context: Context) = Room.databaseBuilder(
-            context.applicationContext,
-            LearnBrailleDatabase::class.java,
-            "braille_lessons_database"
-        )
+                context.applicationContext,
+                LearnBrailleDatabase::class.java,
+                "braille_lessons_database"
+            )
             .addCallback(object : Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
                     ioThread {
-                        getInstance(context).symbolDao.insertLetters(PREPOPULATE_LETTERS)
+                        getInstance(context).symbolDao.insertSymbols(PREPOPULATE_LETTERS)
+                        // TODO insert default user
+                        // TODO insert lessons
                     }
                 }
             })

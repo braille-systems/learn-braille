@@ -23,15 +23,26 @@ data class Symbol(
 interface SymbolDao {
 
     @Insert
-    fun insertLetters(symbols: List<Symbol>)
+    fun insertSymbols(symbols: List<Symbol>)
 
-    @Query("SELECT * FROM symbol WHERE language = :language ORDER BY RANDOM() LIMIT 1")
+    @Query(
+        """
+        SELECT * 
+        FROM symbol 
+        WHERE language = :language 
+        ORDER BY RANDOM() 
+        LIMIT 1
+        """
+    )
     fun getRandomEntry(language: Language): Symbol?
 
     @Query(
-        "SELECT symbol FROM symbol " +
-                "WHERE braille_dots = :brailleDots " +
-                "and language = :language LIMIT 1"
+        """
+            SELECT symbol 
+            FROM symbol 
+            WHERE braille_dots = :brailleDots AND language = :language 
+            LIMIT 1
+            """
     )
     fun getSymbol(brailleDots: BrailleDots, language: Language): Char?
 
