@@ -15,7 +15,7 @@ android {
         enabled = true
     }
     defaultConfig {
-        applicationId "ru.spbstu.amd.learnbraille.alpha"
+        applicationId "ru.spbstu.amd.learnbraille"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
