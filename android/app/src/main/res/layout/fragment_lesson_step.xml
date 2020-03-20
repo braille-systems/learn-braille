@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+                name="lessonStepViewModel"
+                type="ru.spbstu.amd.learnbraille.screens.lessons.LessonStepViewModel" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            <ViewStub
+                    android:id="@+id/lesson_text_stub"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6" />
+
+            <ViewStub
+                    android:id="@+id/lesson_show_stub"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6"
+                    android:inflatedId="@+id/lesson_show_stub_inflated" />
+
+            <Button
+                    android:id="@+id/next_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.01"
+                    android:background="@color/greenButton"
+                    android:text="@string/to_next" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

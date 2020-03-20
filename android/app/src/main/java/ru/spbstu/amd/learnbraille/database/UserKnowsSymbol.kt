@@ -1,13 +1,11 @@
 package ru.spbstu.amd.learnbraille.database
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Entity(tableName = "user_knows_symbol")
 data class UserKnowsSymbol(
 
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "user_id")
     val userId: Long,
 
@@ -15,6 +13,7 @@ data class UserKnowsSymbol(
     val symbolId: Long
 )
 
+@Dao
 interface UserKnowsSymbolDao {
 
     @Insert

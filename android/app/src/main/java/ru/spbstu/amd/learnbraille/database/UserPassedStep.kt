@@ -1,12 +1,11 @@
 package ru.spbstu.amd.learnbraille.database
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.Insert
+import androidx.room.*
 
 @Entity(tableName = "user_passed_step")
 data class UserPassedStep(
 
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "user_id")
     val userId: Long,
 
@@ -14,6 +13,7 @@ data class UserPassedStep(
     val stepId: Long
 )
 
+@Dao
 interface UserPassedStepDao {
 
     @Insert

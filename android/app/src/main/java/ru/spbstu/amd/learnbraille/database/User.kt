@@ -17,6 +17,7 @@ data class User(
     val secondName: String
 )
 
+@Dao
 interface UserDao {
 
     @Insert
@@ -31,3 +32,10 @@ interface UserDao {
     @Query("SELECT second_name FROM user WHERE :id = id")
     fun getSecondName(id: Long): String?
 }
+
+// TODO load from resources
+val DEFAULT_USER = User(
+    login = "default",
+    firstName = "John",
+    secondName = "Smith"
+)

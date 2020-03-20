@@ -6,8 +6,5 @@
     <color name="green">#008000</color>
     <color name="red">#FF0000</color>
 
-    <color name="GreenButton">#30b31e</color>
-    <color name="RedButton">#CB0000</color>
-    <color name="BlueButton">#0370AE</color>
-    <color name="YellowButton">#F9C001</color>
+    <color name="greenButton">#30b31e</color>
 </resources>

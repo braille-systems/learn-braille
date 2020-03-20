@@ -8,11 +8,28 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Symbol::class], version = 1, exportSchema = false)
-@TypeConverters(BrailleDotsConverters::class, LanguageConverter::class)
+@Database(
+    entities =
+    [
+        User::class, Lesson::class, Step::class, Symbol::class,
+        UserKnowsSymbol::class, UserPassedStep::class
+    ],
+    version = 1,
+    exportSchema = false
+)
+@TypeConverters(
+    BrailleDotsConverters::class,
+    LanguageConverter::class,
+    StepDataConverters::class
+)
 abstract class LearnBrailleDatabase : RoomDatabase() {
 
+    abstract val userDao: UserDao
+    abstract val lessonDao: LessonDao
+    abstract val stepDao: StepDao
     abstract val symbolDao: SymbolDao
+    abstract val userKnowsSymbolDao: UserKnowsSymbolDao
+    abstract val userPassedStepDao: UserPassedStepDao
 
     companion object {
 
@@ -34,9 +51,13 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
                     ioThread {
-                        getInstance(context).symbolDao.insertSymbols(PREPOPULATE_LETTERS)
-                        // TODO insert default user
+                        getInstance(context).apply {
+                            symbolDao.insertSymbols(PREPOPULATE_LETTERS)
+                            userDao.insertUser(DEFAULT_USER)
+                        }
+
                         // TODO insert lessons
+                        // TODO insert steps
                     }
                 }
             })
@@ -44,5 +65,3 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
             .build()
     }
 }
-
-

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -32,6 +33,15 @@ class MenuFragment : Fragment() {
         false
     ).apply {
 
+        // TODO remove cast
+        (activity as AppCompatActivity)
+            .supportActionBar
+            ?.title = getString(R.string.menu_actionbar_text)
+
+        lessonsButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_lessonFragment)
+        )
+
         practiceButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_practiceFragment)
         )
@@ -42,7 +52,6 @@ class MenuFragment : Fragment() {
                 intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
                 startActivityForResult(intent, 0)
             } catch (e: Exception) {
-                // TODO process rejection
                 val marketUri = Uri.parse("market://details?id=com.google.zxing.client.android")
                 val marketIntent = Intent(Intent.ACTION_VIEW, marketUri)
                 startActivity(marketIntent)
@@ -63,7 +72,6 @@ class MenuFragment : Fragment() {
                 Toast.makeText(context, contents, Toast.LENGTH_SHORT).show()
             }
             if (resultCode == RESULT_CANCELED) {
-                // TODO process rejection
                 Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
             }
         }

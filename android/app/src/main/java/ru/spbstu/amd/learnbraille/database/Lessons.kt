@@ -1,18 +1,17 @@
 package ru.spbstu.amd.learnbraille.database
 
-import androidx.room.Entity
-import androidx.room.Insert
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(tableName = "lesson")
 data class Lesson(
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
+    @PrimaryKey(autoGenerate = false)
+    val id: Long,
 
     val name: String
 )
 
+@Dao
 interface LessonDao {
 
     @Insert
