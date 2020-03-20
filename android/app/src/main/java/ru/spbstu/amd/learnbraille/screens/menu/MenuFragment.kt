@@ -52,7 +52,6 @@ class MenuFragment : Fragment() {
                 intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
                 startActivityForResult(intent, 0)
             } catch (e: Exception) {
-                // TODO process rejection
                 val marketUri = Uri.parse("market://details?id=com.google.zxing.client.android")
                 val marketIntent = Intent(Intent.ACTION_VIEW, marketUri)
                 startActivity(marketIntent)
@@ -73,7 +72,6 @@ class MenuFragment : Fragment() {
                 Toast.makeText(context, contents, Toast.LENGTH_SHORT).show()
             }
             if (resultCode == RESULT_CANCELED) {
-                // TODO process rejection
                 Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
             }
         }
