@@ -102,7 +102,7 @@ class LessonStepFragment : Fragment() {
 
             override fun show(){
                 letter.text = bigText.toString()
-                stubShowView.visibility = VISIBLE
+                checked = booleanArrayOf(false, false, false, false, false, false)
                 for (i in dotCheckBoxes.indices){
                     dotCheckBoxes[i].isChecked = false
                     dotCheckBoxes[i].isClickable = true
@@ -113,6 +113,7 @@ class LessonStepFragment : Fragment() {
                     }
                 }
                 stubTextView.visibility = GONE
+                stubShowView.visibility = VISIBLE
             }
             override fun getTitle() = this.stepTitle
         }
