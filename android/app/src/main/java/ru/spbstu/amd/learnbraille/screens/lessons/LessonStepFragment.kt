@@ -25,8 +25,6 @@ interface LessonStep{
 
 // TODO refactor
 class LessonStepFragment : Fragment() {
-
-
     companion object{
         private var currentStep = 0
     }
@@ -44,7 +42,6 @@ class LessonStepFragment : Fragment() {
         container,
         false
     ).apply {
-
 
         lesson_text_stub.layoutResource = R.layout.fragment_text_step_inner
         lesson_show_stub.layoutResource = R.layout.fragment_show_step_inner
@@ -83,6 +80,7 @@ class LessonStepFragment : Fragment() {
                 letter.text = bigText.toString()
                 for (i in dotCheckBoxes.indices){
                     dotCheckBoxes[i].isClickable = false
+                    dotCheckBoxes[i].setOnCheckedChangeListener{_, _ ->}
                     dotCheckBoxes[i].isChecked = brailleDots[i]
                 }
                 stubShowView.visibility = VISIBLE
@@ -108,10 +106,10 @@ class LessonStepFragment : Fragment() {
                 for (i in dotCheckBoxes.indices){
                     dotCheckBoxes[i].isChecked = false
                     dotCheckBoxes[i].isClickable = true
-                    dotCheckBoxes[i].setOnCheckedChangeListener { buttonView, isChecked ->
+                    dotCheckBoxes[i].setOnCheckedChangeListener { _, isChecked ->
                         checked[i] = isChecked
                         if (checked contentEquals brailleDots)
-                            Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "правильно", Toast.LENGTH_SHORT).show()
                     }
                 }
                 stubTextView.visibility = GONE
@@ -120,17 +118,28 @@ class LessonStepFragment : Fragment() {
         }
 
         val steps:Array<LessonStep> = arrayOf(
+            // here lessons are shortened (after all, it's just a demo).
+            // See https://github.com/braille-systems/learn-braille/wiki/android-lessons-curriculum
             TextStep(1, 1, resources.getString(R.string.text_step1), "Знакомство с шеститочием"),
             ShowStep(1, 2, ' ', booleanArrayOf(true, true, true, true, true, true), "Шеститочие"),
             InputStep(1, 3, ' ', booleanArrayOf(true, true, true, true, true, true), "Введите все шесть точек"),
             TextStep(1, 4, resources.getString(R.string.text_step2), "Работа с букварём"),
+            TextStep(1, 5, resources.getString(R.string.text_step2a)),
+            ShowStep(1, 6, ' ', booleanArrayOf(true, false, true, true, false, false), "точки 1, 3, 4"),
+            ShowStep(1, 7, ' ', booleanArrayOf(true, false, false, false, true, true), "точки 1, 5, 6"),
+            ShowStep(1, 8, ' ', booleanArrayOf(false, true, true, true, false, true), "точки 2, 3, 4, 6"),
+            InputStep(1, 9, ' ', booleanArrayOf(true, false, true, true, false, false), "Введите точки 1, 3, 4"),
+            InputStep(1, 10, ' ', booleanArrayOf(false, true, false, true, true, false), "Введите точки 2, 4, 5"),
+            InputStep(1, 11, ' ', booleanArrayOf(false, true, false, false, true, true), "Введите точки 2, 5, 6"),
+
             TextStep(2, 1, resources.getString(R.string.text_step3)),
             TextStep(2, 2, resources.getString(R.string.text_step4)),
             ShowStep(2, 3, 'А', booleanArrayOf(true, false, false, false, false, false)),
             TextStep(2, 4, resources.getString(R.string.text_step5), "Работа с букварём"),
-            ShowStep(2, 5, 'Б', booleanArrayOf(true, true, false, false, false, false)),
+            InputStep(2, 5, 'А', booleanArrayOf(true, false, false, false, false, false)),
             TextStep(2, 6, resources.getString(R.string.text_step6)),
-            InputStep(2, 7, 'А', booleanArrayOf(true, false, false, false, false, false))
+            ShowStep(2, 7, 'Б', booleanArrayOf(true, true, false, false, false, false)),
+            InputStep(2, 8, 'Б', booleanArrayOf(true, true, false, false, false, false))
 
         )
 
