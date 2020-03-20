@@ -9,6 +9,7 @@
         android:lineSpacingMultiplier="1.2"
         android:paddingStart="5sp"
         android:paddingEnd="5sp"
+        android:scrollbars = "vertical"
         android:text="@string/text_step1"
         android:textSize="24sp" />
 </layout>

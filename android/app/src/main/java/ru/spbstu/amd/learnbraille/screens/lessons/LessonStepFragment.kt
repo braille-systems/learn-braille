@@ -10,8 +10,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import kotlinx.android.synthetic.main.fragment_show_step_inner.*
 import kotlinx.android.synthetic.main.fragment_show_step_inner.view.*
+import kotlinx.android.synthetic.main.fragment_text_step.*
 import kotlinx.android.synthetic.main.fragment_text_step.view.*
+import kotlinx.android.synthetic.main.fragment_text_step_inner.*
 import kotlinx.android.synthetic.main.fragment_text_step_inner.view.*
 import ru.spbstu.amd.learnbraille.R
 
@@ -22,6 +25,7 @@ interface LessonStep{
 
 // TODO refactor
 class LessonStepFragment : Fragment() {
+
 
     companion object{
         private var currentStep = 0
@@ -40,8 +44,8 @@ class LessonStepFragment : Fragment() {
         container,
         false
     ).apply {
-        // TODO try <include> instead of <stubView>
-        // TODO fix naming code style
+
+
         lesson_text_stub.layoutResource = R.layout.fragment_text_step_inner
         lesson_show_stub.layoutResource = R.layout.fragment_show_step_inner
 
@@ -55,7 +59,6 @@ class LessonStepFragment : Fragment() {
             val stepTitle:String="Прочтите текст"
         ): LessonStep{
             override fun show(){
-                //(activity as AppCompatActivity).supportActionBar?.title = this.stepTitle
                 edu_text_view.text = this.longText
                 stubTextView.visibility = VISIBLE
                 stubShowView.visibility = GONE
@@ -63,23 +66,54 @@ class LessonStepFragment : Fragment() {
             override fun getTitle() = this.stepTitle
         }
 
+        val dotCheckBoxes = arrayOf(
+            dotButton1, dotButton2, dotButton3,
+            dotButton4, dotButton5, dotButton6
+        )
+
         class ShowStep(
             val nLesson:Int = 1,
             val nStep:Int = 1,
-            val bigText:Char = ' ',
+            val bigText:Char = 'А',
             val brailleDots:BooleanArray = booleanArrayOf(true, false, false, false, false, false),
             val stepTitle:String="Ознакомьтесь с буквой"
         ): LessonStep{
+
             override fun show(){
                 letter.text = bigText.toString()
-
-                dotButton1.isChecked = brailleDots[0]
-                dotButton2.isChecked = brailleDots[1]
-                dotButton3.isChecked = brailleDots[2]
-                dotButton4.isChecked = brailleDots[3]
-                dotButton5.isChecked = brailleDots[4]
-                dotButton6.isChecked = brailleDots[5]
+                for (i in dotCheckBoxes.indices){
+                    dotCheckBoxes[i].isClickable = false
+                    dotCheckBoxes[i].isChecked = brailleDots[i]
+                }
                 stubShowView.visibility = VISIBLE
+                stubTextView.visibility = GONE
+            }
+            override fun getTitle() = this.stepTitle
+        }
+
+
+        class InputStep(
+            val nLesson:Int = 1,
+            val nStep:Int = 1,
+            val bigText:Char = ' ',
+            val brailleDots:BooleanArray = booleanArrayOf(false, false, false, false, false, false),
+            val stepTitle:String="Введите букву"
+        ):LessonStep{
+
+            var checked = booleanArrayOf(false, false, false, false, false, false)
+
+            override fun show(){
+                letter.text = bigText.toString()
+                stubShowView.visibility = VISIBLE
+                for (i in dotCheckBoxes.indices){
+                    dotCheckBoxes[i].isChecked = false
+                    dotCheckBoxes[i].isClickable = true
+                    dotCheckBoxes[i].setOnCheckedChangeListener { buttonView, isChecked ->
+                        checked[i] = isChecked
+                        if (checked contentEquals brailleDots)
+                            Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT).show()
+                    }
+                }
                 stubTextView.visibility = GONE
             }
             override fun getTitle() = this.stepTitle
@@ -88,13 +122,16 @@ class LessonStepFragment : Fragment() {
         val steps:Array<LessonStep> = arrayOf(
             TextStep(1, 1, resources.getString(R.string.text_step1), "Знакомство с шеститочием"),
             ShowStep(1, 2, ' ', booleanArrayOf(true, true, true, true, true, true), "Шеститочие"),
-            TextStep(1, 3, resources.getString(R.string.text_step2), "Работа с букварём"),
+            InputStep(1, 3, ' ', booleanArrayOf(true, true, true, true, true, true), "Введите все шесть точек"),
+            TextStep(1, 4, resources.getString(R.string.text_step2), "Работа с букварём"),
             TextStep(2, 1, resources.getString(R.string.text_step3)),
             TextStep(2, 2, resources.getString(R.string.text_step4)),
             ShowStep(2, 3, 'А', booleanArrayOf(true, false, false, false, false, false)),
             TextStep(2, 4, resources.getString(R.string.text_step5), "Работа с букварём"),
             ShowStep(2, 5, 'Б', booleanArrayOf(true, true, false, false, false, false)),
-            TextStep(2, 6, resources.getString(R.string.text_step6))
+            TextStep(2, 6, resources.getString(R.string.text_step6)),
+            InputStep(2, 7, 'А', booleanArrayOf(true, false, false, false, false, false))
+
         )
 
         // TODO fix naming style
