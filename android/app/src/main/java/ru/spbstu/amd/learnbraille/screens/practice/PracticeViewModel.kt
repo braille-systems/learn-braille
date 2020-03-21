@@ -111,6 +111,5 @@ class PracticeViewModel(
 
 class BrailleDotState(private val checkable: Checkable) {
 
-    val isPressed
-        get() = checkable.isChecked
+    val isPressed get() = checkable.isChecked
 }
