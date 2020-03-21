@@ -32,13 +32,10 @@ fun symbolOf(data: String): Symbol {
 
     return Symbol(
         id = id?.value?.toLong() ?: error("No id here $data"),
-
         symbol = symbol?.value?.first() ?: error("No symbol here $data"),
-
         language = Language.valueOf(
             language?.value ?: error("No language here $data")
         ),
-
         brailleDots = BrailleDots(
             brailleDots?.value ?: error("No braille dots here $data")
         )
@@ -60,20 +57,20 @@ interface SymbolDao {
         LIMIT 1
         """
     )
-    fun getRandomEntry(language: Language): Symbol?
+    fun getRandomSymbol(language: Language): Symbol?
+
+    @Query("SELECT * FROM symbol WHERE symbol = :char LIMIT 1")
+    fun getSymbol(char: Char): Symbol?
 
     @Query(
         """
-            SELECT symbol 
-            FROM symbol 
-            WHERE braille_dots = :brailleDots AND language = :language 
-            LIMIT 1
-            """
+        SELECT * 
+        FROM symbol 
+        WHERE language = :language AND braille_dots = :brailleDots 
+        LIMIT 1
+        """
     )
-    fun getSymbol(brailleDots: BrailleDots, language: Language): Char?
-
-    @Query("SELECT braille_dots FROM symbol WHERE symbol = :symbol LIMIT 1")
-    fun getBrailleDots(symbol: Char): BrailleDots?
+    fun getSymbol(language: Language, brailleDots: BrailleDots): Symbol?
 }
 
 internal val PREPOPULATE_LETTERS = listOf(

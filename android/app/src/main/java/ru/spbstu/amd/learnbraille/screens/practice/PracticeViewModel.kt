@@ -108,7 +108,7 @@ class PracticeViewModel(
 
     private suspend fun getEntryFromDatabase(language: Language) =
         withContext(Dispatchers.IO) {
-            database.getRandomEntry(language)
+            database.getRandomSymbol(language)
         }
 }
 

@@ -16,7 +16,7 @@ data class Step(
     val data: StepData
 )
 
-data class LessonWithStep(
+data class LessonNameWithStep(
 
     @ColumnInfo(name = "lesson_name")
     val lessonName: String,
@@ -45,7 +45,7 @@ interface StepDao {
             LIMIT 1
             """
     )
-    fun getCurrentStepForUser(userId: Long): LessonWithStep?
+    fun getCurrentStepForUser(userId: Long): LessonNameWithStep?
 }
 
 // TODO move from resources
