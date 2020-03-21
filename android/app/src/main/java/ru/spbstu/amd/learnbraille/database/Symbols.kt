@@ -42,7 +42,7 @@ fun symbolOf(data: String): Symbol {
                 ?: throw IllegalArgumentException("No language here $data")
         ),
 
-        brailleDots = brailleDotsOf(
+        brailleDots = BrailleDots(
             brailleDots?.value
                 ?: throw IllegalArgumentException("No braille dots here $data")
         )
