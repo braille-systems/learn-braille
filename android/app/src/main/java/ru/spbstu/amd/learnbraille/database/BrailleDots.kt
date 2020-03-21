@@ -3,14 +3,16 @@ package ru.spbstu.amd.learnbraille.database
 import android.widget.Checkable
 import androidx.room.TypeConverter
 import ru.spbstu.amd.learnbraille.database.BrailleDot.E
-import ru.spbstu.amd.learnbraille.database.BrailleDot.F
 
 enum class BrailleDot {
     E,  // Empty
     F;  // Filled
-}
 
-fun brailleDotOf(b: Boolean) = if (b) F else E
+    companion object {
+        fun valueOf(b: Boolean) = if (b) F else E
+        fun valueOf(c: Char) = valueOf(c.toString())
+    }
+}
 
 data class BrailleDots(
     val b1: BrailleDot = E, val b2: BrailleDot = E, val b3: BrailleDot = E,
@@ -18,7 +20,7 @@ data class BrailleDots(
 ) {
 
     constructor(dots: BooleanArray) : this(
-        dots.map(::brailleDotOf)
+        dots.map { BrailleDot.valueOf(it) }
     )
 
     constructor(dots: List<BrailleDot>) : this(
@@ -34,15 +36,12 @@ data class BrailleDots(
         }
     }
 
+    constructor(string: String) : this(
+        string.toCharArray().map { BrailleDot.valueOf(it) }
+    )
+
     override fun toString() = "$b1$b2$b3$b4$b5$b6"
 }
-
-/**
- * Convert braille dots string representation [E|F]{6} to BrailleDots object.
- */
-fun brailleDotsOf(string: String) = BrailleDots(
-    string.split("").map(BrailleDot::valueOf)
-)
 
 class BrailleDotsConverters {
 
@@ -50,7 +49,7 @@ class BrailleDotsConverters {
     fun to(brailleDots: BrailleDots) = brailleDots.toString()
 
     @TypeConverter
-    fun from(data: String): BrailleDots = brailleDotsOf(data)
+    fun from(data: String): BrailleDots = BrailleDots(data)
 }
 
 class BrailleDotsState(private val states: Array<out Checkable>) {
