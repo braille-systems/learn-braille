@@ -21,7 +21,7 @@ data class User(
 interface UserDao {
 
     @Insert
-    fun insertUser(users: User)
+    fun insertUsers(users: List<User>)
 
     @Query("SELECT id FROM user WHERE :login = login")
     fun getId(login: String): Long?
@@ -32,10 +32,3 @@ interface UserDao {
     @Query("SELECT second_name FROM user WHERE :id = id")
     fun getSecondName(id: Long): String?
 }
-
-// TODO load from resources
-val DEFAULT_USER = User(
-    login = "default",
-    firstName = "John",
-    secondName = "Smith"
-)
