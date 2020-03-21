@@ -1,5 +1,6 @@
 package ru.spbstu.amd.learnbraille.database
 
+import android.widget.Checkable
 import androidx.room.TypeConverter
 import ru.spbstu.amd.learnbraille.database.BrailleDot.E
 import ru.spbstu.amd.learnbraille.database.BrailleDot.F
@@ -50,4 +51,12 @@ class BrailleDotsConverters {
 
     @TypeConverter
     fun from(data: String): BrailleDots = brailleDotsOf(data)
+}
+
+class BrailleDotsState(private val states: Array<out Checkable>) {
+
+    val brailleDots
+        get() = BrailleDots(
+            states.map { it.isChecked }.toBooleanArray()
+        )
 }

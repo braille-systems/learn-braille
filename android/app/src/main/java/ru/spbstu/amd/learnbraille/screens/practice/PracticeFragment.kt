@@ -14,16 +14,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import ru.spbstu.amd.learnbraille.R
+import ru.spbstu.amd.learnbraille.database.BrailleDotsState
 import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.databinding.FragmentPracticeBinding
 import timber.log.Timber
 
 class PracticeFragment : Fragment() {
-
-    companion object {
-        val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)
-        val INCORRECT_BUZZ_PATTERN = longArrayOf(0, 200)
-    }
 
     private lateinit var viewModel: PracticeViewModel
     private lateinit var viewModelFactory: PracticeViewModelFactory
@@ -48,7 +44,7 @@ class PracticeFragment : Fragment() {
         )
 
         viewModelFactory = PracticeViewModelFactory(
-            dataSource, application, dotCheckBoxes.map { BrailleDotState(it) }.toTypedArray()
+            dataSource, application, BrailleDotsState(dotCheckBoxes)
         )
         viewModel = ViewModelProvider(
             this@PracticeFragment, viewModelFactory
@@ -108,5 +104,10 @@ class PracticeFragment : Fragment() {
         if (it.isChecked) {
             it.toggle()
         }
+    }
+
+    companion object {
+        val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)
+        val INCORRECT_BUZZ_PATTERN = longArrayOf(0, 200)
     }
 }

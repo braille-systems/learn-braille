@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-// TODO add dao's
 class LessonStepViewModelFactory(
     private val application: Application
 ) : ViewModelProvider.Factory {
@@ -21,4 +20,7 @@ class LessonStepViewModelFactory(
 
 class LessonStepViewModel(
     application: Application
-) : AndroidViewModel(application)
+) : AndroidViewModel(application) {
+
+
+}
