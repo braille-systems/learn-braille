@@ -49,7 +49,7 @@ class StepDataConverters {
             Info.name -> Info(data)
             Show.name -> Show(symbolOf(data))
             Input.name -> Input(symbolOf(data))
-            else -> throw IllegalArgumentException("No such step type: $type")
+            else -> error("No such step type: $type")
         }
     }
 }
