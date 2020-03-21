@@ -6,7 +6,7 @@ enum class Language {
     NONE, EN, RU
 }
 
-class LanguageConverter {
+class LanguageConverters {
 
     @TypeConverter
     fun to(language: Language) = language.toString()

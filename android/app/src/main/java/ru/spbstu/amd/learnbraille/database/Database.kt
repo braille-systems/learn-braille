@@ -19,7 +19,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 )
 @TypeConverters(
     BrailleDotsConverters::class,
-    LanguageConverter::class,
+    LanguageConverters::class,
     StepDataConverters::class
 )
 abstract class LearnBrailleDatabase : RoomDatabase() {
@@ -33,6 +33,8 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
 
     companion object {
 
+        const val name = "braille_lessons_database"
+
         @Volatile
         private var INSTANCE: LearnBrailleDatabase? = null
 
@@ -45,7 +47,7 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context) = Room.databaseBuilder(
                 context.applicationContext,
                 LearnBrailleDatabase::class.java,
-                "braille_lessons_database"
+                name
             )
             .addCallback(object : Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
@@ -53,11 +55,8 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                     ioThread {
                         getInstance(context).apply {
                             userDao.insertUser(DEFAULT_USER)
-
-                            // TODO move to resources
                             lessonDao.insertLessons(PREPOPULATE_LESSONS)
                             stepDao.insertSteps(PREPOPULATE_STEPS)
-
                             symbolDao.insertSymbols(PREPOPULATE_LETTERS)
                         }
                     }

@@ -44,7 +44,7 @@ class StepDataConverters {
 
     @TypeConverter
     fun from(string: String): StepData {
-        val (type, data) = string.split(' ')
+        val (type, data) = string.split(' ', limit = 2)
         return when (type) {
             Info.name -> Info(data)
             Show.name -> Show(symbolOf(data))
