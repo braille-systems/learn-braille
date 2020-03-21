@@ -17,3 +17,8 @@ interface LessonDao {
     @Insert
     fun insertLessons(lessons: List<Lesson>)
 }
+
+// TODO load from resources
+val PREPOPULATE_LESSONS = listOf(
+    Lesson(id = 1, name = "Вводное введение")
+)

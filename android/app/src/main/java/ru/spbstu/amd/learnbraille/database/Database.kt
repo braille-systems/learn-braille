@@ -52,12 +52,14 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                     super.onCreate(db)
                     ioThread {
                         getInstance(context).apply {
-                            symbolDao.insertSymbols(PREPOPULATE_LETTERS)
                             userDao.insertUser(DEFAULT_USER)
-                        }
 
-                        // TODO insert lessons
-                        // TODO insert steps
+                            // TODO move to resources
+                            lessonDao.insertLessons(PREPOPULATE_LESSONS)
+                            stepDao.insertSteps(PREPOPULATE_STEPS)
+
+                            symbolDao.insertSymbols(PREPOPULATE_LETTERS)
+                        }
                     }
                 }
             })
