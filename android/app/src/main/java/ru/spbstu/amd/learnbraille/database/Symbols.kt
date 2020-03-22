@@ -23,7 +23,7 @@ private operator fun MatchGroupCollection.component4() = get(3)
 private operator fun MatchGroupCollection.component5() = get(4)
 
 fun symbolOf(data: String): Symbol {
-    val pattern = """Symbol\(id=(\d+), symbol=(\w), language=(\w+), brailleDots=([E|F]{6})\)"""
+    val pattern = """Symbol\(id=(\d+), symbol=(.), language=(\w{2,4}), brailleDots=([E|F]{6})\)"""
     val (_, id, symbol, language, brailleDots) = Regex(pattern).matchEntire(data)?.groups
         ?: error("$data does not match Symbol structure")
 
