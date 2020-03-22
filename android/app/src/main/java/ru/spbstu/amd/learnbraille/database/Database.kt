@@ -7,6 +7,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_LESSONS
+import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_USERS
+import ru.spbstu.amd.learnbraille.res.russian.steps.PREPOPULATE_STEPS
+import ru.spbstu.amd.learnbraille.res.russian.symbols.PREPOPULATE_SYMBOLS
 
 @Database(
     entities =
@@ -54,10 +58,10 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                     super.onCreate(db)
                     ioThread {
                         getInstance(context).apply {
-                            userDao.insertUser(DEFAULT_USER)
+                            userDao.insertUsers(PREPOPULATE_USERS)
                             lessonDao.insertLessons(PREPOPULATE_LESSONS)
                             stepDao.insertSteps(PREPOPULATE_STEPS)
-                            symbolDao.insertSymbols(PREPOPULATE_LETTERS)
+                            symbolDao.insertSymbols(PREPOPULATE_SYMBOLS)
                         }
                     }
                 }
