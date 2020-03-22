@@ -21,6 +21,7 @@ import java.io.IOException
 class LearnBrailleDatabaseTest {
 
     private lateinit var db: LearnBrailleDatabase
+    private lateinit var userDao: UserDao
     private lateinit var stepDao: StepDao
     private lateinit var symbolDao: SymbolDao
     private lateinit var userPassedStepDao: UserPassedStepDao
@@ -38,6 +39,7 @@ class LearnBrailleDatabaseTest {
                 symbolDao.insertSymbols(PREPOPULATE_SYMBOLS)
             }
 
+        userDao = db.userDao
         stepDao = db.stepDao
         symbolDao = db.symbolDao
         userPassedStepDao = db.userPassedStepDao
@@ -47,6 +49,12 @@ class LearnBrailleDatabaseTest {
     @Throws(IOException::class)
     fun closeDB() {
         db.close()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun defaultUserIsThere() {
+        assertEquals(1L, userDao.getId("default"))
     }
 
     @Test
