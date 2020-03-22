@@ -5,7 +5,7 @@ import ru.spbstu.amd.learnbraille.database.Symbol
 /**
  * Add via plus lists of symbols
  */
-val PREPOPULATE_SYMBOLS = RU_LETTERS + PUNCTUATION + DIGITS
+val PREPOPULATE_SYMBOLS = RU_LETTERS + OTHER + PUNCTUATION + DIGITS
 
 val symbolMap: Map<Char, Symbol> = PREPOPULATE_SYMBOLS
     .groupBy { it.symbol }
