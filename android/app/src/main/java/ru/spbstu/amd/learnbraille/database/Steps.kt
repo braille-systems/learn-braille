@@ -16,7 +16,7 @@ data class Step(
     val data: StepData
 )
 
-data class LessonWithStep(
+data class LessonNameWithStep(
 
     @ColumnInfo(name = "lesson_name")
     val lessonName: String,
@@ -45,11 +45,5 @@ interface StepDao {
             LIMIT 1
             """
     )
-    fun getCurrentStepForUser(userId: Long): LessonWithStep?
+    fun getCurrentStepForUser(userId: Long): LessonNameWithStep?
 }
-
-// TODO move from resources
-val PREPOPULATE_STEPS = listOf(
-    Step(title = "First-first!", lessonId = 1, data = Info("Text for info step!")),
-    Step(title = "Second-second!", lessonId = 1, data = Show(PREPOPULATE_LETTERS[0]))
-)

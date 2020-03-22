@@ -97,6 +97,8 @@ class PracticeViewModel(
     }
 
     private fun initializeCard() = uiScope.launch {
+        // TODO correct error message if dynamic practice model enabled
+        //  (when letters appear in practice only arter passing the particaar lesson)
         val entry = getEntryFromDatabase(language)
             ?: throw IllegalStateException("No letters in database")
         _symbol = entry.symbol
@@ -105,6 +107,6 @@ class PracticeViewModel(
 
     private suspend fun getEntryFromDatabase(language: Language) =
         withContext(Dispatchers.IO) {
-            database.getRandomEntry(language)
+            database.getRandomSymbol(language)
         }
 }
