@@ -1,9 +1,7 @@
 package ru.spbstu.amd.learnbraille.res.russian.steps
 
-import ru.spbstu.amd.learnbraille.database.Info
-import ru.spbstu.amd.learnbraille.database.Input
-import ru.spbstu.amd.learnbraille.database.Show
-import ru.spbstu.amd.learnbraille.database.StepData
+import ru.spbstu.amd.learnbraille.database.*
+import ru.spbstu.amd.learnbraille.database.BrailleDot.F
 import ru.spbstu.amd.learnbraille.res.russian.symbols.FILLED_SYMBOL
 import ru.spbstu.amd.learnbraille.res.russian.symbols.symbolMap
 import ru.spbstu.amd.learnbraille.res.stepFormat
@@ -15,7 +13,7 @@ import ru.spbstu.amd.learnbraille.res.stepFormat
  * not supported for functional types in kotlin 1.3.
  */
 private fun Step(title: String, data: StepData) =
-    ru.spbstu.amd.learnbraille.database.Step(
+    Step(
         title = title,
         lessonId = 1L,
         data = data
@@ -65,6 +63,21 @@ val LESSON_1_STEPS = listOf(
                 |Точки во втором столбце - 4, 5, 6 сверху вниз. 
                 |Важно выучить, где какая точка."""
                 .stepFormat()
+        )
+    ),
+
+    Step(
+        title = "Пример с кастомным шеститочием",
+        data = Show(
+            Symbol(
+                symbol = ' ',
+                language = Language.NONE,
+                brailleDots = BrailleDots(
+                    b1 = F,
+                    b3 = F,
+                    b4 = F
+                )
+            )
         )
     )
 )
