@@ -1,5 +1,6 @@
 package ru.spbstu.amd.learnbraille.screens.practice
 
+import android.app.Application
 import android.os.Bundle
 import android.os.Vibrator
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import kotlinx.android.synthetic.main.braille_dots.view.*
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.databinding.FragmentPracticeBinding
@@ -40,12 +42,11 @@ class PracticeFragment : Fragment() {
         false
     ).apply {
 
-        val application = requireNotNull(activity).application
+        val application: Application = requireNotNull(activity).application
         val dataSource = LearnBrailleDatabase.getInstance(application).symbolDao
-        val dotCheckBoxes = arrayOf(
-            dotButton1, dotButton2, dotButton3,
-            dotButton4, dotButton5, dotButton6
-        )
+        val dotCheckBoxes = practiceButtons.run {
+            arrayOf(dotButton1, dotButton2, dotButton3, dotButton4, dotButton5, dotButton6)
+        }
 
         viewModelFactory = PracticeViewModelFactory(
             dataSource, application, dotCheckBoxes.map { BrailleDotState(it) }.toTypedArray()
