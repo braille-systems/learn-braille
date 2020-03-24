@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">LearnBraille</string>
 
+    <string name="default_user_login">default</string>
+    <string name="default_user_first_name">John</string>
+    <string name="default_user_second_name">Smith</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="practice_next">Next</string>
     <string name="practice_menu">Menu</string>
