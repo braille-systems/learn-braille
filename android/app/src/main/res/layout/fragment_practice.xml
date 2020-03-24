@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="practiceViewModel"
-            type="ru.spbstu.amd.learnbraille.screens.practice.PracticeViewModel" />
+                name="practiceViewModel"
+                type="ru.spbstu.amd.learnbraille.screens.practice.PracticeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".screens.practice.PracticeFragment">
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".screens.practice.PracticeFragment">
 
         <TextView
-            android:id="@+id/letter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{practiceViewModel.symbol}"
-            android:textSize="170sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/practice_buttons"
-            app:layout_constraintEnd_toStartOf="@+id/next_button"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/main_menu_button"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="M" />
+                android:id="@+id/letter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{practiceViewModel.symbol}"
+                android:textSize="170sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/practice_buttons"
+                app:layout_constraintEnd_toStartOf="@+id/next_button"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/main_menu_button"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="M" />
 
         <Button
-            android:id="@+id/next_button"
-            android:layout_width="70sp"
-            android:layout_height="0dp"
-            android:onClick="@{() -> practiceViewModel.onNext()}"
-            android:text="@string/practice_next"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+                android:id="@+id/next_button"
+                android:layout_width="70sp"
+                android:layout_height="0dp"
+                android:onClick="@{() -> practiceViewModel.onNext()}"
+                android:text="@string/practice_next"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
         <Button
-            android:id="@+id/main_menu_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/practice_menu"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/main_menu_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/practice_menu"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <ru.spbstu.amd.learnbraille.views.ButtonsView
-            android:id="@+id/practice_buttons"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/letter"
-            app:layout_constraintStart_toStartOf="@+id/letter"
-            app:layout_constraintTop_toBottomOf="@+id/letter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                android:id="@+id/practice_buttons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/letter"
+                app:layout_constraintStart_toStartOf="@+id/letter"
+                app:layout_constraintTop_toBottomOf="@+id/letter" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
