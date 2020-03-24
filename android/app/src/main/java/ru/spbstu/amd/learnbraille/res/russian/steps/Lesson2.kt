@@ -4,7 +4,7 @@ import ru.spbstu.amd.learnbraille.database.Step
 import ru.spbstu.amd.learnbraille.database.StepData
 
 private fun Step(title: String, data: StepData) =
-    ru.spbstu.amd.learnbraille.database.Step(
+    Step(
         title = title,
         lessonId = 2L,
         data = data
