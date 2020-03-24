@@ -2,7 +2,6 @@ package ru.spbstu.amd.learnbraille.res.russian.steps
 
 import ru.spbstu.amd.learnbraille.database.*
 import ru.spbstu.amd.learnbraille.database.BrailleDot.F
-import ru.spbstu.amd.learnbraille.res.russian.symbols.FILLED_SYMBOL
 import ru.spbstu.amd.learnbraille.res.russian.symbols.symbolMap
 import ru.spbstu.amd.learnbraille.res.stepFormat
 
@@ -20,6 +19,13 @@ private fun Step(title: String, data: StepData) =
     )
 
 // TODO fill steps
+/**
+ * List of steps for first lesson.
+ *
+ * Do not create symbols manually, always look them up in `symbolMap`.
+ *
+ * First two steps are used for database testing.
+ */
 val LESSON_1_STEPS = listOf(
 
     Step(
@@ -34,16 +40,12 @@ val LESSON_1_STEPS = listOf(
 
     Step(
         title = "Шеститочие",
-        data = Show(
-            symbolMap[FILLED_SYMBOL] ?: error("Filled symbol not found")
-        )
+        data = ShowDots(BrailleDots(F, F, F, F, F, F))
     ),
 
     Step(
         title = "Введите все шесть точек",
-        data = Input(
-            symbolMap[FILLED_SYMBOL] ?: error("Filled symbol not found")
-        )
+        data = InputDots(BrailleDots(F, F, F, F, F, F))
     ),
 
     Step(
@@ -66,18 +68,11 @@ val LESSON_1_STEPS = listOf(
         )
     ),
 
+    // TODO replace
     Step(
-        title = "Пример с кастомным шеститочием",
-        data = Show(
-            Symbol(
-                symbol = ' ',
-                language = Language.NONE,
-                brailleDots = BrailleDots(
-                    b1 = F,
-                    b3 = F,
-                    b4 = F
-                )
-            )
+        title = "Пример с символом",
+        data = ShowSymbol(
+            symbolMap['А'] ?: error("A russian not found")
         )
     )
 )
