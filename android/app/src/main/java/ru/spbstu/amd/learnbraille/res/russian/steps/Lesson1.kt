@@ -3,7 +3,6 @@ package ru.spbstu.amd.learnbraille.res.russian.steps
 import ru.spbstu.amd.learnbraille.database.*
 import ru.spbstu.amd.learnbraille.database.BrailleDot.F
 import ru.spbstu.amd.learnbraille.res.russian.symbols.symbolMap
-import ru.spbstu.amd.learnbraille.res.stepFormat
 
 /**
  * Automatically inserts proper lessonID.
@@ -34,7 +33,6 @@ val LESSON_1_STEPS = listOf(
             """В рельефной азбуке Брайля любой символ - это шеститочие. 
                 |Каждая точка из шести может быть выдавлена или пропущена. 
                 |В следующем шаге все 6 точек выведены на экран."""
-                .stepFormat()
         )
     ),
 
@@ -53,7 +51,6 @@ val LESSON_1_STEPS = listOf(
         data = Info(
             """Откройте букварь на странице 12. 
                 |В верхней строке 14 раз повторён символ полного шеститочия."""
-                .stepFormat()
         )
     ),
 
@@ -64,7 +61,6 @@ val LESSON_1_STEPS = listOf(
                 |Точки в первом столбце имеют номера 1, 2, 3 сверху вниз. 
                 |Точки во втором столбце - 4, 5, 6 сверху вниз. 
                 |Важно выучить, где какая точка."""
-                .stepFormat()
         )
     ),
 

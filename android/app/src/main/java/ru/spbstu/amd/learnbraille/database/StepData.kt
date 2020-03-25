@@ -11,11 +11,13 @@ sealed class StepData {
 }
 
 class Info(
-    val text: String
+    text: String
 ) : StepData() {
 
+    private val text = text.stepFormat()
+
     override val name = Companion.name
-    override val data = text
+    override val data = this.text
 
     companion object {
         val name = Info::class.java.name
@@ -91,3 +93,9 @@ class StepDataConverters {
     @TypeConverter
     fun from(string: String): StepData = stepDataOf(string)
 }
+
+/**
+ * Use with raw strings to format text for info steps.
+ */
+fun String.stepFormat(): String = this
+    .trimMargin()
