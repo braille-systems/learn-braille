@@ -2,6 +2,12 @@ package ru.spbstu.amd.learnbraille.database
 
 import androidx.room.TypeConverter
 
+/**
+ * There are specific step types in the app.
+ * They differs by visual representation and by the data they contain.
+ *
+ * Step type can be determined by `is` check.
+ */
 sealed class StepData {
 
     protected abstract val name: String
@@ -10,6 +16,9 @@ sealed class StepData {
     override fun toString() = "$name $data"
 }
 
+/**
+ * Step displays information text for the user.
+ */
 class Info(
     text: String
 ) : StepData() {
@@ -24,6 +33,9 @@ class Info(
     }
 }
 
+/**
+ * Step prompts the user to enter Braille dots corresponding to the printed symbol.
+ */
 class InputSymbol(
     val symbol: Symbol
 ) : StepData() {
@@ -36,6 +48,9 @@ class InputSymbol(
     }
 }
 
+/**
+ * Step prompts the user to enter dots with specific numbers.
+ */
 class InputDots(
     val dots: BrailleDots
 ) : StepData() {
@@ -48,6 +63,9 @@ class InputDots(
     }
 }
 
+/**
+ * Step shows symbol and it's Braille representation.
+ */
 class ShowSymbol(
     val symbol: Symbol
 ) : StepData() {
@@ -60,6 +78,9 @@ class ShowSymbol(
     }
 }
 
+/**
+ * Step shows Braille dots with specific numbers.
+ */
 class ShowDots(
     val dots: BrailleDots
 ) : StepData() {
