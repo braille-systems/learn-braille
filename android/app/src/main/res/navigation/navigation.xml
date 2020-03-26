@@ -49,7 +49,7 @@
             android:id="@+id/lessonStepFragment"
             android:name="ru.spbstu.amd.learnbraille.screens.lessons.LessonStepFragment"
             android:label="fragment_lesson"
-            tools:layout="@layout/fragment_text_step">
+            tools:layout="@layout/fragment_lesson_step">
         <action
                 android:id="@+id/action_lessonStepFragment_to_menuFragment"
                 app:destination="@id/menuFragment"
@@ -74,5 +74,11 @@
     <fragment
             android:id="@+id/helpFragment"
             android:name="ru.spbstu.amd.learnbraille.screens.help.HelpFragment"
-            android:label="HelpFragment" />
+            android:label="HelpFragment">
+        <argument
+                android:name="help_message"
+                android:defaultValue="@null"
+                app:argType="string"
+                app:nullable="true" />
+    </fragment>
 </navigation>

@@ -12,7 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.braille_dots.view.*
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
@@ -112,10 +112,11 @@ class PracticeFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem) = super.onOptionsItemSelected(item).also {
         when (item.itemId) {
-            R.id.help -> view
-                ?.findNavController()
-                ?.navigate(R.id.action_practiceFragment_to_helpFragment)
-                ?: error("Unable to navigate to help from practice")
+            R.id.help -> {
+                val action = PracticeFragmentDirections.actionPracticeFragmentToHelpFragment()
+                action.helpMessage = getString(R.string.practice_help_message)
+                findNavController().navigate(action)
+            }
         }
     }
 

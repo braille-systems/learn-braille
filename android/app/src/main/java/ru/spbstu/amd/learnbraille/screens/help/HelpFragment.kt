@@ -9,8 +9,9 @@ import androidx.fragment.app.Fragment
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentHelpBinding
 
-// TODO
 class HelpFragment : Fragment() {
+
+    private val helpMessageArgName = "help_message"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,5 +21,11 @@ class HelpFragment : Fragment() {
         R.layout.fragment_help,
         container,
         false
-    ).root
+    ).apply {
+
+        helpMessage.text = arguments
+            ?.getString(helpMessageArgName)
+            ?: error("Unable to get help message arg")
+
+    }.root
 }

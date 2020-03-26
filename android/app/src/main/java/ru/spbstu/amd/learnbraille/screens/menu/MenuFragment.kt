@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentMenuBinding
 
@@ -85,10 +85,11 @@ class MenuFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem) = super.onOptionsItemSelected(item).also {
         when (item.itemId) {
-            R.id.help -> view
-                ?.findNavController()
-                ?.navigate(R.id.action_menuFragment_to_helpFragment)
-                ?: error("Unable to navigate from menu fragment to help fragment")
+            R.id.help -> {
+                val action = MenuFragmentDirections.actionMenuFragmentToHelpFragment()
+                action.helpMessage = getString(R.string.menu_help_message)
+                findNavController().navigate(action)
+            }
         }
     }
 }

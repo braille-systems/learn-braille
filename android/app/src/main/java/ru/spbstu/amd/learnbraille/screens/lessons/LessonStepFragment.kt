@@ -5,7 +5,7 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonStepBinding
 
@@ -47,10 +47,11 @@ class LessonStepFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem) = super.onOptionsItemSelected(item).also {
         when (item.itemId) {
-            R.id.help -> view
-                ?.findNavController()
-                ?.navigate(R.id.action_lessonStepFragment_to_helpFragment)
-                ?: error("Unable to navigate from lesson fragment to help fragment")
+            R.id.help -> {
+                val action = LessonStepFragmentDirections.actionLessonStepFragmentToHelpFragment()
+                action.helpMessage = "HEEELP! LESSONS!"  // TODO lessons help message
+                findNavController().navigate(action)
+            }
         }
     }
 }
