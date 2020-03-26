@@ -7,8 +7,8 @@ This app is still in develop. Soon we are going to add interaction with physical
 Feel free to [contribute](https://github.com/braille-systems/learn-braille/blob/master/CONTRIBUTING.md)! <br>
 Take a look at [wiki pages (Russian)](https://github.com/braille-systems/learn-braille/wiki)
 
-# Guidelines (En)
-## System Requirements and limitations
+## Guidelines (En)
+### System Requirements and limitations
 
 To successfully run this application, your smartphone or tablet PC must satisfy the following conditions:
 1. Android 4.4 KitKat or higher
