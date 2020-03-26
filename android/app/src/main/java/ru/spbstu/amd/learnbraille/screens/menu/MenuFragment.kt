@@ -33,7 +33,6 @@ class MenuFragment : Fragment() {
         false
     ).apply {
 
-        // TODO remove cast
         (activity as AppCompatActivity)
             .supportActionBar
             ?.title = getString(R.string.menu_actionbar_text)

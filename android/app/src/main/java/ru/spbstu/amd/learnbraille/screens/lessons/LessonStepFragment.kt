@@ -34,5 +34,7 @@ class LessonStepFragment : Fragment() {
         lessonStepViewModel = viewModel
         lifecycleOwner = this@LessonStepFragment
 
+        // TODO set fragment title according to the step title
+
     }.root
 }

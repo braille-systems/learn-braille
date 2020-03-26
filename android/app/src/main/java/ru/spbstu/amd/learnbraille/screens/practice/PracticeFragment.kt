@@ -13,7 +13,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.braille_dots.view.*
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
@@ -45,7 +44,10 @@ class PracticeFragment : Fragment() {
         val application: Application = requireNotNull(activity).application
         val dataSource = LearnBrailleDatabase.getInstance(application).symbolDao
         val dotCheckBoxes = practiceButtons.run {
-            arrayOf(dotButton1, dotButton2, dotButton3, dotButton4, dotButton5, dotButton6)
+            arrayOf(
+                dotButton1, dotButton2, dotButton3,
+                dotButton4, dotButton5, dotButton6
+            )
         }
 
         viewModelFactory = PracticeViewModelFactory(
@@ -57,19 +59,15 @@ class PracticeFragment : Fragment() {
 
         buzzer = activity?.getSystemService()
 
+
         practiceViewModel = viewModel
         lifecycleOwner = this@PracticeFragment
 
-        // TODO remove cast
-        // TODO refactor title bar management
-        (activity as AppCompatActivity).supportActionBar?.title =
-            getString(R.string.practice_actionbar_title)
 
-        mainMenuButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(
-                R.id.action_practiceFragment_to_menuFragment
-            )
-        )
+        (activity as AppCompatActivity)
+            .supportActionBar
+            ?.title = getString(R.string.practice_actionbar_title)
+        
 
         viewModel.eventCorrect.observe(this@PracticeFragment, Observer {
             if (!it) {
