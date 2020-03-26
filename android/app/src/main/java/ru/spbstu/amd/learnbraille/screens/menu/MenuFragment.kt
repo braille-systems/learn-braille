@@ -5,13 +5,13 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentMenuBinding
 
@@ -36,6 +36,8 @@ class MenuFragment : Fragment() {
         (activity as AppCompatActivity)
             .supportActionBar
             ?.title = getString(R.string.menu_actionbar_text)
+
+        setHasOptionsMenu(true)
 
         lessonsButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_lessonFragment)
@@ -67,12 +69,26 @@ class MenuFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == qtResultCode) {
             if (resultCode == RESULT_OK) {
-                val contents = data!!.getStringExtra("SCAN_RESULT")
+                val contents = data?.getStringExtra("SCAN_RESULT")
                 Toast.makeText(context, contents, Toast.LENGTH_SHORT).show()
             }
             if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.help_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = super.onOptionsItemSelected(item).also {
+        when (item.itemId) {
+            R.id.help -> view
+                ?.findNavController()
+                ?.navigate(R.id.action_menuFragment_to_helpFragment)
+                ?: error("Unable to navigate from menu fragment to help fragment")
         }
     }
 }

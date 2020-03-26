@@ -3,8 +3,7 @@ package ru.spbstu.amd.learnbraille.screens.practice
 import android.app.Application
 import android.os.Bundle
 import android.os.Vibrator
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.*
 import android.widget.CheckBox
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.braille_dots.view.*
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
@@ -67,7 +67,7 @@ class PracticeFragment : Fragment() {
         (activity as AppCompatActivity)
             .supportActionBar
             ?.title = getString(R.string.practice_actionbar_title)
-        
+
 
         viewModel.eventCorrect.observe(this@PracticeFragment, Observer {
             if (!it) {
@@ -101,7 +101,23 @@ class PracticeFragment : Fragment() {
             viewModel.onIncorrectComplete()
         })
 
+        setHasOptionsMenu(true)
+
     }.root
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.help_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = super.onOptionsItemSelected(item).also {
+        when (item.itemId) {
+            R.id.help -> view
+                ?.findNavController()
+                ?.navigate(R.id.action_practiceFragment_to_helpFragment)
+                ?: error("Unable to navigate to help from practice")
+        }
+    }
 
     private fun makeUnchecked(checkBoxes: Array<CheckBox>) = checkBoxes.forEach {
         if (it.isChecked) {
