@@ -105,8 +105,7 @@ class PracticeViewModel(
         expectedDots = entry.brailleDots
     }
 
-    private suspend fun getEntryFromDatabase(language: Language) =
-        withContext(Dispatchers.IO) {
-            database.getRandomSymbol(language)
-        }
+    private suspend fun getEntryFromDatabase(language: Language) = withContext(Dispatchers.IO) {
+        database.getRandomSymbol(language)
+    }
 }

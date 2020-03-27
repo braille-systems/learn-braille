@@ -56,8 +56,7 @@ interface StepDao {
                 lesson.name AS 'lesson_embedding_name'
             FROM step
             INNER JOIN lesson on lesson_id = lesson.id
-            ORDER BY step.id ASC
-            LIMIT 1
+            WHERE step.id = :id
             """
     )
     fun getStep(id: Long): LessonWithStep?
