@@ -2,28 +2,28 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
         <Button
-            android:id="@+id/exit_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/green"
-            android:text="@string/exit_sentence"
-            android:textSize="30sp"
-            android:layout_weight="1"/>
+                android:id="@+id/exit_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/green"
+                android:text="@string/exit_sentence"
+                android:textSize="30sp" />
 
         <Button
-            android:id="@+id/continue_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/red"
-            android:text="@string/continue_sentence"
-            android:textSize="30sp"
-            android:layout_weight="1"/>
+                android:id="@+id/continue_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/red"
+                android:text="@string/continue_sentence"
+                android:textSize="30sp" />
 
     </LinearLayout>
 </layout>
