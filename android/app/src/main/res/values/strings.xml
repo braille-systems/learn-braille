@@ -8,6 +8,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="practice_next">Next</string>
     <string name="practice_menu">Menu</string>
+    <string name="practice_db_not_initialized_warning">
+        Раздел практики загружается. Попробуйте ещё раз.
+    </string>
     <string name="exit_sentence">Выйти из приложения Learn Braille</string>
     <string name="continue_sentence">Остаться в меню приложения Learn Braille</string>
     <string name="greeting">Hello!</string>

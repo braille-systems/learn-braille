@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.braille_dots.view.*
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.BrailleDotsState
@@ -97,6 +98,18 @@ class PracticeFragment : Fragment() {
 
             makeUnchecked(dotCheckBoxes)
             viewModel.onIncorrectComplete()
+        })
+
+        viewModel.eventWaitDBInit.observe(this@PracticeFragment, Observer {
+            if (!it) {
+                return@Observer
+            }
+            Toast.makeText(
+                context,
+                getString(R.string.practice_db_not_initialized_warning),
+                Toast.LENGTH_LONG
+            ).show()
+            findNavController().navigate(R.id.action_practiceFragment_to_menuFragment)
         })
 
     }.root
