@@ -23,7 +23,7 @@
                 android:text="@{practiceViewModel.symbol}"
                 android:textSize="170sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+                app:layout_constraintBottom_toTopOf="@+id/practice_buttons"
                 app:layout_constraintEnd_toStartOf="@+id/next_button"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/main_menu_button"
@@ -50,125 +50,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
+        <ru.spbstu.amd.learnbraille.views.ButtonsView
+                android:id="@+id/practice_buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/letter"
                 app:layout_constraintStart_toStartOf="@+id/letter"
-                app:layout_constraintTop_toBottomOf="@+id/letter">
+                app:layout_constraintTop_toBottomOf="@+id/letter" />
 
-            <CheckBox
-                    android:id="@+id/dotButton1"
-                    style="@style/brailleDots"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/braille_dots_outer_horizontal_margin"
-                    android:layout_marginTop="@dimen/braille_dots_outer_vertical_margin"
-                    android:layout_marginEnd="@dimen/braille_dots_inner_horizontal_margin"
-                    android:layout_marginBottom="@dimen/braille_dots_inner_vertical_margin"
-                    android:button="@drawable/round_checkbox"
-                    android:scaleX="2.6"
-                    android:scaleY="2.6"
-                    app:layout_constraintBottom_toTopOf="@+id/dotButton2"
-                    app:layout_constraintEnd_toStartOf="@+id/dotButton4"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.22" />
-
-            <CheckBox
-                    android:id="@+id/dotButton2"
-                    style="@style/brailleDots"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/braille_dots_outer_horizontal_margin"
-                    android:layout_marginTop="@dimen/braille_dots_inner_vertical_margin"
-                    android:layout_marginEnd="@dimen/braille_dots_outer_horizontal_margin"
-                    android:layout_marginBottom="@dimen/braille_dots_inner_vertical_margin"
-                    android:button="@drawable/round_checkbox"
-                    android:scaleX="2.6"
-                    android:scaleY="2.6"
-                    app:layout_constraintBottom_toTopOf="@+id/dotButton3"
-                    app:layout_constraintEnd_toStartOf="@+id/dotButton5"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dotButton1" />
-
-            <CheckBox
-                    android:id="@+id/dotButton3"
-                    style="@style/brailleDots"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/braille_dots_outer_horizontal_margin"
-                    android:layout_marginTop="@dimen/braille_dots_inner_vertical_margin"
-                    android:layout_marginEnd="@dimen/braille_dots_outer_horizontal_margin"
-                    android:layout_marginBottom="@dimen/braille_dots_outer_vertical_margin"
-                    android:button="@drawable/round_checkbox"
-                    android:scaleX="2.6"
-                    android:scaleY="2.6"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/dotButton6"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dotButton2" />
-
-            <CheckBox
-                    android:id="@+id/dotButton4"
-                    style="@style/brailleDots"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/braille_dots_outer_horizontal_margin"
-                    android:layout_marginTop="@dimen/braille_dots_outer_vertical_margin"
-                    android:layout_marginEnd="@dimen/braille_dots_outer_horizontal_margin"
-                    android:layout_marginBottom="@dimen/braille_dots_inner_vertical_margin"
-                    android:button="@drawable/round_checkbox"
-                    android:scaleX="2.6"
-                    android:scaleY="2.6"
-                    app:layout_constraintBottom_toTopOf="@+id/dotButton5"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/dotButton1"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            <CheckBox
-                    android:id="@+id/dotButton5"
-                    style="@style/brailleDots"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/braille_dots_inner_horizontal_margin"
-                    android:layout_marginTop="@dimen/braille_dots_inner_vertical_margin"
-                    android:layout_marginEnd="@dimen/braille_dots_outer_horizontal_margin"
-                    android:layout_marginBottom="@dimen/braille_dots_inner_vertical_margin"
-                    android:button="@drawable/round_checkbox"
-                    android:scaleX="2.6"
-                    android:scaleY="2.6"
-                    app:layout_constraintBottom_toTopOf="@+id/dotButton6"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/dotButton2"
-                    app:layout_constraintTop_toBottomOf="@+id/dotButton4" />
-
-            <CheckBox
-                    android:id="@+id/dotButton6"
-                    style="@style/brailleDots"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/braille_dots_inner_horizontal_margin"
-                    android:layout_marginTop="@dimen/braille_dots_inner_vertical_margin"
-                    android:layout_marginEnd="@dimen/braille_dots_outer_horizontal_margin"
-                    android:layout_marginBottom="@dimen/braille_dots_outer_vertical_margin"
-                    android:button="@drawable/round_checkbox"
-                    android:scaleX="2.6"
-                    android:scaleY="2.6"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/dotButton3"
-                    app:layout_constraintTop_toBottomOf="@+id/dotButton5" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

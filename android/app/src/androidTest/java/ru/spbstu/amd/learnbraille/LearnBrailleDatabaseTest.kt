@@ -4,17 +4,17 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import ru.spbstu.amd.learnbraille.database.*
+import ru.spbstu.amd.learnbraille.database.BrailleDot.F
 import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_LESSONS
 import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_USERS
 import ru.spbstu.amd.learnbraille.res.russian.steps.PREPOPULATE_STEPS
-import ru.spbstu.amd.learnbraille.res.russian.symbols.FILLED_SYMBOL
 import ru.spbstu.amd.learnbraille.res.russian.symbols.PREPOPULATE_SYMBOLS
-import ru.spbstu.amd.learnbraille.res.russian.symbols.symbolMap
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
@@ -59,12 +59,6 @@ class LearnBrailleDatabaseTest {
 
     @Test
     @Throws(Exception::class)
-    fun otherSymbolsAreThere() {
-        assertNotNull(symbolDao.getSymbol(FILLED_SYMBOL))
-    }
-
-    @Test
-    @Throws(Exception::class)
     fun ruLettersAreThere() {
         val letter = symbolDao.getSymbol('А')
         assertEquals('А', letter?.symbol)
@@ -80,8 +74,8 @@ class LearnBrailleDatabaseTest {
 
         val (_, step2) = stepDao.getCurrentStepForUser(TEST_USER) ?: error("No second step")
         assertEquals(2, step2.id)
-        assertTrue(step2.data is Show)
-        assertEquals(symbolMap[FILLED_SYMBOL], (step2.data as Show).symbol)
+        assertTrue(step2.data is ShowDots)
+        assertEquals(BrailleDots(F, F, F, F, F, F), (step2.data as ShowDots).dots)
     }
 
     companion object {

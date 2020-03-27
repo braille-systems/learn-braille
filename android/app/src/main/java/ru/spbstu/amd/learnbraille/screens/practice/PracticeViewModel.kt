@@ -64,6 +64,9 @@ class PracticeViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
     init {
+        require(dotCheckBoxes.size == 6) {
+            "Only 6 dots braille notation supported"
+        }
         initializeCard()
     }
 

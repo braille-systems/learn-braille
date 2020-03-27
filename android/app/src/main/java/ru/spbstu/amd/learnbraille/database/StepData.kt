@@ -2,40 +2,109 @@ package ru.spbstu.amd.learnbraille.database
 
 import androidx.room.TypeConverter
 
-sealed class StepData
+/**
+ * There are specific step types in the app.
+ * They differs by visual representation and by the data they contain.
+ *
+ * Step type can be determined by `is` check.
+ */
+sealed class StepData {
 
-data class Info(
-    val text: String
+    protected abstract val name: String
+    protected abstract val data: String
+
+    override fun toString() = "$name $data"
+}
+
+/**
+ * Step displays information text for the user.
+ */
+class Info(
+    text: String
 ) : StepData() {
 
-    override fun toString() = "$name $text"
+    private val text = text.stepFormat()
+
+    override val name = Companion.name
+    override val data = this.text
 
     companion object {
         val name = Info::class.java.name
     }
 }
 
-data class Show(
+/**
+ * Step prompts the user to enter Braille dots corresponding to the printed symbol.
+ */
+class InputSymbol(
     val symbol: Symbol
 ) : StepData() {
 
-    override fun toString() = "$name $symbol"
+    override val name = Companion.name
+    override val data = symbol.toString()
 
     companion object {
-        val name = Show::class.java.name
+        val name = InputSymbol::class.java.name
     }
 }
 
-data class Input(
+/**
+ * Step prompts the user to enter dots with specific numbers.
+ */
+class InputDots(
+    val dots: BrailleDots
+) : StepData() {
+
+    override val name = Companion.name
+    override val data = dots.toString()
+
+    companion object {
+        val name = InputDots::class.java.name
+    }
+}
+
+/**
+ * Step shows symbol and it's Braille representation.
+ */
+class ShowSymbol(
     val symbol: Symbol
 ) : StepData() {
 
-    override fun toString() = "$name $symbol"
+    override val name = Companion.name
+    override val data = symbol.toString()
 
     companion object {
-        val name = Input::class.java.name
+        val name = ShowSymbol::class.java.name
     }
 }
+
+/**
+ * Step shows Braille dots with specific numbers.
+ */
+class ShowDots(
+    val dots: BrailleDots
+) : StepData() {
+
+    override val name = Companion.name
+    override val data = dots.toString()
+
+    companion object {
+        val name = ShowDots::class.java.name
+    }
+}
+
+fun stepDataOf(string: String): StepData = string
+    .split(' ', limit = 2)
+    .let { (type, data) ->
+        when (type) {
+            Info.name -> Info(data)
+            InputSymbol.name -> InputSymbol(symbolOf(data))
+            InputDots.name -> InputDots(BrailleDots(data))
+            ShowSymbol.name -> ShowSymbol(symbolOf(data))
+            ShowDots.name -> ShowDots(BrailleDots(data))
+            else -> error("No such step type: $type")
+        }
+    }
 
 class StepDataConverters {
 
@@ -43,13 +112,11 @@ class StepDataConverters {
     fun to(stepData: StepData) = stepData.toString()
 
     @TypeConverter
-    fun from(string: String): StepData {
-        val (type, data) = string.split(' ', limit = 2)
-        return when (type) {
-            Info.name -> Info(data)
-            Show.name -> Show(symbolOf(data))
-            Input.name -> Input(symbolOf(data))
-            else -> error("No such step type: $type")
-        }
-    }
+    fun from(string: String): StepData = stepDataOf(string)
 }
+
+/**
+ * Use with raw strings to format text for info steps.
+ */
+fun String.stepFormat(): String = this
+    .trimMargin()
