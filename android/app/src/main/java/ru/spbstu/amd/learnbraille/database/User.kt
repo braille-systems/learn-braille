@@ -23,12 +23,9 @@ interface UserDao {
     @Insert
     fun insertUsers(users: List<User>)
 
-    @Query("SELECT id FROM user WHERE :login = login")
-    fun getId(login: String): Long?
+    @Query("SELECT * FROM user WHERE :login = login")
+    fun getUser(login: String): User?
 
-    @Query("SELECT first_name FROM user WHERE :id = id")
-    fun getFirstName(id: Long): String?
-
-    @Query("SELECT second_name FROM user WHERE :id = id")
-    fun getSecondName(id: Long): String?
+    @Query("SELECT * FROM user WHERE :id = id")
+    fun getUser(id: Long): User?
 }
