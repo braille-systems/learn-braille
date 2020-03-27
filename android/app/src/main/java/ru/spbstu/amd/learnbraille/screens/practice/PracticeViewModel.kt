@@ -47,6 +47,10 @@ class PracticeViewModel(
     val eventIncorrect: LiveData<Boolean>
         get() = _eventIncorrect
 
+    private val _eventWaitDBInit = MutableLiveData<Boolean>()
+    val eventWaitDBInit: LiveData<Boolean>
+        get() = _eventWaitDBInit
+
     private var expectedDots: BrailleDots? = null
     private val enteredDots
         get() = BrailleDots(dotCheckBoxes.map { it.isPressed }.toBooleanArray())
@@ -92,6 +96,10 @@ class PracticeViewModel(
         _eventIncorrect.value = false
     }
 
+    fun onEventWaitDBInitComplete() {
+        _eventWaitDBInit.value = false
+    }
+
     private fun onCorrect() = initializeCard().also {
         _eventCorrect.value = true
     }
@@ -100,11 +108,12 @@ class PracticeViewModel(
         _eventIncorrect.value = true
     }
 
+    private fun onWaitDBInit() {
+        _eventWaitDBInit.value = true
+    }
+
     private fun initializeCard() = uiScope.launch {
-        // TODO correct error message if dynamic practice model enabled
-        //  (when letters appear in practice only arter passing the particaar lesson)
-        val entry = getEntryFromDatabase(language)
-            ?: throw IllegalStateException("No letters in database")
+        val entry = getEntryFromDatabase(language) ?: onWaitDBInit().run { return@launch }
         _symbol = entry.symbol
         expectedDots = entry.brailleDots
     }
