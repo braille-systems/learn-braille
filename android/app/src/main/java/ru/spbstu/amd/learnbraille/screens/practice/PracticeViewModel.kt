@@ -1,10 +1,10 @@
 package ru.spbstu.amd.learnbraille.screens.practice
 
 import android.app.Application
-import android.widget.Checkable
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
 import ru.spbstu.amd.learnbraille.database.BrailleDots
+import ru.spbstu.amd.learnbraille.database.BrailleDotsState
 import ru.spbstu.amd.learnbraille.database.Language
 import ru.spbstu.amd.learnbraille.database.SymbolDao
 import timber.log.Timber
@@ -12,13 +12,13 @@ import timber.log.Timber
 class PracticeViewModelFactory(
     private val dataSource: SymbolDao,
     private val application: Application,
-    private val dotCheckBoxes: Array<BrailleDotState>
+    private val dotsState: BrailleDotsState
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
         if (modelClass.isAssignableFrom(PracticeViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            PracticeViewModel(dataSource, application, dotCheckBoxes) as T
+            PracticeViewModel(dataSource, application, dotsState) as T
         } else {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
@@ -27,7 +27,7 @@ class PracticeViewModelFactory(
 class PracticeViewModel(
     private val database: SymbolDao,
     application: Application,
-    private val dotCheckBoxes: Array<BrailleDotState>
+    private val dotsState: BrailleDotsState
 ) : AndroidViewModel(application) {
 
     private val _backingSymbol = MutableLiveData<String>() // True backing field
@@ -48,8 +48,7 @@ class PracticeViewModel(
         get() = _eventIncorrect
 
     private var expectedDots: BrailleDots? = null
-    private val enteredDots
-        get() = BrailleDots(dotCheckBoxes.map { it.isPressed }.toBooleanArray())
+    private val enteredDots get() = dotsState.brailleDots
 
     private val isCorrect: Boolean
         get() = (enteredDots == expectedDots).also {
@@ -65,9 +64,6 @@ class PracticeViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
     init {
-        require(dotCheckBoxes.size == 6) {
-            "Only 6 dots braille notation supported"
-        }
         initializeCard()
     }
 
@@ -109,13 +105,7 @@ class PracticeViewModel(
         expectedDots = entry.brailleDots
     }
 
-    private suspend fun getEntryFromDatabase(language: Language) =
-        withContext(Dispatchers.IO) {
-            database.getRandomSymbol(language)
-        }
-}
-
-class BrailleDotState(private val checkable: Checkable) {
-
-    val isPressed get() = checkable.isChecked
+    private suspend fun getEntryFromDatabase(language: Language) = withContext(Dispatchers.IO) {
+        database.getRandomSymbol(language)
+    }
 }
