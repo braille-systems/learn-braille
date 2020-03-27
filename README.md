@@ -15,6 +15,8 @@ To successfully run this application, your smartphone or tablet PC must satisfy 
 Strongly recommended:
 1. Buzzer
 1. Multi-touch screen with up to 6 simultaneous touches support
+1. 4' to 6' screen
+
 For accessibility, you will require TalkBack service (pre-installed by default on a majority of devices.
 For others available in AppStore/ Google Play).
 
