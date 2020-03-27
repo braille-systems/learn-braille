@@ -8,5 +8,6 @@
             android:icon="@drawable/tmp_help_button"
             android:title=""
             android:visible="true"
-            app:showAsAction="ifRoom" />
+            app:showAsAction="ifRoom"
+            android:contentDescription="@string/menu_help_description"/>
 </menu>

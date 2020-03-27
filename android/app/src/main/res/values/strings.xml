@@ -35,5 +35,7 @@
     <string name="braille_dot_6">точка 6</string>
 
     <string name="default_help_message">No help message</string>
+
+    <string name="menu_help_description">Кнопка: справка</string>
 </resources>
 
