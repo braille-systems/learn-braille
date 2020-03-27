@@ -104,8 +104,11 @@ class PracticeFragment : Fragment() {
             if (!it) {
                 return@Observer
             }
-            // TODO
-            Toast.makeText(context, "Wait db init", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                context,
+                getString(R.string.practice_db_not_initialized_warning),
+                Toast.LENGTH_LONG
+            ).show()
             findNavController().navigate(R.id.action_practiceFragment_to_menuFragment)
         })
 
