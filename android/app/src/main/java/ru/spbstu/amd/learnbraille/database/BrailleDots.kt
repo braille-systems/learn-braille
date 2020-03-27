@@ -58,4 +58,10 @@ class BrailleDotsState(private val states: Array<out Checkable>) {
         get() = BrailleDots(
             states.map { it.isChecked }.toBooleanArray()
         )
+
+    init {
+        require(states.size == 6) {
+            "Only 6 dots braille notation supported"
+        }
+    }
 }
