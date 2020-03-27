@@ -58,7 +58,7 @@ class LessonStepFragment : Fragment() {
         when (item.itemId) {
             R.id.help -> {
                 val action = LessonStepFragmentDirections.actionLessonStepFragmentToHelpFragment()
-                action.helpMessage = "HEEELP! LESSONS!"  // TODO lessons help message
+                action.helpMessage = getString(R.string.instant_help_steps_common_appendix) // TODO add specific suffix for each kind of step
                 findNavController().navigate(action)
             }
         }

@@ -131,7 +131,7 @@ class PracticeFragment : Fragment() {
         when (item.itemId) {
             R.id.help -> {
                 val action = PracticeFragmentDirections.actionPracticeFragmentToHelpFragment()
-                action.helpMessage = getString(R.string.practice_help_message)
+                action.helpMessage = getString(R.string.instant_help_practice)
                 findNavController().navigate(action)
             }
         }

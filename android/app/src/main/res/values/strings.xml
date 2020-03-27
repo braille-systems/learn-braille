@@ -5,8 +5,6 @@
 
     <string name="practice_next">Next</string>
     <string name="practice_actionbar_title">Практика: %d из %d</string>
-    <!--    TODO-->
-    <string name="practice_help_message">HEEELP! PRACTICE!</string>
     <string name="practice_db_not_initialized_warning">
         Раздел практики загружается. Попробуйте ещё раз.
     </string>
@@ -24,9 +22,7 @@
     <string name="menu_practice">ПРАКТИКА</string>
     <string name="menu_qt">СКАНИРОВАТЬ QR-КОД</string>
     <string name="menu_exit">ВЫХОД</string>
-    <string name="menu_actionbar_text">Learn Braille. Меню</string>\
-    <!--    TODO-->
-    <string name="menu_help_message">HEELP! MENU</string>
+    <string name="menu_actionbar_text">Learn Braille. Меню</string>
 
     <string name="lesson_next">Вперёд</string>
 
@@ -38,6 +34,33 @@
     <string name="braille_dot_6">точка 6</string>
 
     <string name="default_help_message">No help message</string>
+    <string name="instant_help_menu"> Обучение системе Луи Брайля: главное меню. \n
+        "Продолжить курс": пошаговые уроки с демонстрацией плоскопечатных и рельефно-точечных символов
+        крупным шрифтом, вводом символов и поясняющими комментариями. \n
+        "Практика": Повторяйте буквы, вводя их в шеститочии на экране. \n
+        "Сканировать QR-код": если у Вас есть набор карточек с текстом Брайля и QR-кодами на обороте,
+        по нажатию кнопки вы можете отсканировать QR-код и проверить, что написано на карточке.
+        Для этого необходимо дополнительное приложение. Если его ещё нет, по нажатию кнопки
+        Вы будете перенаправлены на страницу для скачивания приложения.</string>
+    <string name="instant_help_practice"> В верхней половине экрана крупным шрифтом выведен символ,
+        который нужно ввести в шеститочии в нижней половине экрана и нажать кнопку "далее" справа.
+        Выход в меню приложения - кнопка вверху слева.
+        Вызов справки - кнопка вверху справа"</string>
+    <string name = "instant_help_steps_common_appendix">Переход к следующему шагу - кнопка справа,
+        к предыдущему - кнопка слева. Выход в меню приложения - кнопка вверху слева. Вызов справки -
+        кнопка вверху справа"</string>
+    <string name="instant_help_input_step">Пошаговый курс - шаг с вводом символа.
+        В верхней половине экрана крупным шрифтом выведен символ, который нужно ввести в шеститочии
+        в нижней половине экрана. </string>
+    <string name="instant_help_input_dots">Пошаговый курс - шаг с вводом символа.
+        Введите в шеститочии на экране точки с указанными номерами.</string> <!--TODO mention the exact dots combination -->
+    <string name="instant_help_show_step">Пошаговый курс - шаг с демонстрацией символа.
+        В верхней половине экрана крупным шрифтом выведен плоскопечатный символ, а в нижней части -
+        его представление точечным шрифтом. Нужно изучить точечный символ.</string>
+    <string name="instant_help_show_dots">ошаговый курс - шаг с демонстрацией символа.
+        На экран выведен точечный символ. Нужно внимательно изучить его точечный состав.</string>
+    <string name="instant_help_text_step">Пошаговый курс - шаг с информационным сообщением.
+    Ознакомьтесь с сообщением, выведенном в текстовом поле по центру экрана. </string>
 
     <string name="menu_help_description">Кнопка: справка</string>
 </resources>
