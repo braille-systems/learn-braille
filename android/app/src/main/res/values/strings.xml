@@ -7,6 +7,9 @@
     <string name="practice_actionbar_title">Практика: %d из %d</string>
     <!--    TODO-->
     <string name="practice_help_message">HEEELP! PRACTICE!</string>
+    <string name="practice_db_not_initialized_warning">
+        Раздел практики загружается. Попробуйте ещё раз.
+    </string>
 
     <string name="exit_yes">Выйти из приложения Learn Braille</string>
     <string name="exit_no">Остаться в меню приложения Learn Braille</string>

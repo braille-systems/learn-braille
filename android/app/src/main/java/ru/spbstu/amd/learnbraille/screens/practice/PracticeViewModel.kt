@@ -1,10 +1,10 @@
 package ru.spbstu.amd.learnbraille.screens.practice
 
 import android.app.Application
-import android.widget.Checkable
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
 import ru.spbstu.amd.learnbraille.database.BrailleDots
+import ru.spbstu.amd.learnbraille.database.BrailleDotsState
 import ru.spbstu.amd.learnbraille.database.Language
 import ru.spbstu.amd.learnbraille.database.SymbolDao
 import timber.log.Timber
@@ -12,13 +12,13 @@ import timber.log.Timber
 class PracticeViewModelFactory(
     private val dataSource: SymbolDao,
     private val application: Application,
-    private val dotCheckBoxes: Array<BrailleDotState>
+    private val dotsState: BrailleDotsState
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
         if (modelClass.isAssignableFrom(PracticeViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            PracticeViewModel(dataSource, application, dotCheckBoxes) as T
+            PracticeViewModel(dataSource, application, dotsState) as T
         } else {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
@@ -27,7 +27,7 @@ class PracticeViewModelFactory(
 class PracticeViewModel(
     private val database: SymbolDao,
     application: Application,
-    private val dotCheckBoxes: Array<BrailleDotState>
+    private val dotsState: BrailleDotsState
 ) : AndroidViewModel(application) {
 
     private val _backingSymbol = MutableLiveData<String>() // True backing field
@@ -65,9 +65,12 @@ class PracticeViewModel(
     val eventIncorrect: LiveData<Boolean>
         get() = _eventIncorrect
 
+    private val _eventWaitDBInit = MutableLiveData<Boolean>()
+    val eventWaitDBInit: LiveData<Boolean>
+        get() = _eventWaitDBInit
+
     private var expectedDots: BrailleDots? = null
-    private val enteredDots
-        get() = BrailleDots(dotCheckBoxes.map { it.isPressed }.toBooleanArray())
+    private val enteredDots get() = dotsState.brailleDots
 
     private val isCorrect: Boolean
         get() = (enteredDots == expectedDots).also {
@@ -83,9 +86,6 @@ class PracticeViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
     init {
-        require(dotCheckBoxes.size == 6) {
-            "Only 6 dots braille notation supported"
-        }
         initializeCard()
         _nLettersFaced = 0
         _nCorrect = 0
@@ -113,6 +113,10 @@ class PracticeViewModel(
         _eventIncorrect.value = false
     }
 
+    fun onEventWaitDBInitComplete() {
+        _eventWaitDBInit.value = false
+    }
+
     private fun onCorrect() = initializeCard().also {
         _nCorrect++
         _eventCorrect.value = true
@@ -122,22 +126,17 @@ class PracticeViewModel(
         _eventIncorrect.value = true
     }
 
+    private fun onWaitDBInit() {
+        _eventWaitDBInit.value = true
+    }
+
     private fun initializeCard() = uiScope.launch {
-        // TODO correct error message if dynamic practice model enabled
-        //  (when letters appear in practice only arter passing the particaar lesson)
-        val entry = getEntryFromDatabase(language)
-            ?: throw IllegalStateException("No letters in database")
+        val entry = getEntryFromDatabase(language) ?: onWaitDBInit().run { return@launch }
         _symbol = entry.symbol
         expectedDots = entry.brailleDots
     }
 
-    private suspend fun getEntryFromDatabase(language: Language) =
-        withContext(Dispatchers.IO) {
-            database.getRandomSymbol(language)
-        }
-}
-
-class BrailleDotState(private val checkable: Checkable) {
-
-    val isPressed get() = checkable.isChecked
+    private suspend fun getEntryFromDatabase(language: Language) = withContext(Dispatchers.IO) {
+        database.getRandomSymbol(language)
+    }
 }
