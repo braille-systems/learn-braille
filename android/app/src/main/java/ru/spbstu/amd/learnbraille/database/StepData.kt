@@ -33,6 +33,20 @@ class Info(
     }
 }
 
+class LastInfo(
+    text: String
+) : StepData() {
+
+    private val text = text.stepFormat()
+
+    override val name = Companion.name
+    override val data = this.text
+
+    companion object {
+        val name = LastInfo::class.java.name
+    }
+}
+
 /**
  * Step prompts the user to enter Braille dots corresponding to the printed symbol.
  */
@@ -106,6 +120,7 @@ fun stepDataOf(string: String): StepData = string
     .let { (type, data) ->
         when (type) {
             Info.name -> Info(data)
+            LastInfo.name -> LastInfo(data)
             InputSymbol.name -> InputSymbol(data)
             InputDots.name -> InputDots(data)
             ShowSymbol.name -> ShowSymbol(data)

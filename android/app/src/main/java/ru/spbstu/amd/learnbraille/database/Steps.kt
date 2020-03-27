@@ -16,10 +16,10 @@ data class Step(
     val data: StepData
 )
 
-data class LessonNameWithStep(
+data class LessonWithStep(
 
-    @ColumnInfo(name = "lesson_name")
-    val lessonName: String,
+    @Embedded(prefix = "lesson_embedding_")
+    val lesson: Lesson,
 
     @Embedded
     val step: Step
@@ -33,7 +33,9 @@ interface StepDao {
 
     @Query(
         """
-            SELECT lesson.name AS 'lesson_name', step.*
+            SELECT step.*, 
+                lesson.id AS 'lesson_embedding_id', 
+                lesson.name AS 'lesson_embedding_name'
             FROM step
             INNER JOIN lesson on lesson_id = lesson.id
             WHERE NOT EXISTS (
@@ -45,5 +47,18 @@ interface StepDao {
             LIMIT 1
             """
     )
-    fun getCurrentStepForUser(userId: Long): LessonNameWithStep?
+    fun getCurrentStepForUser(userId: Long): LessonWithStep?
+
+    @Query(
+        """
+            SELECT step.*, 
+                lesson.id AS 'lesson_embedding_id', 
+                lesson.name AS 'lesson_embedding_name'
+            FROM step
+            INNER JOIN lesson on lesson_id = lesson.id
+            ORDER BY step.id ASC
+            LIMIT 1
+            """
+    )
+    fun getStep(id: Long): LessonWithStep?
 }
