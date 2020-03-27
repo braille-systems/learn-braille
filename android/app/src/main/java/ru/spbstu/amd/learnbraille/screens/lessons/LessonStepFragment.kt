@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.spbstu.amd.learnbraille.R
-import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
+import ru.spbstu.amd.learnbraille.database.*
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonStepBinding
 
 class LessonStepFragment : Fragment() {
@@ -17,7 +17,19 @@ class LessonStepFragment : Fragment() {
     // TODO replace
     private val userId = 1L
 
-    // TODO should be lessons ecosystem be separate activity?
+    private val helpMessage
+        get() = getString(R.string.lessons_help_template).format(
+            getString(R.string.lessons_help_common),
+            when (viewModel.currentLessonStep.value!!.step.data) {
+                is Info -> getString(R.string.lessons_help_info)
+                is LastInfo -> getString(R.string.lessons_help_last_info)
+                is InputSymbol -> getString(R.string.lessons_help_input_symbol)
+                is InputDots -> getString(R.string.lessons_help_input_dots)
+                is ShowSymbol -> getString(R.string.lessons_help_show_symbol)
+                is ShowDots -> getString(R.string.lessons_help_show_dots)
+            }
+        )
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,7 +70,7 @@ class LessonStepFragment : Fragment() {
         when (item.itemId) {
             R.id.help -> {
                 val action = LessonStepFragmentDirections.actionLessonStepFragmentToHelpFragment()
-                action.helpMessage = getString(R.string.instant_help_steps_common_appendix) // TODO add specific suffix for each kind of step
+                action.helpMessage = helpMessage
                 findNavController().navigate(action)
             }
         }

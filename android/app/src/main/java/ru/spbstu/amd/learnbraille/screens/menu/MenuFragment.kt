@@ -87,7 +87,7 @@ class MenuFragment : Fragment() {
         when (item.itemId) {
             R.id.help -> {
                 val action = MenuFragmentDirections.actionMenuFragmentToHelpFragment()
-                action.helpMessage = getString(R.string.instant_help_menu)
+                action.helpMessage = getString(R.string.menu_help)
                 findNavController().navigate(action)
             }
         }

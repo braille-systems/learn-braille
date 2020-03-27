@@ -27,8 +27,10 @@ class PracticeFragment : Fragment() {
     private var buzzer: Vibrator? = null
 
     private val title: String
-        get() = getString(R.string.practice_actionbar_title)
-            .format(viewModel.nCorrect.value, viewModel.nLettersFaced.value)
+        get() = getString(R.string.practice_actionbar_title).format(
+            viewModel.nCorrect.value,
+            viewModel.nLettersFaced.value
+        )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -131,7 +133,7 @@ class PracticeFragment : Fragment() {
         when (item.itemId) {
             R.id.help -> {
                 val action = PracticeFragmentDirections.actionPracticeFragmentToHelpFragment()
-                action.helpMessage = getString(R.string.instant_help_practice)
+                action.helpMessage = getString(R.string.practice_help)
                 findNavController().navigate(action)
             }
         }
