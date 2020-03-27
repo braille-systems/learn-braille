@@ -30,6 +30,10 @@ class PracticeFragment : Fragment() {
     private lateinit var viewModelFactory: PracticeViewModelFactory
     private var buzzer: Vibrator? = null
 
+    private val title: String
+        get() = getString(R.string.practice_actionbar_title)
+            .format(viewModel.nCorrect.value, viewModel.nLettersFaced.value)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,11 +68,6 @@ class PracticeFragment : Fragment() {
         lifecycleOwner = this@PracticeFragment
 
 
-        (activity as AppCompatActivity)
-            .supportActionBar
-            ?.title = getString(R.string.practice_actionbar_title)
-
-
         viewModel.eventCorrect.observe(this@PracticeFragment, Observer {
             if (!it) {
                 return@Observer
@@ -101,6 +100,15 @@ class PracticeFragment : Fragment() {
             viewModel.onIncorrectComplete()
         })
 
+
+        viewModel.nCorrect.observe(this@PracticeFragment, Observer {
+            updateTitle()
+        })
+
+        viewModel.nLettersFaced.observe(this@PracticeFragment, Observer {
+            updateTitle()
+        })
+
         setHasOptionsMenu(true)
 
     }.root
@@ -124,5 +132,11 @@ class PracticeFragment : Fragment() {
         if (it.isChecked) {
             it.toggle()
         }
+    }
+
+    private fun updateTitle() {
+        (activity as AppCompatActivity)
+            .supportActionBar
+            ?.title = title
     }
 }

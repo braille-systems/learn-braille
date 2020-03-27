@@ -4,7 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="practice_next">Next</string>
-    <string name="practice_actionbar_title">Практика. Введите символ</string>
+    <string name="practice_actionbar_title">Практика: %d из %d</string>
     <!--    TODO-->
     <string name="practice_help_message">HEEELP! PRACTICE!</string>
 
