@@ -33,6 +33,20 @@ class Info(
     }
 }
 
+class LastInfo(
+    text: String
+) : StepData() {
+
+    private val text = text.stepFormat()
+
+    override val name = Companion.name
+    override val data = this.text
+
+    companion object {
+        val name = LastInfo::class.java.name
+    }
+}
+
 /**
  * Step prompts the user to enter Braille dots corresponding to the printed symbol.
  */
@@ -42,6 +56,8 @@ class InputSymbol(
 
     override val name = Companion.name
     override val data = symbol.toString()
+
+    constructor(data: String) : this(symbolOf(data))
 
     companion object {
         val name = InputSymbol::class.java.name
@@ -58,6 +74,8 @@ class InputDots(
     override val name = Companion.name
     override val data = dots.toString()
 
+    constructor(data: String) : this(BrailleDots(data))
+
     companion object {
         val name = InputDots::class.java.name
     }
@@ -72,6 +90,8 @@ class ShowSymbol(
 
     override val name = Companion.name
     override val data = symbol.toString()
+
+    constructor(data: String) : this(symbolOf(data))
 
     companion object {
         val name = ShowSymbol::class.java.name
@@ -88,6 +108,8 @@ class ShowDots(
     override val name = Companion.name
     override val data = dots.toString()
 
+    constructor(data: String) : this(BrailleDots(data))
+
     companion object {
         val name = ShowDots::class.java.name
     }
@@ -98,10 +120,11 @@ fun stepDataOf(string: String): StepData = string
     .let { (type, data) ->
         when (type) {
             Info.name -> Info(data)
-            InputSymbol.name -> InputSymbol(symbolOf(data))
-            InputDots.name -> InputDots(BrailleDots(data))
-            ShowSymbol.name -> ShowSymbol(symbolOf(data))
-            ShowDots.name -> ShowDots(BrailleDots(data))
+            LastInfo.name -> LastInfo(data)
+            InputSymbol.name -> InputSymbol(data)
+            InputDots.name -> InputDots(data)
+            ShowSymbol.name -> ShowSymbol(data)
+            ShowDots.name -> ShowDots(data)
             else -> error("No such step type: $type")
         }
     }
