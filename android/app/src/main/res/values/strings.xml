@@ -1,57 +1,117 @@
 <resources>
+
+    <!--    App common-->
+
     <string name="app_name">LearnBraille</string>
-
-    <string name="default_user_login">default</string>
-    <string name="default_user_first_name">John</string>
-    <string name="default_user_second_name">Smith</string>
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_help_message">No help message</string>
+
+    <!--    Practice-->
+
     <string name="practice_next">Next</string>
-    <string name="practice_menu">Menu</string>
+    <string name="practice_actionbar_title">Практика: %d из %d</string>
     <string name="practice_db_not_initialized_warning">
         Раздел практики загружается. Попробуйте ещё раз.
     </string>
-    <string name="exit_sentence">Выйти из приложения Learn Braille</string>
-    <string name="continue_sentence">Остаться в меню приложения Learn Braille</string>
+
+    <string name="practice_help">
+        В верхней половине экрана крупным шрифтом выведен символ,
+        который нужно ввести в шеститочии в нижней половине экрана и нажать кнопку “далее” справа.
+        Выход в меню приложения - кнопка вверху слева.
+        Вызов справки - кнопка вверху справа"
+    </string>
+
+    <!--    Exit-->
+
+    <string name="exit_yes">Выйти из приложения Learn Braille</string>
+    <string name="exit_no">Остаться в меню приложения Learn Braille</string>
+    <string name="exit_question">Вы хотите выйти?</string>
+
+    <!--    Greeting-->
+
+    <string name="greeting_title">HeyHey!</string>
     <string name="greeting">Hello!</string>
     <string name="greeting_exit">Выйти</string>
     <string name="greeting_start">Начать</string>
+
+    <!--    Menu-->
+    <string name="menu_continue">продолжить курс</string>
     <string name="menu_practice">ПРАКТИКА</string>
+    <string name="menu_qt">СКАНИРОВАТЬ QR-КОД</string>
     <string name="menu_exit">ВЫХОД</string>
+    <string name="menu_actionbar_text">Learn Braille. Меню</string>
+
+    <string name="menu_help">
+        Обучение системе Луи Брайля: главное меню. \n
+        “Продолжить курс“: пошаговые уроки с демонстрацией плоскопечатных и
+        рельефно-точечных символов крупным шрифтом, вводом символов и поясняющими комментариями. \n
+        ”Практика“: Повторяйте буквы, вводя их в шеститочии на экране. \n
+        ”Сканировать QR-код": если у Вас есть набор карточек с текстом Брайля и QR-кодами на обороте,
+        по нажатию кнопки вы можете отсканировать QR-код и проверить, что написано на карточке.
+        Для этого необходимо дополнительное приложение. Если его ещё нет, по нажатию кнопки
+        Вы будете перенаправлены на страницу для скачивания приложения.
+    </string>
+
+    <!--    Lessons-->
+
+    <string name="lessons_next">Вперёд</string>
+    <string name="lessons_db_not_initialized_warning">
+        Раздел практики загружается. Попробуйте еще раз.
+    </string>
+
+    <string name="lessons_help_template">%s\n\n%s</string>
+
+    <string name="lessons_help_common">
+        Переход к следующему шагу - кнопка справа, к предыдущему - кнопка слева.
+        Выход в меню приложения - кнопка вверху слева. Вызов справки -
+        кнопка вверху справа.
+    </string>
+
+    <string name="lessons_help_input_symbol">
+        Пошаговый курс - шаг с вводом символа.
+        В верхней половине экрана крупным шрифтом выведен символ, который нужно ввести в шеститочии
+        в нижней половине экрана.
+    </string>
+
+    <!--TODO mention the exact dots combination -->
+    <string name="lessons_help_input_dots">
+        Пошаговый курс - шаг с вводом символа.
+        Введите в шеститочии на экране точки с указанными номерами.
+    </string>
+
+    <string name="lessons_help_show_symbol">
+        Пошаговый курс - шаг с демонстрацией символа.
+        В верхней половине экрана крупным шрифтом выведен плоскопечатный символ, а в нижней части -
+        его представление точечным шрифтом. Нужно изучить точечный символ.
+    </string>
+
+    <string name="lessons_help_show_dots">
+        Пошаговый курс - шаг с демонстрацией символа.
+        На экран выведен точечный символ. Нужно внимательно изучить его точечный состав.
+    </string>
+
+    <string name="lessons_help_info">
+        Пошаговый курс - шаг с информационным сообщением.
+        Ознакомьтесь с сообщением, выведенном в текстовом поле по центру экрана.
+    </string>
+
+    <string name="lessons_help_last_info">
+        Самый последный шаг курса! Поздравляем!
+        Чтобы выйти в главное меню, нажмите дважды кнопку слева сверху.
+    </string>
+
+    <!--    Braille dots-->
+
     <string name="braille_dot_1">точка 1</string>
     <string name="braille_dot_2">точка 2</string>
     <string name="braille_dot_3">точка 3</string>
     <string name="braille_dot_4">точка 4</string>
     <string name="braille_dot_5">точка 5</string>
     <string name="braille_dot_6">точка 6</string>
-    <string name="to_menu">Выйти в меню</string>
-    <string name="to_help">Справка</string>
-    <!--    TODO place to step information storage-->
-    <string name="text_step1">
-        В рельефной азбуке Брайля любой символ - это шеститочие.
-        Каждая точка из шести может быть выдавлена или пропущена. \n
-        В следующем шаге все 6 точек выведены на экран.</string>
-    <string name="text_step2">
-        Откройте букварь на странице 12.
-        В верхней строке 14 раз повторён символ полного шеститочия.</string>
-    <string name="text_step3">
-        Некоторые символы Брайля обозначают как букву, так и цифру. Это буквы А, Б, Ц и так далее.
-        С добавлением цифрового знака, который мы изучим в следующем уроке,
-        из них получаются цифры 1, 2, 3 и так далее.</string>
-    <string name="text_step4">
-        Буква А обозначается одной точкой, точкой номер один. Ознакомьтесь с ней.</string>
-    <string name="text_step5">
-        Откройте букварь на странице 13. Вверху слева рельефно-грфаическое изображение буквы А.
-        Рядом после полного шеститочия пять раз повторена буква А точечным шрифтом. </string>
-    <string name="text_step6">
-        Буква Б в рельефной азбуке - две точки, номер 1 и 2.</string>
-    <string name="to_next">Вперёд</string>
-    <string name="to_previous">Назад</string>
-    <string name="continue_course">ПРОДОЛЖИТЬ КУРС</string>
-    <!--    TODO too long for title bar -->
-    <string name="menu_actionbar_text">Learn Braille. Меню</string>
-    <!--    TODO too long for title bar -->
-    <string name="practice_actionbar_title">Практика. Введите символ</string>
-    <string name="offline_practice">СКАНИРОВАТЬ QR-КОД</string>
+
+    <!--    Action menu-->
+
+    <string name="menu_help_description">Кнопка: справка</string>
+
 </resources>
 

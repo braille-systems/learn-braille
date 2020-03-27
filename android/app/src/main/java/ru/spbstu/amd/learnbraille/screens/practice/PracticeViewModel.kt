@@ -39,6 +39,24 @@ class PracticeViewModel(
     val symbol: LiveData<String>
         get() = _backingSymbol
 
+    private val _backingNLettersFaced = MutableLiveData<Int>()
+    private var _nLettersFaced: Int
+        get() = _backingNLettersFaced.value ?: error("nLettersFaced should be initialized")
+        set(value) {
+            _backingNLettersFaced.value = value
+        }
+    val nLettersFaced: LiveData<Int>
+        get() = _backingNLettersFaced
+
+    private val _backingNCorrect = MutableLiveData<Int>()
+    private var _nCorrect: Int
+        get() = _backingNCorrect.value ?: error("nCorrect should be initialized")
+        set(value) {
+            _backingNCorrect.value = value
+        }
+    val nCorrect: LiveData<Int>
+        get() = _backingNCorrect
+
     private val _eventCorrect = MutableLiveData<Boolean>()
     val eventCorrect: LiveData<Boolean>
         get() = _eventCorrect
@@ -69,6 +87,8 @@ class PracticeViewModel(
 
     init {
         initializeCard()
+        _nLettersFaced = 0
+        _nCorrect = 0
     }
 
     override fun onCleared() {
@@ -77,6 +97,7 @@ class PracticeViewModel(
     }
 
     fun onNext() {
+        _nLettersFaced++
         if (isCorrect) {
             onCorrect()
         } else {
@@ -97,6 +118,7 @@ class PracticeViewModel(
     }
 
     private fun onCorrect() = initializeCard().also {
+        _nCorrect++
         _eventCorrect.value = true
     }
 

@@ -13,7 +13,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/green"
-                android:text="@string/exit_sentence"
+                android:text="@string/exit_yes"
                 android:textSize="30sp" />
 
         <Button
@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/red"
-                android:text="@string/continue_sentence"
+                android:text="@string/exit_no"
                 android:textSize="30sp" />
 
     </LinearLayout>
