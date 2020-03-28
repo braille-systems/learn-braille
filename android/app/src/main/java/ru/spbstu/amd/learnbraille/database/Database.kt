@@ -11,6 +11,7 @@ import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_LESSONS
 import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_USERS
 import ru.spbstu.amd.learnbraille.res.russian.steps.PREPOPULATE_STEPS
 import ru.spbstu.amd.learnbraille.res.russian.symbols.PREPOPULATE_SYMBOLS
+import timber.log.Timber
 
 @Database(
     entities =
@@ -54,15 +55,19 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                 name
             )
             .addCallback(object : Callback() {
+                @SuppressLint("SyntheticAccessor")
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
+                    Timber.d("Start database callback")
                     ioThread {
+                        Timber.i("Start database prepopulation")
                         getInstance(context).apply {
                             userDao.insertUsers(PREPOPULATE_USERS)
                             lessonDao.insertLessons(PREPOPULATE_LESSONS)
                             stepDao.insertSteps(PREPOPULATE_STEPS)
                             symbolDao.insertSymbols(PREPOPULATE_SYMBOLS)
                         }
+                        Timber.i("Finnish database prepopulation")
                     }
                 }
             })

@@ -7,13 +7,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentMenuBinding
+import ru.spbstu.amd.learnbraille.screens.updateTitle
 
 
 class MenuFragment : Fragment() {
@@ -33,9 +33,7 @@ class MenuFragment : Fragment() {
         false
     ).apply {
 
-        (activity as AppCompatActivity)
-            .supportActionBar
-            ?.title = getString(R.string.menu_actionbar_text)
+        updateTitle(getString(R.string.menu_actionbar_text))
 
         setHasOptionsMenu(true)
 

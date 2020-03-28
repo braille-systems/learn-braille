@@ -16,12 +16,14 @@ sealed class StepData {
     override fun toString() = "$name $data"
 }
 
+sealed class BaseInfo : StepData()
+
 /**
  * Step displays information text for the user.
  */
 class Info(
     text: String
-) : StepData() {
+) : BaseInfo() {
 
     private val text = text.stepFormat()
 
@@ -35,7 +37,7 @@ class Info(
 
 class LastInfo(
     text: String
-) : StepData() {
+) : BaseInfo() {
 
     private val text = text.stepFormat()
 
@@ -47,12 +49,14 @@ class LastInfo(
     }
 }
 
+sealed class BaseInput : StepData()
+
 /**
  * Step prompts the user to enter Braille dots corresponding to the printed symbol.
  */
 class InputSymbol(
     val symbol: Symbol
-) : StepData() {
+) : BaseInput() {
 
     override val name = Companion.name
     override val data = symbol.toString()
@@ -69,7 +73,7 @@ class InputSymbol(
  */
 class InputDots(
     val dots: BrailleDots
-) : StepData() {
+) : BaseInput() {
 
     override val name = Companion.name
     override val data = dots.toString()
@@ -81,12 +85,14 @@ class InputDots(
     }
 }
 
+sealed class BaseShow : StepData()
+
 /**
  * Step shows symbol and it's Braille representation.
  */
 class ShowSymbol(
     val symbol: Symbol
-) : StepData() {
+) : BaseShow() {
 
     override val name = Companion.name
     override val data = symbol.toString()
@@ -103,7 +109,7 @@ class ShowSymbol(
  */
 class ShowDots(
     val dots: BrailleDots
-) : StepData() {
+) : BaseShow() {
 
     override val name = Companion.name
     override val data = dots.toString()
@@ -115,6 +121,9 @@ class ShowDots(
     }
 }
 
+/**
+ * Add new StepData types to the when, it is only one place not checked in compile time.
+ */
 fun stepDataOf(string: String): StepData = string
     .split(' ', limit = 2)
     .let { (type, data) ->

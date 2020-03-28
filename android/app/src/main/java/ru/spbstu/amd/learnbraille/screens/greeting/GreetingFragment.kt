@@ -3,12 +3,12 @@ package ru.spbstu.amd.learnbraille.screens.greeting
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentGreetingBinding
+import ru.spbstu.amd.learnbraille.screens.updateTitle
 
 class GreetingFragment : Fragment() {
 
@@ -23,9 +23,7 @@ class GreetingFragment : Fragment() {
         false
     ).apply {
 
-        (activity as AppCompatActivity)
-            .supportActionBar
-            ?.title = getString(R.string.greeting_title)
+        updateTitle(getString(R.string.greeting_title))
 
         startButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_greetingFragment_to_menuFragment)
