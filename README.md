@@ -6,8 +6,8 @@ This app is still in develop. Soon we are going to add interaction with physical
 
 Feel free to [contribute](https://github.com/braille-systems/learn-braille/blob/master/CONTRIBUTING.md)! <br>
 Take a look at [wiki pages (Russian)](https://github.com/braille-systems/learn-braille/wiki) <br>
-Project code style: [wiki](https://github.com/braille-systems/learn-braille/wiki/codestyle) <br>
-GitFlow - how to create branches and merge requests: [wiki](https://github.com/braille-systems/learn-braille/wiki/gitflow) <br>
+Project code style: [wiki (Russian)](https://github.com/braille-systems/learn-braille/wiki/codestyle) <br>
+GitFlow - how to create branches and merge requests: [wiki (Russian)](https://github.com/braille-systems/learn-braille/wiki/gitflow) <br>
 
 
 ## User's Guidelines
