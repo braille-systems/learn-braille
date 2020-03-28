@@ -22,8 +22,9 @@ data class Symbol(
     }
 }
 
-fun symbolOf(data: String) = Symbol
-    .pattern.matchEntire(data)?.groups
+fun symbolOf(data: String) = Symbol.pattern
+    .matchEntire(data)
+    ?.groups
     ?.let { (_, id, symbol, language, brailleDots) ->
         Symbol(
             id = id?.value?.toLong() ?: error("No id here $data"),

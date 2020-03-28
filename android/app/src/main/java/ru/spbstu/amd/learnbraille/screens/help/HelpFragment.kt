@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentHelpBinding
+import ru.spbstu.amd.learnbraille.screens.updateTitle
 
 class HelpFragment : Fragment() {
 
@@ -22,6 +23,8 @@ class HelpFragment : Fragment() {
         container,
         false
     ).apply {
+
+        updateTitle(getString(R.string.help_title))
 
         helpMessage.text = arguments
             ?.getString(helpMessageArgName)

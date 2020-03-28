@@ -6,7 +6,6 @@ import android.os.Vibrator
 import android.view.*
 import android.widget.CheckBox
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -18,6 +17,7 @@ import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.BrailleDotsState
 import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.databinding.FragmentPracticeBinding
+import ru.spbstu.amd.learnbraille.screens.updateTitle
 import timber.log.Timber
 
 class PracticeFragment : Fragment() {
@@ -100,11 +100,11 @@ class PracticeFragment : Fragment() {
 
 
         viewModel.nCorrect.observe(this@PracticeFragment, Observer {
-            updateTitle()
+            updateTitle(title)
         })
 
         viewModel.nLettersFaced.observe(this@PracticeFragment, Observer {
-            updateTitle()
+            updateTitle(title)
         })
 
         setHasOptionsMenu(true)
@@ -139,17 +139,12 @@ class PracticeFragment : Fragment() {
         }
     }
 
-    private fun makeUnchecked(checkBoxes: Array<CheckBox>) = checkBoxes.forEach {
-        if (it.isChecked) {
-            it.toggle()
+    private fun makeUnchecked(checkBoxes: Array<CheckBox>) = checkBoxes
+        .forEach {
+            if (it.isChecked) {
+                it.toggle()
+            }
         }
-    }
-
-    private fun updateTitle() {
-        (activity as AppCompatActivity)
-            .supportActionBar
-            ?.title = title
-    }
 
     companion object {
         val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)

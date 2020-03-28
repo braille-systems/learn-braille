@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.*
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonStepBinding
+import ru.spbstu.amd.learnbraille.screens.updateTitle
 
 class LessonStepFragment : Fragment() {
 
@@ -17,7 +19,17 @@ class LessonStepFragment : Fragment() {
     // TODO replace
     private val userId = 1L
 
-    private val helpMessage
+    private val title: String
+        get() = when (viewModel.currentLessonStep.value!!.step.data) {
+            is Info -> getString(R.string.lessons_title_info)
+            is LastInfo -> getString(R.string.lessons_title_last_info)
+            is InputSymbol -> getString(R.string.lessons_title_input_symbol)
+            is InputDots -> getString(R.string.lessons_title_input_dots)
+            is ShowSymbol -> getString(R.string.lessons_title_show_symbol)
+            is ShowDots -> getString(R.string.lessons_title_show_dots)
+        }
+
+    private val helpMessage: String
         get() = getString(R.string.lessons_help_template).format(
             getString(R.string.lessons_help_common),
             when (viewModel.currentLessonStep.value!!.step.data) {
@@ -55,7 +67,9 @@ class LessonStepFragment : Fragment() {
         lessonStepViewModel = viewModel
         lifecycleOwner = this@LessonStepFragment
 
-        // TODO set fragment title according to the step title
+        viewModel.currentLessonStep.observe(this@LessonStepFragment, Observer {
+            updateTitle(title)
+        })
 
         setHasOptionsMenu(true)
 

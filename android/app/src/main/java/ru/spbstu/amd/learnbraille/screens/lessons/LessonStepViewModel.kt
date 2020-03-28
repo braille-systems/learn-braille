@@ -88,7 +88,8 @@ class LessonStepViewModel(
     }
 
     private fun checkInput(input: BrailleDots) = dotsStateGetter()
-        ?.brailleDots?.equals(input)
+        ?.brailleDots
+        ?.equals(input)
         ?.let { if (it) onCorrect() else onIncorrect() }
         ?: error("Dots state is needed to check input correctness")
 

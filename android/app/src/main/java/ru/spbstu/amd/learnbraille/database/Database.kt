@@ -42,6 +42,9 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: LearnBrailleDatabase? = null
 
+        private var _isPrepopulated = false
+        val isPrepopulated get() = _isPrepopulated
+
         @SuppressLint("SyntheticAccessor")
         fun getInstance(context: Context): LearnBrailleDatabase =
             INSTANCE ?: synchronized(this) {
@@ -54,6 +57,7 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                 name
             )
             .addCallback(object : Callback() {
+                @SuppressLint("SyntheticAccessor")
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
                     ioThread {
@@ -63,6 +67,7 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                             stepDao.insertSteps(PREPOPULATE_STEPS)
                             symbolDao.insertSymbols(PREPOPULATE_SYMBOLS)
                         }
+                        _isPrepopulated = true
                     }
                 }
             })

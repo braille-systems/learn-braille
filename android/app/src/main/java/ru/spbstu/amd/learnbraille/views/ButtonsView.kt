@@ -19,6 +19,8 @@ class ButtonsView : ConstraintLayout {
     )
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.braille_dots, this, true)
+        LayoutInflater
+            .from(context)
+            .inflate(R.layout.braille_dots, this, true)
     }
 }
