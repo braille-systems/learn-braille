@@ -139,11 +139,12 @@ class PracticeFragment : Fragment() {
         }
     }
 
-    private fun makeUnchecked(checkBoxes: Array<CheckBox>) = checkBoxes.forEach {
-        if (it.isChecked) {
-            it.toggle()
+    private fun makeUnchecked(checkBoxes: Array<CheckBox>) = checkBoxes
+        .forEach {
+            if (it.isChecked) {
+                it.toggle()
+            }
         }
-    }
 
     private fun updateTitle() {
         (activity as AppCompatActivity)

@@ -2,6 +2,7 @@ package ru.spbstu.amd.learnbraille.res.russian.steps
 
 import ru.spbstu.amd.learnbraille.database.*
 import ru.spbstu.amd.learnbraille.database.BrailleDot.F
+import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_LESSONS
 import ru.spbstu.amd.learnbraille.res.russian.symbols.symbolMap
 
 /**
@@ -26,6 +27,12 @@ private fun Step(title: String, data: StepData) =
  * First two steps are used for database testing.
  */
 val LESSON_1_STEPS = listOf(
+
+    // TODO intro steps in all lessons
+    Step(
+        title = "Урок первый",
+        data = Info(PREPOPULATE_LESSONS[0].name)
+    ),
 
     Step(
         title = "Знакомство с шеститочием",
