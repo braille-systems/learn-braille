@@ -7,7 +7,6 @@
 
     <CheckBox
         android:id="@+id/dotButton1"
-        android:contentDescription="@string/braille_dot_1"
         style="@style/brailleDots"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,6 +15,7 @@
         android:layout_marginEnd="@dimen/braille_dots_inner_horizontal_margin"
         android:layout_marginBottom="@dimen/braille_dots_inner_vertical_margin"
         android:button="@drawable/round_checkbox"
+        android:contentDescription="@string/braille_dot_1"
         android:scaleX="@dimen/braille_dots_scale_of_one_dot"
         android:scaleY="@dimen/braille_dots_scale_of_one_dot"
         app:layout_constraintBottom_toTopOf="@+id/dotButton2"
@@ -27,7 +27,6 @@
 
     <CheckBox
         android:id="@+id/dotButton2"
-        android:contentDescription="@string/braille_dot_2"
         style="@style/brailleDots"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,6 +35,7 @@
         android:layout_marginEnd="@dimen/braille_dots_outer_horizontal_margin"
         android:layout_marginBottom="@dimen/braille_dots_inner_vertical_margin"
         android:button="@drawable/round_checkbox"
+        android:contentDescription="@string/braille_dot_2"
         android:scaleX="@dimen/braille_dots_scale_of_one_dot"
         android:scaleY="@dimen/braille_dots_scale_of_one_dot"
         app:layout_constraintBottom_toTopOf="@+id/dotButton3"
@@ -47,7 +47,6 @@
     <CheckBox
         android:id="@+id/dotButton3"
         style="@style/brailleDots"
-        android:contentDescription="@string/braille_dot_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/braille_dots_outer_horizontal_margin"
@@ -55,6 +54,7 @@
         android:layout_marginEnd="@dimen/braille_dots_outer_horizontal_margin"
         android:layout_marginBottom="@dimen/braille_dots_outer_vertical_margin"
         android:button="@drawable/round_checkbox"
+        android:contentDescription="@string/braille_dot_3"
         android:scaleX="@dimen/braille_dots_scale_of_one_dot"
         android:scaleY="@dimen/braille_dots_scale_of_one_dot"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -66,7 +66,6 @@
     <CheckBox
         android:id="@+id/dotButton4"
         style="@style/brailleDots"
-        android:contentDescription="@string/braille_dot_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/braille_dots_outer_horizontal_margin"
@@ -74,6 +73,7 @@
         android:layout_marginEnd="@dimen/braille_dots_outer_horizontal_margin"
         android:layout_marginBottom="@dimen/braille_dots_inner_vertical_margin"
         android:button="@drawable/round_checkbox"
+        android:contentDescription="@string/braille_dot_4"
         android:scaleX="@dimen/braille_dots_scale_of_one_dot"
         android:scaleY="@dimen/braille_dots_scale_of_one_dot"
         app:layout_constraintBottom_toTopOf="@+id/dotButton5"
@@ -85,7 +85,6 @@
     <CheckBox
         android:id="@+id/dotButton5"
         style="@style/brailleDots"
-        android:contentDescription="@string/braille_dot_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/braille_dots_inner_horizontal_margin"
@@ -93,6 +92,7 @@
         android:layout_marginEnd="@dimen/braille_dots_outer_horizontal_margin"
         android:layout_marginBottom="@dimen/braille_dots_inner_vertical_margin"
         android:button="@drawable/round_checkbox"
+        android:contentDescription="@string/braille_dot_5"
         android:scaleX="@dimen/braille_dots_scale_of_one_dot"
         android:scaleY="@dimen/braille_dots_scale_of_one_dot"
         app:layout_constraintBottom_toTopOf="@+id/dotButton6"
@@ -104,7 +104,6 @@
     <CheckBox
         android:id="@+id/dotButton6"
         style="@style/brailleDots"
-        android:contentDescription="@string/braille_dot_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/braille_dots_inner_horizontal_margin"
@@ -112,6 +111,7 @@
         android:layout_marginEnd="@dimen/braille_dots_outer_horizontal_margin"
         android:layout_marginBottom="@dimen/braille_dots_outer_vertical_margin"
         android:button="@drawable/round_checkbox"
+        android:contentDescription="@string/braille_dot_6"
         android:scaleX="@dimen/braille_dots_scale_of_one_dot"
         android:scaleY="@dimen/braille_dots_scale_of_one_dot"
         app:layout_constraintBottom_toBottomOf="parent"

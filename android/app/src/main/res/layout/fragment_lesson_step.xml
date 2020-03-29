@@ -4,14 +4,14 @@
     <data>
 
         <variable
-                name="lessonStepViewModel"
-                type="ru.spbstu.amd.learnbraille.screens.lessons.LessonStepViewModel" />
+            name="lessonStepViewModel"
+            type="ru.spbstu.amd.learnbraille.screens.lessons.LessonStepViewModel" />
     </data>
 
     <Button
-            android:id="@+id/next_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/greenButton"
-            android:text="@string/lessons_next" />
+        android:id="@+id/next_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/greenButton"
+        android:text="@string/lessons_next" />
 </layout>

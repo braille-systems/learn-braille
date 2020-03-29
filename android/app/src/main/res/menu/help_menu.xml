@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-            android:id="@+id/help"
-            android:enabled="true"
-            android:icon="@drawable/tmp_help_button"
-            android:title="@string/menu_help_description"
-            android:visible="true"
-            app:showAsAction="ifRoom"/>
+        android:id="@+id/help"
+        android:enabled="true"
+        android:icon="@drawable/tmp_help_button"
+        android:title="@string/menu_help_description"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
 </menu>
