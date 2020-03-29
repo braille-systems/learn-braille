@@ -14,6 +14,7 @@
             android:layout_weight="1"
             android:background="@color/green"
             android:text="@string/exit_yes"
+            android:textColor="#FFFFFF"
             android:textSize="30sp" />
 
         <Button
@@ -23,6 +24,7 @@
             android:layout_weight="1"
             android:background="@color/red"
             android:text="@string/exit_no"
+            android:textColor="#FFFFFF"
             android:textSize="30sp" />
 
     </LinearLayout>
