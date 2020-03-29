@@ -12,9 +12,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/green"
+            android:background="@color/mainColorLight"
             android:text="@string/exit_yes"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/colorText"
             android:textSize="30sp" />
 
         <Button
@@ -22,9 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/red"
+            android:background="@color/mainColorDark"
             android:text="@string/exit_no"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/colorText"
             android:textSize="30sp" />
 
     </LinearLayout>

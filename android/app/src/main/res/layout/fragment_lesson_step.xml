@@ -12,7 +12,7 @@
         android:id="@+id/next_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/greenButton"
+        android:background="@color/forwardButton"
         android:text="@string/lessons_next"
-        android:textColor="#FFFFFF" />
+        android:textColor="@color/colorText" />
 </layout>
