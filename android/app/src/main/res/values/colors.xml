@@ -3,8 +3,10 @@
     <color name="colorPrimary">#212121</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#CD2965</color>
-    <color name="green">#e040fb</color>
-    <color name="red">#212121</color>
+    <color name="mainColorLight">#e040fb</color>
+    <color name="mainColorDark">#212121</color>
 
-    <color name="greenButton">#e040fb</color>
+    <color name="forwardButton">#e040fb</color>
+    <color name="colorText">#FFFFFF</color>
+
 </resources>
