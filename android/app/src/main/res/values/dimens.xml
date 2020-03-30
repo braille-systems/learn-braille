@@ -6,4 +6,7 @@
     <dimen name="braille_dots_outer_vertical_margin">30dp</dimen>
     <dimen name="braille_dots_inner_horizontal_margin">20dp</dimen>
     <dimen name="braille_dots_inner_vertical_margin">25dp</dimen>
+    <dimen name="braille_dots_scale_of_one_dot">2.6</dimen>
+    <dimen name="braille_dots_scale_of_view">1.3</dimen>
+    <dimen name="letter_practice_scale_of_view">1</dimen>
 </resources>

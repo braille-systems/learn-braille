@@ -1,9 +1,9 @@
 package ru.spbstu.amd.learnbraille.screens.practice
 
+import android.app.Application
 import android.os.Bundle
 import android.os.Vibrator
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.*
 import android.widget.CheckBox
 import android.widget.Toast
 import androidx.core.content.getSystemService
@@ -11,22 +11,26 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.braille_dots.view.*
 import ru.spbstu.amd.learnbraille.R
+import ru.spbstu.amd.learnbraille.database.BrailleDotsState
 import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.databinding.FragmentPracticeBinding
+import ru.spbstu.amd.learnbraille.screens.updateTitle
 import timber.log.Timber
 
 class PracticeFragment : Fragment() {
 
-    companion object {
-        val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)
-        val INCORRECT_BUZZ_PATTERN = longArrayOf(0, 200)
-    }
-
     private lateinit var viewModel: PracticeViewModel
     private lateinit var viewModelFactory: PracticeViewModelFactory
     private var buzzer: Vibrator? = null
+
+    private val title: String
+        get() = getString(R.string.practice_actionbar_title).format(
+            viewModel.nCorrect.value,
+            viewModel.nLettersFaced.value
+        )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,15 +43,17 @@ class PracticeFragment : Fragment() {
         false
     ).apply {
 
-        val application = requireNotNull(activity).application
+        val application: Application = requireNotNull(activity).application
         val dataSource = LearnBrailleDatabase.getInstance(application).symbolDao
-        val dotCheckBoxes = arrayOf(
-            dotButton1, dotButton2, dotButton3,
-            dotButton4, dotButton5, dotButton6
-        )
+        val dotCheckBoxes = practiceButtons.run {
+            arrayOf(
+                dotButton1, dotButton2, dotButton3,
+                dotButton4, dotButton5, dotButton6
+            )
+        }
 
         viewModelFactory = PracticeViewModelFactory(
-            dataSource, application, dotCheckBoxes.map { BrailleDotState(it) }.toTypedArray()
+            dataSource, application, BrailleDotsState(dotCheckBoxes)
         )
         viewModel = ViewModelProvider(
             this@PracticeFragment, viewModelFactory
@@ -55,14 +61,10 @@ class PracticeFragment : Fragment() {
 
         buzzer = activity?.getSystemService()
 
+
         practiceViewModel = viewModel
         lifecycleOwner = this@PracticeFragment
 
-        mainMenuButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(
-                R.id.action_practiceFragment_to_menuFragment
-            )
-        )
 
         viewModel.eventCorrect.observe(this@PracticeFragment, Observer {
             if (!it) {
@@ -96,11 +98,56 @@ class PracticeFragment : Fragment() {
             viewModel.onIncorrectComplete()
         })
 
+
+        viewModel.nCorrect.observe(this@PracticeFragment, Observer {
+            updateTitle(title)
+        })
+
+        viewModel.nLettersFaced.observe(this@PracticeFragment, Observer {
+            updateTitle(title)
+        })
+
+        setHasOptionsMenu(true)
+
+
+        viewModel.eventWaitDBInit.observe(this@PracticeFragment, Observer {
+            if (!it) {
+                return@Observer
+            }
+            Toast.makeText(
+                context,
+                getString(R.string.practice_db_not_initialized_warning),
+                Toast.LENGTH_LONG
+            ).show()
+            findNavController().navigate(R.id.action_practiceFragment_to_menuFragment)
+        })
+
     }.root
 
-    private fun makeUnchecked(checkBoxes: Array<CheckBox>) = checkBoxes.forEach {
-        if (it.isChecked) {
-            it.toggle()
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.help_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = super.onOptionsItemSelected(item).also {
+        when (item.itemId) {
+            R.id.help -> {
+                val action = PracticeFragmentDirections.actionPracticeFragmentToHelpFragment()
+                action.helpMessage = getString(R.string.practice_help)
+                findNavController().navigate(action)
+            }
         }
+    }
+
+    private fun makeUnchecked(checkBoxes: Array<CheckBox>) = checkBoxes
+        .forEach {
+            if (it.isChecked) {
+                it.toggle()
+            }
+        }
+
+    companion object {
+        val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)
+        val INCORRECT_BUZZ_PATTERN = longArrayOf(0, 200)
     }
 }

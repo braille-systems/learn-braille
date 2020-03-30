@@ -10,10 +10,12 @@
 
 Для интересующихся есть [статья о написании commit message](https://gist.github.com/robertpainsi/b632364184e70900af4ab688decf6f53)
 ## Git Workflow
-[Git Workflow (правила оформления веток) - вики-статья](https://github.com/zuevval/braille4/wiki/gitflow)
+[Git Workflow (правила оформления веток) - вики-статья](https://github.com/braille-systems/learn-braille/wiki/gitflow)
 ## Стиль кодирования
-[Стиль кодирования - Вики-статья](https://github.com/zuevval/braille4/wiki/codestyle)
+[Стиль кодирования - Вики-статья](https://github.com/braille-systems/learn-braille/wiki/codestyle)
+
+## Руководство пользователя
+см. [вики-статью](https://github.com/braille-systems/learn-braille/wiki/app-users-manual)
 
 ## Сборка
-
-См. [CONTRIBUTING.md](https://github.com/zuevval/braille4/blob/master/CONTRIBUTING.md)
+См. [CONTRIBUTING.md](https://github.com/braille-systems/learn-braille/blob/master/CONTRIBUTING.md)

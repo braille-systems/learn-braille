@@ -1,9 +1,6 @@
 package ru.spbstu.amd.learnbraille.database
 
 import androidx.room.*
-import ru.spbstu.amd.learnbraille.database.BrailleDot.E
-import ru.spbstu.amd.learnbraille.database.BrailleDot.F
-import ru.spbstu.amd.learnbraille.database.Language.RU
 
 @Entity(tableName = "symbol")
 data class Symbol(
@@ -13,64 +10,62 @@ data class Symbol(
 
     val symbol: Char,
 
-    val language: Language,
+    val language: Language = Language.NONE,
 
     @ColumnInfo(name = "braille_dots")
     val brailleDots: BrailleDots
-)
+) {
+    companion object {
+        val pattern = Regex(
+            """Symbol\(id=(\d+), symbol=(.), language=(\w{2,4}), brailleDots=([E|F]{6})\)"""
+        )
+    }
+}
+
+fun symbolOf(data: String) = Symbol.pattern
+    .matchEntire(data)
+    ?.groups?.let { (_, id, symbol, language, brailleDots) ->
+    Symbol(
+        id = id?.value?.toLong() ?: error("No id here $data"),
+        symbol = symbol?.value?.first() ?: error("No symbol here $data"),
+        language = Language.valueOf(
+            language?.value ?: error("No language here $data")
+        ),
+        brailleDots = BrailleDots(
+            brailleDots?.value ?: error("No braille dots here $data")
+        )
+    )
+} ?: error("$data does not match Symbol structure")
 
 @Dao
 interface SymbolDao {
 
     @Insert
-    fun insertLetters(symbols: List<Symbol>)
-
-    @Query("SELECT * FROM symbol WHERE language = :language ORDER BY RANDOM() LIMIT 1")
-    fun getRandomEntry(language: Language): Symbol?
+    fun insertSymbols(symbols: List<Symbol>)
 
     @Query(
-        "SELECT symbol FROM symbol " +
-                "WHERE braille_dots = :brailleDots " +
-                "and language = :language LIMIT 1"
+        """
+        SELECT * 
+        FROM symbol 
+        WHERE language = :language 
+        ORDER BY RANDOM() 
+        LIMIT 1
+        """
     )
-    fun getSymbol(brailleDots: BrailleDots, language: Language): Char?
+    fun getRandomSymbol(language: Language): Symbol?
 
-    @Query("SELECT braille_dots FROM symbol WHERE symbol = :symbol LIMIT 1")
-    fun getBrailleDots(symbol: Char): BrailleDots?
+    @Query("SELECT * FROM symbol WHERE symbol = :char LIMIT 1")
+    fun getSymbol(char: Char): Symbol?
+
+    @Query(
+        """
+        SELECT * 
+        FROM symbol 
+        WHERE language = :language AND braille_dots = :brailleDots 
+        LIMIT 1
+        """
+    )
+    fun getSymbol(language: Language, brailleDots: BrailleDots): Symbol?
 }
 
-internal val PREPOPULATE_LETTERS = listOf(
-    Symbol(symbol = 'А', language = RU, brailleDots = BrailleDots(F, E, E, E, E, E)),
-    Symbol(symbol = 'Б', language = RU, brailleDots = BrailleDots(F, F, E, E, E, E)),
-    Symbol(symbol = 'В', language = RU, brailleDots = BrailleDots(E, F, E, F, F, F)),
-    Symbol(symbol = 'Г', language = RU, brailleDots = BrailleDots(F, F, E, F, F, E)),
-    Symbol(symbol = 'Д', language = RU, brailleDots = BrailleDots(F, E, E, F, F, E)),
-    Symbol(symbol = 'Е', language = RU, brailleDots = BrailleDots(F, E, E, E, F, E)),
-    Symbol(symbol = 'Ё', language = RU, brailleDots = BrailleDots(F, E, E, E, E, F)),
-    Symbol(symbol = 'Ж', language = RU, brailleDots = BrailleDots(E, F, E, F, F, E)),
-    Symbol(symbol = 'З', language = RU, brailleDots = BrailleDots(F, E, F, E, F, F)),
-    Symbol(symbol = 'И', language = RU, brailleDots = BrailleDots(E, F, E, F, E, E)),
-    Symbol(symbol = 'Й', language = RU, brailleDots = BrailleDots(F, F, F, F, E, F)),
-    Symbol(symbol = 'К', language = RU, brailleDots = BrailleDots(F, E, F, E, E, E)),
-    Symbol(symbol = 'Л', language = RU, brailleDots = BrailleDots(F, F, F, E, E, E)),
-    Symbol(symbol = 'М', language = RU, brailleDots = BrailleDots(F, E, F, F, E, E)),
-    Symbol(symbol = 'Н', language = RU, brailleDots = BrailleDots(F, E, F, F, F, E)),
-    Symbol(symbol = 'О', language = RU, brailleDots = BrailleDots(F, E, F, E, F, E)),
-    Symbol(symbol = 'П', language = RU, brailleDots = BrailleDots(F, F, F, F, E, E)),
-    Symbol(symbol = 'Р', language = RU, brailleDots = BrailleDots(F, F, F, E, F, E)),
-    Symbol(symbol = 'С', language = RU, brailleDots = BrailleDots(E, F, F, F, E, E)),
-    Symbol(symbol = 'Т', language = RU, brailleDots = BrailleDots(E, F, F, F, F, E)),
-    Symbol(symbol = 'У', language = RU, brailleDots = BrailleDots(F, E, F, E, E, F)),
-    Symbol(symbol = 'Ф', language = RU, brailleDots = BrailleDots(F, F, E, F, E, E)),
-    Symbol(symbol = 'Х', language = RU, brailleDots = BrailleDots(F, F, E, E, F, E)),
-    Symbol(symbol = 'Ц', language = RU, brailleDots = BrailleDots(F, E, E, F, E, E)),
-    Symbol(symbol = 'Ч', language = RU, brailleDots = BrailleDots(F, F, F, F, F, E)),
-    Symbol(symbol = 'Ш', language = RU, brailleDots = BrailleDots(F, E, E, E, F, F)),
-    Symbol(symbol = 'Щ', language = RU, brailleDots = BrailleDots(F, E, F, F, E, F)),
-    Symbol(symbol = 'Ъ', language = RU, brailleDots = BrailleDots(F, F, F, E, F, F)),
-    Symbol(symbol = 'Ы', language = RU, brailleDots = BrailleDots(E, F, F, F, E, F)),
-    Symbol(symbol = 'Ь', language = RU, brailleDots = BrailleDots(E, F, F, F, F, F)),
-    Symbol(symbol = 'Э', language = RU, brailleDots = BrailleDots(E, F, E, F, E, F)),
-    Symbol(symbol = 'Ю', language = RU, brailleDots = BrailleDots(F, F, E, E, F, F)),
-    Symbol(symbol = 'Я', language = RU, brailleDots = BrailleDots(F, F, E, F, E, F))
-)
+
