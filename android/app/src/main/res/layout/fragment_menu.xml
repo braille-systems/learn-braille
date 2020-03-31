@@ -12,7 +12,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/menu_continue"
-            android:textSize="36sp" />
+            android:textSize="36sp"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/practice_button"
