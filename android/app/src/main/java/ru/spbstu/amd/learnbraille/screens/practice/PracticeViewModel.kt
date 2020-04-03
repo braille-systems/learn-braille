@@ -1,12 +1,10 @@
 package ru.spbstu.amd.learnbraille.screens.practice
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
-import ru.spbstu.amd.learnbraille.database.BrailleDots
-import ru.spbstu.amd.learnbraille.database.BrailleDotsState
-import ru.spbstu.amd.learnbraille.database.Language
-import ru.spbstu.amd.learnbraille.database.SymbolDao
+import ru.spbstu.amd.learnbraille.database.*
 import timber.log.Timber
 
 class PracticeViewModelFactory(
@@ -79,6 +77,12 @@ class PracticeViewModel(
                         "entered = $enteredDots, expected = $expectedDots"
             )
         }
+    private var _hintUsed:Boolean = false
+    private val _eventHint =  MutableLiveData<Boolean>()
+    val eventHint: LiveData<Boolean> // not sure what to return here
+            get() = _eventHint.also{
+                Timber.i("Hint used")
+            }
 
     private val language = Language.RU // Temporary field, will move to settings
 
@@ -103,6 +107,16 @@ class PracticeViewModel(
         } else {
             onIncorrect()
         }
+        _hintUsed = false
+    }
+
+    fun onHint() {
+        _hintUsed = true
+        _eventHint.value = true
+    }
+
+    fun ifHintUsed(): Boolean {
+        return _hintUsed
     }
 
     fun onCorrectComplete() {
@@ -117,8 +131,28 @@ class PracticeViewModel(
         _eventWaitDBInit.value = false
     }
 
+    fun getDotsString(): String? {
+        var res = "Ответ: точки "
+        if(expectedDots?.b1 == BrailleDot.F)
+            res += "1 "
+        if(expectedDots?.b2 == BrailleDot.F)
+            res += "2 "
+        if(expectedDots?.b3 == BrailleDot.F)
+            res += "3 "
+        if(expectedDots?.b4 == BrailleDot.F)
+            res += "4 "
+        if(expectedDots?.b5 == BrailleDot.F)
+            res += "5 "
+        if(expectedDots?.b6 == BrailleDot.F)
+            res += "6"
+        return res
+    }
+
+    fun getExpectedDots() = expectedDots
+
     private fun onCorrect() = initializeCard().also {
-        _nCorrect++
+        if (!_hintUsed)
+            _nCorrect++
         _eventCorrect.value = true
     }
 

@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.braille_dots.view.*
 import ru.spbstu.amd.learnbraille.R
+import ru.spbstu.amd.learnbraille.database.BrailleDot
 import ru.spbstu.amd.learnbraille.database.BrailleDotsState
 import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.databinding.FragmentPracticeBinding
@@ -71,7 +72,10 @@ class PracticeFragment : Fragment() {
                 return@Observer
             }
 
-            Toast.makeText(context, "Правильно!", Toast.LENGTH_SHORT).show()
+            var toastMessage = "Правильно!"
+            if (viewModel.ifHintUsed())
+                toastMessage += "\n Но с подсказкой балл не даётся"
+            Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show()
             Timber.i("Handle correct")
 
             // Use deprecated API to be compatible with old android API levels
@@ -80,6 +84,19 @@ class PracticeFragment : Fragment() {
 
             makeUnchecked(dotCheckBoxes)
             viewModel.onCorrectComplete()
+        })
+
+        viewModel.eventHint.observe(this@PracticeFragment, Observer {
+            Toast.makeText(context, viewModel.getDotsString(), Toast.LENGTH_SHORT).show()
+            Timber.i("Hint invoked")
+            val expectedDots = viewModel.getExpectedDots()
+            Timber.i(expectedDots.toString())
+            dotCheckBoxes[0].isChecked = expectedDots?.b1 == BrailleDot.F
+            dotCheckBoxes[1].isChecked = expectedDots?.b2 == BrailleDot.F
+            dotCheckBoxes[2].isChecked = expectedDots?.b3 == BrailleDot.F
+            dotCheckBoxes[3].isChecked = expectedDots?.b4 == BrailleDot.F
+            dotCheckBoxes[4].isChecked = expectedDots?.b5 == BrailleDot.F
+            dotCheckBoxes[5].isChecked = expectedDots?.b6 == BrailleDot.F
         })
 
         viewModel.eventIncorrect.observe(this@PracticeFragment, Observer {
