@@ -8,7 +8,8 @@
 
     <!--    Practice-->
 
-    <string name="practice_next">Next</string>
+    <string name="practice_hint">Подсказка</string>
+    <string name="practice_next">Далее</string>
     <string name="practice_actionbar_title">Практика: %d из %d</string>
     <string name="practice_db_not_initialized_warning">
         Раздел практики загружается. Попробуйте ещё раз.

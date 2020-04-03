@@ -71,7 +71,7 @@ class PracticeFragment : Fragment() {
                 return@Observer
             }
 
-            Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Правильно!", Toast.LENGTH_SHORT).show()
             Timber.i("Handle correct")
 
             // Use deprecated API to be compatible with old android API levels
@@ -87,7 +87,7 @@ class PracticeFragment : Fragment() {
                 return@Observer
             }
 
-            Toast.makeText(context, "Incorrect!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Неправильно!", Toast.LENGTH_SHORT).show()
             Timber.i("Handle incorrect")
 
             // Use deprecated API to be compatible with old android API levels
