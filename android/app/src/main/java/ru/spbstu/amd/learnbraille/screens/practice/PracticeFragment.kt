@@ -1,6 +1,12 @@
 package ru.spbstu.amd.learnbraille.screens.practice
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
+import android.content.IntentFilter
+import android.hardware.usb.UsbDevice
+import android.hardware.usb.UsbDeviceConnection
+import android.hardware.usb.UsbManager
 import android.os.Bundle
 import android.os.Vibrator
 import android.view.*
@@ -19,6 +25,8 @@ import ru.spbstu.amd.learnbraille.database.BrailleDotsState
 import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.databinding.FragmentPracticeBinding
 import ru.spbstu.amd.learnbraille.screens.updateTitle
+import ru.spbstu.amd.learnbraille.serial.UsbSerial
+import ru.spbstu.amd.learnbraille.serial.UsbSerial.Companion.USB_SERVICE
 import timber.log.Timber
 
 class PracticeFragment : Fragment() {
@@ -52,6 +60,16 @@ class PracticeFragment : Fragment() {
                 dotButton4, dotButton5, dotButton6
             )
         }
+
+        // init serial connection with Braille Trainer
+        @SuppressLint("WrongConstant") // permit `application.getSystemService(USB_SERVICE)`
+        val usbManager = application.getSystemService(USB_SERVICE) as UsbManager
+        val filter = IntentFilter()
+        filter.addAction(UsbSerial.ACTION_USB_PERMISSION)
+        filter.addAction(UsbManager.ACTION_USB_ACCESSORY_ATTACHED)
+        filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
+        val serial = UsbSerial(usbManager, application);
+        application.registerReceiver(serial.broadcastReceiver, filter)
 
         viewModelFactory = PracticeViewModelFactory(
             dataSource, application, BrailleDotsState(dotCheckBoxes)
@@ -97,6 +115,10 @@ class PracticeFragment : Fragment() {
             dotCheckBoxes[3].isChecked = expectedDots?.b4 == BrailleDot.F
             dotCheckBoxes[4].isChecked = expectedDots?.b5 == BrailleDot.F
             dotCheckBoxes[5].isChecked = expectedDots?.b6 == BrailleDot.F
+
+            if (expectedDots != null) {
+                serial.trySend(expectedDots)
+            }
         })
 
         viewModel.eventIncorrect.observe(this@PracticeFragment, Observer {
