@@ -19,6 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.braille_dots.view.*
+import kotlinx.android.synthetic.main.fragment_practice.*
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.BrailleDot
 import ru.spbstu.amd.learnbraille.database.BrailleDotsState
@@ -104,7 +105,8 @@ class PracticeFragment : Fragment() {
             viewModel.onCorrectComplete()
         })
 
-        viewModel.eventHint.observe(this@PracticeFragment, Observer {
+        hintButton.setOnClickListener {
+            viewModel.onHint()
             Toast.makeText(context, viewModel.getDotsString(), Toast.LENGTH_SHORT).show()
             Timber.i("Hint invoked")
             val expectedDots = viewModel.getExpectedDots()
@@ -115,11 +117,12 @@ class PracticeFragment : Fragment() {
             dotCheckBoxes[3].isChecked = expectedDots?.b4 == BrailleDot.F
             dotCheckBoxes[4].isChecked = expectedDots?.b5 == BrailleDot.F
             dotCheckBoxes[5].isChecked = expectedDots?.b6 == BrailleDot.F
+            dotCheckBoxes.forEach { it.isClickable = false }
 
             if (expectedDots != null) {
                 serial.trySend(expectedDots)
             }
-        })
+        }
 
         viewModel.eventIncorrect.observe(this@PracticeFragment, Observer {
             if (!it) {
@@ -144,6 +147,7 @@ class PracticeFragment : Fragment() {
 
         viewModel.nLettersFaced.observe(this@PracticeFragment, Observer {
             updateTitle(title)
+            dotCheckBoxes.forEach { it.isClickable = true }
         })
 
         setHasOptionsMenu(true)

@@ -78,11 +78,6 @@ class PracticeViewModel(
             )
         }
     private var _hintUsed:Boolean = false
-    private val _eventHint =  MutableLiveData<Boolean>()
-    val eventHint: LiveData<Boolean> // not sure what to return here
-            get() = _eventHint.also{
-                Timber.i("Hint used")
-            }
 
     private val language = Language.RU // Temporary field, will move to settings
 
@@ -112,7 +107,6 @@ class PracticeViewModel(
 
     fun onHint() {
         _hintUsed = true
-        _eventHint.value = true
     }
 
     fun ifHintUsed(): Boolean {
