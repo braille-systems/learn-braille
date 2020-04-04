@@ -2,10 +2,7 @@ package ru.spbstu.amd.learnbraille.screens.practice
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.content.Context
 import android.content.IntentFilter
-import android.hardware.usb.UsbDevice
-import android.hardware.usb.UsbDeviceConnection
 import android.hardware.usb.UsbManager
 import android.os.Bundle
 import android.os.Vibrator
@@ -19,7 +16,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.braille_dots.view.*
-import kotlinx.android.synthetic.main.fragment_practice.*
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.BrailleDot
 import ru.spbstu.amd.learnbraille.database.BrailleDotsState
@@ -62,7 +58,7 @@ class PracticeFragment : Fragment() {
             )
         }
 
-        // init serial connection with Braille Trainer
+        // Init serial connection with Braille Trainer
         @SuppressLint("WrongConstant") // permit `application.getSystemService(USB_SERVICE)`
         val usbManager = application.getSystemService(USB_SERVICE) as UsbManager
         val filter = IntentFilter()
@@ -91,9 +87,7 @@ class PracticeFragment : Fragment() {
                 return@Observer
             }
 
-            var toastMessage = "Правильно!"
-            if (viewModel.ifHintUsed())
-                toastMessage += "\n Но с подсказкой балл не даётся"
+            var toastMessage = getString(R.string.msgCorrect)
             Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show()
             Timber.i("Handle correct")
 

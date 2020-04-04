@@ -72,14 +72,14 @@ class UsbSerial// TODO make this class a singleton and initialize on startup; al
 
     private fun sendData(input: String) {
         mSerial?.write(input.toByteArray())
-       debugLog("sending data: $input")
+        debugLog("sending data: $input")
     }
 
     private fun disconnectUsb() {
         mSerial?.close()
     }
 
-    private fun debugLog(msg:String){
+    private fun debugLog(msg: String) {
         Timber.i(msg)
     }
 

@@ -124,6 +124,7 @@
     <!--    Help-->
 
     <string name="help_title">Справка</string>
+    <string name="msgCorrect">Правильно!</string>
 
 </resources>
 
