@@ -77,7 +77,7 @@ class PracticeViewModel(
                         "entered = $enteredDots, expected = $expectedDots"
             )
         }
-    private var _hintUsed:Boolean = false
+    private var _hintUsed: Boolean = false
 
     private val language = Language.RU // Temporary field, will move to settings
 
@@ -127,17 +127,17 @@ class PracticeViewModel(
 
     fun getDotsString(): String? {
         var res = "Ответ: точки "
-        if(expectedDots?.b1 == BrailleDot.F)
+        if (expectedDots?.b1 == BrailleDot.F)
             res += "1 "
-        if(expectedDots?.b2 == BrailleDot.F)
+        if (expectedDots?.b2 == BrailleDot.F)
             res += "2 "
-        if(expectedDots?.b3 == BrailleDot.F)
+        if (expectedDots?.b3 == BrailleDot.F)
             res += "3 "
-        if(expectedDots?.b4 == BrailleDot.F)
+        if (expectedDots?.b4 == BrailleDot.F)
             res += "4 "
-        if(expectedDots?.b5 == BrailleDot.F)
+        if (expectedDots?.b5 == BrailleDot.F)
             res += "5 "
-        if(expectedDots?.b6 == BrailleDot.F)
+        if (expectedDots?.b6 == BrailleDot.F)
             res += "6"
         return res
     }
@@ -145,8 +145,10 @@ class PracticeViewModel(
     fun getExpectedDots() = expectedDots
 
     private fun onCorrect() = initializeCard().also {
-        if (!_hintUsed)
+        if (!_hintUsed) {
             _nCorrect++
+        }
+
         _eventCorrect.value = true
     }
 

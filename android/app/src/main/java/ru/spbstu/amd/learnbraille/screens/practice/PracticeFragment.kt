@@ -87,8 +87,7 @@ class PracticeFragment : Fragment() {
                 return@Observer
             }
 
-            var toastMessage = getString(R.string.msgCorrect)
-            Toast.makeText(context, toastMessage, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.msgCorrect), Toast.LENGTH_SHORT).show()
             Timber.i("Handle correct")
 
             // Use deprecated API to be compatible with old android API levels
@@ -102,9 +101,8 @@ class PracticeFragment : Fragment() {
         hintButton.setOnClickListener {
             viewModel.onHint()
             Toast.makeText(context, viewModel.getDotsString(), Toast.LENGTH_SHORT).show()
-            Timber.i("Hint invoked")
             val expectedDots = viewModel.getExpectedDots()
-            Timber.i(expectedDots.toString())
+            Timber.i("Hint invoked. Correct answer: " + expectedDots.toString())
             dotCheckBoxes[0].isChecked = expectedDots?.b1 == BrailleDot.F
             dotCheckBoxes[1].isChecked = expectedDots?.b2 == BrailleDot.F
             dotCheckBoxes[2].isChecked = expectedDots?.b3 == BrailleDot.F
@@ -112,7 +110,6 @@ class PracticeFragment : Fragment() {
             dotCheckBoxes[4].isChecked = expectedDots?.b5 == BrailleDot.F
             dotCheckBoxes[5].isChecked = expectedDots?.b6 == BrailleDot.F
             dotCheckBoxes.forEach { it.isClickable = false }
-
             if (expectedDots != null) {
                 serial.trySend(expectedDots)
             }
@@ -123,7 +120,7 @@ class PracticeFragment : Fragment() {
                 return@Observer
             }
 
-            Toast.makeText(context, "Неправильно!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.msgIncorrect), Toast.LENGTH_SHORT).show()
             Timber.i("Handle incorrect")
 
             // Use deprecated API to be compatible with old android API levels

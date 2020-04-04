@@ -12,8 +12,7 @@ import com.felhr.usbserial.UsbSerialInterface
 import ru.spbstu.amd.learnbraille.database.BrailleDots
 import timber.log.Timber
 
-class UsbSerial// TODO make this class a singleton and initialize on startup; allow multiple connection attempts
-    (usbManager: UsbManager, context: Context) {
+class UsbSerial(usbManager: UsbManager, context: Context) {
     private var mUsbManager: UsbManager = usbManager
     private var invokingContext: Context = context
     var mDevice: UsbDevice? = null
