@@ -1,10 +1,14 @@
 package ru.spbstu.amd.learnbraille.screens.practice
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
-import ru.spbstu.amd.learnbraille.database.*
+import ru.spbstu.amd.learnbraille.database.BrailleDots
+import ru.spbstu.amd.learnbraille.database.BrailleDotsState
+import ru.spbstu.amd.learnbraille.database.Language
+import ru.spbstu.amd.learnbraille.database.SymbolDao
+import ru.spbstu.amd.learnbraille.language
+import ru.spbstu.amd.learnbraille.side
 import timber.log.Timber
 
 class PracticeViewModelFactory(
@@ -22,38 +26,33 @@ class PracticeViewModelFactory(
         }
 }
 
+/**
+ * Exposes live data:
+ * - symbol
+ * - nLettersFaced
+ * - nCorrect
+ *
+ * Events:
+ * - eventCorrect
+ * - eventIncorrect
+ * - eventHint
+ * - eventPassHint
+ */
 class PracticeViewModel(
     private val database: SymbolDao,
     application: Application,
     private val dotsState: BrailleDotsState
 ) : AndroidViewModel(application) {
 
-    private val _backingSymbol = MutableLiveData<String>() // True backing field
-    private var _symbol: Char // This class interface to the true backing filed
-        get() = _backingSymbol.value!!.first()
-        set(value) {
-            _backingSymbol.value = value.toString()
-        }
+    private var _symbol = MutableLiveData<String>()
     val symbol: LiveData<String>
-        get() = _backingSymbol
+        get() = _symbol
 
-    private val _backingNLettersFaced = MutableLiveData<Int>()
-    private var _nLettersFaced: Int
-        get() = _backingNLettersFaced.value ?: error("nLettersFaced should be initialized")
-        set(value) {
-            _backingNLettersFaced.value = value
-        }
-    val nLettersFaced: LiveData<Int>
-        get() = _backingNLettersFaced
+    var nTries: Int = 0
+        private set
 
-    private val _backingNCorrect = MutableLiveData<Int>()
-    private var _nCorrect: Int
-        get() = _backingNCorrect.value ?: error("nCorrect should be initialized")
-        set(value) {
-            _backingNCorrect.value = value
-        }
-    val nCorrect: LiveData<Int>
-        get() = _backingNCorrect
+    var nCorrect: Int = 0
+        private set
 
     private val _eventCorrect = MutableLiveData<Boolean>()
     val eventCorrect: LiveData<Boolean>
@@ -63,9 +62,13 @@ class PracticeViewModel(
     val eventIncorrect: LiveData<Boolean>
         get() = _eventIncorrect
 
-    private val _eventWaitDBInit = MutableLiveData<Boolean>()
-    val eventWaitDBInit: LiveData<Boolean>
-        get() = _eventWaitDBInit
+    private val _eventHint = MutableLiveData<BrailleDots>()
+    val eventHint: LiveData<BrailleDots>
+        get() = _eventHint
+
+    private val _eventPassHint = MutableLiveData<Boolean>()
+    val eventPassHint: LiveData<Boolean>
+        get() = _eventPassHint
 
     private var expectedDots: BrailleDots? = null
     private val enteredDots get() = dotsState.brailleDots
@@ -77,17 +80,15 @@ class PracticeViewModel(
                         "entered = $enteredDots, expected = $expectedDots"
             )
         }
-    private var _hintUsed: Boolean = false
 
-    private val language = Language.RU // Temporary field, will move to settings
-
+    // TODO unify for app
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
 
+    private var state = State.INPUT
+
     init {
         initializeCard()
-        _nLettersFaced = 0
-        _nCorrect = 0
     }
 
     override fun onCleared() {
@@ -95,60 +96,21 @@ class PracticeViewModel(
         job.cancel()
     }
 
-    fun onNext() {
-        _nLettersFaced++
-        if (isCorrect) {
-            onCorrect()
+    fun onNext(): Unit =
+        if (state == State.HINT) {
+            state = State.INPUT
+            onPassHist()
         } else {
-            onIncorrect()
-        }
-        _hintUsed = false
-    }
-
-    fun onHint() {
-        _hintUsed = true
-    }
-
-    fun ifHintUsed(): Boolean {
-        return _hintUsed
-    }
-
-    fun onCorrectComplete() {
-        _eventCorrect.value = false
-    }
-
-    fun onIncorrectComplete() {
-        _eventIncorrect.value = false
-    }
-
-    fun onEventWaitDBInitComplete() {
-        _eventWaitDBInit.value = false
-    }
-
-    fun getDotsString(): String? {
-        var res = "Ответ: точки "
-        if (expectedDots?.b1 == BrailleDot.F)
-            res += "1 "
-        if (expectedDots?.b2 == BrailleDot.F)
-            res += "2 "
-        if (expectedDots?.b3 == BrailleDot.F)
-            res += "3 "
-        if (expectedDots?.b4 == BrailleDot.F)
-            res += "4 "
-        if (expectedDots?.b5 == BrailleDot.F)
-            res += "5 "
-        if (expectedDots?.b6 == BrailleDot.F)
-            res += "6"
-        return res
-    }
-
-    fun getExpectedDots() = expectedDots
-
-    private fun onCorrect() = initializeCard().also {
-        if (!_hintUsed) {
-            _nCorrect++
+            nTries++
+            if (isCorrect) {
+                onCorrect()
+            } else {
+                onIncorrect()
+            }
         }
 
+    private fun onCorrect() = initializeCard().side {
+        nCorrect++
         _eventCorrect.value = true
     }
 
@@ -156,17 +118,43 @@ class PracticeViewModel(
         _eventIncorrect.value = true
     }
 
-    private fun onWaitDBInit() {
-        _eventWaitDBInit.value = true
+    private fun onPassHist() {
+        _eventPassHint.value = true
+    }
+
+    fun onHint() {
+        state = State.HINT
+        _eventHint.value = expectedDots
+    }
+
+    fun onCorrectComplete() {
+        _eventCorrect.value = false
+    }
+
+    fun onHintComplete() {
+        _eventHint.value = null
+    }
+
+    fun onPassHintComplete() {
+        _eventPassHint.value = false
+    }
+
+    fun onIncorrectComplete() {
+        _eventIncorrect.value = false
     }
 
     private fun initializeCard() = uiScope.launch {
-        val entry = getEntryFromDatabase(language) ?: onWaitDBInit().run { return@launch }
-        _symbol = entry.symbol
+        val entry = getEntryFromDatabase(language) ?: error("DB is not initialized")
+        _symbol.value = entry.symbol.toString()
         expectedDots = entry.brailleDots
     }
 
+    // TODO unify context for app
     private suspend fun getEntryFromDatabase(language: Language) = withContext(Dispatchers.IO) {
         database.getRandomSymbol(language)
+    }
+
+    private enum class State {
+        INPUT, HINT
     }
 }

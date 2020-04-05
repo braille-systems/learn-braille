@@ -43,6 +43,21 @@ data class BrailleDots(
     override fun toString() = "$b1$b2$b3$b4$b5$b6"
 }
 
+val BrailleDots.list: List<BrailleDot>
+    get() = listOf(b1, b2, b3, b4, b5, b6)
+
+val BrailleDots.spell: String
+    get() = list
+        .mapIndexed { index, brailleDot ->
+            if (brailleDot == BrailleDot.F) {
+                (index + 1).toString()
+            } else {
+                null
+            }
+        }
+        .filterNotNull()
+        .joinToString(separator = " ")
+
 class BrailleDotsConverters {
 
     @TypeConverter
