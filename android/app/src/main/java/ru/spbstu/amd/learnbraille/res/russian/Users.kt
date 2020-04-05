@@ -1,6 +1,6 @@
 package ru.spbstu.amd.learnbraille.res.russian
 
-import ru.spbstu.amd.learnbraille.database.User
+import ru.spbstu.amd.learnbraille.database.entities.User
 
 val PREPOPULATE_USERS = listOf(
     User(

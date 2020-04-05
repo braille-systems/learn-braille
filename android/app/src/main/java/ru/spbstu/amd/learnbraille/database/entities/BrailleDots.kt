@@ -1,8 +1,8 @@
-package ru.spbstu.amd.learnbraille.database
+package ru.spbstu.amd.learnbraille.database.entities
 
 import android.widget.Checkable
 import androidx.room.TypeConverter
-import ru.spbstu.amd.learnbraille.database.BrailleDot.E
+import ru.spbstu.amd.learnbraille.database.entities.BrailleDot.E
 
 enum class BrailleDot {
     E,  // Empty
@@ -20,7 +20,11 @@ data class BrailleDots(
 ) {
 
     constructor(dots: BooleanArray) : this(
-        dots.map { BrailleDot.valueOf(it) }
+        dots.map {
+            BrailleDot.valueOf(
+                it
+            )
+        }
     )
 
     constructor(dots: List<BrailleDot>) : this(
@@ -37,7 +41,11 @@ data class BrailleDots(
     }
 
     constructor(string: String) : this(
-        string.toCharArray().map { BrailleDot.valueOf(it) }
+        string.toCharArray().map {
+            BrailleDot.valueOf(
+                it
+            )
+        }
     )
 
     override fun toString() = "$b1$b2$b3$b4$b5$b6"
@@ -64,15 +72,15 @@ class BrailleDotsConverters {
     fun to(brailleDots: BrailleDots) = brailleDots.toString()
 
     @TypeConverter
-    fun from(data: String): BrailleDots = BrailleDots(data)
+    fun from(data: String): BrailleDots =
+        BrailleDots(data)
 }
 
-class BrailleDotsState(private val states: Array<out Checkable>) {
+class BrailleDotsState(states: Array<out Checkable>) {
 
-    val brailleDots
-        get() = BrailleDots(
-            states.map { it.isChecked }.toBooleanArray()
-        )
+    val brailleDots = BrailleDots(
+        states.map { it.isChecked }.toBooleanArray()
+    )
 
     init {
         require(states.size == 6) {

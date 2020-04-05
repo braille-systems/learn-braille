@@ -1,4 +1,4 @@
-package ru.spbstu.amd.learnbraille.database
+package ru.spbstu.amd.learnbraille.database.entities
 
 import androidx.room.*
 

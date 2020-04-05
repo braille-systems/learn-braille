@@ -3,7 +3,7 @@ package ru.spbstu.amd.learnbraille.screens.lessons
 import android.app.Application
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
-import ru.spbstu.amd.learnbraille.database.*
+import ru.spbstu.amd.learnbraille.database.entities.*
 import timber.log.Timber
 
 class LessonStepViewModelFactory(
@@ -117,7 +117,10 @@ class LessonStepViewModel(
 
     private suspend fun insertPassedStepToDatabase() = withContext(Dispatchers.IO) {
         userPassedStepDao.insertPassedStep(
-            UserPassedStep(userId, _currentLessonStep.step.id)
+            UserPassedStep(
+                userId,
+                _currentLessonStep.step.id
+            )
         )
     }
 

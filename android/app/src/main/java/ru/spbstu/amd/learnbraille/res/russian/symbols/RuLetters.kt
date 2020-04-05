@@ -1,10 +1,10 @@
 package ru.spbstu.amd.learnbraille.res.russian.symbols
 
-import ru.spbstu.amd.learnbraille.database.BrailleDot.E
-import ru.spbstu.amd.learnbraille.database.BrailleDot.F
-import ru.spbstu.amd.learnbraille.database.BrailleDots
-import ru.spbstu.amd.learnbraille.database.Language.RU
-import ru.spbstu.amd.learnbraille.database.Symbol
+import ru.spbstu.amd.learnbraille.database.entities.BrailleDot.E
+import ru.spbstu.amd.learnbraille.database.entities.BrailleDot.F
+import ru.spbstu.amd.learnbraille.database.entities.BrailleDots
+import ru.spbstu.amd.learnbraille.database.entities.Language.RU
+import ru.spbstu.amd.learnbraille.database.entities.Symbol
 
 val RU_LETTERS = listOf(
     Symbol(symbol = 'А', language = RU, brailleDots = BrailleDots(F, E, E, E, E, E)),

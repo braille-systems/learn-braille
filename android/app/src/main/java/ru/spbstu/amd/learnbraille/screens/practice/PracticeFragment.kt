@@ -19,7 +19,8 @@ import kotlinx.android.synthetic.main.braille_dots.view.*
 import ru.spbstu.amd.learnbraille.CORRECT_BUZZ_PATTERN
 import ru.spbstu.amd.learnbraille.INCORRECT_BUZZ_PATTERN
 import ru.spbstu.amd.learnbraille.R
-import ru.spbstu.amd.learnbraille.database.*
+import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
+import ru.spbstu.amd.learnbraille.database.entities.*
 import ru.spbstu.amd.learnbraille.databinding.FragmentPracticeBinding
 import ru.spbstu.amd.learnbraille.screens.updateTitle
 import ru.spbstu.amd.learnbraille.serial.UsbSerial
@@ -57,7 +58,10 @@ class PracticeFragment : Fragment() {
         }
 
         val viewModelFactory = PracticeViewModelFactory(
-            dataSource, application, BrailleDotsState(dotCheckBoxes)
+            dataSource, application,
+            BrailleDotsState(
+                dotCheckBoxes
+            )
         )
         viewModel = ViewModelProvider(
             this@PracticeFragment, viewModelFactory

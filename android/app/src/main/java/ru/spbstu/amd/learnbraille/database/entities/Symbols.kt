@@ -1,6 +1,7 @@
-package ru.spbstu.amd.learnbraille.database
+package ru.spbstu.amd.learnbraille.database.entities
 
 import androidx.room.*
+import ru.spbstu.amd.learnbraille.*
 
 @Entity(tableName = "symbol")
 data class Symbol(

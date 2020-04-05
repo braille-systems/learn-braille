@@ -1,7 +1,7 @@
 package ru.spbstu.amd.learnbraille.res.russian.steps
 
-import ru.spbstu.amd.learnbraille.database.LastInfo
-import ru.spbstu.amd.learnbraille.database.Step
+import ru.spbstu.amd.learnbraille.database.entities.LastInfo
+import ru.spbstu.amd.learnbraille.database.entities.Step
 import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_LESSONS
 
 val VERY_LAST = listOf(

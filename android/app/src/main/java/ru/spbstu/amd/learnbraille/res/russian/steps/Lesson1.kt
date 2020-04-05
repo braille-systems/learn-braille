@@ -1,7 +1,7 @@
 package ru.spbstu.amd.learnbraille.res.russian.steps
 
-import ru.spbstu.amd.learnbraille.database.*
-import ru.spbstu.amd.learnbraille.database.BrailleDot.F
+import ru.spbstu.amd.learnbraille.database.entities.*
+import ru.spbstu.amd.learnbraille.database.entities.BrailleDot.F
 import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_LESSONS
 import ru.spbstu.amd.learnbraille.res.russian.symbols.symbolMap
 
@@ -12,7 +12,7 @@ import ru.spbstu.amd.learnbraille.res.russian.symbols.symbolMap
  * not supported for functional types in kotlin 1.3.
  */
 private fun Step(title: String, data: StepData) =
-    Step(
+    ru.spbstu.amd.learnbraille.database.entities.Step(
         title = title,
         lessonId = 1L,
         data = data
