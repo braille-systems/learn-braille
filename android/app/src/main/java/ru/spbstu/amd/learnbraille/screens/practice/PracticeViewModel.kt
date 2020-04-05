@@ -27,11 +27,6 @@ class PracticeViewModelFactory(
 }
 
 /**
- * Exposes live data:
- * - symbol
- * - nLettersFaced
- * - nCorrect
- *
  * Events:
  * - eventCorrect
  * - eventIncorrect
