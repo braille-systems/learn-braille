@@ -12,6 +12,12 @@ import com.felhr.usbserial.UsbSerialInterface
 import ru.spbstu.amd.learnbraille.database.BrailleDots
 import timber.log.Timber
 
+
+/**********************************/
+/********** TODO refactor *********/
+/**********************************/
+
+
 class UsbSerial(usbManager: UsbManager, context: Context) {
     private var mUsbManager: UsbManager = usbManager
     private var invokingContext: Context = context
