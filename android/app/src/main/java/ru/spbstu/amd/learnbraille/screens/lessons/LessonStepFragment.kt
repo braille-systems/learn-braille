@@ -8,7 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import ru.spbstu.amd.learnbraille.R
-import ru.spbstu.amd.learnbraille.database.*
+import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
+import ru.spbstu.amd.learnbraille.database.entities.*
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonStepBinding
 import ru.spbstu.amd.learnbraille.screens.updateTitle
 

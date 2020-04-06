@@ -1,7 +1,7 @@
 package ru.spbstu.amd.learnbraille
 
 import android.app.Application
-import ru.spbstu.amd.learnbraille.database.Language
+import ru.spbstu.amd.learnbraille.database.entities.Language
 import timber.log.Timber
 
 class LearnBrailleApplication : Application() {

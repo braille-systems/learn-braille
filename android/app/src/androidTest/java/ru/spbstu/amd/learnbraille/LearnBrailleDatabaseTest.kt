@@ -10,7 +10,8 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import ru.spbstu.amd.learnbraille.database.*
-import ru.spbstu.amd.learnbraille.database.BrailleDot.F
+import ru.spbstu.amd.learnbraille.database.entities.*
+import ru.spbstu.amd.learnbraille.database.entities.BrailleDot.F
 import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_LESSONS
 import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_USERS
 import ru.spbstu.amd.learnbraille.res.russian.steps.PREPOPULATE_STEPS
@@ -70,12 +71,25 @@ class LearnBrailleDatabaseTest {
         val (_, step1) = stepDao.getCurrentStepForUser(TEST_USER) ?: error("No first step")
         assertEquals(1, step1.id)
         assertTrue(step1.data is Info)
-        userPassedStepDao.insertPassedStep(UserPassedStep(1, 1))
+        userPassedStepDao.insertPassedStep(
+            UserPassedStep(
+                1,
+                1
+            )
+        )
 
         val (_, step2) = stepDao.getCurrentStepForUser(TEST_USER) ?: error("No second step")
         assertEquals(2, step2.id)
         assertTrue(step2.data is ShowDots)
-        assertEquals(BrailleDots(F, F, F, F, F, F), (step2.data as ShowDots).dots)
+        assertEquals(
+            BrailleDots(
+                F,
+                F,
+                F,
+                F,
+                F,
+                F
+            ), (step2.data as ShowDots).dots)
     }
 
     companion object {

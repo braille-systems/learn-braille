@@ -1,7 +1,7 @@
 package ru.spbstu.amd.learnbraille.res.russian.steps
 
-import ru.spbstu.amd.learnbraille.database.Step
-import ru.spbstu.amd.learnbraille.database.StepData
+import ru.spbstu.amd.learnbraille.database.entities.Step
+import ru.spbstu.amd.learnbraille.database.entities.StepData
 
 private fun Step(title: String, data: StepData) =
     Step(

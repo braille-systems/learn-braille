@@ -7,6 +7,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import ru.spbstu.amd.learnbraille.database.entities.*
 import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_LESSONS
 import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_USERS
 import ru.spbstu.amd.learnbraille.res.russian.steps.PREPOPULATE_STEPS
@@ -49,7 +50,8 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                 INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
 
-        private fun buildDatabase(context: Context) = Room.databaseBuilder(
+        private fun buildDatabase(context: Context) = Room
+            .databaseBuilder(
                 context.applicationContext,
                 LearnBrailleDatabase::class.java,
                 name

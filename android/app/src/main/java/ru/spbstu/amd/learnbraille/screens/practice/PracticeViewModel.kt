@@ -3,10 +3,10 @@ package ru.spbstu.amd.learnbraille.screens.practice
 import android.app.Application
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
-import ru.spbstu.amd.learnbraille.database.BrailleDots
-import ru.spbstu.amd.learnbraille.database.BrailleDotsState
-import ru.spbstu.amd.learnbraille.database.Language
-import ru.spbstu.amd.learnbraille.database.SymbolDao
+import ru.spbstu.amd.learnbraille.database.entities.BrailleDots
+import ru.spbstu.amd.learnbraille.database.entities.BrailleDotsState
+import ru.spbstu.amd.learnbraille.database.entities.Language
+import ru.spbstu.amd.learnbraille.database.entities.SymbolDao
 import ru.spbstu.amd.learnbraille.language
 import ru.spbstu.amd.learnbraille.side
 import timber.log.Timber
