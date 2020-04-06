@@ -167,7 +167,7 @@ class PracticeFragment : Fragment() {
         when (item.itemId) {
             R.id.help -> {
                 Timber.i("Navigate to practice help")
-                val action = PracticeFragmentDirections.actionPracticeFragmentToHelpFragment()
+                val action = PracticeFragmentDirections.actionGlobalHelpFragment()
                 action.helpMessage = getString(R.string.practice_help)
                 findNavController().navigate(action)
             }

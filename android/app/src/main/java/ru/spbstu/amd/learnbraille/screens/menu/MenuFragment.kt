@@ -80,7 +80,7 @@ class MenuFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem) = super.onOptionsItemSelected(item).also {
         when (item.itemId) {
             R.id.help -> {
-                val action = MenuFragmentDirections.actionMenuFragmentToHelpFragment()
+                val action = MenuFragmentDirections.actionGlobalHelpFragment()
                 action.helpMessage = getString(R.string.menu_help)
                 findNavController().navigate(action)
             }
