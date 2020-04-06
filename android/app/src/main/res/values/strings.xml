@@ -8,8 +8,10 @@
 
     <!--    Practice-->
 
-    <string name="practice_next">Next</string>
-    <string name="practice_actionbar_title">Практика: %d из %d</string>
+    <string name="practice_hint">Подсказка</string>
+    <string name="practice_hint_template">"Ответ: точки %s"</string>
+    <string name="practice_next">Далее</string>
+    <string name="practice_actionbar_title_template">Практика: %d из %d</string>
     <string name="practice_db_not_initialized_warning">
         Раздел практики загружается. Попробуйте ещё раз.
     </string>
@@ -18,7 +20,12 @@
         В верхней половине экрана крупным шрифтом выведен символ,
         который нужно ввести в шеститочии в нижней половине экрана и нажать кнопку “далее” справа.
         Выход в меню приложения - кнопка вверху слева.
-        Вызов справки - кнопка вверху справа"
+        Вызов справки - кнопка вверху справа.
+
+        Если Вы забыли символ, можно нажать кнопку с вопросительным знаком слева внизу экрана.
+        По нажатию этой кнопки будет выведено сообщение с верными номерами точек, шеститочие будет
+        заполнено правильными точками и недоступно для переключения. После этого нужно нажать кнопку
+        "далее" и ввести ту же букву ещё раз.
     </string>
 
     <!--    Exit-->
@@ -123,6 +130,8 @@
     <!--    Help-->
 
     <string name="help_title">Справка</string>
+    <string name="msgCorrect">Правильно!</string>
+    <string name="msgIncorrect">Неправильно!</string>
 
 </resources>
 

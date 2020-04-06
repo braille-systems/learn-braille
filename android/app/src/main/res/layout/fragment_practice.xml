@@ -31,17 +31,43 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="M" />
 
-        <Button
-            android:id="@+id/next_button"
-            android:layout_width="70sp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:onClick="@{() -> practiceViewModel.onNext()}"
-            android:text="@string/practice_next"
-            android:textSize="14sp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/letter"
+            app:layout_constraintVertical_bias="0.0">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible" />
+
+            <!--suppress AndroidDomInspection -->
+            <Button
+                android:id="@+id/hint_button"
+                android:layout_width="70sp"
+                android:layout_height="0dp"
+                android:layout_weight="7"
+                android:adjustViewBounds="true"
+                android:background="@drawable/practice_hint_btn_shape"
+                android:contentDescription="@string/practice_hint"
+                android:onClick="@{() -> practiceViewModel.onHint()}"
+                android:scaleType="fitCenter"
+                android:text="?"
+                android:textColor="@color/colorText"
+                android:textSize="70sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible" />
+
+        </LinearLayout>
 
         <ru.spbstu.amd.learnbraille.views.ButtonsView
             android:id="@+id/practice_buttons"
@@ -54,6 +80,39 @@
             app:layout_constraintStart_toStartOf="@+id/letter"
             app:layout_constraintTop_toBottomOf="@+id/letter" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/letter"
+            app:layout_constraintVertical_bias="0.0">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible" />
+
+            <ImageButton
+                android:id="@+id/next_button"
+                android:layout_width="70sp"
+                android:layout_height="0dp"
+                android:layout_weight="7"
+                android:adjustViewBounds="true"
+                android:background="@drawable/practice_btn_shape"
+                android:contentDescription="@string/practice_next"
+                android:onClick="@{() -> practiceViewModel.onNext()}"
+                android:scaleType="fitCenter"
+                android:src="@android:drawable/ic_media_play" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:visibility="invisible" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
