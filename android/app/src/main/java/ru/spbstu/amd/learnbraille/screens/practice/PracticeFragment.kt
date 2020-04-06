@@ -7,7 +7,6 @@ import android.hardware.usb.UsbManager
 import android.os.Bundle
 import android.os.Vibrator
 import android.view.*
-import android.widget.CheckBox
 import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
@@ -15,20 +14,24 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.braille_dots.view.*
 import ru.spbstu.amd.learnbraille.CORRECT_BUZZ_PATTERN
 import ru.spbstu.amd.learnbraille.INCORRECT_BUZZ_PATTERN
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
-import ru.spbstu.amd.learnbraille.database.entities.*
+import ru.spbstu.amd.learnbraille.database.entities.BrailleDot
+import ru.spbstu.amd.learnbraille.database.entities.BrailleDots
+import ru.spbstu.amd.learnbraille.database.entities.list
+import ru.spbstu.amd.learnbraille.database.entities.spelling
 import ru.spbstu.amd.learnbraille.databinding.FragmentPracticeBinding
 import ru.spbstu.amd.learnbraille.screens.updateTitle
 import ru.spbstu.amd.learnbraille.serial.UsbSerial
+import ru.spbstu.amd.learnbraille.views.*
 import timber.log.Timber
 
 class PracticeFragment : Fragment() {
 
     private lateinit var viewModel: PracticeViewModel
+    private lateinit var dots: Dots
     private var buzzer: Vibrator? = null
 
     private val title: String
@@ -48,21 +51,15 @@ class PracticeFragment : Fragment() {
         false
     ).apply {
 
+        Timber.i("Start initialize practice fragment")
+
         val application: Application = requireNotNull(activity).application
         val dataSource = LearnBrailleDatabase.getInstance(application).symbolDao
-        val dotCheckBoxes: Array<CheckBox> = practiceButtons.run {
-            arrayOf(
-                dotButton1, dotButton2, dotButton3,
-                dotButton4, dotButton5, dotButton6
-            )
-        }
+        dots = practiceButtons.dots
 
-        val viewModelFactory = PracticeViewModelFactory(
-            dataSource, application,
-            BrailleDotsState(
-                dotCheckBoxes
-            )
-        )
+        val viewModelFactory = PracticeViewModelFactory(dataSource, application) {
+            dots.brailleDots
+        }
         viewModel = ViewModelProvider(
             this@PracticeFragment, viewModelFactory
         ).get(PracticeViewModel::class.java)
@@ -74,6 +71,7 @@ class PracticeFragment : Fragment() {
 
 
         // Init serial connection with Braille Trainer
+        // TODO extract initialization to factory
         // TODO use application.usbManager
         @SuppressLint("WrongConstant") // permit `application.getSystemService(USB_SERVICE)`
         val usbManager = application.getSystemService("usb") as UsbManager
@@ -91,15 +89,17 @@ class PracticeFragment : Fragment() {
                 return@Observer
             }
 
-            Toast.makeText(context, getString(R.string.msgCorrect), Toast.LENGTH_SHORT).show()
             Timber.i("Handle correct")
+
+            Toast.makeText(context, getString(R.string.msgCorrect), Toast.LENGTH_SHORT).show()
 
             // Use deprecated API to be compatible with old android API levels
             @Suppress("DEPRECATION")
             buzzer?.vibrate(CORRECT_BUZZ_PATTERN, -1)
 
-            makeUnchecked(dotCheckBoxes)
+            dots.uncheck()
             updateTitle(title)
+
             viewModel.onCorrectComplete()
         })
 
@@ -108,15 +108,17 @@ class PracticeFragment : Fragment() {
                 return@Observer
             }
 
+            Timber.i("Handle incorrect: entered = ${dots.spelling}")
+
             Toast.makeText(context, getString(R.string.msgIncorrect), Toast.LENGTH_SHORT).show()
-            Timber.i("Handle incorrect")
 
             // Use deprecated API to be compatible with old android API levels
             @Suppress("DEPRECATION")
             buzzer?.vibrate(INCORRECT_BUZZ_PATTERN, -1)
 
-            makeUnchecked(dotCheckBoxes)
+            dots.uncheck()
             updateTitle(title)
+
             viewModel.onIncorrectComplete()
         })
 
@@ -125,13 +127,18 @@ class PracticeFragment : Fragment() {
                 return@Observer
             }
 
-            val toast = getString(R.string.practice_hint_template).format(expectedDots.spell)
+            Timber.i("Handle hint")
+
+            val toast = getString(R.string.practice_hint_template).format(expectedDots.spelling)
             Toast.makeText(context, toast, Toast.LENGTH_LONG).show()
-            (dotCheckBoxes zip expectedDots.list).forEach { (checkBox, dot) ->
+
+            (dots zip expectedDots.list).forEach { (checkBox, dot) ->
                 checkBox.isChecked = dot == BrailleDot.F
-                checkBox.isClickable = false
             }
+            dots.clickable(false)
+
             serial.trySend(expectedDots)
+
             viewModel.onHintComplete()
         })
 
@@ -139,15 +146,14 @@ class PracticeFragment : Fragment() {
             if (!it) {
                 return@Observer
             }
-            dotCheckBoxes.forEach { checkBox ->
-                checkBox.isChecked = false
-                checkBox.isClickable = true
-            }
+            Timber.i("Handle pass hint")
+            dots.uncheck()
+            dots.clickable(true)
             viewModel.onPassHintComplete()
         })
 
 
-        updateTitle(title)
+        updateTitle(title) // Requires viewModel being initialized
         setHasOptionsMenu(true)
 
     }.root
@@ -160,6 +166,7 @@ class PracticeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem) = super.onOptionsItemSelected(item).also {
         when (item.itemId) {
             R.id.help -> {
+                Timber.i("Navigate to practice help")
                 val action = PracticeFragmentDirections.actionPracticeFragmentToHelpFragment()
                 action.helpMessage = getString(R.string.practice_help)
                 findNavController().navigate(action)
@@ -167,8 +174,3 @@ class PracticeFragment : Fragment() {
         }
     }
 }
-
-private fun makeUnchecked(checkBoxes: Array<CheckBox>) =
-    checkBoxes.forEach {
-        it.isChecked = false
-    }

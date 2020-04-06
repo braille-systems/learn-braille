@@ -26,17 +26,17 @@ data class Symbol(
 fun symbolOf(data: String) = Symbol.pattern
     .matchEntire(data)
     ?.groups?.let { (_, id, symbol, language, brailleDots) ->
-    Symbol(
-        id = id?.value?.toLong() ?: error("No id here $data"),
-        symbol = symbol?.value?.first() ?: error("No symbol here $data"),
-        language = Language.valueOf(
-            language?.value ?: error("No language here $data")
-        ),
-        brailleDots = BrailleDots(
-            brailleDots?.value ?: error("No braille dots here $data")
+        Symbol(
+            id = id?.value?.toLong() ?: error("No id here $data"),
+            symbol = symbol?.value?.first() ?: error("No symbol here $data"),
+            language = Language.valueOf(
+                language?.value ?: error("No language here $data")
+            ),
+            brailleDots = BrailleDots(
+                brailleDots?.value ?: error("No braille dots here $data")
+            )
         )
-    )
-} ?: error("$data does not match Symbol structure")
+    } ?: error("$data does not match Symbol structure")
 
 @Dao
 interface SymbolDao {

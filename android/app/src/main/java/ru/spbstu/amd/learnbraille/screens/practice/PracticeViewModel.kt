@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
 import ru.spbstu.amd.learnbraille.database.entities.BrailleDots
-import ru.spbstu.amd.learnbraille.database.entities.BrailleDotsState
 import ru.spbstu.amd.learnbraille.database.entities.Language
 import ru.spbstu.amd.learnbraille.database.entities.SymbolDao
 import ru.spbstu.amd.learnbraille.language
@@ -14,13 +13,13 @@ import timber.log.Timber
 class PracticeViewModelFactory(
     private val dataSource: SymbolDao,
     private val application: Application,
-    private val dotsState: BrailleDotsState
+    private val getEnteredDots: () -> BrailleDots
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
         if (modelClass.isAssignableFrom(PracticeViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            PracticeViewModel(dataSource, application, dotsState) as T
+            PracticeViewModel(dataSource, application, getEnteredDots) as T
         } else {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
@@ -36,7 +35,7 @@ class PracticeViewModelFactory(
 class PracticeViewModel(
     private val database: SymbolDao,
     application: Application,
-    private val dotsState: BrailleDotsState
+    private val getEnteredDots: () -> BrailleDots
 ) : AndroidViewModel(application) {
 
     private var _symbol = MutableLiveData<String>()
@@ -66,13 +65,12 @@ class PracticeViewModel(
         get() = _eventPassHint
 
     private var expectedDots: BrailleDots? = null
-    private val enteredDots get() = dotsState.brailleDots
 
     private val isCorrect: Boolean
-        get() = (enteredDots == expectedDots).also {
+        get() = (getEnteredDots() == expectedDots).also {
             Timber.i(
                 if (it) "Correct: " else "Incorrect: " +
-                        "entered = $enteredDots, expected = $expectedDots"
+                        "entered = ${getEnteredDots()}, expected = $expectedDots"
             )
         }
 
@@ -83,6 +81,7 @@ class PracticeViewModel(
     private var state = State.INPUT
 
     init {
+        Timber.i("Initialize practice view model")
         initializeCard()
     }
 
