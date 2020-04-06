@@ -36,21 +36,12 @@
         android:id="@+id/exitFragment"
         android:name="ru.spbstu.amd.learnbraille.screens.exit.ExitFragment"
         android:label="fragment_exit"
-        tools:layout="@layout/fragment_exit">
-        <action
-            android:id="@+id/action_exitFragment_to_menuFragment"
-            app:destination="@id/menuFragment"
-            app:popUpTo="@+id/menuFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_exit"/>
     <fragment
         android:id="@+id/practiceFragment"
         android:name="ru.spbstu.amd.learnbraille.screens.practice.PracticeFragment"
         android:label="fragment_practice"
         tools:layout="@layout/fragment_practice">
-        <action
-            android:id="@+id/action_practiceFragment_to_menuFragment"
-            app:destination="@id/menuFragment"
-            app:popUpTo="@+id/menuFragment" />
         <action
             android:id="@+id/action_practiceFragment_to_helpFragment"
             app:destination="@id/helpFragment" />
@@ -65,4 +56,8 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
+    <action
+        android:id="@+id/action_global_menuFragment"
+        app:destination="@id/menuFragment"
+        app:popUpTo="@id/menuFragment" />
 </navigation>

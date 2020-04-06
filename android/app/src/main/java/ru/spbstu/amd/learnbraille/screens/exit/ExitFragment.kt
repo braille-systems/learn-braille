@@ -31,7 +31,7 @@ class ExitFragment : Fragment() {
         }
 
         continueButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_exitFragment_to_menuFragment)
+            Navigation.createNavigateOnClickListener(R.id.action_global_menuFragment)
         )
 
     }.root
