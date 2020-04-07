@@ -81,15 +81,7 @@ class LearnBrailleDatabaseTest {
         val (_, step2) = stepDao.getCurrentStepForUser(TEST_USER) ?: error("No second step")
         assertEquals(2, step2.id)
         assertTrue(step2.data is ShowDots)
-        assertEquals(
-            BrailleDots(
-                F,
-                F,
-                F,
-                F,
-                F,
-                F
-            ), (step2.data as ShowDots).dots)
+        assertEquals( BrailleDots( F, F, F, F, F, F ), (step2.data as ShowDots).dots)
     }
 
     companion object {

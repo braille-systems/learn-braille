@@ -12,7 +12,7 @@ import ru.spbstu.amd.learnbraille.res.russian.symbols.symbolMap
  * not supported for functional types in kotlin 1.3.
  */
 private fun Step(title: String, data: StepData) =
-    ru.spbstu.amd.learnbraille.database.entities.Step(
+    Step(
         title = title,
         lessonId = 1L,
         data = data

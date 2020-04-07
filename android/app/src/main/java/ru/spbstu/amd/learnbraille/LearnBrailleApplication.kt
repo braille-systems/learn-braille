@@ -15,5 +15,6 @@ class LearnBrailleApplication : Application() {
 val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)
 val INCORRECT_BUZZ_PATTERN = longArrayOf(0, 200)
 
-val language = Language.RU // TODO move to settings
-val defaultUser = 1
+// TODO move to settings
+val language = Language.RU
+const val defaultUser = 1L

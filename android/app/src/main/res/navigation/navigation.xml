@@ -33,12 +33,12 @@
         android:id="@+id/exitFragment"
         android:name="ru.spbstu.amd.learnbraille.screens.exit.ExitFragment"
         android:label="fragment_exit"
-        tools:layout="@layout/fragment_exit"/>
+        tools:layout="@layout/fragment_exit" />
     <fragment
         android:id="@+id/practiceFragment"
         android:name="ru.spbstu.amd.learnbraille.screens.practice.PracticeFragment"
         android:label="fragment_practice"
-        tools:layout="@layout/fragment_practice"/>
+        tools:layout="@layout/fragment_practice" />
     <fragment
         android:id="@+id/helpFragment"
         android:name="ru.spbstu.amd.learnbraille.screens.help.HelpFragment"
@@ -49,6 +49,7 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
+
     <action
         android:id="@+id/action_global_menuFragment"
         app:destination="@id/menuFragment"
@@ -56,4 +57,78 @@
     <action
         android:id="@+id/action_global_helpFragment"
         app:destination="@id/helpFragment" />
+
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="ru.spbstu.amd.learnbraille.screens.lessons.InfoFragment"
+        android:label="InfoFragment">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/inputDotsFragment"
+        android:name="ru.spbstu.amd.learnbraille.screens.lessons.InputDotsFragment"
+        android:label="InputDotsFragment">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/inputSymbolFragment"
+        android:name="ru.spbstu.amd.learnbraille.screens.lessons.InputSymbolFragment"
+        android:label="InputSymbolFragment">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/showDotsFragment"
+        android:name="ru.spbstu.amd.learnbraille.screens.lessons.ShowDotsFragment"
+        android:label="ShowDotsFragment">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/showSymbolFragment"
+        android:name="ru.spbstu.amd.learnbraille.screens.lessons.ShowSymbolFragment"
+        android:label="ShowSymbolFragment">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/lastInfoFragment"
+        android:name="ru.spbstu.amd.learnbraille.screens.lessons.LastInfoFragment"
+        android:label="LastInfoFragment">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_showSymbolFragment"
+        app:destination="@id/showSymbolFragment"
+        app:popUpTo="@id/menuFragment" />
+    <action
+        android:id="@+id/action_global_infoFragment"
+        app:destination="@id/infoFragment"
+        app:popUpTo="@id/menuFragment" />
+    <action
+        android:id="@+id/action_global_inputDotsFragment"
+        app:destination="@id/inputDotsFragment"
+        app:popUpTo="@id/menuFragment" />
+    <action
+        android:id="@+id/action_global_inputSymbolFragment"
+        app:destination="@id/inputSymbolFragment"
+        app:popUpTo="@id/menuFragment" />
+    <action
+        android:id="@+id/action_global_showDotsFragment"
+        app:destination="@id/showDotsFragment"
+        app:popUpTo="@id/menuFragment" />
+    <action
+        android:id="@+id/action_global_lastInfoFragment"
+        app:destination="@id/lastInfoFragment"
+        app:popUpTo="@id/menuFragment" />
 </navigation>

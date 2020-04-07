@@ -42,7 +42,7 @@ class Info(
     text: String
 ) : BaseInfo() {
 
-    private val text = text.stepFormat()
+    val text = text.stepFormat()
 
     override val name = Companion.name
     override val data = this.text
@@ -56,7 +56,7 @@ class LastInfo(
     text: String
 ) : BaseInfo() {
 
-    private val text = text.stepFormat()
+    val text = text.stepFormat()
 
     override val name = Companion.name
     override val data = this.text
@@ -79,9 +79,7 @@ class InputSymbol(
     override val data = symbol.toString()
 
     constructor(data: String) : this(
-        symbolOf(
-            data
-        )
+        symbolOf(data)
     )
 
     companion object {
@@ -100,9 +98,7 @@ class InputDots(
     override val data = dots.toString()
 
     constructor(data: String) : this(
-        BrailleDots(
-            data
-        )
+        BrailleDots(data)
     )
 
     companion object {
@@ -123,9 +119,7 @@ class ShowSymbol(
     override val data = symbol.toString()
 
     constructor(data: String) : this(
-        symbolOf(
-            data
-        )
+        symbolOf(data)
     )
 
     companion object {
@@ -144,9 +138,7 @@ class ShowDots(
     override val data = dots.toString()
 
     constructor(data: String) : this(
-        BrailleDots(
-            data
-        )
+        BrailleDots(data)
     )
 
     companion object {

@@ -90,7 +90,7 @@ class PracticeViewModel(
         job.cancel()
     }
 
-    fun onNext(): Unit =
+    fun onNext() {
         if (state == State.HINT) {
             state = State.INPUT
             onPassHist()
@@ -102,6 +102,7 @@ class PracticeViewModel(
                 onIncorrect()
             }
         }
+    }
 
     private fun onCorrect() = initializeCard().side {
         nCorrect++
@@ -144,9 +145,10 @@ class PracticeViewModel(
     }
 
     // TODO unify context for app
-    private suspend fun getEntryFromDatabase(language: Language) = withContext(Dispatchers.IO) {
-        database.getRandomSymbol(language)
-    }
+    private suspend fun getEntryFromDatabase(language: Language) =
+        withContext(Dispatchers.IO) {
+            database.getRandomSymbol(language)
+        }
 
     private enum class State {
         INPUT, HINT

@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentMenuBinding
+import ru.spbstu.amd.learnbraille.screens.lessons.navigateToNextStep
 import ru.spbstu.amd.learnbraille.screens.updateTitle
 
 
@@ -36,6 +37,10 @@ class MenuFragment : Fragment() {
         updateTitle(getString(R.string.menu_actionbar_text))
 
         setHasOptionsMenu(true)
+
+        lessonsButton.setOnClickListener {
+            navigateToNextStep()
+        }
 
         practiceButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_practiceFragment)
