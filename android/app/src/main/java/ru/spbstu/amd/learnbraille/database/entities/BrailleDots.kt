@@ -1,6 +1,5 @@
 package ru.spbstu.amd.learnbraille.database.entities
 
-import android.widget.Checkable
 import androidx.room.TypeConverter
 import ru.spbstu.amd.learnbraille.database.entities.BrailleDot.E
 
@@ -54,7 +53,7 @@ data class BrailleDots(
 val BrailleDots.list: List<BrailleDot>
     get() = listOf(b1, b2, b3, b4, b5, b6)
 
-val BrailleDots.spell: String
+val BrailleDots.spelling: String
     get() = list
         .mapIndexed { index, brailleDot ->
             if (brailleDot == BrailleDot.F) {
@@ -74,17 +73,4 @@ class BrailleDotsConverters {
     @TypeConverter
     fun from(data: String): BrailleDots =
         BrailleDots(data)
-}
-
-class BrailleDotsState(states: Array<out Checkable>) {
-
-    val brailleDots = BrailleDots(
-        states.map { it.isChecked }.toBooleanArray()
-    )
-
-    init {
-        require(states.size == 6) {
-            "Only 6 dots braille notation supported"
-        }
-    }
 }
