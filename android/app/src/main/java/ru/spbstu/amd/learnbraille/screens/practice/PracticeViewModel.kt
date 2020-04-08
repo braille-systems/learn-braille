@@ -7,7 +7,10 @@ import ru.spbstu.amd.learnbraille.database.entities.BrailleDots
 import ru.spbstu.amd.learnbraille.database.entities.Language
 import ru.spbstu.amd.learnbraille.database.entities.SymbolDao
 import ru.spbstu.amd.learnbraille.language
-import ru.spbstu.amd.learnbraille.side
+import ru.spbstu.amd.learnbraille.screens.DotsChecker
+import ru.spbstu.amd.learnbraille.screens.DotsCheckerImpl
+import ru.spbstu.amd.learnbraille.screens.MutableDotsChecker
+import ru.spbstu.amd.learnbraille.screens.State
 import timber.log.Timber
 
 class PracticeViewModelFactory(
@@ -25,18 +28,13 @@ class PracticeViewModelFactory(
         }
 }
 
-/**
- * Events:
- * - eventCorrect
- * - eventIncorrect
- * - eventHint
- * - eventPassHint
- */
 class PracticeViewModel(
     private val database: SymbolDao,
     application: Application,
-    private val getEnteredDots: () -> BrailleDots
-) : AndroidViewModel(application) {
+    private val getEnteredDots: () -> BrailleDots,
+    private val dotsChecker: MutableDotsChecker = DotsCheckerImpl()
+) : AndroidViewModel(application),
+    DotsChecker by dotsChecker {
 
     private var _symbol = MutableLiveData<String>()
     val symbol: LiveData<String>
@@ -48,41 +46,28 @@ class PracticeViewModel(
     var nCorrect: Int = 0
         private set
 
-    private val _eventCorrect = MutableLiveData<Boolean>()
-    val eventCorrect: LiveData<Boolean>
-        get() = _eventCorrect
-
-    private val _eventIncorrect = MutableLiveData<Boolean>()
-    val eventIncorrect: LiveData<Boolean>
-        get() = _eventIncorrect
-
-    private val _eventHint = MutableLiveData<BrailleDots>()
-    val eventHint: LiveData<BrailleDots>
-        get() = _eventHint
-
-    private val _eventPassHint = MutableLiveData<Boolean>()
-    val eventPassHint: LiveData<Boolean>
-        get() = _eventPassHint
-
     private var expectedDots: BrailleDots? = null
 
-    private val isCorrect: Boolean
-        get() = (getEnteredDots() == expectedDots).also {
-            Timber.i(
-                if (it) "Correct: " else "Incorrect: " +
-                        "entered = ${getEnteredDots()}, expected = $expectedDots"
-            )
-        }
-
-    // TODO unify for app
     private val job = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + job)
-
-    private var state = State.INPUT
 
     init {
         Timber.i("Initialize practice view model")
         initializeCard()
+
+        dotsChecker.apply {
+            getEnteredDots = this@PracticeViewModel.getEnteredDots
+            getExpectedDots = { expectedDots }
+            onNextHandler = {
+                if (dotsChecker.state == State.INPUT) {
+                    nTries++
+                }
+            }
+            onCorrectHandler = {
+                initializeCard()
+                nCorrect++
+            }
+        }
     }
 
     override fun onCleared() {
@@ -90,54 +75,7 @@ class PracticeViewModel(
         job.cancel()
     }
 
-    fun onNext() {
-        if (state == State.HINT) {
-            state = State.INPUT
-            onPassHist()
-        } else {
-            nTries++
-            if (isCorrect) {
-                onCorrect()
-            } else {
-                onIncorrect()
-            }
-        }
-    }
-
-    private fun onCorrect() = initializeCard().side {
-        nCorrect++
-        _eventCorrect.value = true
-    }
-
-    private fun onIncorrect() {
-        _eventIncorrect.value = true
-    }
-
-    private fun onPassHist() {
-        _eventPassHint.value = true
-    }
-
-    fun onHint() {
-        state = State.HINT
-        _eventHint.value = expectedDots
-    }
-
-    fun onCorrectComplete() {
-        _eventCorrect.value = false
-    }
-
-    fun onHintComplete() {
-        _eventHint.value = null
-    }
-
-    fun onPassHintComplete() {
-        _eventPassHint.value = false
-    }
-
-    fun onIncorrectComplete() {
-        _eventIncorrect.value = false
-    }
-
+    // TODO unify for app
     private fun initializeCard() = uiScope.launch {
         val entry = getEntryFromDatabase(language) ?: error("DB is not initialized")
         _symbol.value = entry.symbol.toString()
@@ -149,8 +87,4 @@ class PracticeViewModel(
         withContext(Dispatchers.IO) {
             database.getRandomSymbol(language)
         }
-
-    private enum class State {
-        INPUT, HINT
-    }
 }

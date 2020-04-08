@@ -8,22 +8,21 @@ import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.database.entities.*
 import ru.spbstu.amd.learnbraille.defaultUser
 import ru.spbstu.amd.learnbraille.screens.menu.MenuFragmentDirections
+import ru.spbstu.amd.learnbraille.side
 
 fun Fragment.navigateToNextStep(nextStep: Step): Unit =
-    nextStep.toString()
-        .let { step ->
-            when (nextStep.data) {
-                is Info -> MenuFragmentDirections.actionGlobalInfoFragment(step)
-                is LastInfo -> MenuFragmentDirections.actionGlobalLastInfoFragment(step)
-                is InputSymbol -> MenuFragmentDirections.actionGlobalInputSymbolFragment(step)
-                is InputDots -> MenuFragmentDirections.actionGlobalInputDotsFragment(step)
-                is ShowSymbol -> MenuFragmentDirections.actionGlobalShowSymbolFragment(step)
-                is ShowDots -> MenuFragmentDirections.actionGlobalShowDotsFragment(step)
-            }
+    nextStep.toString().let { step ->
+        when (nextStep.data) {
+            is Info -> MenuFragmentDirections.actionGlobalInfoFragment(step)
+            is LastInfo -> MenuFragmentDirections.actionGlobalLastInfoFragment(step)
+            is InputSymbol -> MenuFragmentDirections.actionGlobalInputSymbolFragment(step)
+            is InputDots -> MenuFragmentDirections.actionGlobalInputDotsFragment(step)
+            is ShowSymbol -> MenuFragmentDirections.actionGlobalShowSymbolFragment(step)
+            is ShowDots -> MenuFragmentDirections.actionGlobalShowDotsFragment(step)
         }
-        .let { action ->
-            findNavController().navigate(action)
-        }
+    }.side { action ->
+        findNavController().navigate(action)
+    }
 
 suspend fun getCurrentStep(database: StepDao, userId: Long): Step =
     withContext(Dispatchers.IO) {
