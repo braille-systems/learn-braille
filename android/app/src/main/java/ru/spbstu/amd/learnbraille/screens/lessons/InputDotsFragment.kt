@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonsDotsBinding
+import ru.spbstu.amd.learnbraille.screens.updateTitle
 
-class InputDotsFragment : Fragment() {
+class InputDotsFragment : BaseLessonFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,7 +22,12 @@ class InputDotsFragment : Fragment() {
         false
     ).apply {
 
+        updateTitle(getString(R.string.lessons_title_input_dots))
+
         // TODO
+        // TODO add content title
 
     }.root
+
+    // TODO support help
 }

@@ -2,6 +2,7 @@ package ru.spbstu.amd.learnbraille.screens.menu
 
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
+import android.app.Application
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,10 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import ru.spbstu.amd.learnbraille.R
+import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.databinding.FragmentMenuBinding
-import ru.spbstu.amd.learnbraille.screens.lessons.navigateToNextStep
+import ru.spbstu.amd.learnbraille.defaultUser
+import ru.spbstu.amd.learnbraille.screens.lessons.navigateToCurrentStep
 import ru.spbstu.amd.learnbraille.screens.updateTitle
-
 
 class MenuFragment : Fragment() {
 
@@ -39,7 +41,9 @@ class MenuFragment : Fragment() {
         setHasOptionsMenu(true)
 
         lessonsButton.setOnClickListener {
-            navigateToNextStep()
+            val application: Application = requireNotNull(activity).application
+            val dataSource = LearnBrailleDatabase.getInstance(application).stepDao
+            navigateToCurrentStep(dataSource, defaultUser)
         }
 
         practiceButton.setOnClickListener(

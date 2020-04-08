@@ -2,7 +2,11 @@ package ru.spbstu.amd.learnbraille.screens.practice
 
 import android.app.Application
 import androidx.lifecycle.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import ru.spbstu.amd.learnbraille.coroutineContext
 import ru.spbstu.amd.learnbraille.database.entities.BrailleDots
 import ru.spbstu.amd.learnbraille.database.entities.Language
 import ru.spbstu.amd.learnbraille.database.entities.SymbolDao
@@ -17,7 +21,7 @@ class PracticeViewModelFactory(
     private val getEnteredDots: () -> BrailleDots
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+    override fun <T : ViewModel> create(modelClass: Class<T>): T =
         if (modelClass.isAssignableFrom(PracticeViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             PracticeViewModel(dataSource, application, getEnteredDots) as T
@@ -73,16 +77,14 @@ class PracticeViewModel(
         job.cancel()
     }
 
-    // TODO unify for app
     private fun initializeCard() = uiScope.launch {
         val entry = getEntryFromDatabase(language) ?: error("DB is not initialized")
         _symbol.value = entry.symbol.toString()
         expectedDots = entry.brailleDots
     }
 
-    // TODO unify context for app
     private suspend fun getEntryFromDatabase(language: Language) =
-        withContext(Dispatchers.IO) {
+        coroutineContext {
             database.getRandomSymbol(language)
         }
 }

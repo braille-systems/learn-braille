@@ -153,47 +153,47 @@ private class DotsCheckerImpl : MutableDotsChecker {
 fun DotsChecker.getEventCorrectObserver(
     dots: Dots,
     buzzer: Vibrator? = null,
-    f: () -> Unit = {}
+    block: () -> Unit = {}
 ) = Observer<Boolean> {
     if (!it) return@Observer
     buzzer.buzz(CORRECT_BUZZ_PATTERN)
     dots.uncheck()
-    f()
+    block()
     onCorrectComplete()
 }
 
 fun DotsChecker.getEventIncorrectObserver(
     dots: Dots,
     buzzer: Vibrator? = null,
-    f: () -> Unit = {}
+    block: () -> Unit = {}
 ) = Observer<Boolean> {
     if (!it) return@Observer
     buzzer.buzz(INCORRECT_BUZZ_PATTERN)
     dots.uncheck()
-    f()
+    block()
     onIncorrectComplete()
 }
 
 fun DotsChecker.getEventHintObserver(
     dots: Dots,
     serial: UsbSerial? = null,
-    f: (BrailleDots) -> Unit
+    block: (BrailleDots) -> Unit
 ) = Observer<BrailleDots?> { expectedDots ->
     if (expectedDots == null) return@Observer
     dots.display(expectedDots)
     dots.clickable(false)
     serial?.trySend(expectedDots)
-    f(expectedDots)
+    block(expectedDots)
     onHintComplete()
 }
 
 fun DotsChecker.getEventPassHintObserver(
     dots: Dots,
-    f: () -> Unit
+    block: () -> Unit
 ) = Observer<Boolean> {
     if (!it) return@Observer
     dots.uncheck()
     dots.clickable(true)
-    f()
+    block()
     onPassHintComplete()
 }

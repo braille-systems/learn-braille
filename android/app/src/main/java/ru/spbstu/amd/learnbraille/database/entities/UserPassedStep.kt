@@ -2,10 +2,9 @@ package ru.spbstu.amd.learnbraille.database.entities
 
 import androidx.room.*
 
-@Entity(tableName = "user_passed_step")
+@Entity(tableName = "user_passed_step", primaryKeys = ["user_id", "step_id"])
 data class UserPassedStep(
 
-    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "user_id")
     val userId: Long,
 
@@ -16,6 +15,6 @@ data class UserPassedStep(
 @Dao
 interface UserPassedStepDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertPassedStep(passedStep: UserPassedStep)
 }

@@ -42,8 +42,7 @@ interface StepDao {
         """
             SELECT * FROM step
             WHERE NOT EXISTS (
-                SELECT *
-                FROM user_passed_step AS ups
+                SELECT * FROM user_passed_step AS ups
                 WHERE ups.user_id = :userId AND ups.step_id = step.id
             )
             ORDER BY step.id ASC
@@ -51,6 +50,19 @@ interface StepDao {
             """
     )
     fun getCurrentStepForUser(userId: Long): Step?
+
+    @Query(
+        """
+            SELECT * FROM step
+            WHERE EXISTS (
+                SELECT * FROM user_passed_step AS ups
+                WHERE ups.user_id = :userId AND ups.step_id = step.id
+            ) AND step.id > :stepId
+            ORDER BY step.id ASC
+            LIMIT 1
+            """
+    )
+    fun getNextStepForUser(userId: Long, stepId: Long): Step?
 
     @Query("SELECT * FROM step WHERE step.id = :id")
     fun getStep(id: Long): Step?

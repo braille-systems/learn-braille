@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonsSymbolBinding
+import ru.spbstu.amd.learnbraille.screens.updateTitle
 
 class ShowSymbolFragment : Fragment() {
 
@@ -23,6 +24,11 @@ class ShowSymbolFragment : Fragment() {
     ).apply {
 
         // TODO
+        // TODO add content title
+
+        updateTitle(getString(R.string.lessons_title_show_symbol))
 
     }.root
+
+    // TODO support help
 }
