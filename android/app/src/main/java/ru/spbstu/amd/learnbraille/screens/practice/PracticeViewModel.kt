@@ -8,9 +8,7 @@ import ru.spbstu.amd.learnbraille.database.entities.Language
 import ru.spbstu.amd.learnbraille.database.entities.SymbolDao
 import ru.spbstu.amd.learnbraille.language
 import ru.spbstu.amd.learnbraille.screens.DotsChecker
-import ru.spbstu.amd.learnbraille.screens.DotsCheckerImpl
 import ru.spbstu.amd.learnbraille.screens.MutableDotsChecker
-import ru.spbstu.amd.learnbraille.screens.State
 import timber.log.Timber
 
 class PracticeViewModelFactory(
@@ -32,7 +30,7 @@ class PracticeViewModel(
     private val database: SymbolDao,
     application: Application,
     private val getEnteredDots: () -> BrailleDots,
-    private val dotsChecker: MutableDotsChecker = DotsCheckerImpl()
+    private val dotsChecker: MutableDotsChecker = MutableDotsChecker.create()
 ) : AndroidViewModel(application),
     DotsChecker by dotsChecker {
 
@@ -59,7 +57,7 @@ class PracticeViewModel(
             getEnteredDots = this@PracticeViewModel.getEnteredDots
             getExpectedDots = { expectedDots }
             onNextHandler = {
-                if (dotsChecker.state == State.INPUT) {
+                if (dotsChecker.state == DotsChecker.State.INPUT) {
                     nTries++
                 }
             }

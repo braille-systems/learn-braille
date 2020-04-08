@@ -1,9 +1,18 @@
 package ru.spbstu.amd.learnbraille.screens
 
+import android.os.Vibrator
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import ru.spbstu.amd.learnbraille.CORRECT_BUZZ_PATTERN
+import ru.spbstu.amd.learnbraille.INCORRECT_BUZZ_PATTERN
 import ru.spbstu.amd.learnbraille.database.entities.BrailleDots
+import ru.spbstu.amd.learnbraille.serial.UsbSerial
 import ru.spbstu.amd.learnbraille.side
+import ru.spbstu.amd.learnbraille.views.Dots
+import ru.spbstu.amd.learnbraille.views.clickable
+import ru.spbstu.amd.learnbraille.views.display
+import ru.spbstu.amd.learnbraille.views.uncheck
 import timber.log.Timber
 
 interface DotsChecker {
@@ -24,6 +33,10 @@ interface DotsChecker {
 
     fun onNext()
     fun onHint()
+
+    enum class State {
+        INPUT, HINT
+    }
 }
 
 interface MutableDotsChecker : DotsChecker {
@@ -36,12 +49,16 @@ interface MutableDotsChecker : DotsChecker {
     var onIncorrectHandler: () -> Unit
     var onHintHandler: () -> Unit
     var onPassHintHandler: () -> Unit
+
+    companion object {
+        fun create(): MutableDotsChecker = DotsCheckerImpl()
+    }
 }
 
 /**
  * Initialize callbacks firstly
  */
-class DotsCheckerImpl : MutableDotsChecker {
+private class DotsCheckerImpl : MutableDotsChecker {
 
     override lateinit var getEnteredDots: () -> BrailleDots
     override lateinit var getExpectedDots: () -> BrailleDots?
@@ -86,19 +103,16 @@ class DotsCheckerImpl : MutableDotsChecker {
             )
         }
 
-    override var state = State.INPUT
+    override var state = DotsChecker.State.INPUT
         private set
 
     override fun onNext() = onNextHandler().side {
-        if (state == State.HINT) {
-            state = State.INPUT
+        if (state == DotsChecker.State.HINT) {
+            state = DotsChecker.State.INPUT
             onPassHist()
         } else {
-            if (isCorrect) {
-                onCorrect()
-            } else {
-                onIncorrect()
-            }
+            if (isCorrect) onCorrect()
+            else onIncorrect()
         }
     }
 
@@ -115,7 +129,7 @@ class DotsCheckerImpl : MutableDotsChecker {
     }
 
     override fun onHint() = onHintHandler().side {
-        state = State.HINT
+        state = DotsChecker.State.HINT
         _eventHint.value = expectedDots
     }
 
@@ -136,6 +150,50 @@ class DotsCheckerImpl : MutableDotsChecker {
     }
 }
 
-enum class State {
-    INPUT, HINT
+fun DotsChecker.getEventCorrectObserver(
+    dots: Dots,
+    buzzer: Vibrator? = null,
+    f: () -> Unit = {}
+) = Observer<Boolean> {
+    if (!it) return@Observer
+    buzzer.buzz(CORRECT_BUZZ_PATTERN)
+    dots.uncheck()
+    f()
+    onCorrectComplete()
+}
+
+fun DotsChecker.getEventIncorrectObserver(
+    dots: Dots,
+    buzzer: Vibrator? = null,
+    f: () -> Unit = {}
+) = Observer<Boolean> {
+    if (!it) return@Observer
+    buzzer.buzz(INCORRECT_BUZZ_PATTERN)
+    dots.uncheck()
+    f()
+    onIncorrectComplete()
+}
+
+fun DotsChecker.getEventHintObserver(
+    dots: Dots,
+    serial: UsbSerial? = null,
+    f: (BrailleDots) -> Unit
+) = Observer<BrailleDots?> { expectedDots ->
+    if (expectedDots == null) return@Observer
+    dots.display(expectedDots)
+    dots.clickable(false)
+    serial?.trySend(expectedDots)
+    f(expectedDots)
+    onHintComplete()
+}
+
+fun DotsChecker.getEventPassHintObserver(
+    dots: Dots,
+    f: () -> Unit
+) = Observer<Boolean> {
+    if (!it) return@Observer
+    dots.uncheck()
+    dots.clickable(true)
+    f()
+    onPassHintComplete()
 }

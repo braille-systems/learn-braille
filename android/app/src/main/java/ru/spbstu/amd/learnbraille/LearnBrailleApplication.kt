@@ -12,8 +12,10 @@ class LearnBrailleApplication : Application() {
     }
 }
 
-val CORRECT_BUZZ_PATTERN = longArrayOf(100, 100, 100, 100, 100, 100)
-val INCORRECT_BUZZ_PATTERN = longArrayOf(0, 200)
+typealias BuzzPattern = LongArray
+
+val CORRECT_BUZZ_PATTERN: BuzzPattern = longArrayOf(100, 100, 100, 100, 100, 100)
+val INCORRECT_BUZZ_PATTERN: BuzzPattern = longArrayOf(0, 200)
 
 // TODO move to settings
 val language = Language.RU

@@ -11,21 +11,18 @@ import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import ru.spbstu.amd.learnbraille.CORRECT_BUZZ_PATTERN
-import ru.spbstu.amd.learnbraille.INCORRECT_BUZZ_PATTERN
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
-import ru.spbstu.amd.learnbraille.database.entities.BrailleDot
-import ru.spbstu.amd.learnbraille.database.entities.BrailleDots
-import ru.spbstu.amd.learnbraille.database.entities.list
 import ru.spbstu.amd.learnbraille.database.entities.spelling
 import ru.spbstu.amd.learnbraille.databinding.FragmentPracticeBinding
-import ru.spbstu.amd.learnbraille.screens.updateTitle
+import ru.spbstu.amd.learnbraille.screens.*
 import ru.spbstu.amd.learnbraille.serial.UsbSerial
-import ru.spbstu.amd.learnbraille.views.*
+import ru.spbstu.amd.learnbraille.views.Dots
+import ru.spbstu.amd.learnbraille.views.brailleDots
+import ru.spbstu.amd.learnbraille.views.dots
+import ru.spbstu.amd.learnbraille.views.spelling
 import timber.log.Timber
 
 class PracticeFragment : Fragment() {
@@ -84,73 +81,40 @@ class PracticeFragment : Fragment() {
         application.registerReceiver(serial.broadcastReceiver, filter)
 
 
-        viewModel.eventCorrect.observe(viewLifecycleOwner, Observer {
-            if (!it) {
-                return@Observer
+        viewModel.eventCorrect.observe(
+            viewLifecycleOwner,
+            viewModel.getEventCorrectObserver(dots, buzzer) {
+                Timber.i("Handle correct")
+                Toast.makeText(context, getString(R.string.msgCorrect), Toast.LENGTH_SHORT).show()
+                updateTitle(title)
             }
+        )
 
-            Timber.i("Handle correct")
-
-            Toast.makeText(context, getString(R.string.msgCorrect), Toast.LENGTH_SHORT).show()
-
-            // Use deprecated API to be compatible with old android API levels
-            @Suppress("DEPRECATION")
-            buzzer?.vibrate(CORRECT_BUZZ_PATTERN, -1)
-
-            dots.uncheck()
-            updateTitle(title)
-
-            viewModel.onCorrectComplete()
-        })
-
-        viewModel.eventIncorrect.observe(viewLifecycleOwner, Observer {
-            if (!it) {
-                return@Observer
+        viewModel.eventIncorrect.observe(
+            viewLifecycleOwner,
+            viewModel.getEventIncorrectObserver(dots, buzzer) {
+                Timber.i("Handle incorrect: entered = ${dots.spelling}")
+                Toast.makeText(context, getString(R.string.msgIncorrect), Toast.LENGTH_SHORT).show()
+                updateTitle(title)
             }
+        )
 
-            Timber.i("Handle incorrect: entered = ${dots.spelling}")
-
-            Toast.makeText(context, getString(R.string.msgIncorrect), Toast.LENGTH_SHORT).show()
-
-            // Use deprecated API to be compatible with old android API levels
-            @Suppress("DEPRECATION")
-            buzzer?.vibrate(INCORRECT_BUZZ_PATTERN, -1)
-
-            dots.uncheck()
-            updateTitle(title)
-
-            viewModel.onIncorrectComplete()
-        })
-
-        viewModel.eventHint.observe(viewLifecycleOwner, Observer { expectedDots: BrailleDots? ->
-            if (expectedDots == null) {
-                return@Observer
+        viewModel.eventHint.observe(
+            viewLifecycleOwner,
+            viewModel.getEventHintObserver(dots, serial) { expectedDots ->
+                Timber.i("Handle hint")
+                val toast = getString(R.string.practice_hint_template)
+                    .format(expectedDots.spelling)
+                Toast.makeText(context, toast, Toast.LENGTH_LONG).show()
             }
+        )
 
-            Timber.i("Handle hint")
-
-            val toast = getString(R.string.practice_hint_template).format(expectedDots.spelling)
-            Toast.makeText(context, toast, Toast.LENGTH_LONG).show()
-
-            (dots zip expectedDots.list).forEach { (checkBox, dot) ->
-                checkBox.isChecked = dot == BrailleDot.F
+        viewModel.eventPassHint.observe(
+            viewLifecycleOwner,
+            viewModel.getEventPassHintObserver(dots) {
+                Timber.i("Handle pass hint")
             }
-            dots.clickable(false)
-
-            serial.trySend(expectedDots)
-
-            viewModel.onHintComplete()
-        })
-
-        viewModel.eventPassHint.observe(viewLifecycleOwner, Observer {
-            if (!it) {
-                return@Observer
-            }
-            Timber.i("Handle pass hint")
-            dots.uncheck()
-            dots.clickable(true)
-            viewModel.onPassHintComplete()
-        })
+        )
 
 
         updateTitle(title) // Requires viewModel being initialized
