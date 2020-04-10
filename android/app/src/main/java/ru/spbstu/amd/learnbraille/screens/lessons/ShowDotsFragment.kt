@@ -11,6 +11,7 @@ import ru.spbstu.amd.learnbraille.database.getDBInstance
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonsDotsBinding
 import ru.spbstu.amd.learnbraille.defaultUser
 import ru.spbstu.amd.learnbraille.screens.updateTitle
+import ru.spbstu.amd.learnbraille.views.clickable
 import ru.spbstu.amd.learnbraille.views.display
 import ru.spbstu.amd.learnbraille.views.dots
 
@@ -34,7 +35,10 @@ class ShowDotsFragment : AbstractLesson(R.string.lessons_help_show_dots) {
         require(step.data is ShowDots)
         infoText.text = getString(R.string.lessons_show_dots_info_template)
             .format(step.data.dots.spelling)
-        brailleDots.dots.display(step.data.dots)
+        brailleDots.dots.apply {
+            display(step.data.dots)
+            clickable(false)
+        }
 
         val database = getDBInstance()
         prevButton.setOnClickListener {

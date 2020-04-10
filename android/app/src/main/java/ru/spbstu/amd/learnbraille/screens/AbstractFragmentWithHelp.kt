@@ -11,6 +11,9 @@ import timber.log.Timber
 
 typealias HelpMsgId = Int
 
+/**
+ * Do not forget to add in onCreate `setHasOptionsMenu(true)`
+ */
 abstract class AbstractFragmentWithHelp(private val helpMsgId: HelpMsgId) : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

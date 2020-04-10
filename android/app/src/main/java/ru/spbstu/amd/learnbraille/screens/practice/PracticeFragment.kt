@@ -6,13 +6,12 @@ import android.content.IntentFilter
 import android.hardware.usb.UsbManager
 import android.os.Bundle
 import android.os.Vibrator
-import android.view.*
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.database.entities.spelling
@@ -25,7 +24,7 @@ import ru.spbstu.amd.learnbraille.views.dots
 import ru.spbstu.amd.learnbraille.views.spelling
 import timber.log.Timber
 
-class PracticeFragment : Fragment() {
+class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
 
     private lateinit var viewModel: PracticeViewModel
     private lateinit var dots: Dots
@@ -121,20 +120,4 @@ class PracticeFragment : Fragment() {
         setHasOptionsMenu(true)
 
     }.root
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.help_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = super.onOptionsItemSelected(item).also {
-        when (item.itemId) {
-            R.id.help -> {
-                Timber.i("Navigate to practice help")
-                val action = PracticeFragmentDirections.actionGlobalHelpFragment()
-                action.helpMessage = getString(R.string.practice_help)
-                findNavController().navigate(action)
-            }
-        }
-    }
 }

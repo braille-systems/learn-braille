@@ -57,13 +57,13 @@ interface StepDao {
             SELECT * FROM step
             WHERE EXISTS (
                 SELECT * FROM user_passed_step AS ups
-                WHERE ups.user_id = :userId AND ups.step_id = :stepId
-            ) AND step.id > :stepId
+                WHERE ups.user_id = :userId AND ups.step_id = :currentStepId
+            ) AND step.id > :currentStepId
             ORDER BY step.id ASC
             LIMIT 1
             """
     )
-    fun getNextStepForUser(userId: Long, stepId: Long): Step?
+    fun getNextStepForUser(userId: Long, currentStepId: Long): Step?
 
     @Query("SELECT * FROM step WHERE step.id = :id")
     fun getStep(id: Long): Step?

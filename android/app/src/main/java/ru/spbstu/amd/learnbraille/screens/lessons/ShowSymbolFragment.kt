@@ -11,6 +11,7 @@ import ru.spbstu.amd.learnbraille.database.getDBInstance
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonsSymbolBinding
 import ru.spbstu.amd.learnbraille.defaultUser
 import ru.spbstu.amd.learnbraille.screens.updateTitle
+import ru.spbstu.amd.learnbraille.views.clickable
 import ru.spbstu.amd.learnbraille.views.display
 import ru.spbstu.amd.learnbraille.views.dots
 
@@ -34,7 +35,10 @@ class ShowSymbolFragment : AbstractLesson(R.string.lessons_help_show_symbol) {
         require(step.data is ShowSymbol)
         titleView.text = step.title
         letter.text = step.data.symbol.symbol.toString()
-        brailleDots.dots.display(step.data.symbol.brailleDots)
+        brailleDots.dots.apply {
+            display(step.data.symbol.brailleDots)
+            clickable(false)
+        }
 
         val database = getDBInstance()
         prevButton.setOnClickListener {
