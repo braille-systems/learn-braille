@@ -8,6 +8,14 @@ import ru.spbstu.amd.learnbraille.res.russian.symbols.symbolMap
 val DEBUG_LESSONS = listOf(
 
     Step(
+        title = "0 First",
+        lessonId = 1,
+        data = FirstStep(
+            text = "I am so first"
+        )
+    ),
+
+    Step(
         title = "1 Info",
         lessonId = 1,
         data = Info(

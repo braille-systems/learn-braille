@@ -10,4 +10,4 @@ import ru.spbstu.amd.learnbraille.DEBUG
 val PREPOPULATE_STEPS
     get() =
         if (DEBUG) DEBUG_LESSONS
-        else LESSON_1_STEPS + LESSON_2_STEPS + VERY_LAST
+        else listOf(VERY_FIRST) + LESSON_1_STEPS + LESSON_2_STEPS + VERY_LAST

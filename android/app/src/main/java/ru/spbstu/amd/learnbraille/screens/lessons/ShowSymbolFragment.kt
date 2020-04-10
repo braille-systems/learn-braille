@@ -13,7 +13,6 @@ import ru.spbstu.amd.learnbraille.defaultUser
 import ru.spbstu.amd.learnbraille.screens.updateTitle
 import ru.spbstu.amd.learnbraille.views.clickable
 import ru.spbstu.amd.learnbraille.views.display
-import ru.spbstu.amd.learnbraille.views.dots
 
 class ShowSymbolFragment : AbstractLesson(R.string.lessons_help_show_symbol) {
 

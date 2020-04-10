@@ -24,6 +24,7 @@ fun stepDataOf(string: String): StepData = string
     .let { (type, data) ->
         when (type) {
             Info.name -> Info(data)
+            FirstStep.name -> FirstStep(data)
             LastInfo.name -> LastInfo(data)
             InputSymbol.name -> InputSymbol(data)
             InputDots.name -> inputDotsOf(data)
@@ -52,6 +53,26 @@ class Info(
     }
 }
 
+/**
+ * Info step without `prev` button
+ */
+class FirstStep(
+    text: String
+) : BaseInfo() {
+
+    val text = text.stepFormat()
+
+    override val name = Companion.name
+    override val data = this.text
+
+    companion object {
+        val name = FirstStep::class.java.name
+    }
+}
+
+/**
+ * Info step without `next` button.
+ */
 class LastInfo(
     text: String
 ) : BaseInfo() {
@@ -89,6 +110,8 @@ class InputSymbol(
 
 /**
  * Step prompts the user to enter dots with specific numbers.
+ *
+ * @param text Special text of default braille dots spelling.
  */
 class InputDots(
     val text: String?,
@@ -136,6 +159,8 @@ class ShowSymbol(
 
 /**
  * Step shows Braille dots with specific numbers.
+ *
+ * @param text Special text of default braille dots spelling.
  */
 class ShowDots(
     val text: String?,

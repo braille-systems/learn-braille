@@ -19,7 +19,6 @@ import ru.spbstu.amd.learnbraille.defaultUser
 import ru.spbstu.amd.learnbraille.screens.*
 import ru.spbstu.amd.learnbraille.views.Dots
 import ru.spbstu.amd.learnbraille.views.brailleDots
-import ru.spbstu.amd.learnbraille.views.dots
 import ru.spbstu.amd.learnbraille.views.spelling
 import timber.log.Timber
 
