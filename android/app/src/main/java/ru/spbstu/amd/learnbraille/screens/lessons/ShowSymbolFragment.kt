@@ -30,7 +30,7 @@ class ShowSymbolFragment : AbstractLesson(R.string.lessons_help_show_symbol) {
         updateTitle(getString(R.string.lessons_title_show_symbol))
         setHasOptionsMenu(true)
 
-        val step = stepArg
+        val step = getStepArg()
         require(step.data is ShowSymbol)
         titleView.text = step.title
         letter.text = step.data.symbol.symbol.toString()

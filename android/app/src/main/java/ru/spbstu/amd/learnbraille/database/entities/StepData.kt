@@ -24,7 +24,7 @@ fun stepDataOf(string: String): StepData = string
     .let { (type, data) ->
         when (type) {
             Info.name -> Info(data)
-            FirstStep.name -> FirstStep(data)
+            FirstInfo.name -> FirstInfo(data)
             LastInfo.name -> LastInfo(data)
             InputSymbol.name -> InputSymbol(data)
             InputDots.name -> inputDotsOf(data)
@@ -56,7 +56,7 @@ class Info(
 /**
  * Info step without `prev` button
  */
-class FirstStep(
+class FirstInfo(
     text: String
 ) : BaseInfo() {
 
@@ -66,7 +66,7 @@ class FirstStep(
     override val data = this.text
 
     companion object {
-        val name = FirstStep::class.java.name
+        val name = FirstInfo::class.java.name
     }
 }
 

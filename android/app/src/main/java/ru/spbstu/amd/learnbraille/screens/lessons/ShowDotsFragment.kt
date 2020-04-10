@@ -30,7 +30,7 @@ class ShowDotsFragment : AbstractLesson(R.string.lessons_help_show_dots) {
         updateTitle(getString(R.string.lessons_help_show_dots))
         setHasOptionsMenu(true)
 
-        val step = stepArg
+        val step = getStepArg()
         require(step.data is ShowDots)
         infoText.text = getString(R.string.lessons_show_dots_info_template)
             .format(step.data.dots.spelling)

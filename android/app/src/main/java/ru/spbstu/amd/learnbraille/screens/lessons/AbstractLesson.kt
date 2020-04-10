@@ -1,6 +1,5 @@
 package ru.spbstu.amd.learnbraille.screens.lessons
 
-import ru.spbstu.amd.learnbraille.database.entities.Step
 import ru.spbstu.amd.learnbraille.database.entities.stepOf
 import ru.spbstu.amd.learnbraille.screens.AbstractFragmentWithHelp
 import ru.spbstu.amd.learnbraille.screens.HelpMsgId
@@ -13,5 +12,4 @@ abstract class AbstractLesson(helpMsgId: HelpMsgId) : AbstractFragmentWithHelp(h
     }
 }
 
-val AbstractLesson.stepArg: Step
-    get() = stepOf(getStringArg(stepArgName))
+fun AbstractLesson.getStepArg() = stepOf(getStringArg(stepArgName))

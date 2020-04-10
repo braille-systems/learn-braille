@@ -2,7 +2,6 @@ package ru.spbstu.amd.learnbraille.screens.menu
 
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
-import android.app.Application
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,7 +11,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import ru.spbstu.amd.learnbraille.R
-import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
+import ru.spbstu.amd.learnbraille.database.getDBInstance
 import ru.spbstu.amd.learnbraille.databinding.FragmentMenuBinding
 import ru.spbstu.amd.learnbraille.defaultUser
 import ru.spbstu.amd.learnbraille.screens.AbstractFragmentWithHelp
@@ -41,8 +40,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         setHasOptionsMenu(true)
 
         lessonsButton.setOnClickListener {
-            val application: Application = requireNotNull(activity).application
-            val dataSource = LearnBrailleDatabase.getInstance(application).stepDao
+            val dataSource = getDBInstance().stepDao
             navigateToCurrentStep(dataSource, defaultUser)
         }
 

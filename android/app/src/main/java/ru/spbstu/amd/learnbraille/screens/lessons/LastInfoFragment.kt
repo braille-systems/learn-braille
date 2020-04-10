@@ -26,9 +26,10 @@ class LastInfoFragment : AbstractLesson(R.string.lessons_help_last_info) {
         updateTitle(getString(R.string.lessons_title_last_info))
         setHasOptionsMenu(true)
 
-        val step = stepArg
+        val step = getStepArg()
         require(step.data is LastInfo)
-        infoText.text = step.data.text
+        titleTextView.text = step.title
+        infoTextView.text = step.data.text
 
         val database = getDBInstance()
         prevButton.setOnClickListener {

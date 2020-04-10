@@ -45,7 +45,7 @@ class InputDotsFragment : AbstractLesson(R.string.lessons_help_input_dots) {
         updateTitle(getString(R.string.lessons_title_input_dots))
         setHasOptionsMenu(true)
 
-        val step = stepArg
+        val step = getStepArg()
         require(step.data is InputDots)
         titleView.text = step.title
         infoText.text = getString(R.string.lessons_input_dots_info_template)

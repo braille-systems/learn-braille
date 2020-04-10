@@ -106,6 +106,14 @@
             android:name="step"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/firstInfoFragment"
+        android:name="ru.spbstu.amd.learnbraille.screens.lessons.FirstInfoFragment"
+        android:label="FirstInfoFragment">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
 
     <action
         android:id="@+id/action_global_showSymbolFragment"
@@ -130,5 +138,9 @@
     <action
         android:id="@+id/action_global_lastInfoFragment"
         app:destination="@id/lastInfoFragment"
+        app:popUpTo="@id/menuFragment" />
+    <action
+        android:id="@+id/action_global_firstInfoFragment"
+        app:destination="@id/firstInfoFragment"
         app:popUpTo="@id/menuFragment" />
 </navigation>

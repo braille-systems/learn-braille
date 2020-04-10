@@ -1,5 +1,6 @@
 package ru.spbstu.amd.learnbraille.screens
 
+import android.app.Application
 import android.os.Vibrator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -24,3 +25,6 @@ fun Vibrator?.buzz(pattern: BuzzPattern) {
     @Suppress("DEPRECATION")
     vibrate(pattern, -1)
 }
+
+val Fragment.application: Application
+    get() = requireNotNull(activity).application

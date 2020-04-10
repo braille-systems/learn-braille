@@ -18,6 +18,7 @@ fun Fragment.navigateToStep(nextStep: Step): Unit =
     }.let { step ->
         when (nextStep.data) {
             is Info -> MenuFragmentDirections.actionGlobalInfoFragment(step)
+            is FirstInfo -> MenuFragmentDirections.actionGlobalFirstInfoFragment(step)
             is LastInfo -> MenuFragmentDirections.actionGlobalLastInfoFragment(step)
             is InputSymbol -> MenuFragmentDirections.actionGlobalInputSymbolFragment(step)
             is InputDots -> MenuFragmentDirections.actionGlobalInputDotsFragment(step)

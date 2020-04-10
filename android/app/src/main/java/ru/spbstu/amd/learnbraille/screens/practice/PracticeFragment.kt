@@ -1,7 +1,6 @@
 package ru.spbstu.amd.learnbraille.screens.practice
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.content.IntentFilter
 import android.hardware.usb.UsbManager
 import android.os.Bundle
@@ -13,8 +12,8 @@ import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import ru.spbstu.amd.learnbraille.R
-import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.database.entities.spelling
+import ru.spbstu.amd.learnbraille.database.getDBInstance
 import ru.spbstu.amd.learnbraille.databinding.FragmentPracticeBinding
 import ru.spbstu.amd.learnbraille.screens.*
 import ru.spbstu.amd.learnbraille.serial.UsbSerial
@@ -49,8 +48,7 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
 
         Timber.i("Start initialize practice fragment")
 
-        val application: Application = requireNotNull(activity).application
-        val dataSource = LearnBrailleDatabase.getInstance(application).symbolDao
+        val dataSource = getDBInstance().symbolDao
         dots = practiceButtons.dots
 
         val viewModelFactory = PracticeViewModelFactory(dataSource, application) {
