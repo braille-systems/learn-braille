@@ -1,19 +1,20 @@
 package ru.spbstu.amd.learnbraille.screens.lessons
 
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import ru.spbstu.amd.learnbraille.R
-import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.database.entities.ShowDots
+import ru.spbstu.amd.learnbraille.database.entities.spelling
+import ru.spbstu.amd.learnbraille.database.getDBInstance
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonsDotsBinding
+import ru.spbstu.amd.learnbraille.defaultUser
 import ru.spbstu.amd.learnbraille.screens.updateTitle
 import ru.spbstu.amd.learnbraille.views.display
 import ru.spbstu.amd.learnbraille.views.dots
 
-class ShowDotsFragment : BaseLessonFragment() {
+class ShowDotsFragment : AbstractLesson(R.string.lessons_help_show_dots) {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,23 +27,25 @@ class ShowDotsFragment : BaseLessonFragment() {
         false
     ).apply {
 
-        // TODO
-        // TODO add content title
-
         updateTitle(getString(R.string.lessons_help_show_dots))
+        setHasOptionsMenu(true)
 
         val step = stepArg
         require(step.data is ShowDots)
+        infoText.text = getString(R.string.lessons_show_dots_info_template)
+            .format(step.data.dots.spelling)
         brailleDots.dots.display(step.data.dots)
 
-        val application: Application = requireNotNull(activity).application
-        val database = LearnBrailleDatabase.getInstance(application)
-
+        val database = getDBInstance()
         prevButton.setOnClickListener {
             navigateToPrevStep(database.stepDao, step)
         }
+        nextButton.setOnClickListener {
+            navigateToNextStep(
+                database.stepDao, step, defaultUser,
+                database.userPassedStepDao
+            )
+        }
 
     }.root
-
-    // TODO support help
 }

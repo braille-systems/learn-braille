@@ -1,17 +1,16 @@
 package ru.spbstu.amd.learnbraille.screens.lessons
 
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import ru.spbstu.amd.learnbraille.R
-import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.database.entities.LastInfo
+import ru.spbstu.amd.learnbraille.database.getDBInstance
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonLastInfoBinding
 import ru.spbstu.amd.learnbraille.screens.updateTitle
 
-class LastInfoFragment : BaseLessonFragment() {
+class LastInfoFragment : AbstractLesson(R.string.lessons_help_last_info) {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,21 +24,16 @@ class LastInfoFragment : BaseLessonFragment() {
     ).apply {
 
         updateTitle(getString(R.string.lessons_title_last_info))
-
-        // TODO add content title
+        setHasOptionsMenu(true)
 
         val step = stepArg
         require(step.data is LastInfo)
         infoText.text = step.data.text
 
-        val application: Application = requireNotNull(activity).application
-        val database = LearnBrailleDatabase.getInstance(application)
-
+        val database = getDBInstance()
         prevButton.setOnClickListener {
             navigateToPrevStep(database.stepDao, step)
         }
 
     }.root
-
-    // TODO support help
 }

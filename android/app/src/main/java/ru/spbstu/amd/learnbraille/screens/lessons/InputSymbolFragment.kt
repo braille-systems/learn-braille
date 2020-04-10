@@ -9,7 +9,7 @@ import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonsSymbolBinding
 import ru.spbstu.amd.learnbraille.screens.updateTitle
 
-class InputSymbolFragment : BaseLessonFragment() {
+class InputSymbolFragment : AbstractLesson(R.string.lessons_help_input_symbol) {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,8 +26,7 @@ class InputSymbolFragment : BaseLessonFragment() {
         // TODO add content title
 
         updateTitle(getString(R.string.lessons_title_input_symbol))
+        setHasOptionsMenu(true)
 
     }.root
-
-    // TODO support help
 }

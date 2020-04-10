@@ -65,6 +65,12 @@
     <string name="lessons_db_not_initialized_warning">
         Раздел практики загружается. Попробуйте еще раз.
     </string>
+    <string name="lessons_input_dots_info_template">
+        Введите точки: %s
+    </string>
+    <string name="lessons_show_dots_info_template">
+        Выведены точки: %s
+    </string>
 
     <string name="lessons_title_info">Информационный шаг</string>
     <string name="lessons_title_last_info">Последний шаг!</string>

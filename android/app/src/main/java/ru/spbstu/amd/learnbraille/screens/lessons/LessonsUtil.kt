@@ -28,7 +28,7 @@ fun Fragment.navigateToStep(nextStep: Step): Unit =
         findNavController().navigate(action)
     }
 
-fun BaseLessonFragment.navigateToPrevStep(dataSource: StepDao, current: Step) {
+fun AbstractLesson.navigateToPrevStep(dataSource: StepDao, current: Step) {
     if (current.id == 1L) return
     CoroutineScope(Dispatchers.Main + Job()).launch {
         val step = coroutineContext {
@@ -38,12 +38,12 @@ fun BaseLessonFragment.navigateToPrevStep(dataSource: StepDao, current: Step) {
     }
 }
 
-fun BaseLessonFragment.navigateToNextStep(
+fun AbstractLesson.navigateToNextStep(
     dataSource: StepDao,
     current: Step,
     userId: Long,
     upsd: UserPassedStepDao? = null,
-    onNextNotAvailable: BaseLessonFragment.() -> Unit = {}
+    onNextNotAvailable: AbstractLesson.() -> Unit = {}
 ) {
     if (current.data is LastInfo) {
         Timber.w("Trying to get step after last")

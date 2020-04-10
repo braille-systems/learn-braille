@@ -10,6 +10,7 @@ import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentGreetingBinding
 import ru.spbstu.amd.learnbraille.screens.updateTitle
 
+// TODO decide what to do with this functionality
 class GreetingFragment : Fragment() {
 
     override fun onCreateView(

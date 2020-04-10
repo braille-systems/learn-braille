@@ -6,20 +6,20 @@ import android.app.Application
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.databinding.FragmentMenuBinding
 import ru.spbstu.amd.learnbraille.defaultUser
+import ru.spbstu.amd.learnbraille.screens.AbstractFragmentWithHelp
 import ru.spbstu.amd.learnbraille.screens.lessons.navigateToCurrentStep
 import ru.spbstu.amd.learnbraille.screens.updateTitle
 
-class MenuFragment : Fragment() {
+class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     companion object {
         const val qtResultCode = 0
@@ -77,21 +77,6 @@ class MenuFragment : Fragment() {
             }
             if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(context, "Try again", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.help_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = super.onOptionsItemSelected(item).also {
-        when (item.itemId) {
-            R.id.help -> {
-                val action = MenuFragmentDirections.actionGlobalHelpFragment()
-                action.helpMessage = getString(R.string.menu_help)
-                findNavController().navigate(action)
             }
         }
     }

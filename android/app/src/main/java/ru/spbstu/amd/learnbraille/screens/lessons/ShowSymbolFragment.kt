@@ -5,12 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import ru.spbstu.amd.learnbraille.R
+import ru.spbstu.amd.learnbraille.database.entities.ShowSymbol
+import ru.spbstu.amd.learnbraille.database.getDBInstance
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonsSymbolBinding
+import ru.spbstu.amd.learnbraille.defaultUser
 import ru.spbstu.amd.learnbraille.screens.updateTitle
+import ru.spbstu.amd.learnbraille.views.display
+import ru.spbstu.amd.learnbraille.views.dots
 
-class ShowSymbolFragment : Fragment() {
+class ShowSymbolFragment : AbstractLesson(R.string.lessons_help_show_symbol) {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,12 +27,25 @@ class ShowSymbolFragment : Fragment() {
         false
     ).apply {
 
-        // TODO
-        // TODO add content title
-
         updateTitle(getString(R.string.lessons_title_show_symbol))
+        setHasOptionsMenu(true)
+
+        val step = stepArg
+        require(step.data is ShowSymbol)
+        titleView.text = step.title
+        letter.text = step.data.symbol.symbol.toString()
+        brailleDots.dots.display(step.data.symbol.brailleDots)
+
+        val database = getDBInstance()
+        prevButton.setOnClickListener {
+            navigateToPrevStep(database.stepDao, step)
+        }
+        nextButton.setOnClickListener {
+            navigateToNextStep(
+                database.stepDao, step, defaultUser,
+                database.userPassedStepDao
+            )
+        }
 
     }.root
-
-    // TODO support help
 }

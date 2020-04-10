@@ -1,6 +1,5 @@
 package ru.spbstu.amd.learnbraille.screens.lessons
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonsDotsBinding
 import ru.spbstu.amd.learnbraille.screens.updateTitle
 
-class InputDotsFragment : BaseLessonFragment() {
+class InputDotsFragment : AbstractLesson(R.string.lessons_help_input_dots) {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,11 +22,10 @@ class InputDotsFragment : BaseLessonFragment() {
     ).apply {
 
         updateTitle(getString(R.string.lessons_title_input_dots))
+        setHasOptionsMenu(true)
 
         // TODO
         // TODO add content title
 
     }.root
-
-    // TODO support help
 }
