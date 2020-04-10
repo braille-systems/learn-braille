@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         // Start database prepopulation
-        LearnBrailleDatabase.getInstance(this)
+        LearnBrailleDatabase.getInstance(this).devnull
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -17,12 +17,13 @@ data class Step(
     val data: StepData
 ) {
     companion object {
-        val pattern = Regex("""Step\(id=(\d+), title=(.*), lessonId=(\d+), data=(.+)\)""")
+        val pattern = Regex(
+            """Step\(id=(\d+), title=((?:.|\n)*), lessonId=(\d+), data=((?:.|\n)+)\)"""
+        )
     }
 }
 
-fun stepOf(string: String) = Step.pattern
-    .matchEntire(string)
+fun stepOf(string: String) = Step.pattern.matchEntire(string)
     ?.groups?.let { (_, id, title, lessonId, data) ->
         Step(
             id = id?.value?.toLong() ?: error("No id here $string"),
@@ -56,7 +57,7 @@ interface StepDao {
             SELECT * FROM step
             WHERE EXISTS (
                 SELECT * FROM user_passed_step AS ups
-                WHERE ups.user_id = :userId AND ups.step_id = step.id
+                WHERE ups.user_id = :userId AND ups.step_id = :stepId
             ) AND step.id > :stepId
             ORDER BY step.id ASC
             LIMIT 1

@@ -13,7 +13,9 @@ import ru.spbstu.amd.learnbraille.side
 import timber.log.Timber
 
 fun Fragment.navigateToStep(nextStep: Step): Unit =
-    nextStep.toString().let { step ->
+    nextStep.toString().also {
+        Timber.i("Navigating to step with id = ${nextStep.id}")
+    }.let { step ->
         when (nextStep.data) {
             is Info -> MenuFragmentDirections.actionGlobalInfoFragment(step)
             is LastInfo -> MenuFragmentDirections.actionGlobalLastInfoFragment(step)
@@ -55,7 +57,9 @@ fun BaseLessonFragment.navigateToNextStep(
             dataSource.getNextStepForUser(userId, current.id)
         }?.let { step ->
             navigateToStep(step)
-        } ?: onNextNotAvailable()
+        } ?: onNextNotAvailable().side {
+            Timber.i("On next step not available call")
+        }
     }
 }
 

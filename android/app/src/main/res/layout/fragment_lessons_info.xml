@@ -14,10 +14,12 @@
             android:id="@+id/prev_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="113dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="57dp"
             android:text="Назад!"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/info_text"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,25 +27,29 @@
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="114dp"
+            android:layout_marginStart="54dp"
+            android:layout_marginEnd="60dp"
             android:text="Вперед!"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/info_text"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/info_text"
-            android:layout_width="198dp"
-            android:layout_height="489dp"
+            android:layout_width="251dp"
+            android:layout_height="455dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.458"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.585" />
 
         <TextView
-            android:id="@+id/titleView"
+            android:id="@+id/title_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
