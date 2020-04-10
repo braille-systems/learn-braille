@@ -45,12 +45,18 @@ val LESSON_1_STEPS = listOf(
 
     Step(
         title = "Шеститочие",
-        data = ShowDots(BrailleDots(F, F, F, F, F, F))
+        data = ShowDots(
+            text = "Перед вами полное шеститочие",
+            dots = BrailleDots(F, F, F, F, F, F)
+        )
     ),
 
     Step(
-        title = "Введите все шесть точек",
-        data = InputDots(BrailleDots(F, F, F, F, F, F))
+        title = "Полное шеститочие",
+        data = InputDots(
+            text = "Введите все шесть точек",
+            dots = BrailleDots(F, F, F, F, F, F)
+        )
     ),
 
     Step(

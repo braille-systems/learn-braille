@@ -26,9 +26,9 @@ fun stepDataOf(string: String): StepData = string
             Info.name -> Info(data)
             LastInfo.name -> LastInfo(data)
             InputSymbol.name -> InputSymbol(data)
-            InputDots.name -> InputDots(data)
+            InputDots.name -> inputDotsOf(data)
             ShowSymbol.name -> ShowSymbol(data)
-            ShowDots.name -> ShowDots(data)
+            ShowDots.name -> showDotsOf(data)
             else -> error("No such step type: $type")
         }
     }
@@ -90,22 +90,28 @@ class InputSymbol(
 /**
  * Step prompts the user to enter dots with specific numbers.
  */
-// TODO add nullable text
 class InputDots(
+    val text: String?,
     val dots: BrailleDots
 ) : BaseInput() {
 
     override val name = Companion.name
-    override val data = dots.toString()
-
-    constructor(data: String) : this(
-        BrailleDots(data)
-    )
+    override val data = text + delimiter + dots.toString()
 
     companion object {
         val name = InputDots::class.java.name
+        const val delimiter = Char.MAX_VALUE
     }
 }
+
+fun inputDotsOf(string: String): InputDots = string
+    .split(InputDots.delimiter, limit = 2)
+    .let { (text, dots) ->
+        InputDots(
+            text = if (text == null.toString()) null else text,
+            dots = BrailleDots(dots)
+        )
+    }
 
 sealed class BaseShow : StepData()
 
@@ -131,22 +137,28 @@ class ShowSymbol(
 /**
  * Step shows Braille dots with specific numbers.
  */
-// TODO add nullable text
 class ShowDots(
+    val text: String?,
     val dots: BrailleDots
 ) : BaseShow() {
 
     override val name = Companion.name
-    override val data = dots.toString()
-
-    constructor(data: String) : this(
-        BrailleDots(data)
-    )
+    override val data = text + delimiter + dots.toString()
 
     companion object {
         val name = ShowDots::class.java.name
+        const val delimiter = Char.MAX_VALUE
     }
 }
+
+fun showDotsOf(string: String): ShowDots = string
+    .split(ShowDots.delimiter, limit = 2)
+    .let { (text, dots) ->
+        ShowDots(
+            text = if (text == null.toString()) null else text,
+            dots = BrailleDots(dots)
+        )
+    }
 
 class StepDataConverters {
 

@@ -16,9 +16,10 @@ val DEBUG_LESSONS = listOf(
     ),
 
     Step(
-        title = "2 Show dots",
+        title = "2 Show dots, null text",
         lessonId = 1,
         data = ShowDots(
+            text = null,
             dots = BrailleDots(F, F, E, E, F, F)
         )
     ),
@@ -32,9 +33,10 @@ val DEBUG_LESSONS = listOf(
     ),
 
     Step(
-        title = "4 Input dots",
+        title = "4 Input dots, some text :)",
         lessonId = 1,
         data = InputDots(
+            text = "E E F F E E",
             dots = BrailleDots(E, E, F, F, E, E)
         )
     ),
