@@ -136,6 +136,7 @@
     <string name="help_title">Справка</string>
     <string name="msgCorrect">Правильно!</string>
     <string name="msgIncorrect">Неправильно!</string>
+    <string name="msg_cancelled">Ошибка, попытайтесь ещё раз</string>
 
 </resources>
 
