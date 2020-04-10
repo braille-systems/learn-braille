@@ -42,6 +42,11 @@ class InfoFragment : AbstractLesson(R.string.lessons_help_info) {
                     userPassedStepDao
                 )
             }
+            toCurrStepButton.setOnClickListener {
+                navigateToCurrentStep(
+                    stepDao, defaultUser
+                )
+            }
         }
 
     }.root

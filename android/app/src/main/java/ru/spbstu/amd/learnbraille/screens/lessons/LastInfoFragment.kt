@@ -8,6 +8,7 @@ import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.entities.LastInfo
 import ru.spbstu.amd.learnbraille.database.getDBInstance
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonLastInfoBinding
+import ru.spbstu.amd.learnbraille.defaultUser
 import ru.spbstu.amd.learnbraille.screens.updateTitle
 
 class LastInfoFragment : AbstractLesson(R.string.lessons_help_last_info) {
@@ -31,9 +32,15 @@ class LastInfoFragment : AbstractLesson(R.string.lessons_help_last_info) {
         titleTextView.text = step.title
         infoTextView.text = step.data.text
 
-        val database = getDBInstance()
-        prevButton.setOnClickListener {
-            navigateToPrevStep(database.stepDao, step)
+        getDBInstance().run {
+            prevButton.setOnClickListener {
+                navigateToPrevStep(stepDao, step)
+            }
+            toCurrStepButton.setOnClickListener {
+                navigateToCurrentStep(
+                    stepDao, defaultUser
+                )
+            }
         }
 
     }.root

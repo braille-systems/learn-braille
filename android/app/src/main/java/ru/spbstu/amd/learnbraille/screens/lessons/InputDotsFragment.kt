@@ -76,6 +76,12 @@ class InputDotsFragment : AbstractLesson(R.string.lessons_help_input_dots) {
             navigateToPrevStep(database.stepDao, step)
         }
 
+        toCurrStepButton.setOnClickListener {
+            navigateToCurrentStep(
+                database.stepDao, defaultUser
+            )
+        }
+
         viewModel.eventCorrect.observe(
             viewLifecycleOwner,
             viewModel.getEventCorrectObserver(dots, buzzer) {

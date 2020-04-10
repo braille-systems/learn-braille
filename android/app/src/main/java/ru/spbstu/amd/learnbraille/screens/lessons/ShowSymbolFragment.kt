@@ -48,6 +48,11 @@ class ShowSymbolFragment : AbstractLesson(R.string.lessons_help_show_symbol) {
                     userPassedStepDao
                 )
             }
+            toCurrStepButton.setOnClickListener {
+                navigateToCurrentStep(
+                    stepDao, defaultUser
+                )
+            }
         }
 
     }.root

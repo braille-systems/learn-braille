@@ -51,6 +51,11 @@ class ShowDotsFragment : AbstractLesson(R.string.lessons_help_show_dots) {
                     userPassedStepDao
                 )
             }
+            toCurrStepButton.setOnClickListener {
+                navigateToCurrentStep(
+                    stepDao, defaultUser
+                )
+            }
         }
 
     }.root
