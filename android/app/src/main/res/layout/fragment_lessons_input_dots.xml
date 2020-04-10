@@ -5,6 +5,13 @@
 
     <!--    TODO-->
 
+    <data>
+
+        <variable
+            name="inputViewModel"
+            type="ru.spbstu.amd.learnbraille.screens.lessons.InputViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -49,6 +56,7 @@
             android:id="@+id/hint_button"
             android:layout_width="85dp"
             android:layout_height="317dp"
+            android:onClick="@{() -> inputViewModel.onHint()}"
             android:text="ПОДСКАЗКА!"
             app:layout_constraintBottom_toTopOf="@+id/prev_button"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,6 +84,7 @@
             android:id="@+id/next_button"
             android:layout_width="85dp"
             android:layout_height="317dp"
+            android:onClick="@{() -> inputViewModel.onNext()}"
             android:text="ВПЕРЕД!"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

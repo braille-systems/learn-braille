@@ -46,15 +46,6 @@
             tools:layout_conversion_absoluteWidth="160dp" />
 
         <Button
-            android:id="@+id/hint_button"
-            android:layout_width="85dp"
-            android:layout_height="317dp"
-            android:text="ПОДСКАЗКА!"
-            app:layout_constraintBottom_toTopOf="@+id/prev_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
             android:id="@+id/to_curr_step_button"
             android:layout_width="85dp"
             android:layout_height="317dp"
@@ -70,7 +61,7 @@
             android:text="НАЗАД!"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hint_button" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/next_button"

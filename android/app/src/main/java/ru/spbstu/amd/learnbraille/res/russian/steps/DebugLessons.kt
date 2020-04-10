@@ -52,8 +52,16 @@ val DEBUG_LESSONS = listOf(
     Step(
         title = "5, Input symbol",
         lessonId = 1,
+        data = InputSymbol(
+            symbol = symbolMap['Й'] ?: error("All RU letters are supported")
+        )
+    ),
+
+    Step(
+        title = "6, Last info",
+        lessonId = 1,
         data = LastInfo(
-            text = "The super last one"
+            text = "Veeery last one!!!"
         )
     )
 )

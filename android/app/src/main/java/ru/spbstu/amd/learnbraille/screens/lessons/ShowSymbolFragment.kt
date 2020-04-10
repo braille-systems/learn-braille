@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.entities.ShowSymbol
-import ru.spbstu.amd.learnbraille.database.entities.spelling
 import ru.spbstu.amd.learnbraille.database.getDBInstance
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonsShowSymbolBinding
 import ru.spbstu.amd.learnbraille.defaultUser
