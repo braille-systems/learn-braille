@@ -4,9 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import ru.spbstu.amd.learnbraille.database.entities.BrailleDots
 import ru.spbstu.amd.learnbraille.screens.DotsChecker
 import ru.spbstu.amd.learnbraille.screens.MutableDotsChecker

@@ -90,6 +90,7 @@ class InputSymbol(
 /**
  * Step prompts the user to enter dots with specific numbers.
  */
+// TODO add nullable text
 class InputDots(
     val dots: BrailleDots
 ) : BaseInput() {
@@ -130,6 +131,7 @@ class ShowSymbol(
 /**
  * Step shows Braille dots with specific numbers.
  */
+// TODO add nullable text
 class ShowDots(
     val dots: BrailleDots
 ) : BaseShow() {

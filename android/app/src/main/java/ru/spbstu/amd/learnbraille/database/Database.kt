@@ -12,6 +12,7 @@ import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_LESSONS
 import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_USERS
 import ru.spbstu.amd.learnbraille.res.russian.steps.PREPOPULATE_STEPS
 import ru.spbstu.amd.learnbraille.res.russian.symbols.PREPOPULATE_SYMBOLS
+import ru.spbstu.amd.learnbraille.side
 import timber.log.Timber
 
 @Database(
@@ -49,6 +50,13 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
+
+        // TODO does not work
+        fun nukeDatabase() = INSTANCE?.side {
+            Timber.w("Nuking database")
+            it.clearAllTables()
+            INSTANCE = null
+        }
 
         private fun buildDatabase(context: Context) = Room
             .databaseBuilder(

@@ -7,7 +7,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-fun <T, R> T.side(block: (T) -> R) {
+fun <T, R> T?.side(block: (T) -> R) {
+    if (this == null) return
     block(this)
 }
 
@@ -19,7 +20,7 @@ operator fun MatchGroupCollection.component3() = get(2)
 operator fun MatchGroupCollection.component4() = get(3)
 operator fun MatchGroupCollection.component5() = get(4)
 
-val Any.devnull: Unit get() {}
+val Any?.devnull: Unit get() {}
 
 // TODO refactor async
 
