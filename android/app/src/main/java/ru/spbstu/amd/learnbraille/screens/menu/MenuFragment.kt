@@ -53,6 +53,12 @@ class MenuFragment : Fragment() {
             }
         }
 
+        stackedHelpButton.setOnClickListener{
+            val action = MenuFragmentDirections.actionMenuFragmentToHelpFragment()
+            action.helpMessage = getString(R.string.menu_help)
+            findNavController().navigate(action)
+        }
+
         exitButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_exitFragment)
         )
