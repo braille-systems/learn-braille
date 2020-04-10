@@ -55,7 +55,7 @@ val Dots.brailleDots: BrailleDots
         map(CheckBox::isChecked).toBooleanArray()
     )
 
-fun Dots.display(brailleDots: BrailleDots) =
+fun Dots.display(brailleDots: BrailleDots): Unit =
     (this zip brailleDots.list).forEach { (checkBox, dot) ->
         checkBox.isChecked = dot == BrailleDot.F
-    }
+    }.also { clickable(false) }

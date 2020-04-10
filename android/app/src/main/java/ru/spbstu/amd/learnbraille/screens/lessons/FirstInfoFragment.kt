@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import ru.spbstu.amd.learnbraille.R
-import ru.spbstu.amd.learnbraille.database.entities.Info
+import ru.spbstu.amd.learnbraille.database.entities.FirstInfo
 import ru.spbstu.amd.learnbraille.database.getDBInstance
 import ru.spbstu.amd.learnbraille.databinding.FragmentLessonFirstInfoBinding
 import ru.spbstu.amd.learnbraille.defaultUser
@@ -28,7 +28,7 @@ class FirstInfoFragment : AbstractLesson(R.string.lessons_help_info) {
         setHasOptionsMenu(true)
 
         val step = getStepArg()
-        require(step.data is Info)
+        require(step.data is FirstInfo)
         titleTextView.text = step.title
         infoTextView.text = step.data.text
 

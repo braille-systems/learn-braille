@@ -11,8 +11,8 @@
 
         <TextView
             android:id="@+id/title_text_view"
-            android:layout_width="375dp"
-            android:layout_height="48dp"
+            android:layout_width="192dp"
+            android:layout_height="70dp"
             android:text="ЗАГОЛОВОК!"
             app:layout_constraintBottom_toTopOf="@+id/info_text_view"
             app:layout_constraintEnd_toEndOf="parent"
@@ -22,8 +22,8 @@
 
         <TextView
             android:id="@+id/info_text_view"
-            android:layout_width="321dp"
-            android:layout_height="195dp"
+            android:layout_width="191dp"
+            android:layout_height="253dp"
             android:text="ИНФОРМАЦИЯ!"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
