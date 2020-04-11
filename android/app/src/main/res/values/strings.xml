@@ -68,7 +68,8 @@
 
     <!--    Lessons-->
 
-    <string name="lessons_next">Вперёд</string>
+    <string name="lessons_next">Перейти на шаг вперёд</string>
+    <string name="lessons_prev">Перейти на шаг назад</string>
     <string name="lessons_db_not_initialized_warning">
         Раздел практики загружается. Попробуйте еще раз.
     </string>
@@ -85,6 +86,7 @@
     <string name="lessons_title_input_dots">Ввод точек</string>
     <string name="lessons_title_show_symbol">Символ</string>
     <string name="lessons_title_show_dots">Точки</string>
+    <string name="lesson_to_current">Перейти к последнему непройденному шагу</string>
 
     <string name="lessons_help_template">%s\n\n%s</string>
 

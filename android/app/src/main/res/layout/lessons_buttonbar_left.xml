@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="invisible" />
+
+    <!---<Button
+        android:id="@+id/hint_button"
+        android:layout_width="70sp"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:adjustViewBounds="true"
+        android:background="@drawable/lessons_hint_btn_shape"
+        android:contentDescription="@string/practice_hint"
+        android:scaleType="fitCenter"
+        android:text="?"
+        android:textColor="@color/colorText"
+        android:textSize="70sp" /-->
+
+    <Button
+        android:id="@+id/prev_button"
+        android:layout_width="70sp"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:adjustViewBounds="true"
+        android:background="@drawable/practice_hint_btn_shape"
+        android:contentDescription="@string/lessons_prev"
+        android:scaleType="fitCenter"
+        android:text="&lt;"
+        android:textColor="@color/colorText"
+        android:textSize="70sp"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="invisible" />
+</LinearLayout>

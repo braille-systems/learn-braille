@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import kotlinx.android.synthetic.main.lessons_buttonbar_right.view.*
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.entities.FirstInfo
 import ru.spbstu.amd.learnbraille.database.getDBInstance
@@ -33,13 +34,13 @@ class FirstInfoFragment : AbstractLesson(R.string.lessons_help_info) {
         infoTextView.text = step.data.text
 
         getDBInstance().apply {
-            nextButton.setOnClickListener {
+            infoButtonbarRight.next_button.setOnClickListener {
                 navigateToNextStep(
                     stepDao, step, defaultUser,
                     userPassedStepDao
                 )
             }
-            toCurrStepButton.setOnClickListener {
+            infoButtonbarRight.to_curr_step_button.setOnClickListener {
                 navigateToCurrentStep(
                     stepDao, defaultUser
                 )
