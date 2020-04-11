@@ -21,14 +21,15 @@ abstract class AbstractFragmentWithHelp(private val helpMsgId: HelpMsgId) : Frag
         inflater.inflate(R.menu.help_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) = super.onOptionsItemSelected(item).also {
-        when (item.itemId) {
-            R.id.help -> {
-                Timber.i("Navigate to help")
-                val action = PracticeFragmentDirections.actionGlobalHelpFragment()
-                action.helpMessage = getString(helpMsgId)
-                findNavController().navigate(action)
-            }
+    override fun onOptionsItemSelected(item: MenuItem) =
+        super.onOptionsItemSelected(item).also {
+            if (item.itemId == R.id.help) navigateToHelp()
         }
+
+    protected fun navigateToHelp() {
+        Timber.i("Navigate to help")
+        val action = PracticeFragmentDirections.actionGlobalHelpFragment()
+        action.helpMessage = getString(helpMsgId)
+        findNavController().navigate(action)
     }
 }

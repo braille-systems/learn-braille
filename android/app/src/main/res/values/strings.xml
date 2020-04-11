@@ -5,6 +5,9 @@
     <string name="app_name">LearnBraille</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_help_message">No help message</string>
+    <string name="msg_correct">Правильно!</string>
+    <string name="msg_incorrect">Неправильно!</string>
+    <string name="msg_cancelled">Ошибка, попытайтесь ещё раз</string>
 
     <!--    Practice-->
 
@@ -140,9 +143,6 @@
     <!--    Help-->
 
     <string name="help_title">Справка</string>
-    <string name="msgCorrect">Правильно!</string>
-    <string name="msgIncorrect">Неправильно!</string>
-    <string name="msg_cancelled">Ошибка, попытайтесь ещё раз</string>
 
 </resources>
 

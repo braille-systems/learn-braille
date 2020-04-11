@@ -60,10 +60,8 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             }
         }
 
-        stackedHelpButton.setOnClickListener{
-            val action = MenuFragmentDirections.actionMenuFragmentToHelpFragment()
-            action.helpMessage = getString(R.string.menu_help)
-            findNavController().navigate(action)
+        stackedHelpButton.setOnClickListener {
+            navigateToHelp()
         }
 
         exitButton.setOnClickListener(
@@ -80,7 +78,8 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
                 Toast.makeText(context, contents, Toast.LENGTH_SHORT).show()
             }
             if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(context, getString(R.string.msg_cancelled), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.msg_cancelled), Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }

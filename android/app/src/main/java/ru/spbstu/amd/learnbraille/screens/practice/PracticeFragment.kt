@@ -82,7 +82,7 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner,
             viewModel.getEventCorrectObserver(dots, buzzer) {
                 Timber.i("Handle correct")
-                Toast.makeText(context, getString(R.string.msgCorrect), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.msg_correct), Toast.LENGTH_SHORT).show()
                 updateTitle(title)
             }
         )
@@ -91,7 +91,8 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner,
             viewModel.getEventIncorrectObserver(dots, buzzer) {
                 Timber.i("Handle incorrect: entered = ${dots.spelling}")
-                Toast.makeText(context, getString(R.string.msgIncorrect), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.msg_incorrect), Toast.LENGTH_SHORT)
+                    .show()
                 updateTitle(title)
             }
         )

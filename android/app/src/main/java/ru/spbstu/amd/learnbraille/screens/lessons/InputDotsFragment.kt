@@ -86,7 +86,7 @@ class InputDotsFragment : AbstractLesson(R.string.lessons_help_input_dots) {
             viewLifecycleOwner,
             viewModel.getEventCorrectObserver(dots, buzzer) {
                 Timber.i("Handle correct")
-                Toast.makeText(context, getString(R.string.msgCorrect), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.msg_correct), Toast.LENGTH_SHORT).show()
                 navigateToNextStep(
                     database.stepDao, step, defaultUser,
                     database.userPassedStepDao
@@ -98,7 +98,8 @@ class InputDotsFragment : AbstractLesson(R.string.lessons_help_input_dots) {
             viewLifecycleOwner,
             viewModel.getEventIncorrectObserver(dots, buzzer) {
                 Timber.i("Handle incorrect: entered = ${dots.spelling}")
-                Toast.makeText(context, getString(R.string.msgIncorrect), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.msg_incorrect), Toast.LENGTH_SHORT)
+                    .show()
                 navigateToNextStep(
                     database.stepDao, step, defaultUser
                 )
