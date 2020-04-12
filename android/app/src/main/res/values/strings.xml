@@ -68,6 +68,8 @@
 
     <!--    Lessons-->
 
+    <string name="lessons_send_answer">Проверить задание</string>
+    <string name="lessons_skip">Пропустить этот шаг</string>
     <string name="lessons_next">Перейти на шаг вперёд</string>
     <string name="lessons_prev">Перейти на шаг назад</string>
     <string name="lessons_db_not_initialized_warning">

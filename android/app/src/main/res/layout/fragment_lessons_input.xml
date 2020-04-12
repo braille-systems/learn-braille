@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="inputViewModel"
+            type="ru.spbstu.amd.learnbraille.screens.lessons.InputViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Урок 0. Название урока \n Шаг 0. Название шага"
+            android:textSize="20sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/letter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="150sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/braille_dots"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="M" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:visibility="invisible" />
+
+                <!--suppress AndroidDomInspection -->
+                <Button
+                    android:id="@+id/hint_button"
+                    android:layout_width="70sp"
+                    android:layout_height="0dp"
+                    android:layout_weight="4"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/lessons_hint_btn_shape"
+                    android:contentDescription="@string/practice_hint"
+                    android:onClick="@{() -> inputViewModel.onHint()}"
+                    android:scaleType="fitCenter"
+                    android:text="?"
+                    android:textColor="@color/colorText"
+                    android:textSize="70sp" />
+
+                <Button
+                    android:id="@+id/prev_button"
+                    android:layout_width="70sp"
+                    android:layout_height="0dp"
+                    android:layout_weight="4"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/lessons_prev_btn_shape"
+                    android:contentDescription="@string/lessons_prev"
+                    android:scaleType="fitCenter"
+                    android:text="&lt;"
+                    android:textColor="@color/colorText"
+                    android:textSize="70sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <ru.spbstu.amd.learnbraille.views.ButtonsView
+                android:id="@+id/braille_dots"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="@dimen/lessons_braille_dots_scale_of_view"
+                android:scaleY="@dimen/braille_dots_scale_of_view"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/letter"
+                app:layout_constraintStart_toStartOf="@+id/letter"
+                app:layout_constraintTop_toBottomOf="@+id/letter" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:visibility="invisible" />
+
+                <ImageButton
+                    android:id="@+id/skip_button"
+                    android:layout_width="70sp"
+                    android:layout_height="0dp"
+                    android:layout_weight="4"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/lessons_to_current_btn_shape"
+                    android:contentDescription="@string/lessons_skip"
+                    android:scaleType="fitCenter"
+                    android:src="@android:drawable/ic_media_ff" />
+
+                <ImageButton
+                    android:id="@+id/next_button"
+                    android:layout_width="70sp"
+                    android:layout_height="0dp"
+                    android:layout_weight="4"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/lessons_next_btn_shape"
+                    android:contentDescription="@string/lessons_send_answer"
+                    android:onClick="@{() -> inputViewModel.onNext()}"
+                    android:scaleType="fitCenter"
+                    android:src="@android:drawable/ic_media_play" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>

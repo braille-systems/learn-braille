@@ -13,7 +13,7 @@ import ru.spbstu.amd.learnbraille.database.entities.BrailleDots
 import ru.spbstu.amd.learnbraille.database.entities.InputDots
 import ru.spbstu.amd.learnbraille.database.entities.spelling
 import ru.spbstu.amd.learnbraille.database.getDBInstance
-import ru.spbstu.amd.learnbraille.databinding.FragmentLessonsInputDotsBinding
+import ru.spbstu.amd.learnbraille.databinding.FragmentLessonsInputBinding
 import ru.spbstu.amd.learnbraille.defaultUser
 import ru.spbstu.amd.learnbraille.screens.*
 import ru.spbstu.amd.learnbraille.views.*
@@ -30,9 +30,9 @@ class InputDotsFragment : AbstractLesson(R.string.lessons_help_input_dots) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = DataBindingUtil.inflate<FragmentLessonsInputDotsBinding>(
+    ) = DataBindingUtil.inflate<FragmentLessonsInputBinding>(
         inflater,
-        R.layout.fragment_lessons_input_dots,
+        R.layout.fragment_lessons_input,
         container,
         false
     ).apply {
@@ -44,10 +44,8 @@ class InputDotsFragment : AbstractLesson(R.string.lessons_help_input_dots) {
 
         val step = getStepArg()
         require(step.data is InputDots)
-        titleTextView.text = step.title
-        infoTextView.text = step.data.text
-            ?: getString(R.string.lessons_input_dots_info_template)
-                .format(step.data.dots.spelling)
+        //titleTextView.text = step.title
+        letter.text = " "
         brailleDots.dots.display(step.data.dots)
 
         expectedDots = step.data.dots
@@ -74,12 +72,6 @@ class InputDotsFragment : AbstractLesson(R.string.lessons_help_input_dots) {
 
         prevButton.setOnClickListener {
             navigateToPrevStep(database.stepDao, step)
-        }
-
-        toCurrStepButton.setOnClickListener {
-            navigateToCurrentStep(
-                database.stepDao, defaultUser
-            )
         }
 
         viewModel.eventCorrect.observe(
