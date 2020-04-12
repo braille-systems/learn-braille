@@ -2,11 +2,8 @@ package ru.spbstu.amd.learnbraille.screens.lessons
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import kotlinx.android.synthetic.main.lessons_buttonbar_left.view.*
-import kotlinx.android.synthetic.main.lessons_buttonbar_right.view.*
 import ru.spbstu.amd.learnbraille.R
 import ru.spbstu.amd.learnbraille.database.entities.Info
 import ru.spbstu.amd.learnbraille.database.getDBInstance
@@ -36,16 +33,16 @@ class InfoFragment : AbstractLesson(R.string.lessons_help_info) {
         infoTextView.text = step.data.text
 
         getDBInstance().apply {
-            infoButtonbarLeft.prev_button.setOnClickListener {
+            prevButton.setOnClickListener {
                 navigateToPrevStep(stepDao, step)
             }
-            infoButtonbarRight.next_button.setOnClickListener {
+            nextButton.setOnClickListener {
                 navigateToNextStep(
                     stepDao, step, defaultUser,
                     userPassedStepDao
                 )
             }
-            infoButtonbarRight.to_curr_step_button.setOnClickListener {
+            toCurrStepButton.setOnClickListener {
                 navigateToCurrentStep(
                     stepDao, defaultUser
                 )
