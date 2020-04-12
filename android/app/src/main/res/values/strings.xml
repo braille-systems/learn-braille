@@ -5,6 +5,9 @@
     <string name="app_name">LearnBraille</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_help_message">No help message</string>
+    <string name="msg_correct">Правильно!</string>
+    <string name="msg_incorrect">Неправильно!</string>
+    <string name="msg_cancelled">Ошибка, попытайтесь ещё раз</string>
 
     <!--    Practice-->
 
@@ -68,6 +71,12 @@
     <string name="lessons_next">Вперёд</string>
     <string name="lessons_db_not_initialized_warning">
         Раздел практики загружается. Попробуйте еще раз.
+    </string>
+    <string name="lessons_input_dots_info_template">
+        Введите точки: %s
+    </string>
+    <string name="lessons_show_dots_info_template">
+        Выведены точки: %s
     </string>
 
     <string name="lessons_title_info">Информационный шаг</string>
@@ -134,9 +143,6 @@
     <!--    Help-->
 
     <string name="help_title">Справка</string>
-    <string name="msgCorrect">Правильно!</string>
-    <string name="msgIncorrect">Неправильно!</string>
-    <string name="msg_cancelled">Ошибка, попытайтесь ещё раз</string>
 
 </resources>
 

@@ -5,18 +5,20 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import ru.spbstu.amd.learnbraille.R
+import ru.spbstu.amd.learnbraille.database.getDBInstance
 import ru.spbstu.amd.learnbraille.databinding.FragmentMenuBinding
+import ru.spbstu.amd.learnbraille.defaultUser
+import ru.spbstu.amd.learnbraille.screens.AbstractFragmentWithHelp
+import ru.spbstu.amd.learnbraille.screens.lessons.navigateToCurrentStep
 import ru.spbstu.amd.learnbraille.screens.updateTitle
 
-
-class MenuFragment : Fragment() {
+class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     companion object {
         const val qtResultCode = 0
@@ -37,6 +39,11 @@ class MenuFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
+        lessonsButton.setOnClickListener {
+            val dataSource = getDBInstance().stepDao
+            navigateToCurrentStep(dataSource, defaultUser)
+        }
+
         practiceButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_practiceFragment)
         )
@@ -53,10 +60,8 @@ class MenuFragment : Fragment() {
             }
         }
 
-        stackedHelpButton.setOnClickListener{
-            val action = MenuFragmentDirections.actionMenuFragmentToHelpFragment()
-            action.helpMessage = getString(R.string.menu_help)
-            findNavController().navigate(action)
+        stackedHelpButton.setOnClickListener {
+            navigateToHelp()
         }
 
         exitButton.setOnClickListener(
@@ -73,22 +78,8 @@ class MenuFragment : Fragment() {
                 Toast.makeText(context, contents, Toast.LENGTH_SHORT).show()
             }
             if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(context, getString(R.string.msg_cancelled), Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.help_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = super.onOptionsItemSelected(item).also {
-        when (item.itemId) {
-            R.id.help -> {
-                val action = MenuFragmentDirections.actionMenuFragmentToHelpFragment()
-                action.helpMessage = getString(R.string.menu_help)
-                findNavController().navigate(action)
+                Toast.makeText(context, getString(R.string.msg_cancelled), Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }

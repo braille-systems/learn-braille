@@ -24,11 +24,12 @@ fun stepDataOf(string: String): StepData = string
     .let { (type, data) ->
         when (type) {
             Info.name -> Info(data)
+            FirstInfo.name -> FirstInfo(data)
             LastInfo.name -> LastInfo(data)
             InputSymbol.name -> InputSymbol(data)
-            InputDots.name -> InputDots(data)
+            InputDots.name -> inputDotsOf(data)
             ShowSymbol.name -> ShowSymbol(data)
-            ShowDots.name -> ShowDots(data)
+            ShowDots.name -> showDotsOf(data)
             else -> error("No such step type: $type")
         }
     }
@@ -42,7 +43,7 @@ class Info(
     text: String
 ) : BaseInfo() {
 
-    private val text = text.stepFormat()
+    val text = text.stepFormat()
 
     override val name = Companion.name
     override val data = this.text
@@ -52,11 +53,31 @@ class Info(
     }
 }
 
+/**
+ * Info step without `prev` button
+ */
+class FirstInfo(
+    text: String
+) : BaseInfo() {
+
+    val text = text.stepFormat()
+
+    override val name = Companion.name
+    override val data = this.text
+
+    companion object {
+        val name = FirstInfo::class.java.name
+    }
+}
+
+/**
+ * Info step without `next` button.
+ */
 class LastInfo(
     text: String
 ) : BaseInfo() {
 
-    private val text = text.stepFormat()
+    val text = text.stepFormat()
 
     override val name = Companion.name
     override val data = this.text
@@ -79,9 +100,7 @@ class InputSymbol(
     override val data = symbol.toString()
 
     constructor(data: String) : this(
-        symbolOf(
-            data
-        )
+        symbolOf(data)
     )
 
     companion object {
@@ -91,24 +110,31 @@ class InputSymbol(
 
 /**
  * Step prompts the user to enter dots with specific numbers.
+ *
+ * @param text Special text of default braille dots spelling.
  */
 class InputDots(
+    val text: String?,
     val dots: BrailleDots
 ) : BaseInput() {
 
     override val name = Companion.name
-    override val data = dots.toString()
-
-    constructor(data: String) : this(
-        BrailleDots(
-            data
-        )
-    )
+    override val data = text + delimiter + dots.toString()
 
     companion object {
         val name = InputDots::class.java.name
+        const val delimiter = Char.MAX_VALUE
     }
 }
+
+fun inputDotsOf(string: String): InputDots = string
+    .split(InputDots.delimiter, limit = 2)
+    .let { (text, dots) ->
+        InputDots(
+            text = if (text == null.toString()) null else text,
+            dots = BrailleDots(dots)
+        )
+    }
 
 sealed class BaseShow : StepData()
 
@@ -123,9 +149,7 @@ class ShowSymbol(
     override val data = symbol.toString()
 
     constructor(data: String) : this(
-        symbolOf(
-            data
-        )
+        symbolOf(data)
     )
 
     companion object {
@@ -135,24 +159,31 @@ class ShowSymbol(
 
 /**
  * Step shows Braille dots with specific numbers.
+ *
+ * @param text Special text of default braille dots spelling.
  */
 class ShowDots(
+    val text: String?,
     val dots: BrailleDots
 ) : BaseShow() {
 
     override val name = Companion.name
-    override val data = dots.toString()
-
-    constructor(data: String) : this(
-        BrailleDots(
-            data
-        )
-    )
+    override val data = text + delimiter + dots.toString()
 
     companion object {
         val name = ShowDots::class.java.name
+        const val delimiter = Char.MAX_VALUE
     }
 }
+
+fun showDotsOf(string: String): ShowDots = string
+    .split(ShowDots.delimiter, limit = 2)
+    .let { (text, dots) ->
+        ShowDots(
+            text = if (text == null.toString()) null else text,
+            dots = BrailleDots(dots)
+        )
+    }
 
 class StepDataConverters {
 

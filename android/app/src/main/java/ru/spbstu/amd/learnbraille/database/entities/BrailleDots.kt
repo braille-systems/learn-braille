@@ -7,7 +7,7 @@ enum class BrailleDot {
     E,  // Empty
     F;  // Filled
 
-    companion object {
+    companion object Factories {
         fun valueOf(b: Boolean) = if (b) F else E
         fun valueOf(c: Char) = valueOf(c.toString())
     }
@@ -19,11 +19,7 @@ data class BrailleDots(
 ) {
 
     constructor(dots: BooleanArray) : this(
-        dots.map {
-            BrailleDot.valueOf(
-                it
-            )
-        }
+        dots.map(BrailleDot.Factories::valueOf)
     )
 
     constructor(dots: List<BrailleDot>) : this(
@@ -40,11 +36,9 @@ data class BrailleDots(
     }
 
     constructor(string: String) : this(
-        string.toCharArray().map {
-            BrailleDot.valueOf(
-                it
-            )
-        }
+        string
+            .toCharArray()
+            .map(BrailleDot.Factories::valueOf)
     )
 
     override fun toString() = "$b1$b2$b3$b4$b5$b6"
@@ -71,6 +65,5 @@ class BrailleDotsConverters {
     fun to(brailleDots: BrailleDots) = brailleDots.toString()
 
     @TypeConverter
-    fun from(data: String): BrailleDots =
-        BrailleDots(data)
+    fun from(data: String) = BrailleDots(data)
 }

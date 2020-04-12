@@ -7,7 +7,10 @@ import android.widget.CheckBox
 import androidx.constraintlayout.widget.ConstraintLayout
 import kotlinx.android.synthetic.main.braille_dots.view.*
 import ru.spbstu.amd.learnbraille.R
+import ru.spbstu.amd.learnbraille.database.entities.BrailleDot
 import ru.spbstu.amd.learnbraille.database.entities.BrailleDots
+import ru.spbstu.amd.learnbraille.database.entities.list
+import ru.spbstu.amd.learnbraille.database.entities.spelling
 
 class ButtonsView : ConstraintLayout {
 
@@ -45,14 +48,14 @@ fun Dots.clickable(isClickable: Boolean) = forEach {
 }
 
 val Dots.spelling: String
-    get() = this
-        .mapIndexed { index, checkBox ->
-            if (checkBox.isChecked) (index + 1).toString() else null
-        }
-        .filterNotNull()
-        .joinToString(separator = " ")
+    get() = brailleDots.spelling
 
 val Dots.brailleDots: BrailleDots
     get() = BrailleDots(
-        map { it.isChecked }.toBooleanArray()
+        map(CheckBox::isChecked).toBooleanArray()
     )
+
+fun Dots.display(brailleDots: BrailleDots): Unit =
+    (this zip brailleDots.list).forEach { (checkBox, dot) ->
+        checkBox.isChecked = dot == BrailleDot.F
+    }.also { clickable(false) }

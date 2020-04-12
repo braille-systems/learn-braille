@@ -2,10 +2,9 @@ package ru.spbstu.amd.learnbraille.database.entities
 
 import androidx.room.*
 
-@Entity(tableName = "user_knows_symbol")
+@Entity(tableName = "user_knows_symbol", primaryKeys = ["user_id", "symbol_id"])
 data class UserKnowsSymbol(
 
-    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "user_id")
     val userId: Long,
 
@@ -16,7 +15,7 @@ data class UserKnowsSymbol(
 @Dao
 interface UserKnowsSymbolDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertKnowledge(knowledge: UserKnowsSymbol)
 
     @Query(
