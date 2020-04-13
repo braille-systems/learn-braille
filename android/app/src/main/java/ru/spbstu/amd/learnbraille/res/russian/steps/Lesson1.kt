@@ -26,62 +26,63 @@ private fun Step(title: String, data: StepData) =
  *
  * First two steps are used for database testing.
  */
-val LESSON_1_STEPS = listOf(
+val LESSON_1_STEPS
+    get() = listOf(
 
-    // TODO intro steps in all lessons
-    Step(
-        title = "Урок первый",
-        data = Info(PREPOPULATE_LESSONS[0].name)
-    ),
+        // TODO intro steps in all lessons
+        Step(
+            title = "Урок первый",
+            data = Info(PREPOPULATE_LESSONS[0].name)
+        ),
 
-    Step(
-        title = "Знакомство с шеститочием",
-        data = Info(
-            """В рельефной азбуке Брайля любой символ - это шеститочие. 
+        Step(
+            title = "Знакомство с шеститочием",
+            data = Info(
+                """В рельефной азбуке Брайля любой символ - это шеститочие. 
                 |Каждая точка из шести может быть выдавлена или пропущена. 
                 |В следующем шаге все 6 точек выведены на экран."""
-        )
-    ),
+            )
+        ),
 
-    Step(
-        title = "Шеститочие",
-        data = ShowDots(
-            text = "Перед вами полное шеститочие",
-            dots = BrailleDots(F, F, F, F, F, F)
-        )
-    ),
+        Step(
+            title = "Шеститочие",
+            data = ShowDots(
+                text = "Перед вами полное шеститочие",
+                dots = BrailleDots(F, F, F, F, F, F)
+            )
+        ),
 
-    Step(
-        title = "Полное шеститочие",
-        data = InputDots(
-            text = "Введите все шесть точек",
-            dots = BrailleDots(F, F, F, F, F, F)
-        )
-    ),
+        Step(
+            title = "Полное шеститочие",
+            data = InputDots(
+                text = "Введите все шесть точек",
+                dots = BrailleDots(F, F, F, F, F, F)
+            )
+        ),
 
-    Step(
-        title = "Работа с букварём",
-        data = Info(
-            """Откройте букварь на странице 12. 
+        Step(
+            title = "Работа с букварём",
+            data = Info(
+                """Откройте букварь на странице 12. 
                 |В верхней строке 14 раз повторён символ полного шеститочия."""
-        )
-    ),
+            )
+        ),
 
-    Step(
-        title = "Работа с букварём",
-        data = Info(
-            """Точки расположены в два столбца по три. 
+        Step(
+            title = "Работа с букварём",
+            data = Info(
+                """Точки расположены в два столбца по три. 
                 |Точки в первом столбце имеют номера 1, 2, 3 сверху вниз. 
                 |Точки во втором столбце - 4, 5, 6 сверху вниз. 
                 |Важно выучить, где какая точка."""
-        )
-    ),
+            )
+        ),
 
-    // TODO replace
-    Step(
-        title = "Пример с символом",
-        data = ShowSymbol(
-            symbolMap['А'] ?: error("A russian not found")
+        // TODO replace
+        Step(
+            title = "Пример с символом",
+            data = ShowSymbol(
+                symbolMap['А'] ?: error("A russian not found")
+            )
         )
     )
-)
