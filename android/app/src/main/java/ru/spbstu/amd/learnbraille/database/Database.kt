@@ -7,15 +7,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.spbstu.amd.learnbraille.database.entities.*
 import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_LESSONS
 import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_USERS
 import ru.spbstu.amd.learnbraille.res.russian.steps.PREPOPULATE_STEPS
 import ru.spbstu.amd.learnbraille.res.russian.symbols.PREPOPULATE_SYMBOLS
+import ru.spbstu.amd.learnbraille.scope
 import timber.log.Timber
 
 @Database(
@@ -70,7 +68,7 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                     super.onCreate(db)
                     Timber.d("Start database callback")
                     prepopulationFinished = false
-                    CoroutineScope(Dispatchers.Main + Job()).launch {
+                    scope().launch {
                         Timber.i("Start database prepopulation")
                         getInstance(context).apply {
                             userDao.insertUsers(PREPOPULATE_USERS)

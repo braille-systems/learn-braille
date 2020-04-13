@@ -5,7 +5,7 @@ import android.content.Context.USB_SERVICE
 import android.hardware.usb.UsbManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Job
 
 fun <T, R> T?.side(block: (T) -> R) {
     if (this == null) return
@@ -22,7 +22,4 @@ operator fun MatchGroupCollection.component5() = get(4)
 
 val Any?.devnull: Unit get() {}
 
-// TODO refactor async
-
-suspend fun <R> coroutineContext(block: suspend CoroutineScope.() -> R): R =
-    withContext(Dispatchers.IO, block)
+fun scope(job: Job = Job()) = CoroutineScope(Dispatchers.Main + job)

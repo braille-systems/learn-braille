@@ -1,10 +1,10 @@
 package ru.spbstu.amd.learnbraille.screens
 
-import android.app.Application
 import android.os.Vibrator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import ru.spbstu.amd.learnbraille.BuzzPattern
+import ru.spbstu.amd.learnbraille.LearnBrailleApplication
 import timber.log.Timber
 
 fun Fragment.updateTitle(title: String) {
@@ -26,5 +26,5 @@ fun Vibrator?.buzz(pattern: BuzzPattern) {
     vibrate(pattern, -1)
 }
 
-val Fragment.application: Application
-    get() = requireNotNull(activity).application
+val Fragment.application: LearnBrailleApplication
+    get() = requireNotNull(activity).application as LearnBrailleApplication

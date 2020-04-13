@@ -2,15 +2,12 @@ package ru.spbstu.amd.learnbraille.screens.practice
 
 import android.app.Application
 import androidx.lifecycle.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import ru.spbstu.amd.learnbraille.coroutineContext
 import ru.spbstu.amd.learnbraille.database.entities.BrailleDots
-import ru.spbstu.amd.learnbraille.database.entities.Language
 import ru.spbstu.amd.learnbraille.database.entities.SymbolDao
 import ru.spbstu.amd.learnbraille.language
+import ru.spbstu.amd.learnbraille.scope
 import ru.spbstu.amd.learnbraille.screens.DotsChecker
 import ru.spbstu.amd.learnbraille.screens.MutableDotsChecker
 import timber.log.Timber
@@ -51,7 +48,7 @@ class PracticeViewModel(
     private var expectedDots: BrailleDots? = null
 
     private val job = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + job)
+    private val uiScope = scope(job)
 
     init {
         Timber.i("Initialize practice view model")
@@ -78,13 +75,8 @@ class PracticeViewModel(
     }
 
     private fun initializeCard() = uiScope.launch {
-        val entry = getEntryFromDatabase(language) ?: error("DB is not initialized")
+        val entry = database.getRandomSymbol(language) ?: error("DB is not initialized")
         _symbol.value = entry.symbol.toString()
         expectedDots = entry.brailleDots
     }
-
-    private suspend fun getEntryFromDatabase(language: Language) =
-        coroutineContext {
-            database.getRandomSymbol(language)
-        }
 }
