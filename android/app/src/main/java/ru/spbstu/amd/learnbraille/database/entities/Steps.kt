@@ -37,7 +37,7 @@ fun stepOf(string: String) = Step.pattern.matchEntire(string)
 interface StepDao {
 
     @Insert
-    fun insertSteps(steps: List<Step>)
+    suspend fun insertSteps(steps: List<Step>)
 
     @Query(
         """
@@ -50,7 +50,7 @@ interface StepDao {
             LIMIT 1
             """
     )
-    fun getCurrentStepForUser(userId: Long): Step?
+    suspend fun getCurrentStepForUser(userId: Long): Step?
 
     @Query(
         """
@@ -63,8 +63,11 @@ interface StepDao {
             LIMIT 1
             """
     )
-    fun getNextStepForUser(userId: Long, currentStepId: Long): Step?
+    suspend fun getNextStepForUser(userId: Long, currentStepId: Long): Step?
 
     @Query("SELECT * FROM step WHERE step.id = :id")
-    fun getStep(id: Long): Step?
+    suspend fun getStep(id: Long): Step?
+
+    @Query("DELETE FROM step")
+    suspend fun deleteAll()
 }

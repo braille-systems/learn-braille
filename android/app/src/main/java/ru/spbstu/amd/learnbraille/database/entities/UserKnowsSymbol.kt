@@ -16,7 +16,7 @@ data class UserKnowsSymbol(
 interface UserKnowsSymbolDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertKnowledge(knowledge: UserKnowsSymbol)
+    suspend fun insertKnowledge(knowledge: UserKnowsSymbol)
 
     @Query(
         """
@@ -28,5 +28,5 @@ interface UserKnowsSymbolDao {
         LIMIT 1
         """
     )
-    fun getRandomKnownSymbol(userId: Long): Symbol?
+    suspend fun getRandomKnownSymbol(userId: Long): Symbol?
 }

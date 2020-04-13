@@ -41,7 +41,7 @@ fun symbolOf(data: String) = Symbol.pattern.matchEntire(data)
 interface SymbolDao {
 
     @Insert
-    fun insertSymbols(symbols: List<Symbol>)
+    suspend fun insertSymbols(symbols: List<Symbol>)
 
     @Query(
         """
@@ -52,10 +52,10 @@ interface SymbolDao {
         LIMIT 1
         """
     )
-    fun getRandomSymbol(language: Language): Symbol?
+    suspend fun getRandomSymbol(language: Language): Symbol?
 
     @Query("SELECT * FROM symbol WHERE symbol = :char LIMIT 1")
-    fun getSymbol(char: Char): Symbol?
+    suspend fun getSymbol(char: Char): Symbol?
 
     @Query(
         """
@@ -65,7 +65,10 @@ interface SymbolDao {
         LIMIT 1
         """
     )
-    fun getSymbol(language: Language, brailleDots: BrailleDots): Symbol?
+    suspend fun getSymbol(language: Language, brailleDots: BrailleDots): Symbol?
+
+    @Query("DELETE FROM symbol")
+    suspend fun deleteAll()
 }
 
 
