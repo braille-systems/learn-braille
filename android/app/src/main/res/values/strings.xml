@@ -15,9 +15,6 @@
     <string name="practice_hint_template">"Ответ: точки %s"</string>
     <string name="practice_next">Далее</string>
     <string name="practice_actionbar_title_template">Практика: %d из %d</string>
-    <string name="practice_db_not_initialized_warning">
-        Раздел практики загружается. Попробуйте ещё раз.
-    </string>
 
     <string name="practice_help">
         В верхней половине экрана крупным шрифтом выведен символ,
@@ -45,12 +42,16 @@
     <string name="greeting_start">Начать</string>
 
     <!--    Menu-->
+
     <string name="menu_continue">продолжить курс</string>
     <string name="menu_practice">ПРАКТИКА</string>
     <string name="menu_qt">СКАНИРОВАТЬ QR-КОД</string>
     <string name="menu_stacked_help">СПРАВКА</string>
     <string name="menu_exit">ВЫХОД</string>
     <string name="menu_actionbar_text">Learn Braille. Меню</string>
+    <string name="menu_db_not_initialized_warning">
+        Загружаем базу данных. Попробуйте еще раз!
+    </string>
 
     <string name="menu_help">
         Обучение системе Луи Брайля: главное меню. \n
@@ -69,9 +70,6 @@
     <!--    Lessons-->
 
     <string name="lessons_next">Вперёд</string>
-    <string name="lessons_db_not_initialized_warning">
-        Раздел практики загружается. Попробуйте еще раз.
-    </string>
     <string name="lessons_input_dots_info_template">
         Введите точки: %s
     </string>

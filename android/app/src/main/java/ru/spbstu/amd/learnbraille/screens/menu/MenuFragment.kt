@@ -6,23 +6,31 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import ru.spbstu.amd.learnbraille.R
+import ru.spbstu.amd.learnbraille.database.LearnBrailleDatabase
 import ru.spbstu.amd.learnbraille.database.getDBInstance
 import ru.spbstu.amd.learnbraille.databinding.FragmentMenuBinding
 import ru.spbstu.amd.learnbraille.defaultUser
 import ru.spbstu.amd.learnbraille.screens.AbstractFragmentWithHelp
+import ru.spbstu.amd.learnbraille.screens.application
 import ru.spbstu.amd.learnbraille.screens.lessons.navigateToCurrentStep
 import ru.spbstu.amd.learnbraille.screens.updateTitle
+import timber.log.Timber
 
 class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
-    companion object {
-        const val qtResultCode = 0
-    }
+    private val isDbPrepopulated: Boolean
+        get() = (application.prepopulationJob.isCompleted &&
+                LearnBrailleDatabase.prepopulationFinished).also {
+            if (it) Timber.i("DB has been prepopulated")
+            else Timber.i("DB has not been prepopulated")
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,14 +47,14 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
         setHasOptionsMenu(true)
 
-        lessonsButton.setOnClickListener {
+        lessonsButton.setOnClickListener(interruptingOnClickListener {
             val dataSource = getDBInstance().stepDao
             navigateToCurrentStep(dataSource, defaultUser)
-        }
+        })
 
-        practiceButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_practiceFragment)
-        )
+        practiceButton.setOnClickListener(interruptingOnClickListener {
+            findNavController().navigate(R.id.action_menuFragment_to_practiceFragment)
+        })
 
         offlinePracticeButton.setOnClickListener {
             try {
@@ -78,9 +86,24 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
                 Toast.makeText(context, contents, Toast.LENGTH_SHORT).show()
             }
             if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(context, getString(R.string.msg_cancelled), Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(
+                    context, getString(R.string.msg_cancelled), Toast.LENGTH_SHORT
+                ).show()
             }
         }
+    }
+
+    private fun interruptingOnClickListener(block: (View) -> Unit) = View.OnClickListener {
+        if (!isDbPrepopulated) {
+            Toast.makeText(
+                context, getString(R.string.menu_db_not_initialized_warning), Toast.LENGTH_LONG
+            ).show()
+            return@OnClickListener
+        }
+        block(it)
+    }
+
+    companion object {
+        const val qtResultCode = 0
     }
 }

@@ -21,11 +21,11 @@ data class User(
 interface UserDao {
 
     @Insert
-    fun insertUsers(users: List<User>)
+    suspend fun insertUsers(users: List<User>)
 
     @Query("SELECT * FROM user WHERE :login = login LIMIT 1")
-    fun getUser(login: String): User?
+    suspend fun getUser(login: String): User?
 
     @Query("SELECT * FROM user WHERE :id = id LIMIT 1")
-    fun getUser(id: Long): User?
+    suspend fun getUser(id: Long): User?
 }

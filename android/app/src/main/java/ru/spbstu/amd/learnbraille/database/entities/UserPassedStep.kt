@@ -16,5 +16,5 @@ data class UserPassedStep(
 interface UserPassedStepDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertPassedStep(passedStep: UserPassedStep)
+    suspend fun insertPassedStep(passedStep: UserPassedStep)
 }

@@ -10,4 +10,4 @@ private fun Step(title: String, data: StepData) =
         data = data
     )
 
-val LESSON_2_STEPS = listOf<Step>()
+val LESSON_2_STEPS get() = listOf<Step>()

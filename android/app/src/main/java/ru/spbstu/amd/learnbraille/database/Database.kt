@@ -7,12 +7,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import kotlinx.coroutines.launch
 import ru.spbstu.amd.learnbraille.database.entities.*
 import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_LESSONS
 import ru.spbstu.amd.learnbraille.res.russian.PREPOPULATE_USERS
 import ru.spbstu.amd.learnbraille.res.russian.steps.PREPOPULATE_STEPS
 import ru.spbstu.amd.learnbraille.res.russian.symbols.PREPOPULATE_SYMBOLS
-import ru.spbstu.amd.learnbraille.side
+import ru.spbstu.amd.learnbraille.scope
 import timber.log.Timber
 
 @Database(
@@ -43,6 +44,10 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
         const val name = "braille_lessons_database"
 
         @Volatile
+        var prepopulationFinished = true
+            private set
+
+        @Volatile
         private var INSTANCE: LearnBrailleDatabase? = null
 
         @SuppressLint("SyntheticAccessor")
@@ -50,13 +55,6 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
             INSTANCE ?: synchronized(this) {
                 INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
             }
-
-        // TODO does not work
-        fun nukeDatabase() = INSTANCE?.side {
-            Timber.w("Nuking database")
-            it.clearAllTables()
-            INSTANCE = null
-        }
 
         private fun buildDatabase(context: Context) = Room
             .databaseBuilder(
@@ -69,7 +67,8 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
                     Timber.d("Start database callback")
-                    ioThread {
+                    prepopulationFinished = false
+                    scope().launch {
                         Timber.i("Start database prepopulation")
                         getInstance(context).apply {
                             userDao.insertUsers(PREPOPULATE_USERS)
@@ -78,6 +77,7 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                             symbolDao.insertSymbols(PREPOPULATE_SYMBOLS)
                         }
                         Timber.i("Finnish database prepopulation")
+                        prepopulationFinished = true
                     }
                 }
             })

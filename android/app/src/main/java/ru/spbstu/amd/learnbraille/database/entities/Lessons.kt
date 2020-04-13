@@ -1,9 +1,6 @@
 package ru.spbstu.amd.learnbraille.database.entities
 
-import androidx.room.Dao
-import androidx.room.Entity
-import androidx.room.Insert
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(tableName = "lesson")
 data class Lesson(
@@ -18,5 +15,8 @@ data class Lesson(
 interface LessonDao {
 
     @Insert
-    fun insertLessons(lessons: List<Lesson>)
+    suspend fun insertLessons(lessons: List<Lesson>)
+
+    @Query("DELETE FROM lesson")
+    suspend fun deleteAll()
 }

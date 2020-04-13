@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import ru.spbstu.amd.learnbraille.databinding.ActivityMainBinding
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,14 +16,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Timber.i("onCreate")
         DataBindingUtil.setContentView<ActivityMainBinding>(
             this,
             R.layout.activity_main
         )
-
         navController = findNavController(R.id.navHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController)
-
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
