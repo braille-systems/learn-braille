@@ -13,6 +13,7 @@ import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_LESSONS
 import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_USERS
 import com.github.braillesystems.learnbraille.res.russian.steps.PREPOPULATE_STEPS
 import com.github.braillesystems.learnbraille.res.russian.symbols.PREPOPULATE_SYMBOLS
+import com.github.braillesystems.learnbraille.util.application
 import com.github.braillesystems.learnbraille.util.scope
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -87,6 +88,4 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
     }
 }
 
-fun Fragment.getDBInstance() = LearnBrailleDatabase.getInstance(
-    requireNotNull(activity).application
-)
+fun Fragment.getDBInstance() = LearnBrailleDatabase.getInstance(application)

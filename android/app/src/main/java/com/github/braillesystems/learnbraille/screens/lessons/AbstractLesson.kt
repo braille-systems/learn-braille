@@ -6,6 +6,9 @@ import com.github.braillesystems.learnbraille.screens.HelpMsgId
 import com.github.braillesystems.learnbraille.screens.lessons.AbstractLesson.Companion.stepArgName
 import com.github.braillesystems.learnbraille.util.getStringArg
 
+/**
+ * Base class for all lessons.
+ */
 abstract class AbstractLesson(helpMsgId: HelpMsgId) : AbstractFragmentWithHelp(helpMsgId) {
     companion object {
         const val stepArgName = "step"

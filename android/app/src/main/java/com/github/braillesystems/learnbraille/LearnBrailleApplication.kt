@@ -18,14 +18,13 @@ class LearnBrailleApplication : Application() {
         Timber.plant(Timber.DebugTree())
         Timber.i("onCreate")
 
-        // Start database prepopulation
+        // Force database prepopulation on first launch
         LearnBrailleDatabase.getInstance(this).apply {
-            prepopulationJob = scope()
-                .launch {
-                    userDao.getUser(defaultUser)?.let {
-                        Timber.i("DB has been already initialized")
-                    } ?: Timber.i("DB is not initialized yet")
-                }
+            prepopulationJob = scope().launch {
+                if (userDao.getUser(defaultUser) == null) {
+                    Timber.i("DB has been already initialized")
+                } else Timber.i("DB is not initialized yet")
+            }
         }
     }
 }

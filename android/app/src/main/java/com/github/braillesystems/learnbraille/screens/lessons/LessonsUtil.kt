@@ -35,6 +35,12 @@ fun AbstractLesson.navigateToPrevStep(dataSource: StepDao, current: Step): Unit 
         } ?: error("No step with less id")
     }.devnull
 
+/**
+ * Navigate to the next step if current is already passes.
+ *
+ * @param upsd Add current step to the UserPassedStep before navigation if not null.
+ * @param onNextNotAvailable Is called when current step is not passed and `upsd` is `null`.
+ */
 fun AbstractLesson.navigateToNextStep(
     dataSource: StepDao,
     current: Step,
@@ -52,6 +58,9 @@ fun AbstractLesson.navigateToNextStep(
         }
     }.devnull
 
+/**
+ * Navigate to the last passed step in course progress.
+ */
 fun Fragment.navigateToCurrentStep(
     dataSource: StepDao,
     userId: Long

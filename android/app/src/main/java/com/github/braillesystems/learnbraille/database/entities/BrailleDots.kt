@@ -3,6 +3,9 @@ package com.github.braillesystems.learnbraille.database.entities
 import androidx.room.TypeConverter
 import com.github.braillesystems.learnbraille.database.entities.BrailleDot.E
 
+/**
+ * State of one Braille dot.
+ */
 enum class BrailleDot {
     E,  // Empty
     F;  // Filled
@@ -13,6 +16,9 @@ enum class BrailleDot {
     }
 }
 
+/**
+ * Combination on Braille dots for one symbol in 6-dots notation.
+ */
 data class BrailleDots(
     val b1: BrailleDot = E, val b2: BrailleDot = E, val b3: BrailleDot = E,
     val b4: BrailleDot = E, val b5: BrailleDot = E, val b6: BrailleDot = E

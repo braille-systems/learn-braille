@@ -12,7 +12,10 @@ import com.github.braillesystems.learnbraille.database.entities.list
 import com.github.braillesystems.learnbraille.database.entities.spelling
 import kotlinx.android.synthetic.main.braille_dots.view.*
 
-class ButtonsView : ConstraintLayout {
+/**
+ * Represents six Braille dots view.
+ */
+class BrailleDotsView : ConstraintLayout {
 
     constructor(context: Context) : super(context)
 
@@ -33,7 +36,7 @@ class ButtonsView : ConstraintLayout {
 
 typealias Dots = Array<CheckBox>
 
-val ButtonsView.dots: Dots
+val BrailleDotsView.dots: Dots
     get() = arrayOf(
         dotButton1, dotButton2, dotButton3,
         dotButton4, dotButton5, dotButton6

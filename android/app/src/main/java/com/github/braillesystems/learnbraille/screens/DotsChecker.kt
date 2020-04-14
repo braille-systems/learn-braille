@@ -16,6 +16,9 @@ import com.github.braillesystems.learnbraille.views.display
 import com.github.braillesystems.learnbraille.views.uncheck
 import timber.log.Timber
 
+/**
+ * Represents state machine that serves input tasks.
+ */
 interface DotsChecker {
 
     val eventCorrect: LiveData<Boolean>
@@ -151,6 +154,9 @@ private class DotsCheckerImpl : MutableDotsChecker {
     }
 }
 
+/**
+ * Return observer with default behaviour.
+ */
 fun DotsChecker.getEventCorrectObserver(
     dots: Dots,
     buzzer: Vibrator? = null,
@@ -163,6 +169,9 @@ fun DotsChecker.getEventCorrectObserver(
     onCorrectComplete()
 }
 
+/**
+ * Return observer with default behaviour.
+ */
 fun DotsChecker.getEventIncorrectObserver(
     dots: Dots,
     buzzer: Vibrator? = null,
@@ -175,6 +184,9 @@ fun DotsChecker.getEventIncorrectObserver(
     onIncorrectComplete()
 }
 
+/**
+ * Return observer with default behaviour.
+ */
 fun DotsChecker.getEventHintObserver(
     dots: Dots,
     serial: UsbSerial? = null,
@@ -188,6 +200,9 @@ fun DotsChecker.getEventHintObserver(
     onHintComplete()
 }
 
+/**
+ * Return observer with default behaviour.
+ */
 fun DotsChecker.getEventPassHintObserver(
     dots: Dots,
     block: () -> Unit

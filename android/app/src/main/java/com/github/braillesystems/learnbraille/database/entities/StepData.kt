@@ -17,7 +17,8 @@ sealed class StepData {
 }
 
 /**
- * Add new StepData types to the when, it is only one place not checked in compile time.
+ * Add new StepData types to the when expression,
+ * it is only one place not checked in compile time.
  */
 fun stepDataOf(string: String): StepData = string
     .split(' ', limit = 2)
@@ -34,6 +35,9 @@ fun stepDataOf(string: String): StepData = string
         }
     }
 
+/**
+ * Represent step types with information.
+ */
 sealed class BaseInfo : StepData()
 
 /**
@@ -54,7 +58,7 @@ class Info(
 }
 
 /**
- * Info step without `prev` button
+ * Info step without `prev` button.
  */
 class FirstInfo(
     text: String
@@ -112,6 +116,7 @@ class InputSymbol(
  * Step prompts the user to enter dots with specific numbers.
  *
  * @param text Special text of default braille dots spelling.
+ * Generated one will be displayed if `null`.
  */
 class InputDots(
     val text: String?,
@@ -161,6 +166,7 @@ class ShowSymbol(
  * Step shows Braille dots with specific numbers.
  *
  * @param text Special text of default braille dots spelling.
+ * Generated one will be displayed if `null`.
  */
 class ShowDots(
     val text: String?,
