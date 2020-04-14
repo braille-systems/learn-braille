@@ -35,7 +35,7 @@ interface DotsChecker {
 
     val state: State
 
-    fun onNext()
+    fun onCheck()
     fun onHint()
 
     enum class State {
@@ -48,7 +48,7 @@ interface MutableDotsChecker : DotsChecker {
     var getEnteredDots: () -> BrailleDots
     var getExpectedDots: () -> BrailleDots?
 
-    var onNextHandler: () -> Unit
+    var onCheckHandler: () -> Unit
     var onCorrectHandler: () -> Unit
     var onIncorrectHandler: () -> Unit
     var onHintHandler: () -> Unit
@@ -67,7 +67,7 @@ private class DotsCheckerImpl : MutableDotsChecker {
     override lateinit var getEnteredDots: () -> BrailleDots
     override lateinit var getExpectedDots: () -> BrailleDots?
 
-    override var onNextHandler: () -> Unit = {}
+    override var onCheckHandler: () -> Unit = {}
     override var onCorrectHandler: () -> Unit = {}
     override var onIncorrectHandler: () -> Unit = {}
     override var onHintHandler: () -> Unit = {}
@@ -110,7 +110,7 @@ private class DotsCheckerImpl : MutableDotsChecker {
     override var state = DotsChecker.State.INPUT
         private set
 
-    override fun onNext() = onNextHandler().side {
+    override fun onCheck() = onCheckHandler().side {
         if (state == DotsChecker.State.HINT) {
             state = DotsChecker.State.INPUT
             onPassHist()

@@ -57,7 +57,7 @@ class PracticeViewModel(
         dotsChecker.apply {
             getEnteredDots = this@PracticeViewModel.getEnteredDots
             getExpectedDots = { expectedDots }
-            onNextHandler = {
+            onCheckHandler = {
                 if (dotsChecker.state == DotsChecker.State.INPUT) {
                     nTries++
                 }

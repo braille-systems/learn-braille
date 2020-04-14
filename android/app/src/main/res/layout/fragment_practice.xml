@@ -103,7 +103,7 @@
                 android:adjustViewBounds="true"
                 android:background="@drawable/practice_btn_shape"
                 android:contentDescription="@string/practice_next"
-                android:onClick="@{() -> practiceViewModel.onNext()}"
+                android:onClick="@{() -> practiceViewModel.onCheck()}"
                 android:scaleType="fitCenter"
                 android:src="@android:drawable/ic_media_play" />
 

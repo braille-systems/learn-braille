@@ -84,7 +84,7 @@
             android:id="@+id/next_button"
             android:layout_width="85dp"
             android:layout_height="317dp"
-            android:onClick="@{() -> inputViewModel.onNext()}"
+            android:onClick="@{() -> inputViewModel.onCheck()}"
             android:text="ВПЕРЕД!"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
