@@ -40,7 +40,6 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
     abstract val symbolDao: SymbolDao
     abstract val userKnowsSymbolDao: UserKnowsSymbolDao
     abstract val userPassedStepDao: UserPassedStepDao
-    abstract val userNowOnStepDao: UserNowOnStepDao
 
     companion object {
 
