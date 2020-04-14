@@ -24,7 +24,7 @@ import timber.log.Timber
         User::class, Lesson::class, Step::class, Symbol::class,
         UserKnowsSymbol::class, UserPassedStep::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(
@@ -40,6 +40,7 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
     abstract val symbolDao: SymbolDao
     abstract val userKnowsSymbolDao: UserKnowsSymbolDao
     abstract val userPassedStepDao: UserPassedStepDao
+    abstract val userNowOnStepDao: UserNowOnStepDao
 
     companion object {
 
@@ -65,10 +66,11 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                 name
             )
             .addCallback(object : Callback() {
+
                 @SuppressLint("SyntheticAccessor")
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
-                    Timber.d("Start database callback")
+                    Timber.d("onCreate")
                     prepopulationFinished = false
                     scope().launch {
                         Timber.i("Start database prepopulation")
@@ -81,6 +83,12 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                         Timber.i("Finnish database prepopulation")
                         prepopulationFinished = true
                     }
+                }
+
+                override fun onDestructiveMigration(db: SupportSQLiteDatabase) {
+                    super.onDestructiveMigration(db)
+                    Timber.i("onDestructiveMigration")
+                    onCreate(db)
                 }
             })
             .fallbackToDestructiveMigration()
