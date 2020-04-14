@@ -9,7 +9,7 @@
 
         <variable
             name="inputViewModel"
-            type="ru.spbstu.amd.learnbraille.screens.lessons.InputViewModel" />
+            type="com.github.braillesystems.learnbraille.screens.lessons.InputViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.134" />
 
-        <ru.spbstu.amd.learnbraille.views.ButtonsView
+        <com.github.braillesystems.learnbraille.views.ButtonsView
             android:id="@+id/braille_dots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

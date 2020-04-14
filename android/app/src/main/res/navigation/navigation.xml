@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/greetingFragment"
-        android:name="ru.spbstu.amd.learnbraille.screens.greeting.GreetingFragment"
+        android:name="com.github.braillesystems.learnbraille.screens.greeting.GreetingFragment"
         android:label="fragment_greeting"
         tools:layout="@layout/fragment_greeting">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
-        android:name="ru.spbstu.amd.learnbraille.screens.menu.MenuFragment"
+        android:name="com.github.braillesystems.learnbraille.screens.menu.MenuFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu">
         <action
@@ -31,17 +31,17 @@
     </fragment>
     <fragment
         android:id="@+id/exitFragment"
-        android:name="ru.spbstu.amd.learnbraille.screens.exit.ExitFragment"
+        android:name="com.github.braillesystems.learnbraille.screens.exit.ExitFragment"
         android:label="fragment_exit"
         tools:layout="@layout/fragment_exit" />
     <fragment
         android:id="@+id/practiceFragment"
-        android:name="ru.spbstu.amd.learnbraille.screens.practice.PracticeFragment"
+        android:name="com.github.braillesystems.learnbraille.screens.practice.PracticeFragment"
         android:label="fragment_practice"
         tools:layout="@layout/fragment_practice" />
     <fragment
         android:id="@+id/helpFragment"
-        android:name="ru.spbstu.amd.learnbraille.screens.help.HelpFragment"
+        android:name="com.github.braillesystems.learnbraille.screens.help.HelpFragment"
         android:label="HelpFragment">
         <argument
             android:name="help_message"
@@ -60,7 +60,7 @@
 
     <fragment
         android:id="@+id/infoFragment"
-        android:name="ru.spbstu.amd.learnbraille.screens.lessons.InfoFragment"
+        android:name="com.github.braillesystems.learnbraille.screens.lessons.InfoFragment"
         android:label="InfoFragment">
         <argument
             android:name="step"
@@ -68,7 +68,7 @@
     </fragment>
     <fragment
         android:id="@+id/inputDotsFragment"
-        android:name="ru.spbstu.amd.learnbraille.screens.lessons.InputDotsFragment"
+        android:name="com.github.braillesystems.learnbraille.screens.lessons.InputDotsFragment"
         android:label="InputDotsFragment">
         <argument
             android:name="step"
@@ -76,7 +76,7 @@
     </fragment>
     <fragment
         android:id="@+id/inputSymbolFragment"
-        android:name="ru.spbstu.amd.learnbraille.screens.lessons.InputSymbolFragment"
+        android:name="com.github.braillesystems.learnbraille.screens.lessons.InputSymbolFragment"
         android:label="InputSymbolFragment">
         <argument
             android:name="step"
@@ -84,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/showDotsFragment"
-        android:name="ru.spbstu.amd.learnbraille.screens.lessons.ShowDotsFragment"
+        android:name="com.github.braillesystems.learnbraille.screens.lessons.ShowDotsFragment"
         android:label="ShowDotsFragment">
         <argument
             android:name="step"
@@ -92,7 +92,7 @@
     </fragment>
     <fragment
         android:id="@+id/showSymbolFragment"
-        android:name="ru.spbstu.amd.learnbraille.screens.lessons.ShowSymbolFragment"
+        android:name="com.github.braillesystems.learnbraille.screens.lessons.ShowSymbolFragment"
         android:label="ShowSymbolFragment">
         <argument
             android:name="step"
@@ -100,7 +100,7 @@
     </fragment>
     <fragment
         android:id="@+id/lastInfoFragment"
-        android:name="ru.spbstu.amd.learnbraille.screens.lessons.LastInfoFragment"
+        android:name="com.github.braillesystems.learnbraille.screens.lessons.LastInfoFragment"
         android:label="LastInfoFragment">
         <argument
             android:name="step"
@@ -108,7 +108,7 @@
     </fragment>
     <fragment
         android:id="@+id/firstInfoFragment"
-        android:name="ru.spbstu.amd.learnbraille.screens.lessons.FirstInfoFragment"
+        android:name="com.github.braillesystems.learnbraille.screens.lessons.FirstInfoFragment"
         android:label="FirstInfoFragment">
         <argument
             android:name="step"
