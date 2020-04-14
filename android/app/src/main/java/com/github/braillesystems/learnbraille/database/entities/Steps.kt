@@ -65,6 +65,17 @@ interface StepDao {
     )
     suspend fun getNextStepForUser(userId: Long, currentStepId: Long): Step?
 
+    @Query(
+        """
+            SELECT * FROM step
+            WHERE EXISTS (
+                SELECT * FROM user_last_step AS uls
+                WHERE uls.step_id = step.id AND uls.user_id = :userId
+            )
+            """
+    )
+    suspend fun getLastStepForUser(userId: Long): Step?
+
     @Query("SELECT * FROM step WHERE step.id = :id")
     suspend fun getStep(id: Long): Step?
 

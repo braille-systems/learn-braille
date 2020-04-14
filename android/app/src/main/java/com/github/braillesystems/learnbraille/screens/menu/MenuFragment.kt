@@ -18,7 +18,7 @@ import com.github.braillesystems.learnbraille.database.getDBInstance
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.defaultUser
 import com.github.braillesystems.learnbraille.screens.AbstractFragmentWithHelp
-import com.github.braillesystems.learnbraille.screens.lessons.navigateToCurrentStep
+import com.github.braillesystems.learnbraille.screens.lessons.navigateToLastStep
 import com.github.braillesystems.learnbraille.util.application
 import com.github.braillesystems.learnbraille.util.updateTitle
 import timber.log.Timber
@@ -48,8 +48,9 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         setHasOptionsMenu(true)
 
         lessonsButton.setOnClickListener(interruptingOnClickListener {
-            val dataSource = getDBInstance().stepDao
-            navigateToCurrentStep(dataSource, defaultUser)
+            getDBInstance().apply {
+                navigateToLastStep(defaultUser, stepDao, userLastStep)
+            }
         })
 
         practiceButton.setOnClickListener(interruptingOnClickListener {

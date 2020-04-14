@@ -34,17 +34,27 @@ class InfoFragment : AbstractLesson(R.string.lessons_help_info) {
 
         getDBInstance().apply {
             prevButton.setOnClickListener {
-                navigateToPrevStep(stepDao, step)
+                navigateToPrevStep(
+                    current = step,
+                    userId = defaultUser,
+                    stepDao = stepDao,
+                    lastStepDao = userLastStep
+                )
             }
             nextButton.setOnClickListener {
                 navigateToNextStep(
-                    stepDao, step, defaultUser,
-                    userPassedStepDao
+                    current = step,
+                    userId = defaultUser,
+                    stepDao = stepDao,
+                    lastStepDao = userLastStep,
+                    upsd = userPassedStepDao
                 )
             }
             toCurrStepButton.setOnClickListener {
                 navigateToCurrentStep(
-                    stepDao, defaultUser
+                    userId = defaultUser,
+                    stepDao = stepDao,
+                    lastStepDao = userLastStep
                 )
             }
         }

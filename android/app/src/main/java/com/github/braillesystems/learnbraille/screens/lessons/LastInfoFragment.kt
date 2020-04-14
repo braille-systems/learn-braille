@@ -34,11 +34,18 @@ class LastInfoFragment : AbstractLesson(R.string.lessons_help_last_info) {
 
         getDBInstance().run {
             prevButton.setOnClickListener {
-                navigateToPrevStep(stepDao, step)
+                navigateToPrevStep(
+                    current = step,
+                    userId = defaultUser,
+                    stepDao = stepDao,
+                    lastStepDao = userLastStep
+                )
             }
             toCurrStepButton.setOnClickListener {
                 navigateToCurrentStep(
-                    stepDao, defaultUser
+                    userId = defaultUser,
+                    stepDao = stepDao,
+                    lastStepDao = userLastStep
                 )
             }
         }

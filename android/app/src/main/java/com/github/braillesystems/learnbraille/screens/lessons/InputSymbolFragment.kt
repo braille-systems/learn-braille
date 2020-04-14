@@ -73,58 +73,75 @@ class InputSymbolFragment : AbstractLesson(R.string.lessons_help_input_symbol) {
         lifecycleOwner = this@InputSymbolFragment
 
 
-        val database = getDBInstance()
+        getDBInstance().apply {
 
-        prevButton.setOnClickListener {
-            navigateToPrevStep(database.stepDao, step)
-        }
+            prevButton.setOnClickListener {
+                navigateToPrevStep(
+                    current = step,
+                    userId = defaultUser,
+                    stepDao = stepDao,
+                    lastStepDao = userLastStep
+                )
+            }
 
-        toCurrStepButton.setOnClickListener {
-            navigateToCurrentStep(
-                database.stepDao, defaultUser
+            toCurrStepButton.setOnClickListener {
+                navigateToCurrentStep(
+                    userId = defaultUser,
+                    stepDao = stepDao,
+                    lastStepDao = userLastStep
+                )
+            }
+
+            viewModel.eventCorrect.observe(
+                viewLifecycleOwner,
+                viewModel.getEventCorrectObserver(dots, buzzer) {
+                    Timber.i("Handle correct")
+                    Toast.makeText(
+                        context, getString(R.string.msg_correct), Toast.LENGTH_SHORT
+                    ).show()
+                    navigateToNextStep(
+                        current = step,
+                        userId = defaultUser,
+                        stepDao = stepDao,
+                        lastStepDao = userLastStep,
+                        upsd = userPassedStepDao
+                    )
+                }
+            )
+
+            viewModel.eventIncorrect.observe(
+                viewLifecycleOwner,
+                viewModel.getEventIncorrectObserver(dots, buzzer) {
+                    Timber.i("Handle incorrect: entered = ${dots.spelling}")
+                    Toast.makeText(
+                        context, getString(R.string.msg_incorrect), Toast.LENGTH_SHORT
+                    ).show()
+                    navigateToNextStep(
+                        current = step,
+                        userId = defaultUser,
+                        stepDao = stepDao,
+                        lastStepDao = userLastStep
+                    )
+                }
+            )
+
+            viewModel.eventHint.observe(
+                viewLifecycleOwner,
+                viewModel.getEventHintObserver(dots /*, TODO serial */) { expectedDots ->
+                    Timber.i("Handle hint")
+                    val toast = getString(R.string.practice_hint_template)
+                        .format(expectedDots.spelling)
+                    Toast.makeText(context, toast, Toast.LENGTH_LONG).show()
+                }
+            )
+
+            viewModel.eventPassHint.observe(
+                viewLifecycleOwner,
+                viewModel.getEventPassHintObserver(dots) {
+                    Timber.i("Handle pass hint")
+                }
             )
         }
-
-        viewModel.eventCorrect.observe(
-            viewLifecycleOwner,
-            viewModel.getEventCorrectObserver(dots, buzzer) {
-                Timber.i("Handle correct")
-                Toast.makeText(context, getString(R.string.msg_correct), Toast.LENGTH_SHORT).show()
-                navigateToNextStep(
-                    database.stepDao, step, defaultUser,
-                    database.userPassedStepDao
-                )
-            }
-        )
-
-        viewModel.eventIncorrect.observe(
-            viewLifecycleOwner,
-            viewModel.getEventIncorrectObserver(dots, buzzer) {
-                Timber.i("Handle incorrect: entered = ${dots.spelling}")
-                Toast.makeText(context, getString(R.string.msg_incorrect), Toast.LENGTH_SHORT)
-                    .show()
-                navigateToNextStep(
-                    database.stepDao, step, defaultUser
-                )
-            }
-        )
-
-        viewModel.eventHint.observe(
-            viewLifecycleOwner,
-            viewModel.getEventHintObserver(dots /*, TODO serial */) { expectedDots ->
-                Timber.i("Handle hint")
-                val toast = getString(R.string.practice_hint_template)
-                    .format(expectedDots.spelling)
-                Toast.makeText(context, toast, Toast.LENGTH_LONG).show()
-            }
-        )
-
-        viewModel.eventPassHint.observe(
-            viewLifecycleOwner,
-            viewModel.getEventPassHintObserver(dots) {
-                Timber.i("Handle pass hint")
-            }
-        )
 
     }.root
 }

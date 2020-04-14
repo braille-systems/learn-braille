@@ -10,9 +10,13 @@ import com.github.braillesystems.learnbraille.util.side
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-fun Fragment.navigateToStep(nextStep: Step): Unit =
+fun Fragment.navigateToStep(nextStep: Step, userId: Long, lastStepDao: UserLastStepDao): Unit =
     nextStep.toString().also {
         Timber.i("Navigating to step with id = ${nextStep.id}")
+        scope().launch {
+            val lastStep = UserLastStep(userId, nextStep.id)
+            lastStepDao.insertLastStep(lastStep)
+        }
     }.let { step ->
         when (nextStep.data) {
             is Info -> MenuFragmentDirections.actionGlobalInfoFragment(step)
@@ -27,11 +31,16 @@ fun Fragment.navigateToStep(nextStep: Step): Unit =
         findNavController().navigate(action)
     }
 
-fun AbstractLesson.navigateToPrevStep(dataSource: StepDao, current: Step): Unit =
+fun AbstractLesson.navigateToPrevStep(
+    current: Step,
+    userId: Long,
+    stepDao: StepDao,
+    lastStepDao: UserLastStepDao
+): Unit =
     if (current.data is FirstInfo) Timber.w("Trying to get step before first")
     else scope().launch {
-        dataSource.getStep(current.id - 1)?.let { step ->
-            navigateToStep(step)
+        stepDao.getStep(current.id - 1)?.let { step ->
+            navigateToStep(step, userId, lastStepDao)
         } ?: error("No step with less id")
     }.devnull
 
@@ -42,17 +51,18 @@ fun AbstractLesson.navigateToPrevStep(dataSource: StepDao, current: Step): Unit 
  * @param onNextNotAvailable Is called when current step is not passed and `upsd` is `null`.
  */
 fun AbstractLesson.navigateToNextStep(
-    dataSource: StepDao,
     current: Step,
     userId: Long,
+    stepDao: StepDao,
+    lastStepDao: UserLastStepDao,
     upsd: UserPassedStepDao? = null,
     onNextNotAvailable: AbstractLesson.() -> Unit = {}
 ): Unit =
     if (current.data is LastInfo) Timber.w("Trying to get step after last")
     else scope().launch {
         upsd?.insertPassedStep(UserPassedStep(userId, current.id))
-        dataSource.getNextStepForUser(userId, current.id)?.let { step ->
-            navigateToStep(step)
+        stepDao.getNextStepForUser(userId, current.id)?.let { step ->
+            navigateToStep(step, userId, lastStepDao)
         } ?: onNextNotAvailable().side {
             Timber.i("On next step not available call")
         }
@@ -61,12 +71,31 @@ fun AbstractLesson.navigateToNextStep(
 /**
  * Navigate to the last passed step in course progress.
  */
-fun Fragment.navigateToCurrentStep(
-    dataSource: StepDao,
-    userId: Long
+fun AbstractLesson.navigateToCurrentStep(
+    userId: Long,
+    stepDao: StepDao,
+    lastStepDao: UserLastStepDao
 ): Unit = scope().launch {
     navigateToStep(
-        dataSource.getCurrentStepForUser(userId)
-            ?: error("User ($userId) should always have at least one last step")
+        stepDao.getCurrentStepForUser(userId)
+            ?: error("User ($userId) should always have at least one last step"),
+        userId, lastStepDao
+    )
+}.devnull
+
+/**
+ * Navigate to last step visited by user, or to the current step that always exists.
+ */
+fun Fragment.navigateToLastStep(
+    userId: Long,
+    stepDao: StepDao,
+    lastStepDao: UserLastStepDao
+): Unit = scope().launch {
+    stepDao.getLastStepForUser(userId)?.let { step ->
+        navigateToStep(step, userId, lastStepDao)
+    } ?: navigateToStep(
+        stepDao.getCurrentStepForUser(userId)
+            ?: error("$userId does not have current step"),
+        userId, lastStepDao
     )
 }.devnull

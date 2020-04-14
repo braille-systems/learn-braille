@@ -22,9 +22,9 @@ import timber.log.Timber
     entities =
     [
         User::class, Lesson::class, Step::class, Symbol::class,
-        UserKnowsSymbol::class, UserPassedStep::class
+        UserKnowsSymbol::class, UserPassedStep::class, UserLastStep::class
     ],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(
@@ -40,6 +40,7 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
     abstract val symbolDao: SymbolDao
     abstract val userKnowsSymbolDao: UserKnowsSymbolDao
     abstract val userPassedStepDao: UserPassedStepDao
+    abstract val userLastStep: UserLastStepDao
 
     companion object {
 
