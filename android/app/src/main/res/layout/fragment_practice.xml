@@ -47,18 +47,18 @@
                 android:visibility="invisible" />
 
             <!--suppress AndroidDomInspection -->
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/hint_button"
                 android:layout_width="70sp"
                 android:layout_height="0dp"
                 android:layout_weight="7"
+                app:shapeAppearanceOverlay="@style/SideLeftButtonsShape"
                 android:adjustViewBounds="true"
-                android:background="@drawable/practice_hint_btn_shape"
                 android:contentDescription="@string/practice_hint"
                 android:onClick="@{() -> practiceViewModel.onHint()}"
                 android:scaleType="fitCenter"
                 android:text="?"
-                android:textColor="@color/colorText"
+                android:textColor="@color/colorOnPrimary"
                 android:textSize="70sp" />
 
             <View
@@ -95,17 +95,19 @@
                 android:layout_weight="1"
                 android:visibility="invisible" />
 
-            <ImageButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/next_button"
                 android:layout_width="70sp"
                 android:layout_height="0dp"
                 android:layout_weight="7"
+                app:shapeAppearanceOverlay="@style/SideRightButtonsShape"
                 android:adjustViewBounds="true"
-                android:background="@drawable/practice_btn_shape"
                 android:contentDescription="@string/practice_next"
                 android:onClick="@{() -> practiceViewModel.onCheck()}"
                 android:scaleType="fitCenter"
-                android:src="@android:drawable/ic_media_play" />
+                app:icon="@android:drawable/ic_media_play"
+                app:iconSize="50dp"
+                app:backgroundTint="@color/colorSecondary"/>
 
             <View
                 android:layout_width="0dp"

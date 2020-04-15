@@ -1,50 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/lessons_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/menu_continue"
-            android:textSize="36sp" />
+            android:textColor="@color/colorOnSecondary"
+            android:textSize="36sp"
+            app:backgroundTint="@color/colorSecondary"
+            app:shapeAppearanceOverlay="@style/BigButtonsShape"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/practice_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/menu_practice"
-            android:textSize="36sp" />
+            android:textColor="@color/colorOnSecondary"
+            android:textSize="36sp"
+            app:shapeAppearanceOverlay="@style/BigButtonsShape"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/offline_practice_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/menu_qt"
-            android:textSize="36sp" />
+            android:textColor="@color/colorOnSecondary"
+            android:textSize="36sp"
+            app:backgroundTint="@color/colorSecondary"
+            app:shapeAppearanceOverlay="@style/BigButtonsShape"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/stacked_help_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/menu_stacked_help"
-            android:textSize="36sp" />
+            android:textColor="@color/colorOnSecondary"
+            android:textSize="36sp"
+            app:shapeAppearanceOverlay="@style/BigButtonsShape"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/exit_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="@string/menu_exit"
-            android:textSize="36sp" />
+            android:textColor="@color/colorOnSecondary"
+            android:textSize="36sp"
+            app:backgroundTint="@color/colorSecondary"
+            app:shapeAppearanceOverlay="@style/BigButtonsShape"/>
 
     </LinearLayout>
 </layout>

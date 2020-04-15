@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -7,25 +8,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/exit_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/mainColorLight"
-            android:text="@string/exit_yes"
-            android:textColor="@color/colorText"
-            android:textSize="30sp" />
-
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/continue_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/mainColorDark"
             android:text="@string/exit_no"
-            android:textColor="@color/colorText"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            app:shapeAppearanceOverlay="@style/BigButtonsShape"
+            app:backgroundTint="@color/colorSecondary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/exit_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/exit_yes"
+            android:textSize="30sp"
+            app:shapeAppearanceOverlay="@style/BigButtonsShape"
+            />
 
     </LinearLayout>
 </layout>
