@@ -21,4 +21,4 @@ Strongly recommended:
 1. 4' to 6' screen
 
 For accessibility, you will require TalkBack service (pre-installed by default on a majority of devices.
-For others available in AppStore/ Google Play).
+For others available in PlayStore/ Google Play).
