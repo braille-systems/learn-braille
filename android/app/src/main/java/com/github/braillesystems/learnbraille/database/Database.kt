@@ -71,6 +71,17 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
                     Timber.d("onCreate")
+                    prepopulate()
+                }
+
+                override fun onDestructiveMigration(db: SupportSQLiteDatabase) {
+                    super.onDestructiveMigration(db)
+                    Timber.i("onDestructiveMigration")
+                    prepopulate()
+                }
+
+                private fun prepopulate() {
+                    Timber.i("prepopulate")
                     prepopulationFinished = false
                     scope().launch {
                         Timber.i("Start database prepopulation")
@@ -83,12 +94,6 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                         Timber.i("Finnish database prepopulation")
                         prepopulationFinished = true
                     }
-                }
-
-                override fun onDestructiveMigration(db: SupportSQLiteDatabase) {
-                    super.onDestructiveMigration(db)
-                    Timber.i("onDestructiveMigration")
-                    onCreate(db)
                 }
             })
             .fallbackToDestructiveMigration()
