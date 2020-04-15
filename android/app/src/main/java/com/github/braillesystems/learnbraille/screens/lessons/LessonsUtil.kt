@@ -3,6 +3,7 @@ package com.github.braillesystems.learnbraille.screens.lessons
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.database.entities.*
+import com.github.braillesystems.learnbraille.screens.menu.MenuFragment
 import com.github.braillesystems.learnbraille.screens.menu.MenuFragmentDirections
 import com.github.braillesystems.learnbraille.util.devnull
 import com.github.braillesystems.learnbraille.util.scope
@@ -10,14 +11,12 @@ import com.github.braillesystems.learnbraille.util.side
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-fun Fragment.navigateToStep(nextStep: Step, userId: Long, lastStepDao: UserLastStepDao): Unit =
-    nextStep.toString().also {
-        Timber.i("Navigating to step with id = ${nextStep.id}")
-        scope().launch {
-            val lastStep = UserLastStep(userId, nextStep.id)
-            lastStepDao.insertLastStep(lastStep)
-        }
-    }.let { step ->
+private fun Fragment.navigateToStepHelper(
+    nextStep: Step,
+    userId: Long,
+    lastStepDao: UserLastStepDao
+): Unit =
+    nextStep.toString().let { step ->
         when (nextStep.data) {
             is Info -> MenuFragmentDirections.actionGlobalInfoFragment(step)
             is FirstInfo -> MenuFragmentDirections.actionGlobalFirstInfoFragment(step)
@@ -28,8 +27,17 @@ fun Fragment.navigateToStep(nextStep: Step, userId: Long, lastStepDao: UserLastS
             is ShowDots -> MenuFragmentDirections.actionGlobalShowDotsFragment(step)
         }
     }.side { action ->
+        Timber.i("Navigating to step with id = ${nextStep.id}")
+        val lastStep = UserLastStep(userId, nextStep.id)
+        scope().launch { lastStepDao.insertLastStep(lastStep) }
         findNavController().navigate(action)
     }
+
+fun AbstractLesson.navigateToStep(nextStep: Step, userId: Long, lastStepDao: UserLastStepDao) =
+    navigateToStepHelper(nextStep, userId, lastStepDao)
+
+fun MenuFragment.navigateToStep(nextStep: Step, userId: Long, lastStepDao: UserLastStepDao) =
+    navigateToStepHelper(nextStep, userId, lastStepDao)
 
 fun AbstractLesson.navigateToPrevStep(
     current: Step,
@@ -86,7 +94,7 @@ fun AbstractLesson.navigateToCurrentStep(
 /**
  * Navigate to last step visited by user, or to the current step that always exists.
  */
-fun Fragment.navigateToLastStep(
+fun MenuFragment.navigateToLastStep(
     userId: Long,
     stepDao: StepDao,
     lastStepDao: UserLastStepDao
