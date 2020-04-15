@@ -7,7 +7,7 @@
 
         <variable
             name="practiceViewModel"
-            type="ru.spbstu.amd.learnbraille.screens.practice.PracticeViewModel" />
+            type="com.github.braillesystems.learnbraille.screens.practice.PracticeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,7 +69,7 @@
 
         </LinearLayout>
 
-        <ru.spbstu.amd.learnbraille.views.ButtonsView
+        <com.github.braillesystems.learnbraille.views.BrailleDotsView
             android:id="@+id/practice_buttons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                 android:adjustViewBounds="true"
                 android:background="@drawable/practice_btn_shape"
                 android:contentDescription="@string/practice_next"
-                android:onClick="@{() -> practiceViewModel.onNext()}"
+                android:onClick="@{() -> practiceViewModel.onCheck()}"
                 android:scaleType="fitCenter"
                 android:src="@android:drawable/ic_media_play" />
 
