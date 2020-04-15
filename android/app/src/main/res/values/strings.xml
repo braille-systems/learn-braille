@@ -2,23 +2,30 @@
 
     <!--    App common-->
 
-    <string name="app_name">LearnBraille</string>
+    <string name="app_name">Learn Braille Beta</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_help_message">No help message</string>
+    <string name="msg_correct">Правильно!</string>
+    <string name="msg_incorrect">Неправильно!</string>
+    <string name="msg_cancelled">Ошибка, попытайтесь ещё раз</string>
 
     <!--    Practice-->
 
-    <string name="practice_next">Next</string>
-    <string name="practice_actionbar_title">Практика: %d из %d</string>
-    <string name="practice_db_not_initialized_warning">
-        Раздел практики загружается. Попробуйте ещё раз.
-    </string>
+    <string name="practice_hint">Подсказка</string>
+    <string name="practice_hint_template">"Ответ: точки %s"</string>
+    <string name="practice_next">Далее</string>
+    <string name="practice_actionbar_title_template">Практика: %d из %d</string>
 
     <string name="practice_help">
         В верхней половине экрана крупным шрифтом выведен символ,
         который нужно ввести в шеститочии в нижней половине экрана и нажать кнопку “далее” справа.
         Выход в меню приложения - кнопка вверху слева.
-        Вызов справки - кнопка вверху справа"
+        Вызов справки - кнопка вверху справа.
+
+        Если Вы забыли символ, можно нажать кнопку с вопросительным знаком слева внизу экрана.
+        По нажатию этой кнопки будет выведено сообщение с верными номерами точек, шеститочие будет
+        заполнено правильными точками и недоступно для переключения. После этого нужно нажать кнопку
+        "далее" и ввести ту же букву ещё раз.
     </string>
 
     <!--    Exit-->
@@ -35,11 +42,16 @@
     <string name="greeting_start">Начать</string>
 
     <!--    Menu-->
+
     <string name="menu_continue">продолжить курс</string>
     <string name="menu_practice">ПРАКТИКА</string>
     <string name="menu_qt">СКАНИРОВАТЬ QR-КОД</string>
+    <string name="menu_stacked_help">СПРАВКА</string>
     <string name="menu_exit">ВЫХОД</string>
     <string name="menu_actionbar_text">Learn Braille. Меню</string>
+    <string name="menu_db_not_initialized_warning">
+        Загружаем базу данных. Попробуйте еще раз!
+    </string>
 
     <string name="menu_help">
         Обучение системе Луи Брайля: главное меню. \n
@@ -50,13 +62,19 @@
         по нажатию кнопки вы можете отсканировать QR-код и проверить, что написано на карточке.
         Для этого необходимо дополнительное приложение. Если его ещё нет, по нажатию кнопки
         Вы будете перенаправлены на страницу для скачивания приложения.
+
+        Находясь в любом разделе приложения, Вы всегда можете вызвать справку по данному разделу,
+        нажав экранную кнопку "справка" в правом верхнем углу экрана.
     </string>
 
     <!--    Lessons-->
 
     <string name="lessons_next">Вперёд</string>
-    <string name="lessons_db_not_initialized_warning">
-        Раздел практики загружается. Попробуйте еще раз.
+    <string name="lessons_input_dots_info_template">
+        Введите точки: %s
+    </string>
+    <string name="lessons_show_dots_info_template">
+        Выведены точки: %s
     </string>
 
     <string name="lessons_title_info">Информационный шаг</string>
