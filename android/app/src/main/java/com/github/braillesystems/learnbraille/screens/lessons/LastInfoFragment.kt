@@ -41,13 +41,6 @@ class LastInfoFragment : AbstractLesson(R.string.lessons_help_last_info) {
                     lastStepDao = userLastStep
                 )
             }
-            toCurrStepButton.setOnClickListener {
-                navigateToCurrentStep(
-                    userId = defaultUser,
-                    stepDao = stepDao,
-                    lastStepDao = userLastStep
-                )
-            }
         }
 
     }.root
