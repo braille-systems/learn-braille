@@ -15,8 +15,8 @@
             android:layout_weight="1"
             android:text="@string/exit_no"
             android:textSize="30sp"
-            app:shapeAppearanceOverlay="@style/bigButtonsShape"
-            app:backgroundTint="@color/colorSecondary"/>
+            app:backgroundTint="@color/colorSecondary"
+            app:shapeAppearanceOverlay="@style/bigButtonsShape" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/exit_button"
@@ -25,8 +25,7 @@
             android:layout_weight="1"
             android:text="@string/exit_yes"
             android:textSize="30sp"
-            app:shapeAppearanceOverlay="@style/bigButtonsShape"
-            />
+            app:shapeAppearanceOverlay="@style/bigButtonsShape" />
 
     </LinearLayout>
 </layout>
