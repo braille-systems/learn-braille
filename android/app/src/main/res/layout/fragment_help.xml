@@ -6,8 +6,13 @@
         android:id="@+id/help_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:autoSizeTextType="uniform"
         android:lineSpacingExtra="3sp"
-        android:text="@string/default_help_message"/>
+        android:paddingStart="8dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="2dp"
+        android:paddingBottom="2dp"
+        android:text="@string/default_help_message"
+        android:textSize="18sp"
+        app:autoSizeTextType="none" />
 
 </layout>
