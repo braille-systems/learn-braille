@@ -10,7 +10,7 @@ import com.github.braillesystems.learnbraille.database.entities.BrailleDots
 import com.github.braillesystems.learnbraille.serial.UsbSerial
 import com.github.braillesystems.learnbraille.util.buzz
 import com.github.braillesystems.learnbraille.util.side
-import com.github.braillesystems.learnbraille.views.Dots
+import com.github.braillesystems.learnbraille.views.BrailleDotsState
 import com.github.braillesystems.learnbraille.views.clickable
 import com.github.braillesystems.learnbraille.views.display
 import com.github.braillesystems.learnbraille.views.uncheck
@@ -158,7 +158,7 @@ private class DotsCheckerImpl : MutableDotsChecker {
  * Return observer with default behaviour.
  */
 fun DotsChecker.getEventCorrectObserver(
-    dots: Dots,
+    dots: BrailleDotsState,
     buzzer: Vibrator? = null,
     block: () -> Unit = {}
 ) = Observer<Boolean> {
@@ -173,7 +173,7 @@ fun DotsChecker.getEventCorrectObserver(
  * Return observer with default behaviour.
  */
 fun DotsChecker.getEventIncorrectObserver(
-    dots: Dots,
+    dots: BrailleDotsState,
     buzzer: Vibrator? = null,
     block: () -> Unit = {}
 ) = Observer<Boolean> {
@@ -188,7 +188,7 @@ fun DotsChecker.getEventIncorrectObserver(
  * Return observer with default behaviour.
  */
 fun DotsChecker.getEventHintObserver(
-    dots: Dots,
+    dots: BrailleDotsState,
     serial: UsbSerial? = null,
     block: (BrailleDots) -> Unit
 ) = Observer<BrailleDots?> { expectedDots ->
@@ -204,7 +204,7 @@ fun DotsChecker.getEventHintObserver(
  * Return observer with default behaviour.
  */
 fun DotsChecker.getEventPassHintObserver(
-    dots: Dots,
+    dots: BrailleDotsState,
     block: () -> Unit
 ) = Observer<Boolean> {
     if (!it) return@Observer
