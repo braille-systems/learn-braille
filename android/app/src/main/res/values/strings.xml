@@ -70,6 +70,9 @@
     <!--    Lessons-->
 
     <string name="lessons_next">Вперёд</string>
+    <string name="lessons_prev">Назад</string>
+    <string name="lessons_hint">Подсказка</string>
+    <string name="lessons_progress">К прогрессу</string>
     <string name="lessons_input_dots_info_template">
         Введите точки: %s
     </string>

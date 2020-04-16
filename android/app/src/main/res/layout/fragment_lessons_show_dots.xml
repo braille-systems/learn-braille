@@ -36,6 +36,7 @@
             android:id="@+id/braille_dots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
             android:scaleX="@dimen/braille_dots_scale_of_view"
             android:scaleY="@dimen/braille_dots_scale_of_view"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,35 +48,43 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/to_curr_step_button"
-            android:layout_width="85dp"
-            android:layout_height="317dp"
-            android:layout_marginTop="24dp"
-            android:text="К ТЕКУЩЕМУ УРОКУ"
+            android:layout_width="70dp"
+            android:layout_height="115dp"
+            android:layout_marginTop="250dp"
+            android:layout_marginBottom="32dp"
+            app:icon="@drawable/to_progress"
+            style="@style/sideIconButtons"
             app:layout_constraintBottom_toTopOf="@+id/next_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/SideRightButtonsShape" />
+            app:shapeAppearanceOverlay="@style/sideRightButtonsShape"
+            android:backgroundTint="@color/colorSecondary"
+            android:contentDescription="@string/lessons_progress"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/prev_button"
-            android:layout_width="85dp"
-            android:layout_height="317dp"
-            android:text="НАЗАД!"
-            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/sideIconButtons"
+            android:layout_width="70dp"
+            android:layout_height="230dp"
+            android:contentDescription="@string/lessons_prev"
+            app:icon="@drawable/navigate_left"
+            app:layout_constraintBottom_toBottomOf="@+id/next_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/SideLeftButtonsShape"/>
+            app:layout_constraintTop_toTopOf="@+id/next_button"
+            app:shapeAppearanceOverlay="@style/sideLeftButtonsShape" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/next_button"
-            android:layout_width="85dp"
-            android:layout_height="317dp"
+            android:layout_width="70dp"
+            android:layout_height="230dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="24dp"
-            android:text="ВПЕРЕД!"
+            android:layout_marginBottom="56dp"
+            app:icon="@drawable/navigate_right"
+            style="@style/sideIconButtons"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/to_curr_step_button"
-            app:shapeAppearanceOverlay="@style/SideRightButtonsShape" />
+            app:shapeAppearanceOverlay="@style/sideRightButtonsShape"
+            android:contentDescription="@string/lessons_next"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

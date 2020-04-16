@@ -15,7 +15,7 @@
             android:layout_weight="1"
             android:text="@string/exit_no"
             android:textSize="30sp"
-            app:shapeAppearanceOverlay="@style/BigButtonsShape"
+            app:shapeAppearanceOverlay="@style/bigButtonsShape"
             app:backgroundTint="@color/colorSecondary"/>
 
         <com.google.android.material.button.MaterialButton
@@ -25,7 +25,7 @@
             android:layout_weight="1"
             android:text="@string/exit_yes"
             android:textSize="30sp"
-            app:shapeAppearanceOverlay="@style/BigButtonsShape"
+            app:shapeAppearanceOverlay="@style/bigButtonsShape"
             />
 
     </LinearLayout>

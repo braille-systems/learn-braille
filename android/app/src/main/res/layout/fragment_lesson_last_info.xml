@@ -28,16 +28,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/prev_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="НАЗАД!"
+            style="@style/sideIconButtons"
+            android:layout_width="70dp"
+            android:layout_height="230dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:contentDescription="@string/lessons_prev"
+            app:icon="@drawable/navigate_left"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/info_text_view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/SmallSideLeftButtonsShape"/>
+            app:layout_constraintTop_toBottomOf="@+id/hint_button"
+            app:shapeAppearanceOverlay="@style/sideLeftButtonsShape" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

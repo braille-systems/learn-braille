@@ -47,19 +47,23 @@
                 android:visibility="invisible" />
 
             <!--suppress AndroidDomInspection -->
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/hint_button"
-                android:layout_width="70sp"
-                android:layout_height="0dp"
-                android:layout_weight="7"
-                app:shapeAppearanceOverlay="@style/SideLeftButtonsShape"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/practice_hint"
-                android:onClick="@{() -> practiceViewModel.onHint()}"
+                android:layout_width="70dp"
+                android:layout_height="230dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="56dp"
                 android:scaleType="fitCenter"
                 android:text="?"
                 android:textColor="@color/colorOnPrimary"
-                android:textSize="70sp" />
+                android:textSize="50sp"
+                android:onClick="@{() -> practiceViewModel.onHint()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hint_button"
+                app:shapeAppearanceOverlay="@style/sideLeftButtonsShape"
+                android:contentDescription="@string/practice_hint"/>
 
             <View
                 android:layout_width="0dp"
@@ -97,17 +101,18 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/next_button"
-                android:layout_width="70sp"
-                android:layout_height="0dp"
-                android:layout_weight="7"
-                app:shapeAppearanceOverlay="@style/SideRightButtonsShape"
-                android:adjustViewBounds="true"
-                android:contentDescription="@string/practice_next"
+                android:layout_width="70dp"
+                android:layout_height="230dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="56dp"
                 android:onClick="@{() -> practiceViewModel.onCheck()}"
-                android:scaleType="fitCenter"
-                app:icon="@android:drawable/ic_media_play"
-                app:iconSize="50dp"
-                app:backgroundTint="@color/colorSecondary"/>
+                app:icon="@drawable/navigate_right"
+                style="@style/sideIconButtons"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/to_curr_step_button"
+                app:shapeAppearanceOverlay="@style/sideRightButtonsShape"
+                android:contentDescription="@string/lessons_next"/>
 
             <View
                 android:layout_width="0dp"

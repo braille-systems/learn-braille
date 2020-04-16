@@ -18,17 +18,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/next_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ВПЕРЕД!"
+            android:layout_width="70dp"
+            android:layout_height="230dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="56dp"
+            app:icon="@drawable/navigate_right"
+            style="@style/sideIconButtons"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/info_text_view"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/SmallSideRightButtonsShape"
-            app:backgroundTint="@color/colorSecondary"/>
+            app:layout_constraintTop_toBottomOf="@+id/to_curr_step_button"
+            app:shapeAppearanceOverlay="@style/sideRightButtonsShape"
+            android:contentDescription="@string/lessons_next"/>
 
         <TextView
             android:id="@+id/title_text_view"
@@ -42,15 +45,17 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/to_curr_step_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="48dp"
-            android:text="К ПРОГРЕССУ!"
+            android:layout_width="70dp"
+            android:layout_height="115dp"
+            android:layout_marginTop="250dp"
+            android:layout_marginBottom="32dp"
+            app:icon="@drawable/to_progress"
+            style="@style/sideIconButtons"
             app:layout_constraintBottom_toTopOf="@+id/next_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/info_text_view"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/SmallSideRightButtonsShape"
-            />
+            app:shapeAppearanceOverlay="@style/sideRightButtonsShape"
+            android:backgroundTint="@color/colorSecondary"
+            android:contentDescription="@string/lessons_progress"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

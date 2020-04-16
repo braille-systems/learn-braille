@@ -3,7 +3,7 @@
     android:shape="oval">
     <stroke
         android:width="@dimen/braille_dots_unchecked_width"
-        android:color="@android:color/black" />
+        android:color="#263238" />
     <size
         android:width="@dimen/braille_dot_size"
         android:height="@dimen/braille_dot_size" />

@@ -7,38 +7,36 @@
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="android:colorBackground">@color/colorBackground</item>>
 
         <item name="materialButtonStyle">
             @style/Widget.MaterialComponents.Button
         </item>
     </style>
 
-    <style name="BigButtonsShape">
+    <style name="bigButtonsShape">
         <item name="cornerSizeBottomRight">40dp</item>
         <item name="cornerSizeTopRight">40dp</item>
         <item name="cornerSizeBottomLeft">40dp</item>
         <item name="cornerSizeTopLeft">40dp</item>
     </style>
 
-    <style name="SideLeftButtonsShape">
+    <style name="sideLeftButtonsShape">
         <item name="cornerSizeBottomRight">40dp</item>
         <item name="cornerSizeTopRight">40dp</item>
     </style>
 
-    <style name="SideRightButtonsShape">
+    <style name="sideRightButtonsShape">
         <item name="cornerSizeBottomLeft">40dp</item>
         <item name="cornerSizeTopLeft">40dp</item>
     </style>
 
-    <style name="SmallSideLeftButtonsShape">
-        <item name="cornerSizeBottomRight">20dp</item>
-        <item name="cornerSizeTopRight">20dp</item>
+    <style name="sideIconButtons" parent="@style/Widget.MaterialComponents.Button.Icon">
+        <item name="iconPadding">0dp</item>
+        <item name="iconSize">50dp</item>
     </style>
 
-    <style name="SmallSideRightButtonsShape">
-        <item name="cornerSizeBottomLeft">20dp</item>
-        <item name="cornerSizeTopLeft">20dp</item>
-    </style>
+
 
     <style name="brailleDots">
         <item name="android:layout_width">wrap_content</item>
