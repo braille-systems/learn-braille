@@ -28,7 +28,7 @@ class InputSymbolFragment : AbstractLesson(R.string.lessons_help_input_symbol) {
 
     private lateinit var viewModel: InputViewModel
     private lateinit var expectedDots: BrailleDots
-    private lateinit var dots: Dots
+    private lateinit var dots: BrailleDotsState
     private var buzzer: Vibrator? = null
 
     override fun onCreateView(

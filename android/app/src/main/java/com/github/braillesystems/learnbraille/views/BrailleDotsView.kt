@@ -34,31 +34,33 @@ class BrailleDotsView : ConstraintLayout {
     }
 }
 
-typealias Dots = Array<CheckBox>
+class BrailleDotsState(val dots: Array<CheckBox>)
 
-val BrailleDotsView.dots: Dots
-    get() = arrayOf(
-        dotButton1, dotButton2, dotButton3,
-        dotButton4, dotButton5, dotButton6
+val BrailleDotsView.dots: BrailleDotsState
+    get() = BrailleDotsState(
+        arrayOf(
+            dotButton1, dotButton2, dotButton3,
+            dotButton4, dotButton5, dotButton6
+        )
     )
 
-fun Dots.uncheck() = forEach {
+fun BrailleDotsState.uncheck() = dots.forEach {
     it.isChecked = false
 }
 
-fun Dots.clickable(isClickable: Boolean) = forEach {
+fun BrailleDotsState.clickable(isClickable: Boolean) = dots.forEach {
     it.isClickable = isClickable
 }
 
-val Dots.spelling: String
+val BrailleDotsState.spelling: String
     get() = brailleDots.spelling
 
-val Dots.brailleDots: BrailleDots
+val BrailleDotsState.brailleDots: BrailleDots
     get() = BrailleDots(
-        map(CheckBox::isChecked).toBooleanArray()
+        dots.map(CheckBox::isChecked).toBooleanArray()
     )
 
-fun Dots.display(brailleDots: BrailleDots): Unit =
-    (this zip brailleDots.list).forEach { (checkBox, dot) ->
+fun BrailleDotsState.display(brailleDots: BrailleDots): Unit =
+    (dots zip brailleDots.list).forEach { (checkBox, dot) ->
         checkBox.isChecked = dot == BrailleDot.F
     }.also { clickable(false) }
