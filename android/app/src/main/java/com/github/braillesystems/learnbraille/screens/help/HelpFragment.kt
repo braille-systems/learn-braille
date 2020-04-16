@@ -1,6 +1,8 @@
 package com.github.braillesystems.learnbraille.screens.help
 
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -25,7 +27,7 @@ class HelpFragment : Fragment() {
     ).apply {
 
         updateTitle(getString(R.string.help_title))
-        helpMessage.text = getStringArg(helpMessageArgName)
+        helpMessage.text = Html.fromHtml(getStringArg(helpMessageArgName));
 
     }.root
 }
