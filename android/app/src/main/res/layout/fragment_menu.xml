@@ -31,6 +31,14 @@
             android:textSize="36sp" />
 
         <Button
+            android:id="@+id/stacked_help_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/menu_stacked_help"
+            android:textSize="36sp" />
+
+        <Button
             android:id="@+id/exit_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
