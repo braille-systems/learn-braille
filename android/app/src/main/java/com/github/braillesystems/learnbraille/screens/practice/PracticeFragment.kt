@@ -19,7 +19,7 @@ import com.github.braillesystems.learnbraille.screens.*
 import com.github.braillesystems.learnbraille.serial.UsbSerial
 import com.github.braillesystems.learnbraille.util.application
 import com.github.braillesystems.learnbraille.util.updateTitle
-import com.github.braillesystems.learnbraille.views.Dots
+import com.github.braillesystems.learnbraille.views.BrailleDotsState
 import com.github.braillesystems.learnbraille.views.brailleDots
 import com.github.braillesystems.learnbraille.views.dots
 import com.github.braillesystems.learnbraille.views.spelling
@@ -28,7 +28,7 @@ import timber.log.Timber
 class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
 
     private lateinit var viewModel: PracticeViewModel
-    private lateinit var dots: Dots
+    private lateinit var dots: BrailleDotsState
     private var buzzer: Vibrator? = null
 
     private val title: String
