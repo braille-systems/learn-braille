@@ -1,15 +1,13 @@
 package com.github.braillesystems.learnbraille.screens.help
 
-import android.os.Build
 import android.os.Bundle
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.databinding.FragmentHelpBinding
-import com.github.braillesystems.learnbraille.util.getStringArg
+import com.github.braillesystems.learnbraille.util.getFormattedArg
 import com.github.braillesystems.learnbraille.util.updateTitle
 
 class HelpFragment : Fragment() {
@@ -27,7 +25,7 @@ class HelpFragment : Fragment() {
     ).apply {
 
         updateTitle(getString(R.string.help_title))
-        helpMessage.text = Html.fromHtml(getStringArg(helpMessageArgName));
+        helpMessage.text = getFormattedArg(helpMessageArgName)
 
     }.root
 }
