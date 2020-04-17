@@ -60,7 +60,7 @@ interface MutableDotsChecker : DotsChecker {
 }
 
 /**
- * Initialize callbacks firstly
+ * Initialize lateinit callbacks firstly
  */
 private class DotsCheckerImpl : MutableDotsChecker {
 
@@ -113,7 +113,7 @@ private class DotsCheckerImpl : MutableDotsChecker {
     override fun onCheck() = onCheckHandler().side {
         if (state == DotsChecker.State.HINT) {
             state = DotsChecker.State.INPUT
-            onPassHist()
+            onPassHint()
         } else {
             if (isCorrect) onCorrect()
             else onIncorrect()
@@ -128,13 +128,18 @@ private class DotsCheckerImpl : MutableDotsChecker {
         _eventIncorrect.value = true
     }
 
-    private fun onPassHist() = onPassHintHandler().side {
+    private fun onPassHint() = onPassHintHandler().side {
         _eventPassHint.value = true
     }
 
     override fun onHint() = onHintHandler().side {
-        state = DotsChecker.State.HINT
-        _eventHint.value = expectedDots
+        if (state == DotsChecker.State.HINT) {
+            state = DotsChecker.State.INPUT
+            onPassHint()
+        } else {
+            state = DotsChecker.State.HINT
+            _eventHint.value = expectedDots
+        }
     }
 
     override fun onCorrectComplete() {
@@ -194,7 +199,6 @@ fun DotsChecker.getEventHintObserver(
 ) = Observer<BrailleDots?> { expectedDots ->
     if (expectedDots == null) return@Observer
     dots.display(expectedDots)
-    dots.clickable(false)
     serial?.trySend(expectedDots)
     block(expectedDots)
     onHintComplete()

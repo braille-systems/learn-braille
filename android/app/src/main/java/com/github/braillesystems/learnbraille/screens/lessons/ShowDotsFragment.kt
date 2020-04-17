@@ -30,7 +30,7 @@ class ShowDotsFragment : AbstractLesson(R.string.lessons_help_show_dots) {
 
         Timber.i("Initialize show dots fragment")
 
-        updateTitle(getString(R.string.lessons_help_show_dots))
+        updateTitle(getString(R.string.lessons_title_show_dots))
         setHasOptionsMenu(true)
 
         val step = getStepArg()

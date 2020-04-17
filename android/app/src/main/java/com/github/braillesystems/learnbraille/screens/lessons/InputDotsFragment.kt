@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +23,7 @@ import com.github.braillesystems.learnbraille.util.updateTitle
 import com.github.braillesystems.learnbraille.views.*
 import timber.log.Timber
 
-class InputDotsFragment : AbstractLesson(R.string.lessons_help_input_dots) {
+class InputDotsFragment : AbstractInputLesson(R.string.lessons_help_input_dots) {
 
     private lateinit var viewModel: InputViewModel
     private lateinit var expectedDots: BrailleDots
@@ -56,9 +55,15 @@ class InputDotsFragment : AbstractLesson(R.string.lessons_help_input_dots) {
         brailleDots.dots.display(step.data.dots)
 
         expectedDots = step.data.dots
+        userTouchedDots = false
         dots = brailleDots.dots.apply {
             uncheck()
             clickable(true)
+            checkBoxes.forEach { checkBox ->
+                checkBox.setOnClickListener {
+                    userTouchedDots = true
+                }
+            }
         }
 
 
@@ -75,74 +80,39 @@ class InputDotsFragment : AbstractLesson(R.string.lessons_help_input_dots) {
         lifecycleOwner = this@InputDotsFragment
 
 
-        getDBInstance().apply {
+        val database = getDBInstance()
 
-            prevButton.setOnClickListener {
-                navigateToPrevStep(
-                    current = step,
-                    userId = defaultUser,
-                    stepDao = stepDao,
-                    lastStepDao = userLastStep
-                )
-            }
+        prevButton.setOnClickListener(getPrevButtonListener(step, defaultUser, database))
+        toCurrStepButton.setOnClickListener(getToCurrStepListener(defaultUser, database))
 
-            toCurrStepButton.setOnClickListener {
-                navigateToCurrentStep(
-                    userId = defaultUser,
-                    stepDao = stepDao,
-                    lastStepDao = userLastStep
-                )
-            }
-
-            viewModel.eventCorrect.observe(
-                viewLifecycleOwner,
-                viewModel.getEventCorrectObserver(dots, buzzer) {
-                    Timber.i("Handle correct")
-                    Toast.makeText(context, getString(R.string.msg_correct), Toast.LENGTH_SHORT)
-                        .show()
-                    navigateToNextStep(
-                        current = step,
-                        userId = defaultUser,
-                        stepDao = stepDao,
-                        lastStepDao = userLastStep,
-                        upsd = userPassedStepDao
-                    )
-                }
+        viewModel.eventCorrect.observe(
+            viewLifecycleOwner,
+            viewModel.getEventCorrectObserver(
+                dots, buzzer,
+                getEventCorrectObserverBlock(step, defaultUser, database)
             )
+        )
 
-            viewModel.eventIncorrect.observe(
-                viewLifecycleOwner,
-                viewModel.getEventIncorrectObserver(dots, buzzer) {
-                    Timber.i("Handle incorrect: entered = ${dots.spelling}")
-                    Toast.makeText(
-                        context, getString(R.string.msg_incorrect), Toast.LENGTH_SHORT
-                    ).show()
-                    navigateToNextStep(
-                        current = step,
-                        userId = defaultUser,
-                        stepDao = stepDao,
-                        lastStepDao = userLastStep
-                    )
-                }
+        viewModel.eventIncorrect.observe(
+            viewLifecycleOwner,
+            viewModel.getEventIncorrectObserver(
+                dots, buzzer,
+                getEventIncorrectObserverBlock(step, defaultUser, database, dots)
             )
+        )
 
-            viewModel.eventHint.observe(
-                viewLifecycleOwner,
-                viewModel.getEventHintObserver(dots /*, TODO serial */) { expectedDots ->
-                    Timber.i("Handle hint")
-                    val toast = getString(R.string.practice_hint_template)
-                        .format(expectedDots.spelling)
-                    Toast.makeText(context, toast, Toast.LENGTH_LONG).show()
-                }
+        viewModel.eventHint.observe(
+            viewLifecycleOwner,
+            viewModel.getEventHintObserver(
+                dots, null, /*TODO serial */
+                getEventHintObserverBlock()
             )
+        )
 
-            viewModel.eventPassHint.observe(
-                viewLifecycleOwner,
-                viewModel.getEventPassHintObserver(dots) {
-                    Timber.i("Handle pass hint")
-                }
-            )
-        }
+        viewModel.eventPassHint.observe(
+            viewLifecycleOwner,
+            viewModel.getEventPassHintObserver(dots, getEventPassHintObserverBlock())
+        )
 
     }.root
 }
