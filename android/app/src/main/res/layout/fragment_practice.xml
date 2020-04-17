@@ -23,96 +23,55 @@
             android:scaleX="@dimen/letter_practice_scale_of_view"
             android:scaleY="@dimen/letter_practice_scale_of_view"
             android:text="@{practiceViewModel.symbol}"
-            android:textSize="170sp"
+            android:textSize="@dimen/big_letter_text_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/practice_buttons"
+            app:layout_constraintBottom_toTopOf="@+id/braille_dots"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="M" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/letter"
-            app:layout_constraintVertical_bias="0.0">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:visibility="invisible" />
-
-            <!--suppress AndroidDomInspection -->
-            <Button
-                android:id="@+id/hint_button"
-                android:layout_width="70sp"
-                android:layout_height="0dp"
-                android:layout_weight="7"
-                android:adjustViewBounds="true"
-                android:background="@drawable/practice_hint_btn_shape"
-                android:contentDescription="@string/practice_hint"
-                android:onClick="@{() -> practiceViewModel.onHint()}"
-                android:scaleType="fitCenter"
-                android:text="?"
-                android:textColor="@color/colorText"
-                android:textSize="70sp" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:visibility="invisible" />
-
-        </LinearLayout>
-
         <com.github.braillesystems.learnbraille.views.BrailleDotsView
-            android:id="@+id/practice_buttons"
+            android:id="@+id/braille_dots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleX="@dimen/braille_dots_scale_of_view"
             android:scaleY="@dimen/braille_dots_scale_of_view"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/letter"
-            app:layout_constraintStart_toStartOf="@+id/letter"
-            app:layout_constraintTop_toBottomOf="@+id/letter" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="@dimen/practice_dots_vertical_bias" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:orientation="vertical"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/hint_button"
+            android:layout_width="@dimen/practice_buttons_width"
+            android:layout_height="@dimen/practice_buttons_height"
+            android:contentDescription="@string/practice_hint"
+            android:onClick="@{() -> practiceViewModel.onHint()}"
+            android:scaleType="fitCenter"
+            android:text="?"
+            android:textColor="@color/colorOnPrimary"
+            android:textSize="@dimen/practice_buttons_icon_hint_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="@dimen/practice_buttons_vertical_bias"
+            app:shapeAppearanceOverlay="@style/sideLeftButtonsShape" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/next_button"
+            style="@style/sideIconButtons"
+            android:layout_width="@dimen/practice_buttons_width"
+            android:layout_height="@dimen/practice_buttons_height"
+            android:contentDescription="@string/lessons_next"
+            android:onClick="@{() -> practiceViewModel.onCheck()}"
+            app:icon="@drawable/navigate_right"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/letter"
-            app:layout_constraintVertical_bias="0.0">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:visibility="invisible" />
-
-            <ImageButton
-                android:id="@+id/next_button"
-                android:layout_width="70sp"
-                android:layout_height="0dp"
-                android:layout_weight="7"
-                android:adjustViewBounds="true"
-                android:background="@drawable/practice_btn_shape"
-                android:contentDescription="@string/practice_next"
-                android:onClick="@{() -> practiceViewModel.onCheck()}"
-                android:scaleType="fitCenter"
-                android:src="@android:drawable/ic_media_play" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:visibility="invisible" />
-        </LinearLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="@dimen/practice_buttons_vertical_bias"
+            app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -51,7 +51,7 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         Timber.i("Start initialize practice fragment")
 
         val dataSource = getDBInstance().symbolDao
-        dots = practiceButtons.dots
+        dots = brailleDots.dots
 
         val viewModelFactory = PracticeViewModelFactory(dataSource, application) {
             dots.brailleDots
