@@ -3,8 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!--    TODO-->
-
     <data>
 
         <variable
@@ -18,26 +16,31 @@
 
         <TextView
             android:id="@+id/title_text_view"
-            android:layout_width="192dp"
-            android:layout_height="70dp"
-            android:text="ЗАГОЛОВОК!"
-            app:layout_constraintBottom_toTopOf="@+id/info_text_view"
+            android:layout_width="@dimen/lessons_title_width"
+            android:layout_height="@dimen/lessons_title_height"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="@dimen/lessons_title_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.227" />
+            app:layout_constraintVertical_bias="@dimen/lessons_title_vertical_bias"
+            tools:text="ЗАГОЛОВОК!" />
 
         <TextView
             android:id="@+id/info_text_view"
-            android:layout_width="191dp"
-            android:layout_height="253dp"
-            android:text="ИНФОРМАЦИЯ!"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="@dimen/lessons_dots_info_width"
+            android:layout_height="@dimen/lessons_dots_info_height"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="@dimen/lessons_info_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/braille_dots"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.134" />
+            app:layout_constraintTop_toBottomOf="@+id/title_text_view"
+            app:layout_constraintVertical_bias="0.16000003"
+            tools:text="ИНФОРМАЦИЯ!" />
 
         <com.github.braillesystems.learnbraille.views.BrailleDotsView
             android:id="@+id/braille_dots"
@@ -48,46 +51,67 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/info_text_view"
-            tools:layout_conversion_absoluteHeight="234dp"
-            tools:layout_conversion_absoluteWidth="160dp" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="@dimen/practice_dots_vertical_bias" />
 
-        <Button
+        <!--        Buttons-->
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/hint_button"
-            android:layout_width="85dp"
-            android:layout_height="317dp"
+            android:layout_width="@dimen/practice_buttons_width"
+            android:layout_height="@dimen/practice_buttons_small_height"
+            android:backgroundTint="@color/colorSecondary"
+            android:contentDescription="@string/lessons_hint"
             android:onClick="@{() -> inputViewModel.onHint()}"
-            android:text="ПОДСКАЗКА!"
+            android:text="?"
+            android:textSize="@dimen/practice_buttons_icon_size"
             app:layout_constraintBottom_toTopOf="@+id/prev_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:shapeAppearanceOverlay="@style/sideLeftButtonsShape"
+            tools:ignore="SpUsage" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/to_curr_step_button"
-            android:layout_width="85dp"
-            android:layout_height="317dp"
-            android:text="К ТЕКУЩЕМУ УРОКУ"
+            style="@style/sideIconButtons"
+            android:layout_width="@dimen/practice_buttons_width"
+            android:layout_height="@dimen/practice_buttons_small_height"
+            android:backgroundTint="@color/colorSecondary"
+            android:contentDescription="@string/lessons_progress"
+            app:icon="@drawable/to_progress"
             app:layout_constraintBottom_toTopOf="@+id/next_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/prev_button"
-            android:layout_width="85dp"
-            android:layout_height="317dp"
-            android:text="НАЗАД!"
+            style="@style/sideIconButtons"
+            android:layout_width="@dimen/practice_buttons_width"
+            android:layout_height="@dimen/practice_buttons_height"
+            android:contentDescription="@string/lessons_prev"
+            app:icon="@drawable/navigate_left"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hint_button" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="@dimen/practice_buttons_vertical_bias"
+            app:shapeAppearanceOverlay="@style/sideLeftButtonsShape" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/next_button"
-            android:layout_width="85dp"
-            android:layout_height="317dp"
+            style="@style/sideIconButtons"
+            android:layout_width="@dimen/practice_buttons_width"
+            android:layout_height="@dimen/practice_buttons_height"
+            android:contentDescription="@string/lessons_next"
             android:onClick="@{() -> inputViewModel.onCheck()}"
-            android:text="ВПЕРЕД!"
+            app:icon="@drawable/navigate_right"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/to_curr_step_button" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="@dimen/practice_buttons_vertical_bias"
+            app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

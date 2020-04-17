@@ -50,7 +50,7 @@ class InputSymbolFragment : AbstractLesson(R.string.lessons_help_input_symbol) {
         val step = getStepArg()
         require(step.data is InputSymbol)
         titleTextView.text = step.title
-        infoTextView.text = step.data.symbol.symbol.toString()
+        letter.text = step.data.symbol.symbol.toString()
         brailleDots.dots.display(step.data.symbol.brailleDots)
 
         expectedDots = step.data.symbol.brailleDots
