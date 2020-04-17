@@ -13,6 +13,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:insetLeft="8dp"
+            android:insetRight="8dp"
             android:text="@string/exit_no"
             android:textSize="30sp"
             app:backgroundTint="@color/colorSecondary"
@@ -23,6 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:insetLeft="8dp"
+            android:insetRight="8dp"
             android:text="@string/exit_yes"
             android:textSize="30sp"
             app:shapeAppearanceOverlay="@style/bigButtonsShape" />

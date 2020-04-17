@@ -52,7 +52,7 @@
             android:scaleType="fitCenter"
             android:text="?"
             android:textColor="@color/colorOnPrimary"
-            android:textSize="50sp"
+            android:textSize="@dimen/practice_buttons_icon_hint_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

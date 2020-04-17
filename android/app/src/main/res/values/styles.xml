@@ -15,25 +15,25 @@
     </style>
 
     <style name="bigButtonsShape">
-        <item name="cornerSizeBottomRight">40dp</item>
-        <item name="cornerSizeTopRight">40dp</item>
-        <item name="cornerSizeBottomLeft">40dp</item>
-        <item name="cornerSizeTopLeft">40dp</item>
+        <item name="cornerSizeBottomRight">@dimen/big_buttons_border_radius</item>
+        <item name="cornerSizeTopRight">@dimen/big_buttons_border_radius</item>
+        <item name="cornerSizeBottomLeft">@dimen/big_buttons_border_radius</item>
+        <item name="cornerSizeTopLeft">@dimen/big_buttons_border_radius</item>
     </style>
 
     <style name="sideLeftButtonsShape">
-        <item name="cornerSizeBottomRight">40dp</item>
-        <item name="cornerSizeTopRight">40dp</item>
+        <item name="cornerSizeBottomRight">@dimen/practice_buttons_border_radius</item>
+        <item name="cornerSizeTopRight">@dimen/practice_buttons_border_radius</item>
     </style>
 
     <style name="sideRightButtonsShape">
-        <item name="cornerSizeBottomLeft">40dp</item>
-        <item name="cornerSizeTopLeft">40dp</item>
+        <item name="cornerSizeBottomLeft">@dimen/practice_buttons_border_radius</item>
+        <item name="cornerSizeTopLeft">@dimen/practice_buttons_border_radius</item>
     </style>
 
     <style name="sideIconButtons" parent="@style/Widget.MaterialComponents.Button.Icon">
         <item name="iconPadding">0dp</item>
-        <item name="iconSize">50dp</item>
+        <item name="iconSize">@dimen/practice_buttons_icon_size</item>
     </style>
 
 

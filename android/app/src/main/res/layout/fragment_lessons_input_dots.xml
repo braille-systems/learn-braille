@@ -58,13 +58,13 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/hint_button"
-            android:layout_width="70dp"
-            android:layout_height="115dp"
+            android:layout_width="@dimen/practice_buttons_width"
+            android:layout_height="@dimen/practice_buttons_small_height"
             android:backgroundTint="@color/colorSecondary"
             android:contentDescription="@string/lessons_hint"
             android:onClick="@{() -> inputViewModel.onHint()}"
             android:text="?"
-            android:textSize="50dp"
+            android:textSize="@dimen/practice_buttons_icon_size"
             app:layout_constraintBottom_toTopOf="@+id/prev_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -75,8 +75,8 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/to_curr_step_button"
             style="@style/sideIconButtons"
-            android:layout_width="70dp"
-            android:layout_height="115dp"
+            android:layout_width="@dimen/practice_buttons_width"
+            android:layout_height="@dimen/practice_buttons_small_height"
             android:backgroundTint="@color/colorSecondary"
             android:contentDescription="@string/lessons_progress"
             app:icon="@drawable/to_progress"
