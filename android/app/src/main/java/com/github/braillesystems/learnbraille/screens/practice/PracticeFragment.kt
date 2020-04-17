@@ -32,10 +32,13 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
     private var buzzer: Vibrator? = null
 
     private val title: String
-        get() = getString(R.string.practice_actionbar_title_template).format(
-            viewModel.nCorrect,
-            viewModel.nTries
-        )
+        get() = getString(R.string.practice_actionbar_title_template).let {
+            if (::viewModel.isInitialized) it.format(
+                viewModel.nCorrect,
+                viewModel.nTries
+            )
+            else it.format(0, 0)
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +52,9 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
     ).apply {
 
         Timber.i("Start initialize practice fragment")
+
+        updateTitle(title)
+        setHasOptionsMenu(true)
 
         val dataSource = getDBInstance().symbolDao
         dots = brailleDots.dots
@@ -116,10 +122,6 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
                 Timber.i("Handle pass hint")
             }
         )
-
-
-        updateTitle(title) // Requires viewModel being initialized
-        setHasOptionsMenu(true)
 
     }.root
 }
