@@ -7,18 +7,18 @@
     <dimen name="braille_dots_inner_horizontal_margin">20dp</dimen>
     <dimen name="braille_dots_inner_vertical_margin">25dp</dimen>
     <dimen name="braille_dots_scale_of_one_dot">2.6</dimen>
-    <dimen name="braille_dots_scale_of_view">1</dimen>
+    <dimen name="braille_dots_scale_of_view">1.2</dimen>
 
-    <dimen name="letter_practice_scale_of_view">0.8</dimen>
+    <dimen name="letter_practice_scale_of_view">1</dimen>
     <dimen name="practice_dots_vertical_bias">0.85</dimen>
     <dimen name="practice_buttons_vertical_bias">0.9</dimen>
 
-    <dimen name="practice_buttons_width">45dp</dimen>
-    <dimen name="practice_buttons_height">200dp</dimen>
-    <dimen name="practice_buttons_small_height">75dp</dimen>
-    <dimen name="practice_buttons_icon_size">30dp</dimen>
+    <dimen name="practice_buttons_width">70dp</dimen>
+    <dimen name="practice_buttons_height">230dp</dimen>
+    <dimen name="practice_buttons_small_height">115dp</dimen>
+    <dimen name="practice_buttons_icon_size">50dp</dimen>
     <dimen name="practice_buttons_icon_hint_size">50dp</dimen>
-    <dimen name="practice_buttons_border_radius">20dp</dimen>
+    <dimen name="practice_buttons_border_radius">40dp</dimen>
 
     <dimen name="lessons_title_width">428dp</dimen>
     <dimen name="lessons_title_height">64dp</dimen>
