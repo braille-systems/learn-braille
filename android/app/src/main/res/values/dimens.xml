@@ -13,4 +13,11 @@
     <dimen name="practice_buttons_vertical_bias">0.9</dimen>
     <dimen name="practice_buttons_width">70dp</dimen>
     <dimen name="practice_buttons_height">230dp</dimen>
+    <dimen name="lessons_title_width">428dp</dimen>
+    <dimen name="lessons_title_height">64dp</dimen>
+    <dimen name="lessons_title_text_size">20sp</dimen>
+    <dimen name="lessons_title_vertical_bias">0.177</dimen>
+    <dimen name="lessons_info_width">370dp</dimen>
+    <dimen name="lessons_info_height">710dp</dimen>
+    <dimen name="lessons_info_text_size">18sp</dimen>
 </resources>
