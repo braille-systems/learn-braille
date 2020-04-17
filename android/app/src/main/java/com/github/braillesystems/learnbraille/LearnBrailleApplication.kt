@@ -38,4 +38,4 @@ val INCORRECT_BUZZ_PATTERN: BuzzPattern = longArrayOf(0, 200)
 val language = Language.RU
 const val defaultUser = 1L
 
-const val DEBUG = true
+const val DEBUG = false

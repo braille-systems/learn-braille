@@ -5,7 +5,11 @@ import com.github.braillesystems.learnbraille.database.entities.Step
 import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_LESSONS
 
 val VERY_LAST = Step(
-    title = "Последний шаг",
+    title = "Курс окончен",
     lessonId = PREPOPULATE_LESSONS.last().id,
-    data = LastInfo("""Это самый последний шаг! Теперь вы владеете азбукой Брайля!""")
+    data = LastInfo(
+        """Вы дошли до конца курса. Спасибо, что воспользовались нашим обучающим
+            |приложением! Вы всегда можете вернутся к ранее пройденному материалу и повторить его.
+        """
+    )
 )
