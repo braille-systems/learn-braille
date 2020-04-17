@@ -23,16 +23,16 @@
             android:scaleX="@dimen/letter_practice_scale_of_view"
             android:scaleY="@dimen/letter_practice_scale_of_view"
             android:text="@{practiceViewModel.symbol}"
-            android:textSize="170sp"
+            android:textSize="@dimen/big_letter_text_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/practice_buttons"
+            app:layout_constraintBottom_toTopOf="@+id/braille_dots"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="M" />
 
         <com.github.braillesystems.learnbraille.views.BrailleDotsView
-            android:id="@+id/practice_buttons"
+            android:id="@+id/braille_dots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleX="@dimen/braille_dots_scale_of_view"

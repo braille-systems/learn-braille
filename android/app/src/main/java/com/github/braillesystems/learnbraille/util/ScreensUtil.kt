@@ -1,6 +1,8 @@
 package com.github.braillesystems.learnbraille.util
 
 import android.os.Vibrator
+import android.text.Html
+import android.text.Spanned
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.BuzzPattern
@@ -15,6 +17,9 @@ fun Fragment.updateTitle(title: String) {
 
 fun Fragment.getStringArg(name: String): String =
     arguments?.getString(name) ?: error("No $name found in args")
+
+@Suppress("DEPRECATION") // Provides low API level compatibility
+fun Fragment.getFormattedArg(name: String): Spanned = Html.fromHtml(getStringArg(name))
 
 fun Vibrator?.buzz(pattern: BuzzPattern): Unit =
     if (this == null) Timber.i("Vibrator is not available")

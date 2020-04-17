@@ -20,4 +20,8 @@
     <dimen name="lessons_info_width">370dp</dimen>
     <dimen name="lessons_info_height">710dp</dimen>
     <dimen name="lessons_info_text_size">18sp</dimen>
+    <dimen name="big_letter_text_size">170sp</dimen>
+    <dimen name="lessons_letter_vertical_bias">0.060000002</dimen>
+    <dimen name="lessons_dots_info_width">394dp</dimen>
+    <dimen name="lessons_dots_info_height">175dp</dimen>
 </resources>
