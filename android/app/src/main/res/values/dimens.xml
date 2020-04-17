@@ -24,7 +24,7 @@
     <dimen name="lessons_title_height">64dp</dimen>
     <dimen name="lessons_title_text_size">20sp</dimen>
     <dimen name="lessons_title_vertical_bias">0.05</dimen>
-    <dimen name="lessons_info_width">300dp</dimen>
+    <dimen name="lessons_info_width">250dp</dimen>
     <dimen name="lessons_info_height">500dp</dimen>
     <dimen name="lessons_info_text_size">18sp</dimen>
     <dimen name="lessons_letter_vertical_bias">0.0</dimen>
