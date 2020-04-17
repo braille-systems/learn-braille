@@ -18,21 +18,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/next_button"
-            style="@style/sideIconButtons"
-            android:layout_width="70dp"
-            android:layout_height="230dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="56dp"
-            android:contentDescription="@string/lessons_next"
-            app:icon="@drawable/navigate_right"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/to_curr_step_button"
-            app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
-
         <TextView
             android:id="@+id/title_text_view"
             android:layout_width="428dp"
@@ -43,19 +28,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!--        Buttons-->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/next_button"
+            style="@style/sideIconButtons"
+            android:layout_width="@dimen/practice_buttons_width"
+            android:layout_height="@dimen/practice_buttons_height"
+            android:contentDescription="@string/lessons_next"
+            app:icon="@drawable/navigate_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="@dimen/practice_buttons_vertical_bias"
+            app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/to_curr_step_button"
             style="@style/sideIconButtons"
             android:layout_width="70dp"
             android:layout_height="115dp"
-            android:layout_marginTop="250dp"
-            android:layout_marginBottom="32dp"
             android:backgroundTint="@color/colorSecondary"
             android:contentDescription="@string/lessons_progress"
             app:icon="@drawable/to_progress"
             app:layout_constraintBottom_toTopOf="@+id/next_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
             app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

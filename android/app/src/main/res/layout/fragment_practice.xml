@@ -45,8 +45,8 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/hint_button"
-            android:layout_width="70dp"
-            android:layout_height="230dp"
+            android:layout_width="@dimen/practice_buttons_width"
+            android:layout_height="@dimen/practice_buttons_height"
             android:contentDescription="@string/practice_hint"
             android:onClick="@{() -> practiceViewModel.onHint()}"
             android:scaleType="fitCenter"
@@ -62,8 +62,8 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/next_button"
             style="@style/sideIconButtons"
-            android:layout_width="70dp"
-            android:layout_height="230dp"
+            android:layout_width="@dimen/practice_buttons_width"
+            android:layout_height="@dimen/practice_buttons_height"
             android:contentDescription="@string/lessons_next"
             android:onClick="@{() -> practiceViewModel.onCheck()}"
             app:icon="@drawable/navigate_right"

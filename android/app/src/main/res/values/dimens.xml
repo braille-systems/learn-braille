@@ -11,4 +11,6 @@
     <dimen name="letter_practice_scale_of_view">1</dimen>
     <dimen name="practice_dots_vertical_bias">0.85</dimen>
     <dimen name="practice_buttons_vertical_bias">0.9</dimen>
+    <dimen name="practice_buttons_width">70dp</dimen>
+    <dimen name="practice_buttons_height">230dp</dimen>
 </resources>
