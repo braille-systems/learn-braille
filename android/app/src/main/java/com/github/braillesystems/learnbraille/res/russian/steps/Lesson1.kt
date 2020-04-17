@@ -23,8 +23,6 @@ private fun Step(title: String, data: StepData) =
  * List of steps for first lesson.
  *
  * Do not create symbols manually, always look them up in `symbolMap`.
- *
- * First two steps are used for database testing.
  */
 val LESSON_1_STEPS
     get() = listOf(
@@ -47,7 +45,7 @@ val LESSON_1_STEPS
         Step(
             title = "Шеститочие",
             data = ShowDots(
-                text = "Перед вами полное шеститочие",
+                text = "Перед Вами полное шеститочие",
                 dots = BrailleDots(F, F, F, F, F, F)
             )
         ),
@@ -69,20 +67,12 @@ val LESSON_1_STEPS
         ),
 
         Step(
-            title = "Работа с букварём",
+            title = "Комментарий",
             data = Info(
                 """Точки расположены в два столбца по три. 
                 |Точки в первом столбце имеют номера 1, 2, 3 сверху вниз. 
                 |Точки во втором столбце - 4, 5, 6 сверху вниз. 
                 |Важно выучить, где какая точка."""
-            )
-        ),
-
-        // TODO replace
-        Step(
-            title = "Пример с символом",
-            data = ShowSymbol(
-                symbolMap['А'] ?: error("A russian not found")
             )
         )
     )
