@@ -9,13 +9,17 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs'
 
 android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     dataBinding {
         enabled = true
     }
     defaultConfig {
-        applicationId "ru.spbstu.amd.learnbraille"
+        applicationId "com.github.braillesystems.learnbraille"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
@@ -44,9 +48,14 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
 
+    // Usb serial
+    implementation 'com.github.felHR85:UsbSerial:6.1.0'
+
     // Room
     implementation "androidx.room:room-runtime:$version_room"
     kapt "androidx.room:room-compiler:$version_room"
+    implementation "androidx.room:room-ktx:$version_room"
+    testImplementation "androidx.room:room-testing:$version_room"
 
     // Testing
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
@@ -61,4 +70,8 @@ dependencies {
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+    //Design
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
 }

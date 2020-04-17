@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/help_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/default_help_message" />
+        android:lineSpacingExtra="3sp"
+        android:paddingStart="8dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="2dp"
+        android:paddingBottom="2dp"
+        android:text="@string/default_help_message"
+        android:textSize="18sp"
+        app:autoSizeTextType="none" />
 
 </layout>
