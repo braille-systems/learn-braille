@@ -49,8 +49,9 @@ abstract class AbstractInputLesson(helpMsgId: HelpMsgId) : AbstractLesson(helpMs
     ): () -> Unit = {
         database.apply {
             Timber.i("Handle correct")
-            Toast.makeText(context, getString(R.string.msg_correct), Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(
+                context, getString(R.string.msg_correct), Toast.LENGTH_SHORT
+            ).show()
             navigateToNextStep(
                 current = step,
                 userId = userId,
@@ -69,15 +70,22 @@ abstract class AbstractInputLesson(helpMsgId: HelpMsgId) : AbstractLesson(helpMs
     ): () -> Unit = {
         database.apply {
             Timber.i("Handle incorrect: entered = ${dots.spelling}")
-            Toast.makeText(
-                context, getString(R.string.msg_incorrect), Toast.LENGTH_SHORT
-            ).show()
-            navigateToNextStep(
-                current = step,
-                userId = userId,
-                stepDao = stepDao,
-                lastStepDao = userLastStep
-            )
+            if (userTouchedDots) {
+                Toast.makeText(
+                    context, getString(R.string.msg_incorrect), Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                navigateToNextStep(
+                    current = step,
+                    userId = userId,
+                    stepDao = stepDao,
+                    lastStepDao = userLastStep
+                ) {
+                    Toast.makeText(
+                        context, getString(R.string.msg_incorrect), Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 
