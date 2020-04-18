@@ -15,6 +15,7 @@
     <string name="practice_hint_template">"Ответ: точки %s"</string>
     <string name="practice_next">Далее</string>
     <string name="practice_actionbar_title_template">Практика: %d из %d</string>
+    <string name="practice_new_letter_toast_template">Буква: %s</string>
 
     <string name="practice_help">
         <![CDATA[

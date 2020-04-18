@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.database.entities.spelling
@@ -120,6 +121,18 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner,
             viewModel.getEventPassHintObserver(dots) {
                 Timber.i("Handle pass hint")
+            }
+        )
+
+        viewModel.symbol.observe(
+            viewLifecycleOwner,
+            Observer {
+                require(it != null)
+                Toast.makeText(
+                    context,
+                    getString(R.string.practice_new_letter_toast_template).format(it),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         )
 
