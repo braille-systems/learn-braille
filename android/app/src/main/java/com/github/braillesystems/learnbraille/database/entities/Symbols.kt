@@ -70,5 +70,3 @@ interface SymbolDao {
     @Query("DELETE FROM symbol")
     suspend fun deleteAll()
 }
-
-
