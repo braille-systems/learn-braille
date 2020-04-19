@@ -1,12 +1,17 @@
 package com.github.braillesystems.learnbraille.screens
 
 import android.os.Vibrator
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.github.braillesystems.learnbraille.CORRECT_BUZZ_PATTERN
 import com.github.braillesystems.learnbraille.INCORRECT_BUZZ_PATTERN
+import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.TOAST_DURATION
 import com.github.braillesystems.learnbraille.database.entities.BrailleDots
+import com.github.braillesystems.learnbraille.database.entities.spelling
 import com.github.braillesystems.learnbraille.serial.UsbSerial
 import com.github.braillesystems.learnbraille.util.buzz
 import com.github.braillesystems.learnbraille.util.side
@@ -217,3 +222,36 @@ fun DotsChecker.getEventPassHintObserver(
     block()
     onPassHintComplete()
 }
+
+fun Fragment.makeCorrectToast(): Unit =
+    Toast.makeText(context, getString(R.string.input_correct), TOAST_DURATION).show()
+
+fun Fragment.makeIntroLetterToast(toInput: String?): Unit =
+    Toast.makeText(
+        context,
+        if (toInput == null) getString(R.string.input_loading)
+        else getString(R.string.input_letter_intro_template).format(toInput),
+        TOAST_DURATION
+    ).show()
+
+fun Fragment.makeIncorrectToast(): Unit =
+    Toast.makeText(
+        context,
+        getString(R.string.input_incorrect),
+        TOAST_DURATION
+    ).show()
+
+fun Fragment.makeIncorrectLetterToast(letter: String?): Unit =
+    Toast.makeText(
+        context,
+        if (letter == null) getString(R.string.input_loading)
+        else getString(R.string.input_letter_incorrect_template).format(letter),
+        TOAST_DURATION
+    ).show()
+
+fun Fragment.makeHintDotsToast(expectedDots: BrailleDots): Unit =
+    Toast.makeText(
+        context,
+        getString(R.string.input_dots_hint_template).format(expectedDots.spelling),
+        TOAST_DURATION
+    ).show()

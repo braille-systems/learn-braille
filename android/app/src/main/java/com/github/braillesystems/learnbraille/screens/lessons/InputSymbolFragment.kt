@@ -13,10 +13,7 @@ import com.github.braillesystems.learnbraille.database.entities.InputSymbol
 import com.github.braillesystems.learnbraille.database.getDBInstance
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputSymbolBinding
 import com.github.braillesystems.learnbraille.defaultUser
-import com.github.braillesystems.learnbraille.screens.getEventCorrectObserver
-import com.github.braillesystems.learnbraille.screens.getEventHintObserver
-import com.github.braillesystems.learnbraille.screens.getEventIncorrectObserver
-import com.github.braillesystems.learnbraille.screens.getEventPassHintObserver
+import com.github.braillesystems.learnbraille.screens.*
 import com.github.braillesystems.learnbraille.util.application
 import com.github.braillesystems.learnbraille.util.updateTitle
 import com.github.braillesystems.learnbraille.views.*
@@ -24,7 +21,6 @@ import timber.log.Timber
 
 class InputSymbolFragment : AbstractInputLesson(R.string.lessons_help_input_symbol) {
 
-    private lateinit var viewModel: InputViewModel
     private lateinit var expectedDots: BrailleDots
     private lateinit var dots: BrailleDotsState
     private var buzzer: Vibrator? = null
@@ -50,6 +46,7 @@ class InputSymbolFragment : AbstractInputLesson(R.string.lessons_help_input_symb
         titleTextView.text = step.title
         letter.text = step.data.symbol.symbol.toString()
         brailleDots.dots.display(step.data.symbol.brailleDots)
+        makeIntroLetterToast(step.data.symbol.symbol.toString())
 
         expectedDots = step.data.symbol.brailleDots
         userTouchedDots = false
@@ -94,7 +91,9 @@ class InputSymbolFragment : AbstractInputLesson(R.string.lessons_help_input_symb
             viewLifecycleOwner,
             viewModel.getEventIncorrectObserver(
                 dots, buzzer,
-                getEventIncorrectObserverBlock(step, defaultUser, database, dots)
+                getEventIncorrectObserverBlock(step, defaultUser, database, dots) {
+                    makeIncorrectLetterToast(step.data.symbol.symbol.toString())
+                }
             )
         )
 
@@ -108,7 +107,11 @@ class InputSymbolFragment : AbstractInputLesson(R.string.lessons_help_input_symb
 
         viewModel.eventPassHint.observe(
             viewLifecycleOwner,
-            viewModel.getEventPassHintObserver(dots, getEventPassHintObserverBlock())
+            viewModel.getEventPassHintObserver(
+                dots, getEventPassHintObserverBlock {
+                    makeIntroLetterToast(step.data.symbol.symbol.toString())
+                }
+            )
         )
 
     }.root
