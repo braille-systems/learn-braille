@@ -5,14 +5,21 @@
     <string name="app_name">Learn Braille Beta</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_help_message">No help message</string>
-    <string name="msg_correct">Правильно!</string>
-    <string name="msg_incorrect">Неправильно!</string>
-    <string name="msg_cancelled">Ошибка, попытайтесь ещё раз</string>
+
+    <string name="input_correct">Правильно!</string>
+    <string name="input_incorrect">Неправильно!</string>
+    <string name="input_letter_intro_template">Введите букву: %s</string>
+    <string name="input_letter_incorrect_template">Неправильно. Введите букву %s</string>
+    <string name="input_dots_hint_template">Ответ: точки %s</string>
+    <string name="input_loading">Подождите, задание загружается</string>
+
+    <!--    QR-->
+
+    <string name="qr_intent_cancelled">Ошибка, попытайтесь ещё раз</string>
 
     <!--    Practice-->
 
     <string name="practice_hint">Подсказка</string>
-    <string name="practice_hint_template">"Ответ: точки %s"</string>
     <string name="practice_next">Далее</string>
     <string name="practice_actionbar_title_template">Практика: %d из %d</string>
 
@@ -27,7 +34,6 @@
         <br>
         <b>Вызов справки</b> - кнопка вверху справа.
         <br><br>
-
         Если Вы <b>забыли символ</b>, можно нажать <b>кнопку с вопросительным знаком</b> слева внизу экрана.
         По нажатию этой кнопки будет выведено сообщение с верными номерами точек, шеститочие будет
         заполнено правильными точками и недоступно для переключения. После этого нужно нажать кнопку

@@ -88,7 +88,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             }
             if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(
-                    context, getString(R.string.msg_cancelled), Toast.LENGTH_SHORT
+                    context, getString(R.string.qr_intent_cancelled), Toast.LENGTH_SHORT
                 ).show()
             }
         }

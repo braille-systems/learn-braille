@@ -7,12 +7,11 @@ import android.os.Bundle
 import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.database.entities.spelling
 import com.github.braillesystems.learnbraille.database.getDBInstance
 import com.github.braillesystems.learnbraille.databinding.FragmentPracticeBinding
 import com.github.braillesystems.learnbraille.screens.*
@@ -90,7 +89,7 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner,
             viewModel.getEventCorrectObserver(dots, buzzer) {
                 Timber.i("Handle correct")
-                Toast.makeText(context, getString(R.string.msg_correct), Toast.LENGTH_SHORT).show()
+                makeCorrectToast()
                 updateTitle(title)
             }
         )
@@ -99,9 +98,7 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner,
             viewModel.getEventIncorrectObserver(dots, buzzer) {
                 Timber.i("Handle incorrect: entered = ${dots.spelling}")
-                Toast.makeText(
-                    context, getString(R.string.msg_incorrect), Toast.LENGTH_SHORT
-                ).show()
+                makeIncorrectLetterToast(viewModel.symbol.value)
                 updateTitle(title)
             }
         )
@@ -110,9 +107,7 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner,
             viewModel.getEventHintObserver(dots, serial) { expectedDots ->
                 Timber.i("Handle hint")
-                val toast = getString(R.string.practice_hint_template)
-                    .format(expectedDots.spelling)
-                Toast.makeText(context, toast, Toast.LENGTH_LONG).show()
+                makeHintDotsToast(expectedDots)
             }
         )
 
@@ -120,6 +115,14 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner,
             viewModel.getEventPassHintObserver(dots) {
                 Timber.i("Handle pass hint")
+                makeIntroLetterToast(viewModel.symbol.value)
+            }
+        )
+
+        viewModel.symbol.observe(
+            viewLifecycleOwner,
+            Observer {
+                makeIntroLetterToast(it)
             }
         )
 
