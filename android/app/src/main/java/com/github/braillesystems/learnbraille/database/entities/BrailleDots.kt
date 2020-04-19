@@ -63,7 +63,7 @@ val BrailleDots.spelling: String
             }
         }
         .filterNotNull()
-        .joinToString(separator = " ")
+        .joinToString(separator = ", ")
 
 class BrailleDotsConverters {
 
