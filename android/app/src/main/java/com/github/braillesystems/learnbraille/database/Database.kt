@@ -24,7 +24,7 @@ import timber.log.Timber
         User::class, Lesson::class, Step::class, Symbol::class,
         UserKnowsSymbol::class, UserPassedStep::class, UserLastStep::class
     ],
-    version = 4,
+    version = 5,
     exportSchema = false
 )
 @TypeConverters(

@@ -94,7 +94,7 @@ val LESSON_2_STEPS
         Step(
             title = "Введите букву Ц.",
             data = InputSymbol(
-                symbolMap['Б'] ?: error("Ц russian not found")
+                symbolMap['Ц'] ?: error("Ц russian not found")
             )
         ),
 
