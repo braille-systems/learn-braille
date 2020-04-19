@@ -3,6 +3,7 @@ package com.github.braillesystems.learnbraille.views
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.CheckBox
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.github.braillesystems.learnbraille.R
@@ -10,7 +11,25 @@ import com.github.braillesystems.learnbraille.database.entities.BrailleDot
 import com.github.braillesystems.learnbraille.database.entities.BrailleDots
 import com.github.braillesystems.learnbraille.database.entities.list
 import com.github.braillesystems.learnbraille.database.entities.spelling
-import kotlinx.android.synthetic.main.braille_dots.view.*
+import kotlinx.android.synthetic.main.braille_dots_view.view.*
+
+class BrailleDotView : CheckBox {
+
+    constructor(context: Context) : super(context)
+
+    constructor(context: Context, attrSet: AttributeSet) : super(context, attrSet)
+
+    constructor(
+        context: Context, attrSet: AttributeSet, defStyleAttr: Int
+    ) : super(
+        context, attrSet, defStyleAttr
+    )
+
+    override fun onInitializeAccessibilityNodeInfo(info: AccessibilityNodeInfo?) {
+        super.onInitializeAccessibilityNodeInfo(info)
+        info?.className = ""
+    }
+}
 
 /**
  * Represents six Braille dots view.
@@ -30,7 +49,7 @@ class BrailleDotsView : ConstraintLayout {
     init {
         LayoutInflater
             .from(context)
-            .inflate(R.layout.braille_dots, this, true)
+            .inflate(R.layout.braille_dots_view, this, true)
     }
 }
 
