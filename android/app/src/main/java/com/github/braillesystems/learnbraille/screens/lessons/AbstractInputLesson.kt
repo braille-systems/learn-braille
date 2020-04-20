@@ -1,13 +1,13 @@
 package com.github.braillesystems.learnbraille.screens.lessons
 
 import android.view.View
-import android.widget.Toast
-import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.database.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.database.entities.BrailleDots
 import com.github.braillesystems.learnbraille.database.entities.Step
-import com.github.braillesystems.learnbraille.database.entities.spelling
 import com.github.braillesystems.learnbraille.screens.HelpMsgId
+import com.github.braillesystems.learnbraille.screens.makeCorrectToast
+import com.github.braillesystems.learnbraille.screens.makeHintDotsToast
+import com.github.braillesystems.learnbraille.screens.makeIncorrectToast
 import com.github.braillesystems.learnbraille.views.BrailleDotsState
 import com.github.braillesystems.learnbraille.views.spelling
 import timber.log.Timber
@@ -18,6 +18,7 @@ import timber.log.Timber
 abstract class AbstractInputLesson(helpMsgId: HelpMsgId) : AbstractLesson(helpMsgId) {
 
     protected var userTouchedDots: Boolean = false
+    protected lateinit var viewModel: InputViewModel
 
     protected fun getPrevButtonListener(step: Step, userId: Long, database: LearnBrailleDatabase) =
         View.OnClickListener {
@@ -47,11 +48,9 @@ abstract class AbstractInputLesson(helpMsgId: HelpMsgId) : AbstractLesson(helpMs
         userId: Long,
         database: LearnBrailleDatabase
     ): () -> Unit = {
+        Timber.i("Handle correct")
+        makeCorrectToast()
         database.apply {
-            Timber.i("Handle correct")
-            Toast.makeText(
-                context, getString(R.string.msg_correct), Toast.LENGTH_SHORT
-            ).show()
             navigateToNextStep(
                 current = step,
                 userId = userId,
@@ -66,24 +65,21 @@ abstract class AbstractInputLesson(helpMsgId: HelpMsgId) : AbstractLesson(helpMs
         step: Step,
         userId: Long,
         database: LearnBrailleDatabase,
-        dots: BrailleDotsState
+        dots: BrailleDotsState,
+        toastMaker: () -> Unit = ::makeIncorrectToast
     ): () -> Unit = {
-        database.apply {
-            Timber.i("Handle incorrect: entered = ${dots.spelling}")
-            if (userTouchedDots) {
-                Toast.makeText(
-                    context, getString(R.string.msg_incorrect), Toast.LENGTH_SHORT
-                ).show()
-            } else {
+        Timber.i("Handle incorrect: entered = ${dots.spelling}")
+        if (userTouchedDots) {
+            toastMaker()
+        } else {
+            database.apply {
                 navigateToNextStep(
                     current = step,
                     userId = userId,
                     stepDao = stepDao,
                     lastStepDao = userLastStep
                 ) {
-                    Toast.makeText(
-                        context, getString(R.string.msg_incorrect), Toast.LENGTH_SHORT
-                    ).show()
+                    toastMaker()
                 }
             }
         }
@@ -91,12 +87,11 @@ abstract class AbstractInputLesson(helpMsgId: HelpMsgId) : AbstractLesson(helpMs
 
     protected fun getEventHintObserverBlock(): (BrailleDots) -> Unit = { expectedDots ->
         Timber.i("Handle hint")
-        val toast = getString(R.string.practice_hint_template)
-            .format(expectedDots.spelling)
-        Toast.makeText(context, toast, Toast.LENGTH_LONG).show()
+        makeHintDotsToast(expectedDots)
     }
 
-    protected fun getEventPassHintObserverBlock(): () -> Unit = {
+    protected fun getEventPassHintObserverBlock(toastMaker: () -> Unit = {}): () -> Unit = {
         Timber.i("Handle pass hint")
+        toastMaker()
     }
 }

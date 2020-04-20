@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <CheckBox
+    <com.github.braillesystems.learnbraille.views.BrailleDotView
         android:id="@+id/dotButton1"
         style="@style/brailleDots"
         android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.22" />
 
-    <CheckBox
+    <com.github.braillesystems.learnbraille.views.BrailleDotView
         android:id="@+id/dotButton2"
         style="@style/brailleDots"
         android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dotButton1" />
 
-    <CheckBox
+    <com.github.braillesystems.learnbraille.views.BrailleDotView
         android:id="@+id/dotButton3"
         style="@style/brailleDots"
         android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dotButton2" />
 
-    <CheckBox
+    <com.github.braillesystems.learnbraille.views.BrailleDotView
         android:id="@+id/dotButton4"
         style="@style/brailleDots"
         android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
         app:layout_constraintStart_toEndOf="@+id/dotButton1"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
+    <com.github.braillesystems.learnbraille.views.BrailleDotView
         android:id="@+id/dotButton5"
         style="@style/brailleDots"
         android:layout_width="wrap_content"
@@ -101,7 +101,7 @@
         app:layout_constraintStart_toEndOf="@+id/dotButton2"
         app:layout_constraintTop_toBottomOf="@+id/dotButton4" />
 
-    <CheckBox
+    <com.github.braillesystems.learnbraille.views.BrailleDotView
         android:id="@+id/dotButton6"
         style="@style/brailleDots"
         android:layout_width="wrap_content"

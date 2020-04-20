@@ -5,24 +5,35 @@
     <string name="app_name">Learn Braille Beta</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_help_message">No help message</string>
-    <string name="msg_correct">Правильно!</string>
-    <string name="msg_incorrect">Неправильно!</string>
-    <string name="msg_cancelled">Ошибка, попытайтесь ещё раз</string>
+
+    <string name="input_correct">Правильно!</string>
+    <string name="input_incorrect">Неправильно!</string>
+    <string name="input_letter_intro_template">Введите букву: %s</string>
+    <string name="input_letter_incorrect_template">Неправильно. Введите букву %s</string>
+    <string name="input_dots_hint_template">Ответ: точки %s</string>
+    <string name="input_loading">Подождите, задание загружается</string>
+
+    <!--    QR-->
+
+    <string name="qr_intent_cancelled">Ошибка, попытайтесь ещё раз</string>
 
     <!--    Practice-->
 
     <string name="practice_hint">Подсказка</string>
-    <string name="practice_hint_template">"Ответ: точки %s"</string>
     <string name="practice_next">Далее</string>
     <string name="practice_actionbar_title_template">Практика: %d из %d</string>
 
     <string name="practice_help">
         <![CDATA[
+        Практика:
+        <br><br>
         В верхней половине экрана крупным шрифтом выведен <b>символ,
-        который нужно ввести в шеститочии</b> в нижней половине экрана и нажать кнопку “далее” справа. <br />
-        <b>Выход в меню</b> приложения - кнопка вверху слева. <br />
-        <b>Вызов справки</b> - кнопка вверху справа. <br />
-
+        который нужно ввести в шеститочии</b> в нижней половине экрана и нажать кнопку “далее” справа.
+        <br>
+        <b>Выход в меню</b> приложения - кнопка вверху слева.
+        <br>
+        <b>Вызов справки</b> - кнопка вверху справа.
+        <br><br>
         Если Вы <b>забыли символ</b>, можно нажать <b>кнопку с вопросительным знаком</b> слева внизу экрана.
         По нажатию этой кнопки будет выведено сообщение с верными номерами точек, шеститочие будет
         заполнено правильными точками и недоступно для переключения. После этого нужно нажать кнопку
@@ -57,10 +68,13 @@
 
     <string name="menu_help">
         <![CDATA[
-        <b>Обучение системе Луи Брайля: главное меню.</b> <br />
+        <b>Обучение системе Луи Брайля: главное меню.</b>
+        <br><br>
         <b>“Продолжить курс“:</b> пошаговые уроки с демонстрацией плоскопечатных и
         рельефно-точечных символов крупным шрифтом, вводом символов и поясняющими комментариями.
-        <b>”Практика“:</b> Повторяйте буквы, вводя их в шеститочии на экране. <br />
+        <br>
+        <b>”Практика“:</b> Повторяйте буквы, вводя их в шеститочии на экране.
+        <br>
         <b>”Сканировать QR-код“:</b> если у Вас есть набор карточек с текстом Брайля и
         QR-кодами на обороте, по нажатию кнопки вы можете отсканировать QR-код и проверить,
         что написано на карточке. Для этого необходимо дополнительное приложение.
@@ -93,9 +107,11 @@
 
     <string name="lessons_help_template">%s\n\n%s</string>
 
+    <!--    TODO not used-->
     <string name="lessons_help_common">
         <![CDATA[
         <b>Переход</b> к следующему шагу - кнопка справа, к предыдущему - кнопка слева.
+        <br>
         <b>Выход в меню</b> приложения - кнопка вверху слева. <b>Вызов справки</b> -
         кнопка вверху справа.
         ]]>
@@ -104,15 +120,16 @@
     <string name="lessons_help_input_symbol">
         <![CDATA[
         Пошаговый курс - <b>шаг с вводом символа.</b>
+        <br><br>
         В верхней половине экрана крупным шрифтом выведен символ, который нужно ввести в шеститочии
         в нижней половине экрана.
          ]]>
     </string>
 
-    <!--TODO mention the exact dots combination -->
     <string name="lessons_help_input_dots">
         <![CDATA[
         Пошаговый курс - <b>шаг с вводом символа.</b>
+        <br><br>
         Введите в шеститочии на экране точки с указанными номерами.
         ]]>
     </string>
@@ -120,6 +137,7 @@
     <string name="lessons_help_show_symbol">
         <![CDATA[
         Пошаговый курс - <b>шаг с демонстрацией символа.</b>
+        <br><br>
         В верхней половине экрана крупным шрифтом выведен плоскопечатный символ, а в нижней части -
         его представление точечным шрифтом. Нужно изучить точечный символ.
         ]]>
@@ -128,13 +146,15 @@
     <string name="lessons_help_show_dots">
         <![CDATA[
         Пошаговый курс - <b>шаг с демонстрацией символа.</b>
-        На экран выведен точечный символ. Нужно внимательно изучить его точечный состав.
+        <br><br>
+        На экран выведен точечный символ. Внимательно изучите его.
         ]]>
     </string>
 
     <string name="lessons_help_info">
         <![CDATA[
         Пошаговый курс - <b>шаг с информационным сообщением.</b>
+        <br><br>
         Ознакомьтесь с сообщением, выведенном в текстовом поле по центру экрана.
         ]]>
     </string>
@@ -142,18 +162,19 @@
     <string name="lessons_help_last_info">
         <![CDATA[
         <b>Самый последный шаг курса! Поздравляем!</b>
+        <br><br>
         Чтобы выйти в главное меню, нажмите дважды кнопку слева сверху.
         ]]>
     </string>
 
     <!--    Braille dots-->
 
-    <string name="braille_dot_1">точка 1</string>
-    <string name="braille_dot_2">точка 2</string>
-    <string name="braille_dot_3">точка 3</string>
-    <string name="braille_dot_4">точка 4</string>
-    <string name="braille_dot_5">точка 5</string>
-    <string name="braille_dot_6">точка 6</string>
+    <string name="braille_dot_1">точка один</string>
+    <string name="braille_dot_2">точка два</string>
+    <string name="braille_dot_3">точка три</string>
+    <string name="braille_dot_4">точка четыре</string>
+    <string name="braille_dot_5">точка пять</string>
+    <string name="braille_dot_6">точка шесть</string>
 
     <!--    Action menu-->
 

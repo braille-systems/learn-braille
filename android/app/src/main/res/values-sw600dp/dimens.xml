@@ -7,8 +7,8 @@
     <dimen name="braille_dots_inner_horizontal_margin">20dp</dimen>
     <dimen name="braille_dots_inner_vertical_margin">25dp</dimen>
     <dimen name="braille_dots_scale_of_one_dot">2.6</dimen>
-    <dimen name="braille_dots_scale_of_view">1.6</dimen>
-    <dimen name="letter_practice_scale_of_view">1.8</dimen>
+    <dimen name="braille_dots_scale_of_view">1.8</dimen>
+    <dimen name="letter_practice_scale_of_view">1.9</dimen>
 
     <dimen name="practice_buttons_width">100dp</dimen>
     <dimen name="practice_buttons_height">300dp</dimen>

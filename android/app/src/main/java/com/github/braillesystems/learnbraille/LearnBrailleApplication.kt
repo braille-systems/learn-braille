@@ -1,6 +1,7 @@
 package com.github.braillesystems.learnbraille
 
 import android.app.Application
+import android.widget.Toast
 import com.github.braillesystems.learnbraille.database.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.database.entities.Language
 import com.github.braillesystems.learnbraille.util.scope
@@ -39,3 +40,5 @@ val language = Language.RU
 const val defaultUser = 1L
 
 const val DEBUG = false
+
+const val TOAST_DURATION = Toast.LENGTH_SHORT
