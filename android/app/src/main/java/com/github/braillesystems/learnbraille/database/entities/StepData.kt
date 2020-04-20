@@ -36,7 +36,7 @@ fun stepDataOf(string: String): StepData = string
     }
 
 /**
- * Represent step types with information.
+ * Represents step types with information.
  */
 sealed class BaseInfo : StepData()
 
