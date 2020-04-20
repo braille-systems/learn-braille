@@ -32,7 +32,7 @@ class FirstInfoFragment : AbstractLesson(R.string.lessons_help_info) {
         require(step.data is FirstInfo)
         titleTextView.text = step.title
         infoTextView.text = step.data.text
-        infoTextView.movementMethod= ScrollingMovementMethod()
+        infoTextView.movementMethod = ScrollingMovementMethod()
 
         getDBInstance().apply {
             nextButton.setOnClickListener {

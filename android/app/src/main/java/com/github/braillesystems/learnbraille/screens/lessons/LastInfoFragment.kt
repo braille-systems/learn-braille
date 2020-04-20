@@ -32,7 +32,7 @@ class LastInfoFragment : AbstractLesson(R.string.lessons_help_last_info) {
         require(step.data is LastInfo)
         titleTextView.text = step.title
         infoTextView.text = step.data.text
-        infoTextView.movementMethod= ScrollingMovementMethod()
+        infoTextView.movementMethod = ScrollingMovementMethod()
 
         getDBInstance().run {
             prevButton.setOnClickListener {

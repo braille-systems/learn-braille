@@ -26,7 +26,7 @@ class HelpFragment : Fragment() {
     ).apply {
 
         updateTitle(getString(R.string.help_title))
-        helpMessage.movementMethod= ScrollingMovementMethod()
+        helpMessage.movementMethod = ScrollingMovementMethod()
         helpMessage.text = getFormattedArg(helpMessageArgName)
 
     }.root
