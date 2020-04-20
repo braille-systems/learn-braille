@@ -11,6 +11,7 @@
         android:paddingTop="2dp"
         android:paddingEnd="2dp"
         android:paddingBottom="2dp"
+        android:scrollbars = "vertical"
         android:text="@string/default_help_message"
         android:textSize="18sp"
         app:autoSizeTextType="none" />

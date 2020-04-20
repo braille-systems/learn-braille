@@ -1,6 +1,7 @@
 package com.github.braillesystems.learnbraille.screens.help
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -25,6 +26,7 @@ class HelpFragment : Fragment() {
     ).apply {
 
         updateTitle(getString(R.string.help_title))
+        helpMessage.movementMethod= ScrollingMovementMethod()
         helpMessage.text = getFormattedArg(helpMessageArgName)
 
     }.root
