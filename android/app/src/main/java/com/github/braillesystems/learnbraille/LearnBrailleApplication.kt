@@ -41,4 +41,4 @@ const val defaultUser = 1L
 
 const val DEBUG = false
 
-const val TOAST_DURATION = Toast.LENGTH_LONG
+const val TOAST_DURATION = Toast.LENGTH_SHORT

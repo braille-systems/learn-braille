@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.TOAST_DURATION
 import com.github.braillesystems.learnbraille.database.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.database.getDBInstance
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
@@ -44,7 +45,6 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
     ).apply {
 
         updateTitle(getString(R.string.menu_actionbar_text))
-
         setHasOptionsMenu(true)
 
         lessonsButton.setOnClickListener(interruptingOnClickListener {
@@ -84,11 +84,11 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         if (requestCode == qtResultCode) {
             if (resultCode == RESULT_OK) {
                 val contents = data?.getStringExtra("SCAN_RESULT")
-                Toast.makeText(context, contents, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, contents, TOAST_DURATION).show()
             }
             if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(
-                    context, getString(R.string.qr_intent_cancelled), Toast.LENGTH_SHORT
+                    context, getString(R.string.qr_intent_cancelled), TOAST_DURATION
                 ).show()
             }
         }
@@ -97,7 +97,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
     private fun interruptingOnClickListener(block: (View) -> Unit) = View.OnClickListener {
         if (!isDbPrepopulated) {
             Toast.makeText(
-                context, getString(R.string.menu_db_not_initialized_warning), Toast.LENGTH_LONG
+                context, getString(R.string.menu_db_not_initialized_warning), TOAST_DURATION
             ).show()
             return@OnClickListener
         }
