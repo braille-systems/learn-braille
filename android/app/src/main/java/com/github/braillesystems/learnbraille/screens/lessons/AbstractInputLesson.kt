@@ -48,9 +48,9 @@ abstract class AbstractInputLesson(helpMsgId: HelpMsgId) : AbstractLesson(helpMs
         userId: Long,
         database: LearnBrailleDatabase
     ): () -> Unit = {
+        Timber.i("Handle correct")
+        makeCorrectToast()
         database.apply {
-            Timber.i("Handle correct")
-            makeCorrectToast()
             navigateToNextStep(
                 current = step,
                 userId = userId,
