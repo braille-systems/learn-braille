@@ -8,8 +8,8 @@
       - lessons [lesson 1, ...]
         - steps
   - practice
-    - browse symbols
-    - decks [all, ru symbols, punctuation, ...], 
+    - **browse symbols**
+    - **decks [all, ru symbols, punctuation, ...]**
       - cards
   - settings 
     - setting classes `no classes while we have not so much settings`
@@ -17,3 +17,5 @@
   - scan QR
   - help
   - exit
+  
+  Menus and items which concept has not been proved yet, are marked as **bold**.
