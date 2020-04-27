@@ -1,6 +1,7 @@
 package com.github.braillesystems.learnbraille.screens.lessons
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -31,6 +32,7 @@ class LastInfoFragment : AbstractLesson(R.string.lessons_help_last_info) {
         require(step.data is LastInfo)
         titleTextView.text = step.title
         infoTextView.text = step.data.text
+        infoTextView.movementMethod = ScrollingMovementMethod()
 
         getDBInstance().run {
             prevButton.setOnClickListener {
