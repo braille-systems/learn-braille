@@ -1,6 +1,5 @@
 package com.github.braillesystems.learnbraille.screens.menu
 
-import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -64,6 +63,11 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
                 intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
                 startActivityForResult(intent, qrRequestCode)
             } catch (e: ActivityNotFoundException) {
+                Toast.makeText(
+                    context,
+                    getString(R.string.qr_intent_cancelled),
+                    TOAST_DURATION
+                ).show()
                 sendMarketIntent("com.google.zxing.client.android")
             }
         }
@@ -91,12 +95,6 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
                 Toast.makeText(
                     context,
                     data?.getStringExtra("SCAN_RESULT"),
-                    TOAST_DURATION
-                ).show()
-            RESULT_CANCELED ->
-                Toast.makeText(
-                    context,
-                    getString(R.string.qr_intent_cancelled),
                     TOAST_DURATION
                 ).show()
         }
