@@ -1,9 +1,8 @@
 package com.github.braillesystems.learnbraille.screens.menu
 
-import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
+import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +20,7 @@ import com.github.braillesystems.learnbraille.defaultUser
 import com.github.braillesystems.learnbraille.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.screens.lessons.navigateToLastStep
 import com.github.braillesystems.learnbraille.util.application
+import com.github.braillesystems.learnbraille.util.sendMarketIntent
 import com.github.braillesystems.learnbraille.util.updateTitle
 import timber.log.Timber
 
@@ -57,15 +57,18 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             findNavController().navigate(R.id.action_menuFragment_to_practiceFragment)
         })
 
-        offlinePracticeButton.setOnClickListener {
+        qrPracticeButton.setOnClickListener {
             try {
                 val intent = Intent("com.google.zxing.client.android.SCAN")
                 intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
-                startActivityForResult(intent, 0)
-            } catch (e: Exception) {
-                val marketUri = Uri.parse("market://details?id=com.google.zxing.client.android")
-                val marketIntent = Intent(Intent.ACTION_VIEW, marketUri)
-                startActivity(marketIntent)
+                startActivityForResult(intent, qrRequestCode)
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(
+                    context,
+                    getString(R.string.qr_intent_cancelled),
+                    TOAST_DURATION
+                ).show()
+                sendMarketIntent("com.google.zxing.client.android")
             }
         }
 
@@ -81,30 +84,32 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == qtResultCode) {
-            if (resultCode == RESULT_OK) {
-                val contents = data?.getStringExtra("SCAN_RESULT")
-                Toast.makeText(context, contents, TOAST_DURATION).show()
-            }
-            if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(
-                    context, getString(R.string.qr_intent_cancelled), TOAST_DURATION
-                ).show()
-            }
+        when (requestCode) {
+            qrRequestCode -> processQrResult(resultCode, data)
         }
     }
 
-    private fun interruptingOnClickListener(block: (View) -> Unit) = View.OnClickListener {
-        if (!isDbPrepopulated) {
-            Toast.makeText(
-                context, getString(R.string.menu_db_not_initialized_warning), TOAST_DURATION
-            ).show()
-            return@OnClickListener
+    private fun processQrResult(resultCode: Int, data: Intent?) {
+        when (resultCode) {
+            RESULT_OK ->
+                Toast.makeText(
+                    context,
+                    data?.getStringExtra("SCAN_RESULT"),
+                    TOAST_DURATION
+                ).show()
         }
-        block(it)
+    }
+
+    private inline fun interruptingOnClickListener(
+        crossinline block: (View) -> Unit
+    ) = View.OnClickListener {
+        if (isDbPrepopulated) block(it)
+        else Toast.makeText(
+            context, getString(R.string.menu_db_not_initialized_warning), TOAST_DURATION
+        ).show()
     }
 
     companion object {
-        const val qtResultCode = 0
+        const val qrRequestCode = 0
     }
 }

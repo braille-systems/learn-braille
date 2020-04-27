@@ -15,7 +15,7 @@
 
     <!--    QR-->
 
-    <string name="qr_intent_cancelled">Ошибка, попытайтесь ещё раз</string>
+    <string name="qr_intent_cancelled">Установите сканнер qr кодов и попробуйте снова</string>
 
     <!--    Practice-->
 
