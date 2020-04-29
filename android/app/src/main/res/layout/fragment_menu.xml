@@ -33,7 +33,7 @@
             app:shapeAppearanceOverlay="@style/bigButtonsShape" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/offline_practice_button"
+            android:id="@+id/qr_practice_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
