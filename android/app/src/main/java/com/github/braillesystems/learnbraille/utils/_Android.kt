@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.hardware.usb.UsbManager
 import android.os.Vibrator
+import android.text.Html
+import android.text.Spanned
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -29,6 +31,9 @@ fun Fragment.updateTitle(title: String) {
 
 fun Fragment.getStringArg(name: String): String =
     arguments?.getString(name) ?: error("No $name found in args")
+
+@Suppress("DEPRECATION")
+fun formatHTML(html: String): Spanned = Html.fromHtml(html)
 
 typealias BuzzPattern = LongArray
 
