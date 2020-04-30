@@ -2,7 +2,7 @@ package com.github.braillesystems.learnbraille.ui.screens.lessons
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.github.braillesystems.learnbraille.data.types.*
+import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.HelpMsgId
 import com.github.braillesystems.learnbraille.ui.screens.lessons.AbstractLesson.Companion.stepArgName

@@ -4,10 +4,10 @@ import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
-import com.github.braillesystems.learnbraille.data.types.StepDao
-import com.github.braillesystems.learnbraille.data.types.SymbolDao
-import com.github.braillesystems.learnbraille.data.types.UserDao
-import com.github.braillesystems.learnbraille.data.types.UserPassedStepDao
+import com.github.braillesystems.learnbraille.data.entities.StepDao
+import com.github.braillesystems.learnbraille.data.entities.SymbolDao
+import com.github.braillesystems.learnbraille.data.entities.UserDao
+import com.github.braillesystems.learnbraille.data.entities.UserPassedStepDao
 import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_USERS
 import com.github.braillesystems.learnbraille.res.russian.steps.DEBUG_LESSONS
 import com.github.braillesystems.learnbraille.res.russian.symbols.PREPOPULATE_SYMBOLS

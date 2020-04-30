@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.getDBInstance
-import com.github.braillesystems.learnbraille.data.types.BrailleDots
-import com.github.braillesystems.learnbraille.data.types.InputSymbol
+import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.data.entities.InputSymbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputSymbolBinding
 import com.github.braillesystems.learnbraille.defaultUser
 import com.github.braillesystems.learnbraille.ui.screens.*

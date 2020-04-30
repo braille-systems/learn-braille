@@ -4,7 +4,7 @@ import android.app.Application
 import android.os.Vibrator
 import android.widget.Toast
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
-import com.github.braillesystems.learnbraille.data.types.Language
+import com.github.braillesystems.learnbraille.data.entities.Language
 import com.github.braillesystems.learnbraille.utils.BuzzPattern
 import com.github.braillesystems.learnbraille.utils.buzz
 import timber.log.Timber

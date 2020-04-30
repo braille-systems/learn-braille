@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.getDBInstance
-import com.github.braillesystems.learnbraille.data.types.ShowDots
-import com.github.braillesystems.learnbraille.data.types.spelling
+import com.github.braillesystems.learnbraille.data.entities.ShowDots
+import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowDotsBinding
 import com.github.braillesystems.learnbraille.defaultUser
 import com.github.braillesystems.learnbraille.ui.views.display

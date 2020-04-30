@@ -2,8 +2,8 @@ package com.github.braillesystems.learnbraille.ui.screens.lessons
 
 import android.view.View
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
-import com.github.braillesystems.learnbraille.data.types.BrailleDots
-import com.github.braillesystems.learnbraille.data.types.Step
+import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.data.entities.Step
 import com.github.braillesystems.learnbraille.ui.screens.HelpMsgId
 import com.github.braillesystems.learnbraille.ui.screens.makeCorrectToast
 import com.github.braillesystems.learnbraille.ui.screens.makeHintDotsToast

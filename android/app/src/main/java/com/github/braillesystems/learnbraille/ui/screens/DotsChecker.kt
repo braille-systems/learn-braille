@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import com.github.braillesystems.learnbraille.CORRECT_BUZZ_PATTERN
 import com.github.braillesystems.learnbraille.INCORRECT_BUZZ_PATTERN
 import com.github.braillesystems.learnbraille.checkedBuzz
-import com.github.braillesystems.learnbraille.data.types.BrailleDots
+import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.ui.serial.UsbSerial
 import com.github.braillesystems.learnbraille.ui.views.*
 import timber.log.Timber

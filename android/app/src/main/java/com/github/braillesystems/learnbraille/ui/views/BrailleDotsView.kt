@@ -7,10 +7,10 @@ import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.CheckBox
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.data.types.BrailleDot
-import com.github.braillesystems.learnbraille.data.types.BrailleDots
-import com.github.braillesystems.learnbraille.data.types.list
-import com.github.braillesystems.learnbraille.data.types.spelling
+import com.github.braillesystems.learnbraille.data.entities.BrailleDot
+import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.data.entities.list
+import com.github.braillesystems.learnbraille.data.entities.spelling
 import kotlinx.android.synthetic.main.braille_dots_view.view.*
 
 class BrailleDotView : CheckBox {

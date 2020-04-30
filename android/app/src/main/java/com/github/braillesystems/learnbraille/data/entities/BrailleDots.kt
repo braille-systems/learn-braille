@@ -1,7 +1,7 @@
-package com.github.braillesystems.learnbraille.data.types
+package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.TypeConverter
-import com.github.braillesystems.learnbraille.data.types.BrailleDot.E
+import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 
 /**
  * State of one Braille dot.

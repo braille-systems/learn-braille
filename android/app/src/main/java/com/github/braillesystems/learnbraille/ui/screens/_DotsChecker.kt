@@ -4,8 +4,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.TOAST_DURATION
-import com.github.braillesystems.learnbraille.data.types.BrailleDots
-import com.github.braillesystems.learnbraille.data.types.spelling
+import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.data.entities.spelling
 
 // TODO is needed?
 

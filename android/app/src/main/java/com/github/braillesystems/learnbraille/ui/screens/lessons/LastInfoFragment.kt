@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.getDBInstance
-import com.github.braillesystems.learnbraille.data.types.LastInfo
+import com.github.braillesystems.learnbraille.data.entities.LastInfo
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonLastInfoBinding
 import com.github.braillesystems.learnbraille.defaultUser
 import com.github.braillesystems.learnbraille.utils.updateTitle

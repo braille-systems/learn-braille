@@ -9,7 +9,7 @@ import android.hardware.usb.UsbDeviceConnection
 import android.hardware.usb.UsbManager
 import com.felhr.usbserial.UsbSerialDevice
 import com.felhr.usbserial.UsbSerialInterface
-import com.github.braillesystems.learnbraille.data.types.BrailleDots
+import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import timber.log.Timber
 
 

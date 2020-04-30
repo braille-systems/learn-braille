@@ -1,4 +1,4 @@
-package com.github.braillesystems.learnbraille.data.types
+package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
 import com.github.braillesystems.learnbraille.utils.*

@@ -1,7 +1,7 @@
 package com.github.braillesystems.learnbraille.res.russian.steps
 
-import com.github.braillesystems.learnbraille.data.types.*
-import com.github.braillesystems.learnbraille.data.types.BrailleDot.F
+import com.github.braillesystems.learnbraille.data.entities.*
+import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_LESSONS
 
 /**

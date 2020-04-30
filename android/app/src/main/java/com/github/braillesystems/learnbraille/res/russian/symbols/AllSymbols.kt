@@ -1,6 +1,6 @@
 package com.github.braillesystems.learnbraille.res.russian.symbols
 
-import com.github.braillesystems.learnbraille.data.types.Symbol
+import com.github.braillesystems.learnbraille.data.entities.Symbol
 
 /**
  * Add via plus lists of symbols

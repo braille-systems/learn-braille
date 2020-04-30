@@ -2,8 +2,8 @@ package com.github.braillesystems.learnbraille.ui.screens.practice
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.github.braillesystems.learnbraille.data.types.BrailleDots
-import com.github.braillesystems.learnbraille.data.types.SymbolDao
+import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.data.entities.SymbolDao
 import com.github.braillesystems.learnbraille.language
 import com.github.braillesystems.learnbraille.ui.screens.DotsChecker
 import com.github.braillesystems.learnbraille.ui.screens.MutableDotsChecker

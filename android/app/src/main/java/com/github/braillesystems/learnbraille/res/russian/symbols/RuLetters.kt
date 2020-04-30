@@ -1,10 +1,10 @@
 package com.github.braillesystems.learnbraille.res.russian.symbols
 
-import com.github.braillesystems.learnbraille.data.types.BrailleDot.E
-import com.github.braillesystems.learnbraille.data.types.BrailleDot.F
-import com.github.braillesystems.learnbraille.data.types.BrailleDots
-import com.github.braillesystems.learnbraille.data.types.Language.RU
-import com.github.braillesystems.learnbraille.data.types.Symbol
+import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
+import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
+import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.data.entities.Language.RU
+import com.github.braillesystems.learnbraille.data.entities.Symbol
 
 val RU_LETTERS
     get() = listOf(

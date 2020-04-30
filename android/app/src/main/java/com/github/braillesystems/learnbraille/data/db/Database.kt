@@ -8,7 +8,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.github.braillesystems.learnbraille.data.types.*
+import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.defaultUser
 import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_LESSONS
 import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_USERS
