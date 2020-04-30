@@ -8,9 +8,6 @@ import com.github.braillesystems.learnbraille.ui.screens.HelpMsgId
 import com.github.braillesystems.learnbraille.ui.screens.makeCorrectToast
 import com.github.braillesystems.learnbraille.ui.screens.makeHintDotsToast
 import com.github.braillesystems.learnbraille.ui.screens.makeIncorrectToast
-import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
-import com.github.braillesystems.learnbraille.ui.views.spelling
-import timber.log.Timber
 
 /**
  * Set `userTouchedDots` to false in `onCreateView`
@@ -48,7 +45,6 @@ abstract class AbstractInputLesson(helpMsgId: HelpMsgId) : AbstractLesson(helpMs
         userId: Long,
         database: LearnBrailleDatabase
     ): () -> Unit = {
-        Timber.i("Handle correct")
         makeCorrectToast()
         database.apply {
             navigateToNextStep(
@@ -65,10 +61,8 @@ abstract class AbstractInputLesson(helpMsgId: HelpMsgId) : AbstractLesson(helpMs
         step: Step,
         userId: Long,
         database: LearnBrailleDatabase,
-        dots: BrailleDotsState,
         toastMaker: () -> Unit = ::makeIncorrectToast
     ): () -> Unit = {
-        Timber.i("Handle incorrect: entered = ${dots.spelling}")
         if (userTouchedDots) {
             toastMaker()
         } else {
@@ -86,12 +80,10 @@ abstract class AbstractInputLesson(helpMsgId: HelpMsgId) : AbstractLesson(helpMs
     }
 
     protected fun getEventHintObserverBlock(): (BrailleDots) -> Unit = { expectedDots ->
-        Timber.i("Handle hint")
         makeHintDotsToast(expectedDots)
     }
 
     protected fun getEventPassHintObserverBlock(toastMaker: () -> Unit = {}): () -> Unit = {
-        Timber.i("Handle pass hint")
         toastMaker()
     }
 }

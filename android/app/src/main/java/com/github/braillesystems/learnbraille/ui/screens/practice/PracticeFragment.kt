@@ -1,6 +1,5 @@
 package com.github.braillesystems.learnbraille.ui.screens.practice
 
-import android.annotation.SuppressLint
 import android.content.IntentFilter
 import android.hardware.usb.UsbManager
 import android.os.Bundle
@@ -17,9 +16,11 @@ import com.github.braillesystems.learnbraille.databinding.FragmentPracticeBindin
 import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.serial.UsbSerial
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
+import com.github.braillesystems.learnbraille.ui.views.brailleDots
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.updateTitle
+import com.github.braillesystems.learnbraille.utils.usbManager
 import timber.log.Timber
 
 class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
@@ -71,15 +72,12 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
 
         // Init serial connection with Braille Trainer
         // TODO extract initialization to factory
-        // TODO use application.usbManager
-        @SuppressLint("WrongConstant") // permit `application.getSystemService(USB_SERVICE)`
-        val usbManager = application.getSystemService("usb") as UsbManager
         val filter = IntentFilter().apply {
             addAction(UsbSerial.ACTION_USB_PERMISSION)
             addAction(UsbManager.ACTION_USB_ACCESSORY_ATTACHED)
             addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
         }
-        val serial = UsbSerial(usbManager, application)
+        val serial = UsbSerial(application.usbManager, application)
         application.registerReceiver(serial.broadcastReceiver, filter)
 
 

@@ -13,10 +13,8 @@ import com.github.braillesystems.learnbraille.data.types.BrailleDots
 import com.github.braillesystems.learnbraille.data.types.InputSymbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputSymbolBinding
 import com.github.braillesystems.learnbraille.defaultUser
-import com.github.braillesystems.learnbraille.ui.screens.makeIncorrectLetterToast
-import com.github.braillesystems.learnbraille.ui.screens.makeIntroLetterToast
-import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
-import com.github.braillesystems.learnbraille.ui.views.dotsState
+import com.github.braillesystems.learnbraille.ui.screens.*
+import com.github.braillesystems.learnbraille.ui.views.*
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import timber.log.Timber
@@ -24,7 +22,7 @@ import timber.log.Timber
 class InputSymbolFragment : AbstractInputLesson(R.string.lessons_help_input_symbol) {
 
     private lateinit var expectedDots: BrailleDots
-    private lateinit var dots: BrailleDotsState
+    private lateinit var dotsState: BrailleDotsState
     private var buzzer: Vibrator? = null
 
     override fun onCreateView(
@@ -52,7 +50,7 @@ class InputSymbolFragment : AbstractInputLesson(R.string.lessons_help_input_symb
 
         expectedDots = step.data.symbol.brailleDots
         userTouchedDots = false
-        dots = brailleDots.dotsState.apply {
+        dotsState = brailleDots.dotsState.apply {
             uncheck()
             clickable(true)
             checkBoxes.forEach { checkBox ->
@@ -64,7 +62,7 @@ class InputSymbolFragment : AbstractInputLesson(R.string.lessons_help_input_symb
 
 
         val viewModelFactory = InputViewModelFactory(application, expectedDots) {
-            dots.brailleDots
+            dotsState.brailleDots
         }
         viewModel = ViewModelProvider(
             this@InputSymbolFragment, viewModelFactory
@@ -81,39 +79,30 @@ class InputSymbolFragment : AbstractInputLesson(R.string.lessons_help_input_symb
         prevButton.setOnClickListener(getPrevButtonListener(step, defaultUser, database))
         toCurrStepButton.setOnClickListener(getToCurrStepListener(defaultUser, database))
 
-        viewModel.eventCorrect.observe(
-            viewLifecycleOwner,
-            viewModel.getEventCorrectObserver(
-                dots, buzzer,
-                getEventCorrectObserverBlock(step, defaultUser, database)
-            )
+        viewModel.observeEventCorrect(
+            viewLifecycleOwner, dotsState, buzzer,
+            getEventCorrectObserverBlock(step, defaultUser, database)
         )
 
-        viewModel.eventIncorrect.observe(
-            viewLifecycleOwner,
-            viewModel.getEventIncorrectObserver(
-                dots, buzzer,
-                getEventIncorrectObserverBlock(step, defaultUser, database, dots) {
-                    makeIncorrectLetterToast(step.data.symbol.symbol.toString())
-                }
-            )
+        viewModel.observeEventIncorrect(
+            viewLifecycleOwner, dotsState, buzzer,
+            getEventIncorrectObserverBlock(
+                step, defaultUser, database
+            ) {
+                makeIncorrectLetterToast(step.data.symbol.symbol.toString())
+            }
         )
 
-        viewModel.eventHint.observe(
-            viewLifecycleOwner,
-            viewModel.getEventHintObserver(
-                dots, null, /*TODO serial */
-                getEventHintObserverBlock()
-            )
+        viewModel.observeEventHint(
+            viewLifecycleOwner, dotsState, /* serial */
+            block = getEventHintObserverBlock()
         )
 
-        viewModel.eventPassHint.observe(
-            viewLifecycleOwner,
-            viewModel.getEventPassHintObserver(
-                dots, getEventPassHintObserverBlock {
-                    makeIntroLetterToast(step.data.symbol.symbol.toString())
-                }
-            )
+        viewModel.observeEventPassHint(
+            viewLifecycleOwner, dotsState,
+            getEventPassHintObserverBlock {
+                makeIntroLetterToast(step.data.symbol.symbol.toString())
+            }
         )
 
     }.root

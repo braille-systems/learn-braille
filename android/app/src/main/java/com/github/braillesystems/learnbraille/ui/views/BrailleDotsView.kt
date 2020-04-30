@@ -61,26 +61,25 @@ val BrailleDotsView.dotsState: BrailleDotsState
         )
     )
 
-class BrailleDotsState(private val checkBoxes: Array<CheckBox>) {
+class BrailleDotsState(val checkBoxes: Array<CheckBox>)
 
-    val spelling: String
-        get() = brailleDots.spelling
+val BrailleDotsState.spelling: String
+    get() = brailleDots.spelling
 
-    val brailleDots: BrailleDots
-        get() = BrailleDots(
-            checkBoxes.map(CheckBox::isChecked).toBooleanArray()
-        )
+val BrailleDotsState.brailleDots: BrailleDots
+    get() = BrailleDots(
+        checkBoxes.map(CheckBox::isChecked).toBooleanArray()
+    )
 
-    fun uncheck() = checkBoxes.forEach {
-        it.isChecked = false
-    }
-
-    fun clickable(isClickable: Boolean) = checkBoxes.forEach {
-        it.isClickable = isClickable
-    }
-
-    fun display(brailleDots: BrailleDots): Unit =
-        (checkBoxes zip brailleDots.list).forEach { (checkBox, dot) ->
-            checkBox.isChecked = dot == BrailleDot.F
-        }.also { clickable(false) }
+fun BrailleDotsState.uncheck() = checkBoxes.forEach {
+    it.isChecked = false
 }
+
+fun BrailleDotsState.clickable(isClickable: Boolean) = checkBoxes.forEach {
+    it.isClickable = isClickable
+}
+
+fun BrailleDotsState.display(brailleDots: BrailleDots): Unit =
+    (checkBoxes zip brailleDots.list).forEach { (checkBox, dot) ->
+        checkBox.isChecked = dot == BrailleDot.F
+    }.also { clickable(false) }
