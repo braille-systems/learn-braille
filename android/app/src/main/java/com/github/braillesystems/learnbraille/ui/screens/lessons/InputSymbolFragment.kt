@@ -8,15 +8,17 @@ import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.data.db.getDBInstance
 import com.github.braillesystems.learnbraille.data.types.BrailleDots
 import com.github.braillesystems.learnbraille.data.types.InputSymbol
-import com.github.braillesystems.learnbraille.data.db.getDBInstance
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputSymbolBinding
 import com.github.braillesystems.learnbraille.defaultUser
-import com.github.braillesystems.learnbraille.ui.screens.*
+import com.github.braillesystems.learnbraille.ui.screens.makeIncorrectLetterToast
+import com.github.braillesystems.learnbraille.ui.screens.makeIntroLetterToast
+import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
+import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.updateTitle
-import com.github.braillesystems.learnbraille.ui.views.*
 import timber.log.Timber
 
 class InputSymbolFragment : AbstractInputLesson(R.string.lessons_help_input_symbol) {

@@ -8,19 +8,20 @@ import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.data.db.getDBInstance
 import com.github.braillesystems.learnbraille.data.types.BrailleDots
 import com.github.braillesystems.learnbraille.data.types.InputDots
 import com.github.braillesystems.learnbraille.data.types.spelling
-import com.github.braillesystems.learnbraille.data.db.getDBInstance
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputDotsBinding
 import com.github.braillesystems.learnbraille.defaultUser
 import com.github.braillesystems.learnbraille.ui.screens.getEventCorrectObserver
 import com.github.braillesystems.learnbraille.ui.screens.getEventHintObserver
 import com.github.braillesystems.learnbraille.ui.screens.getEventIncorrectObserver
 import com.github.braillesystems.learnbraille.ui.screens.getEventPassHintObserver
+import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
+import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.updateTitle
-import com.github.braillesystems.learnbraille.ui.views.*
 import timber.log.Timber
 
 class InputDotsFragment : AbstractInputLesson(R.string.lessons_help_input_dots) {

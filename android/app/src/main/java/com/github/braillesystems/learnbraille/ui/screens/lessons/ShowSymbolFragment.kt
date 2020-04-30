@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.data.types.ShowSymbol
 import com.github.braillesystems.learnbraille.data.db.getDBInstance
+import com.github.braillesystems.learnbraille.data.types.ShowSymbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowSymbolBinding
 import com.github.braillesystems.learnbraille.defaultUser
-import com.github.braillesystems.learnbraille.utils.updateTitle
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
+import com.github.braillesystems.learnbraille.utils.updateTitle
 import timber.log.Timber
 
 class ShowSymbolFragment : AbstractLesson(R.string.lessons_help_show_symbol) {

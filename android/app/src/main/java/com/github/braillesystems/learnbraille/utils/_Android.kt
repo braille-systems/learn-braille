@@ -1,8 +1,11 @@
 package com.github.braillesystems.learnbraille.utils
 
 import android.app.Application
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import android.hardware.usb.UsbManager
+import android.net.Uri
 import android.os.Vibrator
 import android.text.Html
 import android.text.Spanned
@@ -44,3 +47,20 @@ fun Vibrator?.buzz(pattern: BuzzPattern): Unit =
         @Suppress("DEPRECATION")
         vibrate(pattern, -1)
     }
+
+fun Fragment.sendMarketIntent(appPackageName: String) {
+    fun start(prefix: String) {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(prefix + appPackageName)
+            )
+        )
+    }
+
+    try {
+        start("market://details?id=")
+    } catch (e: ActivityNotFoundException) {
+        start("https://play.google.com/store/apps/details?id=")
+    }
+}

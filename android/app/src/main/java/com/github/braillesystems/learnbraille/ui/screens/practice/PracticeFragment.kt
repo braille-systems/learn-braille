@@ -16,10 +16,10 @@ import com.github.braillesystems.learnbraille.data.db.getDBInstance
 import com.github.braillesystems.learnbraille.databinding.FragmentPracticeBinding
 import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.serial.UsbSerial
-import com.github.braillesystems.learnbraille.utils.application
-import com.github.braillesystems.learnbraille.utils.updateTitle
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
 import com.github.braillesystems.learnbraille.ui.views.dotsState
+import com.github.braillesystems.learnbraille.utils.application
+import com.github.braillesystems.learnbraille.utils.updateTitle
 import timber.log.Timber
 
 class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {

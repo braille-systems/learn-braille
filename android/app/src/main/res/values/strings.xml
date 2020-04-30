@@ -15,7 +15,7 @@
 
     <!--    QR-->
 
-    <string name="qr_intent_cancelled">Ошибка, попытайтесь ещё раз</string>
+    <string name="qr_intent_cancelled">Установите сканнер qr кодов и попробуйте снова</string>
 
     <!--    Practice-->
 
@@ -169,12 +169,12 @@
 
     <!--    Braille dots-->
 
-    <string name="braille_dot_1">точка 1</string>
-    <string name="braille_dot_2">точка 2</string>
-    <string name="braille_dot_3">точка 3</string>
-    <string name="braille_dot_4">точка 4</string>
-    <string name="braille_dot_5">точка 5</string>
-    <string name="braille_dot_6">точка 6</string>
+    <string name="braille_dot_1">точка один</string>
+    <string name="braille_dot_2">точка два</string>
+    <string name="braille_dot_3">точка три</string>
+    <string name="braille_dot_4">точка четыре</string>
+    <string name="braille_dot_5">точка пять</string>
+    <string name="braille_dot_6">точка шесть</string>
 
     <!--    Action menu-->
 

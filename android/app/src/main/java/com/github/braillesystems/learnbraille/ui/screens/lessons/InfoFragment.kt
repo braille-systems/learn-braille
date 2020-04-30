@@ -1,12 +1,13 @@
 package com.github.braillesystems.learnbraille.ui.screens.lessons
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.data.types.Info
 import com.github.braillesystems.learnbraille.data.db.getDBInstance
+import com.github.braillesystems.learnbraille.data.types.Info
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInfoBinding
 import com.github.braillesystems.learnbraille.defaultUser
 import com.github.braillesystems.learnbraille.utils.updateTitle
@@ -31,6 +32,7 @@ class InfoFragment : AbstractLesson(R.string.lessons_help_info) {
         require(step.data is Info)
         titleTextView.text = step.title
         infoTextView.text = step.data.text
+        infoTextView.movementMethod = ScrollingMovementMethod()
 
         getDBInstance().apply {
             prevButton.setOnClickListener {
