@@ -16,7 +16,7 @@ class AccessibilityHelper {
             val accessibilityEnabled: Int = Settings.Secure.getInt(
                 context?.contentResolver, Settings.Secure.ACCESSIBILITY_ENABLED
             )
-            if (accessibilityEnabled != 1){
+            if (accessibilityEnabled != 1) {
                 return
             }
             context?.getSystemService(ACCESSIBILITY_SERVICE)

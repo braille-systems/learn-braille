@@ -3,11 +3,11 @@ package com.github.braillesystems.learnbraille
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.github.braillesystems.learnbraille.database.LearnBrailleDatabase
-import com.github.braillesystems.learnbraille.database.entities.StepDao
-import com.github.braillesystems.learnbraille.database.entities.SymbolDao
-import com.github.braillesystems.learnbraille.database.entities.UserDao
-import com.github.braillesystems.learnbraille.database.entities.UserPassedStepDao
+import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
+import com.github.braillesystems.learnbraille.data.entities.StepDao
+import com.github.braillesystems.learnbraille.data.entities.SymbolDao
+import com.github.braillesystems.learnbraille.data.entities.UserDao
+import com.github.braillesystems.learnbraille.data.entities.UserPassedStepDao
 import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_USERS
 import com.github.braillesystems.learnbraille.res.russian.steps.DEBUG_LESSONS
 import com.github.braillesystems.learnbraille.res.russian.symbols.PREPOPULATE_SYMBOLS
@@ -52,9 +52,5 @@ class LearnBrailleDatabaseTest {
         db.close()
     }
 
-    // TODO actualize
-
-    companion object {
-        const val TEST_USER = 1L
-    }
+    // TODO actualize tests
 }
