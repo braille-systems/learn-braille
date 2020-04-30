@@ -29,7 +29,6 @@ class UsbSerial(usbManager: UsbManager, context: Context) {
     companion object {
         const val arduinoNanoVendorId = 6790
         const val ACTION_USB_PERMISSION = "permission"
-        const val USB_SERVICE = "usb" // TODO why error: USB_SERVICE = Context.USB_SERVICE
     }
 
     init {
