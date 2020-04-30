@@ -18,7 +18,7 @@ class LearnBrailleApplication : Application() {
         Timber.i("onCreate")
 
         // TODO move behind repository abstraction barrier
-        LearnBrailleDatabase.forcePrepopulation(this)
+        LearnBrailleDatabase.init(this)
 
         USE_DEBUG_LESSONS = preferences.getBoolean(
             getString(R.string.preference_use_debug_lessons), false
@@ -37,8 +37,7 @@ val INCORRECT_BUZZ_PATTERN: BuzzPattern = longArrayOf(0, 200)
 
 fun Vibrator?.checkedBuzz(context: Context, pattern: BuzzPattern) {
     val buzzEnabled = context.preferences.getBoolean(
-        context.getString(R.string.preference_enable_buzz),
-        false
+        context.getString(R.string.preference_enable_buzz), false
     )
     if (buzzEnabled) buzz(pattern)
 }

@@ -94,7 +94,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     private fun interruptingOnClickListener(block: (View) -> Unit) =
         View.OnClickListener {
-            if (LearnBrailleDatabase.isPrepopulated) block(it)
+            if (LearnBrailleDatabase.isInitialized) block(it)
             else {
                 Toast.makeText(
                     context, getString(R.string.menu_db_not_initialized_warning), TOAST_DURATION

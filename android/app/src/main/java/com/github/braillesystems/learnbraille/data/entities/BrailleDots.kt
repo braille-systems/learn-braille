@@ -68,6 +68,5 @@ class BrailleDotsConverters {
     fun to(brailleDots: BrailleDots) = brailleDots.toString()
 
     @TypeConverter
-    fun from(data: String) =
-        BrailleDots(data)
+    fun from(data: String) = BrailleDots(data)
 }

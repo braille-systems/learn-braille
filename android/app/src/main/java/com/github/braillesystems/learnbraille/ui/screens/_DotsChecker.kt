@@ -7,8 +7,6 @@ import com.github.braillesystems.learnbraille.TOAST_DURATION
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.spelling
 
-// TODO is needed?
-
 fun Fragment.makeCorrectToast(): Unit =
     Toast.makeText(
         context, getString(R.string.input_correct), TOAST_DURATION

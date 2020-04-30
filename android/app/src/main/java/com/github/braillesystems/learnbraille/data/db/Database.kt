@@ -49,8 +49,7 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
         const val name = "learn_braille_database"
 
         @Volatile
-        var prepopulationFinished = true
-            private set
+        private var prepopulationFinished = true
 
         @Volatile
         private var INSTANCE: LearnBrailleDatabase? = null
@@ -103,7 +102,7 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
 
         private lateinit var forcePrepopulationJob: Job
 
-        fun forcePrepopulation(context: Context) {
+        fun init(context: Context) {
             forcePrepopulationJob = scope().launch {
                 if (getInstance(context).userDao.getUser(context.userId) != null) {
                     Timber.i("DB has been already initialized")
@@ -113,7 +112,7 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
             }
         }
 
-        val isPrepopulated: Boolean
+        val isInitialized: Boolean
             get() = (forcePrepopulationJob.isCompleted && prepopulationFinished).also {
                 if (it) Timber.i("DB has been prepopulated")
                 else Timber.i(

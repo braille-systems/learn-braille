@@ -24,27 +24,13 @@ fun stepDataOf(string: String): StepData = string
     .split(' ', limit = 2)
     .let { (type, data) ->
         when (type) {
-            Info.name -> Info(
-                data
-            )
-            FirstInfo.name -> FirstInfo(
-                data
-            )
-            LastInfo.name -> LastInfo(
-                data
-            )
-            InputSymbol.name -> InputSymbol(
-                data
-            )
-            InputDots.name -> inputDotsOf(
-                data
-            )
-            ShowSymbol.name -> ShowSymbol(
-                data
-            )
-            ShowDots.name -> showDotsOf(
-                data
-            )
+            Info.name -> Info(data)
+            FirstInfo.name -> FirstInfo(data)
+            LastInfo.name -> LastInfo(data)
+            InputSymbol.name -> InputSymbol(data)
+            InputDots.name -> inputDotsOf(data)
+            ShowSymbol.name -> ShowSymbol(data)
+            ShowDots.name -> showDotsOf(data)
             else -> error("No such step type: $type")
         }
     }
@@ -63,8 +49,7 @@ class Info(
 
     val text = text.stepFormat()
 
-    override val name =
-        Companion.name
+    override val name = Companion.name
     override val data = this.text
 
     companion object {
@@ -81,8 +66,7 @@ class FirstInfo(
 
     val text = text.stepFormat()
 
-    override val name =
-        Companion.name
+    override val name = Companion.name
     override val data = this.text
 
     companion object {
@@ -99,8 +83,7 @@ class LastInfo(
 
     val text = text.stepFormat()
 
-    override val name =
-        Companion.name
+    override val name = Companion.name
     override val data = this.text
 
     companion object {
@@ -117,13 +100,10 @@ class InputSymbol(
     val symbol: Symbol
 ) : BaseInput() {
 
-    override val name =
-        Companion.name
+    override val name = Companion.name
     override val data = symbol.toString()
 
-    constructor(data: String) : this(
-        symbolOf(data)
-    )
+    constructor(data: String) : this(symbolOf(data))
 
     companion object {
         val name = InputSymbol::class.java.name
@@ -141,8 +121,7 @@ class InputDots(
     val dots: BrailleDots
 ) : BaseInput() {
 
-    override val name =
-        Companion.name
+    override val name = Companion.name
     override val data = text + delimiter + dots.toString()
 
     companion object {
@@ -156,9 +135,7 @@ fun inputDotsOf(string: String): InputDots = string
     .let { (text, dots) ->
         InputDots(
             text = if (text == null.toString()) null else text,
-            dots = BrailleDots(
-                dots
-            )
+            dots = BrailleDots(dots)
         )
     }
 
@@ -171,8 +148,7 @@ class ShowSymbol(
     val symbol: Symbol
 ) : BaseShow() {
 
-    override val name =
-        Companion.name
+    override val name = Companion.name
     override val data = symbol.toString()
 
     constructor(data: String) : this(
@@ -195,8 +171,7 @@ class ShowDots(
     val dots: BrailleDots
 ) : BaseShow() {
 
-    override val name =
-        Companion.name
+    override val name = Companion.name
     override val data = text + delimiter + dots.toString()
 
     companion object {
@@ -210,9 +185,7 @@ fun showDotsOf(string: String): ShowDots = string
     .let { (text, dots) ->
         ShowDots(
             text = if (text == null.toString()) null else text,
-            dots = BrailleDots(
-                dots
-            )
+            dots = BrailleDots(dots)
         )
     }
 
@@ -222,8 +195,7 @@ class StepDataConverters {
     fun to(stepData: StepData) = stepData.toString()
 
     @TypeConverter
-    fun from(string: String) =
-        stepDataOf(string)
+    fun from(string: String) = stepDataOf(string)
 }
 
 /**
