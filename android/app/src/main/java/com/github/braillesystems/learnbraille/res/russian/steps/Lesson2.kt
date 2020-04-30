@@ -1,10 +1,13 @@
 package com.github.braillesystems.learnbraille.res.russian.steps
 
-import com.github.braillesystems.learnbraille.database.entities.*
+import com.github.braillesystems.learnbraille.data.types.Info
+import com.github.braillesystems.learnbraille.data.types.InputSymbol
+import com.github.braillesystems.learnbraille.data.types.ShowSymbol
+import com.github.braillesystems.learnbraille.data.types.StepData
 import com.github.braillesystems.learnbraille.res.russian.symbols.symbolMap
 
 private fun Step(title: String, data: StepData) =
-    Step(
+    com.github.braillesystems.learnbraille.data.types.Step(
         title = title,
         lessonId = 2L,
         data = data

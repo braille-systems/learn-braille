@@ -1,6 +1,6 @@
 package com.github.braillesystems.learnbraille.res.russian.symbols
 
-import com.github.braillesystems.learnbraille.database.entities.Symbol
+import com.github.braillesystems.learnbraille.data.types.Symbol
 
 // TODO fill punctuation
 val PUNCTUATION get() = listOf<Symbol>()

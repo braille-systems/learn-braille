@@ -1,7 +1,7 @@
 package com.github.braillesystems.learnbraille.res.russian.steps
 
-import com.github.braillesystems.learnbraille.database.entities.*
-import com.github.braillesystems.learnbraille.database.entities.BrailleDot.F
+import com.github.braillesystems.learnbraille.data.types.*
+import com.github.braillesystems.learnbraille.data.types.BrailleDot.F
 import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_LESSONS
 
 /**
@@ -27,7 +27,9 @@ val LESSON_1_STEPS
 
         Step(
             title = "Урок первый",
-            data = Info(PREPOPULATE_LESSONS[0].name)
+            data = Info(
+                PREPOPULATE_LESSONS[0].name
+            )
         ),
 
         Step(
@@ -43,7 +45,14 @@ val LESSON_1_STEPS
             title = "Шеститочие",
             data = ShowDots(
                 text = "Перед Вами полное шеститочие",
-                dots = BrailleDots(F, F, F, F, F, F)
+                dots = BrailleDots(
+                    F,
+                    F,
+                    F,
+                    F,
+                    F,
+                    F
+                )
             )
         ),
 
@@ -51,7 +60,14 @@ val LESSON_1_STEPS
             title = "Полное шеститочие",
             data = InputDots(
                 text = "Введите все шесть точек",
-                dots = BrailleDots(F, F, F, F, F, F)
+                dots = BrailleDots(
+                    F,
+                    F,
+                    F,
+                    F,
+                    F,
+                    F
+                )
             )
         ),
 
