@@ -13,12 +13,12 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.InputDots
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputDotsBinding
-import com.github.braillesystems.learnbraille.defaultUser
 import com.github.braillesystems.learnbraille.ui.screens.observeEventCorrect
 import com.github.braillesystems.learnbraille.ui.screens.observeEventHint
 import com.github.braillesystems.learnbraille.ui.screens.observeEventIncorrect
 import com.github.braillesystems.learnbraille.ui.screens.observeEventPassHint
 import com.github.braillesystems.learnbraille.ui.views.*
+import com.github.braillesystems.learnbraille.userId
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import timber.log.Timber
@@ -81,18 +81,18 @@ class InputDotsFragment : AbstractInputLesson(R.string.lessons_help_input_dots) 
 
         val database = getDBInstance()
 
-        prevButton.setOnClickListener(getPrevButtonListener(step, defaultUser, database))
-        toCurrStepButton.setOnClickListener(getToCurrStepListener(defaultUser, database))
+        prevButton.setOnClickListener(getPrevButtonListener(step, application.userId, database))
+        toCurrStepButton.setOnClickListener(getToCurrStepListener(application.userId, database))
 
         viewModel.observeEventCorrect(
-            viewLifecycleOwner, dotsState, buzzer,
-            getEventCorrectObserverBlock(step, defaultUser, database)
+            viewLifecycleOwner, application, dotsState, buzzer,
+            getEventCorrectObserverBlock(step, application.userId, database)
         )
 
         viewModel.observeEventIncorrect(
-            viewLifecycleOwner, dotsState, buzzer,
+            viewLifecycleOwner, application, dotsState, buzzer,
             getEventIncorrectObserverBlock(
-                step, defaultUser, database
+                step, application.userId, database
             )
         )
 

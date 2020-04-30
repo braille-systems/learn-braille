@@ -9,7 +9,8 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.getDBInstance
 import com.github.braillesystems.learnbraille.data.entities.FirstInfo
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonFirstInfoBinding
-import com.github.braillesystems.learnbraille.defaultUser
+import com.github.braillesystems.learnbraille.userId
+import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.updateTitle
 
 class FirstInfoFragment : AbstractLesson(R.string.lessons_help_info) {
@@ -38,7 +39,7 @@ class FirstInfoFragment : AbstractLesson(R.string.lessons_help_info) {
             nextButton.setOnClickListener {
                 navigateToNextStep(
                     current = step,
-                    userId = defaultUser,
+                    userId = application.userId,
                     stepDao = stepDao,
                     lastStepDao = userLastStep,
                     upsd = userPassedStepDao
@@ -46,7 +47,7 @@ class FirstInfoFragment : AbstractLesson(R.string.lessons_help_info) {
             }
             toCurrStepButton.setOnClickListener {
                 navigateToCurrentStep(
-                    userId = defaultUser,
+                    userId = application.userId,
                     stepDao = stepDao,
                     lastStepDao = userLastStep
                 )

@@ -52,9 +52,5 @@ class LearnBrailleDatabaseTest {
         db.close()
     }
 
-    // TODO actualize
-
-    companion object {
-        const val TEST_USER = 1L
-    }
+    // TODO actualize tests
 }

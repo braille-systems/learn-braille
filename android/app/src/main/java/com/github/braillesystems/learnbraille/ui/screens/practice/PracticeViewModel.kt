@@ -3,8 +3,8 @@ package com.github.braillesystems.learnbraille.ui.screens.practice
 import android.app.Application
 import androidx.lifecycle.*
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.data.entities.Language
 import com.github.braillesystems.learnbraille.data.entities.SymbolDao
-import com.github.braillesystems.learnbraille.language
 import com.github.braillesystems.learnbraille.ui.screens.DotsChecker
 import com.github.braillesystems.learnbraille.ui.screens.MutableDotsChecker
 import com.github.braillesystems.learnbraille.utils.scope
@@ -75,7 +75,7 @@ class PracticeViewModel(
     }
 
     private fun initializeCard() = uiScope.launch {
-        val entry = database.getRandomSymbol(language) ?: error("DB is not initialized")
+        val entry = database.getRandomSymbol(Language.RU) ?: error("DB is not initialized")
         _symbol.value = entry.symbol.toString()
         expectedDots = entry.brailleDots
     }

@@ -1,5 +1,6 @@
 package com.github.braillesystems.learnbraille.ui.screens
 
+import android.content.Context
 import android.os.Vibrator
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -158,6 +159,7 @@ private class DotsCheckerImpl : MutableDotsChecker {
 
 inline fun DotsChecker.observeEventCorrect(
     lifecycleOwner: LifecycleOwner,
+    context: Context,
     dotsState: BrailleDotsState,
     buzzer: Vibrator? = null,
     crossinline block: () -> Unit = {}
@@ -166,7 +168,7 @@ inline fun DotsChecker.observeEventCorrect(
     Observer {
         if (!it) return@Observer
         Timber.i("Handle correct")
-        buzzer.checkedBuzz(CORRECT_BUZZ_PATTERN)
+        buzzer.checkedBuzz(context, CORRECT_BUZZ_PATTERN)
         dotsState.uncheck()
         block()
         onCorrectComplete()
@@ -175,6 +177,7 @@ inline fun DotsChecker.observeEventCorrect(
 
 inline fun DotsChecker.observeEventIncorrect(
     lifecycleOwner: LifecycleOwner,
+    context: Context,
     dotsState: BrailleDotsState,
     buzzer: Vibrator? = null,
     crossinline block: () -> Unit = {}
@@ -183,7 +186,7 @@ inline fun DotsChecker.observeEventIncorrect(
     Observer {
         if (!it) return@Observer
         Timber.i("Handle incorrect: entered = ${dotsState.spelling}")
-        buzzer.checkedBuzz(INCORRECT_BUZZ_PATTERN)
+        buzzer.checkedBuzz(context, INCORRECT_BUZZ_PATTERN)
         dotsState.uncheck()
         block()
         onIncorrectComplete()

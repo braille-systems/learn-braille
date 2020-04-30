@@ -9,11 +9,11 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.github.braillesystems.learnbraille.data.entities.*
-import com.github.braillesystems.learnbraille.defaultUser
 import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_LESSONS
 import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_USERS
 import com.github.braillesystems.learnbraille.res.russian.steps.PREPOPULATE_STEPS
 import com.github.braillesystems.learnbraille.res.russian.symbols.PREPOPULATE_SYMBOLS
+import com.github.braillesystems.learnbraille.userId
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.Job
@@ -26,7 +26,7 @@ import timber.log.Timber
         User::class, Lesson::class, Step::class, Symbol::class,
         UserKnowsSymbol::class, UserPassedStep::class, UserLastStep::class
     ],
-    version = 5,
+    version = 6,
     exportSchema = false
 )
 @TypeConverters(
@@ -108,11 +108,11 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
             .fallbackToDestructiveMigration()
             .build()
 
-        private val forcePrepopulationJob = Job()
+        private lateinit var forcePrepopulationJob: Job
 
         fun forcePrepopulation(context: Context) {
-            scope(forcePrepopulationJob).launch {
-                if (getInstance(context).userDao.getUser(defaultUser) != null) {
+            forcePrepopulationJob = scope().launch {
+                if (getInstance(context).userDao.getUser(context.userId) != null) {
                     Timber.i("DB has been already initialized")
                 } else {
                     Timber.i("DB is not been initialized yet")
@@ -123,7 +123,11 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
         val isPrepopulated: Boolean
             get() = (forcePrepopulationJob.isCompleted && prepopulationFinished).also {
                 if (it) Timber.i("DB has been prepopulated")
-                else Timber.i("DB has not been prepopulated")
+                else Timber.i(
+                    "DB has not been prepopulated: " +
+                            "forcePrepopulationJob.isCompleted = ${forcePrepopulationJob.isCompleted}, " +
+                            "prepopulationFinished = $prepopulationFinished"
+                )
             }
     }
 }

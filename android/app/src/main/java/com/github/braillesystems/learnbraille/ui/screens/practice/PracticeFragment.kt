@@ -82,14 +82,14 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
 
 
         viewModel.observeEventCorrect(
-            viewLifecycleOwner, dotsState, buzzer
+            viewLifecycleOwner, application, dotsState, buzzer
         ) {
             makeCorrectToast()
             updateTitle(title)
         }
 
         viewModel.observeEventIncorrect(
-            viewLifecycleOwner, dotsState, buzzer
+            viewLifecycleOwner, application, dotsState, buzzer
         ) {
             makeIncorrectLetterToast(viewModel.symbol.value)
             updateTitle(title)

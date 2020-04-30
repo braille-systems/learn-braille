@@ -16,9 +16,10 @@ import com.github.braillesystems.learnbraille.TOAST_DURATION
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.data.db.getDBInstance
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
-import com.github.braillesystems.learnbraille.defaultUser
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.lessons.navigateToLastStep
+import com.github.braillesystems.learnbraille.userId
+import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.sendMarketIntent
 import com.github.braillesystems.learnbraille.utils.updateTitle
 
@@ -40,7 +41,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
         lessonsButton.setOnClickListener(interruptingOnClickListener {
             getDBInstance().apply {
-                navigateToLastStep(defaultUser, stepDao, userLastStep)
+                navigateToLastStep(application.userId, stepDao, userLastStep)
             }
         })
 

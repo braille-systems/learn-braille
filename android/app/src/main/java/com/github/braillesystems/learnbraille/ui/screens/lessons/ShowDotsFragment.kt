@@ -9,9 +9,10 @@ import com.github.braillesystems.learnbraille.data.db.getDBInstance
 import com.github.braillesystems.learnbraille.data.entities.ShowDots
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowDotsBinding
-import com.github.braillesystems.learnbraille.defaultUser
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
+import com.github.braillesystems.learnbraille.userId
+import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import timber.log.Timber
 
@@ -45,7 +46,7 @@ class ShowDotsFragment : AbstractLesson(R.string.lessons_help_show_dots) {
             prevButton.setOnClickListener {
                 navigateToPrevStep(
                     current = step,
-                    userId = defaultUser,
+                    userId = application.userId,
                     stepDao = stepDao,
                     lastStepDao = userLastStep
                 )
@@ -53,7 +54,7 @@ class ShowDotsFragment : AbstractLesson(R.string.lessons_help_show_dots) {
             nextButton.setOnClickListener {
                 navigateToNextStep(
                     current = step,
-                    userId = defaultUser,
+                    userId = application.userId,
                     stepDao = stepDao,
                     lastStepDao = userLastStep,
                     upsd = userPassedStepDao
@@ -61,7 +62,7 @@ class ShowDotsFragment : AbstractLesson(R.string.lessons_help_show_dots) {
             }
             toCurrStepButton.setOnClickListener {
                 navigateToCurrentStep(
-                    userId = defaultUser,
+                    userId = application.userId,
                     stepDao = stepDao,
                     lastStepDao = userLastStep
                 )
