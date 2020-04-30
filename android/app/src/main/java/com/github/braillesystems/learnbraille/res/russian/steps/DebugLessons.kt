@@ -29,14 +29,7 @@ val DEBUG_LESSONS
             lessonId = 1,
             data = ShowDots(
                 text = null,
-                dots = BrailleDots(
-                    F,
-                    F,
-                    E,
-                    E,
-                    F,
-                    F
-                )
+                dots = BrailleDots(F, F, E, E, F, F)
             )
         ),
 
@@ -53,14 +46,7 @@ val DEBUG_LESSONS
             lessonId = 1,
             data = InputDots(
                 text = "E E F F E E",
-                dots = BrailleDots(
-                    E,
-                    E,
-                    F,
-                    F,
-                    E,
-                    E
-                )
+                dots = BrailleDots(E, E, F, F, E, E)
             )
         ),
 

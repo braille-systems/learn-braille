@@ -45,14 +45,7 @@ val LESSON_1_STEPS
             title = "Шеститочие",
             data = ShowDots(
                 text = "Перед Вами полное шеститочие",
-                dots = BrailleDots(
-                    F,
-                    F,
-                    F,
-                    F,
-                    F,
-                    F
-                )
+                dots = BrailleDots(F, F, F, F, F, F)
             )
         ),
 
@@ -60,14 +53,7 @@ val LESSON_1_STEPS
             title = "Полное шеститочие",
             data = InputDots(
                 text = "Введите все шесть точек",
-                dots = BrailleDots(
-                    F,
-                    F,
-                    F,
-                    F,
-                    F,
-                    F
-                )
+                dots = BrailleDots(F, F, F, F, F, F)
             )
         ),
 

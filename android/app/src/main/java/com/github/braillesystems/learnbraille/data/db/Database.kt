@@ -46,7 +46,7 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
 
     companion object {
 
-        const val name = "braille_lessons_database"
+        const val name = "learn_braille_database"
 
         @Volatile
         var prepopulationFinished = true
@@ -57,14 +57,9 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
 
         @SuppressLint("SyntheticAccessor")
         fun getInstance(context: Context): LearnBrailleDatabase =
-            INSTANCE
-                ?: synchronized(this) {
-                    INSTANCE
-                        ?: buildDatabase(
-                            context
-                        )
-                            .also { INSTANCE = it }
-                }
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
+            }
 
         private fun buildDatabase(context: Context) = Room
             .databaseBuilder(
@@ -92,9 +87,7 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                     prepopulationFinished = false
                     scope().launch {
                         Timber.i("Start database prepopulation")
-                        getInstance(
-                            context
-                        ).apply {
+                        getInstance(context).apply {
                             userDao.insertUsers(PREPOPULATE_USERS)
                             lessonDao.insertLessons(PREPOPULATE_LESSONS)
                             stepDao.insertSteps(PREPOPULATE_STEPS)
