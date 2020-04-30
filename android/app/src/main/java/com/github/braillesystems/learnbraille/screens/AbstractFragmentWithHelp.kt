@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.screens.practice.PracticeFragmentDirections
+import com.github.braillesystems.learnbraille.util.AccessibilityHelper
 import timber.log.Timber
 
 typealias HelpMsgId = Int
@@ -26,10 +27,11 @@ abstract class AbstractFragmentWithHelp(val helpMsgId: HelpMsgId) : Fragment() {
             if (item.itemId == R.id.help) navigateToHelp()
         }
 
-    protected open fun navigateToHelp(helpMsg:String){
+    protected open fun navigateToHelp(helpMsg: String) {
         Timber.i("Navigate to help")
         val action = PracticeFragmentDirections.actionGlobalHelpFragment()
         action.helpMessage = helpMsg
+        AccessibilityHelper.announceForAccessibility(this.context, helpMsg)
         findNavController().navigate(action)
     }
 
