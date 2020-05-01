@@ -28,7 +28,7 @@ abstract class AbstractFragmentWithHelp(val helpMsgId: HelpMsgId) : Fragment() {
             if (item.itemId == R.id.help) navigateToHelp()
         }
 
-    protected open fun navigateToHelp(helpMsg: String) {
+    protected fun navigateToHelp(helpMsg: String) {
         Timber.i("Navigate to help")
         val action = PracticeFragmentDirections.actionGlobalHelpFragment()
         action.helpMessage = helpMsg

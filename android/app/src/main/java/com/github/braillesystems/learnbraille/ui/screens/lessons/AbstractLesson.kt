@@ -22,7 +22,9 @@ import timber.log.Timber
 abstract class AbstractLesson(helpMsgId: HelpMsgId) : AbstractFragmentWithHelp(helpMsgId) {
 
     override fun navigateToHelp() =
-        super.navigateToHelp(getString(helpMsgId) + getString(R.string.lessons_help_common))
+        super.navigateToHelp(
+            getString(helpMsgId) + getString(R.string.lessons_help_common)
+        )
 
     companion object {
         const val stepArgName = "step"
