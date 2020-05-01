@@ -5,6 +5,10 @@
     <string name="app_name">Learn Braille Beta</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_help_message">No help message</string>
+    <string name="preference_file_key">preferences</string>
+    <string name="preference_use_debug_lessons">use_debug_lessons</string>
+    <string name="preference_enable_buzz">enable_buzz</string>
+    <string name="preference_current_user">current_user</string>
 
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>

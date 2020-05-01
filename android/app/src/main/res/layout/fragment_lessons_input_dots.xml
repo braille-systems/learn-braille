@@ -7,7 +7,7 @@
 
         <variable
             name="inputViewModel"
-            type="com.github.braillesystems.learnbraille.screens.lessons.InputViewModel" />
+            type="com.github.braillesystems.learnbraille.ui.screens.lessons.InputViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +42,7 @@
             app:layout_constraintVertical_bias="0.16000003"
             tools:text="ИНФОРМАЦИЯ!" />
 
-        <com.github.braillesystems.learnbraille.views.BrailleDotsView
+        <com.github.braillesystems.learnbraille.ui.views.BrailleDotsView
             android:id="@+id/braille_dots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
