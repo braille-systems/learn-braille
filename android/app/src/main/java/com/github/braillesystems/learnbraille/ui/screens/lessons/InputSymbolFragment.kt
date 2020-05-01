@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.github.braillesystems.learnbraille.INCORRECT_BUZZ_PATTERN
 import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.checkedBuzz
 import com.github.braillesystems.learnbraille.data.db.getDBInstance
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.InputSymbol
@@ -85,11 +87,13 @@ class InputSymbolFragment : AbstractInputLesson(R.string.lessons_help_input_symb
         )
 
         viewModel.observeEventIncorrect(
-            viewLifecycleOwner, application, dotsState, buzzer,
-            getEventIncorrectObserverBlock(
+            viewLifecycleOwner, application, dotsState,
+            buzzer = null,  // No notification by default
+            block = getEventIncorrectObserverBlock(
                 step, application.userId, database
             ) {
                 makeIncorrectLetterToast(step.data.symbol.symbol.toString())
+                buzzer.checkedBuzz(application, INCORRECT_BUZZ_PATTERN)
             }
         )
 

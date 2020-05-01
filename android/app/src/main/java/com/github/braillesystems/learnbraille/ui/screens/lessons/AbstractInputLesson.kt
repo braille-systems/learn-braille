@@ -61,10 +61,10 @@ abstract class AbstractInputLesson(helpMsgId: HelpMsgId) : AbstractLesson(helpMs
         step: Step,
         userId: Long,
         database: LearnBrailleDatabase,
-        toastMaker: () -> Unit = ::makeIncorrectToast
+        notifyIncorrect: () -> Unit = ::makeIncorrectToast
     ): () -> Unit = {
         if (userTouchedDots) {
-            toastMaker()
+            notifyIncorrect()
         } else {
             database.apply {
                 navigateToNextStep(
@@ -73,7 +73,7 @@ abstract class AbstractInputLesson(helpMsgId: HelpMsgId) : AbstractLesson(helpMs
                     stepDao = stepDao,
                     lastStepDao = userLastStep
                 ) {
-                    toastMaker()
+                    notifyIncorrect()
                 }
             }
         }
@@ -83,7 +83,5 @@ abstract class AbstractInputLesson(helpMsgId: HelpMsgId) : AbstractLesson(helpMs
         makeHintDotsToast(expectedDots)
     }
 
-    protected fun getEventPassHintObserverBlock(toastMaker: () -> Unit = {}): () -> Unit = {
-        toastMaker()
-    }
+    protected fun getEventPassHintObserverBlock(block: () -> Unit = {}): () -> Unit = block
 }
