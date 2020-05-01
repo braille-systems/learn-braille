@@ -2,6 +2,7 @@ package com.github.braillesystems.learnbraille.ui.screens.lessons
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.HelpMsgId
@@ -19,6 +20,10 @@ import timber.log.Timber
  * Base class for all lessons.
  */
 abstract class AbstractLesson(helpMsgId: HelpMsgId) : AbstractFragmentWithHelp(helpMsgId) {
+
+    override val helpMsg: String
+        get() = super.helpMsg + getString(R.string.lessons_help_common)
+
     companion object {
         const val stepArgName = "step"
     }

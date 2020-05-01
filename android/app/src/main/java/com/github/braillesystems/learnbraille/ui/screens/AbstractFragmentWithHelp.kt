@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.ui.screens.practice.PracticeFragmentDirections
+import com.github.braillesystems.learnbraille.utils.announceByAccessibility
+import com.github.braillesystems.learnbraille.utils.application
 import timber.log.Timber
 
 typealias HelpMsgId = Int
@@ -15,6 +17,9 @@ typealias HelpMsgId = Int
  * Do not forget to add in onCreate `setHasOptionsMenu(true)`
  */
 abstract class AbstractFragmentWithHelp(private val helpMsgId: HelpMsgId) : Fragment() {
+
+    protected open val helpMsg: String
+        get() = getString(helpMsgId)
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -27,9 +32,14 @@ abstract class AbstractFragmentWithHelp(private val helpMsgId: HelpMsgId) : Frag
         }
 
     protected fun navigateToHelp() {
+        navigateToHelp(helpMsg)
+    }
+
+    private fun navigateToHelp(helpMsg: String) {
         Timber.i("Navigate to help")
         val action = PracticeFragmentDirections.actionGlobalHelpFragment()
-        action.helpMessage = getString(helpMsgId)
+        action.helpMessage = helpMsg
+        application.announceByAccessibility(helpMsg)
         findNavController().navigate(action)
     }
 }

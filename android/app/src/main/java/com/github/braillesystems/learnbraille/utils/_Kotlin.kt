@@ -11,3 +11,5 @@ operator fun MatchGroupCollection.component4() = get(3)
 operator fun MatchGroupCollection.component5() = get(4)
 
 val Any?.devnull: Unit get() {}
+
+fun String.removeHtmlMarkup() = Regex("""<[^>]*>""").replace(this, "")
