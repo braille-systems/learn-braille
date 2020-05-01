@@ -7,16 +7,15 @@ import android.view.ViewGroup
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.github.braillesystems.learnbraille.INCORRECT_BUZZ_PATTERN
 import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.checkedBuzz
 import com.github.braillesystems.learnbraille.data.db.getDBInstance
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.InputDots
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputDotsBinding
-import com.github.braillesystems.learnbraille.ui.screens.observeEventCorrect
-import com.github.braillesystems.learnbraille.ui.screens.observeEventHint
-import com.github.braillesystems.learnbraille.ui.screens.observeEventIncorrect
-import com.github.braillesystems.learnbraille.ui.screens.observeEventPassHint
+import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.views.*
 import com.github.braillesystems.learnbraille.userId
 import com.github.braillesystems.learnbraille.utils.application
@@ -90,10 +89,14 @@ class InputDotsFragment : AbstractInputLesson(R.string.lessons_help_input_dots) 
         )
 
         viewModel.observeEventIncorrect(
-            viewLifecycleOwner, application, dotsState, buzzer,
-            getEventIncorrectObserverBlock(
+            viewLifecycleOwner, application, dotsState,
+            buzzer = null,  // No notification by default
+            block = getEventIncorrectObserverBlock(
                 step, application.userId, database
-            )
+            ) {
+                makeIncorrectToast()
+                buzzer.checkedBuzz(application, INCORRECT_BUZZ_PATTERN)
+            }
         )
 
         viewModel.observeEventHint(
