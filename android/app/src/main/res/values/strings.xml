@@ -64,6 +64,7 @@
     <string name="menu_practice">ПРАКТИКА</string>
     <string name="menu_qt">СКАНИРОВАТЬ QR-КОД</string>
     <string name="menu_stacked_help">СПРАВКА</string>
+    <string name="menu_settings">НАСТРОЙКИ</string>
     <string name="menu_exit">ВЫХОД</string>
     <string name="menu_actionbar_text">Learn Braille. Меню</string>
     <string name="menu_db_not_initialized_warning">
