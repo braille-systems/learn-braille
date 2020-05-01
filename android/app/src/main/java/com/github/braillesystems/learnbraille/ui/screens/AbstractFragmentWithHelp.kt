@@ -16,7 +16,10 @@ typealias HelpMsgId = Int
 /**
  * Do not forget to add in onCreate `setHasOptionsMenu(true)`
  */
-abstract class AbstractFragmentWithHelp(val helpMsgId: HelpMsgId) : Fragment() {
+abstract class AbstractFragmentWithHelp(private val helpMsgId: HelpMsgId) : Fragment() {
+
+    protected open val helpMsg: String
+        get() = getString(helpMsgId)
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -28,15 +31,15 @@ abstract class AbstractFragmentWithHelp(val helpMsgId: HelpMsgId) : Fragment() {
             if (item.itemId == R.id.help) navigateToHelp()
         }
 
-    protected fun navigateToHelp(helpMsg: String) {
+    protected fun navigateToHelp() {
+        navigateToHelp(helpMsg)
+    }
+
+    private fun navigateToHelp(helpMsg: String) {
         Timber.i("Navigate to help")
         val action = PracticeFragmentDirections.actionGlobalHelpFragment()
         action.helpMessage = helpMsg
         application.announceByAccessibility(helpMsg)
         findNavController().navigate(action)
-    }
-
-    protected open fun navigateToHelp() {
-        navigateToHelp(getString(helpMsgId))
     }
 }
