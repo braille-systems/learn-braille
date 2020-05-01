@@ -43,4 +43,10 @@
         <item name="android:forceDarkAllowed">false</item>
     </style>
 
+    <style name="SwitchPreferenceButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/colorSecondary</item>
+        <item name="colorSwitchThumbNormal">@color/colorOnSecondary</item>
+        <item name="android:colorForeground">@color/colorPrimary</item>
+    </style>
+
 </resources>

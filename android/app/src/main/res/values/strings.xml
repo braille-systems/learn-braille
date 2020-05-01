@@ -193,5 +193,12 @@
 
     <string name="help_title">Справка</string>
 
+    <!--    Settings-->
+    <string name="preference_notifications">ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ</string>
+    <string name="preference_buzz">ВИБРАЦИЯ</string>
+    <string name="preference_buzz_summary">Вибрация в ответ на результат выполнения задания</string>
+    <string name="preference_use_textbook">ИСПОЛЬЗОВАНИЕ БУКВАРЯ</string>
+    <string name="preference_use_textbook_summary">Шаги с обращением к бумажному букварю в теоретическом курсе</string>
+
 </resources>
 
