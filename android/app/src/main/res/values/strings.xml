@@ -47,7 +47,7 @@
     <string name="exit_no">Остаться в меню приложения Learn Braille</string>
     <string name="exit_voice_yes">Да </string>
     <string name="exit_voice_no">Нет</string>
-    <string name="exit_question">Вы хотите выйти?</string>
+    <string name="exit_question">Хотите ли Вы выйти?</string>
 
     <!--    Greeting-->
 
