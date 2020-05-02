@@ -2,19 +2,14 @@ package com.github.braillesystems.learnbraille.data.db
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.fragment.app.Fragment
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.github.braillesystems.learnbraille.data.entities.*
-import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_LESSONS
-import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_USERS
-import com.github.braillesystems.learnbraille.res.russian.steps.PREPOPULATE_STEPS
-import com.github.braillesystems.learnbraille.res.russian.symbols.PREPOPULATE_SYMBOLS
+import com.github.braillesystems.learnbraille.res.prepopulationData
 import com.github.braillesystems.learnbraille.userId
-import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -23,26 +18,32 @@ import timber.log.Timber
 @Database(
     entities =
     [
-        User::class, Lesson::class, Step::class, Symbol::class,
-        UserKnowsSymbol::class, UserPassedStep::class, UserLastStep::class
+        User::class, Material::class, KnownMaterials::class,
+        Deck::class, Card::class,
+        Course::class, Lesson::class, Step::class, Annotation::class, StepAnnotation::class
     ],
-    version = 6,
+    version = 6, // TODO increment version
     exportSchema = false
 )
 @TypeConverters(
-    BrailleDotsConverters::class,
-    LanguageConverters::class,
-    StepDataConverters::class
+    // TODO TypeConverters
 )
 abstract class LearnBrailleDatabase : RoomDatabase() {
 
+    // TODO add daos
     abstract val userDao: UserDao
+    abstract val materialDao: MaterialDao
+    abstract val knownMaterialsDao: KnownMaterialsDao
+
+    abstract val deckDao: DeckDao
+    abstract val cardDao: CardDao
+
+    abstract val courseDao: CourseDao
     abstract val lessonDao: LessonDao
     abstract val stepDao: StepDao
-    abstract val symbolDao: SymbolDao
-    abstract val userKnowsSymbolDao: UserKnowsSymbolDao
-    abstract val userPassedStepDao: UserPassedStepDao
-    abstract val userLastStep: UserLastStepDao
+    abstract val annotationDao: AnnotationsDao
+    abstract val stepAnnotationDao: StepAnnotationDao
+
 
     companion object {
 
@@ -82,19 +83,29 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                 }
 
                 private fun prepopulate() {
-                    Timber.i("prepopulate")
+                    Timber.i("Prepopulate")
                     prepopulationFinished = false
-                    scope().launch {
-                        Timber.i("Start database prepopulation")
-                        getInstance(context).apply {
-                            userDao.insertUsers(PREPOPULATE_USERS)
-                            lessonDao.insertLessons(PREPOPULATE_LESSONS)
-                            stepDao.insertSteps(PREPOPULATE_STEPS)
-                            symbolDao.insertSymbols(PREPOPULATE_SYMBOLS)
+                    getInstance(context).apply {
+                        prepopulationData.use {
+                            scope().launch {
+                                Timber.i("Start database prepopulation")
+
+                                userDao.insert(users)
+                                materialDao.insert(materials)
+                                deckDao.insert(decks)
+                                cardDao.insert(cards)
+                                courseDao.insert(courses)
+                                lessonDao.insert(lessons)
+                                stepDao.insert(steps)
+                                annotationDao.insert(annotations)
+                                stepAnnotationDao.insert(stepAnnotations)
+
+                                Timber.i("Finnish database prepopulation")
+                                prepopulationFinished = true
+                            }
                         }
-                        Timber.i("Finnish database prepopulation")
-                        prepopulationFinished = true
                     }
+
                 }
             })
             .fallbackToDestructiveMigration()
@@ -123,5 +134,3 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
             }
     }
 }
-
-fun Fragment.getDBInstance() = LearnBrailleDatabase.getInstance(application)

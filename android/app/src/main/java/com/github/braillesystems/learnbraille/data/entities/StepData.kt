@@ -2,6 +2,8 @@ package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.TypeConverter
 
+// TODO refactor step data
+
 /**
  * There are specific step types in the app.
  * They differs by visual representation and by the data they contain.

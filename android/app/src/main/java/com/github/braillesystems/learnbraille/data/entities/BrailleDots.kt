@@ -3,6 +3,7 @@ package com.github.braillesystems.learnbraille.data.entities
 import androidx.room.TypeConverter
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 
+
 /**
  * State of one Braille dot.
  */
@@ -15,6 +16,7 @@ enum class BrailleDot {
         fun valueOf(c: Char) = valueOf(c.toString())
     }
 }
+
 
 /**
  * Combination on Braille dots for one symbol in 6-dots notation.
@@ -61,6 +63,7 @@ val BrailleDots.spelling: String
         }
         .filterNotNull()
         .joinToString(separator = ", ")
+
 
 class BrailleDotsConverters {
 

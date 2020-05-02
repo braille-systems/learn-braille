@@ -26,6 +26,7 @@ class LearnBrailleApplication : Application() {
     }
 }
 
+// TODO move to repository
 val Context.preferences: SharedPreferences
     get() = getSharedPreferences(
         getString(R.string.preference_file_key),
@@ -50,5 +51,6 @@ const val TOAST_DURATION = Toast.LENGTH_SHORT
 var USE_DEBUG_LESSONS: Boolean = false
     private set
 
+// TODO move to repository
 val Context.userId: Long
     get() = preferences.getInt(getString(R.string.preference_current_user), 1).toLong()
