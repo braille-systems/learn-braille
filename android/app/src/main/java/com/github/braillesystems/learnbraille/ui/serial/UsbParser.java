@@ -50,23 +50,33 @@ public class UsbParser {
             if (signalHandler == null)
                 return;
             String data = (String) msg.obj;
-            usbWrapper.send("?"); // waiting for a new signal
-            switch (data) {
-                case "l":
-                    signalHandler.onJoystickLeft();
-                    break;
-                case "r":
-                    signalHandler.onJoystickRight();
-                    break;
-                case "u":
-                    signalHandler.onJoystickUp();
-                    break;
-                case "d":
-                    signalHandler.onJoystickDown();
-            }
             if (Pattern.matches("[0-1]+", data) && data.length() == 6) {
                 BrailleDots symbol = new BrailleDots(data.replace("1", "F").replace("0", "E"));
                 signalHandler.onSymbolInput(symbol);
+                return;
+            }
+            switch (data.charAt(0)) {
+                case 'l':
+                    signalHandler.onJoystickLeft();
+                    break;
+                case 'r':
+                    signalHandler.onJoystickRight();
+                    break;
+                case 'u':
+                    signalHandler.onJoystickUp();
+                    break;
+                case 'd':
+                    signalHandler.onJoystickDown();
+                    break;
+                default:
+                    usbWrapper.send("?");
+                    return;
+            }
+            try {
+                Thread.sleep(500);
+                usbWrapper.send("?");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

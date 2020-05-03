@@ -100,16 +100,22 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
                 makeIntroLetterToast(it)
             }
         )
-
-        UsbParser.setSignalHandler(UsbPracticeHandler())
-
+        UsbParser.setSignalHandler(UsbPracticeHandler(viewModel))
     }.root
 }
 
-class UsbPracticeHandler : UsbSignalHandler {
+class UsbPracticeHandler(private val viewModel: PracticeViewModel) : UsbSignalHandler {
+
     override fun onJoystickRight() {
+        viewModel.onCheck()
+    }
+
+    override fun onJoystickLeft() {
+        viewModel.onHint()
     }
 }
+
+
 
 
 
