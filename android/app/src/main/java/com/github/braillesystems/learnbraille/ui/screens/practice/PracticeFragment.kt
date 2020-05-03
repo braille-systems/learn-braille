@@ -1,7 +1,5 @@
 package com.github.braillesystems.learnbraille.ui.screens.practice
 
-import android.content.IntentFilter
-import android.hardware.usb.UsbManager
 import android.os.Bundle
 import android.os.Vibrator
 import android.view.LayoutInflater
@@ -14,13 +12,13 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.getDBInstance
 import com.github.braillesystems.learnbraille.databinding.FragmentPracticeBinding
 import com.github.braillesystems.learnbraille.ui.screens.*
-import com.github.braillesystems.learnbraille.ui.serial.UsbSerial
+import com.github.braillesystems.learnbraille.ui.serial.UsbParser
+import com.github.braillesystems.learnbraille.ui.serial.UsbSignalHandler
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
 import com.github.braillesystems.learnbraille.ui.views.brailleDots
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.updateTitle
-import com.github.braillesystems.learnbraille.utils.usbManager
 import timber.log.Timber
 
 class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
@@ -70,17 +68,6 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         lifecycleOwner = this@PracticeFragment
 
 
-        // Init serial connection with Braille Trainer
-        // TODO extract initialization to factory
-        val filter = IntentFilter().apply {
-            addAction(UsbSerial.ACTION_USB_PERMISSION)
-            addAction(UsbManager.ACTION_USB_ACCESSORY_ATTACHED)
-            addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
-        }
-        val serial = UsbSerial(application.usbManager, application)
-        application.registerReceiver(serial.broadcastReceiver, filter)
-
-
         viewModel.observeEventCorrect(
             viewLifecycleOwner, application, dotsState, buzzer
         ) {
@@ -96,7 +83,7 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         }
 
         viewModel.observeEventHint(
-            viewLifecycleOwner, dotsState, serial
+            viewLifecycleOwner, dotsState
         ) { expectedDots ->
             makeHintDotsToast(expectedDots)
         }
@@ -114,5 +101,15 @@ class PracticeFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             }
         )
 
+        UsbParser.setSignalHandler(UsbPracticeHandler())
+
     }.root
 }
+
+class UsbPracticeHandler : UsbSignalHandler {
+    override fun onJoystickRight() {
+    }
+}
+
+
+

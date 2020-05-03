@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.databinding.ActivityMainBinding
+import com.github.braillesystems.learnbraille.ui.serial.UsbParser
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         navController = findNavController(R.id.navHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController)
+        UsbParser.init(this);
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
