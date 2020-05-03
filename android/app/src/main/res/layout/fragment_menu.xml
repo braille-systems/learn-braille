@@ -16,7 +16,7 @@
             android:insetRight="8dp"
             android:text="@string/menu_continue"
             android:textColor="@color/colorOnSecondary"
-            android:textSize="36sp"
+            android:textSize="@dimen/menu_text_size"
             app:backgroundTint="@color/colorSecondary"
             app:shapeAppearanceOverlay="@style/bigButtonsShape" />
 
@@ -29,7 +29,7 @@
             android:insetRight="8dp"
             android:text="@string/menu_practice"
             android:textColor="@color/colorOnSecondary"
-            android:textSize="36sp"
+            android:textSize="@dimen/menu_text_size"
             app:shapeAppearanceOverlay="@style/bigButtonsShape" />
 
         <com.google.android.material.button.MaterialButton
@@ -41,7 +41,7 @@
             android:insetRight="8dp"
             android:text="@string/menu_qt"
             android:textColor="@color/colorOnSecondary"
-            android:textSize="36sp"
+            android:textSize="@dimen/menu_text_size"
             app:backgroundTint="@color/colorSecondary"
             app:shapeAppearanceOverlay="@style/bigButtonsShape" />
 
@@ -54,7 +54,7 @@
             android:insetRight="8dp"
             android:text="@string/menu_stacked_help"
             android:textColor="@color/colorOnSecondary"
-            android:textSize="36sp"
+            android:textSize="@dimen/menu_text_size"
             app:shapeAppearanceOverlay="@style/bigButtonsShape" />
 
         <com.google.android.material.button.MaterialButton
@@ -66,7 +66,7 @@
             android:insetRight="8dp"
             android:text="@string/menu_exit"
             android:textColor="@color/colorOnSecondary"
-            android:textSize="36sp"
+            android:textSize="@dimen/menu_text_size"
             app:backgroundTint="@color/colorSecondary"
             app:shapeAppearanceOverlay="@style/bigButtonsShape" />
 
