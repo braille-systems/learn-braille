@@ -3,9 +3,6 @@
     package="com.github.braillesystems.learnbraille">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-feature android:name="android.hardware.usb.host"
-        android:required="true"/>
-
     <application
         android:name="com.github.braillesystems.learnbraille.LearnBrailleApplication"
         android:allowBackup="false"
