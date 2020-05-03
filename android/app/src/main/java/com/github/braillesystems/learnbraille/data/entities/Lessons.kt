@@ -5,8 +5,7 @@ import androidx.room.*
 
 @Entity(tableName = "lesson")
 data class Lesson(
-    @PrimaryKey
-    val id: Long,
+    @PrimaryKey val id: Long,
     val name: String,
     val description: String,
     @ColumnInfo(name = "course_id")

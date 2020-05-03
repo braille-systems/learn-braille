@@ -1,12 +1,10 @@
 package com.github.braillesystems.learnbraille.data.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Dao
-import androidx.room.Entity
+import androidx.room.*
 
 
 @Entity(tableName = "known_materials", primaryKeys = ["user_id", "material_id"])
-data class KnownMaterials(
+data class KnownMaterial(
     @ColumnInfo(name = "user_id")
     val userId: Long,
     @ColumnInfo(name = "material_id")
@@ -14,6 +12,8 @@ data class KnownMaterials(
 )
 
 @Dao
-interface KnownMaterialsDao {
-    // TODO KnownMaterialsDao
+interface KnownMaterialDao {
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(knowledge: KnownMaterial)
 }

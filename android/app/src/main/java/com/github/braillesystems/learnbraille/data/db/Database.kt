@@ -18,7 +18,7 @@ import timber.log.Timber
 @Database(
     entities =
     [
-        User::class, Material::class, KnownMaterials::class,
+        User::class, Material::class, KnownMaterial::class,
         Deck::class, Card::class,
         Course::class, Lesson::class, Step::class, Annotation::class, StepAnnotation::class
     ],
@@ -30,10 +30,9 @@ import timber.log.Timber
 )
 abstract class LearnBrailleDatabase : RoomDatabase() {
 
-    // TODO add daos
     abstract val userDao: UserDao
     abstract val materialDao: MaterialDao
-    abstract val knownMaterialsDao: KnownMaterialsDao
+    abstract val knownMaterialDao: KnownMaterialDao
 
     abstract val deckDao: DeckDao
     abstract val cardDao: CardDao

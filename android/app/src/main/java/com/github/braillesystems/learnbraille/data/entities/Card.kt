@@ -3,7 +3,7 @@ package com.github.braillesystems.learnbraille.data.entities
 import androidx.room.*
 
 
-@Entity(tableName = "cards")
+@Entity(tableName = "cards", primaryKeys = ["deck_id", "material_id"])
 data class Card(
     @ColumnInfo(name = "deck_id")
     val deckId: Long,
@@ -16,6 +16,4 @@ interface CardDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(cards: List<Card>)
-
-    // TODO
 }

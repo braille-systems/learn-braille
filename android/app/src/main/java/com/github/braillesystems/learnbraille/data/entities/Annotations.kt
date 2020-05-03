@@ -1,9 +1,6 @@
 package com.github.braillesystems.learnbraille.data.entities
 
-import androidx.room.Dao
-import androidx.room.Entity
-import androidx.room.Insert
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 
 @Entity(tableName = "annotations")
@@ -16,8 +13,6 @@ data class Annotation(
 @Dao
 interface AnnotationsDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(annotations: List<Annotation>)
-
-    // TODO AnnotationsDao
 }

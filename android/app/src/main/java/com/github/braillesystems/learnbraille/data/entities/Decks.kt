@@ -8,8 +8,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "decks")
 data class Deck(
-    @PrimaryKey
-    val id: Long,
+    @PrimaryKey val id: Long,
     val name: String,
     val description: String = ""
 )
@@ -19,6 +18,4 @@ interface DeckDao {
 
     @Insert
     suspend fun insert(decks: List<Deck>)
-
-    // TODO DeckDao
 }

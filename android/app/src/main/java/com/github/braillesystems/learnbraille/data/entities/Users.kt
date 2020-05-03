@@ -2,10 +2,10 @@ package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
 
-@Entity(tableName = "users", primaryKeys = ["id", "login"])
+@Entity(tableName = "users", primaryKeys = ["id", "login"]) // TODO unique
 data class User(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
+    var id: Long = 0,
     val login: String,
     val name: String
 )
