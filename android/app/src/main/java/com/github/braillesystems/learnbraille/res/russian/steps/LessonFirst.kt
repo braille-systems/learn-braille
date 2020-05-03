@@ -1,7 +1,7 @@
 package com.github.braillesystems.learnbraille.res.russian.steps
 
-import com.github.braillesystems.learnbraille.database.entities.FirstInfo
-import com.github.braillesystems.learnbraille.database.entities.Step
+import com.github.braillesystems.learnbraille.data.entities.FirstInfo
+import com.github.braillesystems.learnbraille.data.entities.Step
 import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_LESSONS
 
 val VERY_FIRST = Step(

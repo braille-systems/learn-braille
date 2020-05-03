@@ -35,4 +35,6 @@
 
     <dimen name="big_buttons_border_radius">40dp</dimen>
 
+    <dimen name="menu_text_size">36dp</dimen>
+
 </resources>

@@ -7,14 +7,14 @@
 
         <variable
             name="practiceViewModel"
-            type="com.github.braillesystems.learnbraille.screens.practice.PracticeViewModel" />
+            type="com.github.braillesystems.learnbraille.ui.screens.practice.PracticeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screens.practice.PracticeFragment">
+        tools:context=".ui.screens.practice.PracticeFragment">
 
         <TextView
             android:id="@+id/letter"
@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="M" />
 
-        <com.github.braillesystems.learnbraille.views.BrailleDotsView
+        <com.github.braillesystems.learnbraille.ui.views.BrailleDotsView
             android:id="@+id/braille_dots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

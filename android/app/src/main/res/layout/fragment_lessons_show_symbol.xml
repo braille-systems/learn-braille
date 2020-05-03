@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="M" />
 
-        <com.github.braillesystems.learnbraille.views.BrailleDotsView
+        <com.github.braillesystems.learnbraille.ui.views.BrailleDotsView
             android:id="@+id/braille_dots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

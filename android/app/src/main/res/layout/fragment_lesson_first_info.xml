@@ -25,6 +25,7 @@
             android:id="@+id/info_text_view"
             android:layout_width="@dimen/lessons_info_width"
             android:layout_height="@dimen/lessons_info_height"
+            android:scrollbars="vertical"
             android:text=""
             android:textSize="@dimen/lessons_info_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
