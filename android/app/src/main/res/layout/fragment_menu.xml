@@ -45,17 +45,6 @@
             app:backgroundTint="@color/colorSecondary"
             app:shapeAppearanceOverlay="@style/bigButtonsShape" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/stacked_help_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:insetLeft="8dp"
-            android:insetRight="8dp"
-            android:text="@string/menu_stacked_help"
-            android:textColor="@color/colorOnSecondary"
-            android:textSize="36sp"
-            app:shapeAppearanceOverlay="@style/bigButtonsShape" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/settings_button"
@@ -67,7 +56,6 @@
             android:text="@string/menu_settings"
             android:textColor="@color/colorOnSecondary"
             android:textSize="36sp"
-            app:backgroundTint="@color/colorSecondary"
             app:shapeAppearanceOverlay="@style/bigButtonsShape" />
 
         <com.google.android.material.button.MaterialButton
@@ -80,6 +68,7 @@
             android:text="@string/menu_exit"
             android:textColor="@color/colorOnSecondary"
             android:textSize="36sp"
+            app:backgroundTint="@color/colorSecondary"
             app:shapeAppearanceOverlay="@style/bigButtonsShape" />
 
 
