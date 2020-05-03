@@ -193,5 +193,11 @@
 
     <string name="help_title">Справка</string>
 
+    <!-- USB -->
+    <string name="usb_permission_granted">Установлено соединение с Тренажёром Брайля</string>
+    <string name="usb_permission_denied">Разрешение на подключение не выдано</string>
+    <string name="usb_device_disconnected">Тренажёр Брайля отключён</string>
+    <string name="usb_unknown_device">Этот аппарат не поддерживается</string>
+
 </resources>
 

@@ -12,6 +12,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.widget.Toast;
 
+import com.github.braillesystems.learnbraille.R;
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots;
 
 import java.util.regex.Pattern;
@@ -86,18 +87,18 @@ final class UsbWrapper {
         public void onReceive(Context context, Intent intent) {
             switch (intent.getAction()) {
                 case UsbService.ACTION_USB_PERMISSION_GRANTED: // USB PERMISSION GRANTED
-                    Toast.makeText(context, "Установлено соединение с Тренажёром Брайля", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.usb_permission_granted, Toast.LENGTH_SHORT).show();
                     break;
                 case UsbService.ACTION_USB_PERMISSION_NOT_GRANTED: // USB PERMISSION NOT GRANTED
-                    Toast.makeText(context, "Разрешение на подключение не выдано", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.usb_permission_denied, Toast.LENGTH_SHORT).show();
                     break;
                 case UsbService.ACTION_NO_USB: // NO USB CONNECTED
                     break;
                 case UsbService.ACTION_USB_DISCONNECTED: // USB DISCONNECTED
-                    Toast.makeText(context, "Тренажёр Брайля отключён", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.usb_device_disconnected, Toast.LENGTH_SHORT).show();
                     break;
                 case UsbService.ACTION_USB_NOT_SUPPORTED: // USB NOT SUPPORTED
-                    Toast.makeText(context, "Этот аппарат не поддерживается", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.usb_unknown_device, Toast.LENGTH_SHORT).show();
                     break;
             }
         }
