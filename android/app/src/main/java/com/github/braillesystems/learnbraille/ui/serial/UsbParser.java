@@ -1,6 +1,5 @@
 package com.github.braillesystems.learnbraille.ui.serial;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -22,7 +21,6 @@ import timber.log.Timber;
 public class UsbParser {
     private static UsbSignalHandler signalHandler = new UsbSignalHandler() {
     };
-    @SuppressLint("StaticFieldLeak") // TODO
     private static UsbWrapper usbWrapper = null;
 
     // call once
@@ -106,26 +104,25 @@ final class UsbWrapper {
     };
     private UsbService usbService;
     private Handler mHandler;
-    private Activity activity;
     private long birthTimeMillis = System.currentTimeMillis();
 
-    private void startService(ServiceConnection serviceConnection) {
+    private void startService(ServiceConnection serviceConnection, Activity parentActivity) {
         if (!UsbService.SERVICE_CONNECTED) {
-            Intent startService = new Intent(activity, UsbService.class);
-            activity.startService(startService);
+            Intent startService = new Intent(parentActivity, UsbService.class);
+            parentActivity.startService(startService);
         }
-        Intent bindingIntent = new Intent(activity, UsbService.class);
-        activity.bindService(bindingIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+        Intent bindingIntent = new Intent(parentActivity, UsbService.class);
+        parentActivity.bindService(bindingIntent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
-    private void setFilters() {
+    private void setFilters(Activity parentActivity) {
         IntentFilter filter = new IntentFilter();
         filter.addAction(UsbService.ACTION_USB_PERMISSION_GRANTED);
         filter.addAction(UsbService.ACTION_NO_USB);
         filter.addAction(UsbService.ACTION_USB_DISCONNECTED);
         filter.addAction(UsbService.ACTION_USB_NOT_SUPPORTED);
         filter.addAction(UsbService.ACTION_USB_PERMISSION_NOT_GRANTED);
-        activity.registerReceiver(mUsbReceiver, filter);
+        parentActivity.registerReceiver(mUsbReceiver, filter);
     }
 
     void send(String data) {
@@ -140,8 +137,7 @@ final class UsbWrapper {
 
     UsbWrapper(Handler handler, Activity parentActivity) {
         mHandler = handler;
-        activity = parentActivity;
-        setFilters();  // Start listening notifications from UsbService
+        setFilters(parentActivity);  // Start listening notifications from UsbService
         ServiceConnection usbConnection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName arg0, IBinder arg1) {
@@ -154,6 +150,6 @@ final class UsbWrapper {
                 usbService = null;
             }
         };
-        startService(usbConnection); // Start UsbService
+        startService(usbConnection, parentActivity); // Start UsbService
     }
 }
