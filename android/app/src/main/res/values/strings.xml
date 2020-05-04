@@ -5,6 +5,10 @@
     <string name="app_name">Learn Braille Beta</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_help_message">No help message</string>
+    <string name="preference_file_key">preferences</string>
+    <string name="preference_use_debug_lessons">use_debug_lessons</string>
+    <string name="preference_enable_buzz">enable_buzz</string>
+    <string name="preference_current_user">current_user</string>
 
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
@@ -15,7 +19,7 @@
 
     <!--    QR-->
 
-    <string name="qr_intent_cancelled">Ошибка, попытайтесь ещё раз</string>
+    <string name="qr_intent_cancelled">Установите сканнер qr кодов и попробуйте снова</string>
 
     <!--    Practice-->
 
@@ -45,7 +49,9 @@
 
     <string name="exit_yes">Выйти из приложения Learn Braille</string>
     <string name="exit_no">Остаться в меню приложения Learn Braille</string>
-    <string name="exit_question">Вы хотите выйти?</string>
+    <string name="exit_voice_yes">Да </string>
+    <string name="exit_voice_no">Нет</string>
+    <string name="exit_question">Хотите ли Вы выйти?</string>
 
     <!--    Greeting-->
 
@@ -56,10 +62,11 @@
 
     <!--    Menu-->
 
-    <string name="menu_continue">продолжить курс</string>
+    <string name="menu_continue">ТЕОРИЯ</string>
     <string name="menu_practice">ПРАКТИКА</string>
     <string name="menu_qt">СКАНИРОВАТЬ QR-КОД</string>
     <string name="menu_stacked_help">СПРАВКА</string>
+    <string name="menu_settings">НАСТРОЙКИ</string>
     <string name="menu_exit">ВЫХОД</string>
     <string name="menu_actionbar_text">Learn Braille. Меню</string>
     <string name="menu_db_not_initialized_warning">
@@ -70,7 +77,7 @@
         <![CDATA[
         <b>Обучение системе Луи Брайля: главное меню.</b>
         <br><br>
-        <b>“Продолжить курс“:</b> пошаговые уроки с демонстрацией плоскопечатных и
+        <b>“Теория“:</b> пошаговые уроки с демонстрацией плоскопечатных и
         рельефно-точечных символов крупным шрифтом, вводом символов и поясняющими комментариями.
         <br>
         <b>”Практика“:</b> Повторяйте буквы, вводя их в шеститочии на экране.
@@ -80,7 +87,7 @@
         что написано на карточке. Для этого необходимо дополнительное приложение.
         Если его ещё нет, по нажатию кнопки Вы будете перенаправлены на страницу для скачивания приложения.
         Находясь в любом разделе приложения, Вы всегда можете вызвать справку по данному разделу,
-        нажав экранную кнопку "справка" в правом верхнем углу экрана.
+        нажав экранную кнопку <b>"справка"</b> в правом верхнем углу экрана.
         ]]>
     </string>
 
@@ -107,13 +114,18 @@
 
     <string name="lessons_help_template">%s\n\n%s</string>
 
-    <!--    TODO not used-->
     <string name="lessons_help_common">
         <![CDATA[
-        <b>Переход</b> к следующему шагу - кнопка справа, к предыдущему - кнопка слева.
+        <br><br>
+        <b>Переход</b> к следующему шагу - кнопка <b>вперёд</b> справа по центру,
+         к предыдущему - кнопка <b>назад</b> слева по центру.
         <br>
-        <b>Выход в меню</b> приложения - кнопка вверху слева. <b>Вызов справки</b> -
-        кнопка вверху справа.
+        <b>Выход в меню</b> приложения - кнопка <b>перейти вверх</b> в верхней панели слева.
+        <br>
+        <b>Вызов справки</b> - кнопка в верхней панели справа.
+        <br>
+        <b>К прогрессу</b> - кнопка справа по центру экрана над кнопкой <b>вперёд</b>. Эта кнопка
+         перенаправляет к последнему непройденному шагу.
         ]]>
     </string>
 
@@ -161,7 +173,7 @@
 
     <string name="lessons_help_last_info">
         <![CDATA[
-        <b>Самый последный шаг курса! Поздравляем!</b>
+        <b>Самый последний шаг курса! Поздравляем!</b>
         <br><br>
         Чтобы выйти в главное меню, нажмите дважды кнопку слева сверху.
         ]]>
@@ -183,6 +195,19 @@
     <!--    Help-->
 
     <string name="help_title">Справка</string>
+
+    <!-- USB -->
+    <string name="usb_permission_granted">Установлено соединение с Тренажёром Брайля</string>
+    <string name="usb_permission_denied">Разрешение на подключение не выдано</string>
+    <string name="usb_device_disconnected">Тренажёр Брайля отключён</string>
+    <string name="usb_unknown_device">Этот аппарат не поддерживается</string>
+    <!--    Settings-->
+    <string name="preferences_titlebar_text">Learn Braille. Настройки</string>
+    <string name="preference_notifications">ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ</string>
+    <string name="preference_buzz">ВИБРАЦИЯ</string>
+    <string name="preference_buzz_summary">Вибрация в ответ на результат выполнения задания</string>
+    <string name="preference_use_textbook">ИСПОЛЬЗОВАНИЕ БУКВАРЯ</string>
+    <string name="preference_use_textbook_summary">Шаги с обращением к бумажному букварю в теоретическом курсе</string>
 
 </resources>
 

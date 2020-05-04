@@ -18,12 +18,12 @@
     <dimen name="practice_buttons_border_radius">60dp</dimen>
 
     <dimen name="lessons_title_width">428dp</dimen>
-    <dimen name="lessons_title_height">64dp</dimen>
-    <dimen name="lessons_title_text_size">20sp</dimen>
+    <dimen name="lessons_title_height">80dp</dimen>
+    <dimen name="lessons_title_text_size">35sp</dimen>
     <dimen name="lessons_title_vertical_bias">0.05</dimen>
-    <dimen name="lessons_info_width">300dp</dimen>
-    <dimen name="lessons_info_height">500dp</dimen>
-    <dimen name="lessons_info_text_size">18sp</dimen>
+    <dimen name="lessons_info_width">350dp</dimen>
+    <dimen name="lessons_info_height">650dp</dimen>
+    <dimen name="lessons_info_text_size">30sp</dimen>
     <dimen name="lessons_letter_vertical_bias">0.0</dimen>
     <dimen name="lessons_dots_info_width">394dp</dimen>
     <dimen name="lessons_dots_info_height">175dp</dimen>
@@ -31,5 +31,7 @@
     <dimen name="big_letter_text_size">150sp</dimen>
 
     <dimen name="big_buttons_border_radius">30dp</dimen>
+
+    <dimen name="menu_text_size">45dp</dimen>
 
 </resources>

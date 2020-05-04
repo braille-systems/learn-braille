@@ -1,8 +1,8 @@
 package com.github.braillesystems.learnbraille.res.russian.steps
 
-import com.github.braillesystems.learnbraille.database.entities.*
-import com.github.braillesystems.learnbraille.database.entities.BrailleDot.E
-import com.github.braillesystems.learnbraille.database.entities.BrailleDot.F
+import com.github.braillesystems.learnbraille.data.entities.*
+import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
+import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import com.github.braillesystems.learnbraille.res.russian.symbols.symbolMap
 
 val DEBUG_LESSONS

@@ -1,10 +1,13 @@
 package com.github.braillesystems.learnbraille.res.russian.steps
 
-import com.github.braillesystems.learnbraille.database.entities.*
+import com.github.braillesystems.learnbraille.data.entities.Info
+import com.github.braillesystems.learnbraille.data.entities.InputSymbol
+import com.github.braillesystems.learnbraille.data.entities.ShowSymbol
+import com.github.braillesystems.learnbraille.data.entities.StepData
 import com.github.braillesystems.learnbraille.res.russian.symbols.symbolMap
 
 private fun Step(title: String, data: StepData) =
-    Step(
+    com.github.braillesystems.learnbraille.data.entities.Step(
         title = title,
         lessonId = 2L,
         data = data
@@ -41,7 +44,7 @@ val LESSON_2_STEPS
         Step(
             title = "Работа с букварём",
             data = Info(
-                """Откройте букварь на странице 13. Вверху слева рельефно-грфаическое
+                """Откройте букварь на странице 13. Вверху слева рельефно-графическое
                     |изображение буквы А. Рядом после полного шеститочия пять раз повторена 
                     |буква А точечным шрифтом."""
             )

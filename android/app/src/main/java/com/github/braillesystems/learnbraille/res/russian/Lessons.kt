@@ -1,6 +1,6 @@
 package com.github.braillesystems.learnbraille.res.russian
 
-import com.github.braillesystems.learnbraille.database.entities.Lesson
+import com.github.braillesystems.learnbraille.data.entities.Lesson
 
 val PREPOPULATE_LESSONS
     get() = listOf(
