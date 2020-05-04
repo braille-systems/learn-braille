@@ -64,9 +64,9 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             }
         }
 
-        //stackedHelpButton.setOnClickListener {
-           // navigateToHelp()
-        //}
+        settingsButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_settingsFragment)
+        )
 
         exitButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_exitFragment)
