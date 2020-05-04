@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+<!--    <data>-->
 
-        <variable
-            name="inputViewModel"
-            type="com.github.braillesystems.learnbraille.ui.screens.lessons.InputViewModel" />
-    </data>
+<!--        <variable-->
+<!--            name="inputViewModel"-->
+<!--            type="com.github.braillesystems.learnbraille.ui.screens.lessons.InputViewModel" />-->
+<!--    </data>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -56,13 +56,14 @@
 
         <!--        Buttons-->
 
+                    android:onClick="@{() -> inputViewModel.onHint()}"
         <com.google.android.material.button.MaterialButton
             android:id="@+id/hint_button"
             android:layout_width="@dimen/practice_buttons_width"
             android:layout_height="@dimen/practice_buttons_small_height"
             android:backgroundTint="@color/colorSecondary"
             android:contentDescription="@string/lessons_hint"
-            android:onClick="@{() -> inputViewModel.onHint()}"
+
             android:text="?"
             android:textSize="@dimen/practice_buttons_icon_size"
             app:layout_constraintBottom_toTopOf="@+id/prev_button"
@@ -99,13 +100,14 @@
             app:layout_constraintVertical_bias="@dimen/practice_buttons_vertical_bias"
             app:shapeAppearanceOverlay="@style/sideLeftButtonsShape" />
 
+        <!--            android:onClick="@{() -> inputViewModel.onCheck()}"-->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/next_button"
             style="@style/sideIconButtons"
             android:layout_width="@dimen/practice_buttons_width"
             android:layout_height="@dimen/practice_buttons_height"
             android:contentDescription="@string/lessons_next"
-            android:onClick="@{() -> inputViewModel.onCheck()}"
+
             app:icon="@drawable/navigate_right"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

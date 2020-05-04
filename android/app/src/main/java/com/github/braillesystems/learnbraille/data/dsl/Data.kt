@@ -84,22 +84,23 @@ class _Data(
         val annotationByName = mutableMapOf<AnnotationName, Annotation>()
 
         annotations.forEach { annotation ->
-            val annotationId = _annotations.size + 1L
-            val fixedAnnotation = annotation.copy(id = annotationId)
-            _annotations += fixedAnnotation
-            require(!annotationByName.contains(annotation.name)) {
-                "There should be only one annotation with name = ${fixedAnnotation.name}"
+            annotation.copy(id = _annotations.size + 1L).also {
+                _annotations += it
+                require(!annotationByName.contains(annotation.name)) {
+                    "There should be only one annotation with name = ${annotation.name}"
+                }
+                annotationByName[annotation.name] = it
             }
-            annotationByName[annotation.name] = fixedAnnotation
         }
 
         data.forEach { (course, lessons) ->
             require(lessons.first().second.first().first.data is FirstInfo) {
                 "First step of the course (${course.name}) should be FirstInfo"
             }
-            require(lessons.last().second.first().first.data is LastInfo) {
-                "Last step of the course (${course.name}) should be LastInfo"
-            }
+            // TODO require LastInfo
+//            require(lessons.last().second.first().first.data is LastInfo) {
+//                "Last step of the course (${course.name}) should be LastInfo"
+//            }
 
             val courseId = courses.size + 1L
             _courses += course.copy(id = courseId)

@@ -34,7 +34,7 @@ class _Steps(block: _Steps.() -> Unit) {
 
     private val _steps = mutableListOf<StepWithAnnotation>()
     internal val steps: List<StepWithAnnotation>
-        get() = TODO()
+        get() = _steps
 
     init {
         block()

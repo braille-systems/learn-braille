@@ -101,25 +101,25 @@ private val golubinaLessons by lessons {
             """Буква А обозначается одной точкой, точкой номер один.
                     |Ознакомьтесь с ней."""
         )
-        +ShowSymbol(ruSymbols['А']!!)
+        +Show(content.symbols.getValue('A'))
         +Info(
             """Откройте букварь на странице 13. Вверху слева рельефно-графическое
                     |изображение буквы А. Рядом после полного шеститочия пять раз повторена 
                     |буква А точечным шрифтом."""
         )
-        +InputSymbol(ruSymbols['А']!!)
-        +ShowSymbol(ruSymbols['Б']!!)
+        +Input(content.symbols.getValue('А'))
+        +Show(content.symbols.getValue('Б'))
         +Info(
             """Снова изучим страницу 13 в букваре. Под строкой с буквой А - 
                     |такая же с буквой Б."""
         ).annotate(StepAnnotation.someBookRequired)
-        +InputSymbol(ruSymbols['Б']!!)
+        +Input(content.symbols.getValue('Б'))
         +Info(
             """Ознакомьтесь с буквой Ц на странице 13 букваря. 
                     |Строка с буквой Ц находится под строкой с буквой Б."""
         ).annotate(StepAnnotation.someBookRequired)
-        +ShowSymbol(ruSymbols['Ц']!!)
-        +InputSymbol(ruSymbols['Ц']!!)
+        +Show(content.symbols.getValue('Ц'))
+        +Input(content.symbols.getValue('Ц'))
         +Info(
             """Поздравляем! Второй урок пройден. В следующем занятии мы узнаем, 
                     |как с помощью букв А, Б и Ц составить цифры 1, 2 и 3."""

@@ -3,7 +3,7 @@ package com.github.braillesystems.learnbraille.data.entities
 import androidx.room.*
 
 
-@Entity(tableName = "step")
+@Entity(tableName = "steps")
 data class Step(
     @PrimaryKey val id: Long,
     val data: StepData,
@@ -14,6 +14,9 @@ data class Step(
 @Dao
 interface StepDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(steps: List<Step>)
+
+    @Query("select * from steps where id = :id")
+    suspend fun getStep(id: Long): Step?
 }

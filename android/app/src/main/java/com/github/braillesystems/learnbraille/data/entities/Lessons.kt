@@ -3,7 +3,7 @@ package com.github.braillesystems.learnbraille.data.entities
 import androidx.room.*
 
 
-@Entity(tableName = "lesson")
+@Entity(tableName = "lessons")
 data class Lesson(
     @PrimaryKey val id: Long,
     val name: String,

@@ -1,9 +1,6 @@
 package com.github.braillesystems.learnbraille.data.entities
 
-import androidx.room.Dao
-import androidx.room.Entity
-import androidx.room.Insert
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 
 @Entity(tableName = "decks")
@@ -18,4 +15,7 @@ interface DeckDao {
 
     @Insert
     suspend fun insert(decks: List<Deck>)
+
+    @Query("select * from decks where id = :id")
+    suspend fun getDeck(id: Long): Deck?
 }

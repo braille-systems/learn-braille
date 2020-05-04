@@ -21,10 +21,21 @@ class _Materials(block: _Materials.() -> Unit) {
     internal val materials: List<Material>
         get() = _materials
 
+    private val _symbols = mutableMapOf<Char, Material>()
+    val symbols: Map<Char, Material>
+        get() = _symbols
+
     init {
         block()
         _materials = materials.mapIndexed { index, material ->
-            material.copy(id = index + 1L)
+            material.copy(id = index + 1L).apply {
+                if (data is Symbol) {
+                    require(!_symbols.contains(data.symbol)) {
+                        "Symbol (symbol = ${data.symbol}, type = ${data.type}) already exists"
+                    }
+                    _symbols[data.symbol] = this
+                }
+            }
         }.toMutableList()
     }
 

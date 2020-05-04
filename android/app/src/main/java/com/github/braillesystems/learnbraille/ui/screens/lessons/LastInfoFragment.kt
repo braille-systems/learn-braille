@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.data.db.getDBInstance
 import com.github.braillesystems.learnbraille.data.entities.LastInfo
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonLastInfoBinding
 import com.github.braillesystems.learnbraille.userId
@@ -29,22 +28,22 @@ class LastInfoFragment : AbstractLesson(R.string.lessons_help_last_info) {
         updateTitle(getString(R.string.lessons_title_last_info))
         setHasOptionsMenu(true)
 
-        val step = getStepArg()
-        require(step.data is LastInfo)
-        titleTextView.text = step.title
-        infoTextView.text = step.data.text
-        infoTextView.movementMethod = ScrollingMovementMethod()
-
-        getDBInstance().run {
-            prevButton.setOnClickListener {
-                navigateToPrevStep(
-                    current = step,
-                    userId = application.userId,
-                    stepDao = stepDao,
-                    lastStepDao = userLastStep
-                )
-            }
-        }
+//        val step = getStepArg()
+//        require(step.data is LastInfo)
+//        titleTextView.text = step.title
+//        infoTextView.text = step.data.text
+//        infoTextView.movementMethod = ScrollingMovementMethod()
+//
+//        getDBInstance().run {
+//            prevButton.setOnClickListener {
+//                navigateToPrevStep(
+//                    current = step,
+//                    userId = application.userId,
+//                    stepDao = stepDao,
+//                    lastStepDao = userLastStep
+//                )
+//            }
+//        }
 
     }.root
 }

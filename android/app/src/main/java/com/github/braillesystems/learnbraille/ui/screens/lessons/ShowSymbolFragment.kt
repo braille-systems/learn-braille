@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.data.db.getDBInstance
-import com.github.braillesystems.learnbraille.data.entities.ShowSymbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowSymbolBinding
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
@@ -33,38 +31,38 @@ class ShowSymbolFragment : AbstractLesson(R.string.lessons_help_show_symbol) {
         updateTitle(getString(R.string.lessons_title_show_symbol))
         setHasOptionsMenu(true)
 
-        val step = getStepArg()
-        require(step.data is ShowSymbol)
-        titleTextView.text = step.title
-        letter.text = step.data.symbol.symbol.toString()
-        brailleDots.dotsState.display(step.data.symbol.brailleDots)
-
-        getDBInstance().apply {
-            prevButton.setOnClickListener {
-                navigateToPrevStep(
-                    current = step,
-                    userId = application.userId,
-                    stepDao = stepDao,
-                    lastStepDao = userLastStep
-                )
-            }
-            nextButton.setOnClickListener {
-                navigateToNextStep(
-                    current = step,
-                    userId = application.userId,
-                    stepDao = stepDao,
-                    lastStepDao = userLastStep,
-                    upsd = userPassedStepDao
-                )
-            }
-            toCurrStepButton.setOnClickListener {
-                navigateToCurrentStep(
-                    userId = application.userId,
-                    stepDao = stepDao,
-                    lastStepDao = userLastStep
-                )
-            }
-        }
+//        val step = getStepArg()
+//        require(step.data is ShowSymbol)
+//        titleTextView.text = step.title
+//        letter.text = step.data.symbol.symbol.toString()
+//        brailleDots.dotsState.display(step.data.symbol.brailleDots)
+//
+//        getDBInstance().apply {
+//            prevButton.setOnClickListener {
+//                navigateToPrevStep(
+//                    current = step,
+//                    userId = application.userId,
+//                    stepDao = stepDao,
+//                    lastStepDao = userLastStep
+//                )
+//            }
+//            nextButton.setOnClickListener {
+//                navigateToNextStep(
+//                    current = step,
+//                    userId = application.userId,
+//                    stepDao = stepDao,
+//                    lastStepDao = userLastStep,
+//                    upsd = userPassedStepDao
+//                )
+//            }
+//            toCurrStepButton.setOnClickListener {
+//                navigateToCurrentStep(
+//                    userId = application.userId,
+//                    stepDao = stepDao,
+//                    lastStepDao = userLastStep
+//                )
+//            }
+//        }
 
     }.root
 }

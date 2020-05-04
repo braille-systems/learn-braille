@@ -10,9 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.INCORRECT_BUZZ_PATTERN
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.checkedBuzz
-import com.github.braillesystems.learnbraille.data.db.getDBInstance
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
-import com.github.braillesystems.learnbraille.data.entities.InputSymbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputSymbolBinding
 import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.views.*
@@ -43,71 +41,71 @@ class InputSymbolFragment : AbstractInputLesson(R.string.lessons_help_input_symb
         updateTitle(getString(R.string.lessons_title_input_symbol))
         setHasOptionsMenu(true)
 
-        val step = getStepArg()
-        require(step.data is InputSymbol)
-        titleTextView.text = step.title
-        letter.text = step.data.symbol.symbol.toString()
-        brailleDots.dotsState.display(step.data.symbol.brailleDots)
-        makeIntroLetterToast(step.data.symbol.symbol.toString())
-
-        expectedDots = step.data.symbol.brailleDots
-        userTouchedDots = false
-        dotsState = brailleDots.dotsState.apply {
-            uncheck()
-            clickable(true)
-            checkBoxes.forEach { checkBox ->
-                checkBox.setOnClickListener {
-                    userTouchedDots = true
-                }
-            }
-        }
-
-
-        val viewModelFactory = InputViewModelFactory(application, expectedDots) {
-            dotsState.brailleDots
-        }
-        viewModel = ViewModelProvider(
-            this@InputSymbolFragment, viewModelFactory
-        ).get(InputViewModel::class.java)
-        buzzer = activity?.getSystemService()
-
-
-        inputViewModel = viewModel
-        lifecycleOwner = this@InputSymbolFragment
-
-
-        val database = getDBInstance()
-
-        prevButton.setOnClickListener(getPrevButtonListener(step, application.userId, database))
-        toCurrStepButton.setOnClickListener(getToCurrStepListener(application.userId, database))
-
-        viewModel.observeEventCorrect(
-            viewLifecycleOwner, application, dotsState, buzzer,
-            getEventCorrectObserverBlock(step, application.userId, database)
-        )
-
-        viewModel.observeEventIncorrect(
-            viewLifecycleOwner, application, dotsState,
-            buzzer = null,  // No notification by default
-            block = getEventIncorrectObserverBlock(
-                step, application.userId, database
-            ) {
-                makeIncorrectLetterToast(step.data.symbol.symbol.toString())
-                buzzer.checkedBuzz(application, INCORRECT_BUZZ_PATTERN)
-            }
-        )
-
-        viewModel.observeEventHint(
-            viewLifecycleOwner, dotsState, /* serial */
-            block = getEventHintObserverBlock()
-        )
-
-        viewModel.observeEventPassHint(
-            viewLifecycleOwner, dotsState,
-            getEventPassHintObserverBlock {
-                makeIntroLetterToast(step.data.symbol.symbol.toString())
-            }
-        )
+//        val step = getStepArg()
+//        require(step.data is InputSymbol)
+//        titleTextView.text = step.title
+//        letter.text = step.data.symbol.symbol.toString()
+//        brailleDots.dotsState.display(step.data.symbol.brailleDots)
+//        makeIntroLetterToast(step.data.symbol.symbol.toString())
+//
+//        expectedDots = step.data.symbol.brailleDots
+//        userTouchedDots = false
+//        dotsState = brailleDots.dotsState.apply {
+//            uncheck()
+//            clickable(true)
+//            checkBoxes.forEach { checkBox ->
+//                checkBox.setOnClickListener {
+//                    userTouchedDots = true
+//                }
+//            }
+//        }
+//
+//
+//        val viewModelFactory = InputViewModelFactory(application, expectedDots) {
+//            dotsState.brailleDots
+//        }
+//        viewModel = ViewModelProvider(
+//            this@InputSymbolFragment, viewModelFactory
+//        ).get(InputViewModel::class.java)
+//        buzzer = activity?.getSystemService()
+//
+//
+//        inputViewModel = viewModel
+//        lifecycleOwner = this@InputSymbolFragment
+//
+//
+//        val database = getDBInstance()
+//
+//        prevButton.setOnClickListener(getPrevButtonListener(step, application.userId, database))
+//        toCurrStepButton.setOnClickListener(getToCurrStepListener(application.userId, database))
+//
+//        viewModel.observeEventCorrect(
+//            viewLifecycleOwner, application, dotsState, buzzer,
+//            getEventCorrectObserverBlock(step, application.userId, database)
+//        )
+//
+//        viewModel.observeEventIncorrect(
+//            viewLifecycleOwner, application, dotsState,
+//            buzzer = null,  // No notification by default
+//            block = getEventIncorrectObserverBlock(
+//                step, application.userId, database
+//            ) {
+//                makeIncorrectLetterToast(step.data.symbol.symbol.toString())
+//                buzzer.checkedBuzz(application, INCORRECT_BUZZ_PATTERN)
+//            }
+//        )
+//
+//        viewModel.observeEventHint(
+//            viewLifecycleOwner, dotsState, /* serial */
+//            block = getEventHintObserverBlock()
+//        )
+//
+//        viewModel.observeEventPassHint(
+//            viewLifecycleOwner, dotsState,
+//            getEventPassHintObserverBlock {
+//                makeIntroLetterToast(step.data.symbol.symbol.toString())
+//            }
+//        )
 
     }.root
 }

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.data.db.getDBInstance
 import com.github.braillesystems.learnbraille.data.entities.ShowDots
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowDotsBinding
@@ -34,40 +33,40 @@ class ShowDotsFragment : AbstractLesson(R.string.lessons_help_show_dots) {
         updateTitle(getString(R.string.lessons_title_show_dots))
         setHasOptionsMenu(true)
 
-        val step = getStepArg()
-        require(step.data is ShowDots)
-        titleTextView.text = step.title
-        infoTextView.text = step.data.text
-            ?: getString(R.string.lessons_show_dots_info_template)
-                .format(step.data.dots.spelling)
-        brailleDots.dotsState.display(step.data.dots)
-
-        getDBInstance().apply {
-            prevButton.setOnClickListener {
-                navigateToPrevStep(
-                    current = step,
-                    userId = application.userId,
-                    stepDao = stepDao,
-                    lastStepDao = userLastStep
-                )
-            }
-            nextButton.setOnClickListener {
-                navigateToNextStep(
-                    current = step,
-                    userId = application.userId,
-                    stepDao = stepDao,
-                    lastStepDao = userLastStep,
-                    upsd = userPassedStepDao
-                )
-            }
-            toCurrStepButton.setOnClickListener {
-                navigateToCurrentStep(
-                    userId = application.userId,
-                    stepDao = stepDao,
-                    lastStepDao = userLastStep
-                )
-            }
-        }
+//        val step = getStepArg()
+//        require(step.data is ShowDots)
+//        titleTextView.text = step.title
+//        infoTextView.text = step.data.text
+//            ?: getString(R.string.lessons_show_dots_info_template)
+//                .format(step.data.dots.spelling)
+//        brailleDots.dotsState.display(step.data.dots)
+//
+//        getDBInstance().apply {
+//            prevButton.setOnClickListener {
+//                navigateToPrevStep(
+//                    current = step,
+//                    userId = application.userId,
+//                    stepDao = stepDao,
+//                    lastStepDao = userLastStep
+//                )
+//            }
+//            nextButton.setOnClickListener {
+//                navigateToNextStep(
+//                    current = step,
+//                    userId = application.userId,
+//                    stepDao = stepDao,
+//                    lastStepDao = userLastStep,
+//                    upsd = userPassedStepDao
+//                )
+//            }
+//            toCurrStepButton.setOnClickListener {
+//                navigateToCurrentStep(
+//                    userId = application.userId,
+//                    stepDao = stepDao,
+//                    lastStepDao = userLastStep
+//                )
+//            }
+//        }
 
     }.root
 }

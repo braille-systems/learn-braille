@@ -2,7 +2,7 @@ package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
 
-@Entity(tableName = "users", primaryKeys = ["id", "login"]) // TODO unique
+@Entity(tableName = "users", indices = [Index(value = ["login"], unique = true)]) // TODO unique
 data class User(
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
@@ -14,7 +14,7 @@ data class User(
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(user: User): Int
+    suspend fun insert(user: User)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(users: List<User>)

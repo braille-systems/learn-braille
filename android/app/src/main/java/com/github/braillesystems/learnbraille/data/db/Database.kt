@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.github.braillesystems.learnbraille.data.entities.*
+import com.github.braillesystems.learnbraille.data.entities.Annotation
 import com.github.braillesystems.learnbraille.res.prepopulationData
 import com.github.braillesystems.learnbraille.userId
 import com.github.braillesystems.learnbraille.utils.scope
@@ -22,11 +23,12 @@ import timber.log.Timber
         Deck::class, Card::class,
         Course::class, Lesson::class, Step::class, Annotation::class, StepAnnotation::class
     ],
-    version = 6, // TODO increment version
+    version = 7, // TODO increment version
     exportSchema = false
 )
 @TypeConverters(
-    // TODO TypeConverters
+    BrailleDotsConverters::class,
+    MaterialDataTypeConverters::class, StepDataConverters::class
 )
 abstract class LearnBrailleDatabase : RoomDatabase() {
 
