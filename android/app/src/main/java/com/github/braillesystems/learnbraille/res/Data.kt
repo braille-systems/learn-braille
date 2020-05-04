@@ -16,6 +16,9 @@ object StepAnnotation {
 }
 
 
+// TODO data versioning
+
+
 val prepopulationData by data(
     materials = content
 ) {
@@ -32,7 +35,7 @@ val prepopulationData by data(
             name = "По Голубиной, но не совсем",
             description = "Совсем не совсем"
         ) {
-            +golubinaLessons
+            +golubinaIntroLessons
             +someMoreGolubinaLessons
         }
 
@@ -48,7 +51,7 @@ val prepopulationData by data(
     }
 }
 
-private val golubinaLessons by lessons {
+private val golubinaIntroLessons by lessons {
 
     val name1 = "Знакомство с шеститочием"
     lesson(

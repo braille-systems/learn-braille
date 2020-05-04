@@ -6,12 +6,12 @@ import com.github.braillesystems.learnbraille.data.entities.StepData
 import com.github.braillesystems.learnbraille.utils.side
 import kotlin.reflect.KProperty
 
-class lessons(private val block: _Lessons.() -> Unit) {
+class lessons(private val block: LessonsBuilder.() -> Unit) {
 
-    operator fun getValue(thisRef: Any?, property: KProperty<*>) = _Lessons(block)
+    operator fun getValue(thisRef: Any?, property: KProperty<*>) = LessonsBuilder(block)
 }
 
-class _Lessons(block: _Lessons.() -> Unit) {
+class LessonsBuilder(block: LessonsBuilder.() -> Unit) {
 
     private val _lessons = mutableListOf<LessonWithSteps>()
     internal val lessons: List<LessonWithSteps>
@@ -21,8 +21,8 @@ class _Lessons(block: _Lessons.() -> Unit) {
         block()
     }
 
-    fun lesson(name: String, description: String = "", block: _Steps.() -> Unit) =
-        _Steps(block).side {
+    fun lesson(name: String, description: String = "", block: StepsBuilder.() -> Unit) =
+        StepsBuilder(block).side {
             _lessons += Pair(
                 Lesson(DEFAULT_ID, name, description, DEFAULT_ID),
                 it.steps
@@ -30,10 +30,10 @@ class _Lessons(block: _Lessons.() -> Unit) {
         }
 }
 
-class _Steps(block: _Steps.() -> Unit) {
+class StepsBuilder(block: StepsBuilder.() -> Unit) {
 
-    private val _steps = mutableListOf<StepWithAnnotation>()
-    internal val steps: List<StepWithAnnotation>
+    private val _steps = mutableListOf<StepWithAnnotations>()
+    internal val steps: List<StepWithAnnotations>
         get() = _steps
 
     init {
@@ -43,11 +43,11 @@ class _Steps(block: _Steps.() -> Unit) {
     operator fun StepData.unaryPlus() {
         _steps += Pair(
             Step(DEFAULT_ID, this, DEFAULT_ID),
-            null
+            listOf()
         )
     }
 
-    operator fun Pair<StepData, AnnotationName>.unaryPlus() {
+    operator fun Pair<StepData, List<AnnotationName>>.unaryPlus() {
         _steps += Pair(
             Step(DEFAULT_ID, first, DEFAULT_ID),
             second
@@ -55,4 +55,4 @@ class _Steps(block: _Steps.() -> Unit) {
     }
 }
 
-infix fun StepData.annotate(name: AnnotationName) = Pair(this, name)
+fun StepData.annotate(vararg names: AnnotationName) = Pair(this, names.toList())

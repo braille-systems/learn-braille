@@ -9,32 +9,32 @@ import kotlin.reflect.KProperty
 const val DEFAULT_ID = -1L
 
 typealias AnnotationName = String
-typealias StepWithAnnotation = Pair<Step, AnnotationName?>
-typealias LessonWithSteps = Pair<Lesson, List<StepWithAnnotation>>
+typealias StepWithAnnotations = Pair<Step, List<AnnotationName>>
+typealias LessonWithSteps = Pair<Lesson, List<StepWithAnnotations>>
 
 
 class data(
-    private val materials: _Materials,
-    private val block: _Data.() -> Unit
+    private val materials: MaterialsBuilder,
+    private val block: DataBuilder.() -> Unit
 ) {
 
-    internal operator fun getValue(thisRef: Any?, property: KProperty<*>): _DataWrapper {
+    internal operator fun getValue(thisRef: Any?, property: KProperty<*>): DataWrapper {
         require(property.name == "prepopulationData") {
             "This value is used to prepopulate database, do not change it's name"
         }
-        val data = _Data(materials, block)
-        return _DataWrapper(data)
+        val data = DataBuilder(materials, block)
+        return DataWrapper(data)
     }
 }
 
-class _DataWrapper(private val data: _Data) {
+class DataWrapper(private val data: DataBuilder) {
 
-    fun use(block: _Data.() -> Unit) = data.block()
+    fun use(block: DataBuilder.() -> Unit) = data.block()
 }
 
-class _Data(
-    private val _materials: _Materials,
-    block: _Data.() -> Unit
+class DataBuilder(
+    private val _materials: MaterialsBuilder,
+    block: DataBuilder.() -> Unit
 ) {
 
     private val _users = mutableListOf<User>()
@@ -76,55 +76,54 @@ class _Data(
         block()
     }
 
-    fun users(block: _Users.() -> Unit) {
-        _users += _Users(block).users
+    fun users(block: UsersBuilder.() -> Unit) {
+        _users += UsersBuilder(block).users
     }
 
-    fun courses(block: _Courses.() -> Unit) = _Courses(block).apply {
+    fun courses(block: CoursesBuilder.() -> Unit) = CoursesBuilder(block).apply {
         val annotationByName = mutableMapOf<AnnotationName, Annotation>()
 
         annotations.forEach { annotation ->
             annotation.copy(id = _annotations.size + 1L).also {
                 _annotations += it
-                require(!annotationByName.contains(annotation.name)) {
-                    "There should be only one annotation with name = ${annotation.name}"
+                require(!annotationByName.contains(it.name)) {
+                    "There should be only one annotation with name = ${it.name}"
                 }
                 annotationByName[annotation.name] = it
             }
         }
 
-        data.forEach { (course, lessons) ->
-            require(lessons.first().second.first().first.data is FirstInfo) {
+        data.forEach { (course, lessonsWithSteps) ->
+            require(lessonsWithSteps.first().second.first().first.data is FirstInfo) {
                 "First step of the course (${course.name}) should be FirstInfo"
             }
-            // TODO require LastInfo
-//            require(lessons.last().second.first().first.data is LastInfo) {
-//                "Last step of the course (${course.name}) should be LastInfo"
-//            }
+            require(lessonsWithSteps.last().second.last().first.data is LastInfo) {
+                "Last step of the course (${course.name}) should be LastInfo"
+            }
 
             val courseId = courses.size + 1L
             _courses += course.copy(id = courseId)
 
-            lessons.forEach { (lesson, steps) ->
-                val lessonId = lessons.size + 1L
+            lessonsWithSteps.forEach { (lesson, stepsWithAnnotations) ->
+                val lessonId = _lessons.size + 1L
                 _lessons += lesson.copy(id = lessonId, courseId = courseId)
 
-                steps.forEach { (step, annotationName) ->
+                stepsWithAnnotations.forEach { (step, annotationNames) ->
                     val stepId = _steps.size + 1L
                     _steps += step.copy(id = stepId, lessonId = lessonId)
-                    if (annotationName != null) {
-                        _stepAnnotations += StepAnnotation(
-                            stepId, annotationByName[annotationName]?.id
-                                ?: error("Step annotated with not existing annotation: $annotationName")
-                        )
+
+                    annotationNames.forEach {
+                        val annotation = annotationByName[it]?.id
+                            ?: error("Step annotated with not existing annotation: $annotationNames")
+                        _stepAnnotations += StepAnnotation(stepId, annotation)
                     }
                 }
             }
         }
     }
 
-    fun decks(block: _Decks.() -> Unit) =
-        _Decks(block).side {
+    fun decks(block: DecksBuilder.() -> Unit) =
+        DecksBuilder(block).side {
             it.deckToPredicate.forEach { (deck, p) ->
                 val deckId = decks.size + 1L
                 _decks += deck.copy(id = deckId)
@@ -139,7 +138,7 @@ class _Data(
 }
 
 
-class _Decks(block: _Decks.() -> Unit) {
+class DecksBuilder(block: DecksBuilder.() -> Unit) {
 
     private val _deckToPredicate = mutableMapOf<Deck, (MaterialData) -> Boolean>()
     internal val deckToPredicate: Map<Deck, (MaterialData) -> Boolean>

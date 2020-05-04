@@ -7,15 +7,15 @@ import com.github.braillesystems.learnbraille.data.entities.SymbolType
 import kotlin.reflect.KProperty
 
 
-open class materials(private val block: _Materials.() -> Unit) {
+open class materials(private val block: MaterialsBuilder.() -> Unit) {
 
-    private var materials: _Materials? = null
+    private var materials: MaterialsBuilder? = null
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>) =
-        materials ?: _Materials(block).also { materials = it }
+        materials ?: MaterialsBuilder(block).also { materials = it }
 }
 
-class _Materials(block: _Materials.() -> Unit) {
+class MaterialsBuilder(block: MaterialsBuilder.() -> Unit) {
 
     private var _materials = mutableListOf<Material>()
     internal val materials: List<Material>
@@ -39,7 +39,7 @@ class _Materials(block: _Materials.() -> Unit) {
         }.toMutableList()
     }
 
-    operator fun _Symbols.unaryPlus() {
+    operator fun SymbolsBuilder.unaryPlus() {
         symbols.forEach { symbol ->
             _materials.add(Material(DEFAULT_ID, symbol))
         }
@@ -47,15 +47,15 @@ class _Materials(block: _Materials.() -> Unit) {
 }
 
 
-class symbols(private val type: SymbolType, private val block: _Symbols.() -> Unit) {
+class symbols(private val type: SymbolType, private val block: SymbolsBuilder.() -> Unit) {
 
-    private var symbols: _Symbols? = null
+    private var symbols: SymbolsBuilder? = null
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>) =
-        symbols ?: _Symbols(type, block).also { symbols = it }
+        symbols ?: SymbolsBuilder(type, block).also { symbols = it }
 }
 
-class _Symbols(val type: SymbolType, block: _Symbols.() -> Unit) {
+class SymbolsBuilder(val type: SymbolType, block: SymbolsBuilder.() -> Unit) {
 
     private var map = mutableMapOf<Char, Symbol>()
     internal val symbols: List<Symbol>

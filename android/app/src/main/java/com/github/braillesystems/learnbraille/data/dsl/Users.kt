@@ -3,7 +3,7 @@ package com.github.braillesystems.learnbraille.data.dsl
 import com.github.braillesystems.learnbraille.data.entities.User
 
 
-class _Users(block: _Users.() -> Unit) {
+class UsersBuilder(block: UsersBuilder.() -> Unit) {
 
     private val _users = mutableListOf<User>()
     internal val users: List<User>
