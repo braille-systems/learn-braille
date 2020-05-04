@@ -21,6 +21,8 @@
             app:layout_constraintVertical_bias="@dimen/lessons_title_vertical_bias"
             tools:text="ЗАГОЛОВОК!" />
 
+        <!--        Buttons-->
+
         <TextView
             android:id="@+id/info_text_view"
             android:layout_width="@dimen/lessons_info_width"
@@ -30,11 +32,11 @@
             android:textSize="@dimen/lessons_info_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="@dimen/lessons_info_horizontal_bias"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_text_view"
+            app:layout_constraintVertical_bias="@dimen/lessons_info_vertical_bias"
             tools:text="ИНФОРМАЦИЯ!" />
-
-        <!--        Buttons-->
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/next_button"
