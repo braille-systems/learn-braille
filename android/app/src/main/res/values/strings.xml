@@ -66,6 +66,7 @@
     <string name="menu_practice">ПРАКТИКА</string>
     <string name="menu_qt">СКАНИРОВАТЬ QR-КОД</string>
     <string name="menu_stacked_help">СПРАВКА</string>
+    <string name="menu_settings">НАСТРОЙКИ</string>
     <string name="menu_exit">ВЫХОД</string>
     <string name="menu_actionbar_text">Learn Braille. Меню</string>
     <string name="menu_db_not_initialized_warning">
@@ -194,6 +195,14 @@
     <!--    Help-->
 
     <string name="help_title">Справка</string>
+
+    <!--    Settings-->
+    <string name="preferences_titlebar_text">Learn Braille. Настройки</string>
+    <string name="preference_notifications">ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ</string>
+    <string name="preference_buzz">ВИБРАЦИЯ</string>
+    <string name="preference_buzz_summary">Вибрация в ответ на результат выполнения задания</string>
+    <string name="preference_use_textbook">ИСПОЛЬЗОВАНИЕ БУКВАРЯ</string>
+    <string name="preference_use_textbook_summary">Шаги с обращением к бумажному букварю в теоретическом курсе</string>
 
 </resources>
 
