@@ -10,7 +10,7 @@ import com.github.braillesystems.learnbraille.CORRECT_BUZZ_PATTERN
 import com.github.braillesystems.learnbraille.INCORRECT_BUZZ_PATTERN
 import com.github.braillesystems.learnbraille.checkedBuzz
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
-import com.github.braillesystems.learnbraille.ui.serial.UsbSerial
+import com.github.braillesystems.learnbraille.ui.serial.UsbParser
 import com.github.braillesystems.learnbraille.ui.views.*
 import timber.log.Timber
 
@@ -196,7 +196,6 @@ inline fun DotsChecker.observeEventIncorrect(
 inline fun DotsChecker.observeEventHint(
     lifecycleOwner: LifecycleOwner,
     dotsState: BrailleDotsState,
-    serial: UsbSerial? = null,
     crossinline block: (BrailleDots) -> Unit
 ): Unit = eventHint.observe(
     lifecycleOwner,
@@ -204,7 +203,7 @@ inline fun DotsChecker.observeEventHint(
         if (expectedDots == null) return@Observer
         Timber.i("Handle hint")
         dotsState.display(expectedDots)
-        serial?.trySend(expectedDots)
+        UsbParser.trySend(expectedDots)
         block(expectedDots)
         onHintComplete()
     }
