@@ -13,6 +13,10 @@ typealias StepWithAnnotations = Pair<Step, List<AnnotationName>>
 typealias LessonWithSteps = Pair<Lesson, List<StepWithAnnotations>>
 
 
+@DslMarker
+annotation class DataBuilderMarker
+
+
 class data(
     private val materials: MaterialsBuilder,
     private val block: DataBuilder.() -> Unit
@@ -32,6 +36,8 @@ class DataWrapper(private val data: DataBuilder) {
     fun use(block: DataBuilder.() -> Unit) = data.block()
 }
 
+
+@DataBuilderMarker
 class DataBuilder(
     private val _materials: MaterialsBuilder,
     block: DataBuilder.() -> Unit
@@ -80,10 +86,11 @@ class DataBuilder(
         _users += UsersBuilder(block).users
     }
 
-    fun courses(block: CoursesBuilder.() -> Unit) = CoursesBuilder(block).apply {
-        val annotationByName = mutableMapOf<AnnotationName, Annotation>()
+    fun courses(block: CoursesBuilder.() -> Unit) {
+        val coursesBuilder = CoursesBuilder(block)
 
-        annotations.forEach { annotation ->
+        val annotationByName = mutableMapOf<AnnotationName, Annotation>()
+        coursesBuilder.annotations.forEach { annotation ->
             annotation.copy(id = _annotations.size + 1L).also {
                 _annotations += it
                 require(!annotationByName.contains(it.name)) {
@@ -93,7 +100,7 @@ class DataBuilder(
             }
         }
 
-        data.forEach { (course, lessonsWithSteps) ->
+        coursesBuilder.data.forEach { (course, lessonsWithSteps) ->
             require(lessonsWithSteps.first().second.first().first.data is FirstInfo) {
                 "First step of the course (${course.name}) should be FirstInfo"
             }
@@ -138,6 +145,7 @@ class DataBuilder(
 }
 
 
+@DataBuilderMarker
 class DecksBuilder(block: DecksBuilder.() -> Unit) {
 
     private val _deckToPredicate = mutableMapOf<Deck, (MaterialData) -> Boolean>()

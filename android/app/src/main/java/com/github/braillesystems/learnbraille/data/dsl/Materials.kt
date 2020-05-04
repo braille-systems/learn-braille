@@ -15,6 +15,7 @@ open class materials(private val block: MaterialsBuilder.() -> Unit) {
         materials ?: MaterialsBuilder(block).also { materials = it }
 }
 
+@DataBuilderMarker
 class MaterialsBuilder(block: MaterialsBuilder.() -> Unit) {
 
     private var _materials = mutableListOf<Material>()
@@ -41,7 +42,7 @@ class MaterialsBuilder(block: MaterialsBuilder.() -> Unit) {
 
     operator fun SymbolsBuilder.unaryPlus() {
         symbols.forEach { symbol ->
-            _materials.add(Material(DEFAULT_ID, symbol))
+            this@MaterialsBuilder._materials.add(Material(DEFAULT_ID, symbol))
         }
     }
 }
@@ -55,6 +56,7 @@ class symbols(private val type: SymbolType, private val block: SymbolsBuilder.()
         symbols ?: SymbolsBuilder(type, block).also { symbols = it }
 }
 
+@DataBuilderMarker
 class SymbolsBuilder(val type: SymbolType, block: SymbolsBuilder.() -> Unit) {
 
     private var map = mutableMapOf<Char, Symbol>()

@@ -8,6 +8,7 @@ import com.github.braillesystems.learnbraille.utils.side
 /**
  * Provided values have no ID
  */
+@DataBuilderMarker
 class CoursesBuilder(block: CoursesBuilder.() -> Unit) {
 
     private val _data = mutableMapOf<Course, List<LessonWithSteps>>()
@@ -39,6 +40,7 @@ class CoursesBuilder(block: CoursesBuilder.() -> Unit) {
         }
 }
 
+@DataBuilderMarker
 class LessonAccumulatorBuilder(block: LessonAccumulatorBuilder.() -> Unit) {
 
     private val _lessons = mutableListOf<LessonWithSteps>()
@@ -50,10 +52,11 @@ class LessonAccumulatorBuilder(block: LessonAccumulatorBuilder.() -> Unit) {
     }
 
     operator fun LessonsBuilder.unaryPlus() {
-        _lessons += this.lessons
+        this@LessonAccumulatorBuilder._lessons += this.lessons
     }
 }
 
+@DataBuilderMarker
 class AnnotationsBuilder(block: AnnotationsBuilder.() -> Unit) {
 
     private val _annotations = mutableListOf<Annotation>()

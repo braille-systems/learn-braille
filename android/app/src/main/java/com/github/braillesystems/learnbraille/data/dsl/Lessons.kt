@@ -11,6 +11,7 @@ class lessons(private val block: LessonsBuilder.() -> Unit) {
     operator fun getValue(thisRef: Any?, property: KProperty<*>) = LessonsBuilder(block)
 }
 
+@DataBuilderMarker
 class LessonsBuilder(block: LessonsBuilder.() -> Unit) {
 
     private val _lessons = mutableListOf<LessonWithSteps>()
@@ -30,6 +31,7 @@ class LessonsBuilder(block: LessonsBuilder.() -> Unit) {
         }
 }
 
+@DataBuilderMarker
 class StepsBuilder(block: StepsBuilder.() -> Unit) {
 
     private val _steps = mutableListOf<StepWithAnnotations>()
