@@ -18,6 +18,9 @@ import org.junit.runner.RunWith
 import java.io.IOException
 
 
+/**
+ * Tests data serialization first of all.
+ */
 @RunWith(AndroidJUnit4::class)
 class LearnBrailleDatabaseTest {
 
