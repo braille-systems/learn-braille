@@ -17,7 +17,7 @@ import com.github.braillesystems.learnbraille.ui.serial.UsbSignalHandler
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
 import com.github.braillesystems.learnbraille.ui.views.brailleDots
 import com.github.braillesystems.learnbraille.ui.views.dotsState
-import com.github.braillesystems.learnbraille.utils.toast
+import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -84,7 +84,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         ) {
             viewModel.symbol.value?.let { symbol ->
                 makeIncorrectLetterToast(symbol)
-            } ?: toast(getString(R.string.input_loading))
+            } ?: checkedToast(getString(R.string.input_loading))
             updateTitle(title)
         }
 

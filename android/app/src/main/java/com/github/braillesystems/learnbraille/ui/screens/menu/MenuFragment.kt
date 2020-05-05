@@ -16,8 +16,8 @@ import com.github.braillesystems.learnbraille.data.repository.StepRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.toLastStep
+import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.sendMarketIntent
-import com.github.braillesystems.learnbraille.utils.toast
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -56,7 +56,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
                 intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
                 startActivityForResult(intent, qrRequestCode)
             } catch (e: ActivityNotFoundException) {
-                toast(getString(R.string.qr_intent_cancelled))
+                checkedToast(getString(R.string.qr_intent_cancelled))
                 sendMarketIntent("com.google.zxing.client.android")
             }
         }
@@ -80,7 +80,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     private fun processQrResult(resultCode: Int, data: Intent?) {
         when (resultCode) {
-            RESULT_OK -> toast(
+            RESULT_OK -> checkedToast(
                 data?.getStringExtra("SCAN_RESULT").toString()  // Not to crash app if null
             )
         }
@@ -89,7 +89,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
     private fun interruptingOnClickListener(block: (View) -> Unit) =
         View.OnClickListener {
             if (db.isInitialized) block(it)
-            else toast(getString(R.string.menu_db_not_initialized_warning))
+            else checkedToast(getString(R.string.menu_db_not_initialized_warning))
         }
 
     companion object {

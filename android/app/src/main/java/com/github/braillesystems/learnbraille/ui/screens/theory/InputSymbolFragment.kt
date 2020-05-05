@@ -105,7 +105,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
             dotsState
         ) {
             val notify = {
-                makeIncorrectToast()
+                makeIncorrectLetterToast(symbol.symbol.toString())
                 buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern, preferenceRepository)
             }
             if (userTouchedDots) notify()
@@ -121,7 +121,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         viewModel.observeEventPassHint(
             viewLifecycleOwner, dotsState
         ) {
-            makeIncorrectLetterToast(symbol.symbol.toString())
+            makeIntroLetterToast(symbol.symbol.toString())
         }
 
     }.root

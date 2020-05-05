@@ -22,7 +22,7 @@ fun Vibrator?.checkedBuzz(pattern: BuzzPattern, preferenceRepository: Preference
     if (preferenceRepository.buzzEnabled) buzz(pattern)
 }
 
-fun toast(msg: String, context: Context?, preferenceRepository: PreferenceRepository) {
+fun checkedToast(msg: String, context: Context?, preferenceRepository: PreferenceRepository) {
     if (preferenceRepository.toastsEnabled) {
         Toast.makeText(
             context, msg, preferenceRepository.toastDuration
@@ -30,8 +30,13 @@ fun toast(msg: String, context: Context?, preferenceRepository: PreferenceReposi
     }
 }
 
+fun Fragment.checkedToast(msg: String, preferenceRepository: PreferenceRepository = get()) =
+    checkedToast(msg, context, preferenceRepository)
+
 fun Fragment.toast(msg: String, preferenceRepository: PreferenceRepository = get()) =
-    toast(msg, context, preferenceRepository)
+    Toast.makeText(
+        context, msg, preferenceRepository.toastDuration
+    ).show()
 
 fun Context.announceByAccessibility(
     announcement: String,
