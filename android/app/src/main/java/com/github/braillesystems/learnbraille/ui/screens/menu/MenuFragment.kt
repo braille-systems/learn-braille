@@ -12,20 +12,20 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
-import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
+import com.github.braillesystems.learnbraille.data.repository.StepRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.toast
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
+import com.github.braillesystems.learnbraille.ui.screens.toLastStep
 import com.github.braillesystems.learnbraille.utils.sendMarketIntent
 import com.github.braillesystems.learnbraille.utils.updateTitle
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 
 
-class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help), KoinComponent {
+class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     private val db: LearnBrailleDatabase by inject()
-    private val preferences: PreferenceRepository by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +42,8 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help), KoinComponent
         setHasOptionsMenu(true)
 
         lessonsButton.setOnClickListener(interruptingOnClickListener {
-            // TODO navigate to lesson
+            val stepRepository: StepRepository by inject { parametersOf(1) }
+            toLastStep(stepRepository)
         })
 
         practiceButton.setOnClickListener(interruptingOnClickListener {
@@ -80,7 +81,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help), KoinComponent
     private fun processQrResult(resultCode: Int, data: Intent?) {
         when (resultCode) {
             RESULT_OK -> toast(
-                data?.getStringExtra("SCAN_RESULT").toString()  // Not to crash app
+                data?.getStringExtra("SCAN_RESULT").toString()  // Not to crash app if null
             )
         }
     }

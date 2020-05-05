@@ -195,7 +195,7 @@ inline fun DotsChecker.observeEventHint(
     lifecycleOwner: LifecycleOwner,
     dotsState: BrailleDotsState,
     serial: UsbSerial? = null,
-    crossinline block: (BrailleDots) -> Unit
+    crossinline block: (BrailleDots) -> Unit = {}
 ): Unit = eventHint.observe(
     lifecycleOwner,
     Observer { expectedDots ->
@@ -211,7 +211,7 @@ inline fun DotsChecker.observeEventHint(
 inline fun DotsChecker.observeEventPassHint(
     lifecycleOwner: LifecycleOwner,
     dotsState: BrailleDotsState,
-    crossinline block: () -> Unit
+    crossinline block: () -> Unit = {}
 ): Unit = eventPassHint.observe(
     lifecycleOwner,
     Observer {

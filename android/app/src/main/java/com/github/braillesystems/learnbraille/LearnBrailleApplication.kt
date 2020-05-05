@@ -33,9 +33,9 @@ class LearnBrailleApplication : Application() {
                     get<LearnBrailleDatabase>().userDao
                 )
             }
-            factory<StepRepository> {
+            factory<StepRepository> { (thisCourseId: Long) ->
                 StepRepositoryImpl(
-                    get(), get<LearnBrailleDatabase>().stepDao
+                    thisCourseId, get(), get<LearnBrailleDatabase>().stepDao
                 )
             }
             factory<UserRepository> { UserRepositoryImpl(get<LearnBrailleDatabase>().userDao) }

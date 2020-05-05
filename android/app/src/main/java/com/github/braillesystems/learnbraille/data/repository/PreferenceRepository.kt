@@ -15,11 +15,17 @@ interface PreferenceRepository {
 
     val buzzEnabled: Boolean
     val toastsEnabled: Boolean
-    val speechRecognitionEnabled: Boolean
 
-    val currentUserId: Long get() = 1L // TODO
+    val speechRecognitionEnabled: Boolean
+    fun updateSpeechRecognitionEnabled(value: Boolean)
+
+    val currentUserId: Long
     suspend fun currentUser(): User
-    suspend fun changeUser(login: String)
+
+    /**
+     * Return if user with this login exists and operation succeded
+     */
+    suspend fun changeUser(login: String): Boolean
 
     val toastDuration get() = Toast.LENGTH_SHORT
     val correctBuzzPattern: BuzzPattern get() = longArrayOf(100, 100, 100, 100, 100, 100)
@@ -38,16 +44,42 @@ class PreferenceRepositoryImpl(
         )
 
     override val toastsEnabled: Boolean
-        get() = TODO("Not yet implemented")
+        get() = context.preferences.getBoolean(
+            context.getString(R.string.preference_enable_toasts),
+            true
+        )
 
     override val speechRecognitionEnabled: Boolean
-        get() = TODO("Not yet implemented")
+        get() = context.preferences.getBoolean(
+            context.getString(R.string.preference_enable_speech_recognition), true
+        )
 
-    override suspend fun currentUser(): User = User(1, "default", "AAA") // TODO
-
-    override suspend fun changeUser(login: String) {
-        TODO("Not yet implemented")
+    override fun updateSpeechRecognitionEnabled(value: Boolean) {
+        with(context.preferences.edit()) {
+            putBoolean(context.getString(R.string.preference_enable_speech_recognition), value)
+            apply()
+        }
     }
+
+    override val currentUserId: Long
+        get() = context.preferences.getLong(
+            context.getString(R.string.preference_current_user), 1
+        )
+
+    override suspend fun currentUser(): User =
+        userDao.getUser(currentUserId) ?: error("Current user should always exist")
+
+    override suspend fun changeUser(login: String): Boolean =
+        userDao.getUser(login)?.let { user ->
+            with(context.preferences.edit()) {
+                putLong(
+                    context.getString(R.string.preference_current_user),
+                    user.id
+                )
+                apply()
+            }
+            true
+        } ?: false
 }
 
 private val Context.preferences: SharedPreferences

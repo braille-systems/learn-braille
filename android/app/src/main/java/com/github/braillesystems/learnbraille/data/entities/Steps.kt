@@ -1,9 +1,11 @@
 package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
+import kotlinx.serialization.Serializable
 
 
 @Entity(tableName = "steps")
+@Serializable
 data class Step(
     @PrimaryKey val id: Long,
     val data: StepData,

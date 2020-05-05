@@ -8,7 +8,9 @@
     <string name="preference_file_key">preferences</string>
     <string name="preference_use_debug_lessons">use_debug_lessons</string>
     <string name="preference_enable_buzz">enable_buzz</string>
+    <string name="preference_enable_toasts">enable_toasts</string>
     <string name="preference_current_user">current_user</string>
+    <string name="preference_enable_speech_recognition">enable_speech_recognition</string>
 
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
