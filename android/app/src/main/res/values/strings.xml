@@ -5,7 +5,6 @@
     <string name="app_name">Learn Braille Beta</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_help_message">No help message</string>
-    <string name="preference_file_key">preferences</string>
     <string name="preference_use_debug_lessons">use_debug_lessons</string>
     <string name="preference_enable_buzz">enable_buzz</string>
     <string name="preference_enable_toasts">enable_toasts</string>
@@ -208,12 +207,12 @@
 
     <!--    Settings-->
 
-    <string name="preferences_titlebar_text">Learn Braille. Настройки</string>
-    <string name="preference_notifications">ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ</string>
-    <string name="preference_buzz">ВИБРАЦИЯ</string>
-    <string name="preference_buzz_summary">Вибрация в ответ на результат выполнения задания</string>
-    <string name="preference_use_textbook">ИСПОЛЬЗОВАНИЕ БУКВАРЯ</string>
-    <string name="preference_use_textbook_summary">Шаги с обращением к бумажному букварю в теоретическом курсе</string>
+    <string name="preferences_actionbar_title">Learn Braille. Настройки</string>
+    <string name="preference_title_notifications">ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ</string>
+    <string name="preference_title_buzz">ВИБРАЦИЯ</string>
+    <string name="preference_summary_buzz">Вибрация в ответ на результат выполнения задания</string>
+    <string name="preference_title_use_textbook">ИСПОЛЬЗОВАНИЕ БУКВАРЯ</string>
+    <string name="preference_summary_use_textbook">Шаги с обращением к бумажному букварю в теоретическом курсе</string>
 
 </resources>
 

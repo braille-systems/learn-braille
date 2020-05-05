@@ -11,9 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
-import org.koin.android.ext.android.get
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.collections.MutableMap
+import kotlin.collections.set
 import kotlin.system.exitProcess
 
 // Just copy-pasted from the internet

@@ -3,6 +3,7 @@ package com.github.braillesystems.learnbraille.data.repository
 import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
+import androidx.preference.PreferenceManager
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.User
 import com.github.braillesystems.learnbraille.data.entities.UserDao
@@ -78,7 +79,4 @@ class PreferenceRepositoryImpl(
 }
 
 private val Context.preferences: SharedPreferences
-    get() = getSharedPreferences(
-        getString(R.string.preference_file_key),
-        Context.MODE_PRIVATE
-    )
+    get() = PreferenceManager.getDefaultSharedPreferences(this)
