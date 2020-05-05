@@ -110,11 +110,3 @@ data class ShowDots(
     val text: String?,
     val dots: BrailleDots
 ) : BaseShow()
-
-
-/**
- * Use with raw strings to format text for info steps.
- */
-// TODO stepFormat
-fun String.stepFormat(): String = this
-    .trimMargin()

@@ -13,7 +13,6 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import java.util.*
 import kotlin.collections.HashMap
-import kotlin.collections.MutableMap
 import kotlin.collections.set
 import kotlin.system.exitProcess
 

@@ -181,6 +181,4 @@ class LearnBrailleDatabaseTest {
             assertEquals(step, fromDb)
         }
     }
-
-    // TODO test Dao's
 }
