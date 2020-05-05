@@ -11,12 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
+import timber.log.Timber
 import java.util.*
 import kotlin.collections.HashMap
 import kotlin.collections.set
 import kotlin.system.exitProcess
 
-// Just copy-pasted from the internet
+// TODO refactor
 
 class SpeechRecognition(
     private val fragment: Fragment,
@@ -32,7 +33,8 @@ class SpeechRecognition(
         if (preferenceRepository.speechRecognitionEnabled) {
             try {
                 initialize()
-            } catch (ignore: Exception) {
+            } catch (e: Throwable) {
+                Timber.e(e)
             }
         }
     }
@@ -83,7 +85,11 @@ class SpeechRecognition(
     }
 
     fun onDestroy() {
-        mSpeechRecognizer?.destroy()
+        try {
+            mSpeechRecognizer?.destroy()
+        } catch (e: Throwable) {
+            Timber.e(e)
+        }
     }
 }
 
