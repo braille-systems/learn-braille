@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         navController = findNavController(R.id.navHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController)
-        UsbParser.init(this);
+        UsbParser.init(this)
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
