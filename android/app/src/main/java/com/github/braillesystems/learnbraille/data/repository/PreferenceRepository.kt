@@ -16,8 +16,8 @@ interface PreferenceRepository {
     val buzzEnabled: Boolean
     val toastsEnabled: Boolean
 
+    val announcementsEnabled: Boolean
     val speechRecognitionEnabled: Boolean
-    fun updateSpeechRecognitionEnabled(value: Boolean)
 
     val currentUserId: Long
     suspend fun currentUser(): User
@@ -49,17 +49,15 @@ class PreferenceRepositoryImpl(
             true
         )
 
-    override val speechRecognitionEnabled: Boolean
+    override val announcementsEnabled: Boolean
         get() = context.preferences.getBoolean(
-            context.getString(R.string.preference_enable_speech_recognition), true
+            context.getString(R.string.preference_enable_announcements), true
         )
 
-    override fun updateSpeechRecognitionEnabled(value: Boolean) {
-        with(context.preferences.edit()) {
-            putBoolean(context.getString(R.string.preference_enable_speech_recognition), value)
-            apply()
-        }
-    }
+    override val speechRecognitionEnabled: Boolean
+        get() = context.preferences.getBoolean(
+            context.getString(R.string.preference_speech_recognition_enabled), true
+        )
 
     override val currentUserId: Long
         get() = context.preferences.getLong(
@@ -72,10 +70,7 @@ class PreferenceRepositoryImpl(
     override suspend fun changeUser(login: String): Boolean =
         userDao.getUser(login)?.let { user ->
             with(context.preferences.edit()) {
-                putLong(
-                    context.getString(R.string.preference_current_user),
-                    user.id
-                )
+                putLong(context.getString(R.string.preference_current_user), user.id)
                 apply()
             }
             true

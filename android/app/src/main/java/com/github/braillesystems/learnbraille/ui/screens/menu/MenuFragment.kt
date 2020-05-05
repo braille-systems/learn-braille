@@ -14,10 +14,10 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.data.repository.StepRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
-import com.github.braillesystems.learnbraille.toast
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.toLastStep
 import com.github.braillesystems.learnbraille.utils.sendMarketIntent
+import com.github.braillesystems.learnbraille.utils.toast
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -61,9 +61,9 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             }
         }
 
-        stackedHelpButton.setOnClickListener {
-            navigateToHelp()
-        }
+        settingsButton.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_settingsFragment)
+        )
 
         exitButton.setOnClickListener(
             Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_exitFragment)

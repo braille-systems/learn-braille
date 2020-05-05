@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.spelling
-import com.github.braillesystems.learnbraille.toast
+import com.github.braillesystems.learnbraille.utils.toast
 
 fun Fragment.makeCorrectToast(): Unit = toast(getString(R.string.input_correct))
 

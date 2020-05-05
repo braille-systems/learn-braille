@@ -30,9 +30,13 @@
     <dimen name="lessons_letter_vertical_bias">0.0</dimen>
     <dimen name="lessons_dots_info_width">394dp</dimen>
     <dimen name="lessons_dots_info_height">175dp</dimen>
+    <dimen name="lessons_info_horizontal_bias">0.496</dimen>
+    <dimen name="lessons_info_vertical_bias">1.0</dimen>
 
     <dimen name="big_letter_text_size">170sp</dimen>
 
     <dimen name="big_buttons_border_radius">40dp</dimen>
+
+    <dimen name="menu_text_size">36dp</dimen>
 
 </resources>

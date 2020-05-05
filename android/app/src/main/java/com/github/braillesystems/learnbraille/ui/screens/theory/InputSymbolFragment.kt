@@ -8,7 +8,6 @@ import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.checkedBuzz
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.Input
 import com.github.braillesystems.learnbraille.data.entities.Symbol
@@ -18,6 +17,7 @@ import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputSy
 import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.views.*
 import com.github.braillesystems.learnbraille.utils.application
+import com.github.braillesystems.learnbraille.utils.checkedBuzz
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf

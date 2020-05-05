@@ -7,7 +7,6 @@ import android.hardware.usb.UsbManager
 import android.net.Uri
 import android.os.Vibrator
 import android.provider.Settings
-import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -71,15 +70,3 @@ val Context.isAccessibilityEnabled: Boolean
         contentResolver,
         Settings.Secure.ACCESSIBILITY_ENABLED
     ) == 1
-
-
-fun Context.announceByAccessibility(announcement: String) {
-    val manager = accessibilityManager ?: return
-    val event = AccessibilityEvent.obtain().apply {
-        eventType = AccessibilityEvent.TYPE_ANNOUNCEMENT
-        className = javaClass.name
-        packageName = packageName
-        text.add(announcement.removeHtmlMarkup())
-    }
-    manager.sendAccessibilityEvent(event)
-}

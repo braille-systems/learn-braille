@@ -39,7 +39,7 @@ abstract class AbstractFragmentWithHelp(private val helpMsgId: HelpMsgId) : Frag
         Timber.i("Navigate to help")
         val action = HelpFragmentDirections.actionGlobalHelpFragment()
         action.helpMessage = helpMsg
-        application.announceByAccessibility(helpMsg)
+        announceByAccessibility(helpMsg)
         findNavController().navigate(action)
     }
 }

@@ -1,7 +1,5 @@
 package com.github.braillesystems.learnbraille.ui.screens.practice
 
-import android.content.IntentFilter
-import android.hardware.usb.UsbManager
 import android.os.Bundle
 import android.os.Vibrator
 import android.view.LayoutInflater
@@ -13,23 +11,19 @@ import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentPracticeBinding
-import com.github.braillesystems.learnbraille.toast
 import com.github.braillesystems.learnbraille.ui.screens.*
-import com.github.braillesystems.learnbraille.ui.serial.UsbSerial
+import com.github.braillesystems.learnbraille.ui.serial.UsbParser
+import com.github.braillesystems.learnbraille.ui.serial.UsbSignalHandler
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
 import com.github.braillesystems.learnbraille.ui.views.brailleDots
 import com.github.braillesystems.learnbraille.ui.views.dotsState
-import com.github.braillesystems.learnbraille.utils.application
+import com.github.braillesystems.learnbraille.utils.toast
 import com.github.braillesystems.learnbraille.utils.updateTitle
-import com.github.braillesystems.learnbraille.utils.usbManager
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
-class CardFragment :
-    AbstractFragmentWithHelp(R.string.practice_help),
-    KoinComponent {
+class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
 
     private val preferences: PreferenceRepository by inject()
 
@@ -71,21 +65,11 @@ class CardFragment :
             this@CardFragment, viewModelFactory
         ).get(CardViewModel::class.java)
         buzzer = activity?.getSystemService()
+        UsbParser.setSignalHandler(UsbPracticeHandler(viewModel))
 
 
         cardViewModel = viewModel
         lifecycleOwner = this@CardFragment
-
-
-        // Init serial connection with Braille Trainer
-        // TODO extract initialization to factory
-        val filter = IntentFilter().apply {
-            addAction(UsbSerial.ACTION_USB_PERMISSION)
-            addAction(UsbManager.ACTION_USB_ACCESSORY_ATTACHED)
-            addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED)
-        }
-        val serial = UsbSerial(application.usbManager, application)
-        application.registerReceiver(serial.broadcastReceiver, filter)
 
 
         viewModel.observeEventCorrect(
@@ -105,7 +89,7 @@ class CardFragment :
         }
 
         viewModel.observeEventHint(
-            viewLifecycleOwner, dotsState, serial
+            viewLifecycleOwner, dotsState
         ) { expectedDots ->
             makeHintDotsToast(expectedDots)
         }
@@ -124,4 +108,15 @@ class CardFragment :
         )
 
     }.root
+}
+
+class UsbPracticeHandler(private val viewModel: CardViewModel) : UsbSignalHandler {
+
+    override fun onJoystickRight() {
+        viewModel.onCheck()
+    }
+
+    override fun onJoystickLeft() {
+        viewModel.onHint()
+    }
 }
