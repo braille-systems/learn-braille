@@ -16,6 +16,13 @@ object StepAnnotation {
 }
 
 
+/**
+ * Do not change name of this property, it is used for prepopulation.
+ *
+ * Use `DslTest.kt` file as DSL tutorial.
+ *
+ * Text in steps is parsed as HTML.
+ */
 val prepopulationData by data(
     materials = content
 ) {
