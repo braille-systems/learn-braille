@@ -54,7 +54,6 @@ class StepRepositoryImpl(
         return lastStep
     }
 
-
     override suspend fun getNextStep(thisStepId: Long): Step? =
         stepDao.getNextStep(preferenceRepository.currentUserId, thisCourseId, thisStepId)
 
@@ -65,19 +64,24 @@ class StepRepositoryImpl(
         lastCourseStepDao.update(
             LastCourseStep(
                 preferenceRepository.currentUserId,
-                thisCourseId,
-                thisStepId
+                thisCourseId, thisStepId
             )
         )
     }
 
+    /**
+     * @param thisStepId Id of passed step.
+     */
     override suspend fun updateCurrentStep(thisStepId: Long) {
-        currentStepDao.update(
-            CurrentStep(
-                preferenceRepository.currentUserId,
-                thisCourseId,
-                thisStepId
+        val currentStep = getCurrentStep()
+        val newCurrentStepId = thisStepId + 1
+        if (newCurrentStepId > currentStep.id) {
+            currentStepDao.update(
+                CurrentStep(
+                    preferenceRepository.currentUserId,
+                    thisCourseId, newCurrentStepId
+                )
             )
-        )
+        }
     }
 }

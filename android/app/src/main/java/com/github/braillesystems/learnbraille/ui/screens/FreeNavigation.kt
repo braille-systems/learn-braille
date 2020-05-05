@@ -48,7 +48,7 @@ fun Fragment.toNextStep(
     markThisAsPassed: Boolean,
     onNavigationFailed: Fragment.() -> Unit = {}
 ): Unit =
-    if (thisStep.data is LastInfo) Timber.i("Last step reached")
+    if (thisStep.data is LastInfo) Timber.w("Tying to access step after last")
     else scope().launch {
         if (markThisAsPassed) {
             stepRepository.updateCurrentStep(thisStep.id)
@@ -57,23 +57,23 @@ fun Fragment.toNextStep(
             ?.let { nextStep ->
                 toStep(nextStep, stepRepository.thisCourseId)
                 stepRepository.updateLastStep(nextStep.id)
-            } ?: onNavigationFailed().also {
-            Timber.i("Next step navigation failed")
-        }
+            }
+            ?: onNavigationFailed().also {
+                Timber.i("Next step navigation failed")
+            }
     }.devnull
 
 fun Fragment.toPrevStep(
     thisStep: Step,
     stepRepository: StepRepository
 ): Unit =
-    if (thisStep.data is FirstInfo) Timber.i("First step reached")
+    if (thisStep.data is FirstInfo) Timber.w("Trying to access step before first")
     else scope().launch {
         stepRepository.getPrevStep(thisStep.id)
             ?.let { nextStep ->
                 toStep(nextStep, stepRepository.thisCourseId)
                 stepRepository.updateLastStep(nextStep.id)
             } ?: error("Prev step should always exist")
-        stepRepository.updateLastStep(thisStep.id)
     }.devnull
 
 fun Fragment.toCurrentStep(
@@ -90,10 +90,8 @@ fun Fragment.toCurrentStep(
 fun Fragment.toLastStep(
     stepRepository: StepRepository
 ): Unit = scope().launch {
-    val lastStep = stepRepository.getLastStep()
     toStep(
-        lastStep,
+        stepRepository.getLastStep(),
         stepRepository.thisCourseId
     )
-    stepRepository.updateLastStep(lastStep.id)
 }.devnull

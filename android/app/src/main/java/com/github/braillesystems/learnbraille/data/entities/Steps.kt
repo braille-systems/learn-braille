@@ -54,13 +54,13 @@ interface StepDao {
         """
         select steps.* from steps
         inner join lessons on lessons.id = lesson_id
-        where lessons.course_id = :courseId 
+        where course_id = :courseId 
         and steps.id = :thisStepId + 1
-        and not exists(
+        and exists(
             select * from current_step as cs
             where cs.user_id = :userId
             and cs.course_id = :courseId
-            and cs.step_id < :thisStepId
+            and cs.step_id > :thisStepId
         )
         """
     )
