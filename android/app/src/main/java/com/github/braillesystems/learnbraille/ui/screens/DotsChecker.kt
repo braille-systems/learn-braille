@@ -184,7 +184,7 @@ inline fun DotsChecker.observeEventIncorrect(
     Observer {
         if (!it) return@Observer
         Timber.i("Handle incorrect: entered = ${dotsState.spelling}")
-        buzzer.checkedBuzz(preferenceRepository.correctBuzzPattern, preferenceRepository)
+        buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern, preferenceRepository)
         dotsState.uncheck()
         block()
         onIncorrectComplete()
