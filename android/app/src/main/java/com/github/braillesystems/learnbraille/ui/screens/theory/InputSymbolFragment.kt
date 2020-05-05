@@ -102,7 +102,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         viewModel.observeEventIncorrect(
             viewLifecycleOwner,
             preferenceRepository,
-            dotsState, buzzer
+            dotsState
         ) {
             val notify = {
                 makeIncorrectToast()

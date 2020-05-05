@@ -102,7 +102,7 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
         viewModel.observeEventIncorrect(
             viewLifecycleOwner,
             preferenceRepository,
-            dotsState, buzzer
+            dotsState
         ) {
             val notify = {
                 makeIncorrectToast()
