@@ -19,4 +19,10 @@ interface StepDao {
 
     @Query("select * from steps where id = :id")
     suspend fun getStep(id: Long): Step?
+
+//    suspend fun getLastStep(userId: Long, courseId: Long): Step?
+//
+//    suspend fun getNextStep(userId: Long, courseId: Long, currentStepId: Long): Step?
+//
+//    suspend fun getPrevStep(userId: Long, courseId: Long, currentStepId: Long): Step?
 }

@@ -1,13 +1,17 @@
 package com.github.braillesystems.learnbraille
 
 import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Vibrator
-import android.widget.Toast
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
+import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.data.repository.*
+import com.github.braillesystems.learnbraille.ui.screens.practice.CardViewModelFactory
 import com.github.braillesystems.learnbraille.utils.BuzzPattern
 import com.github.braillesystems.learnbraille.utils.buzz
+import org.koin.android.ext.android.get
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 import timber.log.Timber
 
 class LearnBrailleApplication : Application() {
@@ -17,40 +21,38 @@ class LearnBrailleApplication : Application() {
         Timber.plant(Timber.DebugTree())
         Timber.i("onCreate")
 
-        // TODO move behind repository abstraction barrier
-        LearnBrailleDatabase.init(this)
+        val koinModule = module {
+            single { LearnBrailleDatabase.buildDatabase(this@LearnBrailleApplication) }
+            factory<CardRepository> { CardRepositoryImpl(get<LearnBrailleDatabase>().cardDao) }
+            factory<PreferenceRepository> {
+                PreferenceRepositoryImpl(
+                    this@LearnBrailleApplication,
+                    get<LearnBrailleDatabase>().userDao
+                )
+            }
+            factory<StepRepository> {
+                StepRepositoryImpl(
+                    get(), get<LearnBrailleDatabase>().stepDao
+                )
+            }
+            factory<UserRepository> { UserRepositoryImpl(get<LearnBrailleDatabase>().userDao) }
+            factory { (getEnteredDots: () -> BrailleDots) ->
+                CardViewModelFactory(
+                    get(), get(),
+                    this@LearnBrailleApplication,
+                    getEnteredDots
+                )
+            }
+        }
+        startKoin {
+            androidContext(this@LearnBrailleApplication)
+            modules(koinModule)
+        }
 
-        USE_DEBUG_LESSONS = preferences.getBoolean(
-            getString(R.string.preference_use_debug_lessons), false
-        )
+        get<LearnBrailleDatabase>().init()
     }
 }
 
-// TODO move to repository
-val Context.preferences: SharedPreferences
-    get() = getSharedPreferences(
-        getString(R.string.preference_file_key),
-        Context.MODE_PRIVATE
-    )
-
-val CORRECT_BUZZ_PATTERN: BuzzPattern = longArrayOf(100, 100, 100, 100, 100, 100)
-val INCORRECT_BUZZ_PATTERN: BuzzPattern = longArrayOf(0, 200)
-
-fun Vibrator?.checkedBuzz(context: Context, pattern: BuzzPattern) {
-    val buzzEnabled = context.preferences.getBoolean(
-        context.getString(R.string.preference_enable_buzz), true
-    )
-    if (buzzEnabled) buzz(pattern)
+fun Vibrator?.checkedBuzz(preferenceRepository: PreferenceRepository, pattern: BuzzPattern) {
+    if (preferenceRepository.buzzEnabled) buzz(pattern)
 }
-
-const val TOAST_DURATION = Toast.LENGTH_SHORT
-
-/**
- * Restart app to update
- */
-var USE_DEBUG_LESSONS: Boolean = false
-    private set
-
-// TODO move to repository
-val Context.userId: Long
-    get() = preferences.getInt(getString(R.string.preference_current_user), 1).toLong()

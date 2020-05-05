@@ -12,16 +12,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.TOAST_DURATION
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
+import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
-import com.github.braillesystems.learnbraille.userId
-import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.sendMarketIntent
 import com.github.braillesystems.learnbraille.utils.updateTitle
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
+
+class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help), KoinComponent {
+
+    private val db: LearnBrailleDatabase by inject()
+    private val preferences: PreferenceRepository by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,9 +42,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         setHasOptionsMenu(true)
 
         lessonsButton.setOnClickListener(interruptingOnClickListener {
-//            getDBInstance().apply {
-//                navigateToLastStep(application.userId, stepDao, userLastStep)
-//            }
+            // TODO navigate to lesson
         })
 
         practiceButton.setOnClickListener(interruptingOnClickListener {
@@ -56,7 +58,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
                 Toast.makeText(
                     context,
                     getString(R.string.qr_intent_cancelled),
-                    TOAST_DURATION
+                    preferences.toastDuration
                 ).show()
                 sendMarketIntent("com.google.zxing.client.android")
             }
@@ -85,17 +87,19 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
                 Toast.makeText(
                     context,
                     data?.getStringExtra("SCAN_RESULT"),
-                    TOAST_DURATION
+                    preferences.toastDuration
                 ).show()
         }
     }
 
     private fun interruptingOnClickListener(block: (View) -> Unit) =
         View.OnClickListener {
-            if (LearnBrailleDatabase.isInitialized) block(it)
+            if (db.isInitialized) block(it)
             else {
                 Toast.makeText(
-                    context, getString(R.string.menu_db_not_initialized_warning), TOAST_DURATION
+                    context,
+                    getString(R.string.menu_db_not_initialized_warning),
+                    preferences.toastDuration
                 ).show()
             }
         }

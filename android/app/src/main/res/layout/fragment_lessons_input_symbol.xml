@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<!--    <data>-->
+    <!--    <data>-->
 
-<!--        <variable-->
-<!--            name="inputViewModel"-->
-<!--            type="com.github.braillesystems.learnbraille.ui.screens.lessons.InputViewModel" />-->
-<!--    </data>-->
+    <!--        <variable-->
+    <!--            name="inputViewModel"-->
+    <!--            type="com.github.braillesystems.learnbraille.ui.screens.lessons.InputViewModel" />-->
+    <!--    </data>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

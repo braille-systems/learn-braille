@@ -16,4 +16,11 @@ interface CardDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(cards: List<Card>)
+
+    @Query(
+        """
+        select * from materials order by RANDOM() limit 1
+        """
+    )
+    suspend fun getNextMaterial(): Material?
 }
