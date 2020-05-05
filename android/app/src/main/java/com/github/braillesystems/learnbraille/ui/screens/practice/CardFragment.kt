@@ -110,7 +110,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
     }.root
 }
 
-class UsbPracticeHandler(private val viewModel: CardViewModel) : UsbSignalHandler {
+private class UsbPracticeHandler(private val viewModel: CardViewModel) : UsbSignalHandler {
 
     override fun onJoystickRight() {
         viewModel.onCheck()

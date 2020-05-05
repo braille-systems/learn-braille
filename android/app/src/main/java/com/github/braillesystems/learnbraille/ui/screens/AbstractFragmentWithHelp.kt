@@ -8,7 +8,6 @@ import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.ui.screens.help.HelpFragmentDirections
 import com.github.braillesystems.learnbraille.utils.announceByAccessibility
-import com.github.braillesystems.learnbraille.utils.application
 import timber.log.Timber
 
 typealias HelpMsgId = Int
