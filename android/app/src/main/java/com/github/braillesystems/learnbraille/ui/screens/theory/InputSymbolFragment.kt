@@ -113,7 +113,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         }
 
         viewModel.observeEventHint(
-            viewLifecycleOwner, dotsState /* TODO serial */
+            viewLifecycleOwner, dotsState
         ) {
             makeHintDotsToast(expectedDots)
         }

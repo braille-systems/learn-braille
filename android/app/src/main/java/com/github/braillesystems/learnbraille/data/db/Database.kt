@@ -22,9 +22,10 @@ import timber.log.Timber
     [
         User::class, Material::class, KnownMaterial::class,
         Deck::class, Card::class,
-        Course::class, Lesson::class, Step::class, Annotation::class, StepAnnotation::class
+        Course::class, Lesson::class, Step::class, Annotation::class, StepAnnotation::class,
+        CurrentStep::class, LastCourseStep::class
     ],
-    version = 9,
+    version = 10,
     exportSchema = false
 )
 @TypeConverters(
@@ -45,6 +46,9 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
     abstract val stepDao: StepDao
     abstract val annotationDao: AnnotationsDao
     abstract val stepAnnotationDao: StepAnnotationDao
+
+    abstract val currentStepDao: CurrentStepDao
+    abstract val lastCourseStepDao: LastCourseStepDao
 
     private lateinit var forcePrepopulationJob: Job
 

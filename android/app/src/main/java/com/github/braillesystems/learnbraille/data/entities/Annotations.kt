@@ -3,11 +3,10 @@ package com.github.braillesystems.learnbraille.data.entities
 import androidx.room.*
 
 
-@Entity(tableName = "annotations")
+@Entity(tableName = "annotations", indices = [Index(value = ["name"], unique = true)])
 data class Annotation(
-    @PrimaryKey
-    val id: Long,
-    val name: String // TODO mark unique
+    @PrimaryKey val id: Long,
+    val name: String
 )
 
 @Dao

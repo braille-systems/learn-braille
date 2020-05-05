@@ -50,11 +50,16 @@ fun Fragment.toNextStep(
 ): Unit =
     if (thisStep.data is LastInfo) Timber.i("Last step reached")
     else scope().launch {
-        stepRepository.getNextStep(thisStep.id, markThisAsPassed)
-            ?.let { nextStep -> toStep(nextStep, stepRepository.thisCourseId) }
-            ?: onNavigationFailed().also {
-                Timber.i("Next step navigation failed")
-            }
+        if (markThisAsPassed) {
+            stepRepository.updateCurrentStep(thisStep.id)
+        }
+        stepRepository.getNextStep(thisStep.id)
+            ?.let { nextStep ->
+                toStep(nextStep, stepRepository.thisCourseId)
+                stepRepository.updateLastStep(nextStep.id)
+            } ?: onNavigationFailed().also {
+            Timber.i("Next step navigation failed")
+        }
     }.devnull
 
 fun Fragment.toPrevStep(
@@ -64,24 +69,31 @@ fun Fragment.toPrevStep(
     if (thisStep.data is FirstInfo) Timber.i("First step reached")
     else scope().launch {
         stepRepository.getPrevStep(thisStep.id)
-            ?.let { nextStep -> toStep(nextStep, stepRepository.thisCourseId) }
-            ?: error("Prev step should always exist")
+            ?.let { nextStep ->
+                toStep(nextStep, stepRepository.thisCourseId)
+                stepRepository.updateLastStep(nextStep.id)
+            } ?: error("Prev step should always exist")
+        stepRepository.updateLastStep(thisStep.id)
     }.devnull
 
 fun Fragment.toCurrentStep(
     stepRepository: StepRepository
 ): Unit = scope().launch {
+    val currStep = stepRepository.getCurrentStep()
     toStep(
-        stepRepository.getCurrentStep(),
+        currStep,
         stepRepository.thisCourseId
     )
+    stepRepository.updateLastStep(currStep.id)
 }.devnull
 
 fun Fragment.toLastStep(
     stepRepository: StepRepository
 ): Unit = scope().launch {
+    val lastStep = stepRepository.getLastStep()
     toStep(
-        stepRepository.getLastStep(),
+        lastStep,
         stepRepository.thisCourseId
     )
+    stepRepository.updateLastStep(lastStep.id)
 }.devnull
