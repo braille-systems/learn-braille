@@ -1,7 +1,10 @@
 package com.github.braillesystems.learnbraille
 
 import android.app.Application
+import android.content.Context
 import android.os.Vibrator
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.repository.*
@@ -53,6 +56,17 @@ class LearnBrailleApplication : Application() {
     }
 }
 
-fun Vibrator?.checkedBuzz(preferenceRepository: PreferenceRepository, pattern: BuzzPattern) {
+fun Vibrator?.checkedBuzz(pattern: BuzzPattern, preferenceRepository: PreferenceRepository) {
     if (preferenceRepository.buzzEnabled) buzz(pattern)
 }
+
+fun toast(msg: String, context: Context?, preferenceRepository: PreferenceRepository) {
+    if (preferenceRepository.toastsEnabled) {
+        Toast.makeText(
+            context, msg, preferenceRepository.toastDuration
+        ).show()
+    }
+}
+
+fun Fragment.toast(msg: String, preferenceRepository: PreferenceRepository = get()) =
+    toast(msg, context, preferenceRepository)

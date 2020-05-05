@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentPracticeBinding
+import com.github.braillesystems.learnbraille.toast
 import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.serial.UsbSerial
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
@@ -56,7 +57,7 @@ class CardFragment :
         false
     ).apply {
 
-        Timber.i("Start initialize practice fragment")
+        Timber.i("onCreateView")
 
         updateTitle(title)
         setHasOptionsMenu(true)
@@ -97,7 +98,9 @@ class CardFragment :
         viewModel.observeEventIncorrect(
             viewLifecycleOwner, preferences, dotsState, buzzer
         ) {
-            makeIncorrectLetterToast(viewModel.symbol.value)
+            viewModel.symbol.value?.let { symbol ->
+                makeIncorrectLetterToast(symbol)
+            } ?: toast(getString(R.string.input_loading))
             updateTitle(title)
         }
 

@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -15,6 +14,7 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
+import com.github.braillesystems.learnbraille.toast
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.utils.sendMarketIntent
 import com.github.braillesystems.learnbraille.utils.updateTitle
@@ -55,11 +55,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help), KoinComponent
                 intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
                 startActivityForResult(intent, qrRequestCode)
             } catch (e: ActivityNotFoundException) {
-                Toast.makeText(
-                    context,
-                    getString(R.string.qr_intent_cancelled),
-                    preferences.toastDuration
-                ).show()
+                toast(getString(R.string.qr_intent_cancelled))
                 sendMarketIntent("com.google.zxing.client.android")
             }
         }
@@ -83,25 +79,16 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help), KoinComponent
 
     private fun processQrResult(resultCode: Int, data: Intent?) {
         when (resultCode) {
-            RESULT_OK ->
-                Toast.makeText(
-                    context,
-                    data?.getStringExtra("SCAN_RESULT"),
-                    preferences.toastDuration
-                ).show()
+            RESULT_OK -> toast(
+                data?.getStringExtra("SCAN_RESULT").toString()  // Not to crash app
+            )
         }
     }
 
     private fun interruptingOnClickListener(block: (View) -> Unit) =
         View.OnClickListener {
             if (db.isInitialized) block(it)
-            else {
-                Toast.makeText(
-                    context,
-                    getString(R.string.menu_db_not_initialized_warning),
-                    preferences.toastDuration
-                ).show()
-            }
+            else toast(getString(R.string.menu_db_not_initialized_warning))
         }
 
     companion object {
