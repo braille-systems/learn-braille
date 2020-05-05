@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.parseAsHtml
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.LastInfo
@@ -34,7 +35,7 @@ class LastInfoFragment : AbstractStepFragment(R.string.lessons_help_last_info) {
         val (step, courseId) = getStepAndCourseIdArgs()
         val stepRepository: StepRepository by inject { parametersOf(courseId) }
         require(step.data is LastInfo)
-        infoTextView.text = step.data.text
+        infoTextView.text = step.data.text.parseAsHtml()
         infoTextView.movementMethod = ScrollingMovementMethod()
 
         prevButton.setOnClickListener {

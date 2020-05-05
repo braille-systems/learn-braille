@@ -18,8 +18,5 @@ val Any?.devnull: Unit get() {}
 
 fun String.removeHtmlMarkup() = Regex("""<[^>]*>""").replace(this, "")
 
-// TODO fix warnings
-
 fun <T> stringify(s: SerializationStrategy<T>, obj: T) = Json.stringify(s, obj)
-
 fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.parse(d, s)

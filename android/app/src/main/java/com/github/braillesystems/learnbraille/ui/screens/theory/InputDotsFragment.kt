@@ -5,6 +5,7 @@ import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.getSystemService
+import androidx.core.text.parseAsHtml
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
@@ -51,7 +52,7 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
         val (step, courseId) = getStepAndCourseIdArgs()
         val stepRepository: StepRepository by inject { parametersOf(courseId) }
         require(step.data is InputDots)
-        infoTextView.text = step.data.text
+        infoTextView.text = step.data.text?.parseAsHtml()
             ?: getString(R.string.lessons_input_dots_info_template)
                 .format(step.data.dots.spelling)
         brailleDots.dotsState.display(step.data.dots)

@@ -7,8 +7,6 @@ import android.hardware.usb.UsbManager
 import android.net.Uri
 import android.os.Vibrator
 import android.provider.Settings
-import android.text.Html
-import android.text.Spanned
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
 import androidx.appcompat.app.ActionBar
@@ -40,9 +38,6 @@ fun Fragment.updateTitle(title: String) {
 
 fun Fragment.getStringArg(name: String): String =
     arguments?.getString(name) ?: error("No $name found in args")
-
-@Suppress("DEPRECATION")
-fun formatHTML(html: String): Spanned = Html.fromHtml(html)
 
 typealias BuzzPattern = LongArray
 

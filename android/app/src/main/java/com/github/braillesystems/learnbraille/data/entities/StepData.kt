@@ -12,6 +12,8 @@ import kotlinx.serialization.json.Json
  * They differs by visual representation and by the data they contain.
  *
  * Step type can be determined by `is` check.
+ *
+ * All texts are in html format. Use .parseAsHtml android extension function.
  */
 @Serializable
 sealed class StepData
