@@ -24,7 +24,7 @@ object StepAnnotation {
  * Text in steps is parsed as HTML.
  */
 val prepopulationData by data(
-    materials = content
+    materials = practiceContent
 ) {
 
     users {

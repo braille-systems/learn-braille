@@ -9,6 +9,12 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 
 val content by materials {
     +ruSymbols
+    +specialSymbols
+    +uebDigits
+}
+
+val practiceContent by materials {
+    +ruSymbols
 }
 
 val ruSymbols by symbols(SymbolType.ru) {
@@ -46,3 +52,22 @@ val ruSymbols by symbols(SymbolType.ru) {
     symbol(symbol = 'Ю', brailleDots = BrailleDots(F, F, E, E, F, F))
     symbol(symbol = 'Я', brailleDots = BrailleDots(F, F, E, F, E, F))
 }
+
+val specialSymbols by symbols(SymbolType.special){
+    symbol(symbol = ']', brailleDots = BrailleDots(E, E, F, F, F, F)) // цифровой знак // number
+}
+
+val uebDigits by symbols(SymbolType.digit){
+    symbol(symbol = '1', brailleDots = BrailleDots(F, E, E, E, E, E))
+    symbol(symbol = '2', brailleDots = BrailleDots(F, F, E, E, E, E))
+    symbol(symbol = '3', brailleDots = BrailleDots(F, E, E, F, E, E))
+    symbol(symbol = '4', brailleDots = BrailleDots(F, E, E, F, F, E))
+    symbol(symbol = '5', brailleDots = BrailleDots(F, E, E, E, F, E))
+    symbol(symbol = '6', brailleDots = BrailleDots(F, F, E, F, E, E))
+    symbol(symbol = '7', brailleDots = BrailleDots(F, F, E, F, F, E))
+    symbol(symbol = '8', brailleDots = BrailleDots(F, F, E, E, F, E))
+    symbol(symbol = '9', brailleDots = BrailleDots(E, F, E, F, E, E))
+    symbol(symbol = '0', brailleDots = BrailleDots(E, F, E, F, F, E))
+}
+
+
