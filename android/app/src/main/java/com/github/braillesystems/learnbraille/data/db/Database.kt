@@ -25,7 +25,7 @@ import timber.log.Timber
         Course::class, Lesson::class, Step::class, Annotation::class, StepAnnotation::class,
         CurrentStep::class, LastCourseStep::class
     ],
-    version = 11,
+    version = 12,
     exportSchema = false
 )
 @TypeConverters(
