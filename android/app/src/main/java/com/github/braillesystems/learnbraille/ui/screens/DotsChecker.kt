@@ -1,17 +1,15 @@
 package com.github.braillesystems.learnbraille.ui.screens
 
-import android.content.Context
 import android.os.Vibrator
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.github.braillesystems.learnbraille.CORRECT_BUZZ_PATTERN
-import com.github.braillesystems.learnbraille.INCORRECT_BUZZ_PATTERN
-import com.github.braillesystems.learnbraille.checkedBuzz
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.ui.serial.UsbParser
 import com.github.braillesystems.learnbraille.ui.views.*
+import com.github.braillesystems.learnbraille.utils.checkedBuzz
 import timber.log.Timber
 
 /**
@@ -159,7 +157,7 @@ private class DotsCheckerImpl : MutableDotsChecker {
 
 inline fun DotsChecker.observeEventCorrect(
     lifecycleOwner: LifecycleOwner,
-    context: Context,
+    preferenceRepository: PreferenceRepository,
     dotsState: BrailleDotsState,
     buzzer: Vibrator? = null,
     crossinline block: () -> Unit = {}
@@ -168,7 +166,7 @@ inline fun DotsChecker.observeEventCorrect(
     Observer {
         if (!it) return@Observer
         Timber.i("Handle correct")
-        buzzer.checkedBuzz(context, CORRECT_BUZZ_PATTERN)
+        buzzer.checkedBuzz(preferenceRepository.correctBuzzPattern, preferenceRepository)
         dotsState.uncheck()
         block()
         onCorrectComplete()
@@ -177,7 +175,7 @@ inline fun DotsChecker.observeEventCorrect(
 
 inline fun DotsChecker.observeEventIncorrect(
     lifecycleOwner: LifecycleOwner,
-    context: Context,
+    preferenceRepository: PreferenceRepository,
     dotsState: BrailleDotsState,
     buzzer: Vibrator? = null,
     crossinline block: () -> Unit = {}
@@ -186,7 +184,7 @@ inline fun DotsChecker.observeEventIncorrect(
     Observer {
         if (!it) return@Observer
         Timber.i("Handle incorrect: entered = ${dotsState.spelling}")
-        buzzer.checkedBuzz(context, INCORRECT_BUZZ_PATTERN)
+        buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern, preferenceRepository)
         dotsState.uncheck()
         block()
         onIncorrectComplete()
@@ -196,7 +194,7 @@ inline fun DotsChecker.observeEventIncorrect(
 inline fun DotsChecker.observeEventHint(
     lifecycleOwner: LifecycleOwner,
     dotsState: BrailleDotsState,
-    crossinline block: (BrailleDots) -> Unit
+    crossinline block: (BrailleDots) -> Unit = {}
 ): Unit = eventHint.observe(
     lifecycleOwner,
     Observer { expectedDots ->
@@ -212,7 +210,7 @@ inline fun DotsChecker.observeEventHint(
 inline fun DotsChecker.observeEventPassHint(
     lifecycleOwner: LifecycleOwner,
     dotsState: BrailleDotsState,
-    crossinline block: () -> Unit
+    crossinline block: () -> Unit = {}
 ): Unit = eventPassHint.observe(
     lifecycleOwner,
     Observer {

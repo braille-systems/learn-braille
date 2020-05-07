@@ -5,10 +5,12 @@
     <string name="app_name">Learn Braille Beta</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_help_message">No help message</string>
-    <string name="preference_file_key">preferences</string>
     <string name="preference_use_debug_lessons">use_debug_lessons</string>
     <string name="preference_enable_buzz">enable_buzz</string>
+    <string name="preference_enable_toasts">enable_toasts</string>
     <string name="preference_current_user">current_user</string>
+    <string name="preference_enable_announcements">enable_announcement</string>
+    <string name="preference_speech_recognition_enabled">speech_recognition_enabled</string>
 
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
@@ -197,17 +199,20 @@
     <string name="help_title">Справка</string>
 
     <!-- USB -->
+
     <string name="usb_permission_granted">Установлено соединение с Тренажёром Брайля</string>
     <string name="usb_permission_denied">Разрешение на подключение не выдано</string>
     <string name="usb_device_disconnected">Тренажёр Брайля отключён</string>
     <string name="usb_unknown_device">Этот аппарат не поддерживается</string>
+
     <!--    Settings-->
-    <string name="preferences_titlebar_text">Learn Braille. Настройки</string>
-    <string name="preference_notifications">ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ</string>
-    <string name="preference_buzz">ВИБРАЦИЯ</string>
-    <string name="preference_buzz_summary">Вибрация в ответ на результат выполнения задания</string>
-    <string name="preference_use_textbook">ИСПОЛЬЗОВАНИЕ БУКВАРЯ</string>
-    <string name="preference_use_textbook_summary">Шаги с обращением к бумажному букварю в теоретическом курсе</string>
+
+    <string name="preferences_actionbar_title">Learn Braille. Настройки</string>
+    <string name="preference_title_notifications">ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ</string>
+    <string name="preference_title_buzz">ВИБРАЦИЯ</string>
+    <string name="preference_summary_buzz">Вибрация в ответ на результат выполнения задания</string>
+    <string name="preference_title_use_textbook">ИСПОЛЬЗОВАНИЕ БУКВАРЯ</string>
+    <string name="preference_summary_use_textbook">Шаги с обращением к бумажному букварю в теоретическом курсе</string>
 
 </resources>
 

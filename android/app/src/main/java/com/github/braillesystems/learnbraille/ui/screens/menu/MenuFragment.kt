@@ -7,23 +7,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.TOAST_DURATION
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
-import com.github.braillesystems.learnbraille.data.db.getDBInstance
+import com.github.braillesystems.learnbraille.data.repository.StepRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
-import com.github.braillesystems.learnbraille.ui.screens.lessons.navigateToLastStep
-import com.github.braillesystems.learnbraille.userId
-import com.github.braillesystems.learnbraille.utils.application
+import com.github.braillesystems.learnbraille.ui.screens.toLastStep
+import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.sendMarketIntent
 import com.github.braillesystems.learnbraille.utils.updateTitle
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
+
 
 class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
+
+    private val db: LearnBrailleDatabase by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,9 +42,8 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         setHasOptionsMenu(true)
 
         lessonsButton.setOnClickListener(interruptingOnClickListener {
-            getDBInstance().apply {
-                navigateToLastStep(application.userId, stepDao, userLastStep)
-            }
+            val stepRepository: StepRepository by inject { parametersOf(1) }
+            toLastStep(stepRepository)
         })
 
         practiceButton.setOnClickListener(interruptingOnClickListener {
@@ -55,11 +56,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
                 intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
                 startActivityForResult(intent, qrRequestCode)
             } catch (e: ActivityNotFoundException) {
-                Toast.makeText(
-                    context,
-                    getString(R.string.qr_intent_cancelled),
-                    TOAST_DURATION
-                ).show()
+                checkedToast(getString(R.string.qr_intent_cancelled))
                 sendMarketIntent("com.google.zxing.client.android")
             }
         }
@@ -83,23 +80,16 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     private fun processQrResult(resultCode: Int, data: Intent?) {
         when (resultCode) {
-            RESULT_OK ->
-                Toast.makeText(
-                    context,
-                    data?.getStringExtra("SCAN_RESULT"),
-                    TOAST_DURATION
-                ).show()
+            RESULT_OK -> checkedToast(
+                data?.getStringExtra("SCAN_RESULT").toString()  // Not to crash app if null
+            )
         }
     }
 
     private fun interruptingOnClickListener(block: (View) -> Unit) =
         View.OnClickListener {
-            if (LearnBrailleDatabase.isInitialized) block(it)
-            else {
-                Toast.makeText(
-                    context, getString(R.string.menu_db_not_initialized_warning), TOAST_DURATION
-                ).show()
-            }
+            if (db.isInitialized) block(it)
+            else checkedToast(getString(R.string.menu_db_not_initialized_warning))
         }
 
     companion object {

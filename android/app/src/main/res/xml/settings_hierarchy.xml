@@ -3,30 +3,26 @@
 
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
-        android:key="notifications"
+        android:key="@string/preference_enable_buzz"
+        android:summary="@string/preference_summary_buzz"
         android:theme="@style/SwitchPreferenceButton"
-        android:title="@string/preference_notifications"
+        android:title="@string/preference_title_buzz"
         app:iconSpaceReserved="false" />
 
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
-        android:key="buzz"
-        android:summary="@string/preference_buzz_summary"
+        android:key="@string/preference_enable_toasts"
         android:theme="@style/SwitchPreferenceButton"
-        android:title="@string/preference_buzz"
+        android:title="@string/preference_title_notifications"
         app:iconSpaceReserved="false" />
 
-    <androidx.preference.SwitchPreferenceCompat
-        android:defaultValue="true"
-        android:key="textbook"
-        android:summary="@string/preference_use_textbook_summary"
-        android:theme="@style/SwitchPreferenceButton"
-        android:title="@string/preference_use_textbook"
-        app:iconSpaceReserved="false" />
-
-    <androidx.preference.Preference
-        android:key="help"
-        android:title="@string/menu_stacked_help"
-        app:iconSpaceReserved="false" />
+    <!--    TODO-->
+    <!--    <androidx.preference.SwitchPreferenceCompat-->
+    <!--        android:defaultValue="true"-->
+    <!--        android:key="textbook"-->
+    <!--        android:summary="@string/preference_use_textbook_summary"-->
+    <!--        android:theme="@style/SwitchPreferenceButton"-->
+    <!--        android:title="@string/preference_use_textbook"-->
+    <!--        app:iconSpaceReserved="false" />-->
 
 </androidx.preference.PreferenceScreen>

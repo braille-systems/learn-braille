@@ -1,86 +1,78 @@
 package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
-import com.github.braillesystems.learnbraille.utils.*
+import kotlinx.serialization.Serializable
 
-@Entity(tableName = "step")
+
+@Entity(tableName = "steps")
+@Serializable
 data class Step(
-
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
-
-    val title: String,
-
+    @PrimaryKey val id: Long,
+    val data: StepData,
     @ColumnInfo(name = "lesson_id")
-    val lessonId: Long,
-
-    val data: StepData
-) {
-    companion object {
-        val pattern = Regex(
-            """Step\(id=(\d+), title=((?:.|\n)*), lessonId=(\d+), data=((?:.|\n)+)\)"""
-        )
-    }
-}
-
-fun stepOf(string: String) = Step.pattern.matchEntire(string)?.groups
-    ?.let { (_, id, title, lessonId, data) ->
-        Step(
-            id = id?.value?.toLong() ?: error("No id here $string"),
-            title = title?.value ?: error("No title here $string"),
-            lessonId = lessonId?.value?.toLong() ?: error("No lessonId here $string"),
-            data = stepDataOf(
-                data?.value ?: error("No data here $string")
-            )
-        )
-    } ?: error("$string does not match symbol structure")
+    val lessonId: Long
+)
 
 @Dao
 interface StepDao {
 
-    @Insert
-    suspend fun insertSteps(steps: List<Step>)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insert(steps: List<Step>)
 
-    @Query(
-        """
-            SELECT * FROM step
-            WHERE NOT EXISTS (
-                SELECT * FROM user_passed_step AS ups
-                WHERE ups.user_id = :userId AND ups.step_id = step.id
-            )
-            ORDER BY step.id ASC
-            LIMIT 1
-            """
-    )
-    suspend fun getCurrentStepForUser(userId: Long): Step?
-
-    @Query(
-        """
-            SELECT * FROM step
-            WHERE EXISTS (
-                SELECT * FROM user_passed_step AS ups
-                WHERE ups.user_id = :userId AND ups.step_id = :currentStepId
-            ) AND step.id > :currentStepId
-            ORDER BY step.id ASC
-            LIMIT 1
-            """
-    )
-    suspend fun getNextStepForUser(userId: Long, currentStepId: Long): Step?
-
-    @Query(
-        """
-            SELECT * FROM step
-            WHERE EXISTS (
-                SELECT * FROM user_last_step AS uls
-                WHERE uls.step_id = step.id AND uls.user_id = :userId
-            )
-            """
-    )
-    suspend fun getLastStepForUser(userId: Long): Step?
-
-    @Query("SELECT * FROM step WHERE step.id = :id")
+    @Query("select * from steps where id = :id")
     suspend fun getStep(id: Long): Step?
 
-    @Query("DELETE FROM step")
-    suspend fun deleteAll()
+    @Query(
+        """
+        select steps.* from current_step as cs
+        inner join steps on steps.id = step_id
+        where cs.user_id = :userId and cs.course_id = :courseId
+        """
+    )
+    suspend fun getCurrentStep(userId: Long, courseId: Long): Step?
+
+    @Query(
+        """
+        select steps.* from last_course_step as ls
+        inner join steps on steps.id = step_id
+        where ls.user_id = :userId and ls.course_id = :courseId
+        """
+    )
+    suspend fun getLastStep(userId: Long, courseId: Long): Step?
+
+    @Query(
+        """
+        select steps.* from steps
+        inner join lessons on lesson_id = lessons.id
+        where lessons.course_id = :courseId
+        order by steps.id limit 1
+        """
+    )
+    suspend fun getFirstCourseStep(courseId: Long): Step?
+
+    @Query(
+        """
+        select steps.* from steps
+        inner join lessons on lessons.id = lesson_id
+        where course_id = :courseId 
+        and steps.id = :thisStepId + 1
+        and exists(
+            select * from current_step as cs
+            where cs.user_id = :userId
+            and cs.course_id = :courseId
+            and cs.step_id > :thisStepId
+        )
+        """
+    )
+    suspend fun getNextStep(userId: Long, courseId: Long, thisStepId: Long): Step?
+
+    @Query(
+        """
+        select steps.* from steps
+        inner join lessons on lessons.id = lesson_id
+        where course_id = :courseId
+        and steps.id = :thisStepId - 1
+        """
+    )
+    suspend fun getPrevStep(courseId: Long, thisStepId: Long): Step?
 }

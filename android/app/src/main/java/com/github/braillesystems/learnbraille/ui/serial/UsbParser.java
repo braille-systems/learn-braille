@@ -107,6 +107,24 @@ final class UsbWrapper {
     private Handler mHandler;
     private long birthTimeMillis = System.currentTimeMillis();
 
+    UsbWrapper(Handler handler, Activity parentActivity) {
+        mHandler = handler;
+        setFilters(parentActivity);  // Start listening notifications from UsbService
+        ServiceConnection usbConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName arg0, IBinder arg1) {
+                usbService = ((UsbService.UsbBinder) arg1).getService();
+                usbService.setHandler(mHandler);
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName arg0) {
+                usbService = null;
+            }
+        };
+        startService(usbConnection, parentActivity); // Start UsbService
+    }
+
     private void startService(ServiceConnection serviceConnection, Activity parentActivity) {
         if (!UsbService.SERVICE_CONNECTED) {
             Intent startService = new Intent(parentActivity, UsbService.class);
@@ -134,23 +152,5 @@ final class UsbWrapper {
         if (usbService != null) { // if UsbService was correctly binded, Send data
             usbService.write(data.getBytes());
         }
-    }
-
-    UsbWrapper(Handler handler, Activity parentActivity) {
-        mHandler = handler;
-        setFilters(parentActivity);  // Start listening notifications from UsbService
-        ServiceConnection usbConnection = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName arg0, IBinder arg1) {
-                usbService = ((UsbService.UsbBinder) arg1).getService();
-                usbService.setHandler(mHandler);
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName arg0) {
-                usbService = null;
-            }
-        };
-        startService(usbConnection, parentActivity); // Start UsbService
     }
 }

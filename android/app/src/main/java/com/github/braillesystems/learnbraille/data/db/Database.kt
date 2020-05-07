@@ -2,65 +2,86 @@ package com.github.braillesystems.learnbraille.data.db
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.fragment.app.Fragment
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.github.braillesystems.learnbraille.data.entities.*
-import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_LESSONS
-import com.github.braillesystems.learnbraille.res.russian.PREPOPULATE_USERS
-import com.github.braillesystems.learnbraille.res.russian.steps.PREPOPULATE_STEPS
-import com.github.braillesystems.learnbraille.res.russian.symbols.PREPOPULATE_SYMBOLS
-import com.github.braillesystems.learnbraille.userId
-import com.github.braillesystems.learnbraille.utils.application
+import com.github.braillesystems.learnbraille.data.entities.Annotation
+import com.github.braillesystems.learnbraille.res.prepopulationData
 import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.get
 import timber.log.Timber
 
 @Database(
     entities =
     [
-        User::class, Lesson::class, Step::class, Symbol::class,
-        UserKnowsSymbol::class, UserPassedStep::class, UserLastStep::class
+        User::class, Material::class, KnownMaterial::class,
+        Deck::class, Card::class,
+        Course::class, Lesson::class, Step::class, Annotation::class, StepAnnotation::class,
+        CurrentStep::class, LastCourseStep::class
     ],
-    version = 6,
+    version = 10,
     exportSchema = false
 )
 @TypeConverters(
     BrailleDotsConverters::class,
-    LanguageConverters::class,
-    StepDataConverters::class
+    MaterialDataTypeConverters::class, StepDataConverters::class
 )
-abstract class LearnBrailleDatabase : RoomDatabase() {
+abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
 
     abstract val userDao: UserDao
+    abstract val materialDao: MaterialDao
+    abstract val knownMaterialDao: KnownMaterialDao
+
+    abstract val deckDao: DeckDao
+    abstract val cardDao: CardDao
+
+    abstract val courseDao: CourseDao
     abstract val lessonDao: LessonDao
     abstract val stepDao: StepDao
-    abstract val symbolDao: SymbolDao
-    abstract val userKnowsSymbolDao: UserKnowsSymbolDao
-    abstract val userPassedStepDao: UserPassedStepDao
-    abstract val userLastStep: UserLastStepDao
+    abstract val annotationDao: AnnotationsDao
+    abstract val stepAnnotationDao: StepAnnotationDao
+
+    abstract val currentStepDao: CurrentStepDao
+    abstract val lastCourseStepDao: LastCourseStepDao
+
+    private lateinit var forcePrepopulationJob: Job
+
+    @Volatile
+    private var prepopulationFinished = true
+
+    fun init(): LearnBrailleDatabase = this.also {
+        forcePrepopulationJob = scope().launch {
+            // Correct if at least one user is always prepopulated
+            if (userDao.getUser(1) != null) {
+                Timber.i("DB has been already initialized")
+            } else {
+                Timber.i("DB is not been initialized yet")
+                prepopulationFinished = false
+            }
+        }
+    }
+
+    val isInitialized: Boolean
+        get() = (forcePrepopulationJob.isCompleted && prepopulationFinished).also {
+            if (it) Timber.i("DB has been prepopulated")
+            else Timber.i(
+                "DB has not been prepopulated: " +
+                        "forcePrepopulationJob.isCompleted = ${forcePrepopulationJob.isCompleted}, " +
+                        "prepopulationFinished = $prepopulationFinished"
+            )
+        }
 
     companion object {
 
         const val name = "learn_braille_database"
 
-        @Volatile
-        private var prepopulationFinished = true
-
-        @Volatile
-        private var INSTANCE: LearnBrailleDatabase? = null
-
-        @SuppressLint("SyntheticAccessor")
-        fun getInstance(context: Context): LearnBrailleDatabase =
-            INSTANCE ?: synchronized(this) {
-                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
-            }
-
-        private fun buildDatabase(context: Context) = Room
+        fun buildDatabase(context: Context) = Room
             .databaseBuilder(
                 context.applicationContext,
                 LearnBrailleDatabase::class.java,
@@ -82,46 +103,34 @@ abstract class LearnBrailleDatabase : RoomDatabase() {
                 }
 
                 private fun prepopulate() {
-                    Timber.i("prepopulate")
-                    prepopulationFinished = false
-                    scope().launch {
-                        Timber.i("Start database prepopulation")
-                        getInstance(context).apply {
-                            userDao.insertUsers(PREPOPULATE_USERS)
-                            lessonDao.insertLessons(PREPOPULATE_LESSONS)
-                            stepDao.insertSteps(PREPOPULATE_STEPS)
-                            symbolDao.insertSymbols(PREPOPULATE_SYMBOLS)
+                    Timber.i("Prepopulate")
+                    object : KoinComponent {
+                        fun runPrepopulation() {
+                            get<LearnBrailleDatabase>().apply {
+                                prepopulationData.use {
+                                    scope().launch {
+                                        Timber.i("Start database prepopulation")
+
+                                        userDao.insert(users)
+                                        materialDao.insert(materials)
+                                        deckDao.insert(decks)
+                                        cardDao.insert(cards)
+                                        courseDao.insert(courses)
+                                        lessonDao.insert(lessons)
+                                        stepDao.insert(steps)
+                                        annotationDao.insert(annotations)
+                                        stepAnnotationDao.insert(stepAnnotations)
+
+                                        Timber.i("Finnish database prepopulation")
+                                        prepopulationFinished = true
+                                    }
+                                }
+                            }
                         }
-                        Timber.i("Finnish database prepopulation")
-                        prepopulationFinished = true
-                    }
+                    }.runPrepopulation()
                 }
             })
             .fallbackToDestructiveMigration()
             .build()
-
-        private lateinit var forcePrepopulationJob: Job
-
-        fun init(context: Context) {
-            forcePrepopulationJob = scope().launch {
-                if (getInstance(context).userDao.getUser(context.userId) != null) {
-                    Timber.i("DB has been already initialized")
-                } else {
-                    Timber.i("DB is not been initialized yet")
-                }
-            }
-        }
-
-        val isInitialized: Boolean
-            get() = (forcePrepopulationJob.isCompleted && prepopulationFinished).also {
-                if (it) Timber.i("DB has been prepopulated")
-                else Timber.i(
-                    "DB has not been prepopulated: " +
-                            "forcePrepopulationJob.isCompleted = ${forcePrepopulationJob.isCompleted}, " +
-                            "prepopulationFinished = $prepopulationFinished"
-                )
-            }
     }
 }
-
-fun Fragment.getDBInstance() = LearnBrailleDatabase.getInstance(application)
