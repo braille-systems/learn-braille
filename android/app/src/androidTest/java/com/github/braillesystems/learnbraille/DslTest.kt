@@ -87,9 +87,16 @@ private val courseLessons by lessons {
         name = "Wow"
     ) {
         +FirstInfo("first")
-        +Info("with book").annotate("book")
-        +LastInfo("last")
+        addSomeSteps()
     }
+}
+
+/*
+ * Do not forget that builders is a regular Kotlin code, no magic.
+ */
+private fun StepsBuilder.addSomeSteps() {
+    +Info("with book").annotate("book")
+    +LastInfo("last")
 }
 
 private val worstLessons by lessons {
@@ -106,10 +113,15 @@ private val worstLessons by lessons {
             dots = BrailleDots(F, F, F, F, F, F)
         )
         +Show(content.symbols.getValue('Z'))
-        +Input(content.symbols.getValue('Z'))
+        for (material in getMaterials('Б', 'Z')) {
+            +Input(material)
+        }
         +LastInfo("LastInfo")
     }
 }
+
+private fun getMaterials(vararg chars: Char) =
+    chars.map(content.symbols::getValue)
 
 
 // Lists for testing
@@ -162,8 +174,9 @@ private val steps = listOf(
         ), 2
     ),
     Step(8, Show(content.symbols.getValue('Z')), 2),
-    Step(9, Input(content.symbols.getValue('Z')), 2),
-    Step(10, LastInfo("LastInfo"), 2)
+    Step(9, Input(content.symbols.getValue('Б')), 2),
+    Step(10, Input(content.symbols.getValue('Z')), 2),
+    Step(11, LastInfo("LastInfo"), 2)
 )
 private val annotations = listOf(
     Annotation(1, "book"),
