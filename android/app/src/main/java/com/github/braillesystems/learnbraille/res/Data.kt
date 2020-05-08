@@ -158,11 +158,11 @@ private val golubinaIntroLessons by lessons {
     }
 
     lesson(
-        name = "Русские буквы А, Б, Ц, Д, Е, Ф, Г"
+        name = "Русские буквы А, Б, Ц, Д, Е"
     ) {
         +Info(
             """
-                    Урок 2. Буквы А, Б, Ц, Д, Е, Ф, Г.
+                    Урок 2. Буквы А, Б, Ц, Д, Е.
                     <br><br>
                     Некоторые символы Брайля обозначают как букву, так и цифру. Это буквы А, Б,
                     Ц и так далее. С добавлением цифрового знака, который мы изучим в следующем
@@ -193,22 +193,64 @@ private val golubinaIntroLessons by lessons {
                     Строка с буквой Ц находится под строкой с буквой Б."""
         ).annotate(StepAnnotation.someBookRequired)
         +Info(
-            """В следующих шагах нужно изучить точечный состав и ввести
-                    буквы Ц, Д, Е, Ф, Г"""
+            """Буква Ц обозначается точками 1 и 4,
+                    буква Д - точки 1, 4 и 5.
+                    В следующих шагах нужно изучить точечный состав и ввести
+                    буквы Ц, Д"""
         )
         +Show(content.symbols.getValue('Ц'))
         +Input(content.symbols.getValue('Ц')/*, repeat = 5*/)
         +Show(content.symbols.getValue('Д'))
         +Input(content.symbols.getValue('Д')/*, repeat = 5*/)
+        +Info(
+            """Последняя буква в этом уроке - буква Е. 
+                    Она обозначается двумя точками: номер 1 и 5."""
+        )
         +Show(content.symbols.getValue('Е'))
         +Input(content.symbols.getValue('Е')/*, repeat = 5*/)
+        +Info(
+            """Урок 2 закончен. В следующем занятии займёмся повторением букв А, Б, Ц, Д, Е
+                 и выучим буквы Ф, Г."""
+        )
+    }
+    lesson(
+        name = "Буквы Ф, Г"
+    ) {
+        +Info(
+            """
+                    Урок 3. Буквы Ф, Г.
+                    <br><br>
+                    Перед прохождением нового материала повторим пройденное.
+                    В следующих трёх шагах нужно ввести буквы Б, А, Ц (вместе это слово БАЦ)."""
+        )
+        +Input(content.symbols.getValue('Б'))
+        +Input(content.symbols.getValue('А'))
+        +Input(content.symbols.getValue('Ц'))
+        +Info(
+            """
+                    Теперь познакомимся с буквами Ф и Г.
+                    <br>
+                    Буква Ф обозначается точками 1, 2 и 4.
+                    <br>
+                    Буква Г - точки 1, 2, 4 и 5.
+                    <br>
+                    В следующих четырёх шагах нужно ознакомиться с буквами и ввести их."""
+        )
         +Show(content.symbols.getValue('Ф'))
         +Input(content.symbols.getValue('Ф')/*, repeat = 5*/)
         +Show(content.symbols.getValue('Г'))
         +Input(content.symbols.getValue('Г')/*, repeat = 5*/)
         +Info(
+            """
+                    В следующих трёх шагах введите по буквам слово БЕГ."""
+        )
+        +Input(content.symbols.getValue('Б'))
+        +Input(content.symbols.getValue('Е'))
+        +Input(content.symbols.getValue('Г'))
+
+        +Info(
             """Поздравляем! Второй урок пройден. В следующем занятии мы узнаем, 
-                    как с помощью букв А, Б, Ц, Д, Е, Ф, Г составить цифры 1, 2 3, 4, 5 и 6."""
+                    как с помощью букв А, Б, Ц, Д, Е, Ф, Г составить цифры 1, 2, 3, 4, 5 и 6."""
         )
     }
 
@@ -217,10 +259,10 @@ private val golubinaIntroLessons by lessons {
     ) {
         +Info(
             """
-                    Урок 3. Цифры от 1 до 6.
+                    Урок 4. Цифры от 1 до 6.
                     <br><br>
                     В этом уроке мы начнём изучать цифры. Но для начала повторим пройденное.
-                    В следующих шагах введите буквы, изученные в прошлом уроке."""
+                    В следующих шагах введите буквы, изученные в прошлых двух уроках."""
         )
         +Input(content.symbols.getValue('А'))
         +Input(content.symbols.getValue('Б'))
@@ -246,7 +288,7 @@ private val golubinaIntroLessons by lessons {
                     Они получаются из букв А, Б, Ц, Д, Е, Ф, Г добавлением цифрового знака.
                     Например, цифра и число 3 - это цифровой знак + Ц.
                     Число двадцать семь - это цифровой знак, затем буквы Б и Г. 
-                    Мы будем опускать цифровой знак."""
+                    В уроках мы для краткости не будем всякий раз ставить цифровой знак."""
         )
         +Show(content.symbols.getValue('1'))
         +Input(content.symbols.getValue('1'))
@@ -264,7 +306,7 @@ private val golubinaIntroLessons by lessons {
         +Input(content.symbols.getValue('7'))
         +Info(
             """
-                    Урок 3 пройден! Рекомендуем самостоятельно изучить цифры и числа на странице 15
+                    Урок 4 пройден! Рекомендуем самостоятельно изучить цифры и числа на странице 15
                     в букваре (внизу страницы).
                     <br>
                     Следующий урок будет посвящён повторению, а также мы изучим 
@@ -276,19 +318,22 @@ private val golubinaIntroLessons by lessons {
 private val someMoreGolubinaLessons by lessons {
 
     lesson(
-        name = "Урок 4. Буква Х и цифра 8. Часть 1: повторение прошлого материала"
+        name = "Буква Х и цифра 8. Часть 1: повторение прошлого материала"
     ) {
         +Info(
             """
-                    Урок 4. Буква Х и цифра 8.
+                    Урок 5. Буква Х и цифра 8.
                     <br><br>
                     По окончании этого урока Вы узнаете букву Х и цифру 8. 
-                    Но перед изучением нового повторим пройденное."""
+                    Но перед изучением нового повторим пройденное. Введите по буквам слово ФЕБ. """
         )
-        +Input(content.symbols.getValue('Б'))
+        +Input(content.symbols.getValue('Ф'))
         +Input(content.symbols.getValue('Е'))
-        +Input(content.symbols.getValue('Г'))
-        +Input(content.symbols.getValue(']'))
+        +Input(content.symbols.getValue('Б'))
+        +Info(
+            """
+                    В следующих шести шагах введите по буквам слово БАГДАД."""
+        )
         +Input(content.symbols.getValue('Б'))
         +Input(content.symbols.getValue('А'))
         +Input(content.symbols.getValue('Г'))
@@ -301,7 +346,7 @@ private val someMoreGolubinaLessons by lessons {
         +Input(content.symbols.getValue('3'))
     }
     lesson(
-        name = "Урок 4. Буква Х и цифра 8. Часть 2: новый материал"
+        name = "Буква Х и цифра 8. Часть 2: новый материал"
     ) {
         +Info(
             """
@@ -315,7 +360,7 @@ private val someMoreGolubinaLessons by lessons {
         +Input(content.symbols.getValue('8'))
         +Info(
             """
-                    В следующих словах введите различные символы, в том числе буквы Х и цифру 8.
+                    В следующих шагах введите различные символы, в том числе буквы Х и цифру 8.
                     """
         )
         +Input(content.symbols.getValue('Ц'))
@@ -330,11 +375,252 @@ private val someMoreGolubinaLessons by lessons {
         +Input(content.symbols.getValue('Ц'))
         +Info(
             """
-                    Урок 4 пройден! Материал о букве Х и цифре 8 находится на странице 16 в букваре.
+                    Урок 5 пройден! Материал о букве Х и цифре 8 находится на странице 16 в букваре.
                     Если у Вас есть возможность, изучите эту страницу самостоятельно.
                     <br>
                     На следующем занятии мы освоим буквы И и Ж, а также цифры 9 и 0"""
         )
+    }
+
+    lesson(
+        name = "Буквы Ж, И и цифры 9, 0"
+    ) {
+        +Info(
+            """
+                    Урок 6. Буквы Ж, И и цифры 9, 0
+                    <br><br>
+                    Буква И - это точки 2 и 4.
+                    Этот же символ с добавлением цифрового знака обозначает цифру 9.
+                    <br>
+                    Буква Ж - это точки 2, 4 и 5.
+                    Цифровой знак и буква Ж образуют цифру 0.
+                    <br>
+                    Введите символы, которые образуют слово ЖАБА"""
+        )
+        +Input(content.symbols.getValue('Ж'))
+        +Input(content.symbols.getValue('А'))
+        +Input(content.symbols.getValue('Б'))
+        +Input(content.symbols.getValue('А'))
+        +Info(
+            """Введите буквы, составляющие слово БАГАЖ"""
+        )
+        +Input(content.symbols.getValue('Б'))
+        +Input(content.symbols.getValue('А'))
+        +Input(content.symbols.getValue('Г'))
+        +Input(content.symbols.getValue('А'))
+        +Input(content.symbols.getValue('Ж'))
+        +Info(
+            """Введите буквы, составляющие слово ЖАЖДА"""
+        )
+        +Input(content.symbols.getValue('Ж'))
+        +Input(content.symbols.getValue('А'))
+        +Input(content.symbols.getValue('Ж'))
+        +Input(content.symbols.getValue('Д'))
+        +Input(content.symbols.getValue('А'))
+        +Info(
+            """Напомним, буква И кодируется двумя точками с номерами 2 и 4.
+                    Введите буквы, образующие слово ГИД"""
+        )
+        +Input(content.symbols.getValue('Г'))
+        +Input(content.symbols.getValue('И'))
+        +Input(content.symbols.getValue('Д'))
+        +Info(
+            """Введите буквы, которые образуют слово ИЖИЦА"""
+        )
+        +Input(content.symbols.getValue('И'))
+        +Input(content.symbols.getValue('Ж'))
+        +Input(content.symbols.getValue('И'))
+        +Input(content.symbols.getValue('Ц'))
+        +Input(content.symbols.getValue('А'))
+        +Info(
+            """Введите по символам число 850"""
+        )
+        +Input(content.symbols.getValue(']'))
+        +Input(content.symbols.getValue('8'))
+        +Input(content.symbols.getValue('5'))
+        +Input(content.symbols.getValue('0'))
+        +Info(
+            """Введите разные цифры"""
+        )
+        +Input(content.symbols.getValue('1'))
+        +Input(content.symbols.getValue('3'))
+        +Input(content.symbols.getValue('2'))
+        +Input(content.symbols.getValue('6'))
+        +Input(content.symbols.getValue('9'))
+        +Input(content.symbols.getValue('7'))
+        +Info(
+            """
+                    Урок 6 закончен. Теперь Вы, помимо букв, знаете все цифры.
+                    Буквы И, Ж и примеры к ним можно найти в букваре на странице 17.
+                    <br>
+                    Следующий урок посвящён буквам К, Л и М."""
+        )
+    }
+
+    lesson(
+        name = "Буквы К, Л, М. Часть 1: Буквы К, Л"
+    ) {
+        +Info(
+            """
+                    Урок 7. Буквы К, Л, М
+                    <br><br>
+                    До сих пор мы изучали только буквы, образованные верхними четырьмя точками,
+                    то есть точками 1, 2, 4, 5. В нескольких следующих уроках будут рассмотрены
+                    буквы, содержащие, помимо того, точку три.
+                    <br>
+                    Перед занятием повторим пройденное. Введите по буквам слово ЕЖИХА.
+                    """
+        )
+        +Input(content.symbols.getValue('Е'))
+        +Input(content.symbols.getValue('Ж'))
+        +Input(content.symbols.getValue('И'))
+        +Input(content.symbols.getValue('Х'))
+        +Input(content.symbols.getValue('А'))
+        +Info(
+            """
+                    Теперь перейдём к изучению материала.
+                    <br>
+                    Буква К: точки 1 и 3. Заметьте, она получается добавлением точки 3 к букве А.
+                    <br>
+                    Буква Л: точки 1, 2, 3. Как буква Б, но ещё с точкой 3.
+                    <br>
+                    Ознакомьтесь с этими буквами в следующих двух шагах.
+                    """
+        )
+        +Show(content.symbols.getValue('К'))
+        +Show(content.symbols.getValue('Л'))
+        +Info(
+            """Введите по буквам слово КЛАД"""
+        )
+        +Input(content.symbols.getValue('К'))
+        +Input(content.symbols.getValue('Л'))
+        +Input(content.symbols.getValue('А'))
+        +Input(content.symbols.getValue('Д'))
+        +Info(
+            """Введите по буквам слово БЕЛКА"""
+        )
+        +Input(content.symbols.getValue('Б'))
+        +Input(content.symbols.getValue('Е'))
+        +Input(content.symbols.getValue('Л'))
+        +Input(content.symbols.getValue('К'))
+        +Input(content.symbols.getValue('А'))
+        +Info(
+            """Теперь введите отдельными символами слово ФЛАГ"""
+        )
+        +Input(content.symbols.getValue('Ф'))
+        +Input(content.symbols.getValue('Л'))
+        +Input(content.symbols.getValue('А'))
+        +Input(content.symbols.getValue('Г'))
+
+    }
+
+    lesson(
+        name = "Буквы К, Л, М. Часть 2: Буква М"
+    ) {
+        +Info(
+            """
+                    Сегодня осталось изучить букву М.
+                    <br>
+                    Буква М обозначается точками 1, 3 и 4. Она получается из буквы Ц 
+                    при добавлении точки 3.
+                    <br>
+                    В следующем шаге буква М выведена на экран.
+                    """
+        )
+        +Show(content.symbols.getValue('М'))
+        +Info(
+            """В следующих трёх шагах ведите по буквам слово МЕЛ"""
+        )
+        +Input(content.symbols.getValue('М'))
+        +Input(content.symbols.getValue('Е'))
+        +Input(content.symbols.getValue('Л'))
+        +Info(
+            """Введите по буквам слово МАК"""
+        )
+        +Input(content.symbols.getValue('М'))
+        +Input(content.symbols.getValue('А'))
+        +Input(content.symbols.getValue('К'))
+        +Info(
+            """Напоследок введите по буквам слово ФИАЛКА"""
+        )
+        +Input(content.symbols.getValue('Ф'))
+        +Input(content.symbols.getValue('И'))
+        +Input(content.symbols.getValue('А'))
+        +Input(content.symbols.getValue('Л'))
+        +Input(content.symbols.getValue('К'))
+        +Input(content.symbols.getValue('А'))
+        +Info(
+            """
+                    Мы подошли к концу урока 7.
+                    Буквам К, Л, М посвящены страницы 19 и 20 букваря.
+                    <br>
+                    На следующем занятии мы узнаем, как обозначается буква Н."""
+        )
+    }
+
+    lesson(
+        name = "Буква Н"
+    ) {
+        +Info(
+            """
+                    Урок 8. Буква Н.
+                    <br><br>
+                    Рекомендуем в дополнение к этому уроку изучить букву Н 
+                    на страницах 21 и 22 букваря.
+                    <br>
+                    Начнём занятие с повторения. Введите по буквам слово КАМБАЛА.
+                    """
+        )
+        +Input(content.symbols.getValue('К'))
+        +Input(content.symbols.getValue('А'))
+        +Input(content.symbols.getValue('М'))
+        +Input(content.symbols.getValue('Б'))
+        +Input(content.symbols.getValue('А'))
+        +Input(content.symbols.getValue('Л'))
+        +Input(content.symbols.getValue('А'))
+        +Info(
+            """
+                    Отлично, теперь познакомимся с буквой Н.
+                    <br>
+                    Буква Н обозначается четырьмя точками: 1, 3, 4 и 5. 
+                    Она образована точками буквы Д с добавлением точки номер 3.
+                    <br>
+                    В следующем шаге ознакомьтесь с этой буквой.
+                    """
+        )
+        +Show(content.symbols.getValue('Н'))
+        +Input(content.symbols.getValue('Н'))
+        +Info(
+            """Введите по буквам слово БАНАН"""
+        )
+        +Input(content.symbols.getValue('Б'))
+        +Input(content.symbols.getValue('А'))
+        +Input(content.symbols.getValue('Н'))
+        +Input(content.symbols.getValue('А'))
+        +Input(content.symbols.getValue('Н'))
+        +Info(
+            """Введите по буквам слово ЦЕНА"""
+        )
+        +Input(content.symbols.getValue('Ц'))
+        +Input(content.symbols.getValue('Е'))
+        +Input(content.symbols.getValue('Н'))
+        +Input(content.symbols.getValue('А'))
+        +Info(
+            """Теперь введите по буквам слово БЛАНК"""
+        )
+        +Input(content.symbols.getValue('Б'))
+        +Input(content.symbols.getValue('Л'))
+        +Input(content.symbols.getValue('А'))
+        +Input(content.symbols.getValue('Н'))
+        +Input(content.symbols.getValue('К'))
+        +Info(
+            """
+                    На этом урок 8 завершается.
+                    <br>
+                    В следующий раз изучим букву О.
+                    """
+        )
+
     }
 
     lesson(
