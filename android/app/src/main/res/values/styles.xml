@@ -7,6 +7,7 @@
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="android:colorBackground">@color/colorBackground</item>>
 
         <item name="materialButtonStyle">
