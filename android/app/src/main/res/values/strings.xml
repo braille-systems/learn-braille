@@ -193,6 +193,10 @@
     <!--    Action menu-->
 
     <string name="menu_help_description">Кнопка: справка</string>
+    <string name="menu_course_navigation">Навигация по курсу</string>
+    <string name="menu_navigate_to_progress">К последнему пройденному шагу</string>
+    <string name="menu_hide">Скрыть это меню</string>
+    <string name="menu_more">Дополнительные опции</string>
 
     <!--    Help-->
 
