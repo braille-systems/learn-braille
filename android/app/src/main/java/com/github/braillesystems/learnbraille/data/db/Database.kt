@@ -8,7 +8,6 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.github.braillesystems.learnbraille.data.entities.*
-import com.github.braillesystems.learnbraille.data.entities.Annotation
 import com.github.braillesystems.learnbraille.res.prepopulationData
 import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.Job
@@ -22,10 +21,10 @@ import timber.log.Timber
     [
         User::class, Material::class, KnownMaterial::class,
         Deck::class, Card::class,
-        Course::class, Lesson::class, Step::class, Annotation::class, StepAnnotation::class,
+        Course::class, Lesson::class, Step::class, StepAnnotation::class, StepHasAnnotation::class,
         CurrentStep::class, LastCourseStep::class
     ],
-    version = 10,
+    version = 10, // TODO increment version to 10
     exportSchema = false
 )
 @TypeConverters(
@@ -44,8 +43,8 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
     abstract val courseDao: CourseDao
     abstract val lessonDao: LessonDao
     abstract val stepDao: StepDao
-    abstract val annotationDao: AnnotationsDao
     abstract val stepAnnotationDao: StepAnnotationDao
+    abstract val stepHasAnnotationDao: StepHasAnnotationDao
 
     abstract val currentStepDao: CurrentStepDao
     abstract val lastCourseStepDao: LastCourseStepDao
@@ -57,7 +56,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
 
     fun init(): LearnBrailleDatabase = this.also {
         forcePrepopulationJob = scope().launch {
-            // Correct if at least one user is always prepopulated
+            // Expect to have at list one user in prepopulation list
             if (userDao.getUser(1) != null) {
                 Timber.i("DB has been already initialized")
             } else {
@@ -104,6 +103,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
 
                 private fun prepopulate() {
                     Timber.i("Prepopulate")
+                    // TODO simplify
                     object : KoinComponent {
                         fun runPrepopulation() {
                             get<LearnBrailleDatabase>().apply {
@@ -118,8 +118,8 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
                                         courseDao.insert(courses)
                                         lessonDao.insert(lessons)
                                         stepDao.insert(steps)
-                                        annotationDao.insert(annotations)
                                         stepAnnotationDao.insert(stepAnnotations)
+                                        stepHasAnnotationDao.insert(stepHasAnnotations)
 
                                         Timber.i("Finnish database prepopulation")
                                         prepopulationFinished = true
