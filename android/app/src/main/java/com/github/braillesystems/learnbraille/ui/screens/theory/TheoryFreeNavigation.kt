@@ -1,97 +1,84 @@
-package com.github.braillesystems.learnbraille.ui.screens
+package com.github.braillesystems.learnbraille.ui.screens.theory
+
+/**
+ * Provides navigation to the specific fragment that depends on the step.
+ */
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.data.entities.*
-import com.github.braillesystems.learnbraille.data.repository.StepRepository
+import com.github.braillesystems.learnbraille.data.repository.MutableTheoryRepository
+import com.github.braillesystems.learnbraille.data.repository.TheoryRepository
 import com.github.braillesystems.learnbraille.ui.screens.menu.MenuFragmentDirections
-import com.github.braillesystems.learnbraille.ui.screens.theory.AbstractStepFragment
+import com.github.braillesystems.learnbraille.ui.screens.theory.AbstractStepFragment.Companion.stepArgName
 import com.github.braillesystems.learnbraille.utils.*
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.get
 import timber.log.Timber
 
-
-private const val stepArgsDelimiter = Char.MAX_VALUE
-
-
-fun getAction(step: Step, courseId: Long): NavDirections =
-    (stringify(Step.serializer(), step) + stepArgsDelimiter + courseId.toString()).let { args ->
+fun getAction(step: Step): NavDirections =
+    stringify(Step.serializer(), step).let { arg ->
         when (step.data) {
-            is Info -> MenuFragmentDirections.actionGlobalInfoFragment(args)
-            is FirstInfo -> MenuFragmentDirections.actionGlobalFirstInfoFragment(args)
-            is LastInfo -> MenuFragmentDirections.actionGlobalLastInfoFragment(args)
-            is InputDots -> MenuFragmentDirections.actionGlobalInputDotsFragment(args)
-            is ShowDots -> MenuFragmentDirections.actionGlobalShowDotsFragment(args)
+            is Info -> MenuFragmentDirections.actionGlobalInfoFragment(arg)
+            is FirstInfo -> MenuFragmentDirections.actionGlobalFirstInfoFragment(arg)
+            is LastInfo -> MenuFragmentDirections.actionGlobalLastInfoFragment(arg)
+            is InputDots -> MenuFragmentDirections.actionGlobalInputDotsFragment(arg)
+            is ShowDots -> MenuFragmentDirections.actionGlobalShowDotsFragment(arg)
             is Input -> when (step.data.material.data) {
-                is Symbol -> MenuFragmentDirections.actionGlobalInputSymbolFragment(args)
+                is Symbol -> MenuFragmentDirections.actionGlobalInputSymbolFragment(arg)
             }
             is Show -> when (step.data.material.data) {
-                is Symbol -> MenuFragmentDirections.actionGlobalShowSymbolFragment(args)
+                is Symbol -> MenuFragmentDirections.actionGlobalShowSymbolFragment(arg)
             }
         }
     }
 
-fun AbstractStepFragment.getStepAndCourseIdArgs(): Pair<Step, Long> =
-    getStringArg(AbstractStepFragment.stepArgName).split(stepArgsDelimiter, limit = 2)
-        .let { (stepString, courseIdString) ->
-            parse(Step.serializer(), stepString) to courseIdString.toLong()
-        }
+fun AbstractStepFragment.getStepArg(): Step = parse(Step.serializer(), getStringArg(stepArgName))
 
+fun Fragment.toStep(step: Step) =
+    findNavController().navigate(getAction(step))
 
-fun Fragment.toStep(step: Step, courseId: Long) =
-    findNavController().navigate(getAction(step, courseId))
-
-fun Fragment.toNextStep(
+fun AbstractStepFragment.toNextStep(
     thisStep: Step,
-    stepRepository: StepRepository,
+    theoryRepository: MutableTheoryRepository = get(),
     markThisAsPassed: Boolean,
     onNavigationFailed: Fragment.() -> Unit = {}
 ): Unit =
     if (thisStep.data is LastInfo) Timber.w("Tying to access step after last")
     else scope().launch {
-        if (markThisAsPassed) {
-            stepRepository.updateCurrentStep(thisStep.id)
+        val nextStep = theoryRepository.getNextStepAndUpdate(thisStep, markThisAsPassed)
+        if (nextStep != null) {
+            toStep(nextStep)
+        } else {
+            Timber.i("Next step navigation failed")
+            onNavigationFailed()
         }
-        stepRepository.getNextStep(thisStep.id)
-            ?.let { nextStep ->
-                toStep(nextStep, stepRepository.thisCourseId)
-                stepRepository.updateLastStep(nextStep.id)
-            }
-            ?: onNavigationFailed().also {
-                Timber.i("Next step navigation failed")
-            }
     }.devnull
 
-fun Fragment.toPrevStep(
+fun AbstractStepFragment.toPrevStep(
     thisStep: Step,
-    stepRepository: StepRepository
+    theoryRepository: MutableTheoryRepository = get()
 ): Unit =
     if (thisStep.data is FirstInfo) Timber.w("Trying to access step before first")
     else scope().launch {
-        stepRepository.getPrevStep(thisStep.id)
-            ?.let { nextStep ->
-                toStep(nextStep, stepRepository.thisCourseId)
-                stepRepository.updateLastStep(nextStep.id)
-            } ?: error("Prev step should always exist")
+        theoryRepository.getPrevStepAndUpdate(thisStep)
+            ?.let(::toStep)
+            ?: error("Prev step should always exist")
     }.devnull
 
-fun Fragment.toCurrentStep(
-    stepRepository: StepRepository
+fun AbstractStepFragment.toCurrentStep(
+    courseId: Long,
+    theoryRepository: MutableTheoryRepository = get()
 ): Unit = scope().launch {
-    val currStep = stepRepository.getCurrentStep()
-    toStep(
-        currStep,
-        stepRepository.thisCourseId
-    )
-    stepRepository.updateLastStep(currStep.id)
+    val currStep = theoryRepository.getCurrentStepAndUpdate(courseId)
+    toStep(currStep)
 }.devnull
 
-fun Fragment.toLastStep(
-    stepRepository: StepRepository
+fun Fragment.toLastCourseStep(
+    courseId: Long,
+    theoryRepository: TheoryRepository = get()
 ): Unit = scope().launch {
-    toStep(
-        stepRepository.getLastStep(),
-        stepRepository.thisCourseId
-    )
+    val lastStep = theoryRepository.getLastCourseStep(courseId)
+    toStep(lastStep)
 }.devnull

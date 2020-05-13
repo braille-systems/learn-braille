@@ -13,15 +13,12 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.InputDots
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
-import com.github.braillesystems.learnbraille.data.repository.StepRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputDotsBinding
 import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.views.*
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.checkedBuzz
-import com.github.braillesystems.learnbraille.utils.updateTitle
 import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots) {
@@ -46,16 +43,15 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
 
         Timber.i("Start initialize input dots fragment")
 
-        updateTitle(getString(R.string.lessons_title_input_dots))
-        setHasOptionsMenu(true)
-
-        val (step, courseId) = getStepAndCourseIdArgs()
-        val stepRepository: StepRepository by inject { parametersOf(courseId) }
+        val step = getStepArg()
         require(step.data is InputDots)
         infoTextView.text = step.data.text?.parseAsHtml()
             ?: getString(R.string.lessons_input_dots_info_template)
                 .format(step.data.dots.spelling)
         brailleDots.dotsState.display(step.data.dots)
+
+        updateStepTitle(step.lessonId, step.id, R.string.lessons_title_input_dots)
+        setHasOptionsMenu(true)
 
         expectedDots = step.data.dots
         userTouchedDots = false
@@ -84,10 +80,10 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
 
 
         prevButton.setOnClickListener {
-            toPrevStep(step, stepRepository)
+            toPrevStep(step)
         }
         toCurrStepButton.setOnClickListener {
-            toCurrentStep(stepRepository)
+            toCurrentStep(step.courseId)
         }
 
         viewModel.observeEventCorrect(
@@ -96,7 +92,7 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
             dotsState, buzzer
         ) {
             makeCorrectToast()
-            toNextStep(step, stepRepository, markThisAsPassed = true)
+            toNextStep(step, markThisAsPassed = true)
         }
 
         viewModel.observeEventIncorrect(
@@ -109,7 +105,7 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
                 buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern, preferenceRepository)
             }
             if (userTouchedDots) notify()
-            else toNextStep(step, stepRepository, markThisAsPassed = false) { notify() }
+            else toNextStep(step, markThisAsPassed = false) { notify() }
         }
 
         viewModel.observeEventHint(

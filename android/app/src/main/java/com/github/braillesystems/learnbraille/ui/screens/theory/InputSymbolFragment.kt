@@ -12,15 +12,12 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.Input
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
-import com.github.braillesystems.learnbraille.data.repository.StepRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputSymbolBinding
 import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.views.*
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.checkedBuzz
-import com.github.braillesystems.learnbraille.utils.updateTitle
 import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_symbol) {
@@ -45,17 +42,16 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
 
         Timber.i("Initialize input symbol fragment")
 
-        updateTitle(getString(R.string.lessons_title_input_symbol))
-        setHasOptionsMenu(true)
-
-        val (step, courseId) = getStepAndCourseIdArgs()
-        val stepRepository: StepRepository by inject { parametersOf(courseId) }
+        val step = getStepArg()
         require(step.data is Input)
         require(step.data.material.data is Symbol)
         val symbol = step.data.material.data
         letter.text = symbol.symbol.toString()
         brailleDots.dotsState.display(symbol.brailleDots)
         makeIntroLetterToast(symbol.symbol.toString())
+
+        updateStepTitle(step.lessonId, step.id, R.string.lessons_title_input_symbol)
+        setHasOptionsMenu(true)
 
         expectedDots = symbol.brailleDots
         userTouchedDots = false
@@ -84,10 +80,10 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
 
 
         prevButton.setOnClickListener {
-            toPrevStep(step, stepRepository)
+            toPrevStep(step)
         }
         toCurrStepButton.setOnClickListener {
-            toCurrentStep(stepRepository)
+            toCurrentStep(step.courseId)
         }
 
         viewModel.observeEventCorrect(
@@ -96,7 +92,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
             dotsState, buzzer
         ) {
             makeCorrectToast()
-            toNextStep(step, stepRepository, markThisAsPassed = true)
+            toNextStep(step, markThisAsPassed = true)
         }
 
         viewModel.observeEventIncorrect(
@@ -109,7 +105,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
                 buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern, preferenceRepository)
             }
             if (userTouchedDots) notify()
-            else toNextStep(step, stepRepository, markThisAsPassed = false) { notify() }
+            else toNextStep(step, markThisAsPassed = false) { notify() }
         }
 
         viewModel.observeEventHint(
