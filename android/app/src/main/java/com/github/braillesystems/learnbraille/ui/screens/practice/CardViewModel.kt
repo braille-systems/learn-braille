@@ -4,8 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.Symbol
-import com.github.braillesystems.learnbraille.data.repository.CardRepository
-import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
+import com.github.braillesystems.learnbraille.data.repository.PracticeRepository
 import com.github.braillesystems.learnbraille.ui.screens.DotsChecker
 import com.github.braillesystems.learnbraille.ui.screens.MutableDotsChecker
 import com.github.braillesystems.learnbraille.utils.scope
@@ -14,8 +13,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class CardViewModelFactory(
-    private val cardRepository: CardRepository,
-    private val preferenceRepository: PreferenceRepository,
+    private val practiceRepository: PracticeRepository,
     private val application: Application,
     private val getEnteredDots: () -> BrailleDots
 ) : ViewModelProvider.Factory {
@@ -23,15 +21,14 @@ class CardViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         if (modelClass.isAssignableFrom(CardViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            CardViewModel(cardRepository, preferenceRepository, application, getEnteredDots) as T
+            CardViewModel(practiceRepository, application, getEnteredDots) as T
         } else {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
 }
 
 class CardViewModel(
-    private val cardRepository: CardRepository,
-    private val preferenceRepository: PreferenceRepository,
+    private val practiceRepository: PracticeRepository,
     application: Application,
     private val getEnteredDots: () -> BrailleDots,
     private val dotsChecker: MutableDotsChecker = MutableDotsChecker.create()
@@ -78,8 +75,7 @@ class CardViewModel(
     }
 
     private fun initializeCard() = uiScope.launch {
-        val material = cardRepository.getNextMaterial(preferenceRepository.currentUserId)
-            ?: error("Next card should always exist for user")
+        val material = practiceRepository.getNextMaterial()
         require(material.data is Symbol)
         material.data.apply {
             _symbol.value = symbol.toString()
