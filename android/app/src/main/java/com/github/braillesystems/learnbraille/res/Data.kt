@@ -30,7 +30,8 @@ object StepAnnotation {
  * If you need some additional info, do not hardcode it. Just make request to the new DSL feature.
  */
 val prepopulationData by data(
-    materials = content
+    materials = content,
+    stepAnnotations = listOf(StepAnnotation.someBookRequired)
 ) {
 
     users {
@@ -47,10 +48,6 @@ val prepopulationData by data(
         ) {
             +golubinaIntroLessons
             +someMoreGolubinaLessons
-        }
-
-        annotations {
-            +StepAnnotation.someBookRequired
         }
     }
 
