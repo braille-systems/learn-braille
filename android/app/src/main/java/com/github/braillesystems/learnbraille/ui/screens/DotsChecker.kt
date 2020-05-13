@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
-import com.github.braillesystems.learnbraille.ui.serial.UsbParser
+import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
 import com.github.braillesystems.learnbraille.ui.views.*
 import com.github.braillesystems.learnbraille.utils.checkedBuzz
 import timber.log.Timber
@@ -201,7 +201,7 @@ inline fun DotsChecker.observeEventHint(
         if (expectedDots == null) return@Observer
         Timber.i("Handle hint")
         dotsState.display(expectedDots)
-        UsbParser.trySend(expectedDots)
+        BrailleTrainer.trySend(expectedDots)
         block(expectedDots)
         onHintComplete()
     }

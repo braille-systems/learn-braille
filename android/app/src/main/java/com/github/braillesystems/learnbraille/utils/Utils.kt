@@ -1,5 +1,9 @@
 package com.github.braillesystems.learnbraille.utils
 
+/**
+ * This file contains suitable extension functions for this project.
+ */
+
 import android.content.Context
 import android.os.Vibrator
 import android.view.accessibility.AccessibilityEvent
@@ -10,6 +14,9 @@ import com.github.braillesystems.learnbraille.data.repository.PreferenceReposito
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.serialization.DeserializationStrategy
+import kotlinx.serialization.SerializationStrategy
+import kotlinx.serialization.json.Json
 import org.koin.android.ext.android.get
 import timber.log.Timber
 
@@ -61,3 +68,6 @@ fun Fragment.announceByAccessibility(
     announcement: String,
     preferenceRepository: PreferenceRepository = get()
 ) = application.announceByAccessibility(announcement, preferenceRepository)
+
+fun <T> stringify(s: SerializationStrategy<T>, obj: T) = Json.stringify(s, obj)
+fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.parse(d, s)
