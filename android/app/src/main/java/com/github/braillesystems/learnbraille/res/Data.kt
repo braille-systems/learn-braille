@@ -12,7 +12,7 @@ object SymbolType {
 }
 
 object StepAnnotation {
-    const val someBookRequired = "some_book_required"
+    const val golubinaBookRequired = "golubina_book_required"
 }
 
 
@@ -31,7 +31,9 @@ object StepAnnotation {
  */
 val prepopulationData by data(
     materials = content,
-    stepAnnotations = listOf(StepAnnotation.someBookRequired)
+    stepAnnotations = listOf(
+        StepAnnotation.golubinaBookRequired
+    )
 ) {
 
     users {
@@ -123,12 +125,12 @@ private val golubinaIntroLessons by lessons {
         +Info(
             """Снова изучим страницу 13 в букваре. Под строкой с буквой А - 
                     такая же с буквой Б."""
-        ).annotate(StepAnnotation.someBookRequired)
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('Б'))
         +Info(
             """Ознакомьтесь с буквой Ц на странице 13 букваря. 
                     Строка с буквой Ц находится под строкой с буквой Б."""
-        ).annotate(StepAnnotation.someBookRequired)
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Show(content.symbols.getValue('Ц'))
         +Input(content.symbols.getValue('Ц'))
         +Info(
