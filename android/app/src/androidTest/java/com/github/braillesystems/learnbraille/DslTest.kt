@@ -153,26 +153,26 @@ private val steps = listOf(
     Step(2, 1, 1, Info("with book")),
     Step(3, 1, 1, LastInfo("last")),
 
-    Step(4, 2, 1, FirstInfo("FirstInfo")),
-    Step(5, 2, 1, Info("Open your book and boom your bomb")),
+    Step(1, 2, 1, FirstInfo("FirstInfo")),
+    Step(2, 2, 1, Info("Open your book and boom your bomb")),
     Step(
-        6, 2, 1,
+        3, 2, 1,
         ShowDots(
             text = "Перед Вами полное шеститочие",
             dots = BrailleDots(F, F, F, F, F, F)
         )
     ),
     Step(
-        7, 2, 1,
+        4, 2, 1,
         InputDots(
             text = "Введите все шесть точек",
             dots = BrailleDots(F, F, F, F, F, F)
         )
     ),
-    Step(8, 2, 1, Show(content.symbols.getValue('Z'))),
-    Step(9, 2, 1, Input(content.symbols.getValue('Б'))),
-    Step(10, 2, 1, Input(content.symbols.getValue('Z'))),
-    Step(11, 2, 1, LastInfo("LastInfo"))
+    Step(5, 2, 1, Show(content.symbols.getValue('Z'))),
+    Step(6, 2, 1, Input(content.symbols.getValue('Б'))),
+    Step(7, 2, 1, Input(content.symbols.getValue('Z'))),
+    Step(8, 2, 1, LastInfo("LastInfo"))
 )
 private val stepAnnotations = listOf(
     StepAnnotation(1, "book"),

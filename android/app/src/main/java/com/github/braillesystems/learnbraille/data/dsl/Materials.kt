@@ -17,7 +17,7 @@ open class materials(private val block: MaterialsBuilder.() -> Unit) {
 @DataBuilderMarker
 class MaterialsBuilder(block: MaterialsBuilder.() -> Unit) {
 
-    private val _materials: MutableList<Material>
+    private var _materials = mutableListOf<Material>()
     internal val materials: List<Material>
         get() = _materials
 
