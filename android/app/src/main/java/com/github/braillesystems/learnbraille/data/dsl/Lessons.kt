@@ -1,8 +1,6 @@
 package com.github.braillesystems.learnbraille.data.dsl
 
-import com.github.braillesystems.learnbraille.data.entities.Lesson
-import com.github.braillesystems.learnbraille.data.entities.Step
-import com.github.braillesystems.learnbraille.data.entities.StepData
+import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.utils.side
 import kotlin.reflect.KProperty
 
@@ -50,6 +48,9 @@ class StepsBuilder(block: StepsBuilder.() -> Unit) {
     }
 
     operator fun Pair<StepData, List<StepAnnotationName>>.unaryPlus() {
+        require(first !is FirstInfo && first !is LastInfo) {
+            "First and Last steps of the course should not be annotated"
+        }
         _steps += Pair(
             Step(DEFAULT_ID, DEFAULT_ID, DEFAULT_ID, first),
             second

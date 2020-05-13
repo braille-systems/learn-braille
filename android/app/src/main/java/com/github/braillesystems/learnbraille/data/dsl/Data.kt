@@ -117,7 +117,7 @@ class DataBuilder(
 
                 stepsWithAnnotations.forEachIndexed { iStep, (step, stepAnnotationNames) ->
                     val stepId = iStep + 1L
-                    _steps += step.copy(id = stepId, course_id = courseId, lessonId = lessonId)
+                    _steps += step.copy(id = stepId, courseId = courseId, lessonId = lessonId)
 
                     stepAnnotationNames.forEach {
                         val stepAnnotation = annotationByName[it]?.id

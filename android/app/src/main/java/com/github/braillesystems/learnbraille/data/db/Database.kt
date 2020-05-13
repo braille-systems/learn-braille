@@ -120,6 +120,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
                                         stepDao.insert(steps)
                                         stepAnnotationDao.insert(stepAnnotations)
                                         stepHasAnnotationDao.insert(stepHasAnnotations)
+                                        // TODO insert minimum amount of letters to known
 
                                         Timber.i("Finnish database prepopulation")
                                         prepopulationFinished = true

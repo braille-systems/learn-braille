@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
 data class Step(
     val id: Long,
     @ColumnInfo(name = "course_id")
-    val course_id: Long,
+    val courseId: Long,
     @ColumnInfo(name = "lesson_id")
     val lessonId: Long,
     val data: StepData

@@ -77,12 +77,12 @@ class LearnBrailleDatabaseTest {
         Step(
             id = 1,
             data = FirstInfo("FirstInfo"),
-            lessonId = 1, course_id = 1
+            lessonId = 1, courseId = 1
         ),
         Step(
             id = 2,
             data = Info("Open your book"),
-            lessonId = 1, course_id = 1
+            lessonId = 1, courseId = 1
         ),
         Step(
             id = 3,
@@ -90,7 +90,7 @@ class LearnBrailleDatabaseTest {
                 text = "Перед Вами полное шеститочие",
                 dots = BrailleDots(F, F, F, F, F, F)
             ),
-            lessonId = 1, course_id = 1
+            lessonId = 1, courseId = 1
         ),
         Step(
             id = 4,
@@ -98,22 +98,22 @@ class LearnBrailleDatabaseTest {
                 text = "Введите все шесть точек",
                 dots = BrailleDots(F, F, F, F, F, F)
             ),
-            lessonId = 2, course_id = 1
+            lessonId = 2, courseId = 1
         ),
         Step(
             id = 5,
             data = Show(materials.first()),
-            lessonId = 2, course_id = 1
+            lessonId = 2, courseId = 1
         ),
         Step(
             id = 6,
             data = Input(materials.first()),
-            lessonId = 2, course_id = 1
+            lessonId = 2, courseId = 1
         ),
         Step(
             id = 7,
             data = LastInfo("LastInfo"),
-            lessonId = 2, course_id = 1
+            lessonId = 2, courseId = 1
         )
     )
     private val annotations = listOf(
