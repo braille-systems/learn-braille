@@ -19,6 +19,7 @@ import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.json.Json
 import org.koin.android.ext.android.get
 import timber.log.Timber
+import kotlin.reflect.KProperty
 
 val Fragment.application: LearnBrailleApplication
     get() = requireNotNull(activity).application as LearnBrailleApplication
@@ -71,3 +72,11 @@ fun Fragment.announceByAccessibility(
 
 fun <T> stringify(s: SerializationStrategy<T>, obj: T) = Json.stringify(s, obj)
 fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.parse(d, s)
+
+class logged<R>(private val getter: (String) -> R) {
+
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): R =
+        getter(property.name).also {
+            Timber.i("${property.name} -> $it")
+        }
+}
