@@ -1,4 +1,4 @@
-package com.github.braillesystems.learnbraille.ui.screens.theory
+package com.github.braillesystems.learnbraille.ui.screens.theory.steps
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.LastInfo
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonLastInfoBinding
+import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
+import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
 
 class LastInfoFragment : AbstractStepFragment(R.string.lessons_help_last_info) {
 

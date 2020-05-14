@@ -1,26 +1,31 @@
-package com.github.braillesystems.learnbraille.ui.screens.theory
+package com.github.braillesystems.learnbraille.ui.screens.theory.steps
 
 import android.os.Bundle
 import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.getSystemService
+import androidx.core.text.parseAsHtml
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
-import com.github.braillesystems.learnbraille.data.entities.Input
-import com.github.braillesystems.learnbraille.data.entities.Symbol
+import com.github.braillesystems.learnbraille.data.entities.InputDots
+import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
-import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputSymbolBinding
+import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputDotsBinding
 import com.github.braillesystems.learnbraille.ui.screens.*
+import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
+import com.github.braillesystems.learnbraille.ui.screens.theory.toCurrentStep
+import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
+import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
 import com.github.braillesystems.learnbraille.ui.views.*
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.checkedBuzz
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
-class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_symbol) {
+class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots) {
 
     private lateinit var expectedDots: BrailleDots
     private lateinit var dotsState: BrailleDotsState
@@ -33,27 +38,26 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = DataBindingUtil.inflate<FragmentLessonsInputSymbolBinding>(
+    ) = DataBindingUtil.inflate<FragmentLessonsInputDotsBinding>(
         inflater,
-        R.layout.fragment_lessons_input_symbol,
+        R.layout.fragment_lessons_input_dots,
         container,
         false
     ).apply {
 
-        Timber.i("Initialize input symbol fragment")
+        Timber.i("Start initialize input dots fragment")
 
         val step = getStepArg()
-        require(step.data is Input)
-        require(step.data.material.data is Symbol)
-        val symbol = step.data.material.data
-        letter.text = symbol.symbol.toString()
-        brailleDots.dotsState.display(symbol.brailleDots)
-        makeIntroLetterToast(symbol.symbol.toString())
+        require(step.data is InputDots)
+        infoTextView.text = step.data.text?.parseAsHtml()
+            ?: getString(R.string.lessons_input_dots_info_template)
+                .format(step.data.dots.spelling)
+        brailleDots.dotsState.display(step.data.dots)
 
-        updateStepTitle(step.lessonId, step.id, R.string.lessons_title_input_symbol)
+        updateStepTitle(step.lessonId, step.id, R.string.lessons_title_input_dots)
         setHasOptionsMenu(true)
 
-        expectedDots = symbol.brailleDots
+        expectedDots = step.data.dots
         userTouchedDots = false
         dotsState = brailleDots.dotsState.apply {
             uncheck()
@@ -66,17 +70,21 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         }
 
 
-        val viewModelFactory = InputViewModelFactory(application, expectedDots) {
-            dotsState.brailleDots
-        }
+        val viewModelFactory =
+            InputViewModelFactory(
+                application,
+                expectedDots
+            ) {
+                dotsState.brailleDots
+            }
         viewModel = ViewModelProvider(
-            this@InputSymbolFragment, viewModelFactory
+            this@InputDotsFragment, viewModelFactory
         ).get(InputViewModel::class.java)
         buzzer = activity?.getSystemService()
 
 
         inputViewModel = viewModel
-        lifecycleOwner = this@InputSymbolFragment
+        lifecycleOwner = this@InputDotsFragment
 
 
         prevButton.setOnClickListener {
@@ -101,7 +109,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
             dotsState
         ) {
             val notify = {
-                makeIncorrectLetterToast(symbol.symbol.toString())
+                makeIncorrectToast()
                 buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern, preferenceRepository)
             }
             if (userTouchedDots) notify()
@@ -117,9 +125,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
 
         viewModel.observeEventPassHint(
             viewLifecycleOwner, dotsState
-        ) {
-            makeIntroLetterToast(symbol.symbol.toString())
-        }
+        )
 
     }.root
 }

@@ -1,4 +1,4 @@
-package com.github.braillesystems.learnbraille.ui.screens.theory
+package com.github.braillesystems.learnbraille.ui.screens.theory.steps
 
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp

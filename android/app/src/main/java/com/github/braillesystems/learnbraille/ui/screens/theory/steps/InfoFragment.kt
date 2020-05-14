@@ -1,4 +1,4 @@
-package com.github.braillesystems.learnbraille.ui.screens.theory
+package com.github.braillesystems.learnbraille.ui.screens.theory.steps
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -9,6 +9,10 @@ import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Info
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInfoBinding
+import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
+import com.github.braillesystems.learnbraille.ui.screens.theory.toCurrentStep
+import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
+import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
 
 class InfoFragment : AbstractStepFragment(R.string.lessons_help_info) {
 
