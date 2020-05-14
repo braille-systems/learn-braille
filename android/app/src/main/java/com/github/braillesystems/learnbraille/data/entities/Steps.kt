@@ -84,7 +84,7 @@ interface StepDao {
             select * from step_has_annotations as sha
             inner join step_annotations as sa on sha.annotation_id = sa.id
             where sha.course_id = :courseId 
-            and sha.lesson_id = :thisLessonId and sha.step_id = steps.id
+            and sha.lesson_id = steps.lesson_id and sha.step_id = steps.id
             and sa.name in (:proscribedAnnotations)
         )
         order by lesson_id, id
@@ -110,7 +110,7 @@ interface StepDao {
             select * from step_has_annotations as sha
             inner join step_annotations as sa on sha.annotation_id = sa.id
             where sha.course_id = :courseId 
-            and sha.lesson_id = :thisLessonId and sha.step_id = steps.id
+            and sha.lesson_id = steps.lesson_id and sha.step_id = steps.id
             and sa.name in (:proscribedAnnotations)
         )
         order by lesson_id desc, id desc
