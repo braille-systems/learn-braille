@@ -213,8 +213,10 @@
     <string name="preference_title_notifications">ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ</string>
     <string name="preference_title_buzz">ВИБРАЦИЯ</string>
     <string name="preference_summary_buzz">Вибрация в ответ на результат выполнения задания</string>
-    <string name="preference_title_use_textbook">ИСПОЛЬЗОВАНИЕ БУКВАРЯ</string>
-    <string name="preference_summary_use_textbook">Шаги с обращением к бумажному букварю в теоретическом курсе</string>
+    <string name="preference_title_use_golubina_textbook">ИСПОЛЬЗОВАНИЕ БУКВАРЯ</string>
+    <string name="preference_summary_use_golubina_textbook">
+        Шаги с обращением к бумажному букварю Голубиной в теоретическом курсе
+    </string>
 
 </resources>
 
