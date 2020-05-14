@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.databinding.ActivityMainBinding
-import com.github.braillesystems.learnbraille.ui.serial.UsbParser
+import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
 import com.google.android.material.appbar.MaterialToolbar
 import timber.log.Timber
 
@@ -25,16 +25,17 @@ class MainActivity : AppCompatActivity() {
         Timber.i("onCreate")
 
         DataBindingUtil.setContentView<ActivityMainBinding>(
-                this,
-                R.layout.activity_main
+            this,
+            R.layout.activity_main
         )
 
         toolbar = findViewById(R.id.topAppBar)
         setSupportActionBar(toolbar)
+
         navController = findNavController(R.id.navHostFragment)
         NavigationUI.setupActionBarWithNavController(this, navController)
 
-        UsbParser.init(this)
+        BrailleTrainer.init(this)
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }

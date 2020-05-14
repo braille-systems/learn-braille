@@ -3,7 +3,6 @@ package com.github.braillesystems.learnbraille.data.dsl
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.data.entities.Symbol
-import com.github.braillesystems.learnbraille.data.entities.SymbolType
 import kotlin.reflect.KProperty
 
 
@@ -48,16 +47,16 @@ class MaterialsBuilder(block: MaterialsBuilder.() -> Unit) {
 }
 
 
-class symbols(private val type: SymbolType, private val block: SymbolsBuilder.() -> Unit) {
+class symbols(private val symbolType: String, private val block: SymbolsBuilder.() -> Unit) {
 
     private var symbols: SymbolsBuilder? = null
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>) =
-        symbols ?: SymbolsBuilder(type, block).also { symbols = it }
+        symbols ?: SymbolsBuilder(symbolType, block).also { symbols = it }
 }
 
 @DataBuilderMarker
-class SymbolsBuilder(val type: SymbolType, block: SymbolsBuilder.() -> Unit) {
+class SymbolsBuilder(private val symbolType: String, block: SymbolsBuilder.() -> Unit) {
 
     private var map = mutableMapOf<Char, Symbol>()
     internal val symbols: List<Symbol>
@@ -70,6 +69,6 @@ class SymbolsBuilder(val type: SymbolType, block: SymbolsBuilder.() -> Unit) {
     operator fun get(symbol: Char): Symbol? = map[symbol]
 
     fun symbol(symbol: Char, brailleDots: BrailleDots) {
-        map[symbol] = Symbol(symbol, brailleDots, type)
+        map[symbol] = Symbol(symbol, brailleDots, symbolType)
     }
 }

@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name="com.github.braillesystems.learnbraille.ui.serial.UsbService"
+            android:name="com.github.braillesystems.learnbraille.ui.brailletrainer.UsbService"
             android:enabled="true">
         </service>
     </application>

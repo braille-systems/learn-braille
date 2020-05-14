@@ -5,7 +5,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.data.entities.*
-import com.github.braillesystems.learnbraille.data.entities.Annotation
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import com.github.braillesystems.learnbraille.res.SymbolType
@@ -78,12 +77,12 @@ class LearnBrailleDatabaseTest {
         Step(
             id = 1,
             data = FirstInfo("FirstInfo"),
-            lessonId = 1
+            lessonId = 1, courseId = 1
         ),
         Step(
             id = 2,
             data = Info("Open your book"),
-            lessonId = 1
+            lessonId = 1, courseId = 1
         ),
         Step(
             id = 3,
@@ -91,7 +90,7 @@ class LearnBrailleDatabaseTest {
                 text = "Перед Вами полное шеститочие",
                 dots = BrailleDots(F, F, F, F, F, F)
             ),
-            lessonId = 1
+            lessonId = 1, courseId = 1
         ),
         Step(
             id = 4,
@@ -99,30 +98,32 @@ class LearnBrailleDatabaseTest {
                 text = "Введите все шесть точек",
                 dots = BrailleDots(F, F, F, F, F, F)
             ),
-            lessonId = 2
+            lessonId = 2, courseId = 1
         ),
         Step(
             id = 5,
             data = Show(materials.first()),
-            lessonId = 2
+            lessonId = 2, courseId = 1
         ),
         Step(
             id = 6,
             data = Input(materials.first()),
-            lessonId = 2
+            lessonId = 2, courseId = 1
         ),
         Step(
             id = 7,
             data = LastInfo("LastInfo"),
-            lessonId = 2
+            lessonId = 2, courseId = 1
         )
     )
     private val annotations = listOf(
-        Annotation(id = 1, name = "a1"),
-        Annotation(id = 2, name = "a2")
+        StepAnnotation(id = 1, name = "a1"),
+        StepAnnotation(id = 2, name = "a2")
     )
     private val stepAnnotations = listOf(
-        StepAnnotation(
+        StepHasAnnotation(
+            courseId = 1,
+            lessonId = 3,
             stepId = 2,
             annotationId = 1
         )
@@ -143,8 +144,8 @@ class LearnBrailleDatabaseTest {
                     courseDao.insert(courses)
                     lessonDao.insert(lessons)
                     stepDao.insert(steps)
-                    annotationDao.insert(annotations)
-                    stepAnnotationDao.insert(stepAnnotations)
+                    stepAnnotationDao.insert(annotations)
+                    stepHasAnnotationDao.insert(stepAnnotations)
                 }
             }
     }

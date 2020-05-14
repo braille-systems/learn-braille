@@ -3,17 +3,15 @@ package com.github.braillesystems.learnbraille.data.entities
 import androidx.room.*
 
 
-@Entity(tableName = "step_annotations", primaryKeys = ["step_id", "annotation_id"])
+@Entity(tableName = "step_annotations", indices = [Index(value = ["name"], unique = true)])
 data class StepAnnotation(
-    @ColumnInfo(name = "step_id")
-    val stepId: Long,
-    @ColumnInfo(name = "annotation_id")
-    val annotationId: Long
+    @PrimaryKey val id: Long,
+    val name: String
 )
 
 @Dao
 interface StepAnnotationDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(data: List<StepAnnotation>)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insert(annotations: List<StepAnnotation>)
 }

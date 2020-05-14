@@ -1,8 +1,6 @@
 package com.github.braillesystems.learnbraille.data.dsl
 
-import com.github.braillesystems.learnbraille.data.entities.Lesson
-import com.github.braillesystems.learnbraille.data.entities.Step
-import com.github.braillesystems.learnbraille.data.entities.StepData
+import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.utils.side
 import kotlin.reflect.KProperty
 
@@ -25,7 +23,7 @@ class LessonsBuilder(block: LessonsBuilder.() -> Unit) {
     fun lesson(name: String, description: String = "", block: StepsBuilder.() -> Unit) =
         StepsBuilder(block).side {
             _lessons += Pair(
-                Lesson(DEFAULT_ID, name, description, DEFAULT_ID),
+                Lesson(DEFAULT_ID, DEFAULT_ID, name, description),
                 it.steps
             )
         }
@@ -44,17 +42,20 @@ class StepsBuilder(block: StepsBuilder.() -> Unit) {
 
     operator fun StepData.unaryPlus() {
         _steps += Pair(
-            Step(DEFAULT_ID, this, DEFAULT_ID),
+            Step(DEFAULT_ID, DEFAULT_ID, DEFAULT_ID, this),
             listOf()
         )
     }
 
-    operator fun Pair<StepData, List<AnnotationName>>.unaryPlus() {
+    operator fun Pair<StepData, List<StepAnnotationName>>.unaryPlus() {
+        require(first !is FirstInfo && first !is LastInfo) {
+            "First and Last steps of the course should not be annotated"
+        }
         _steps += Pair(
-            Step(DEFAULT_ID, first, DEFAULT_ID),
+            Step(DEFAULT_ID, DEFAULT_ID, DEFAULT_ID, first),
             second
         )
     }
 }
 
-fun StepData.annotate(vararg names: AnnotationName) = Pair(this, names.toList())
+fun StepData.annotate(vararg names: StepAnnotationName) = Pair(this, names.toList())

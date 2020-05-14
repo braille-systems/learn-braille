@@ -1,15 +1,14 @@
 package com.github.braillesystems.learnbraille.data.dsl
 
 import com.github.braillesystems.learnbraille.data.entities.*
-import com.github.braillesystems.learnbraille.data.entities.Annotation
 import com.github.braillesystems.learnbraille.utils.side
 import kotlin.reflect.KProperty
 
 
 const val DEFAULT_ID = -1L
 
-typealias AnnotationName = String
-typealias StepWithAnnotations = Pair<Step, List<AnnotationName>>
+typealias StepAnnotationName = String
+typealias StepWithAnnotations = Pair<Step, List<StepAnnotationName>>
 typealias LessonWithSteps = Pair<Lesson, List<StepWithAnnotations>>
 
 
@@ -19,6 +18,7 @@ annotation class DataBuilderMarker
 
 class data(
     private val materials: MaterialsBuilder,
+    private val stepAnnotations: List<StepAnnotationName>,
     private val block: DataBuilder.() -> Unit
 ) {
 
@@ -26,7 +26,7 @@ class data(
         require(property.name == "prepopulationData") {
             "This value is used to prepopulate database, do not change it's name"
         }
-        val data = DataBuilder(materials, block)
+        val data = DataBuilder(materials, stepAnnotations, block)
         return DataWrapper(data)
     }
 }
@@ -40,6 +40,7 @@ class DataWrapper(private val data: DataBuilder) {
 @DataBuilderMarker
 class DataBuilder(
     private val _materials: MaterialsBuilder,
+    private val stepAnnotationNames: List<StepAnnotationName>,
     block: DataBuilder.() -> Unit
 ) {
 
@@ -70,13 +71,13 @@ class DataBuilder(
     internal val steps: List<Step>
         get() = _steps
 
-    private val _annotations = mutableListOf<Annotation>()
-    internal val annotations: List<Annotation>
-        get() = _annotations
-
     private val _stepAnnotations = mutableListOf<StepAnnotation>()
     internal val stepAnnotations: List<StepAnnotation>
         get() = _stepAnnotations
+
+    private val _stepHasAnnotations = mutableListOf<StepHasAnnotation>()
+    internal val stepHasAnnotations: List<StepHasAnnotation>
+        get() = _stepHasAnnotations
 
     init {
         block()
@@ -89,15 +90,14 @@ class DataBuilder(
     fun courses(block: CoursesBuilder.() -> Unit) {
         val coursesBuilder = CoursesBuilder(block)
 
-        val annotationByName = mutableMapOf<AnnotationName, Annotation>()
-        coursesBuilder.annotations.forEach { annotation ->
-            annotation.copy(id = _annotations.size + 1L).also {
-                _annotations += it
-                require(!annotationByName.contains(it.name)) {
-                    "There should be only one annotation with name = ${it.name}"
-                }
-                annotationByName[annotation.name] = it
+        val annotationByName = mutableMapOf<StepAnnotationName, StepAnnotation>()
+        stepAnnotationNames.forEach { stepAnnotationName ->
+            val stepAnnotation = StepAnnotation(_stepAnnotations.size + 1L, stepAnnotationName)
+            _stepAnnotations += stepAnnotation
+            require(!annotationByName.containsKey(stepAnnotationName)) {
+                "Should be only one annotation with name = $stepAnnotationName"
             }
+            annotationByName[stepAnnotationName] = stepAnnotation
         }
 
         coursesBuilder.data.forEach { (course, lessonsWithSteps) ->
@@ -111,18 +111,23 @@ class DataBuilder(
             val courseId = courses.size + 1L
             _courses += course.copy(id = courseId)
 
-            lessonsWithSteps.forEach { (lesson, stepsWithAnnotations) ->
-                val lessonId = _lessons.size + 1L
+            lessonsWithSteps.forEachIndexed { iLesson, (lesson, stepsWithAnnotations) ->
+                val lessonId = iLesson + 1L
                 _lessons += lesson.copy(id = lessonId, courseId = courseId)
 
-                stepsWithAnnotations.forEach { (step, annotationNames) ->
-                    val stepId = _steps.size + 1L
-                    _steps += step.copy(id = stepId, lessonId = lessonId)
+                stepsWithAnnotations.forEachIndexed { iStep, (step, stepAnnotationNames) ->
+                    val stepId = iStep + 1L
+                    _steps += step.copy(id = stepId, courseId = courseId, lessonId = lessonId)
 
-                    annotationNames.forEach {
-                        val annotation = annotationByName[it]?.id
-                            ?: error("Step annotated with not existing annotation: $annotationNames")
-                        _stepAnnotations += StepAnnotation(stepId, annotation)
+                    stepAnnotationNames.forEach {
+                        val stepAnnotation = annotationByName[it]?.id
+                            ?: error("Step annotated with not existing annotation: $it")
+                        _stepHasAnnotations += StepHasAnnotation(
+                            courseId = courseId,
+                            lessonId = lessonId,
+                            stepId = stepId,
+                            annotationId = stepAnnotation
+                        )
                     }
                 }
             }

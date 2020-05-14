@@ -1,4 +1,4 @@
-package com.github.braillesystems.learnbraille.ui.serial;
+package com.github.braillesystems.learnbraille.ui.brailletrainer;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;

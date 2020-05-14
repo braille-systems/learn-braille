@@ -1,5 +1,4 @@
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
@@ -20,9 +19,9 @@
     <!-- TODO: change icon -->
     <item
         android:id="@+id/appbar_navigation"
+        android:contentDescription="@string/menu_course_navigation"
         android:icon="@drawable/navigate_right"
         android:title="@string/menu_course_navigation"
-        android:contentDescription="@string/menu_course_navigation"
         app:showAsAction="ifRoom" />
 
     <item

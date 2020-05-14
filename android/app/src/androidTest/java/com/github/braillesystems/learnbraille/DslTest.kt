@@ -3,7 +3,6 @@ package com.github.braillesystems.learnbraille
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.braillesystems.learnbraille.data.dsl.*
 import com.github.braillesystems.learnbraille.data.entities.*
-import com.github.braillesystems.learnbraille.data.entities.Annotation
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import org.junit.Assert.assertEquals
@@ -18,20 +17,21 @@ private val content by materials {
     // ...
 }
 
-private val ruSymbols by symbols(type = "ru") {
+private val ruSymbols by symbols(symbolType = "ru") {
     symbol(symbol = 'А', brailleDots = BrailleDots(F, E, E, E, E, E))
     symbol(symbol = 'Б', brailleDots = BrailleDots(F, F, E, E, E, E))
     // ...
 }
 
-private val enSymbols by symbols(type = "en") {
+private val enSymbols by symbols(symbolType = "en") {
     symbol(symbol = 'Z', brailleDots = BrailleDots(F, F, F, E, E, E))
     // ...
 }
 
 
 private val prepopulationData by data(
-    materials = content
+    materials = content,
+    stepAnnotations = listOf("book", "bomb")
 ) {
 
     users {
@@ -58,12 +58,6 @@ private val prepopulationData by data(
             description = "The worst",
             lessons = worstLessons
         )
-
-        annotations {
-            +"book"
-            +"bomb"
-            // ...
-        }
     }
 
     decks {
@@ -151,41 +145,43 @@ private val courses = listOf(
     Course(2, "Worst course", "The worst")
 )
 private val lessons = listOf(
-    Lesson(1, "Wow", "", 1),
-    Lesson(2, "1", "", 2)
+    Lesson(1, 1, "Wow", ""),
+    Lesson(1, 2, "1", "")
 )
 private val steps = listOf(
-    Step(1, FirstInfo("first"), 1),
-    Step(2, Info("with book"), 1),
-    Step(3, LastInfo("last"), 1),
+    Step(1, 1, 1, FirstInfo("first")),
+    Step(2, 1, 1, Info("with book")),
+    Step(3, 1, 1, LastInfo("last")),
 
-    Step(4, FirstInfo("FirstInfo"), 2),
-    Step(5, Info("Open your book and boom your bomb"), 2),
+    Step(1, 2, 1, FirstInfo("FirstInfo")),
+    Step(2, 2, 1, Info("Open your book and boom your bomb")),
     Step(
-        6, ShowDots(
+        3, 2, 1,
+        ShowDots(
             text = "Перед Вами полное шеститочие",
             dots = BrailleDots(F, F, F, F, F, F)
-        ), 2
+        )
     ),
     Step(
-        7, InputDots(
+        4, 2, 1,
+        InputDots(
             text = "Введите все шесть точек",
             dots = BrailleDots(F, F, F, F, F, F)
-        ), 2
+        )
     ),
-    Step(8, Show(content.symbols.getValue('Z')), 2),
-    Step(9, Input(content.symbols.getValue('Б')), 2),
-    Step(10, Input(content.symbols.getValue('Z')), 2),
-    Step(11, LastInfo("LastInfo"), 2)
-)
-private val annotations = listOf(
-    Annotation(1, "book"),
-    Annotation(2, "bomb")
+    Step(5, 2, 1, Show(content.symbols.getValue('Z'))),
+    Step(6, 2, 1, Input(content.symbols.getValue('Б'))),
+    Step(7, 2, 1, Input(content.symbols.getValue('Z'))),
+    Step(8, 2, 1, LastInfo("LastInfo"))
 )
 private val stepAnnotations = listOf(
-    StepAnnotation(2, 1),
-    StepAnnotation(5, 1),
-    StepAnnotation(5, 2)
+    StepAnnotation(1, "book"),
+    StepAnnotation(2, "bomb")
+)
+private val stepHasAnnotations = listOf(
+    StepHasAnnotation(1, 1, 2, 1),
+    StepHasAnnotation(2, 1, 2, 1),
+    StepHasAnnotation(2, 1, 2, 2)
 )
 
 
@@ -238,11 +234,11 @@ class DslTest {
 
     @Test
     fun testAnnotations() {
-        assertEquals(annotations, data.annotations)
+        assertEquals(stepAnnotations, data.stepAnnotations)
     }
 
     @Test
     fun testStepAnnotations() {
-        assertEquals(stepAnnotations, data.stepAnnotations)
+        assertEquals(stepHasAnnotations, data.stepHasAnnotations)
     }
 }
