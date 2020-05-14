@@ -12,16 +12,13 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
-import com.github.braillesystems.learnbraille.data.repository.StepRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
-import com.github.braillesystems.learnbraille.ui.screens.toLastStep
+import com.github.braillesystems.learnbraille.ui.screens.theory.toLastCourseStep
 import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.sendMarketIntent
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
-
 
 class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
@@ -42,8 +39,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         setHasOptionsMenu(true)
 
         lessonsButton.setOnClickListener(interruptingOnClickListener {
-            val stepRepository: StepRepository by inject { parametersOf(1) }
-            toLastStep(stepRepository)
+            toLastCourseStep(1)
         })
 
         practiceButton.setOnClickListener(interruptingOnClickListener {

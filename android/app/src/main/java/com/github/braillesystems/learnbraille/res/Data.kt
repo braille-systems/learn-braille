@@ -16,7 +16,7 @@ object SymbolType {
 }
 
 object StepAnnotation {
-    const val someBookRequired = "some_book_required"
+    const val golubinaBookRequired = "golubina_book_required"
 }
 
 
@@ -34,7 +34,10 @@ object StepAnnotation {
  * If you need some additional info, do not hardcode it. Just make request to the new DSL feature.
  */
 val prepopulationData by data(
-    materials = practiceContent
+    materials = content,
+    stepAnnotations = listOf(
+        StepAnnotation.golubinaBookRequired
+    )
 ) {
 
     users {
@@ -53,10 +56,6 @@ val prepopulationData by data(
         ) {
             +golubinaIntroLessons
             +someMoreGolubinaLessons
-        }
-
-        annotations {
-            +StepAnnotation.someBookRequired
         }
     }
 
@@ -164,9 +163,9 @@ private val golubinaIntroLessons by lessons {
             dots = BrailleDots(F, F, F, F, F, F)
         )
         +Info(
-            """Откройте букварь на странице 12.
-                    В верхней строке 14 раз повторён символ полного шеститочия."""
-        ).annotate(StepAnnotation.someBookRequired)
+            """Откройте букварь на странице 12. 
+                В верхней строке 14 раз повторён символ полного шеститочия."""
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Первый урок закончен. В следующем уроке мы изучим буквы А, Б, Ц, Д, Е, Ф, Г."""
         )
@@ -192,27 +191,21 @@ private val golubinaIntroLessons by lessons {
             """Откройте букварь на странице 13. Вверху слева рельефно-графическое
                     изображение буквы А. Рядом после полного шеститочия пять раз повторена 
                     буква А точечным шрифтом."""
-        ).annotate(StepAnnotation.someBookRequired)
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('А')/*, repeat = 5*/)
         +Show(content.symbols.getValue('Б'))
         +Info(
             """Снова изучим страницу 13 в букваре. Под строкой с буквой А - 
                     такая же с буквой Б."""
-        ).annotate(StepAnnotation.someBookRequired)
-        +Input(content.symbols.getValue('Б')/*, repeat = 5*/)
+        ).annotate(StepAnnotation.golubinaBookRequired)
+        +Input(content.symbols.getValue('Б'))
         +Info(
             """
                     Буква Ц: точки 1 и 4
                     <br><br>
                     Ознакомьтесь с буквой Ц на странице 13 букваря. 
                     Строка с буквой Ц находится под строкой с буквой Б."""
-        ).annotate(StepAnnotation.someBookRequired)
-        +Info(
-            """Буква Ц обозначается точками 1 и 4,
-                    буква Д - точки 1, 4 и 5.
-                    В следующих шагах нужно изучить точечный состав и ввести
-                    буквы Ц, Д"""
-        )
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Show(content.symbols.getValue('Ц'))
         +Input(content.symbols.getValue('Ц')/*, repeat = 5*/)
         +Show(content.symbols.getValue('Д'))

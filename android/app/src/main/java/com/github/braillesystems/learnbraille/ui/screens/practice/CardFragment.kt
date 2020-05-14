@@ -11,9 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentPracticeBinding
+import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
+import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainerSignalHandler
 import com.github.braillesystems.learnbraille.ui.screens.*
-import com.github.braillesystems.learnbraille.ui.serial.UsbParser
-import com.github.braillesystems.learnbraille.ui.serial.UsbSignalHandler
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
 import com.github.braillesystems.learnbraille.ui.views.brailleDots
 import com.github.braillesystems.learnbraille.ui.views.dotsState
@@ -65,7 +65,10 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             this@CardFragment, viewModelFactory
         ).get(CardViewModel::class.java)
         buzzer = activity?.getSystemService()
-        UsbParser.setSignalHandler(UsbPracticeHandler(viewModel))
+        BrailleTrainer.setSignalHandler(object : BrailleTrainerSignalHandler {
+            override fun onJoystickRight() = viewModel.onCheck()
+            override fun onJoystickLeft() = viewModel.onHint()
+        })
 
 
         cardViewModel = viewModel
@@ -108,15 +111,4 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         )
 
     }.root
-}
-
-private class UsbPracticeHandler(private val viewModel: CardViewModel) : UsbSignalHandler {
-
-    override fun onJoystickRight() {
-        viewModel.onCheck()
-    }
-
-    override fun onJoystickLeft() {
-        viewModel.onHint()
-    }
 }

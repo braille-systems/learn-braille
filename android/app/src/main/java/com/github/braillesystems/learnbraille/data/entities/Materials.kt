@@ -19,4 +19,7 @@ interface MaterialDao {
 
     @Query("select * from materials where id = :id")
     suspend fun getMaterial(id: Long): Material?
+
+    @Query("select * from materials order by RANDOM() limit 1")
+    suspend fun getRandomMaterial(): Material?
 }

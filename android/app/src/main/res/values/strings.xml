@@ -11,6 +11,8 @@
     <string name="preference_current_user">current_user</string>
     <string name="preference_enable_announcements">enable_announcement</string>
     <string name="preference_speech_recognition_enabled">speech_recognition_enabled</string>
+    <string name="preference_golubina_book_steps_enabled">golubina_book_steps_enabled</string>
+    <string name="preference_practice_use_passed_material">practice_use_passed_material</string>
 
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
@@ -208,11 +210,15 @@
     <!--    Settings-->
 
     <string name="preferences_actionbar_title">Learn Braille. Настройки</string>
-    <string name="preference_title_notifications">ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ</string>
-    <string name="preference_title_buzz">ВИБРАЦИЯ</string>
+    <string name="preference_title_notifications">Всплывающие уведомления</string>
+    <string name="preference_title_buzz">Вибрация</string>
     <string name="preference_summary_buzz">Вибрация в ответ на результат выполнения задания</string>
-    <string name="preference_title_use_textbook">ИСПОЛЬЗОВАНИЕ БУКВАРЯ</string>
-    <string name="preference_summary_use_textbook">Шаги с обращением к бумажному букварю в теоретическом курсе</string>
+    <string name="preference_title_use_golubina_textbook">Шаги с букварём</string>
+    <string name="preference_summary_use_golubina_textbook">
+        Показывать шаги с обращением к бумажному букварю Голубиной в теоретическом курсе
+    </string>
+    <string name="preference_summary_notifications">Включить/отключить краткие всплывающие
+        подсказки (кроме самых важных).</string>
 
 </resources>
 

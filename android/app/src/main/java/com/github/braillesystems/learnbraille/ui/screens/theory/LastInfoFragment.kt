@@ -8,13 +8,7 @@ import androidx.core.text.parseAsHtml
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.LastInfo
-import com.github.braillesystems.learnbraille.data.repository.StepRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonLastInfoBinding
-import com.github.braillesystems.learnbraille.ui.screens.getStepAndCourseIdArgs
-import com.github.braillesystems.learnbraille.ui.screens.toPrevStep
-import com.github.braillesystems.learnbraille.utils.updateTitle
-import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 
 class LastInfoFragment : AbstractStepFragment(R.string.lessons_help_last_info) {
 
@@ -29,17 +23,16 @@ class LastInfoFragment : AbstractStepFragment(R.string.lessons_help_last_info) {
         false
     ).apply {
 
-        updateTitle(getString(R.string.lessons_title_last_info))
-        setHasOptionsMenu(true)
-
-        val (step, courseId) = getStepAndCourseIdArgs()
-        val stepRepository: StepRepository by inject { parametersOf(courseId) }
+        val step = getStepArg()
         require(step.data is LastInfo)
         infoTextView.text = step.data.text.parseAsHtml()
         infoTextView.movementMethod = ScrollingMovementMethod()
 
+        updateStepTitle(step.lessonId, step.id, R.string.lessons_title_info)
+        setHasOptionsMenu(true)
+
         prevButton.setOnClickListener {
-            toPrevStep(step, stepRepository)
+            toPrevStep(step)
         }
 
     }.root

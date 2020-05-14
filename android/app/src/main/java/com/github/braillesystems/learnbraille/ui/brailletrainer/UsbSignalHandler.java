@@ -1,4 +1,4 @@
-package com.github.braillesystems.learnbraille.ui.serial;
+package com.github.braillesystems.learnbraille.ui.brailletrainer;
 
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots;
 

@@ -20,25 +20,42 @@ class LearnBrailleApplication : Application() {
 
         val koinModule = module {
             single { LearnBrailleDatabase.buildDatabase(this@LearnBrailleApplication) }
-            factory<CardRepository> { CardRepositoryImpl(get<LearnBrailleDatabase>().cardDao) }
+            factory<PracticeRepository> {
+                PracticeRepositoryImpl(get<LearnBrailleDatabase>().materialDao)
+            }
             factory<PreferenceRepository> {
                 PreferenceRepositoryImpl(
                     this@LearnBrailleApplication,
                     get<LearnBrailleDatabase>().userDao
                 )
             }
-            factory<StepRepository> { (thisCourseId: Long) ->
-                StepRepositoryImpl(
-                    thisCourseId, get(),
-                    get<LearnBrailleDatabase>().stepDao,
-                    get<LearnBrailleDatabase>().currentStepDao,
-                    get<LearnBrailleDatabase>().lastCourseStepDao
+            factory<MutablePreferenceRepository> {
+                PreferenceRepositoryImpl(
+                    this@LearnBrailleApplication,
+                    get<LearnBrailleDatabase>().userDao
                 )
             }
-            factory<UserRepository> { UserRepositoryImpl(get<LearnBrailleDatabase>().userDao) }
+            factory<TheoryRepository> {
+                get<LearnBrailleDatabase>().run {
+                    TheoryRepositoryImpl(
+                        stepDao, currentStepDao,
+                        lastCourseStepDao, lastLessonStepDao,
+                        get()
+                    )
+                }
+            }
+            factory<MutableTheoryRepository> {
+                get<LearnBrailleDatabase>().run {
+                    TheoryRepositoryImpl(
+                        stepDao, currentStepDao,
+                        lastCourseStepDao, lastLessonStepDao,
+                        get()
+                    )
+                }
+            }
             factory { (getEnteredDots: () -> BrailleDots) ->
                 CardViewModelFactory(
-                    get(), get(),
+                    get(),
                     this@LearnBrailleApplication,
                     getEnteredDots
                 )
