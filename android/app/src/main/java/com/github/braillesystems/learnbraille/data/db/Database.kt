@@ -24,7 +24,7 @@ import timber.log.Timber
         Course::class, Lesson::class, Step::class, StepAnnotation::class, StepHasAnnotation::class,
         CurrentStep::class, LastCourseStep::class, LastLessonStep::class
     ],
-    version = 10, // TODO increment version to 10
+    version = 10,
     exportSchema = false
 )
 @TypeConverters(
@@ -77,7 +77,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
             )
         }
 
-    companion object {
+    companion object : KoinComponent {
 
         const val name = "learn_braille_database"
 
@@ -104,32 +104,27 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
 
                 private fun prepopulate() {
                     Timber.i("Prepopulate")
-                    // TODO simplify
-                    object : KoinComponent {
-                        fun runPrepopulation() {
-                            get<LearnBrailleDatabase>().apply {
-                                prepopulationData.use {
-                                    scope().launch {
-                                        Timber.i("Start database prepopulation")
+                    get<LearnBrailleDatabase>().apply {
+                        prepopulationData.use {
+                            scope().launch {
+                                Timber.i("Start database prepopulation")
 
-                                        userDao.insert(users)
-                                        materialDao.insert(materials)
-                                        deckDao.insert(decks)
-                                        cardDao.insert(cards)
-                                        courseDao.insert(courses)
-                                        lessonDao.insert(lessons)
-                                        stepDao.insert(steps)
-                                        stepAnnotationDao.insert(stepAnnotations)
-                                        stepHasAnnotationDao.insert(stepHasAnnotations)
-                                        // TODO insert minimum amount of letters to known
+                                userDao.insert(users)
+                                materialDao.insert(materials)
+                                deckDao.insert(decks)
+                                cardDao.insert(cards)
+                                courseDao.insert(courses)
+                                lessonDao.insert(lessons)
+                                stepDao.insert(steps)
+                                stepAnnotationDao.insert(stepAnnotations)
+                                stepHasAnnotationDao.insert(stepHasAnnotations)
+                                // TODO insert minimum amount of letters to known
 
-                                        Timber.i("Finnish database prepopulation")
-                                        prepopulationFinished = true
-                                    }
-                                }
+                                Timber.i("Finnish database prepopulation")
+                                prepopulationFinished = true
                             }
                         }
-                    }.runPrepopulation()
+                    }
                 }
             })
             .fallbackToDestructiveMigration()
