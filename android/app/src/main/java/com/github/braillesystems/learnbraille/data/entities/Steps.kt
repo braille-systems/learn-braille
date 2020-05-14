@@ -74,8 +74,10 @@ interface StepDao {
             select * from current_step as cs
             where cs.user_id = :userId
             and cs.course_id = :courseId
-            and cs.lesson_id >= :thisLessonId
-            and cs.step_id > :thisStepId
+            and (
+                cs.lesson_id > :thisLessonId or
+                (cs.lesson_id = :thisLessonId and cs.step_id > :thisStepId)
+            )
         )
         order by lesson_id, id
         limit 1
@@ -96,7 +98,7 @@ interface StepDao {
             (id = :thisStepId - 1 and lesson_id = :thisLessonId)
             or (lesson_id = :thisLessonId - 1)
         )
-        order by lesson_id, id desc
+        order by lesson_id desc, id desc
         limit 1
         """
     )

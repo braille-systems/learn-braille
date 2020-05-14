@@ -35,10 +35,11 @@ class TheoryRepositoryImpl(
 
     override suspend fun getPrevStepAndUpdate(thisStep: Step): Step? =
         stepDao.getPrevStep(thisStep.courseId, thisStep.lessonId, thisStep.id)
-            ?.also { prev -> updateLast(prev) }
+            ?.also { updateLast(it) }
 
     override suspend fun getCurrentStepAndUpdate(courseId: Long): Step =
         stepDao.getCurrentStep(preferenceRepository.currentUserId, courseId)
+            ?.also { updateLast(it) }
             ?: initCoursePos(courseId)
 
     override suspend fun getLastCourseStep(courseId: Long): Step =

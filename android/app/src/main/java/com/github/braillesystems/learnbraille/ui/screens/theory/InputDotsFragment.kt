@@ -112,6 +112,7 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
             viewLifecycleOwner, dotsState
         ) {
             makeHintDotsToast(expectedDots)
+            userTouchedDots = true
         }
 
         viewModel.observeEventPassHint(

@@ -112,6 +112,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
             viewLifecycleOwner, dotsState
         ) {
             makeHintDotsToast(expectedDots)
+            userTouchedDots = true
         }
 
         viewModel.observeEventPassHint(
