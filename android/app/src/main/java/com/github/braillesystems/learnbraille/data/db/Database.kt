@@ -22,7 +22,7 @@ import timber.log.Timber
         User::class, Material::class, KnownMaterial::class,
         Deck::class, Card::class,
         Course::class, Lesson::class, Step::class, StepAnnotation::class, StepHasAnnotation::class,
-        CurrentStep::class, LastCourseStep::class
+        CurrentStep::class, LastCourseStep::class, LastLessonStep::class
     ],
     version = 10, // TODO increment version to 10
     exportSchema = false
@@ -48,6 +48,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
 
     abstract val currentStepDao: CurrentStepDao
     abstract val lastCourseStepDao: LastCourseStepDao
+    abstract val lastLessonStepDao: LastLessonStepDao
 
     private lateinit var forcePrepopulationJob: Job
 

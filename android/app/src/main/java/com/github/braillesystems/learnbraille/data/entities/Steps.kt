@@ -55,6 +55,15 @@ interface StepDao {
 
     @Query(
         """
+        select * from steps
+        where course_id = :courseId and lesson_id = :lessonId
+        order by id desc limit 1
+        """
+    )
+    suspend fun getLastLessonStep(courseId: Long, lessonId: Long): Step?
+
+    @Query(
+        """
         select steps.* from steps
         where course_id = :courseId 
         and (
