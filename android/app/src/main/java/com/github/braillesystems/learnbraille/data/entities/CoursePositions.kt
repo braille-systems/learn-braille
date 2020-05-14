@@ -12,6 +12,8 @@ data class CurrentStep(
     val userId: Long,
     @ColumnInfo(name = "course_id")
     val courseId: Long,
+    @ColumnInfo(name = "lesson_id")
+    val lessonId: Long,
     @ColumnInfo(name = "step_id")
     val stepId: Long
 )
@@ -36,6 +38,8 @@ data class LastCourseStep(
     val userId: Long,
     @ColumnInfo(name = "course_id")
     val courseId: Long,
+    @ColumnInfo(name = "lesson_id")
+    val lessonId: Long,
     @ColumnInfo(name = "step_id")
     val stepId: Long
 )

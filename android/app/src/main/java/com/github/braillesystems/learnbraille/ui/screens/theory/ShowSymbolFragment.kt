@@ -7,17 +7,9 @@ import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Show
 import com.github.braillesystems.learnbraille.data.entities.Symbol
-import com.github.braillesystems.learnbraille.data.repository.StepRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowSymbolBinding
-import com.github.braillesystems.learnbraille.ui.screens.getStepAndCourseIdArgs
-import com.github.braillesystems.learnbraille.ui.screens.toCurrentStep
-import com.github.braillesystems.learnbraille.ui.screens.toNextStep
-import com.github.braillesystems.learnbraille.ui.screens.toPrevStep
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
-import com.github.braillesystems.learnbraille.utils.updateTitle
-import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbol) {
@@ -35,24 +27,23 @@ class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbo
 
         Timber.i("onCreateView")
 
-        updateTitle(getString(R.string.lessons_title_show_symbol))
-        setHasOptionsMenu(true)
-
-        val (step, courseId) = getStepAndCourseIdArgs()
-        val stepRepository: StepRepository by inject { parametersOf(courseId) }
+        val step = getStepArg()
         require(step.data is Show)
         require(step.data.material.data is Symbol)
         letter.text = step.data.material.data.symbol.toString()
         brailleDots.dotsState.display(step.data.material.data.brailleDots)
 
+        updateStepTitle(step.lessonId, step.id, R.string.lessons_title_show_symbol)
+        setHasOptionsMenu(true)
+
         prevButton.setOnClickListener {
-            toPrevStep(step, stepRepository)
+            toPrevStep(step)
         }
         nextButton.setOnClickListener {
-            toNextStep(step, stepRepository, markThisAsPassed = true)
+            toNextStep(step, markThisAsPassed = true)
         }
         toCurrStepButton.setOnClickListener {
-            toCurrentStep(stepRepository)
+            toCurrentStep(step.courseId)
         }
 
     }.root

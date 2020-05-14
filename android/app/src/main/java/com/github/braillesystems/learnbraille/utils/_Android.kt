@@ -1,5 +1,10 @@
 package com.github.braillesystems.learnbraille.utils
 
+/**
+ * The file contains suitable extension functions for Android Framework
+ * that are not specific for particular project.
+ */
+
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
