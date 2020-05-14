@@ -1,5 +1,6 @@
 package com.github.braillesystems.learnbraille.res
 
+import com.github.braillesystems.learnbraille.data.dsl.StepsBuilder
 import com.github.braillesystems.learnbraille.data.dsl.annotate
 import com.github.braillesystems.learnbraille.data.dsl.data
 import com.github.braillesystems.learnbraille.data.dsl.lessons
@@ -65,6 +66,14 @@ val prepopulationData by data(
         }
     }
 }
+
+private fun StepsBuilder.inputChars(s: String) {
+    // TODO input as real word
+    for (ch in s){
+        +Input(content.symbols.getValue(ch));
+    }
+}
+
 
 private val golubinaIntroLessons by lessons {
 
@@ -229,9 +238,7 @@ private val golubinaIntroLessons by lessons {
                     Перед прохождением нового материала повторим пройденное.
                     В следующих трёх шагах нужно ввести буквы Б, А, Ц (вместе это слово БАЦ)."""
         )
-        +Input(content.symbols.getValue('Б'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Ц'))
+        inputChars("БАЦ")
         +Info(
             """
                     Теперь познакомимся с буквами Ф и Г.
@@ -250,10 +257,7 @@ private val golubinaIntroLessons by lessons {
             """
                     В следующих трёх шагах введите по буквам слово БЕГ."""
         )
-        +Input(content.symbols.getValue('Б'))
-        +Input(content.symbols.getValue('Е'))
-        +Input(content.symbols.getValue('Г'))
-
+        inputChars("БЕГ")
         +Info(
             """Поздравляем! Второй урок пройден. В следующем занятии мы узнаем, 
                     как с помощью букв А, Б, Ц, Д, Е, Ф, Г составить цифры 1, 2, 3, 4, 5 и 6."""
@@ -270,13 +274,7 @@ private val golubinaIntroLessons by lessons {
                     В этом уроке мы начнём изучать цифры. Но для начала повторим пройденное.
                     В следующих шагах введите буквы, изученные в прошлых двух уроках."""
         )
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Б'))
-        +Input(content.symbols.getValue('Ц'))
-        +Input(content.symbols.getValue('Д'))
-        +Input(content.symbols.getValue('Е'))
-        +Input(content.symbols.getValue('Ф'))
-        +Input(content.symbols.getValue('Г'))
+        inputChars("АБЦДЕФГ")
         +Info(
             """
                     Переходим к изучению цифр.
@@ -333,23 +331,13 @@ private val someMoreGolubinaLessons by lessons {
                     По окончании этого урока Вы узнаете букву Х и цифру 8. 
                     Но перед изучением нового повторим пройденное. Введите по буквам слово ФЕБ. """
         )
-        +Input(content.symbols.getValue('Ф'))
-        +Input(content.symbols.getValue('Е'))
-        +Input(content.symbols.getValue('Б'))
+        inputChars("ФЕБ")
         +Info(
             """
                     В следующих шести шагах введите по буквам слово БАГДАД."""
         )
-        +Input(content.symbols.getValue('Б'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Г'))
-        +Input(content.symbols.getValue('Д'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Д'))
-        +Input(content.symbols.getValue(']'))
-        +Input(content.symbols.getValue('1'))
-        +Input(content.symbols.getValue('2'))
-        +Input(content.symbols.getValue('3'))
+        inputChars("БАГДАД")
+        inputChars("]123")
     }
     lesson(
         name = "Буква Х и цифра 8. Часть 2: новый материал"
@@ -369,16 +357,12 @@ private val someMoreGolubinaLessons by lessons {
                     В следующих шагах введите различные символы, в том числе буквы Х и цифру 8.
                     """
         )
-        +Input(content.symbols.getValue('Ц'))
-        +Input(content.symbols.getValue('Е'))
-        +Input(content.symbols.getValue('Х'))
+        inputChars("ЦЕХ")
         +Input(content.symbols.getValue(']'))
         +Input(content.symbols.getValue('8') /*, repeat = 5*/)
         +Input(content.symbols.getValue('7'))
         +Input(content.symbols.getValue('6'))
-        +Input(content.symbols.getValue('Б'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Ц'))
+        inputChars("БАЦ")
         +Info(
             """
                     Урок 5 пройден! Материал о букве Х и цифре 8 находится на странице 16 в букваре.
@@ -403,48 +387,28 @@ private val someMoreGolubinaLessons by lessons {
                     <br>
                     Введите символы, которые образуют слово ЖАБА"""
         )
-        +Input(content.symbols.getValue('Ж'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Б'))
-        +Input(content.symbols.getValue('А'))
+        inputChars("ЖАБА")
         +Info(
             """Введите буквы, составляющие слово БАГАЖ"""
         )
-        +Input(content.symbols.getValue('Б'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Г'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Ж'))
+        inputChars("БАГАЖ")
         +Info(
             """Введите буквы, составляющие слово ЖАЖДА"""
         )
-        +Input(content.symbols.getValue('Ж'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Ж'))
-        +Input(content.symbols.getValue('Д'))
-        +Input(content.symbols.getValue('А'))
+        inputChars("ЖАЖДА")
         +Info(
             """Напомним, буква И кодируется двумя точками с номерами 2 и 4.
                     Введите буквы, образующие слово ГИД"""
         )
-        +Input(content.symbols.getValue('Г'))
-        +Input(content.symbols.getValue('И'))
-        +Input(content.symbols.getValue('Д'))
+        inputChars("ГИД")
         +Info(
             """Введите буквы, которые образуют слово ИЖИЦА"""
         )
-        +Input(content.symbols.getValue('И'))
-        +Input(content.symbols.getValue('Ж'))
-        +Input(content.symbols.getValue('И'))
-        +Input(content.symbols.getValue('Ц'))
-        +Input(content.symbols.getValue('А'))
+        inputChars("ИЖИЦА")
         +Info(
             """Введите по символам число 850"""
         )
-        +Input(content.symbols.getValue(']'))
-        +Input(content.symbols.getValue('8'))
-        +Input(content.symbols.getValue('5'))
-        +Input(content.symbols.getValue('0'))
+        inputChars("]850")
         +Info(
             """Введите разные цифры"""
         )
@@ -477,11 +441,7 @@ private val someMoreGolubinaLessons by lessons {
                     Перед занятием повторим пройденное. Введите по буквам слово ЕЖИХА.
                     """
         )
-        +Input(content.symbols.getValue('Е'))
-        +Input(content.symbols.getValue('Ж'))
-        +Input(content.symbols.getValue('И'))
-        +Input(content.symbols.getValue('Х'))
-        +Input(content.symbols.getValue('А'))
+        inputChars("ЕЖИХА")
         +Info(
             """
                     Теперь перейдём к изучению материала.
@@ -498,26 +458,15 @@ private val someMoreGolubinaLessons by lessons {
         +Info(
             """Введите по буквам слово КЛАД"""
         )
-        +Input(content.symbols.getValue('К'))
-        +Input(content.symbols.getValue('Л'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Д'))
+        inputChars("КЛАД")
         +Info(
             """Введите по буквам слово БЕЛКА"""
         )
-        +Input(content.symbols.getValue('Б'))
-        +Input(content.symbols.getValue('Е'))
-        +Input(content.symbols.getValue('Л'))
-        +Input(content.symbols.getValue('К'))
-        +Input(content.symbols.getValue('А'))
+        inputChars("БЕЛКА")
         +Info(
             """Теперь введите отдельными символами слово ФЛАГ"""
         )
-        +Input(content.symbols.getValue('Ф'))
-        +Input(content.symbols.getValue('Л'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Г'))
-
+        inputChars("ФЛАГ")
     }
 
     lesson(
@@ -537,24 +486,15 @@ private val someMoreGolubinaLessons by lessons {
         +Info(
             """В следующих трёх шагах ведите по буквам слово МЕЛ"""
         )
-        +Input(content.symbols.getValue('М'))
-        +Input(content.symbols.getValue('Е'))
-        +Input(content.symbols.getValue('Л'))
+        inputChars("МЕЛ")
         +Info(
             """Введите по буквам слово МАК"""
         )
-        +Input(content.symbols.getValue('М'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('К'))
+        inputChars("МАК")
         +Info(
             """Напоследок введите по буквам слово ФИАЛКА"""
         )
-        +Input(content.symbols.getValue('Ф'))
-        +Input(content.symbols.getValue('И'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Л'))
-        +Input(content.symbols.getValue('К'))
-        +Input(content.symbols.getValue('А'))
+        inputChars("ФИАЛКА")
         +Info(
             """
                     Мы подошли к концу урока 7.
@@ -577,13 +517,7 @@ private val someMoreGolubinaLessons by lessons {
                     Начнём занятие с повторения. Введите по буквам слово КАМБАЛА.
                     """
         )
-        +Input(content.symbols.getValue('К'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('М'))
-        +Input(content.symbols.getValue('Б'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Л'))
-        +Input(content.symbols.getValue('А'))
+        inputChars("КАМБАЛА")
         +Info(
             """
                     Отлично, теперь познакомимся с буквой Н.
@@ -599,34 +533,45 @@ private val someMoreGolubinaLessons by lessons {
         +Info(
             """Введите по буквам слово БАНАН"""
         )
-        +Input(content.symbols.getValue('Б'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Н'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Н'))
+        inputChars("БАНАН")
         +Info(
             """Введите по буквам слово ЦЕНА"""
         )
-        +Input(content.symbols.getValue('Ц'))
-        +Input(content.symbols.getValue('Е'))
-        +Input(content.symbols.getValue('Н'))
-        +Input(content.symbols.getValue('А'))
+        inputChars("ЦЕНА")
         +Info(
             """Теперь введите по буквам слово БЛАНК"""
         )
-        +Input(content.symbols.getValue('Б'))
-        +Input(content.symbols.getValue('Л'))
-        +Input(content.symbols.getValue('А'))
-        +Input(content.symbols.getValue('Н'))
-        +Input(content.symbols.getValue('К'))
+        inputChars("БЛАНК")
         +Info(
             """
                     На этом урок 8 завершается.
                     <br>
-                    В следующий раз изучим букву О.
+                    В следующий раз изучим букву О и знак препинания ЗАПЯТАЯ.
                     """
         )
-
+    }
+    lesson(
+        name = "Буква О и знак препинания 'Запятая'"
+    ) {
+        +Info(
+            """
+                    Урок 9. Буква О и знак препинания "Запятая".
+                    <br><br>
+                    Материалы к этому уроку есть на страницах 23-24 в букваре.
+                    <br>
+                    Как обычно, в начале занятия повторим пройденное.
+                    Введите по буквам слово НАДЕЖДА.
+                    """
+        )
+        inputChars("НАДЕЖДА")
+        +Info(
+            """
+                    Идём дальше: теперь изучим букву 'О'.
+                    <br>
+                    Буква 'О'
+                    """
+        )
+        // TODO
     }
 
     lesson(
