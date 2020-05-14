@@ -1,6 +1,7 @@
 package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
+import com.github.braillesystems.learnbraille.data.dsl.StepAnnotationName
 import kotlinx.serialization.Serializable
 
 
@@ -13,8 +14,26 @@ data class Step(
     @ColumnInfo(name = "lesson_id")
     val lessonId: Long,
     val data: StepData
-)
+) : Comparable<Step> {
 
+    override operator fun compareTo(other: Step): Int {
+        require(other.courseId == courseId) {
+            "Only steps of the same course are comparable"
+        }
+        if (this == other) return 0
+        return if (lessonId < other.lessonId ||
+            (lessonId == other.lessonId && id < other.id)
+        ) {
+            -1
+        } else {
+            1
+        }
+    }
+}
+
+/**
+ * Be careful: there are duplications of some SQL code.
+ */
 @Dao
 interface StepDao {
 
@@ -55,39 +74,28 @@ interface StepDao {
 
     @Query(
         """
-        select * from steps
-        where course_id = :courseId and lesson_id = :lessonId
-        order by id desc limit 1
-        """
-    )
-    suspend fun getLastLessonStep(courseId: Long, lessonId: Long): Step?
-
-    @Query(
-        """
         select steps.* from steps
         where course_id = :courseId 
         and (
-            (id = :thisStepId + 1 and lesson_id = :thisLessonId)
-            or (id = 1 and lesson_id = :thisLessonId + 1)
+            (id > :thisStepId and lesson_id = :thisLessonId)
+            or (lesson_id > :thisLessonId)
         )
-        and exists(
-            select * from current_step as cs
-            where cs.user_id = :userId
-            and cs.course_id = :courseId
-            and (
-                cs.lesson_id > :thisLessonId or
-                (cs.lesson_id = :thisLessonId and cs.step_id > :thisStepId)
-            )
+        and not exists(
+            select * from step_has_annotations as sha
+            inner join step_annotations as sa on sha.annotation_id = sa.id
+            where sha.course_id = :courseId 
+            and sha.lesson_id = steps.lesson_id and sha.step_id = steps.id
+            and sa.name in (:proscribedAnnotations)
         )
         order by lesson_id, id
         limit 1
         """
     )
     suspend fun getNextStep(
-        userId: Long,
         courseId: Long,
         thisLessonId: Long,
-        thisStepId: Long
+        thisStepId: Long,
+        proscribedAnnotations: List<StepAnnotationName> = listOf()
     ): Step?
 
     @Query(
@@ -95,12 +103,24 @@ interface StepDao {
         select steps.* from steps
         where course_id = :courseId
         and (
-            (id = :thisStepId - 1 and lesson_id = :thisLessonId)
-            or (lesson_id = :thisLessonId - 1)
+            (id < :thisStepId and lesson_id = :thisLessonId)
+            or (lesson_id < :thisLessonId)
+        )
+        and not exists(
+            select * from step_has_annotations as sha
+            inner join step_annotations as sa on sha.annotation_id = sa.id
+            where sha.course_id = :courseId 
+            and sha.lesson_id = steps.lesson_id and sha.step_id = steps.id
+            and sa.name in (:proscribedAnnotations)
         )
         order by lesson_id desc, id desc
         limit 1
         """
     )
-    suspend fun getPrevStep(courseId: Long, thisLessonId: Long, thisStepId: Long): Step?
+    suspend fun getPrevStep(
+        courseId: Long,
+        thisLessonId: Long,
+        thisStepId: Long,
+        proscribedAnnotations: List<StepAnnotationName> = listOf()
+    ): Step?
 }
