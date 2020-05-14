@@ -25,6 +25,12 @@ object StepAnnotation {
  * Use `DslTest.kt` file as DSL tutorial.
  *
  * Text in steps is parsed as HTML.
+ *
+ * If using `content.symbols.getValue`, `content` should be added to `data` as `materials`.
+ * It is better to simply have only one value declared as `by materials`.
+ *
+ * Correctness of all information should be checked in compile time or in runtime.
+ * If you need some additional info, do not hardcode it. Just make request to the new DSL feature.
  */
 val prepopulationData by data(
     materials = practiceContent
