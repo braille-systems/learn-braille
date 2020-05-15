@@ -21,7 +21,7 @@ import kotlin.system.exitProcess
 
 class SpeechRecognition(
     private val fragment: Fragment,
-    preferenceRepository: PreferenceRepository
+    private val preferenceRepository: PreferenceRepository
 ) {
 
     private var mostRecentUtteranceID: String? = null
@@ -30,7 +30,7 @@ class SpeechRecognition(
     private var mSpeechRecognizerIntent: Intent? = null
 
     init {
-        if (preferenceRepository.speechRecognitionEnabled) {
+        executeIf(preferenceRepository.speechRecognitionEnabled) {
             try {
                 initialize()
             } catch (e: Throwable) {
@@ -84,7 +84,7 @@ class SpeechRecognition(
         mSpeechRecognizer?.setRecognitionListener(SpeechRecognitionListener(fragment))
     }
 
-    fun onDestroy() {
+    fun onDestroy() = executeIf(preferenceRepository.speechRecognitionEnabled) {
         try {
             mSpeechRecognizer?.destroy()
         } catch (e: Throwable) {

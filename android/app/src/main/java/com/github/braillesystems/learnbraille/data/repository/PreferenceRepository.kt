@@ -16,6 +16,7 @@ interface PreferenceRepository {
 
     val buzzEnabled: Boolean
     val toastsEnabled: Boolean
+    val brailleTrainerEnabled: Boolean get() = false
 
     val announcementsEnabled: Boolean
     val speechRecognitionEnabled: Boolean
@@ -63,7 +64,7 @@ class PreferenceRepositoryImpl(
     override val speechRecognitionEnabled: Boolean by logged {
         context.preferences.getBoolean(
             context.getString(R.string.preference_speech_recognition_enabled),
-            true
+            true // TODO disable for release
         )
     }
 
