@@ -15,10 +15,12 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
+import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.theory.toLastCourseStep
 import com.github.braillesystems.learnbraille.utils.checkedToast
+import com.github.braillesystems.learnbraille.utils.executeIf
 import com.github.braillesystems.learnbraille.utils.sendMarketIntent
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import org.koin.android.ext.android.inject
@@ -26,6 +28,7 @@ import org.koin.android.ext.android.inject
 class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     private val db: LearnBrailleDatabase by inject()
+    private val preferenceRepository: PreferenceRepository by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -86,38 +89,37 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         }
     }
 
-    private fun interruptingOnClickListener(block: (View) -> Unit) =
-        View.OnClickListener {
-            if (db.isInitialized) block(it)
-            else checkedToast(getString(R.string.menu_db_not_initialized_warning))
-        }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String?>,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == recordAudioPermission) {
-            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+        when (requestCode) {
+            recordAudioPermissionCode -> if (grantResults.first() != PackageManager.PERMISSION_GRANTED) {
                 checkedToast(getString(R.string.voice_record_denial))
             }
         }
     }
 
     private fun requestPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (requireContext().checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(
-                    arrayOf(Manifest.permission.RECORD_AUDIO),
-                    recordAudioPermission
-                )
-            }
+        executeIf(preferenceRepository.speechRecognitionEnabled) {
+            // TODO move to the settings fragment
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return@executeIf
+            val permission = requireContext().checkSelfPermission(Manifest.permission.RECORD_AUDIO)
+            if (permission == PackageManager.PERMISSION_GRANTED) return@executeIf
+            requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), recordAudioPermissionCode)
         }
     }
 
+    private fun interruptingOnClickListener(block: (View) -> Unit) =
+        View.OnClickListener {
+            if (db.isInitialized) block(it)
+            else checkedToast(getString(R.string.menu_db_not_initialized_warning))
+        }
+
     companion object {
         private const val qrRequestCode = 0
-        private const val recordAudioPermission = 29
+        private const val recordAudioPermissionCode = 29
     }
 }
