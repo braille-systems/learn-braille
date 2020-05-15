@@ -17,12 +17,8 @@ interface PreferenceRepository {
     val buzzEnabled: Boolean
     val toastsEnabled: Boolean
     val brailleTrainerEnabled: Boolean get() = false
-
-    val announcementsEnabled: Boolean
     val speechRecognitionEnabled: Boolean
-
     val golubinaBookStepsEnabled: Boolean
-
     val practiceUseMaterialsPassedInCourse: Boolean
 
     val currentUserId: Long
@@ -50,13 +46,6 @@ class PreferenceRepositoryImpl(
     override val toastsEnabled: Boolean by logged {
         context.preferences.getBoolean(
             context.getString(R.string.preference_enable_toasts),
-            true
-        )
-    }
-
-    override val announcementsEnabled: Boolean by logged {
-        context.preferences.getBoolean(
-            context.getString(R.string.preference_enable_announcements),
             true
         )
     }
