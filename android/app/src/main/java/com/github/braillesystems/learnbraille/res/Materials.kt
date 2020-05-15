@@ -56,6 +56,7 @@ val ruSymbols by symbols(SymbolType.ru) {
 val specialSymbols by symbols(SymbolType.special){
     symbol(symbol = ']', brailleDots = BrailleDots(E, E, F, F, F, F)) // цифровой знак // number
     symbol(symbol = ',', brailleDots = BrailleDots(E, F, E, E, E, E)) // Знак препинания 'Запятая'
+    symbol(symbol = '-', brailleDots = BrailleDots(E, E, F, E, E, F)) // Дефис
 }
 
 val uebDigits by symbols(SymbolType.digit){
