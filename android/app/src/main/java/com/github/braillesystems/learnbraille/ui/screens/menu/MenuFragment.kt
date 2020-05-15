@@ -1,12 +1,16 @@
 package com.github.braillesystems.learnbraille.ui.screens.menu
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -23,6 +27,7 @@ import org.koin.android.ext.android.inject
 class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     private val db: LearnBrailleDatabase by inject()
+    private val MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 29
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +42,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
         updateTitle(getString(R.string.menu_actionbar_text))
         setHasOptionsMenu(true)
+        permissionCheck()
 
         lessonsButton.setOnClickListener(interruptingOnClickListener {
             toLastCourseStep(1)
@@ -90,5 +96,23 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     companion object {
         const val qrRequestCode = 0
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE) {
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                checkedToast(getString(R.string.voice_record_denial))
+            }
+        }
+    }
+
+    private fun permissionCheck() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (requireContext().checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO),
+                    MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE)
+            }
+        }
     }
 }
