@@ -6,6 +6,7 @@ import timber.log.Timber
 interface TheoryRepository {
 
     suspend fun getLastCourseStep(courseId: Long): Step
+    suspend fun getAllCourseLessons(courseId: Long): List<Lesson>
 }
 
 interface MutableTheoryRepository : TheoryRepository {
@@ -16,6 +17,7 @@ interface MutableTheoryRepository : TheoryRepository {
 }
 
 class TheoryRepositoryImpl(
+    private val lessonDao: LessonDao,
     private val stepDao: StepDao,
     private val currentStepDao: CurrentStepDao,
     private val lastCourseStepDao: LastCourseStepDao,
@@ -45,6 +47,9 @@ class TheoryRepositoryImpl(
     override suspend fun getLastCourseStep(courseId: Long): Step =
         stepDao.getLastStep(preferenceRepository.currentUserId, courseId)
             ?: initCoursePos(courseId)
+
+    override suspend fun getAllCourseLessons(courseId: Long): List<Lesson> =
+        lessonDao.getAllCourseLessons(courseId)
 
     private suspend fun initCoursePos(courseId: Long): Step =
         stepDao.getFirstCourseStep(courseId)?.also { first ->

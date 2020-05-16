@@ -151,4 +151,12 @@
         android:id="@+id/action_global_firstInfoFragment"
         app:destination="@id/firstInfoFragment"
         app:popUpTo="@id/menuFragment" />
+    <fragment
+        android:id="@+id/lessonsListFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.lessons.LessonsListFragment"
+        android:label="fragment_lessons_list"
+        tools:layout="@layout/fragment_lessons_list" />
+    <action
+        android:id="@+id/action_global_lessonsListFragment"
+        app:destination="@id/lessonsListFragment" />
 </navigation>

@@ -14,7 +14,6 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
-import com.github.braillesystems.learnbraille.ui.screens.theory.toLastCourseStep
 import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.sendMarketIntent
 import com.github.braillesystems.learnbraille.utils.updateTitle
@@ -39,7 +38,8 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         setHasOptionsMenu(true)
 
         lessonsButton.setOnClickListener(interruptingOnClickListener {
-            toLastCourseStep(1)
+            findNavController().navigate(R.id.action_global_lessonsListFragment)
+//            toLastCourseStep(COURSE_ID) TODO
         })
 
         practiceButton.setOnClickListener(interruptingOnClickListener {
@@ -77,7 +77,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
     private fun processQrResult(resultCode: Int, data: Intent?) {
         when (resultCode) {
             RESULT_OK -> checkedToast(
-                data?.getStringExtra("SCAN_RESULT").toString()  // Not to crash app if null
+                data?.getStringExtra("SCAN_RESULT").toString()  // TODO Not to crash app if null
             )
         }
     }

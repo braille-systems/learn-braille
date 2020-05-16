@@ -115,6 +115,7 @@
     <string name="lessons_title_input_dots">Ввод точек</string>
     <string name="lessons_title_show_symbol">Символ</string>
     <string name="lessons_title_show_dots">Точки</string>
+    <string name="lessons_title_lessons_list">Уроки</string>
 
     <string name="lessons_help_template">%s\n\n%s</string>
 
@@ -217,4 +218,3 @@
     <string name="preference_summary_use_textbook">Шаги с обращением к бумажному букварю в теоретическом курсе</string>
 
 </resources>
-
