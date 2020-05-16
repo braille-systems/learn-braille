@@ -91,7 +91,7 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
             preferenceRepository,
             dotsState, buzzer
         ) {
-            makeCorrectToast()
+            showCorrectToast()
             toNextStep(step, markThisAsPassed = true)
         }
 
@@ -101,7 +101,7 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
             dotsState
         ) {
             val notify = {
-                makeIncorrectToast()
+                showIncorrectToast()
                 buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern, preferenceRepository)
             }
             if (userTouchedDots) notify()
@@ -111,7 +111,7 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
         viewModel.observeEventHint(
             viewLifecycleOwner, dotsState
         ) {
-            makeHintDotsToast(expectedDots)
+            showHintDotsToast(expectedDots)
             userTouchedDots = true
         }
 

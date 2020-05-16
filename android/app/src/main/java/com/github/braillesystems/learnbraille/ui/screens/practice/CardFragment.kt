@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.data.entities.dummyMaterialOf
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentPracticeBinding
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
@@ -17,6 +18,7 @@ import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
 import com.github.braillesystems.learnbraille.ui.views.brailleDots
 import com.github.braillesystems.learnbraille.ui.views.dotsState
+import com.github.braillesystems.learnbraille.utils.announceByAccessibility
 import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import org.koin.android.ext.android.inject
@@ -78,7 +80,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         viewModel.observeEventCorrect(
             viewLifecycleOwner, preferences, dotsState, buzzer
         ) {
-            makeCorrectToast()
+            showCorrectToast()
             updateTitle(title)
         }
 
@@ -86,7 +88,8 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner, preferences, dotsState, buzzer
         ) {
             viewModel.symbol.value?.let { symbol ->
-                makeIncorrectLetterToast(symbol)
+                require(symbol.length == 1)
+                showIncorrectToast(dummyMaterialOf(symbol.first()))
             } ?: checkedToast(getString(R.string.input_loading))
             updateTitle(title)
         }
@@ -94,21 +97,30 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         viewModel.observeEventHint(
             viewLifecycleOwner, dotsState
         ) { expectedDots ->
-            makeHintDotsToast(expectedDots)
+            showHintDotsToast(expectedDots)
         }
 
         viewModel.observeEventPassHint(
             viewLifecycleOwner, dotsState
         ) {
-            makeIntroLetterToast(viewModel.symbol.value)
+            val symbol = viewModel.symbol.value ?: return@observeEventPassHint
+            announceIntro(symbol)
         }
 
         viewModel.symbol.observe(
             viewLifecycleOwner,
-            Observer { symbol: String ->
-                makeIntroLetterToast(symbol)
+            Observer {
+                if (it == null) return@Observer
+                announceIntro(it)
             }
         )
 
     }.root
+
+    private fun announceIntro(symbol: String) {
+        require(symbol.length == 1)
+        val material = dummyMaterialOf(symbol.first())
+        val intro = introStringNotNullLogged(material)
+        announceByAccessibility(intro)
+    }
 }
