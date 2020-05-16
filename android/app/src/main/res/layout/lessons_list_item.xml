@@ -36,11 +36,6 @@
                 android:textSize="20sp"
                 tools:text="Lesson name" />
 
-            <TextView
-                android:id="@+id/lesson_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Lesson description" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>
