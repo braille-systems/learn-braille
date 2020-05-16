@@ -3,10 +3,10 @@ package com.github.braillesystems.learnbraille.ui.screens.theory
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import com.github.braillesystems.learnbraille.COURSE_ID
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.HelpMsgId
-import com.github.braillesystems.learnbraille.utils.toast
 import com.github.braillesystems.learnbraille.utils.updateTitle
 
 
@@ -28,10 +28,10 @@ abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWith
 
     override fun onOptionsItemSelected(item: MenuItem) = false.also {
         when (item.itemId) {
-            R.id.help -> toast("AAAAAA")
-            R.id.lessons_list -> toast("BBBBBB")
-            R.id.current_course_pos -> toast("CCCCC")
-            else -> TODO()
+            R.id.help -> navigateToHelp()
+            R.id.lessons_list -> TODO("Navigate to lessons list")
+            R.id.current_course_pos -> toCurrentStep(COURSE_ID)
+            else -> error("Unknown menu item")
         }
     }
 
