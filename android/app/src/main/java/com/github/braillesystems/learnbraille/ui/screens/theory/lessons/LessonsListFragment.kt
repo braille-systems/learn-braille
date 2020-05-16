@@ -53,17 +53,12 @@ class LessonsListFragment : Fragment() {
             val adapter = LessonsListAdapter(lessons) { item ->
                 lesson = item
                 lessonName.text = "${item.id}. ${item.name}"
-                lessonDescription.text = item.description.parseAsHtml()
                 if (item.id <= curr.lessonId) {
                     clickListener = activeListener
-                    // TODO set proper text color
                     lessonName.setTextColor(Color.BLACK)
-                    lessonDescription.setTextColor(Color.BLACK)
                 } else {
                     clickListener = disabledListener
-                    // TODO set proper text color
                     lessonName.setTextColor(Color.GRAY)
-                    lessonDescription.setTextColor(Color.GRAY)
                 }
             }
             lessonsList.adapter = adapter
