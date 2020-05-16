@@ -7,6 +7,8 @@ import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.res.ruSymbols
+import com.github.braillesystems.learnbraille.res.specialSymbols
+import com.github.braillesystems.learnbraille.res.uebDigits
 import com.github.braillesystems.learnbraille.utils.*
 import timber.log.Timber
 
@@ -35,6 +37,12 @@ private val Fragment.symbolsRuleList: List<P2F<Char, String>> by lazyWithContext
         // Prevent lambda of capturing context that will be invalid next time fragment entered
         getString(R.string.input_letter_intro_template).let {
             { c: Char -> ruSymbols.map.containsKey(c) } to { c: Char -> it.format(c) }
+        },
+        getString(R.string.input_digit_intro_template).let {
+            { c: Char -> uebDigits.map.containsKey(c) } to { c: Char -> it.format(c) }
+        },
+        getString(R.string.input_special_intro_template).let {
+            { c: Char -> specialSymbols.map.containsKey(c) } to { c: Char -> it.format(c) }
         }
     )
 }

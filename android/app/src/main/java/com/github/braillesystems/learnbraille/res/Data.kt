@@ -56,8 +56,16 @@ val prepopulationData by data(
     }
 
     decks {
+        // TODO replace names with tags and provide mapping from tags to names
+        //      to be able to make localization
         deck("Русские буквы") { data ->
             data is Symbol && data.type == SymbolType.ru
+        }
+        deck("Специальные символы") { data ->
+            data is Symbol && data.type == SymbolType.special
+        }
+        deck("Цифры") { data ->
+            data is Symbol && data.type == SymbolType.digit
         }
     }
 }
