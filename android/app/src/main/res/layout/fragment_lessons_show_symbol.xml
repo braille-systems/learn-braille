@@ -7,21 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/title_text_view"
-            android:layout_width="@dimen/lessons_title_width"
-            android:layout_height="@dimen/lessons_title_height"
-            android:text=""
-            android:textAlignment="center"
-            android:textSize="@dimen/lessons_title_text_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="@dimen/lessons_title_vertical_bias"
-            tools:text="ЗАГОЛОВОК!" />
-
-        <TextView
+        <com.github.braillesystems.learnbraille.ui.views.BigLetterView
             android:id="@+id/letter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

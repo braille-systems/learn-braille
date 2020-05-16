@@ -1,6 +1,6 @@
 package com.github.braillesystems.learnbraille.res
 
-import androidx.fragment.app.Fragment
+import android.content.Context
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.dsl.materials
 import com.github.braillesystems.learnbraille.data.dsl.symbols
@@ -84,7 +84,7 @@ val uebDigits by symbols(SymbolType.digit) {
 /**
  * Add here rules, how to display hints for symbols.
  */
-val Fragment.symbolTypeDisplayList: List<P2F<Char, String>> by lazyWithContext {
+val Context.symbolTypeDisplayList: List<P2F<Char, String>> by lazyWithContext {
     // Prevent lambda of capturing context that will be invalid next time fragment entered,
     // so use `Fragment.getString` outside of lambdas.
     listOfP2F(

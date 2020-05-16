@@ -228,7 +228,10 @@
     <string name="preference_summary_notifications">Включить/отключить краткие всплывающие
         подсказки (кроме самых важных).</string>
     <string name="preference_title_traversal_order">Обход точек в порядке нумерации</string>
-    <string name="preference_summary_traversal_order">Работает с Андроид 5.1</string>
+    <string name="preference_summary_traversal_order">Работает с Андроид 5.1. Если включено,
+        программа экранного доступа обходит точки шеститочия в порядке 1-2-3-4-5-6,
+        иначе 1-4-2-5-3-6
+    </string>
 
 </resources>
 
