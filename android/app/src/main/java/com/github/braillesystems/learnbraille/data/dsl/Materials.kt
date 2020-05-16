@@ -58,17 +58,18 @@ class symbols(private val symbolType: String, private val block: SymbolsBuilder.
 @DataBuilderMarker
 class SymbolsBuilder(private val symbolType: String, block: SymbolsBuilder.() -> Unit) {
 
-    private var map = mutableMapOf<Char, Symbol>()
+    private val _map = mutableMapOf<Char, Symbol>()
+    val map: Map<Char, Symbol> get() = _map
     internal val symbols: List<Symbol>
-        get() = map.values.toList()
+        get() = _map.values.toList()
 
     init {
         block()
     }
 
-    operator fun get(symbol: Char): Symbol? = map[symbol]
+    operator fun get(symbol: Char): Symbol? = _map[symbol]
 
     fun symbol(symbol: Char, brailleDots: BrailleDots) {
-        map[symbol] = Symbol(symbol, brailleDots, symbolType)
+        _map[symbol] = Symbol(symbol, brailleDots, symbolType)
     }
 }
