@@ -43,6 +43,13 @@ val prepopulationData by data(
     }
 
     courses {
+        // This course should be always be first
+        course(
+            name = "Test course for developers",
+            description = "Small course for tests during development",
+            lessons = testLessons
+        )
+
         course(
             name = "Курс по методике В. В. Голубиной",
             description = """
