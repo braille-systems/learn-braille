@@ -7,6 +7,7 @@ import com.github.braillesystems.learnbraille.COURSE_ID
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.HelpMsgId
+import com.github.braillesystems.learnbraille.utils.toast
 import com.github.braillesystems.learnbraille.utils.updateTitle
 
 
@@ -29,9 +30,8 @@ abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWith
     override fun onOptionsItemSelected(item: MenuItem) = false.also {
         when (item.itemId) {
             R.id.help -> navigateToHelp()
-            R.id.lessons_list -> TODO("Navigate to lessons list")
+            R.id.lessons_list -> toast("Not implemented") // TODO
             R.id.current_course_pos -> toCurrentStep(COURSE_ID)
-            else -> error("Unknown menu item")
         }
     }
 
