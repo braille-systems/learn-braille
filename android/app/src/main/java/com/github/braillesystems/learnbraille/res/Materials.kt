@@ -1,12 +1,20 @@
 package com.github.braillesystems.learnbraille.res
 
+import androidx.fragment.app.Fragment
+import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.dsl.materials
 import com.github.braillesystems.learnbraille.data.dsl.symbols
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.utils.P2F
+import com.github.braillesystems.learnbraille.utils.lazyWithContext
+import com.github.braillesystems.learnbraille.utils.listOfP2F
 
 
+/**
+ * Do not forget to register new types of symbols in `symbolTypeDisplayList` below.
+ */
 val content by materials {
     +ruSymbols
     +specialSymbols
@@ -73,4 +81,20 @@ val uebDigits by symbols(SymbolType.digit) {
     symbol(symbol = '0', brailleDots = BrailleDots(E, F, E, F, F, E))
 }
 
-
+/**
+ * Add here rules, how to display hints for symbols.
+ */
+val Fragment.symbolTypeDisplayList: List<P2F<Char, String>> by lazyWithContext {
+    listOfP2F(
+        // Prevent lambda of capturing context that will be invalid next time fragment entered
+        getString(R.string.input_letter_intro_template).let {
+            ruSymbols.map::containsKey to { c: Char -> it.format(c) }
+        },
+        getString(R.string.input_digit_intro_template).let {
+            uebDigits.map::containsKey to { c: Char -> it.format(c) }
+        },
+        getString(R.string.input_special_intro_template).let {
+            specialSymbols.map::containsKey to { c: Char -> it.format(c) }
+        }
+    )
+}
