@@ -32,9 +32,7 @@ inline fun <T> T?.executeIf(cond: Boolean, block: T.() -> Unit) {
 typealias P2F <T, R> = Pair<(T) -> Boolean, (T) -> R>
 
 fun <T, R> List<P2F<T, R>>.peek(key: T): R? {
-    forEach { (p, f) ->
-        if (p(key)) return f(key)
-    }
+    forEach { (p, f) -> if (p(key)) return f(key) }
     return null
 }
 
