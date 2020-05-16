@@ -1,7 +1,7 @@
 package com.github.braillesystems.learnbraille.data.repository
 
 import com.github.braillesystems.learnbraille.data.entities.*
-import timber.log.Timber
+import com.github.braillesystems.learnbraille.res.StepAnnotation
 
 interface TheoryRepository {
 
@@ -25,19 +25,44 @@ class TheoryRepositoryImpl(
     private val preferenceRepository: PreferenceRepository
 ) : MutableTheoryRepository {
 
-    override suspend fun getNextStepAndUpdate(thisStep: Step, markThisAsPassed: Boolean): Step? {
-        if (markThisAsPassed) tryUpdateCurrentStep(thisStep)
-        val next = stepDao.getNextStep(
-            preferenceRepository.currentUserId,
-            thisStep.courseId, thisStep.lessonId, thisStep.id
+    private val proscribedAnnotations
+        get() = listOfNotNull(
+            if (preferenceRepository.golubinaBookStepsEnabled) null
+            else StepAnnotation.golubinaBookRequired
         )
-        if (next != null) updateLast(next)
+
+    override suspend fun getNextStepAndUpdate(thisStep: Step, markThisAsPassed: Boolean): Step? {
+        val next = stepDao.getNextStep(
+            thisStep.courseId, thisStep.lessonId, thisStep.id,
+            proscribedAnnotations
+        ) ?: return null
+        val curr = requireNotNull(
+            stepDao.getCurrentStep(preferenceRepository.currentUserId, thisStep.courseId)
+        )
+
+        if (next <= curr) {
+            updateLast(next)
+            return next
+        }
+        if (!markThisAsPassed) return null
+
+        currentStepDao.update(
+            CurrentStep(
+                preferenceRepository.currentUserId,
+                next.courseId, next.lessonId, next.id
+            )
+        )
+        updateLast(next)
         return next
     }
 
     override suspend fun getPrevStepAndUpdate(thisStep: Step): Step? =
-        stepDao.getPrevStep(thisStep.courseId, thisStep.lessonId, thisStep.id)
-            ?.also { updateLast(it) }
+        stepDao.getPrevStep(
+            thisStep.courseId,
+            thisStep.lessonId,
+            thisStep.id,
+            proscribedAnnotations
+        )?.also { updateLast(it) }
 
     override suspend fun getCurrentStepAndUpdate(courseId: Long): Step =
         stepDao.getCurrentStep(preferenceRepository.currentUserId, courseId)
@@ -61,30 +86,6 @@ class TheoryRepositoryImpl(
                 )
             )
         } ?: error("First course step should always exist")
-
-    private suspend fun tryUpdateCurrentStep(thisStep: Step) {
-        val curr = stepDao.getCurrentStep(
-            preferenceRepository.currentUserId,
-            thisStep.courseId
-        )
-        requireNotNull(curr)
-        if (curr != thisStep) return
-
-        val last = stepDao.getLastLessonStep(thisStep.courseId, thisStep.lessonId)
-            ?: error("Course with this lesson does not exist")
-        val newCurr = if (last.id == thisStep.id) {
-            thisStep.copy(id = 1, lessonId = thisStep.lessonId + 1)
-        } else {
-            thisStep.copy(id = thisStep.id + 1)
-        }
-        Timber.i("Update curr step from $curr to $newCurr")
-        currentStepDao.update(
-            CurrentStep(
-                preferenceRepository.currentUserId,
-                newCurr.courseId, newCurr.lessonId, newCurr.id
-            )
-        )
-    }
 
     private suspend fun updateLast(step: Step) {
         lastCourseStepDao.update(

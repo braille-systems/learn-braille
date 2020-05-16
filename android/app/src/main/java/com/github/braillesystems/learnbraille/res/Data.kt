@@ -101,7 +101,7 @@ private val golubinaIntroLessons by lessons {
         +Info(
             """Откройте букварь на странице 12. 
                 В верхней строке 14 раз повторён символ полного шеститочия."""
-        )
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Точки расположены в два столбца по три. 
                 Точки в первом столбце имеют номера 1, 2, 3 сверху вниз. 
@@ -127,7 +127,7 @@ private val golubinaIntroLessons by lessons {
             """Откройте букварь на странице 13. Вверху слева рельефно-графическое
                     изображение буквы А. Рядом после полного шеститочия пять раз повторена 
                     буква А точечным шрифтом."""
-        )
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('А'))
         +Show(content.symbols.getValue('Б'))
         +Info(
