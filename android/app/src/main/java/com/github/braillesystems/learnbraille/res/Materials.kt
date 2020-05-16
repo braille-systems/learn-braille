@@ -85,7 +85,8 @@ val uebDigits by symbols(SymbolType.digit) {
  * Add here rules, how to display hints for symbols.
  */
 val Fragment.symbolTypeDisplayList: List<P2F<Char, String>> by lazyWithContext {
-    // Prevent lambda of capturing context that will be invalid next time fragment entered
+    // Prevent lambda of capturing context that will be invalid next time fragment entered,
+    // so use `Fragment.getString` outside of lambdas.
     listOfP2F(
         getString(R.string.input_letter_intro_template).let {
             ruSymbols.map::containsKey to { c: Char -> it.format(c) }
