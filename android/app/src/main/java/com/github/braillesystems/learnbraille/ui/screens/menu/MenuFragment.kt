@@ -13,11 +13,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.github.braillesystems.learnbraille.COURSE_ID
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
+import com.github.braillesystems.learnbraille.ui.screens.theory.toLastCourseStep
 import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.executeIf
 import com.github.braillesystems.learnbraille.utils.sendMarketIntent
@@ -46,8 +48,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         requestPermissions()
 
         lessonsButton.setOnClickListener(interruptingOnClickListener {
-            findNavController().navigate(R.id.action_global_lessonsListFragment)
-//            toLastCourseStep(COURSE_ID)
+            toLastCourseStep(COURSE_ID)
         })
 
         practiceButton.setOnClickListener(interruptingOnClickListener {
@@ -108,7 +109,6 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     private fun requestPermissions() {
         executeIf(preferenceRepository.speechRecognitionEnabled) {
-            // TODO move to the settings fragment
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return@executeIf
             val permission = requireContext().checkSelfPermission(Manifest.permission.RECORD_AUDIO)
             if (permission == PackageManager.PERMISSION_GRANTED) return@executeIf
