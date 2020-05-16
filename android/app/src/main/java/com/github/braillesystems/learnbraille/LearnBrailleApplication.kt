@@ -69,3 +69,8 @@ class LearnBrailleApplication : Application() {
         get<LearnBrailleDatabase>().init()
     }
 }
+
+/**
+ * First always stands for test developers course
+ */
+const val COURSE_ID = 2L

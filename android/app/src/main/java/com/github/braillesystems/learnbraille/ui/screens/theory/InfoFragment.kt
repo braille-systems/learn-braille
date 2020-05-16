@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Info
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInfoBinding
+import com.github.braillesystems.learnbraille.utils.announceByAccessibility
 
 class InfoFragment : AbstractStepFragment(R.string.lessons_help_info) {
 
@@ -27,6 +28,7 @@ class InfoFragment : AbstractStepFragment(R.string.lessons_help_info) {
         require(step.data is Info)
         infoTextView.text = step.data.text.parseAsHtml()
         infoTextView.movementMethod = ScrollingMovementMethod()
+        announceByAccessibility(step.data.text)
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_info)
         setHasOptionsMenu(true)

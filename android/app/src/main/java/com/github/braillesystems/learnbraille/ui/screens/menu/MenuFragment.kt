@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.github.braillesystems.learnbraille.COURSE_ID
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
@@ -46,7 +47,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         requestPermissions()
 
         lessonsButton.setOnClickListener(interruptingOnClickListener {
-            toLastCourseStep(1)
+            toLastCourseStep(COURSE_ID)
         })
 
         practiceButton.setOnClickListener(interruptingOnClickListener {
