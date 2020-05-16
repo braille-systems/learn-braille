@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/help"
+        android:enabled="true"
+        android:icon="@drawable/action_menu_help_button"
+        android:title="@string/menu_help_description"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+
+    <!--    TODO-->
+    <item
+        android:id="@+id/lessons_list"
+        android:enabled="true"
+        android:title="@string/menu_help_description"
+        android:visible="true"
+        app:showAsAction="never" />
+
+    <!--    TODO-->
+    <item
+        android:id="@+id/current_course_pos"
+        android:enabled="true"
+        android:title="@string/menu_help_description"
+        android:visible="true"
+        app:showAsAction="never" />
+</menu>
