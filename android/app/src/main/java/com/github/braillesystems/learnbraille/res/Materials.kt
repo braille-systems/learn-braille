@@ -98,9 +98,15 @@ val Fragment.symbolTypeDisplayList: List<P2F<Char, String>> by lazyWithContext {
         {
             val other = getString(R.string.input_special_intro_template)
             val numSign = getString(R.string.input_special_intro_num_sign)
+            val dotIntro = getString(R.string.input_special_intro_dot)
+            val commaIntro = getString(R.string.input_special_intro_comma)
+            val hyphenIntro = getString(R.string.input_special_intro_hyphen)
             specialSymbols.map::containsKey to { c: Char ->
                 when (c) {
                     ']' -> numSign
+                    '.' -> dotIntro
+                    ',' -> commaIntro
+                    '-' -> hyphenIntro
                     else -> other.format(c)
                 }
             }
