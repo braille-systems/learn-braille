@@ -109,7 +109,7 @@
         Выведены точки: %s
     </string>
 
-    <string name="lessons_title_info">Информационный шаг</string>
+    <string name="lessons_title_info">Информация</string>
     <string name="lessons_title_last_info">Последний шаг!</string>
     <string name="lessons_title_input_symbol">Ввод символа</string>
     <string name="lessons_title_input_dots">Ввод точек</string>
