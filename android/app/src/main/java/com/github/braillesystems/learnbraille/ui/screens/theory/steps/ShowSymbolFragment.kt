@@ -9,7 +9,6 @@ import com.github.braillesystems.learnbraille.data.entities.Show
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowSymbolBinding
 import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
-import com.github.braillesystems.learnbraille.ui.screens.theory.toCurrentStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
 import com.github.braillesystems.learnbraille.ui.views.display

@@ -10,7 +10,6 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.FirstInfo
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonFirstInfoBinding
 import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
-import com.github.braillesystems.learnbraille.ui.screens.theory.toCurrentStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.utils.announceByAccessibility
 
