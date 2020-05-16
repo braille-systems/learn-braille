@@ -47,9 +47,8 @@ fun Fragment.toast(msg: String, preferenceRepository: PreferenceRepository = get
     ).show()
 
 fun Context.announceByAccessibility(
-    announcement: String,
-    preferenceRepository: PreferenceRepository
-) = executeIf(preferenceRepository.announcementsEnabled) {
+    announcement: String
+) {
     val manager = accessibilityManager ?: return
     val event = AccessibilityEvent.obtain().apply {
         eventType = AccessibilityEvent.TYPE_ANNOUNCEMENT
@@ -60,18 +59,16 @@ fun Context.announceByAccessibility(
     manager.sendAccessibilityEvent(event)
 }
 
-fun Fragment.announceByAccessibility(
-    announcement: String,
-    preferenceRepository: PreferenceRepository = get()
-) = application.announceByAccessibility(announcement, preferenceRepository)
+fun Fragment.announceByAccessibility(announcement: String) =
+    application.announceByAccessibility(announcement)
 
 fun <T> stringify(s: SerializationStrategy<T>, obj: T) = Json.stringify(s, obj)
 fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.parse(d, s)
 
-class logged<R>(private val getter: (String) -> R) {
+class logged<C, R>(private val getter: C.(String) -> R) {
 
-    operator fun getValue(thisRef: Any?, property: KProperty<*>): R =
-        getter(property.name).also {
+    operator fun getValue(thisRef: C, property: KProperty<*>): R =
+        thisRef.getter(property.name).also {
             Timber.i("${property.name} -> $it")
         }
 }

@@ -48,10 +48,10 @@ class SpeechRecognition(
                 val params: MutableMap<String, String?> = HashMap()
                 params[TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID] = mostRecentUtteranceID
                 @Suppress("DEPRECATION", "UNCHECKED_CAST")
-                mTTs.speak(
-                    getString(R.string.exit_question), TextToSpeech.QUEUE_FLUSH,
-                    params as HashMap<String, String>?
-                )
+//                mTTs.speak(
+//                    getString(R.string.exit_question), TextToSpeech.QUEUE_FLUSH,
+//                    params as HashMap<String, String>?
+//                )
                 mTTs.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                     override fun onDone(utteranceId: String) {
                         if (utteranceId != mostRecentUtteranceID) {

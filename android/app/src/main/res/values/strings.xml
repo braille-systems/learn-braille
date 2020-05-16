@@ -5,11 +5,11 @@
     <string name="app_name">Learn Braille Beta</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_help_message">No help message</string>
+
     <string name="preference_use_debug_lessons">use_debug_lessons</string>
     <string name="preference_enable_buzz">enable_buzz</string>
     <string name="preference_enable_toasts">enable_toasts</string>
     <string name="preference_current_user">current_user</string>
-    <string name="preference_enable_announcements">enable_announcement</string>
     <string name="preference_speech_recognition_enabled">speech_recognition_enabled</string>
     <string name="preference_golubina_book_steps_enabled">golubina_book_steps_enabled</string>
     <string name="preference_practice_use_passed_material">practice_use_passed_material</string>
@@ -17,7 +17,7 @@
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
     <string name="input_letter_intro_template">Введите букву: %s</string>
-    <string name="input_letter_incorrect_template">Неправильно. Введите букву %s</string>
+    <string name="input_digit_intro_template">Введите цифру: %s</string>
     <string name="input_dots_hint_template">Ответ: точки %s</string>
     <string name="input_loading">Подождите, задание загружается</string>
 
