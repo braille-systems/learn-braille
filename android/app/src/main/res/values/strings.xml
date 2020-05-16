@@ -6,6 +6,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_help_message">No help message</string>
 
+    <string name="voice_record_denial">Вы не сможете использовать возможности голосового управления</string>
+
     <string name="preference_use_debug_lessons">use_debug_lessons</string>
     <string name="preference_enable_buzz">enable_buzz</string>
     <string name="preference_enable_toasts">enable_toasts</string>
@@ -13,6 +15,7 @@
     <string name="preference_speech_recognition_enabled">speech_recognition_enabled</string>
     <string name="preference_golubina_book_steps_enabled">golubina_book_steps_enabled</string>
     <string name="preference_practice_use_passed_material">practice_use_passed_material</string>
+    <string name="preference_traverse_dots_in_enumeration_order">traverse_dots_in_enumeration_order</string>
 
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
@@ -229,7 +232,10 @@
     </string>
     <string name="preference_summary_notifications">Включить/отключить краткие всплывающие
         подсказки (кроме самых важных).</string>
-
-    <string name="voice_record_denial">Вы не сможете использовать возможности голосового управления</string>
+    <string name="preference_title_traversal_order">Обход точек в порядке нумерации</string>
+    <string name="preference_summary_traversal_order">Работает с Андроид 5.1. Если включено,
+        программа экранного доступа обходит точки шеститочия в порядке 1-2-3-4-5-6,
+        иначе 1-4-2-5-3-6
+    </string>
 
 </resources>
