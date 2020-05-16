@@ -3,6 +3,7 @@ package com.github.braillesystems.learnbraille.ui.screens.practice
 import android.os.Bundle
 import android.os.Vibrator
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
@@ -18,6 +19,7 @@ import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
 import com.github.braillesystems.learnbraille.ui.views.brailleDots
 import com.github.braillesystems.learnbraille.ui.views.dotsState
+import com.github.braillesystems.learnbraille.ui.views.subscribe
 import com.github.braillesystems.learnbraille.utils.announceByAccessibility
 import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.updateTitle
@@ -58,7 +60,11 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         updateTitle(title)
         setHasOptionsMenu(true)
 
-        dotsState = brailleDots.dotsState
+        dotsState = brailleDots.dotsState.apply {
+            subscribe(View.OnClickListener {
+                viewModel.onSoftCheck()
+            })
+        }
 
         val viewModelFactory: CardViewModelFactory by inject {
             parametersOf({ dotsState.brailleDots })
@@ -77,11 +83,20 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         lifecycleOwner = this@CardFragment
 
 
-        viewModel.observeEventCorrect(
-            viewLifecycleOwner, preferences, dotsState, buzzer
-        ) {
-            showCorrectToast()
-            updateTitle(title)
+        if (preferences.inputOnFlyCheck) {
+            viewModel.observeEventCorrect(
+                viewLifecycleOwner, preferences, dotsState, buzzer = null
+            ) { updateTitle(title) }
+            viewModel.observeEventSoftCorrect(
+                viewLifecycleOwner, preferences, buzzer
+            ) { showCorrectToast() }
+        } else {
+            viewModel.observeEventCorrect(
+                viewLifecycleOwner, preferences, dotsState, buzzer
+            ) {
+                updateTitle(title)
+                showCorrectToast()
+            }
         }
 
         viewModel.observeEventIncorrect(

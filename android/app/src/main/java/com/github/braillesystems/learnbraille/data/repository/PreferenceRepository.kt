@@ -21,6 +21,7 @@ interface PreferenceRepository {
     val golubinaBookStepsEnabled: Boolean
     val practiceUseMaterialsPassedInCourse: Boolean
     val traverseDotsInEnumerationOrder: Boolean
+    val inputOnFlyCheck: Boolean
 
     val currentUserId: Long
     suspend fun getCurrentUser(): User
@@ -77,6 +78,10 @@ class PreferenceRepositoryImpl(
             context.getString(R.string.preference_traverse_dots_in_enumeration_order),
             false
         )
+    }
+
+    override val inputOnFlyCheck: Boolean by logged {
+        true
     }
 
     override val currentUserId: Long by logged {
