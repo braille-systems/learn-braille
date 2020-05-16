@@ -1,5 +1,6 @@
 package com.github.braillesystems.learnbraille.ui.screens
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
@@ -21,10 +22,17 @@ fun Fragment.showIncorrectToast(material: Material? = null): Unit =
 fun Fragment.showHintDotsToast(expectedDots: BrailleDots) =
     checkedToast(getString(R.string.input_dots_hint_template).format(expectedDots.spelling))
 
-fun Fragment.introString(material: Material): String? =
+fun Context.introString(material: Material): String? =
     when (material.data) {
         is Symbol -> symbolTypeDisplayList.peek(material.data.symbol)
     }
 
-fun Fragment.introStringNotNullLogged(material: Material): String = introString(material)
+fun Context.introStringNotNullLogged(material: Material): String = introString(material)
     ?: Timber.e("Intro should be available").let { "" }
+
+fun Fragment.introString(material: Material): String? =
+    (context ?: null.also { Timber.w("Context is not available") })
+        ?.run { introString(material) }
+
+fun Fragment.introStringNotNullLogged(material: Material): String =
+    context?.introStringNotNullLogged(material) ?: error("Context is not available")
