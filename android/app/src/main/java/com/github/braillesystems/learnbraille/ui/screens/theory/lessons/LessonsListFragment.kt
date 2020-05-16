@@ -15,9 +15,9 @@ import com.github.braillesystems.learnbraille.data.repository.TheoryRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsListBinding
 import com.github.braillesystems.learnbraille.databinding.LessonsListItemBinding
 import com.github.braillesystems.learnbraille.ui.screens.theory.toLastLessonStep
+import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.scope
 import com.github.braillesystems.learnbraille.utils.title
-import com.github.braillesystems.learnbraille.utils.toast
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -47,7 +47,7 @@ class LessonsListFragment : Fragment() {
             }
             val disabledListener = object : LessonItemListener {
                 override fun onClick(item: Lesson) =
-                    toast(getString(R.string.lessons_not_available_lesson).format(item.id))
+                    checkedToast(getString(R.string.lessons_not_available_lesson).format(item.id))
             }
             val adapter = LessonsListAdapter(lessons) { item ->
                 lesson = item
