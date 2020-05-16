@@ -1522,7 +1522,7 @@ private val someMoreGolubinaLessons by lessons {
             """Заключительное упражнение: наберите слово КОРОВА"""
         )
         inputChars("КОРОВА")
-        +Info(
+        +LastInfo(
             """
                     Урок 26 - буква В - закончен.
                     <br>
