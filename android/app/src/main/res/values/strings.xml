@@ -220,5 +220,7 @@
     <string name="preference_summary_notifications">Включить/отключить краткие всплывающие
         подсказки (кроме самых важных).</string>
 
+    <string name="voice_record_denial">Вы не сможете использовать возможности голосового управления</string>
+
 </resources>
 
