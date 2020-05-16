@@ -1,6 +1,7 @@
 package com.github.braillesystems.learnbraille.ui.screens.theory.lessons
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,8 +15,10 @@ import com.github.braillesystems.learnbraille.data.entities.Lesson
 import com.github.braillesystems.learnbraille.data.repository.TheoryRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsListBinding
 import com.github.braillesystems.learnbraille.databinding.LessonsListItemBinding
+import com.github.braillesystems.learnbraille.ui.screens.theory.toLastLessonStep
 import com.github.braillesystems.learnbraille.utils.scope
 import com.github.braillesystems.learnbraille.utils.title
+import com.github.braillesystems.learnbraille.utils.toast
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -23,6 +26,7 @@ class LessonsListFragment : Fragment() {
 
     private val theoryRepository: TheoryRepository by inject()
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,16 +41,41 @@ class LessonsListFragment : Fragment() {
         title = getString(R.string.lessons_title_lessons_list)
 
         scope().launch {
+            val curr = theoryRepository.getCurrentStep(COURSE_ID)
             val lessons = theoryRepository.getAllCourseLessons(COURSE_ID)
-            val adapter = LessonsListAdapter(lessons)
+            val activeListener = object : LessonItemListener {
+                override fun onClick(item: Lesson) = toLastLessonStep(COURSE_ID, item.id)
+            }
+            val disabledListener = object : LessonItemListener {
+                override fun onClick(item: Lesson) =
+                    toast(getString(R.string.lessons_not_available_lesson).format(item.id))
+            }
+            val adapter = LessonsListAdapter(lessons) { item ->
+                lesson = item
+                lessonName.text = "${item.id}. ${item.name}"
+                lessonDescription.text = item.description.parseAsHtml()
+                if (item.id <= curr.lessonId) {
+                    clickListener = activeListener
+                    // TODO set proper text color
+                    lessonName.setTextColor(Color.BLACK)
+                    lessonDescription.setTextColor(Color.BLACK)
+                } else {
+                    clickListener = disabledListener
+                    // TODO set proper text color
+                    lessonName.setTextColor(Color.GRAY)
+                    lessonDescription.setTextColor(Color.GRAY)
+                }
+            }
             lessonsList.adapter = adapter
         }
 
     }.root
 }
 
-private class LessonsListAdapter(private val lessons: List<Lesson>) :
-    RecyclerView.Adapter<LessonItemViewHolder>() {
+private class LessonsListAdapter(
+    private val lessons: List<Lesson>,
+    private val bind: LessonsListItemBinding.(Lesson) -> Unit
+) : RecyclerView.Adapter<LessonItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = LessonItemViewHolder(
         DataBindingUtil.inflate(
@@ -58,15 +87,16 @@ private class LessonsListAdapter(private val lessons: List<Lesson>) :
 
     override fun getItemCount(): Int = lessons.size
 
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: LessonItemViewHolder, position: Int) {
-        val lesson = lessons[position]
-        holder.view.apply {
-            lessonName.text = "${lesson.id}. ${lesson.name}"
-            lessonDescription.text = lesson.description.parseAsHtml()
-        }
+        val item = lessons[position]
+        holder.binding.bind(item)
     }
 }
 
-private class LessonItemViewHolder(val view: LessonsListItemBinding) :
-    RecyclerView.ViewHolder(view.root)
+private class LessonItemViewHolder(
+    val binding: LessonsListItemBinding
+) : RecyclerView.ViewHolder(binding.root)
+
+interface LessonItemListener {
+    fun onClick(item: Lesson)
+}

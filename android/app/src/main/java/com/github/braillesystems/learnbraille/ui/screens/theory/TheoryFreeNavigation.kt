@@ -83,3 +83,10 @@ fun Fragment.toLastCourseStep(
     val lastStep = theoryRepository.getLastCourseStep(courseId)
     toStep(lastStep)
 }.devnull
+
+fun Fragment.toLastLessonStep(
+    courseId: Long, lessonId: Long, theoryRepository: MutableTheoryRepository = get()
+): Unit = scope().launch {
+    val lastStep = theoryRepository.getLastLessonOrCurrentStepAndUpdate(courseId, lessonId)
+    toStep(lastStep)
+}.devnull

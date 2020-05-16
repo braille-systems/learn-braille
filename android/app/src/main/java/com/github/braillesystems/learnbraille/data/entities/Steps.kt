@@ -65,6 +65,16 @@ interface StepDao {
 
     @Query(
         """
+        select steps.* from last_lesson_step as ls
+        inner join steps on steps.course_id = ls.course_id 
+        and steps.lesson_id = ls.lesson_id and steps.id = ls.step_id
+        where ls.user_id = :userId and ls.course_id = :courseId and ls.lesson_id = :lessonId
+        """
+    )
+    suspend fun getLastStep(userId: Long, courseId: Long, lessonId: Long): Step?
+
+    @Query(
+        """
         select steps.* from steps
         where steps.course_id = :courseId
         order by steps.lesson_id, steps.id limit 1

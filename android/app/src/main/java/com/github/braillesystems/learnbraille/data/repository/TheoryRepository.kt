@@ -5,6 +5,7 @@ import com.github.braillesystems.learnbraille.res.StepAnnotation
 
 interface TheoryRepository {
 
+    suspend fun getCurrentStep(courseId: Long): Step
     suspend fun getLastCourseStep(courseId: Long): Step
     suspend fun getAllCourseLessons(courseId: Long): List<Lesson>
 }
@@ -14,6 +15,7 @@ interface MutableTheoryRepository : TheoryRepository {
     suspend fun getNextStepAndUpdate(thisStep: Step, markThisAsPassed: Boolean = false): Step?
     suspend fun getPrevStepAndUpdate(thisStep: Step): Step?
     suspend fun getCurrentStepAndUpdate(courseId: Long): Step
+    suspend fun getLastLessonOrCurrentStepAndUpdate(courseId: Long, lessonId: Long): Step
 }
 
 class TheoryRepositoryImpl(
@@ -65,8 +67,21 @@ class TheoryRepositoryImpl(
         )?.also { updateLast(it) }
 
     override suspend fun getCurrentStepAndUpdate(courseId: Long): Step =
-        stepDao.getCurrentStep(preferenceRepository.currentUserId, courseId)
+        getCurrentStep(courseId).also { updateLast(it) }
+
+    /**
+     * LessonId is supposed to exist for this courseId.
+     */
+    override suspend fun getLastLessonOrCurrentStepAndUpdate(courseId: Long, lessonId: Long): Step =
+        stepDao.getLastStep(preferenceRepository.currentUserId, courseId, lessonId)
             ?.also { updateLast(it) }
+            ?: error(
+                "No such lessonId ($lessonId) exists for course ($courseId) " +
+                        "or current step is behind lesson with such lessonId"
+            )
+
+    override suspend fun getCurrentStep(courseId: Long): Step =
+        stepDao.getCurrentStep(preferenceRepository.currentUserId, courseId)
             ?: initCoursePos(courseId)
 
     override suspend fun getLastCourseStep(courseId: Long): Step =

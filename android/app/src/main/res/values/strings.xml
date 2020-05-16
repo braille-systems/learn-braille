@@ -108,6 +108,9 @@
     <string name="lessons_show_dots_info_template">
         Выведены точки: %s
     </string>
+    <string name="lessons_not_available_lesson">
+        Урок %d еще не доступен, пройдите сначала предыдущие уроки
+    </string>
 
     <string name="lessons_title_info">Информационный шаг</string>
     <string name="lessons_title_last_info">Последний шаг!</string>
