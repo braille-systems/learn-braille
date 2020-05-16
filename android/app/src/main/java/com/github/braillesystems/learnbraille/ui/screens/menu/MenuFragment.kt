@@ -1,8 +1,11 @@
 package com.github.braillesystems.learnbraille.ui.screens.menu
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +15,12 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
+import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.theory.toLastCourseStep
 import com.github.braillesystems.learnbraille.utils.checkedToast
+import com.github.braillesystems.learnbraille.utils.executeIf
 import com.github.braillesystems.learnbraille.utils.sendMarketIntent
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import org.koin.android.ext.android.inject
@@ -23,6 +28,7 @@ import org.koin.android.ext.android.inject
 class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     private val db: LearnBrailleDatabase by inject()
+    private val preferenceRepository: PreferenceRepository by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +43,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
         updateTitle(getString(R.string.menu_actionbar_text))
         setHasOptionsMenu(true)
+        requestPermissions()
 
         lessonsButton.setOnClickListener(interruptingOnClickListener {
             toLastCourseStep(1)
@@ -82,6 +89,29 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         }
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            recordAudioPermissionCode -> if (grantResults.first() != PackageManager.PERMISSION_GRANTED) {
+                checkedToast(getString(R.string.voice_record_denial))
+            }
+        }
+    }
+
+    private fun requestPermissions() {
+        executeIf(preferenceRepository.speechRecognitionEnabled) {
+            // TODO move to the settings fragment
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return@executeIf
+            val permission = requireContext().checkSelfPermission(Manifest.permission.RECORD_AUDIO)
+            if (permission == PackageManager.PERMISSION_GRANTED) return@executeIf
+            requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), recordAudioPermissionCode)
+        }
+    }
+
     private fun interruptingOnClickListener(block: (View) -> Unit) =
         View.OnClickListener {
             if (db.isInitialized) block(it)
@@ -89,6 +119,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         }
 
     companion object {
-        const val qrRequestCode = 0
+        private const val qrRequestCode = 0
+        private const val recordAudioPermissionCode = 29
     }
 }

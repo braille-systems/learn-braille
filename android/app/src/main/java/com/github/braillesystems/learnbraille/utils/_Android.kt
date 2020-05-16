@@ -70,8 +70,9 @@ fun Fragment.sendMarketIntent(appPackageName: String) {
     }
 }
 
-val Context.isAccessibilityEnabled: Boolean
-    get() = Settings.Secure.getInt(
+val Context.isAccessibilityEnabled: Boolean by logged {
+    Settings.Secure.getInt(
         contentResolver,
         Settings.Secure.ACCESSIBILITY_ENABLED
     ) == 1
+}

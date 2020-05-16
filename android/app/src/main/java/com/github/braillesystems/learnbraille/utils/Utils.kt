@@ -26,17 +26,17 @@ val Fragment.application: LearnBrailleApplication
 
 fun scope(job: Job = Job()) = CoroutineScope(Dispatchers.Main + job)
 
-fun Vibrator?.checkedBuzz(pattern: BuzzPattern, preferenceRepository: PreferenceRepository) {
-    if (preferenceRepository.buzzEnabled) buzz(pattern)
-}
+fun Vibrator?.checkedBuzz(pattern: BuzzPattern, preferenceRepository: PreferenceRepository) =
+    executeIf(preferenceRepository.buzzEnabled) {
+        buzz(pattern)
+    }
 
-fun checkedToast(msg: String, context: Context?, preferenceRepository: PreferenceRepository) {
-    if (preferenceRepository.toastsEnabled) {
+fun checkedToast(msg: String, context: Context?, preferenceRepository: PreferenceRepository) =
+    executeIf(preferenceRepository.toastsEnabled) {
         Toast.makeText(
             context, msg, preferenceRepository.toastDuration
         ).show()
     }
-}
 
 fun Fragment.checkedToast(msg: String, preferenceRepository: PreferenceRepository = get()) =
     checkedToast(msg, context, preferenceRepository)
@@ -47,14 +47,8 @@ fun Fragment.toast(msg: String, preferenceRepository: PreferenceRepository = get
     ).show()
 
 fun Context.announceByAccessibility(
-    announcement: String,
-    preferenceRepository: PreferenceRepository
+    announcement: String
 ) {
-    if (!preferenceRepository.announcementsEnabled) {
-        Timber.i("Announcements disabled")
-        return
-    }
-
     val manager = accessibilityManager ?: return
     val event = AccessibilityEvent.obtain().apply {
         eventType = AccessibilityEvent.TYPE_ANNOUNCEMENT
@@ -65,18 +59,16 @@ fun Context.announceByAccessibility(
     manager.sendAccessibilityEvent(event)
 }
 
-fun Fragment.announceByAccessibility(
-    announcement: String,
-    preferenceRepository: PreferenceRepository = get()
-) = application.announceByAccessibility(announcement, preferenceRepository)
+fun Fragment.announceByAccessibility(announcement: String) =
+    application.announceByAccessibility(announcement)
 
 fun <T> stringify(s: SerializationStrategy<T>, obj: T) = Json.stringify(s, obj)
 fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.parse(d, s)
 
-class logged<R>(private val getter: (String) -> R) {
+class logged<C, R>(private val getter: C.(String) -> R) {
 
-    operator fun getValue(thisRef: Any?, property: KProperty<*>): R =
-        getter(property.name).also {
+    operator fun getValue(thisRef: C, property: KProperty<*>): R =
+        thisRef.getter(property.name).also {
             Timber.i("${property.name} -> $it")
         }
 }
