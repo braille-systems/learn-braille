@@ -53,14 +53,14 @@ val ruSymbols by symbols(SymbolType.ru) {
     symbol(symbol = 'Я', brailleDots = BrailleDots(F, F, E, F, E, F))
 }
 
-val specialSymbols by symbols(SymbolType.special){
+val specialSymbols by symbols(SymbolType.special) {
     symbol(symbol = ']', brailleDots = BrailleDots(E, E, F, F, F, F)) // цифровой знак // number
     symbol(symbol = ',', brailleDots = BrailleDots(E, F, E, E, E, E)) // Знак препинания 'Запятая'
     symbol(symbol = '-', brailleDots = BrailleDots(E, E, F, E, E, F)) // Дефис
     symbol(symbol = '.', brailleDots = BrailleDots(E, F, F, E, F, E)) // Точка
 }
 
-val uebDigits by symbols(SymbolType.digit){
+val uebDigits by symbols(SymbolType.digit) {
     symbol(symbol = '1', brailleDots = BrailleDots(F, E, E, E, E, E))
     symbol(symbol = '2', brailleDots = BrailleDots(F, F, E, E, E, E))
     symbol(symbol = '3', brailleDots = BrailleDots(F, E, E, F, E, E))
