@@ -28,7 +28,7 @@ class LastInfoFragment : AbstractStepFragment(R.string.lessons_help_last_info) {
         require(step.data is LastInfo)
         infoTextView.text = step.data.text.parseAsHtml()
         infoTextView.movementMethod = ScrollingMovementMethod()
-        this@LastInfoFragment.announceByAccessibility(step.data.text)
+        announceByAccessibility(step.data.text)
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_info)
         setHasOptionsMenu(true)
