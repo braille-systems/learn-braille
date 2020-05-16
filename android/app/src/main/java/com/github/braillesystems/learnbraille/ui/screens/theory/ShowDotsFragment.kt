@@ -11,6 +11,7 @@ import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowDotsBinding
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
+import com.github.braillesystems.learnbraille.utils.announceByAccessibility
 import timber.log.Timber
 
 class ShowDotsFragment : AbstractStepFragment(R.string.lessons_help_show_dots) {
@@ -30,9 +31,11 @@ class ShowDotsFragment : AbstractStepFragment(R.string.lessons_help_show_dots) {
 
         val step = getStepArg()
         require(step.data is ShowDots)
-        infoTextView.text = step.data.text?.parseAsHtml()
+        val infoText = step.data.text?.parseAsHtml()
             ?: getString(R.string.lessons_show_dots_info_template)
                 .format(step.data.dots.spelling)
+        infoTextView.text = infoText
+        this@ShowDotsFragment.announceByAccessibility(infoText.toString())
         brailleDots.dotsState.display(step.data.dots)
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_show_dots)
