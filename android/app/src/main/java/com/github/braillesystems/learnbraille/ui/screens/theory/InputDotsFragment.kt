@@ -16,6 +16,7 @@ import com.github.braillesystems.learnbraille.data.repository.PreferenceReposito
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputDotsBinding
 import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.views.*
+import com.github.braillesystems.learnbraille.utils.announceByAccessibility
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.checkedBuzz
 import org.koin.android.ext.android.inject
@@ -45,9 +46,11 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
 
         val step = getStepArg()
         require(step.data is InputDots)
-        infoTextView.text = step.data.text?.parseAsHtml()
-            ?: getString(R.string.lessons_input_dots_info_template)
+        val infoText = step.data.text?.parseAsHtml()
+            ?: getString(R.string.lessons_show_dots_info_template)
                 .format(step.data.dots.spelling)
+        infoTextView.text = infoText
+        announceByAccessibility(infoText.toString())
         brailleDots.dotsState.display(step.data.dots)
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_input_dots)
