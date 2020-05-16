@@ -5,11 +5,11 @@
     <string name="app_name">Learn Braille Beta</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_help_message">No help message</string>
+
     <string name="preference_use_debug_lessons">use_debug_lessons</string>
     <string name="preference_enable_buzz">enable_buzz</string>
     <string name="preference_enable_toasts">enable_toasts</string>
     <string name="preference_current_user">current_user</string>
-    <string name="preference_enable_announcements">enable_announcement</string>
     <string name="preference_speech_recognition_enabled">speech_recognition_enabled</string>
     <string name="preference_golubina_book_steps_enabled">golubina_book_steps_enabled</string>
     <string name="preference_practice_use_passed_material">practice_use_passed_material</string>
@@ -17,7 +17,12 @@
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
     <string name="input_letter_intro_template">Введите букву: %s</string>
-    <string name="input_letter_incorrect_template">Неправильно. Введите букву %s</string>
+    <string name="input_digit_intro_template">Введите цифру: %s</string>
+    <string name="input_special_intro_template">Введите символ: %s</string>
+    <string name="input_special_intro_num_sign">Введите цифровой знак</string>
+    <string name="input_special_intro_dot">Введите символ: Литературная точка</string>
+    <string name="input_special_intro_hyphen">Введите символ: Дефис</string>
+    <string name="input_special_intro_comma">Введите запятую</string>
     <string name="input_dots_hint_template">Ответ: точки %s</string>
     <string name="input_loading">Подождите, задание загружается</string>
 
@@ -113,11 +118,11 @@
         Урок %d еще не доступен, пройдите сначала предыдущие уроки
     </string>
 
-    <string name="lessons_title_info">Информационный шаг</string>
+    <string name="lessons_title_info">Информация</string>
     <string name="lessons_title_last_info">Последний шаг!</string>
     <string name="lessons_title_input_symbol">Ввод символа</string>
     <string name="lessons_title_input_dots">Ввод точек</string>
-    <string name="lessons_title_show_symbol">Символ</string>
+    <string name="lessons_title_show_symbol">Прочтите символ</string>
     <string name="lessons_title_show_dots">Точки</string>
     <string name="lessons_title_lessons_list">Уроки</string>
 
@@ -224,5 +229,7 @@
     </string>
     <string name="preference_summary_notifications">Включить/отключить краткие всплывающие
         подсказки (кроме самых важных).</string>
+
+    <string name="voice_record_denial">Вы не сможете использовать возможности голосового управления</string>
 
 </resources>

@@ -21,7 +21,7 @@ import kotlin.system.exitProcess
 
 class SpeechRecognition(
     private val fragment: Fragment,
-    preferenceRepository: PreferenceRepository
+    private val preferenceRepository: PreferenceRepository
 ) {
 
     private var mostRecentUtteranceID: String? = null
@@ -30,7 +30,7 @@ class SpeechRecognition(
     private var mSpeechRecognizerIntent: Intent? = null
 
     init {
-        if (preferenceRepository.speechRecognitionEnabled) {
+        executeIf(preferenceRepository.speechRecognitionEnabled) {
             try {
                 initialize()
             } catch (e: Throwable) {
@@ -84,7 +84,7 @@ class SpeechRecognition(
         mSpeechRecognizer?.setRecognitionListener(SpeechRecognitionListener(fragment))
     }
 
-    fun onDestroy() {
+    fun onDestroy() = executeIf(preferenceRepository.speechRecognitionEnabled) {
         try {
             mSpeechRecognizer?.destroy()
         } catch (e: Throwable) {
@@ -94,6 +94,7 @@ class SpeechRecognition(
 }
 
 private class SpeechRecognitionListener(fragment: Fragment) : RecognitionListener {
+
     override fun onBeginningOfSpeech() {}
     override fun onBufferReceived(buffer: ByteArray) {}
     override fun onEndOfSpeech() {}
@@ -106,14 +107,19 @@ private class SpeechRecognitionListener(fragment: Fragment) : RecognitionListene
     private val hostFragment: Fragment = fragment
 
     override fun onResults(results: Bundle) {
-        val matches =
-            results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-                ?: return
-        if (matches[0] == "да") {
-            exitProcess(0)
-        }
-        if (matches[0] == "нет") {
-            hostFragment.findNavController().navigate(R.id.action_global_menuFragment)
+        try {
+            val matches =
+                results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                    ?: return
+            Timber.i("Speech recognized: $matches")
+            if (matches[0] == "да") {
+                exitProcess(0)
+            }
+            if (matches[0] == "нет") {
+                hostFragment.findNavController().navigate(R.id.action_global_menuFragment)
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
         }
     }
 }

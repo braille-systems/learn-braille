@@ -70,4 +70,7 @@ class LearnBrailleApplication : Application() {
     }
 }
 
-const val COURSE_ID = 1L
+/**
+ * First always stands for test developers course
+ */
+const val COURSE_ID = 2L

@@ -19,6 +19,7 @@ import com.github.braillesystems.learnbraille.ui.screens.theory.toCurrentStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
 import com.github.braillesystems.learnbraille.ui.views.*
+import com.github.braillesystems.learnbraille.utils.announceByAccessibility
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.checkedBuzz
 import org.koin.android.ext.android.inject
@@ -52,7 +53,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         val symbol = step.data.material.data
         letter.text = symbol.symbol.toString()
         brailleDots.dotsState.display(symbol.brailleDots)
-        makeIntroLetterToast(symbol.symbol.toString())
+        announceByAccessibility(introStringNotNullLogged(step.data.material))
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_input_symbol)
         setHasOptionsMenu(true)
@@ -99,7 +100,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
             preferenceRepository,
             dotsState, buzzer
         ) {
-            makeCorrectToast()
+            showCorrectToast()
             toNextStep(step, markThisAsPassed = true)
         }
 
@@ -109,7 +110,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
             dotsState
         ) {
             val notify = {
-                makeIncorrectLetterToast(symbol.symbol.toString())
+                showIncorrectToast(step.data.material)
                 buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern, preferenceRepository)
             }
             if (userTouchedDots) notify()
@@ -119,14 +120,14 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         viewModel.observeEventHint(
             viewLifecycleOwner, dotsState
         ) {
-            makeHintDotsToast(expectedDots)
+            showHintDotsToast(expectedDots)
             userTouchedDots = true
         }
 
         viewModel.observeEventPassHint(
             viewLifecycleOwner, dotsState
         ) {
-            makeIntroLetterToast(symbol.symbol.toString())
+            announceByAccessibility(introStringNotNullLogged(step.data.material))
         }
 
     }.root
