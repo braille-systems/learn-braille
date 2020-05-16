@@ -32,8 +32,9 @@ fun Fragment.introStringNotNullLogged(material: Material): String = introString(
  */
 private val Fragment.symbolsRuleList: List<P2F<Char, String>> by lazyWithContext {
     listOfP2F(
-        { c: Char -> ruSymbols.map.containsKey(c) } to { c: Char ->
-            getString(R.string.input_letter_intro_template).format(c)
+        // Prevent lambda of capturing context that will be invalid next time fragment entered
+        getString(R.string.input_letter_intro_template).let {
+            { c: Char -> ruSymbols.map.containsKey(c) } to { c: Char -> it.format(c) }
         }
     )
 }
