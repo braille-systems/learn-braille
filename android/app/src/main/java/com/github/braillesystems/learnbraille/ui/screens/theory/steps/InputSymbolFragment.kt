@@ -91,9 +91,6 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         prevButton.setOnClickListener {
             toPrevStep(step)
         }
-        toCurrStepButton.setOnClickListener {
-            toCurrentStep(step.courseId)
-        }
 
         viewModel.observeEventCorrect(
             viewLifecycleOwner,

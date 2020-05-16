@@ -21,7 +21,6 @@ abstract class AbstractFragmentWithHelp(private val helpMsgId: HelpMsgId) : Frag
         get() = getString(helpMsgId)
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.help_menu, menu)
     }
 

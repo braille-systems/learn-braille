@@ -1,5 +1,9 @@
 package com.github.braillesystems.learnbraille.ui.screens.theory.steps
 
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import com.github.braillesystems.learnbraille.COURSE_ID
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.HelpMsgId
@@ -16,6 +20,19 @@ abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWith
 
     protected fun updateStepTitle(lessonId: Long, stepId: Long, msgId: Int) {
         updateTitle("$lessonId.$stepId ${getString(msgId)}")
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.steps_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = false.also {
+        when (item.itemId) {
+            R.id.help -> navigateToHelp()
+            R.id.lessons_list -> TODO("Navigate to lessons list")
+            R.id.current_course_pos -> toCurrentStep(COURSE_ID)
+            else -> error("Unknown menu item")
+        }
     }
 
     companion object {

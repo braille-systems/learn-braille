@@ -35,20 +35,6 @@
         <!--        Buttons-->
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/to_curr_step_button"
-            style="@style/sideIconButtons"
-            android:layout_width="@dimen/practice_buttons_width"
-            android:layout_height="@dimen/practice_buttons_small_height"
-            android:backgroundTint="@color/colorSecondary"
-            android:contentDescription="@string/lessons_progress"
-            app:icon="@drawable/to_progress"
-            app:layout_constraintBottom_toTopOf="@+id/next_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/prev_button"
             style="@style/sideIconButtons"
             android:layout_width="@dimen/practice_buttons_width"
