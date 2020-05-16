@@ -19,6 +19,7 @@
     <string name="input_letter_intro_template">Введите букву: %s</string>
     <string name="input_digit_intro_template">Введите цифру: %s</string>
     <string name="input_special_intro_template">Введите символ: %s</string>
+    <string name="input_special_intro_num_sign">Введите цифровой знак</string>
     <string name="input_dots_hint_template">Ответ: точки %s</string>
     <string name="input_loading">Подождите, задание загружается</string>
 
