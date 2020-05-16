@@ -76,6 +76,7 @@
     <string name="menu_db_not_initialized_warning">
         Загружаем базу данных. Попробуйте еще раз!
     </string>
+    <string name="menu_qr_empty_result">Ошибка. Пустой результат сканирования</string>
 
     <string name="menu_help">
         <![CDATA[

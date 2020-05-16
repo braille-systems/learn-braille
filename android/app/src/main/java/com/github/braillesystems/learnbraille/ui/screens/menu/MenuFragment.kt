@@ -18,6 +18,7 @@ import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.sendMarketIntent
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
@@ -77,7 +78,10 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
     private fun processQrResult(resultCode: Int, data: Intent?) {
         when (resultCode) {
             RESULT_OK -> checkedToast(
-                data?.getStringExtra("SCAN_RESULT").toString()  // TODO Not to crash app if null
+                data?.getStringExtra("SCAN_RESULT")
+                    ?: getString(R.string.menu_qr_empty_result).also {
+                        Timber.e("QR: empty result with OK code")
+                    }
             )
         }
     }
