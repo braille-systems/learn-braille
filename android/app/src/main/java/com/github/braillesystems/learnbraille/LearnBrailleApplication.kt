@@ -1,44 +1,76 @@
 package com.github.braillesystems.learnbraille
 
 import android.app.Application
-import android.widget.Toast
-import com.github.braillesystems.learnbraille.database.LearnBrailleDatabase
-import com.github.braillesystems.learnbraille.database.entities.Language
-import com.github.braillesystems.learnbraille.util.scope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
+import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.data.repository.*
+import com.github.braillesystems.learnbraille.ui.screens.practice.CardViewModelFactory
+import org.koin.android.ext.android.get
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 import timber.log.Timber
 
 class LearnBrailleApplication : Application() {
-
-    lateinit var prepopulationJob: Job
-        private set
 
     override fun onCreate() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         Timber.i("onCreate")
 
-        // Force database prepopulation on first launch
-        LearnBrailleDatabase.getInstance(this).apply {
-            prepopulationJob = scope().launch {
-                if (userDao.getUser(defaultUser) == null) {
-                    Timber.i("DB has been already initialized")
-                } else Timber.i("DB is not initialized yet")
+        val koinModule = module {
+            single { LearnBrailleDatabase.buildDatabase(this@LearnBrailleApplication) }
+            factory<PracticeRepository> {
+                PracticeRepositoryImpl(get<LearnBrailleDatabase>().materialDao)
+            }
+            factory<PreferenceRepository> {
+                PreferenceRepositoryImpl(
+                    this@LearnBrailleApplication,
+                    get<LearnBrailleDatabase>().userDao
+                )
+            }
+            factory<MutablePreferenceRepository> {
+                PreferenceRepositoryImpl(
+                    this@LearnBrailleApplication,
+                    get<LearnBrailleDatabase>().userDao
+                )
+            }
+            factory<TheoryRepository> {
+                get<LearnBrailleDatabase>().run {
+                    TheoryRepositoryImpl(
+                        stepDao, currentStepDao,
+                        lastCourseStepDao, lastLessonStepDao,
+                        get()
+                    )
+                }
+            }
+            factory<MutableTheoryRepository> {
+                get<LearnBrailleDatabase>().run {
+                    TheoryRepositoryImpl(
+                        stepDao, currentStepDao,
+                        lastCourseStepDao, lastLessonStepDao,
+                        get()
+                    )
+                }
+            }
+            factory { (getEnteredDots: () -> BrailleDots) ->
+                CardViewModelFactory(
+                    get(),
+                    this@LearnBrailleApplication,
+                    getEnteredDots
+                )
             }
         }
+        startKoin {
+            androidContext(this@LearnBrailleApplication)
+            modules(koinModule)
+        }
+
+        get<LearnBrailleDatabase>().init()
     }
 }
 
-typealias BuzzPattern = LongArray
-
-val CORRECT_BUZZ_PATTERN: BuzzPattern = longArrayOf(100, 100, 100, 100, 100, 100)
-val INCORRECT_BUZZ_PATTERN: BuzzPattern = longArrayOf(0, 200)
-
-// TODO move to settings
-val language = Language.RU
-const val defaultUser = 1L
-
-const val DEBUG = false
-
-const val TOAST_DURATION = Toast.LENGTH_SHORT
+/**
+ * First always stands for test developers course
+ */
+const val COURSE_ID = 2L

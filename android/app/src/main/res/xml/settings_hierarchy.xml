@@ -1,0 +1,28 @@
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/preference_enable_buzz"
+        android:summary="@string/preference_summary_buzz"
+        android:theme="@style/SwitchPreferenceButton"
+        android:title="@string/preference_title_buzz"
+        app:iconSpaceReserved="false" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/preference_enable_toasts"
+        android:summary="@string/preference_summary_notifications"
+        android:theme="@style/SwitchPreferenceButton"
+        android:title="@string/preference_title_notifications"
+        app:iconSpaceReserved="false" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/preference_golubina_book_steps_enabled"
+        android:summary="@string/preference_summary_use_golubina_textbook"
+        android:theme="@style/SwitchPreferenceButton"
+        android:title="@string/preference_title_use_golubina_textbook"
+        app:iconSpaceReserved="false" />
+
+</androidx.preference.PreferenceScreen>

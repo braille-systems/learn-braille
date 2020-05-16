@@ -6,15 +6,15 @@
     <data>
 
         <variable
-            name="practiceViewModel"
-            type="com.github.braillesystems.learnbraille.screens.practice.PracticeViewModel" />
+            name="cardViewModel"
+            type="com.github.braillesystems.learnbraille.ui.screens.practice.CardViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screens.practice.PracticeFragment">
+        tools:context=".ui.screens.practice.CardFragment">
 
         <TextView
             android:id="@+id/letter"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:scaleX="@dimen/letter_practice_scale_of_view"
             android:scaleY="@dimen/letter_practice_scale_of_view"
-            android:text="@{practiceViewModel.symbol}"
+            android:text="@{cardViewModel.symbol}"
             android:textSize="@dimen/big_letter_text_size"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/braille_dots"
@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="M" />
 
-        <com.github.braillesystems.learnbraille.views.BrailleDotsView
+        <com.github.braillesystems.learnbraille.ui.views.BrailleDotsView
             android:id="@+id/braille_dots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:layout_width="@dimen/practice_buttons_width"
             android:layout_height="@dimen/practice_buttons_height"
             android:contentDescription="@string/practice_hint"
-            android:onClick="@{() -> practiceViewModel.onHint()}"
+            android:onClick="@{() -> cardViewModel.onHint()}"
             android:scaleType="fitCenter"
             android:text="?"
             android:textColor="@color/colorOnPrimary"
@@ -65,7 +65,7 @@
             android:layout_width="@dimen/practice_buttons_width"
             android:layout_height="@dimen/practice_buttons_height"
             android:contentDescription="@string/lessons_next"
-            android:onClick="@{() -> practiceViewModel.onCheck()}"
+            android:onClick="@{() -> cardViewModel.onCheck()}"
             app:icon="@drawable/navigate_right"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

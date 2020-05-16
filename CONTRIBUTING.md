@@ -12,3 +12,10 @@ For building and running the app, your either need to download a virtual Android
 Clone the repository and open 'android/' subfolder as an Android Studio project. Gradle build will start automatically and all libraries will be downloaded (an Internet connection is required). Then, if you have already set up an emulator or connected a physical device, you will be able to launch it (click green triangle screen button in the toolbar above the code editor).
 
 
+## Adding content
+
+There are handy DSL that allows write content in the typesafe way.
+
+- All app content should be placed into `com.github.braillesystems.learnbraille.res` package.
+- Use `DslTest.kt` file as DSL tutorial.
+- Do not forget to add pluses in DSL to avoid loosing data!
