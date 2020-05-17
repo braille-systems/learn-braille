@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +19,8 @@
             android:textColor="@color/colorOnSecondary"
             android:textSize="@dimen/menu_text_size"
             app:backgroundTint="@color/colorSecondary"
-            app:shapeAppearanceOverlay="@style/bigButtonsShape" />
+            app:shapeAppearanceOverlay="@style/bigButtonsShape"
+            tools:ignore="SpUsage" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/practice_button"
@@ -30,7 +32,8 @@
             android:text="@string/menu_practice"
             android:textColor="@color/colorOnSecondary"
             android:textSize="@dimen/menu_text_size"
-            app:shapeAppearanceOverlay="@style/bigButtonsShape" />
+            app:shapeAppearanceOverlay="@style/bigButtonsShape"
+            tools:ignore="SpUsage" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/qr_practice_button"
@@ -43,7 +46,8 @@
             android:textColor="@color/colorOnSecondary"
             android:textSize="@dimen/menu_text_size"
             app:backgroundTint="@color/colorSecondary"
-            app:shapeAppearanceOverlay="@style/bigButtonsShape" />
+            app:shapeAppearanceOverlay="@style/bigButtonsShape"
+            tools:ignore="SpUsage" />
 
 
         <com.google.android.material.button.MaterialButton
@@ -56,7 +60,8 @@
             android:text="@string/menu_settings"
             android:textColor="@color/colorOnSecondary"
             android:textSize="@dimen/menu_text_size"
-            app:shapeAppearanceOverlay="@style/bigButtonsShape" />
+            app:shapeAppearanceOverlay="@style/bigButtonsShape"
+            tools:ignore="SpUsage" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/exit_button"
@@ -69,7 +74,8 @@
             android:textColor="@color/colorOnSecondary"
             android:textSize="@dimen/menu_text_size"
             app:backgroundTint="@color/colorSecondary"
-            app:shapeAppearanceOverlay="@style/bigButtonsShape" />
+            app:shapeAppearanceOverlay="@style/bigButtonsShape"
+            tools:ignore="SpUsage" />
 
 
     </LinearLayout>

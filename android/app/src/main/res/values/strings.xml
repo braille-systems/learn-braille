@@ -35,6 +35,7 @@
 
     <!--    Practice-->
 
+    <string name="hint_icon">\?</string>
     <string name="practice_hint">Подсказка</string>
     <string name="practice_next">Далее</string>
     <string name="practice_actionbar_title_template">Практика: %d из %d</string>

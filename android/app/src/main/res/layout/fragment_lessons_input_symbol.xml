@@ -49,7 +49,7 @@
             app:backgroundTint="@color/colorSecondary"
             android:contentDescription="@string/lessons_hint"
             android:onClick="@{() -> inputViewModel.onHint()}"
-            android:text="?"
+            android:text="@string/hint_icon"
             android:textSize="@dimen/practice_buttons_icon_size"
             app:layout_constraintBottom_toTopOf="@+id/prev_button"
             app:layout_constraintStart_toStartOf="parent"
