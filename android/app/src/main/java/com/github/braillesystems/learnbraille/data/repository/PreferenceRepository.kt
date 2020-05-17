@@ -81,7 +81,10 @@ class PreferenceRepositoryImpl(
     }
 
     override val inputOnFlyCheck: Boolean by logged {
-        true
+        context.preferences.getBoolean(
+            context.getString(R.string.preference_title_on_fly_check),
+            false
+        )
     }
 
     override val currentUserId: Long by logged {
