@@ -55,7 +55,7 @@ class PreferenceRepositoryImpl(
     override val speechRecognitionEnabled: Boolean by logged {
         context.preferences.getBoolean(
             context.getString(R.string.preference_speech_recognition_enabled),
-            true // TODO disable for release
+            false
         )
     }
 
