@@ -69,7 +69,8 @@ class PreferenceRepositoryImpl(
     override val practiceUseMaterialsPassedInCourse: Boolean by logged {
         context.preferences.getBoolean(
             context.getString(R.string.preference_practice_use_passed_material),
-            false
+            // to enable recognition, set to `true` and uncomment permission in AndroidManifest
+            false // TODO
         )
     }
 
