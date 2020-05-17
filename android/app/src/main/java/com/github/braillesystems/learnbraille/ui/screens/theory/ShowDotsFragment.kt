@@ -47,9 +47,6 @@ class ShowDotsFragment : AbstractStepFragment(R.string.lessons_help_show_dots) {
         nextButton.setOnClickListener {
             toNextStep(step, markThisAsPassed = true)
         }
-        toCurrStepButton.setOnClickListener {
-            toCurrentStep(step.courseId)
-        }
 
     }.root
 }

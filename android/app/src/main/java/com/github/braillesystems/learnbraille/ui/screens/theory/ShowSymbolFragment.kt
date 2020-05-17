@@ -42,9 +42,6 @@ class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbo
         nextButton.setOnClickListener {
             toNextStep(step, markThisAsPassed = true)
         }
-        toCurrStepButton.setOnClickListener {
-            toCurrentStep(step.courseId)
-        }
 
     }.root
 }
