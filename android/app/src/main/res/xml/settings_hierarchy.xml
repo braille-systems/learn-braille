@@ -36,6 +36,7 @@
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="false"
         android:key="@string/preference_title_on_fly_check"
+        android:summary="@string/preference_summary_on_fly_check"
         android:theme="@style/SwitchPreferenceButton"
         android:title="@string/preference_title_on_fly_check"
         app:iconSpaceReserved="false" />
