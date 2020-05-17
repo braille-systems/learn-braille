@@ -117,8 +117,8 @@
         Выведены точки: %s
     </string>
 
-    <string name="lessons_title_info">Информация</string>
-    <string name="lessons_title_last_info">Последний шаг!</string>
+    <string name="lessons_title_info">Текст</string>
+    <string name="lessons_title_last_info">Заключение</string>
     <string name="lessons_title_input_symbol">Ввод точек</string>
     <string name="lessons_title_input_dots">Ввод точек</string>
     <string name="lessons_title_show_symbol">Изучение</string>
