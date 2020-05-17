@@ -118,7 +118,8 @@
         Выведены точки: %s
     </string>
     <string name="lessons_not_available_lesson">
-        Урок %d еще не доступен, пройдите сначала предыдущие уроки
+        Урок %d еще не доступен, пройдите сначала предыдущие уроки. \n
+        Вы остановились на уроке %d
     </string>
 
     <string name="lessons_title_info">Текст</string>

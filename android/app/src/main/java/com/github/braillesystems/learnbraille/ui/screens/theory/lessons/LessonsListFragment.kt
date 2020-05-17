@@ -47,7 +47,10 @@ class LessonsListFragment : Fragment() {
             }
             val disabledListener = object : LessonItemListener {
                 override fun onClick(item: Lesson) =
-                    checkedToast(getString(R.string.lessons_not_available_lesson).format(item.id))
+                    checkedToast(
+                        getString(R.string.lessons_not_available_lesson)
+                            .format(item.id, curr.lessonId)
+                    )
             }
             val adapter = LessonsListAdapter(lessons) { item ->
                 lesson = item
