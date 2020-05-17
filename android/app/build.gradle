@@ -60,6 +60,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$version_room"
     implementation "androidx.room:room-ktx:$version_room"
     testImplementation "androidx.room:room-testing:$version_room"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
 
     // Testing
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'

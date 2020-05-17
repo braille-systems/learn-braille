@@ -1,9 +1,6 @@
 package com.github.braillesystems.learnbraille.data.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Dao
-import androidx.room.Entity
-import androidx.room.Insert
+import androidx.room.*
 
 
 @Entity(tableName = "lessons", primaryKeys = ["id", "course_id"])
@@ -20,4 +17,13 @@ interface LessonDao {
 
     @Insert
     suspend fun insert(lessons: List<Lesson>)
+
+    @Query(
+        """
+        select * from lessons
+        where course_id = :courseId
+        order by id
+        """
+    )
+    suspend fun getAllCourseLessons(courseId: Long): List<Lesson>
 }
