@@ -599,7 +599,7 @@ internal val someMoreGolubinaLessons by lessons {
                     Её можно получить из буквы Г, если дополнить точкой 3.
                     """
         )
-        +Show(content.symbols.getValue('Г'))
+        +Show(content.symbols.getValue('Ч'))
         +Info(
             """Введите по буквам слово ЧЕК"""
         )
