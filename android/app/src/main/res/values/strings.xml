@@ -121,11 +121,11 @@
         Урок %d еще не доступен, пройдите сначала предыдущие уроки
     </string>
 
-    <string name="lessons_title_info">Информация</string>
-    <string name="lessons_title_last_info">Последний шаг!</string>
-    <string name="lessons_title_input_symbol">Ввод символа</string>
+    <string name="lessons_title_info">Текст</string>
+    <string name="lessons_title_last_info">Заключение</string>
+    <string name="lessons_title_input_symbol">Ввод точек</string>
     <string name="lessons_title_input_dots">Ввод точек</string>
-    <string name="lessons_title_show_symbol">Прочтите символ</string>
+    <string name="lessons_title_show_symbol">Изучение</string>
     <string name="lessons_title_show_dots">Точки</string>
     <string name="lessons_title_lessons_list">Уроки</string>
 
@@ -141,8 +141,10 @@
         <br>
         <b>Вызов справки</b> - кнопка в верхней панели справа.
         <br>
-        <b>К прогрессу</b> - кнопка справа по центру экрана над кнопкой <b>вперёд</b>. Эта кнопка
-         перенаправляет к последнему непройденному шагу.
+        <b>Другие функции</b> - кнопка в верхней панели рядом с кнопкой <b>справка</b>.
+        Нажатие этой кнопки вызывает выпадающее меню с функциями <b>навигация по курсу</b>, то есть
+        переход к другому уроку, и <b>к текущему шагу</b>, то есть переход к последнему
+        непройденному шагу.
         ]]>
     </string>
 
@@ -210,6 +212,7 @@
     <string name="menu_title_help">Справка</string>
     <string name="menu_title_current_step">К текущему шагу</string>
     <string name="menu_title_lessons_list">Навигация по курсу</string>
+    <string name="menu_title_hide">Скрыть это меню</string>
 
     <!--    Help-->
 
@@ -238,6 +241,10 @@
     <string name="preference_summary_traversal_order">Работает с Андроид 5.1. Если включено,
         программа экранного доступа обходит точки шеститочия в порядке 1-2-3-4-5-6,
         иначе 1-4-2-5-3-6
+    </string>
+    <string name="preference_title_on_fly_check">Проверка ввода \"на лету\"</string>
+    <string name="preference_summary_on_fly_check">Выводить сообщение \"правильно\",
+        как только в шеститочии введена корректная комбинация, не дожидаясь нажатия кнопки "вперёд"
     </string>
 
 </resources>

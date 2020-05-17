@@ -17,8 +17,17 @@ import timber.log.Timber
  */
 interface DotsChecker {
 
+    /**
+     * User pressed `next` button.
+     */
     val eventCorrect: LiveData<Boolean>
     fun onCorrectComplete()
+
+    /**
+     * Correctness listening on the fly.
+     */
+    val eventSoftCorrect: LiveData<Boolean>
+    fun onSoftCorrectComplete()
 
     val eventIncorrect: LiveData<Boolean>
     fun onIncorrectComplete()
@@ -31,7 +40,15 @@ interface DotsChecker {
 
     val state: State
 
+    /**
+     * Next button pressed.
+     */
     fun onCheck()
+
+    /**
+     * On the fly check.
+     */
+    fun onSoftCheck()
     fun onHint()
 
     enum class State {
@@ -45,7 +62,9 @@ interface MutableDotsChecker : DotsChecker {
     var getExpectedDots: () -> BrailleDots?
 
     var onCheckHandler: () -> Unit
+    var onSoftCheckHandler: () -> Unit
     var onCorrectHandler: () -> Unit
+    var onSoftCorrectHandler: () -> Unit
     var onIncorrectHandler: () -> Unit
     var onHintHandler: () -> Unit
     var onPassHintHandler: () -> Unit
@@ -64,7 +83,9 @@ private class DotsCheckerImpl : MutableDotsChecker {
     override lateinit var getExpectedDots: () -> BrailleDots?
 
     override var onCheckHandler: () -> Unit = {}
+    override var onSoftCheckHandler: () -> Unit = {}
     override var onCorrectHandler: () -> Unit = {}
+    override var onSoftCorrectHandler: () -> Unit = {}
     override var onIncorrectHandler: () -> Unit = {}
     override var onHintHandler: () -> Unit = {}
     override var onPassHintHandler: () -> Unit = {}
@@ -72,6 +93,10 @@ private class DotsCheckerImpl : MutableDotsChecker {
     private val _eventCorrect = MutableLiveData<Boolean>()
     override val eventCorrect: LiveData<Boolean>
         get() = _eventCorrect
+
+    private val _eventSoftCorrect = MutableLiveData<Boolean>()
+    override val eventSoftCorrect: LiveData<Boolean>
+        get() = _eventSoftCorrect
 
     private val _eventIncorrect = MutableLiveData<Boolean>()
     override val eventIncorrect: LiveData<Boolean>
@@ -116,8 +141,17 @@ private class DotsCheckerImpl : MutableDotsChecker {
         }
     }
 
+    override fun onSoftCheck() = onSoftCheckHandler().also {
+        if (state != DotsChecker.State.INPUT) return@also
+        if (isCorrect) onSoftCorrect()
+    }
+
     private fun onCorrect() = onCorrectHandler().also {
         _eventCorrect.value = true
+    }
+
+    private fun onSoftCorrect() = onSoftCorrectHandler().also {
+        _eventSoftCorrect.value = true
     }
 
     private fun onIncorrect() = onIncorrectHandler().also {
@@ -140,6 +174,11 @@ private class DotsCheckerImpl : MutableDotsChecker {
 
     override fun onCorrectComplete() {
         _eventCorrect.value = false
+    }
+
+
+    override fun onSoftCorrectComplete() {
+        _eventSoftCorrect.value = false
     }
 
     override fun onHintComplete() {
@@ -170,6 +209,22 @@ inline fun DotsChecker.observeEventCorrect(
         dotsState.uncheck()
         block()
         onCorrectComplete()
+    }
+)
+
+inline fun DotsChecker.observeEventSoftCorrect(
+    lifecycleOwner: LifecycleOwner,
+    preferenceRepository: PreferenceRepository,
+    buzzer: Vibrator? = null,
+    crossinline block: () -> Unit = {}
+): Unit = eventSoftCorrect.observe(
+    lifecycleOwner,
+    Observer {
+        if (!it) return@Observer
+        Timber.i("Handle soft correct")
+        buzzer.checkedBuzz(preferenceRepository.correctBuzzPattern, preferenceRepository)
+        block()
+        onSoftCorrectComplete()
     }
 )
 

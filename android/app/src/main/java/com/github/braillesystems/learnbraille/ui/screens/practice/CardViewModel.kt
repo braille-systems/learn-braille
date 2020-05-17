@@ -35,8 +35,8 @@ class CardViewModel(
 ) : AndroidViewModel(application),
     DotsChecker by dotsChecker {
 
-    private var _symbol = MutableLiveData<String>()
-    val symbol: LiveData<String>
+    private var _symbol = MutableLiveData<String?>()
+    val symbol: LiveData<String?>
         get() = _symbol
 
     var nTries: Int = 0

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.CheckBox
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -102,6 +103,10 @@ fun BrailleDotsState.uncheck() = checkBoxes.forEach {
 
 fun BrailleDotsState.clickable(isClickable: Boolean) = checkBoxes.forEach {
     it.isClickable = isClickable
+}
+
+fun BrailleDotsState.subscribe(listener: View.OnClickListener) = checkBoxes.forEach {
+    it.setOnClickListener(listener)
 }
 
 fun BrailleDotsState.display(brailleDots: BrailleDots): Unit =
