@@ -11,7 +11,8 @@ import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.data.repository.MutableTheoryRepository
 import com.github.braillesystems.learnbraille.data.repository.TheoryRepository
 import com.github.braillesystems.learnbraille.ui.screens.menu.MenuFragmentDirections
-import com.github.braillesystems.learnbraille.ui.screens.theory.AbstractStepFragment.Companion.stepArgName
+import com.github.braillesystems.learnbraille.ui.screens.theory.steps.AbstractStepFragment
+import com.github.braillesystems.learnbraille.ui.screens.theory.steps.AbstractStepFragment.Companion.stepArgName
 import com.github.braillesystems.learnbraille.utils.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
@@ -80,5 +81,12 @@ fun Fragment.toLastCourseStep(
     theoryRepository: TheoryRepository = get()
 ): Unit = scope().launch {
     val lastStep = theoryRepository.getLastCourseStep(courseId)
+    toStep(lastStep)
+}.devnull
+
+fun Fragment.toLastLessonStep(
+    courseId: Long, lessonId: Long, theoryRepository: MutableTheoryRepository = get()
+): Unit = scope().launch {
+    val lastStep = theoryRepository.getLastLessonOrCurrentStepAndUpdate(courseId, lessonId)
     toStep(lastStep)
 }.devnull

@@ -38,8 +38,8 @@ class LearnBrailleApplication : Application() {
             factory<TheoryRepository> {
                 get<LearnBrailleDatabase>().run {
                     TheoryRepositoryImpl(
-                        stepDao, currentStepDao,
-                        lastCourseStepDao, lastLessonStepDao,
+                        lessonDao, stepDao,
+                        currentStepDao, lastCourseStepDao, lastLessonStepDao,
                         get()
                     )
                 }
@@ -47,8 +47,8 @@ class LearnBrailleApplication : Application() {
             factory<MutableTheoryRepository> {
                 get<LearnBrailleDatabase>().run {
                     TheoryRepositoryImpl(
-                        stepDao, currentStepDao,
-                        lastCourseStepDao, lastLessonStepDao,
+                        lessonDao, stepDao,
+                        currentStepDao, lastCourseStepDao, lastLessonStepDao,
                         get()
                     )
                 }
