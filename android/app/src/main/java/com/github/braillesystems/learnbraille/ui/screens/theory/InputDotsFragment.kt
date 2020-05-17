@@ -3,6 +3,7 @@ package com.github.braillesystems.learnbraille.ui.screens.theory
 import android.os.Bundle
 import android.os.Vibrator
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.getSystemService
 import androidx.core.text.parseAsHtml
@@ -61,11 +62,10 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
         dotsState = brailleDots.dotsState.apply {
             uncheck()
             clickable(true)
-            checkBoxes.forEach { checkBox ->
-                checkBox.setOnClickListener {
-                    userTouchedDots = true
-                }
-            }
+            subscribe(View.OnClickListener {
+                userTouchedDots = true
+                viewModel.onSoftCheck()
+            })
         }
 
 
@@ -86,13 +86,24 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
             toPrevStep(step)
         }
 
-        viewModel.observeEventCorrect(
-            viewLifecycleOwner,
-            preferenceRepository,
-            dotsState, buzzer
-        ) {
-            showCorrectToast()
-            toNextStep(step, markThisAsPassed = true)
+        if (preferenceRepository.inputOnFlyCheck) {
+            viewModel.observeEventCorrect(
+                viewLifecycleOwner,
+                preferenceRepository,
+                dotsState, buzzer = null
+            ) { toNextStep(step, markThisAsPassed = true) }
+            viewModel.observeEventSoftCorrect(
+                viewLifecycleOwner, preferenceRepository, buzzer
+            ) { showCorrectToast() }
+        } else {
+            viewModel.observeEventCorrect(
+                viewLifecycleOwner,
+                preferenceRepository,
+                dotsState, buzzer
+            ) {
+                showCorrectToast()
+                toNextStep(step, markThisAsPassed = true)
+            }
         }
 
         viewModel.observeEventIncorrect(
