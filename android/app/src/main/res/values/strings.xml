@@ -119,9 +119,9 @@
 
     <string name="lessons_title_info">Информация</string>
     <string name="lessons_title_last_info">Последний шаг!</string>
-    <string name="lessons_title_input_symbol">Ввод символа</string>
+    <string name="lessons_title_input_symbol">Ввод точек</string>
     <string name="lessons_title_input_dots">Ввод точек</string>
-    <string name="lessons_title_show_symbol">Прочтите символ</string>
+    <string name="lessons_title_show_symbol">Изучение</string>
     <string name="lessons_title_show_dots">Точки</string>
 
     <string name="lessons_help_template">%s\n\n%s</string>
@@ -136,8 +136,10 @@
         <br>
         <b>Вызов справки</b> - кнопка в верхней панели справа.
         <br>
-        <b>К прогрессу</b> - кнопка справа по центру экрана над кнопкой <b>вперёд</b>. Эта кнопка
-         перенаправляет к последнему непройденному шагу.
+        <b>Другие функции</b> - кнопка в верхней панели рядом с кнопкой <b>справка</b>.
+        Нажатие этой кнопки вызывает выпадающее меню с функциями <b>навигация по курсу</b>, то есть
+        переход к другому уроку, и <b>к текущему шагу</b>, то есть переход к последнему
+        непройденному шагу.
         ]]>
     </string>
 
