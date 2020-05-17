@@ -205,6 +205,7 @@
     <string name="menu_title_help">Справка</string>
     <string name="menu_title_current_step">К текущему шагу</string>
     <string name="menu_title_lessons_list">Навигация по курсу</string>
+    <string name="menu_title_hide">Скрыть это меню</string>
 
     <!--    Help-->
 
