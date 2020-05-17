@@ -70,13 +70,9 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         }
 
 
-        val viewModelFactory =
-            InputViewModelFactory(
-                application,
-                expectedDots
-            ) {
-                dotsState.brailleDots
-            }
+        val viewModelFactory = InputViewModelFactory(application, expectedDots) {
+            dotsState.brailleDots
+        }
         viewModel = ViewModelProvider(
             this@InputSymbolFragment, viewModelFactory
         ).get(InputViewModel::class.java)

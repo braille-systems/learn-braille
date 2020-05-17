@@ -18,11 +18,7 @@ class InputViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         if (modelClass.isAssignableFrom(InputViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            InputViewModel(
-                application,
-                getEnteredDots,
-                expectedDots
-            ) as T
+            InputViewModel(application, getEnteredDots, expectedDots) as T
         } else {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
