@@ -5,18 +5,8 @@
     android:id="@+id/navigation"
     app:startDestination="@id/menuFragment">
 
-    <fragment
-        android:id="@+id/greetingFragment"
-        android:name="com.github.braillesystems.learnbraille.ui.screens.greeting.GreetingFragment"
-        android:label="fragment_greeting"
-        tools:layout="@layout/fragment_greeting">
-        <action
-            android:id="@+id/action_greetingFragment_to_menuFragment"
-            app:destination="@id/menuFragment"
-            app:popEnterAnim="@anim/fragment_close_enter"
-            app:popUpTo="@+id/greetingFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+    <!--    Main navigation-->
+
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.menu.MenuFragment"
@@ -43,11 +33,6 @@
         android:label="fragment_practice"
         tools:layout="@layout/fragment_practice" />
     <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.github.braillesystems.learnbraille.ui.screens.settings.SettingsFragment"
-        android:label="fragment_exit"
-        tools:layout="@layout/fragment_exit" />
-    <fragment
         android:id="@+id/helpFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.help.HelpFragment"
         android:label="HelpFragment">
@@ -57,6 +42,10 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 
     <action
         android:id="@+id/action_global_menuFragment"
@@ -65,6 +54,8 @@
     <action
         android:id="@+id/action_global_helpFragment"
         app:destination="@id/helpFragment" />
+
+    <!--    Step fragments-->
 
     <fragment
         android:id="@+id/infoFragment"
@@ -122,6 +113,8 @@
             android:name="step"
             app:argType="string" />
     </fragment>
+
+    <!--    Global step actions-->
 
     <action
         android:id="@+id/action_global_showSymbolFragment"
