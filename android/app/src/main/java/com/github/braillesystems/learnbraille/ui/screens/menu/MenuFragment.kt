@@ -20,10 +20,7 @@ import com.github.braillesystems.learnbraille.data.repository.PreferenceReposito
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.theory.toLastCourseStep
-import com.github.braillesystems.learnbraille.utils.checkedToast
-import com.github.braillesystems.learnbraille.utils.executeIf
-import com.github.braillesystems.learnbraille.utils.sendMarketIntent
-import com.github.braillesystems.learnbraille.utils.updateTitle
+import com.github.braillesystems.learnbraille.utils.*
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -85,7 +82,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     private fun processQrResult(resultCode: Int, data: Intent?) {
         when (resultCode) {
-            RESULT_OK -> checkedToast(
+            RESULT_OK -> toast(
                 data?.getStringExtra("SCAN_RESULT")
                     ?: getString(R.string.menu_qr_empty_result).also {
                         Timber.e("QR: empty result with OK code")
@@ -102,7 +99,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             recordAudioPermissionCode -> if (grantResults.first() != PackageManager.PERMISSION_GRANTED) {
-                checkedToast(getString(R.string.voice_record_denial))
+                toast(getString(R.string.voice_record_denial))
             }
         }
     }
@@ -119,7 +116,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
     private fun interruptingOnClickListener(block: (View) -> Unit) =
         View.OnClickListener {
             if (db.isInitialized) block(it)
-            else checkedToast(getString(R.string.menu_db_not_initialized_warning))
+            else toast(getString(R.string.menu_db_not_initialized_warning))
         }
 
     companion object {
