@@ -1,5 +1,10 @@
 package com.github.braillesystems.learnbraille.utils
 
+/**
+ * The file contains suitable extension functions for Android Framework
+ * that are not specific for particular project.
+ */
+
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -7,9 +12,6 @@ import android.hardware.usb.UsbManager
 import android.net.Uri
 import android.os.Vibrator
 import android.provider.Settings
-import android.text.Html
-import android.text.Spanned
-import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityManager
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -41,9 +43,6 @@ fun Fragment.updateTitle(title: String) {
 fun Fragment.getStringArg(name: String): String =
     arguments?.getString(name) ?: error("No $name found in args")
 
-@Suppress("DEPRECATION")
-fun formatHTML(html: String): Spanned = Html.fromHtml(html)
-
 typealias BuzzPattern = LongArray
 
 fun Vibrator?.buzz(pattern: BuzzPattern): Unit =
@@ -71,20 +70,9 @@ fun Fragment.sendMarketIntent(appPackageName: String) {
     }
 }
 
-val Context.isAccessibilityEnabled: Boolean
-    get() = Settings.Secure.getInt(
+val Context.isAccessibilityEnabled: Boolean by logged {
+    Settings.Secure.getInt(
         contentResolver,
         Settings.Secure.ACCESSIBILITY_ENABLED
     ) == 1
-
-
-fun Context.announceByAccessibility(announcement: String) {
-    val manager = accessibilityManager ?: return
-    val event = AccessibilityEvent.obtain().apply {
-        eventType = AccessibilityEvent.TYPE_ANNOUNCEMENT
-        className = javaClass.name
-        packageName = packageName
-        text.add(announcement.removeHtmlMarkup())
-    }
-    manager.sendAccessibilityEvent(event)
 }

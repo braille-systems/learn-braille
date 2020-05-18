@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
 
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorSecondary">@color/colorSecondary</item>
@@ -40,7 +40,6 @@
     <style name="brailleDots">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:forceDarkAllowed">false</item>
     </style>
 
     <style name="SwitchPreferenceButton" parent="Theme.AppCompat.Light">

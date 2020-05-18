@@ -1,63 +1,95 @@
 # Database
 
-`This scheme is not impelemented yet!`
+![LBDB](https://user-images.githubusercontent.com/25281147/81498004-5a5cb000-92d3-11ea-9c53-7246ef9d0176.png)
 
-![LearnBrailleDatabase](https://user-images.githubusercontent.com/25281147/80180180-35014e00-8613-11ea-9c3d-dbe75a99e816.png)
 
+By `dbdiagram.io`:
 
 ```
-Table users as U {
+// All fields [not null] by default
+
+
+Table users {
   id long [pk, increment]
-  name varchar [not null]
-  login varchar [not null]
+  name varchar
+  login varchar
 }
 
-Table known_cards as KS {
-  user_id long [pk, ref: > U.id]
-  card_id long [pk, ref: > C.id]
+Table known_materials {
+  user_id long [pk, ref: > users.id]
+  material_id long [pk, ref: > materials.id]
+}
+
+Table materials {
+  id long [pk]
+  material_data varchar [note: 'serialized MaterialData class']
+}
+
+Table current_step {
+  user_id long [pk, ref: > users.id]
+  course_id long [pk, ref: > steps.course_id]
+  lesson_id long [ref: > steps.lesson_id]
+  step_id long [ref: > steps.id]
+}
+
+Table last_course_step {
+  user_id long [pk, ref: > users.id]
+  course_id long [pk, ref: > steps.course_id]
+  lesson_id long [ref: > steps.lesson_id]
+  step_id long [ref: > steps.id]
+}
+
+Table last_lesson_step {
+  user_id long [pk, ref: > users.id]
+  course_id long [pk, ref: > steps.course_id]
+  lesson_id long [pk, ref: > steps.lesson_id]
+  step_id long [ref: > steps.id]
 }
 
 
 Table courses {
   id long [pk]
-  name varchar [not null]
-  description varchar [not null, default: '']
+  name varchar
+  description varchar
 }
 
-Table lessons as L {
+Table lessons {
+  id long [pk]
+  course_id long [pk, ref: > courses.id]
+  name varchar
+  description varchar [default: '']
+}
+
+// StepData also contains material.id sometimes
+// to be able to mark material as known
+Table steps {
+  id long [pk]
+  course_id long [pk, ref: > courses.id]
+  lesson_id long [pk, ref: > lessons.id]
+  step_data varchar [note: 'serialized StepData']
+}
+
+Table step_has_annotations {
+  course_id long [pk, ref: > steps.course_id]
+  lesson_id long [pk, ref: > steps.lesson_id]
+  step_id long [pk, ref: > steps.id]
+  annotation_id long [pk, ref: > step_annotations.id]
+}
+
+Table step_annotations {
+  id long [pk, increment]
+  name varchar
+}
+
+
+Table decks {
   id long [pk]
   name varchar [not null]
   description varchar [not null, default: '']
-  course_id long [not null, ref: > courses.id]
 }
 
-Table steps as S {
-  id long [pk, increment]
-  lesson_id long [not null, ref: > L.id]
-  card_id long [not null, ref: > C.id]
-}
-
-
-Table decks as D {
-  id long [pk]
-  name varchar [not null]
-  description varchar [not null, default: '']
-}
-
-Table cards as C {
-  id long [pk, increment]
-  data varchar [not null, note: 'Serialized jvm class']
-  deck_id long [ref: > D.id]
-}
-
-
-Table annotations as A {
-  id long [pk, increment]
-  name varchar [not null, unique]
-}
-
-Table card_annotations as CA {
-  card_id long [pk, ref: > C.id]
-  annotation_id long [pk, ref: > A.id]
+Table cards {
+  deck_id long [pk, ref: > decks.id]
+  material_id long [pk, ref: > materials.id]
 }
 ```

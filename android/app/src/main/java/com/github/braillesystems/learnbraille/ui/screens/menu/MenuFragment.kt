@@ -1,29 +1,36 @@
 package com.github.braillesystems.learnbraille.ui.screens.menu
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.github.braillesystems.learnbraille.COURSE_ID
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.TOAST_DURATION
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
-import com.github.braillesystems.learnbraille.data.db.getDBInstance
+import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
-import com.github.braillesystems.learnbraille.ui.screens.lessons.navigateToLastStep
-import com.github.braillesystems.learnbraille.userId
-import com.github.braillesystems.learnbraille.utils.application
+import com.github.braillesystems.learnbraille.ui.screens.theory.toLastCourseStep
+import com.github.braillesystems.learnbraille.utils.checkedToast
+import com.github.braillesystems.learnbraille.utils.executeIf
 import com.github.braillesystems.learnbraille.utils.sendMarketIntent
 import com.github.braillesystems.learnbraille.utils.updateTitle
+import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
+
+    private val db: LearnBrailleDatabase by inject()
+    private val preferenceRepository: PreferenceRepository by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,11 +45,10 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
         updateTitle(getString(R.string.menu_actionbar_text))
         setHasOptionsMenu(true)
+        requestPermissions()
 
         lessonsButton.setOnClickListener(interruptingOnClickListener {
-            getDBInstance().apply {
-                navigateToLastStep(application.userId, stepDao, userLastStep)
-            }
+            toLastCourseStep(COURSE_ID)
         })
 
         practiceButton.setOnClickListener(interruptingOnClickListener {
@@ -55,11 +61,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
                 intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
                 startActivityForResult(intent, qrRequestCode)
             } catch (e: ActivityNotFoundException) {
-                Toast.makeText(
-                    context,
-                    getString(R.string.qr_intent_cancelled),
-                    TOAST_DURATION
-                ).show()
+                checkedToast(getString(R.string.qr_intent_cancelled))
                 sendMarketIntent("com.google.zxing.client.android")
             }
         }
@@ -83,26 +85,45 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     private fun processQrResult(resultCode: Int, data: Intent?) {
         when (resultCode) {
-            RESULT_OK ->
-                Toast.makeText(
-                    context,
-                    data?.getStringExtra("SCAN_RESULT"),
-                    TOAST_DURATION
-                ).show()
+            RESULT_OK -> checkedToast(
+                data?.getStringExtra("SCAN_RESULT")
+                    ?: getString(R.string.menu_qr_empty_result).also {
+                        Timber.e("QR: empty result with OK code")
+                    }
+            )
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            recordAudioPermissionCode -> if (grantResults.first() != PackageManager.PERMISSION_GRANTED) {
+                checkedToast(getString(R.string.voice_record_denial))
+            }
+        }
+    }
+
+    private fun requestPermissions() {
+        executeIf(preferenceRepository.speechRecognitionEnabled) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return@executeIf
+            val permission = requireContext().checkSelfPermission(Manifest.permission.RECORD_AUDIO)
+            if (permission == PackageManager.PERMISSION_GRANTED) return@executeIf
+            requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), recordAudioPermissionCode)
         }
     }
 
     private fun interruptingOnClickListener(block: (View) -> Unit) =
         View.OnClickListener {
-            if (LearnBrailleDatabase.isInitialized) block(it)
-            else {
-                Toast.makeText(
-                    context, getString(R.string.menu_db_not_initialized_warning), TOAST_DURATION
-                ).show()
-            }
+            if (db.isInitialized) block(it)
+            else checkedToast(getString(R.string.menu_db_not_initialized_warning))
         }
 
     companion object {
-        const val qrRequestCode = 0
+        private const val qrRequestCode = 0
+        private const val recordAudioPermissionCode = 29
     }
 }

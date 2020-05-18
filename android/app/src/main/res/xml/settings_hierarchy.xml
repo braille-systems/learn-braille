@@ -3,30 +3,42 @@
 
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
-        android:key="notifications"
+        android:key="@string/preference_enable_buzz"
+        android:summary="@string/preference_summary_buzz"
         android:theme="@style/SwitchPreferenceButton"
-        android:title="@string/preference_notifications"
+        android:title="@string/preference_title_buzz"
         app:iconSpaceReserved="false" />
 
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
-        android:key="buzz"
-        android:summary="@string/preference_buzz_summary"
+        android:key="@string/preference_enable_toasts"
+        android:summary="@string/preference_summary_notifications"
         android:theme="@style/SwitchPreferenceButton"
-        android:title="@string/preference_buzz"
+        android:title="@string/preference_title_notifications"
         app:iconSpaceReserved="false" />
 
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
-        android:key="textbook"
-        android:summary="@string/preference_use_textbook_summary"
+        android:key="@string/preference_golubina_book_steps_enabled"
+        android:summary="@string/preference_summary_use_golubina_textbook"
         android:theme="@style/SwitchPreferenceButton"
-        android:title="@string/preference_use_textbook"
+        android:title="@string/preference_title_use_golubina_textbook"
         app:iconSpaceReserved="false" />
 
-    <androidx.preference.Preference
-        android:key="help"
-        android:title="@string/menu_stacked_help"
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/preference_traverse_dots_in_enumeration_order"
+        android:summary="@string/preference_summary_traversal_order"
+        android:theme="@style/SwitchPreferenceButton"
+        android:title="@string/preference_title_traversal_order"
+        app:iconSpaceReserved="false" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/preference_title_on_fly_check"
+        android:summary="@string/preference_summary_on_fly_check"
+        android:theme="@style/SwitchPreferenceButton"
+        android:title="@string/preference_title_on_fly_check"
         app:iconSpaceReserved="false" />
 
 </androidx.preference.PreferenceScreen>
