@@ -34,5 +34,10 @@ class MainActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
-    override fun onSupportNavigateUp(): Boolean = navController.navigateUp()
+    override fun onSupportNavigateUp(): Boolean = try {
+        navController.navigateUp()
+    } catch (e: IllegalArgumentException) {
+        Timber.e("Multitouch navigation", e)
+        false
+    }
 }

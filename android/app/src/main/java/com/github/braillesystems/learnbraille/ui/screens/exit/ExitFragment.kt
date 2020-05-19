@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.databinding.FragmentExitBinding
 import com.github.braillesystems.learnbraille.utils.SpeechRecognition
 import com.github.braillesystems.learnbraille.utils.announceByAccessibility
+import com.github.braillesystems.learnbraille.utils.navigate
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import org.koin.android.ext.android.get
 import kotlin.system.exitProcess
@@ -39,9 +39,9 @@ class ExitFragment : Fragment() {
             exitProcess(0)
         }
 
-        continueButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_global_menuFragment)
-        )
+        continueButton.setOnClickListener {
+            navigate(R.id.action_global_menuFragment)
+        }
 
     }.root
 

@@ -13,9 +13,9 @@ import android.net.Uri
 import android.os.Vibrator
 import android.provider.Settings
 import android.view.accessibility.AccessibilityManager
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import timber.log.Timber
 
 val Context.usbManager get() = getSystemService(Context.USB_SERVICE) as UsbManager
@@ -23,22 +23,6 @@ val Context.accessibilityManager: AccessibilityManager?
     get() =
         if (!isAccessibilityEnabled) null
         else getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
-
-val Fragment.actionBar: ActionBar?
-    get() = (activity as AppCompatActivity).supportActionBar
-
-/**
- * Throws if action bar is not available
- */
-var Fragment.title: String
-    get() = requireNotNull(actionBar).title.toString()
-    set(value) {
-        requireNotNull(actionBar).title = value
-    }
-
-fun Fragment.updateTitle(title: String) {
-    this.title = title
-}
 
 fun Fragment.getStringArg(name: String): String =
     arguments?.getString(name) ?: error("No $name found in args")
@@ -75,4 +59,24 @@ val Context.isAccessibilityEnabled: Boolean by logged {
         contentResolver,
         Settings.Secure.ACCESSIBILITY_ENABLED
     ) == 1
+}
+
+/**
+ * Fixes multiple navigation issue: `IllegalArgumentException x is unknown to this NavController`
+ * https://blog.jakelee.co.uk/resolving-crash-illegalargumentexception-x-is-unknown-to-this-navcontroller/
+ */
+fun Fragment.navigate(id: Int): Unit = try {
+    findNavController().navigate(id)
+} catch (e: IllegalArgumentException) {
+    Timber.e("Multitouch navigation", e)
+}
+
+/**
+ * Fixes multiple navigation issue: `IllegalArgumentException x is unknown to this NavController`
+ * https://blog.jakelee.co.uk/resolving-crash-illegalargumentexception-x-is-unknown-to-this-navcontroller/
+ */
+fun Fragment.navigate(action: NavDirections) = try {
+    findNavController().navigate(action)
+} catch (e: IllegalArgumentException) {
+    Timber.e("Multitouch navigation", e)
 }
