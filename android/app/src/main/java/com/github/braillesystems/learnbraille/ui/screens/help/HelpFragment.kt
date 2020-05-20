@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.databinding.FragmentHelpBinding
 import com.github.braillesystems.learnbraille.utils.getStringArg
-import com.github.braillesystems.learnbraille.utils.updateTitle
+import com.github.braillesystems.learnbraille.utils.title
 
 class HelpFragment : Fragment() {
 
@@ -26,7 +26,7 @@ class HelpFragment : Fragment() {
         false
     ).apply {
 
-        updateTitle(getString(R.string.help_title))
+        title = getString(R.string.help_title)
         helpMessage.movementMethod = ScrollingMovementMethod()
         helpMessage.text = getStringArg(helpMessageArgName).parseAsHtml()
 

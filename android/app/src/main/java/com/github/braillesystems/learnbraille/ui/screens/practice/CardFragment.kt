@@ -2,17 +2,17 @@ package com.github.braillesystems.learnbraille.ui.screens.practice
 
 import android.os.Bundle
 import android.os.Vibrator
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.dummyMaterialOf
-import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
-import com.github.braillesystems.learnbraille.databinding.FragmentPracticeBinding
+import com.github.braillesystems.learnbraille.data.repository.PracticeRepository
+import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
+import com.github.braillesystems.learnbraille.res.deckTagToName
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainerSignalHandler
 import com.github.braillesystems.learnbraille.ui.screens.*
@@ -20,16 +20,13 @@ import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
 import com.github.braillesystems.learnbraille.ui.views.brailleDots
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.ui.views.subscribe
-import com.github.braillesystems.learnbraille.utils.announceByAccessibility
-import com.github.braillesystems.learnbraille.utils.checkedToast
-import com.github.braillesystems.learnbraille.utils.updateTitle
+import com.github.braillesystems.learnbraille.utils.*
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
-
-    private val preferences: PreferenceRepository by inject()
 
     private lateinit var viewModel: CardViewModel
     private lateinit var dotsState: BrailleDotsState
@@ -48,9 +45,9 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = DataBindingUtil.inflate<FragmentPracticeBinding>(
+    ) = DataBindingUtil.inflate<FragmentCardBinding>(
         inflater,
-        R.layout.fragment_practice,
+        R.layout.fragment_card,
         container,
         false
     ).apply {
@@ -59,6 +56,12 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
 
         updateTitle(title)
         setHasOptionsMenu(true)
+
+        lifecycleScope.launch {
+            val practiceRepository: PracticeRepository by inject()
+            val tag = practiceRepository.getCurrDeck().tag
+            toast(deckTagToName.getValue(tag))
+        }
 
         dotsState = brailleDots.dotsState.apply {
             subscribe(View.OnClickListener {
@@ -83,24 +86,14 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         lifecycleOwner = this@CardFragment
 
 
-        if (preferences.inputOnFlyCheck) {
-            viewModel.observeEventCorrect(
-                viewLifecycleOwner, preferences, dotsState, buzzer = null
-            ) { updateTitle(title) }
-            viewModel.observeEventSoftCorrect(
-                viewLifecycleOwner, preferences, buzzer
-            ) { showCorrectToast() }
-        } else {
-            viewModel.observeEventCorrect(
-                viewLifecycleOwner, preferences, dotsState, buzzer
-            ) {
-                updateTitle(title)
-                showCorrectToast()
-            }
-        }
+        viewModel.observeCheckedOnFly(
+            viewLifecycleOwner, dotsState, buzzer,
+            block = { updateTitle(title) },
+            softBlock = ::showCorrectToast
+        )
 
         viewModel.observeEventIncorrect(
-            viewLifecycleOwner, preferences, dotsState, buzzer
+            viewLifecycleOwner, dotsState, buzzer
         ) {
             viewModel.symbol.value?.let { symbol ->
                 require(symbol.length == 1)
@@ -136,6 +129,17 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         require(symbol.length == 1)
         val material = dummyMaterialOf(symbol.first())
         val intro = introStringNotNullLogged(material)
-        announceByAccessibility(intro)
+        announce(intro)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.card_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = false.also {
+        when (item.itemId) {
+            R.id.help -> navigateToHelp()
+            R.id.decks_list -> navigate(R.id.action_cardFragment_to_decksList)
+        }
     }
 }

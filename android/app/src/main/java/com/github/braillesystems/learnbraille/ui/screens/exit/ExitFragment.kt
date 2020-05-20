@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.databinding.FragmentExitBinding
 import com.github.braillesystems.learnbraille.utils.SpeechRecognition
-import com.github.braillesystems.learnbraille.utils.announceByAccessibility
+import com.github.braillesystems.learnbraille.utils.announce
 import com.github.braillesystems.learnbraille.utils.navigate
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import org.koin.android.ext.android.get
@@ -29,9 +29,9 @@ class ExitFragment : Fragment() {
         false
     ).apply {
 
-        val announcement: String = getString(R.string.exit_question)
-        updateTitle(announcement)
-        announceByAccessibility(announcement)
+        val title: String = getString(R.string.exit_question)
+        updateTitle(title)
+        announce(title)
 
         recognizer = SpeechRecognition(this@ExitFragment, get())
 

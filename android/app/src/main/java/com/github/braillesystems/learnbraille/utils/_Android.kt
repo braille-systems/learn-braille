@@ -8,6 +8,7 @@ package com.github.braillesystems.learnbraille.utils
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.hardware.usb.UsbManager
 import android.net.Uri
 import android.os.Vibrator
@@ -16,6 +17,8 @@ import android.view.accessibility.AccessibilityManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
+import com.github.braillesystems.learnbraille.R
 import timber.log.Timber
 
 val Context.usbManager get() = getSystemService(Context.USB_SERVICE) as UsbManager
@@ -80,3 +83,10 @@ fun Fragment.navigate(action: NavDirections) = try {
 } catch (e: IllegalArgumentException) {
     Timber.e("Multitouch navigation", e)
 }
+
+val Context.appName: String by lazyWithContext { getString(R.string.app_name) }
+val Fragment.appName: String
+    get() = context?.appName ?: error("Fragment is expected to have a context")
+
+val Context.preferences: SharedPreferences
+    get() = PreferenceManager.getDefaultSharedPreferences(this)

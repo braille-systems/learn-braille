@@ -1,18 +1,11 @@
 package com.github.braillesystems.learnbraille.res
 
+import android.content.Context
+import androidx.fragment.app.Fragment
+import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.dsl.data
 import com.github.braillesystems.learnbraille.data.entities.Symbol
-
-
-object SymbolType {
-    const val ru = "ru"
-    const val special = "special"
-    const val digit = "digit"
-}
-
-object StepAnnotation {
-    const val golubinaBookRequired = "golubina_book_required"
-}
+import com.github.braillesystems.learnbraille.utils.lazyWithContext
 
 
 /**
@@ -29,7 +22,7 @@ object StepAnnotation {
  * If you need some additional info, do not hardcode it. Just make request to the new DSL feature.
  */
 val prepopulationData by data(
-    materials = practiceContent, // TODO replace with `content`
+    materials = content,
     stepAnnotations = listOf(
         StepAnnotation.golubinaBookRequired
     )
@@ -63,16 +56,40 @@ val prepopulationData by data(
     }
 
     decks {
-        // TODO replace names with tags and provide mapping from tags to names
-        //      to be able to make localization
-        deck("Русские буквы") { data ->
+        deck(DeckTags.all) { true }
+        deck(DeckTags.ruLetters) { data ->
             data is Symbol && data.type == SymbolType.ru
         }
-        deck("Специальные символы") { data ->
+        deck(DeckTags.special) { data ->
             data is Symbol && data.type == SymbolType.special
         }
-        deck("Цифры") { data ->
+        deck(DeckTags.digits) { data ->
             data is Symbol && data.type == SymbolType.digit
         }
     }
 }
+
+object StepAnnotation {
+    const val golubinaBookRequired = "golubina_book_required"
+}
+
+object DeckTags {
+    const val all = "all"
+    const val ruLetters = "ru_letters"
+    const val digits = "digits"
+    const val special = "special"
+}
+
+val Context.deckTagToName: Map<String, String> by lazyWithContext {
+    DeckTags.run {
+        mapOf(
+            all to getString(R.string.deck_name_all),
+            ruLetters to getString(R.string.deck_name_ru_letters),
+            digits to getString(R.string.deck_name_digits),
+            special to getString(R.string.deck_name_special_symbols)
+        )
+    }
+}
+
+val Fragment.deckTagToName
+    get() = context?.deckTagToName ?: error("Fragment should have context")

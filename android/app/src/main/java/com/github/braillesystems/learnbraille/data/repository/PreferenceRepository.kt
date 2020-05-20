@@ -1,14 +1,13 @@
 package com.github.braillesystems.learnbraille.data.repository
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.widget.Toast
-import androidx.preference.PreferenceManager
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.User
 import com.github.braillesystems.learnbraille.data.entities.UserDao
 import com.github.braillesystems.learnbraille.utils.BuzzPattern
 import com.github.braillesystems.learnbraille.utils.logged
+import com.github.braillesystems.learnbraille.utils.preferences
 import timber.log.Timber
 
 
@@ -99,6 +98,3 @@ class PreferenceRepositoryImpl(
             Timber.i("Current user = $it")
         } ?: error("Current user should always exist")
 }
-
-private val Context.preferences: SharedPreferences
-    get() = PreferenceManager.getDefaultSharedPreferences(this)

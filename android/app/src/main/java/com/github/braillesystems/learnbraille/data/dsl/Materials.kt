@@ -30,10 +30,10 @@ class MaterialsBuilder(block: MaterialsBuilder.() -> Unit) {
         _materials = materials.mapIndexed { index, material ->
             material.copy(id = index + 1L).apply {
                 if (data is Symbol) {
-                    require(!_symbols.contains(data.symbol)) {
-                        "Symbol (symbol = ${data.symbol}, type = ${data.type}) already exists"
+                    require(!_symbols.contains(data.char)) {
+                        "Symbol (symbol = ${data.char}, type = ${data.type}) already exists"
                     }
-                    _symbols[data.symbol] = this
+                    _symbols[data.char] = this
                 }
             }
         }.toMutableList()
@@ -69,7 +69,8 @@ class SymbolsBuilder(private val symbolType: String, block: SymbolsBuilder.() ->
 
     operator fun get(symbol: Char): Symbol? = _map[symbol]
 
-    fun symbol(symbol: Char, brailleDots: BrailleDots) {
-        _map[symbol] = Symbol(symbol, brailleDots, symbolType)
+    fun symbol(char: Char, brailleDots: BrailleDots) {
+        @Suppress("NAME_SHADOWING") val char = char.toUpperCase()
+        _map[char] = Symbol(char, brailleDots, symbolType)
     }
 }

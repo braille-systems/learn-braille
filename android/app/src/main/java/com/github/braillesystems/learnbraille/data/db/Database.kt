@@ -24,8 +24,8 @@ import timber.log.Timber
         Course::class, Lesson::class, Step::class, StepAnnotation::class, StepHasAnnotation::class,
         CurrentStep::class, LastCourseStep::class, LastLessonStep::class
     ],
-    version = 14,
-    exportSchema = false
+    version = 15,
+    exportSchema = false // TODO export
 )
 @TypeConverters(
     BrailleDotsConverters::class,
@@ -77,7 +77,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
             )
         }
 
-    companion object : KoinComponent {
+    companion object {
 
         const val name = "learn_braille_database"
 
@@ -87,7 +87,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
                 LearnBrailleDatabase::class.java,
                 name
             )
-            .addCallback(object : Callback() {
+            .addCallback(object : Callback(), KoinComponent {
 
                 @SuppressLint("SyntheticAccessor")
                 override fun onCreate(db: SupportSQLiteDatabase) {
@@ -118,7 +118,6 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
                                 stepDao.insert(steps)
                                 stepAnnotationDao.insert(stepAnnotations)
                                 stepHasAnnotationDao.insert(stepHasAnnotations)
-                                // TODO insert minimum amount of letters to known
 
                                 Timber.i("Finnish database prepopulation")
                                 prepopulationFinished = true
@@ -127,7 +126,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
                     }
                 }
             })
-            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration() // TODO change migration strategy
             .build()
     }
 }

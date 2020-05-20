@@ -7,7 +7,7 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.data.entities.spelling
-import com.github.braillesystems.learnbraille.res.symbolTypeDisplayList
+import com.github.braillesystems.learnbraille.res.symbolTypeIntroList
 import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.peek
 import com.github.braillesystems.learnbraille.utils.toast
@@ -24,11 +24,11 @@ fun Fragment.showHintDotsToast(expectedDots: BrailleDots) =
 
 fun Context.introString(material: Material): String? =
     when (material.data) {
-        is Symbol -> symbolTypeDisplayList.peek(material.data.symbol)
+        is Symbol -> symbolTypeIntroList.peek(material.data.char)
     }
 
 fun Context.introStringNotNullLogged(material: Material): String = introString(material)
-    ?: Timber.e("Intro should be available").let { "" }
+    ?: "".also { Timber.e("Intro should be available") }
 
 fun Fragment.introString(material: Material): String? =
     (context ?: null.also { Timber.w("Context is not available") })

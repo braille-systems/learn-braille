@@ -1,6 +1,7 @@
 package com.github.braillesystems.learnbraille.data.dsl
 
 import com.github.braillesystems.learnbraille.data.entities.*
+import com.github.braillesystems.learnbraille.res.DeckTags
 import com.github.braillesystems.learnbraille.utils.side
 import kotlin.reflect.KProperty
 
@@ -137,7 +138,7 @@ class DataBuilder(
     fun decks(block: DecksBuilder.() -> Unit) =
         DecksBuilder(block).side {
             it.deckToPredicate.forEach { (deck, p) ->
-                val deckId = decks.size + 1L
+                val deckId = if (deck.tag == DeckTags.all) 1 else decks.size + 2L
                 _decks += deck.copy(id = deckId)
 
                 materials
@@ -161,8 +162,8 @@ class DecksBuilder(block: DecksBuilder.() -> Unit) {
         block()
     }
 
-    fun deck(name: String, description: String = "", entryCriterion: (MaterialData) -> Boolean) {
-        val deck = Deck(DEFAULT_ID, name, description)
+    fun deck(tag: String, entryCriterion: (MaterialData) -> Boolean) {
+        val deck = Deck(DEFAULT_ID, tag)
         _deckToPredicate[deck] = entryCriterion
     }
 }

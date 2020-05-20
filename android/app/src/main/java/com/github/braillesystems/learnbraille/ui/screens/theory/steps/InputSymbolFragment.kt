@@ -19,7 +19,7 @@ import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
 import com.github.braillesystems.learnbraille.ui.views.*
-import com.github.braillesystems.learnbraille.utils.announceByAccessibility
+import com.github.braillesystems.learnbraille.utils.announce
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.checkedBuzz
 import org.koin.android.ext.android.inject
@@ -51,9 +51,9 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         require(step.data is Input)
         require(step.data.material.data is Symbol)
         val symbol = step.data.material.data
-        letter.text = symbol.symbol.toString()
+        letter.text = symbol.char.toString()
         brailleDots.dotsState.display(symbol.brailleDots)
-        announceByAccessibility(introStringNotNullLogged(step.data.material))
+        announce(introStringNotNullLogged(step.data.material))
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_input_symbol)
         setHasOptionsMenu(true)
@@ -87,30 +87,14 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
             toPrevStep(step)
         }
 
-        if (preferenceRepository.inputOnFlyCheck) {
-            viewModel.observeEventCorrect(
-                viewLifecycleOwner,
-                preferenceRepository,
-                dotsState, buzzer = null
-            ) { toNextStep(step, markThisAsPassed = true) }
-            viewModel.observeEventSoftCorrect(
-                viewLifecycleOwner, preferenceRepository, buzzer
-            ) { showCorrectToast() }
-        } else {
-            viewModel.observeEventCorrect(
-                viewLifecycleOwner,
-                preferenceRepository,
-                dotsState, buzzer
-            ) {
-                showCorrectToast()
-                toNextStep(step, markThisAsPassed = true)
-            }
-        }
+        viewModel.observeCheckedOnFly(
+            viewLifecycleOwner, dotsState, buzzer,
+            block = { toNextStep(step, markThisAsPassed = true) },
+            softBlock = ::showCorrectToast
+        )
 
         viewModel.observeEventIncorrect(
-            viewLifecycleOwner,
-            preferenceRepository,
-            dotsState
+            viewLifecycleOwner, dotsState
         ) {
             val notify = {
                 showIncorrectToast(step.data.material)
@@ -130,7 +114,8 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         viewModel.observeEventPassHint(
             viewLifecycleOwner, dotsState
         ) {
-            announceByAccessibility(introStringNotNullLogged(step.data.material))
+            val msg = introStringNotNullLogged(step.data.material)
+            announce(msg)
         }
 
     }.root
