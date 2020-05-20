@@ -38,7 +38,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         false
     ).apply {
 
-        title = getString(R.string.menu_actionbar_text).format(appName)
+        title = getString(R.string.menu_actionbar_text_template).format(appName)
         setHasOptionsMenu(true)
         requestPermissions()
 

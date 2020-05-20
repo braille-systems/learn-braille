@@ -40,6 +40,12 @@
     <string name="practice_hint">Подсказка</string>
     <string name="practice_next">Далее</string>
     <string name="practice_actionbar_title_template">Практика: %d из %d</string>
+    <string name="practice_deck_name_enabled_template">
+        Колода: \"%s\"\nПовторять только пройденные: включено
+    </string>
+    <string name="practice_deck_name_disabled_template">
+        Колода: \"%s\"\nПовторять только пройденные: выключено
+    </string>
     <string name="decks_list_title">Список колод</string>
     <string name="decks_list_no_material_in_deck">
         Колода %s еще не доступна, пройдите эти карточки в уроках!
@@ -89,7 +95,7 @@
     <string name="menu_stacked_help">СПРАВКА</string>
     <string name="menu_settings">НАСТРОЙКИ</string>
     <string name="menu_exit">ВЫХОД</string>
-    <string name="menu_actionbar_text">%s. Меню</string>
+    <string name="menu_actionbar_text_template">%s. Меню</string>
     <string name="menu_db_not_initialized_warning">
         Загружаем базу данных. Попробуйте еще раз!
     </string>
