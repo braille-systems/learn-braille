@@ -42,7 +42,7 @@
     <string name="practice_actionbar_title_template">Практика: %d из %d</string>
     <string name="decks_list_title">Список колод</string>
     <string name="decks_list_no_material_in_deck">
-        Колода %s еще недоступна, пройдите эти карточки в уроках!
+        Колода \"%s\" ещё недоступна, пройдите эти карточки в уроках!
     </string>
 
     <string name="deck_name_all">Все символы</string>
@@ -102,7 +102,7 @@
     <string name="menu_exit">ВЫХОД</string>
     <string name="menu_actionbar_text">%s. Меню</string>
     <string name="menu_db_not_initialized_warning">
-        Загружаем базу данных. Попробуйте еще раз!
+        Загружаем базу данных. Попробуйте ещё раз!
     </string>
     <string name="menu_qr_empty_result">Ошибка. Пустой результат сканирования</string>
 
@@ -114,7 +114,6 @@
         рельефно-точечных символов крупным шрифтом, вводом символов и поясняющими комментариями.
         <br>
         <b>Практика:</b> Повторение символов.
-
         <br>
         <b>Сканировать QR-код:</b> если у Вас есть набор карточек с текстом Брайля и
         QR-кодами на обороте, по нажатию кнопки вы можете отсканировать QR-код и проверить,
@@ -140,7 +139,7 @@
         Выведены точки: %s
     </string>
     <string name="lessons_not_available_lesson">
-        Урок %d еще недоступен, пройдите сначала предыдущие уроки. \nВы остановились на уроке %d
+        Урок %d ещё недоступен, пройдите сначала предыдущие уроки. \nВы остановились на уроке %d
     </string>
 
     <string name="lessons_title_info">Текст</string>
