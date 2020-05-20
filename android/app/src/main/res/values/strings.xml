@@ -257,5 +257,8 @@
         как только в шеститочии введена корректная комбинация,
         не дожидаясь нажатия кнопки \"вперёд\"
     </string>
+    <string name="preference_title_additional_announcements">
+        Дополнительные голосовые сообщения
+    </string>
 
 </resources>

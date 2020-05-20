@@ -60,6 +60,13 @@ fun Context.announce(
 fun Fragment.announce(announcement: String) =
     application.announce(announcement)
 
+fun Fragment.checkedAnnounce(
+    announcement: String,
+    preferenceRepository: PreferenceRepository = get()
+) = executeIf(preferenceRepository.additionalAnnouncementsEnabled) {
+    announce(announcement)
+}
+
 
 val Fragment.actionBar: ActionBar?
     get() = (activity as AppCompatActivity).supportActionBar
