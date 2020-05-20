@@ -44,9 +44,7 @@ fun Fragment.checkedToast(msg: String, preferenceRepository: PreferenceRepositor
 fun Fragment.toast(msg: String, preferenceRepository: PreferenceRepository = get()) =
     Toast.makeText(context, msg, preferenceRepository.toastDuration).show()
 
-fun Context.announce(
-    announcement: String
-) {
+fun Context.announce(announcement: String) {
     val manager = accessibilityManager ?: return
     val event = AccessibilityEvent.obtain().apply {
         eventType = AccessibilityEvent.TYPE_ANNOUNCEMENT

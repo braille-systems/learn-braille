@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.github.braillesystems.learnbraille">
 
-    <!--<uses-permission android:name="android.permission.RECORD_AUDIO" />--> <!--TODO-->
+    <!--TODO-->
+    <!--<uses-permission android:name="android.permission.RECORD_AUDIO" />-->
     <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:name="com.github.braillesystems.learnbraille.LearnBrailleApplication"
@@ -20,9 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service
-            android:name="com.github.braillesystems.learnbraille.ui.brailletrainer.UsbService"
-            android:enabled="true"></service>
+        <!--        TODO-->
+        <!--        <service-->
+        <!--            android:name="com.github.braillesystems.learnbraille.ui.brailletrainer.UsbService"-->
+        <!--            android:enabled="true"></service>-->
     </application>
 
 </manifest>

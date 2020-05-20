@@ -15,7 +15,7 @@ interface PreferenceRepository {
 
     val buzzEnabled: Boolean
     val toastsEnabled: Boolean
-    val brailleTrainerEnabled: Boolean get() = false
+    val brailleTrainerEnabled: Boolean get() = false // Uncomment in android manifest when set true
     val speechRecognitionEnabled: Boolean
     val golubinaBookStepsEnabled: Boolean
     val practiceUseMaterialsPassedInCourse: Boolean
