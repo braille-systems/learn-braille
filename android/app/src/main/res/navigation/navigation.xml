@@ -57,7 +57,8 @@
         tools:layout="@layout/fragment_decks_list">
         <action
             android:id="@+id/action_decksList_to_cardFragment"
-            app:destination="@id/cardFragment" />
+            app:destination="@id/cardFragment"
+            app:popUpTo="@+id/menuFragment" />
     </fragment>
 
     <action
