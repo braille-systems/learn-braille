@@ -1,5 +1,6 @@
 package com.github.braillesystems.learnbraille.ui.screens.exit
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.github.braillesystems.learnbraille.utils.announce
 import com.github.braillesystems.learnbraille.utils.navigate
 import com.github.braillesystems.learnbraille.utils.updateTitle
 import org.koin.android.ext.android.get
-import kotlin.system.exitProcess
+
 
 class ExitFragment : Fragment() {
 
@@ -36,7 +37,10 @@ class ExitFragment : Fragment() {
         recognizer = SpeechRecognition(this@ExitFragment, get())
 
         exitButton.setOnClickListener {
-            exitProcess(0)
+            val homeIntent = Intent(Intent.ACTION_MAIN)
+            homeIntent.addCategory(Intent.CATEGORY_HOME)
+            homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(homeIntent)
         }
 
         continueButton.setOnClickListener {
