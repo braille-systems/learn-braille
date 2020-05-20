@@ -16,6 +16,7 @@
     <string name="preference_golubina_book_steps_enabled">golubina_book_steps_enabled</string>
     <string name="preference_practice_use_passed_material">practice_use_passed_material</string>
     <string name="preference_traverse_dots_in_enumeration_order">traverse_dots_in_enumeration_order</string>
+    <string name="preference_enable_additional_announcements">enable_additional_announcements</string>
 
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
