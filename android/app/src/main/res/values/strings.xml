@@ -257,9 +257,9 @@
         как только в шеститочии введена корректная комбинация,
         не дожидаясь нажатия кнопки \"вперёд\"
     </string>
-    <string name="preference_title_only_seen_materials">Только пройденные символы</string>
+    <string name="preference_title_only_seen_materials">Повторять только изученное</string>
     <string name="preference_summary_only_seen_materials">
-        Использовать в практике только символы, пройденные в уроках
+        В разделе \"Практика\" повторять только символы, пройденные в разделе \"Теория\"
     </string>
 
 </resources>
