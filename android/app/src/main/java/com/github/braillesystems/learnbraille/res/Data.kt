@@ -56,7 +56,7 @@ val prepopulationData by data(
     }
 
     decks {
-        deck(DeckTags.all) { true }
+        deck(DeckTags.all) { true }  // This deck should always exist
         deck(DeckTags.ruLetters) { data ->
             data is Symbol && data.type == SymbolType.ru
         }

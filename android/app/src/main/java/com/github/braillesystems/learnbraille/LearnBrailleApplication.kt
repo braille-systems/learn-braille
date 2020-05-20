@@ -50,7 +50,7 @@ class LearnBrailleApplication : Application() {
                 get<LearnBrailleDatabase>().run {
                     TheoryRepositoryImpl(
                         lessonDao, stepDao,
-                        currentStepDao, lastCourseStepDao, lastLessonStepDao,
+                        currentStepDao, lastCourseStepDao, lastLessonStepDao, knownMaterialDao,
                         get()
                     )
                 }
@@ -59,7 +59,7 @@ class LearnBrailleApplication : Application() {
                 get<LearnBrailleDatabase>().run {
                     TheoryRepositoryImpl(
                         lessonDao, stepDao,
-                        currentStepDao, lastCourseStepDao, lastLessonStepDao,
+                        currentStepDao, lastCourseStepDao, lastLessonStepDao, knownMaterialDao,
                         get()
                     )
                 }

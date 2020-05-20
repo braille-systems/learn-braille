@@ -18,7 +18,9 @@ import com.github.braillesystems.learnbraille.utils.updateTitle
 abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWithHelp(helpMsgId) {
 
     override val helpMsg: String
-        get() = super.helpMsg + getString(R.string.lessons_help_common)
+        get() = getString(R.string.lessons_help_template).format(
+            super.helpMsg, getString(R.string.lessons_help_common)
+        )
 
     protected fun updateStepTitle(lessonId: Long, stepId: Long, msgId: Int) {
         updateTitle("$lessonId.$stepId ${getString(msgId)}")
