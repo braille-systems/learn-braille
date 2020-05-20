@@ -11,7 +11,7 @@ import com.github.braillesystems.learnbraille.data.entities.LastInfo
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonLastInfoBinding
 import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
-import com.github.braillesystems.learnbraille.utils.announce
+import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 
 class LastInfoFragment : AbstractStepFragment(R.string.lessons_help_last_info) {
 
@@ -30,7 +30,7 @@ class LastInfoFragment : AbstractStepFragment(R.string.lessons_help_last_info) {
         require(step.data is LastInfo)
         infoTextView.text = step.data.text.parseAsHtml()
         infoTextView.movementMethod = ScrollingMovementMethod()
-        announce(step.data.text)
+        checkedAnnounce(step.data.text)
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_info)
         setHasOptionsMenu(true)

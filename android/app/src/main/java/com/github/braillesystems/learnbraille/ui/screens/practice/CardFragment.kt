@@ -138,7 +138,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         require(symbol.length == 1)
         val material = dummyMaterialOf(symbol.first())
         val intro = introStringNotNullLogged(material)
-        announce(intro)
+        checkedAnnounce(intro)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
