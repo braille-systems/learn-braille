@@ -28,7 +28,7 @@ fun Context.introString(material: Material): String? =
     }
 
 fun Context.introStringNotNullLogged(material: Material): String = introString(material)
-    ?: Timber.e("Intro should be available").let { "" }
+    ?: "".also { Timber.e("Intro should be available") }
 
 fun Fragment.introString(material: Material): String? =
     (context ?: null.also { Timber.w("Context is not available") })

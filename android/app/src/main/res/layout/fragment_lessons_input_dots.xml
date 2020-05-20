@@ -47,7 +47,7 @@
             android:layout_height="@dimen/practice_buttons_small_height"
             android:contentDescription="@string/lessons_hint"
             android:onClick="@{() -> inputViewModel.onHint()}"
-            android:text="@string/hint_icon"
+            android:text="@string/practice_hint_icon_symbol"
             android:textSize="@dimen/practice_buttons_icon_size"
             app:backgroundTint="@color/colorSecondary"
             app:layout_constraintBottom_toTopOf="@+id/prev_button"

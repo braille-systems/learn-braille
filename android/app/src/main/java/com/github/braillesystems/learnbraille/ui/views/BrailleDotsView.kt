@@ -97,17 +97,13 @@ val BrailleDotsState.brailleDots: BrailleDots
         checkBoxes.map(CheckBox::isChecked).toBooleanArray()
     )
 
-fun BrailleDotsState.uncheck() = checkBoxes.forEach {
-    it.isChecked = false
-}
+fun BrailleDotsState.uncheck() = checkBoxes.forEach { it.isChecked = false }
 
-fun BrailleDotsState.clickable(isClickable: Boolean) = checkBoxes.forEach {
-    it.isClickable = isClickable
-}
+fun BrailleDotsState.clickable(isClickable: Boolean) =
+    checkBoxes.forEach { it.isClickable = isClickable }
 
-fun BrailleDotsState.subscribe(listener: View.OnClickListener) = checkBoxes.forEach {
-    it.setOnClickListener(listener)
-}
+fun BrailleDotsState.subscribe(listener: View.OnClickListener) =
+    checkBoxes.forEach { it.setOnClickListener(listener) }
 
 fun BrailleDotsState.display(brailleDots: BrailleDots): Unit =
     (checkBoxes zip brailleDots.list).forEach { (checkBox, dot) ->

@@ -23,10 +23,12 @@ import org.koin.android.ext.android.get
 import timber.log.Timber
 import kotlin.reflect.KProperty
 
+
 val Fragment.application: LearnBrailleApplication
     get() = requireNotNull(activity).application as LearnBrailleApplication
 
 fun scope(job: Job = Job()) = CoroutineScope(Dispatchers.Main + job)
+
 
 fun Vibrator?.checkedBuzz(pattern: BuzzPattern, preferenceRepository: PreferenceRepository) =
     executeIf(preferenceRepository.buzzEnabled) { buzz(pattern) }
@@ -42,7 +44,7 @@ fun Fragment.checkedToast(msg: String, preferenceRepository: PreferenceRepositor
 fun Fragment.toast(msg: String, preferenceRepository: PreferenceRepository = get()) =
     Toast.makeText(context, msg, preferenceRepository.toastDuration).show()
 
-fun Context.announceByAccessibility(
+fun Context.announce(
     announcement: String
 ) {
     val manager = accessibilityManager ?: return
@@ -55,8 +57,9 @@ fun Context.announceByAccessibility(
     manager.sendAccessibilityEvent(event)
 }
 
-fun Fragment.announceByAccessibility(announcement: String) =
-    application.announceByAccessibility(announcement)
+fun Fragment.announce(announcement: String) =
+    application.announce(announcement)
+
 
 val Fragment.actionBar: ActionBar?
     get() = (activity as AppCompatActivity).supportActionBar
@@ -74,8 +77,10 @@ fun Fragment.updateTitle(title: String) {
     this.title = title
 }
 
+
 fun <T> stringify(s: SerializationStrategy<T>, obj: T) = Json.stringify(s, obj)
 fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.parse(d, s)
+
 
 class logged<C, R>(private val getter: C.(String) -> R) {
 

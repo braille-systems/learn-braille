@@ -35,7 +35,7 @@
 
     <!--    Practice-->
 
-    <string name="hint_icon">\?</string>
+    <string name="practice_hint_icon_symbol">\?</string>
     <string name="practice_hint">Подсказка</string>
     <string name="practice_next">Далее</string>
     <string name="practice_actionbar_title_template">Практика: %d из %d</string>
@@ -69,10 +69,8 @@
 
     <!--    Exit-->
 
-    <string name="exit_yes">Выйти из приложения Learn Braille</string>
-    <string name="exit_no">Остаться в меню приложения Learn Braille</string>
-    <string name="exit_voice_yes">Да </string>
-    <string name="exit_voice_no">Нет</string>
+    <string name="exit_yes">Выйти</string>
+    <string name="exit_no">Вернуться в меню</string>
     <string name="exit_question">Хотите ли Вы выйти?</string>
 
     <!--    Greeting-->
@@ -90,7 +88,7 @@
     <string name="menu_stacked_help">СПРАВКА</string>
     <string name="menu_settings">НАСТРОЙКИ</string>
     <string name="menu_exit">ВЫХОД</string>
-    <string name="menu_actionbar_text">Learn Braille. Меню</string>
+    <string name="menu_actionbar_text">%s. Меню</string>
     <string name="menu_db_not_initialized_warning">
         Загружаем базу данных. Попробуйте еще раз!
     </string>
@@ -238,7 +236,7 @@
 
     <!--    Settings-->
 
-    <string name="preferences_actionbar_title">Learn Braille. Настройки</string>
+    <string name="preferences_actionbar_title">Настройки</string>
     <string name="preference_title_notifications">Всплывающие уведомления</string>
     <string name="preference_title_buzz">Вибрация</string>
     <string name="preference_summary_buzz">Вибрация в ответ на результат выполнения задания</string>
