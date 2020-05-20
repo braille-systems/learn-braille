@@ -57,6 +57,7 @@ fun Fragment.sendMarketIntent(appPackageName: String) {
     }
 }
 
+// TODO do not work
 val Context.isAccessibilityEnabled: Boolean by logged {
     Settings.Secure.getInt(
         contentResolver,
