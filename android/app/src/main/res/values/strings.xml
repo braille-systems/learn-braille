@@ -18,6 +18,7 @@
     <string name="preference_traverse_dots_in_enumeration_order">traverse_dots_in_enumeration_order</string>
     <string name="preference_enable_additional_announcements">enable_additional_announcements</string>
     <string name="preference_practice_use_only_seen_materials">practice_use_only_seen_materials</string>
+    <string name="preference_additional_exit_buttons_enabled">additional_exit_buttons_enabled</string>
 
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
@@ -293,6 +294,12 @@
     <string name="preference_summary_additional_announcements">
         Автоматически озвучивать длинные тексты (например, в справке и разделе \"теория\")
         средством экранного чтения, не дожидаясь фокусировки на текстовом поле.
+    </string>
+    <string name="preference_title_additional_exit">
+        Дополнительные кнопки \"Выход\"
+    </string>
+    <string name="preference_summary_additional_exit">
+        В главном меню кнопка \"Выход из приложения\", в контекстных меню кнопка \"Скрыть\".
     </string>
 
 </resources>

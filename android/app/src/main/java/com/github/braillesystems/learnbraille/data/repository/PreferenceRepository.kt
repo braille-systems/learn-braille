@@ -23,6 +23,7 @@ interface PreferenceRepository {
     val inputOnFlyCheck: Boolean
     val additionalAnnouncementsEnabled: Boolean
     val practiceUseOnlyKnownMaterials: Boolean
+    val additionalExitButtonsEnabled: Boolean
 
     val currentUserId: Long
     suspend fun getCurrentUser(): User
@@ -99,6 +100,13 @@ class PreferenceRepositoryImpl(
     override val practiceUseOnlyKnownMaterials: Boolean by logged {
         context.preferences.getBoolean(
             context.getString(R.string.preference_practice_use_only_seen_materials),
+            false
+        )
+    }
+
+    override val additionalExitButtonsEnabled: Boolean by logged {
+        context.preferences.getBoolean(
+            context.getString(R.string.preference_additional_exit_buttons_enabled),
             false
         )
     }

@@ -56,5 +56,13 @@
         android:theme="@style/SwitchPreferenceButton"
         android:title="@string/preference_title_additional_announcements"
         app:iconSpaceReserved="false" />
-    
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/preference_additional_exit_buttons_enabled"
+        android:summary="@string/preference_summary_additional_exit"
+        android:theme="@style/SwitchPreferenceButton"
+        android:title="@string/preference_title_additional_exit"
+        app:iconSpaceReserved="false" />
+
 </androidx.preference.PreferenceScreen>
