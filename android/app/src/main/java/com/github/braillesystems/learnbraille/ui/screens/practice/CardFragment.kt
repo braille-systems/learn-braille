@@ -57,11 +57,6 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         updateTitle(title)
         setHasOptionsMenu(true)
 
-        lifecycleScope.launch {
-            val practiceRepository: PracticeRepository by inject()
-            val tag = practiceRepository.getCurrDeck().tag
-            toast(deckTagToName.getValue(tag))
-        }
 
         dotsState = brailleDots.dotsState.apply {
             subscribe(View.OnClickListener {
@@ -120,6 +115,11 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             Observer {
                 if (it == null) return@Observer
                 announceIntro(it)
+                lifecycleScope.launch {
+                    val practiceRepository: PracticeRepository by inject()
+                    val tag = practiceRepository.getCurrDeck().tag
+                    toast(deckTagToName.getValue(tag))
+                }
             }
         )
 

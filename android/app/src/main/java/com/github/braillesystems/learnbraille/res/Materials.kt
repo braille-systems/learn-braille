@@ -2,6 +2,7 @@ package com.github.braillesystems.learnbraille.res
 
 import android.content.Context
 import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.data.dsl.known
 import com.github.braillesystems.learnbraille.data.dsl.materials
 import com.github.braillesystems.learnbraille.data.dsl.symbols
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
@@ -14,6 +15,8 @@ import com.github.braillesystems.learnbraille.utils.listOfP2F
 
 /**
  * Do not forget to register new types of symbols in `symbolTypeDisplayList` below.
+ *
+ * Always use this variable to get materials.
  */
 val content by materials {
     +ruSymbols
@@ -21,13 +24,17 @@ val content by materials {
     +uebDigits
 }
 
+val knownMaterials by known(
+    'А', 'Б', 'Ц', 'Д', 'Е', 'Ф', 'Г'
+)
+
 object SymbolType {
     const val ru = "ru"
     const val special = "special"
     const val digit = "digit"
 }
 
-val ruSymbols by symbols(SymbolType.ru) {
+private val ruSymbols by symbols(SymbolType.ru) {
     symbol(char = 'А', brailleDots = BrailleDots(F, E, E, E, E, E))
     symbol(char = 'Б', brailleDots = BrailleDots(F, F, E, E, E, E))
     symbol(char = 'В', brailleDots = BrailleDots(E, F, E, F, F, F))
@@ -63,14 +70,14 @@ val ruSymbols by symbols(SymbolType.ru) {
     symbol(char = 'Я', brailleDots = BrailleDots(F, F, E, F, E, F))
 }
 
-val specialSymbols by symbols(SymbolType.special) {
+private val specialSymbols by symbols(SymbolType.special) {
     symbol(char = ']', brailleDots = BrailleDots(E, E, F, F, F, F)) // Number sign
     symbol(char = ',', brailleDots = BrailleDots(E, F, E, E, E, E)) // Comma
     symbol(char = '-', brailleDots = BrailleDots(E, E, F, E, E, F)) // Hyphen
     symbol(char = '.', brailleDots = BrailleDots(E, F, F, E, F, E)) // Dot
 }
 
-val uebDigits by symbols(SymbolType.digit) {
+private val uebDigits by symbols(SymbolType.digit) {
     symbol(char = '1', brailleDots = BrailleDots(F, E, E, E, E, E))
     symbol(char = '2', brailleDots = BrailleDots(F, F, E, E, E, E))
     symbol(char = '3', brailleDots = BrailleDots(F, E, E, F, E, E))

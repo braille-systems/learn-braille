@@ -2,6 +2,9 @@ package com.github.braillesystems.learnbraille.data.repository
 
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.res.StepAnnotation
+import com.github.braillesystems.learnbraille.utils.devnull
+import com.github.braillesystems.learnbraille.utils.scope
+import kotlinx.coroutines.launch
 
 interface TheoryRepository {
 
@@ -24,6 +27,7 @@ class TheoryRepositoryImpl(
     private val currentStepDao: CurrentStepDao,
     private val lastCourseStepDao: LastCourseStepDao,
     private val lastLessonStepDao: LastLessonStepDao,
+    private val knownMaterialDao: KnownMaterialDao,
     private val preferenceRepository: PreferenceRepository
 ) : MutableTheoryRepository {
 
@@ -42,9 +46,14 @@ class TheoryRepositoryImpl(
             stepDao.getCurrentStep(preferenceRepository.currentUserId, thisStep.courseId)
         )
 
-        if (next <= curr) {
+        val updateAndReturn = {
             updateLast(next)
-            return next
+            updateKnown(thisStep)
+            next
+        }
+
+        if (next <= curr) {
+            return updateAndReturn()
         }
         if (!markThisAsPassed) return null
 
@@ -54,8 +63,8 @@ class TheoryRepositoryImpl(
                 next.courseId, next.lessonId, next.id
             )
         )
-        updateLast(next)
-        return next
+
+        return updateAndReturn()
     }
 
     override suspend fun getPrevStepAndUpdate(thisStep: Step): Step? =
@@ -102,7 +111,7 @@ class TheoryRepositoryImpl(
             )
         } ?: error("First course step should always exist")
 
-    private suspend fun updateLast(step: Step) {
+    private fun updateLast(step: Step): Unit = scope().launch {
         lastCourseStepDao.update(
             LastCourseStep(
                 preferenceRepository.currentUserId,
@@ -115,5 +124,16 @@ class TheoryRepositoryImpl(
                 step.courseId, step.lessonId, step.id
             )
         )
-    }
+    }.devnull
+
+    private fun updateKnown(step: Step): Unit = scope().launch {
+        when (step.data) {
+            is Input -> knownMaterialDao.insert(
+                KnownMaterial(
+                    preferenceRepository.currentUserId,
+                    step.data.material.id
+                )
+            )
+        }
+    }.devnull
 }

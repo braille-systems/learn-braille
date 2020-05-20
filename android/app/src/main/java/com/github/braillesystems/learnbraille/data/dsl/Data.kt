@@ -7,6 +7,7 @@ import kotlin.reflect.KProperty
 
 
 const val DEFAULT_ID = -1L
+const val ALL_CARDS_DECK_ID = 1L
 
 typealias StepAnnotationName = String
 typealias StepWithAnnotations = Pair<Step, List<StepAnnotationName>>
@@ -138,14 +139,16 @@ class DataBuilder(
     fun decks(block: DecksBuilder.() -> Unit) =
         DecksBuilder(block).side {
             it.deckToPredicate.forEach { (deck, p) ->
-                val deckId = if (deck.tag == DeckTags.all) 1 else decks.size + 2L
-                _decks += deck.copy(id = deckId)
-
-                materials
-                    .filter { material -> p(material.data) }
-                    .forEach { material ->
-                        _cards += Card(deckId, material.id)
+                val deckId =
+                    if (deck.tag == DeckTags.all) ALL_CARDS_DECK_ID
+                    else decks.size + 2L
+                val deckMaterials = materials.filter { material -> p(material.data) }
+                if (deckMaterials.isNotEmpty()) {
+                    _decks += deck.copy(id = deckId)
+                    _cards += deckMaterials.map { material ->
+                        Card(deckId, material.id)
                     }
+                }
             }
         }
 }
