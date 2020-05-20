@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.preference.SwitchPreferenceCompat
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="@string/preference_practice_use_only_seen_materials"
         android:summary="@string/preference_summary_only_seen_materials"
         android:theme="@style/SwitchPreferenceButton"
