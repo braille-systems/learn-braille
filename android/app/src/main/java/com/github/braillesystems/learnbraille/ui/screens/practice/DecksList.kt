@@ -1,6 +1,5 @@
 package com.github.braillesystems.learnbraille.ui.screens.practice
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -61,13 +60,16 @@ class DecksList : Fragment() {
                     deckName.setTextColor(
                         ContextCompat.getColor(
                             application,
-                            R.color.colorOnBackgroundDark)
+                            R.color.colorOnBackgroundDark
+                        )
                     )
                 } else {
                     deckName.setTextColor(
                         ContextCompat.getColor(
                             application,
-                            R.color.colorOnBackgroundLight))
+                            R.color.colorOnBackgroundLight
+                        )
+                    )
                 }
             }
         }
