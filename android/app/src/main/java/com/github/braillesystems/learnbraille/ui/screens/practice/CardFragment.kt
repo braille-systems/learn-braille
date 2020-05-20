@@ -118,18 +118,19 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             Observer {
                 if (it == null) return@Observer
                 announceIntro(it)
-                lifecycleScope.launch {
-                    val practiceRepository: PracticeRepository by inject()
-                    val tag = practiceRepository.getCurrDeck().tag
-                    val template = if (preferenceRepository.practiceUseOnlyKnownMaterials) {
-                        getString(R.string.practice_deck_name_enabled_template)
-                    } else {
-                        getString(R.string.practice_deck_name_disabled_template)
-                    }
-                    toast(template.format(deckTagToName.getValue(tag)))
-                }
             }
         )
+
+        lifecycleScope.launch {
+            val practiceRepository: PracticeRepository by inject()
+            val tag = practiceRepository.getCurrDeck().tag
+            val template = if (preferenceRepository.practiceUseOnlyKnownMaterials) {
+                getString(R.string.practice_deck_name_enabled_template)
+            } else {
+                getString(R.string.practice_deck_name_disabled_template)
+            }
+            toast(template.format(deckTagToName.getValue(tag)))
+        }
 
     }.root
 
