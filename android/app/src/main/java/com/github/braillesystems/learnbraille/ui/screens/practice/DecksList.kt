@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +15,7 @@ import com.github.braillesystems.learnbraille.data.repository.MutablePracticeRep
 import com.github.braillesystems.learnbraille.databinding.DecksListItemBinding
 import com.github.braillesystems.learnbraille.databinding.FragmentDecksListBinding
 import com.github.braillesystems.learnbraille.res.deckTagToName
+import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.navigate
 import com.github.braillesystems.learnbraille.utils.title
@@ -56,9 +58,16 @@ class DecksList : Fragment() {
                 deckName.text = deckTagToName.getValue(item.deck.tag)
                 clickListener = listener
                 if (item.containsCards) {
-                    deckName.setTextColor(Color.BLACK)
+                    deckName.setTextColor(
+                        ContextCompat.getColor(
+                            application,
+                            R.color.colorOnBackgroundDark)
+                    )
                 } else {
-                    deckName.setTextColor(Color.GRAY) // TODO change for accessibility
+                    deckName.setTextColor(
+                        ContextCompat.getColor(
+                            application,
+                            R.color.colorOnBackgroundLight))
                 }
             }
         }

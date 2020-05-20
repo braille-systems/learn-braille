@@ -1,10 +1,10 @@
 package com.github.braillesystems.learnbraille.ui.screens.theory.lessons
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +16,7 @@ import com.github.braillesystems.learnbraille.data.repository.TheoryRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsListBinding
 import com.github.braillesystems.learnbraille.databinding.LessonsListItemBinding
 import com.github.braillesystems.learnbraille.ui.screens.theory.toLastLessonStep
+import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.title
 import kotlinx.coroutines.launch
@@ -57,10 +58,20 @@ class LessonsListFragment : Fragment() {
                 lessonName.text = "${item.id}. ${item.name}"
                 if (item.id <= curr.lessonId) {
                     clickListener = activeListener
-                    lessonName.setTextColor(Color.BLACK)
+                    lessonName.setTextColor(
+                        ContextCompat.getColor(
+                            application,
+                            R.color.colorOnBackgroundDark
+                        )
+                    )
                 } else {
                     clickListener = disabledListener
-                    lessonName.setTextColor(Color.GRAY)
+                    lessonName.setTextColor(
+                        ContextCompat.getColor(
+                            application,
+                            R.color.colorOnBackgroundLight
+                        )
+                    )
                 }
             }
             lessonsList.adapter = adapter
