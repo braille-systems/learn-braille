@@ -52,6 +52,7 @@
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
         android:key="@string/preference_enable_additional_announcements"
+        android:summary="@string/preference_summary_additional_announcements"
         android:theme="@style/SwitchPreferenceButton"
         android:title="@string/preference_title_additional_announcements"
         app:iconSpaceReserved="false" />
