@@ -6,7 +6,6 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.ui.screens.help.HelpFragmentDirections
-import com.github.braillesystems.learnbraille.utils.announce
 import com.github.braillesystems.learnbraille.utils.navigate
 import timber.log.Timber
 
@@ -37,7 +36,6 @@ abstract class AbstractFragmentWithHelp(private val helpMsgId: HelpMsgId) : Frag
         Timber.i("Navigate to help")
         val action = HelpFragmentDirections.actionGlobalHelpFragment()
         action.helpMessage = helpMsg
-        announce(helpMsg)
         navigate(action)
     }
 }
