@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.dummyMaterialOf
 import com.github.braillesystems.learnbraille.data.repository.PracticeRepository
+import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.deckTagToName
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
@@ -27,6 +28,8 @@ import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
+
+    private val preferenceRepository: PreferenceRepository by inject()
 
     private lateinit var viewModel: CardViewModel
     private lateinit var dotsState: BrailleDotsState
@@ -57,11 +60,6 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         updateTitle(title)
         setHasOptionsMenu(true)
 
-        lifecycleScope.launch {
-            val practiceRepository: PracticeRepository by inject()
-            val tag = practiceRepository.getCurrDeck().tag
-            toast(deckTagToName.getValue(tag))
-        }
 
         dotsState = brailleDots.dotsState.apply {
             subscribe(View.OnClickListener {
@@ -120,6 +118,16 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             Observer {
                 if (it == null) return@Observer
                 announceIntro(it)
+                lifecycleScope.launch {
+                    val practiceRepository: PracticeRepository by inject()
+                    val tag = practiceRepository.getCurrDeck().tag
+                    val template = if (preferenceRepository.practiceUseOnlyKnownMaterials) {
+                        getString(R.string.practice_deck_name_enabled_template)
+                    } else {
+                        getString(R.string.practice_deck_name_disabled_template)
+                    }
+                    toast(template.format(deckTagToName.getValue(tag)))
+                }
             }
         )
 
