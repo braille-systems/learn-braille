@@ -1,7 +1,6 @@
 package com.github.braillesystems.learnbraille.ui.screens.theory.lessons
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -59,10 +58,20 @@ class LessonsListFragment : Fragment() {
                 lessonName.text = "${item.id}. ${item.name}"
                 if (item.id <= curr.lessonId) {
                     clickListener = activeListener
-                    lessonName.setTextColor(ContextCompat.getColor(application, R.color.colorOnBackgroundDark))
+                    lessonName.setTextColor(
+                        ContextCompat.getColor(
+                            application,
+                            R.color.colorOnBackgroundDark
+                        )
+                    )
                 } else {
                     clickListener = disabledListener
-                    lessonName.setTextColor(ContextCompat.getColor(application, R.color.colorOnBackgroundLight))
+                    lessonName.setTextColor(
+                        ContextCompat.getColor(
+                            application,
+                            R.color.colorOnBackgroundLight
+                        )
+                    )
                 }
             }
             lessonsList.adapter = adapter
