@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.COURSE_ID
 import com.github.braillesystems.learnbraille.R
@@ -19,6 +20,7 @@ import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.theory.toLastCourseStep
 import com.github.braillesystems.learnbraille.utils.*
+import com.google.android.material.button.MaterialButton
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -42,15 +44,23 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         setHasOptionsMenu(true)
         requestPermissions()
 
-        lessonsButton.setOnClickListener(interruptingOnClickListener {
+        val buttons = mutableListOf<MaterialButton>()
+
+        lessonsButton.also {
+            buttons += it
+        }.setOnClickListener(interruptingOnClickListener {
             toLastCourseStep(COURSE_ID)
         })
 
-        practiceButton.setOnClickListener(interruptingOnClickListener {
+        practiceButton.also {
+            buttons += it
+        }.setOnClickListener(interruptingOnClickListener {
             navigate(R.id.action_menuFragment_to_practiceFragment)
         })
 
-        qrPracticeButton.setOnClickListener {
+        qrPracticeButton.also {
+            buttons += it
+        }.setOnClickListener {
             try {
                 val intent = Intent("com.google.zxing.client.android.SCAN")
                 intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
@@ -61,13 +71,23 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             }
         }
 
-        settingsButton.setOnClickListener {
+        settingsButton.also {
+            buttons += it
+        }.setOnClickListener {
             navigate(R.id.action_menuFragment_to_settingsFragment)
         }
 
-        exitButton.setOnClickListener {
-            navigate(R.id.action_menuFragment_to_exitFragment)
+        if (preferenceRepository.additionalExitButtonsEnabled) {
+            exitButton.also {
+                buttons += it
+            }.setOnClickListener {
+                navigate(R.id.action_menuFragment_to_exitFragment)
+            }
+        } else {
+            exitButton.visibility = View.GONE
         }
+
+        colorButtons(buttons)
 
     }.root
 
@@ -116,6 +136,44 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             if (db.isInitialized) block(it)
             else toast(getString(R.string.menu_db_not_initialized_warning))
         }
+
+    private fun colorButtons(buttons: List<MaterialButton>) {
+        val (ps, bs) = when (buttons.size) {
+            3 -> {
+                val (b1, b2, b3) = buttons
+                listOf(b1, b3) to listOf(b2)
+            }
+            4 -> {
+                val (b1, b2, b3, b4) = buttons
+                listOf(b1, b3) to listOf(b2, b4)
+            }
+            else -> listOf<MaterialButton>() to listOf()
+        }
+        ps.forEach {
+            it.setTextColor(
+                ContextCompat.getColor(
+                    application, R.color.colorOnSecondary
+                )
+            )
+            it.setBackgroundColor(
+                ContextCompat.getColor(
+                    application, R.color.colorSecondary
+                )
+            )
+        }
+        bs.forEach {
+            it.setTextColor(
+                ContextCompat.getColor(
+                    application, R.color.colorOnPrimary
+                )
+            )
+            it.setBackgroundColor(
+                ContextCompat.getColor(
+                    application, R.color.colorPrimary
+                )
+            )
+        }
+    }
 
     companion object {
         private const val qrRequestCode = 0
