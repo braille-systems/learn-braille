@@ -33,7 +33,7 @@ class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbo
         val step = getStepArg()
         require(step.data is Show)
         require(step.data.material.data is Symbol)
-        letter.text = step.data.material.data.symbol.toString()
+        letter.text = step.data.material.data.char.toString()
         brailleDots.dotsState.display(step.data.material.data.brailleDots)
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_show_symbol)

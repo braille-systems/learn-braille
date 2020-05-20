@@ -24,7 +24,7 @@ class MaterialDataTypeConverters {
 
 @Serializable
 data class Symbol(
-    val symbol: Char,
+    val char: Char,
     val brailleDots: BrailleDots,
     @SerialName("symbol_type")
     val type: String

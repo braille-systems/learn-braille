@@ -51,7 +51,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         require(step.data is Input)
         require(step.data.material.data is Symbol)
         val symbol = step.data.material.data
-        letter.text = symbol.symbol.toString()
+        letter.text = symbol.char.toString()
         brailleDots.dotsState.display(symbol.brailleDots)
         announceByAccessibility(introStringNotNullLogged(step.data.material))
 

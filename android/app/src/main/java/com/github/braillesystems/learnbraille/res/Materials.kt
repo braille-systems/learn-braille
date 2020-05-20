@@ -21,70 +21,72 @@ val content by materials {
     +uebDigits
 }
 
-val practiceContent by materials {
-    +ruSymbols
+object SymbolType {
+    const val ru = "ru"
+    const val special = "special"
+    const val digit = "digit"
 }
 
 val ruSymbols by symbols(SymbolType.ru) {
-    symbol(symbol = 'А', brailleDots = BrailleDots(F, E, E, E, E, E))
-    symbol(symbol = 'Б', brailleDots = BrailleDots(F, F, E, E, E, E))
-    symbol(symbol = 'В', brailleDots = BrailleDots(E, F, E, F, F, F))
-    symbol(symbol = 'Г', brailleDots = BrailleDots(F, F, E, F, F, E))
-    symbol(symbol = 'Д', brailleDots = BrailleDots(F, E, E, F, F, E))
-    symbol(symbol = 'Е', brailleDots = BrailleDots(F, E, E, E, F, E))
-    symbol(symbol = 'Ё', brailleDots = BrailleDots(F, E, E, E, E, F))
-    symbol(symbol = 'Ж', brailleDots = BrailleDots(E, F, E, F, F, E))
-    symbol(symbol = 'З', brailleDots = BrailleDots(F, E, F, E, F, F))
-    symbol(symbol = 'И', brailleDots = BrailleDots(E, F, E, F, E, E))
-    symbol(symbol = 'Й', brailleDots = BrailleDots(F, F, F, F, E, F))
-    symbol(symbol = 'К', brailleDots = BrailleDots(F, E, F, E, E, E))
-    symbol(symbol = 'Л', brailleDots = BrailleDots(F, F, F, E, E, E))
-    symbol(symbol = 'М', brailleDots = BrailleDots(F, E, F, F, E, E))
-    symbol(symbol = 'Н', brailleDots = BrailleDots(F, E, F, F, F, E))
-    symbol(symbol = 'О', brailleDots = BrailleDots(F, E, F, E, F, E))
-    symbol(symbol = 'П', brailleDots = BrailleDots(F, F, F, F, E, E))
-    symbol(symbol = 'Р', brailleDots = BrailleDots(F, F, F, E, F, E))
-    symbol(symbol = 'С', brailleDots = BrailleDots(E, F, F, F, E, E))
-    symbol(symbol = 'Т', brailleDots = BrailleDots(E, F, F, F, F, E))
-    symbol(symbol = 'У', brailleDots = BrailleDots(F, E, F, E, E, F))
-    symbol(symbol = 'Ф', brailleDots = BrailleDots(F, F, E, F, E, E))
-    symbol(symbol = 'Х', brailleDots = BrailleDots(F, F, E, E, F, E))
-    symbol(symbol = 'Ц', brailleDots = BrailleDots(F, E, E, F, E, E))
-    symbol(symbol = 'Ч', brailleDots = BrailleDots(F, F, F, F, F, E))
-    symbol(symbol = 'Ш', brailleDots = BrailleDots(F, E, E, E, F, F))
-    symbol(symbol = 'Щ', brailleDots = BrailleDots(F, E, F, F, E, F))
-    symbol(symbol = 'Ъ', brailleDots = BrailleDots(F, F, F, E, F, F))
-    symbol(symbol = 'Ы', brailleDots = BrailleDots(E, F, F, F, E, F))
-    symbol(symbol = 'Ь', brailleDots = BrailleDots(E, F, F, F, F, F))
-    symbol(symbol = 'Э', brailleDots = BrailleDots(E, F, E, F, E, F))
-    symbol(symbol = 'Ю', brailleDots = BrailleDots(F, F, E, E, F, F))
-    symbol(symbol = 'Я', brailleDots = BrailleDots(F, F, E, F, E, F))
+    symbol(char = 'А', brailleDots = BrailleDots(F, E, E, E, E, E))
+    symbol(char = 'Б', brailleDots = BrailleDots(F, F, E, E, E, E))
+    symbol(char = 'В', brailleDots = BrailleDots(E, F, E, F, F, F))
+    symbol(char = 'Г', brailleDots = BrailleDots(F, F, E, F, F, E))
+    symbol(char = 'Д', brailleDots = BrailleDots(F, E, E, F, F, E))
+    symbol(char = 'Е', brailleDots = BrailleDots(F, E, E, E, F, E))
+    symbol(char = 'Ё', brailleDots = BrailleDots(F, E, E, E, E, F))
+    symbol(char = 'Ж', brailleDots = BrailleDots(E, F, E, F, F, E))
+    symbol(char = 'З', brailleDots = BrailleDots(F, E, F, E, F, F))
+    symbol(char = 'И', brailleDots = BrailleDots(E, F, E, F, E, E))
+    symbol(char = 'Й', brailleDots = BrailleDots(F, F, F, F, E, F))
+    symbol(char = 'К', brailleDots = BrailleDots(F, E, F, E, E, E))
+    symbol(char = 'Л', brailleDots = BrailleDots(F, F, F, E, E, E))
+    symbol(char = 'М', brailleDots = BrailleDots(F, E, F, F, E, E))
+    symbol(char = 'Н', brailleDots = BrailleDots(F, E, F, F, F, E))
+    symbol(char = 'О', brailleDots = BrailleDots(F, E, F, E, F, E))
+    symbol(char = 'П', brailleDots = BrailleDots(F, F, F, F, E, E))
+    symbol(char = 'Р', brailleDots = BrailleDots(F, F, F, E, F, E))
+    symbol(char = 'С', brailleDots = BrailleDots(E, F, F, F, E, E))
+    symbol(char = 'Т', brailleDots = BrailleDots(E, F, F, F, F, E))
+    symbol(char = 'У', brailleDots = BrailleDots(F, E, F, E, E, F))
+    symbol(char = 'Ф', brailleDots = BrailleDots(F, F, E, F, E, E))
+    symbol(char = 'Х', brailleDots = BrailleDots(F, F, E, E, F, E))
+    symbol(char = 'Ц', brailleDots = BrailleDots(F, E, E, F, E, E))
+    symbol(char = 'Ч', brailleDots = BrailleDots(F, F, F, F, F, E))
+    symbol(char = 'Ш', brailleDots = BrailleDots(F, E, E, E, F, F))
+    symbol(char = 'Щ', brailleDots = BrailleDots(F, E, F, F, E, F))
+    symbol(char = 'Ъ', brailleDots = BrailleDots(F, F, F, E, F, F))
+    symbol(char = 'Ы', brailleDots = BrailleDots(E, F, F, F, E, F))
+    symbol(char = 'Ь', brailleDots = BrailleDots(E, F, F, F, F, F))
+    symbol(char = 'Э', brailleDots = BrailleDots(E, F, E, F, E, F))
+    symbol(char = 'Ю', brailleDots = BrailleDots(F, F, E, E, F, F))
+    symbol(char = 'Я', brailleDots = BrailleDots(F, F, E, F, E, F))
 }
 
 val specialSymbols by symbols(SymbolType.special) {
-    symbol(symbol = ']', brailleDots = BrailleDots(E, E, F, F, F, F)) // цифровой знак // number
-    symbol(symbol = ',', brailleDots = BrailleDots(E, F, E, E, E, E)) // Знак препинания 'Запятая'
-    symbol(symbol = '-', brailleDots = BrailleDots(E, E, F, E, E, F)) // Дефис
-    symbol(symbol = '.', brailleDots = BrailleDots(E, F, F, E, F, E)) // Точка
+    symbol(char = ']', brailleDots = BrailleDots(E, E, F, F, F, F)) // Number sign
+    symbol(char = ',', brailleDots = BrailleDots(E, F, E, E, E, E)) // Comma
+    symbol(char = '-', brailleDots = BrailleDots(E, E, F, E, E, F)) // Hyphen
+    symbol(char = '.', brailleDots = BrailleDots(E, F, F, E, F, E)) // Dot
 }
 
 val uebDigits by symbols(SymbolType.digit) {
-    symbol(symbol = '1', brailleDots = BrailleDots(F, E, E, E, E, E))
-    symbol(symbol = '2', brailleDots = BrailleDots(F, F, E, E, E, E))
-    symbol(symbol = '3', brailleDots = BrailleDots(F, E, E, F, E, E))
-    symbol(symbol = '4', brailleDots = BrailleDots(F, E, E, F, F, E))
-    symbol(symbol = '5', brailleDots = BrailleDots(F, E, E, E, F, E))
-    symbol(symbol = '6', brailleDots = BrailleDots(F, F, E, F, E, E))
-    symbol(symbol = '7', brailleDots = BrailleDots(F, F, E, F, F, E))
-    symbol(symbol = '8', brailleDots = BrailleDots(F, F, E, E, F, E))
-    symbol(symbol = '9', brailleDots = BrailleDots(E, F, E, F, E, E))
-    symbol(symbol = '0', brailleDots = BrailleDots(E, F, E, F, F, E))
+    symbol(char = '1', brailleDots = BrailleDots(F, E, E, E, E, E))
+    symbol(char = '2', brailleDots = BrailleDots(F, F, E, E, E, E))
+    symbol(char = '3', brailleDots = BrailleDots(F, E, E, F, E, E))
+    symbol(char = '4', brailleDots = BrailleDots(F, E, E, F, F, E))
+    symbol(char = '5', brailleDots = BrailleDots(F, E, E, E, F, E))
+    symbol(char = '6', brailleDots = BrailleDots(F, F, E, F, E, E))
+    symbol(char = '7', brailleDots = BrailleDots(F, F, E, F, F, E))
+    symbol(char = '8', brailleDots = BrailleDots(F, F, E, E, F, E))
+    symbol(char = '9', brailleDots = BrailleDots(E, F, E, F, E, E))
+    symbol(char = '0', brailleDots = BrailleDots(E, F, E, F, F, E))
 }
 
 /**
  * Add here rules, how to display hints for symbols.
  */
-val Context.symbolTypeDisplayList: List<P2F<Char, String>> by lazyWithContext {
+val Context.symbolTypeIntroList: List<P2F<Char, String>> by lazyWithContext {
     // Prevent lambda of capturing context that will be invalid next time fragment entered,
     // so use `Fragment.getString` outside of lambdas.
     listOfP2F(

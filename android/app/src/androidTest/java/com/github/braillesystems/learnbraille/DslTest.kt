@@ -5,6 +5,7 @@ import com.github.braillesystems.learnbraille.data.dsl.*
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
+import com.github.braillesystems.learnbraille.res.DeckTags
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -18,13 +19,13 @@ private val content by materials {
 }
 
 private val ruSymbols by symbols(symbolType = "ru") {
-    symbol(symbol = 'А', brailleDots = BrailleDots(F, E, E, E, E, E))
-    symbol(symbol = 'Б', brailleDots = BrailleDots(F, F, E, E, E, E))
+    symbol(char = 'А', brailleDots = BrailleDots(F, E, E, E, E, E))
+    symbol(char = 'Б', brailleDots = BrailleDots(F, F, E, E, E, E))
     // ...
 }
 
 private val enSymbols by symbols(symbolType = "en") {
-    symbol(symbol = 'Z', brailleDots = BrailleDots(F, F, F, E, E, E))
+    symbol(char = 'Z', brailleDots = BrailleDots(F, F, F, E, E, E))
     // ...
 }
 
@@ -71,6 +72,7 @@ private val prepopulationData by data(
         deck("En letters") {
             it is Symbol && it.type == "en"
         }
+        deck(DeckTags.all) { true }
         // ...
     }
 }
@@ -127,18 +129,22 @@ private val users = listOf(
     User(0, "default3", "")
 )
 private val mats = listOf(
-    Material(1, Symbol(symbol = 'А', brailleDots = BrailleDots(F, E, E, E, E, E), type = "ru")),
-    Material(2, Symbol(symbol = 'Б', brailleDots = BrailleDots(F, F, E, E, E, E), type = "ru")),
-    Material(3, Symbol(symbol = 'Z', brailleDots = BrailleDots(F, F, F, E, E, E), type = "en"))
+    Material(1, Symbol(char = 'А', brailleDots = BrailleDots(F, E, E, E, E, E), type = "ru")),
+    Material(2, Symbol(char = 'Б', brailleDots = BrailleDots(F, F, E, E, E, E), type = "ru")),
+    Material(3, Symbol(char = 'Z', brailleDots = BrailleDots(F, F, F, E, E, E), type = "en"))
 )
 private val decks = listOf(
-    Deck(1, "Ru letters"),
-    Deck(2, "En letters")
+    Deck(2, "Ru letters"),
+    Deck(3, "En letters"),
+    Deck(1, DeckTags.all)
 )
 private val cards = listOf(
+    Card(2, 1),
+    Card(2, 2),
+    Card(3, 3),
     Card(1, 1),
     Card(1, 2),
-    Card(2, 3)
+    Card(1, 3)
 )
 private val courses = listOf(
     Course(1, "Best course", "The best"),

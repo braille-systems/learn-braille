@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.github.braillesystems.learnbraille.COURSE_ID
 import com.github.braillesystems.learnbraille.R
@@ -16,7 +17,6 @@ import com.github.braillesystems.learnbraille.databinding.FragmentLessonsListBin
 import com.github.braillesystems.learnbraille.databinding.LessonsListItemBinding
 import com.github.braillesystems.learnbraille.ui.screens.theory.toLastLessonStep
 import com.github.braillesystems.learnbraille.utils.checkedToast
-import com.github.braillesystems.learnbraille.utils.scope
 import com.github.braillesystems.learnbraille.utils.title
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -39,7 +39,7 @@ class LessonsListFragment : Fragment() {
 
         title = getString(R.string.lessons_title_lessons_list)
 
-        scope().launch {
+        lifecycleScope.launch {
             val curr = theoryRepository.getCurrentStep(COURSE_ID)
             val lessons = theoryRepository.getAllCourseLessons(COURSE_ID)
             val activeListener = object : LessonItemListener {

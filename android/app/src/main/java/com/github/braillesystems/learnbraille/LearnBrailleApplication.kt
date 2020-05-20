@@ -20,9 +20,6 @@ class LearnBrailleApplication : Application() {
 
         val koinModule = module {
             single { LearnBrailleDatabase.buildDatabase(this@LearnBrailleApplication) }
-            factory<PracticeRepository> {
-                PracticeRepositoryImpl(get<LearnBrailleDatabase>().materialDao)
-            }
             factory<PreferenceRepository> {
                 PreferenceRepositoryImpl(
                     this@LearnBrailleApplication,
@@ -33,6 +30,20 @@ class LearnBrailleApplication : Application() {
                 PreferenceRepositoryImpl(
                     this@LearnBrailleApplication,
                     get<LearnBrailleDatabase>().userDao
+                )
+            }
+            factory<PracticeRepository> {
+                val db = get<LearnBrailleDatabase>()
+                PracticeRepositoryImpl(
+                    this@LearnBrailleApplication,
+                    db.deckDao, db.cardDao, get()
+                )
+            }
+            factory<MutablePracticeRepository> {
+                val db = get<LearnBrailleDatabase>()
+                PracticeRepositoryImpl(
+                    this@LearnBrailleApplication,
+                    db.deckDao, db.cardDao, get()
                 )
             }
             factory<TheoryRepository> {
