@@ -41,10 +41,10 @@
     <string name="practice_next">Далее</string>
     <string name="practice_actionbar_title_template">Практика: %d из %d</string>
     <string name="practice_deck_name_enabled_template">
-        Колода: \"%s\"\nПовторять только пройденные: включено
+        Колода: \"%s\"\nПовторять только изученные: включено
     </string>
     <string name="practice_deck_name_disabled_template">
-        Колода: \"%s\"\nПовторять только пройденные: выключено
+        Колода: \"%s\"\nПовторять только изученные: выключено
     </string>
     <string name="decks_list_title">Список колод</string>
     <string name="decks_list_no_material_in_deck">

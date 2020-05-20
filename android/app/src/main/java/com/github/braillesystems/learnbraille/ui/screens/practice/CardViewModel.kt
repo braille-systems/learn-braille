@@ -47,7 +47,7 @@ class CardViewModel(
 
     private var expectedDots: BrailleDots? = null
 
-    private val job = Job()
+    val job = Job()
     private val uiScope = scope(job)
 
     init {
