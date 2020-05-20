@@ -16,6 +16,7 @@
     <string name="preference_golubina_book_steps_enabled">golubina_book_steps_enabled</string>
     <string name="preference_practice_use_passed_material">practice_use_passed_material</string>
     <string name="preference_traverse_dots_in_enumeration_order">traverse_dots_in_enumeration_order</string>
+    <string name="preference_practice_use_only_seen_materials">practice_use_only_seen_materials</string>
 
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
@@ -255,6 +256,10 @@
     <string name="preference_summary_on_fly_check">Выводить сообщение \"правильно\",
         как только в шеститочии введена корректная комбинация,
         не дожидаясь нажатия кнопки \"вперёд\"
+    </string>
+    <string name="preference_title_only_seen_materials">Только пройденные символы</string>
+    <string name="preference_summary_only_seen_materials">
+        Использовать в практике только символы, пройденные в уроках
     </string>
 
 </resources>

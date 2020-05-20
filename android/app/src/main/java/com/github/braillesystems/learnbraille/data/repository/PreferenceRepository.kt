@@ -21,6 +21,7 @@ interface PreferenceRepository {
     val practiceUseMaterialsPassedInCourse: Boolean
     val traverseDotsInEnumerationOrder: Boolean
     val inputOnFlyCheck: Boolean
+    val practiceUseOnlySeenMaterials: Boolean
 
     val currentUserId: Long
     suspend fun getCurrentUser(): User
@@ -83,6 +84,13 @@ class PreferenceRepositoryImpl(
     override val inputOnFlyCheck: Boolean by logged {
         context.preferences.getBoolean(
             context.getString(R.string.preference_title_on_fly_check),
+            false
+        )
+    }
+
+    override val practiceUseOnlySeenMaterials: Boolean by logged {
+        context.preferences.getBoolean(
+            context.getString(R.string.preference_practice_use_only_seen_materials),
             false
         )
     }
