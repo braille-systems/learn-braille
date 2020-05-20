@@ -26,7 +26,7 @@ import timber.log.Timber
         CurrentStep::class, LastCourseStep::class, LastLessonStep::class
     ],
     version = 15,
-    exportSchema = false // TODO export
+    exportSchema = false
 )
 @TypeConverters(
     BrailleDotsConverters::class,
@@ -127,7 +127,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
                     }
                 }
             })
-            .fallbackToDestructiveMigration() // TODO change migration strategy
+            .fallbackToDestructiveMigration()
             .build()
     }
 }
