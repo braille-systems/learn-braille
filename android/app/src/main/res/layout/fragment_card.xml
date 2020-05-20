@@ -50,7 +50,7 @@
             android:contentDescription="@string/practice_hint"
             android:onClick="@{() -> cardViewModel.onHint()}"
             android:scaleType="fitCenter"
-            android:text="@string/hint_icon"
+            android:text="@string/practice_hint_icon_symbol"
             android:textColor="@color/colorOnPrimary"
             android:textSize="@dimen/practice_buttons_icon_hint_size"
             app:layout_constraintBottom_toBottomOf="parent"

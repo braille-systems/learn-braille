@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.dummyMaterialOf
 import com.github.braillesystems.learnbraille.data.repository.PracticeRepository
-import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.deckTagToName
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
@@ -28,8 +27,6 @@ import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
-
-    private val preferences: PreferenceRepository by inject()
 
     private lateinit var viewModel: CardViewModel
     private lateinit var dotsState: BrailleDotsState
@@ -89,25 +86,14 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         lifecycleOwner = this@CardFragment
 
 
-        // TODO extract to method
-        if (preferences.inputOnFlyCheck) {
-            viewModel.observeEventCorrect(
-                viewLifecycleOwner, preferences, dotsState, buzzer = null
-            ) { updateTitle(title) }
-            viewModel.observeEventSoftCorrect(
-                viewLifecycleOwner, preferences, buzzer
-            ) { showCorrectToast() }
-        } else {
-            viewModel.observeEventCorrect(
-                viewLifecycleOwner, preferences, dotsState, buzzer
-            ) {
-                updateTitle(title)
-                showCorrectToast()
-            }
-        }
+        viewModel.observeCheckedOnFly(
+            viewLifecycleOwner, dotsState, buzzer,
+            block = { updateTitle(title) },
+            softBlock = ::showCorrectToast
+        )
 
         viewModel.observeEventIncorrect(
-            viewLifecycleOwner, preferences, dotsState, buzzer
+            viewLifecycleOwner, dotsState, buzzer
         ) {
             viewModel.symbol.value?.let { symbol ->
                 require(symbol.length == 1)
@@ -143,7 +129,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         require(symbol.length == 1)
         val material = dummyMaterialOf(symbol.first())
         val intro = introStringNotNullLogged(material)
-        announceByAccessibility(intro)
+        announce(intro)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

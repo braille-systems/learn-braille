@@ -10,12 +10,14 @@ import com.github.braillesystems.learnbraille.data.repository.PreferenceReposito
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
 import com.github.braillesystems.learnbraille.ui.views.*
 import com.github.braillesystems.learnbraille.utils.checkedBuzz
+import org.koin.core.KoinComponent
+import org.koin.core.get
 import timber.log.Timber
 
 /**
  * Represents state machine that serves input tasks.
  */
-interface DotsChecker {
+interface DotsChecker : KoinComponent {
 
     /**
      * User pressed `next` button.
@@ -194,11 +196,30 @@ private class DotsCheckerImpl : MutableDotsChecker {
     }
 }
 
-inline fun DotsChecker.observeEventCorrect(
+inline fun DotsChecker.observeCheckedOnFly(
     lifecycleOwner: LifecycleOwner,
-    preferenceRepository: PreferenceRepository,
     dotsState: BrailleDotsState,
     buzzer: Vibrator? = null,
+    preferenceRepository: PreferenceRepository = get(),
+    crossinline block: () -> Unit = {},
+    crossinline softBlock: () -> Unit = {}
+) {
+    if (preferenceRepository.inputOnFlyCheck) {
+        observeEventCorrect(lifecycleOwner, dotsState, buzzer = null, block = block)
+        observeEventSoftCorrect(lifecycleOwner, buzzer = buzzer, block = softBlock)
+    } else {
+        observeEventCorrect(lifecycleOwner, dotsState, buzzer) {
+            softBlock()
+            block()
+        }
+    }
+}
+
+inline fun DotsChecker.observeEventCorrect(
+    lifecycleOwner: LifecycleOwner,
+    dotsState: BrailleDotsState,
+    buzzer: Vibrator? = null,
+    preferenceRepository: PreferenceRepository = get(),
     crossinline block: () -> Unit = {}
 ): Unit = eventCorrect.observe(
     lifecycleOwner,
@@ -214,8 +235,8 @@ inline fun DotsChecker.observeEventCorrect(
 
 inline fun DotsChecker.observeEventSoftCorrect(
     lifecycleOwner: LifecycleOwner,
-    preferenceRepository: PreferenceRepository,
     buzzer: Vibrator? = null,
+    preferenceRepository: PreferenceRepository = get(),
     crossinline block: () -> Unit = {}
 ): Unit = eventSoftCorrect.observe(
     lifecycleOwner,
@@ -230,9 +251,9 @@ inline fun DotsChecker.observeEventSoftCorrect(
 
 inline fun DotsChecker.observeEventIncorrect(
     lifecycleOwner: LifecycleOwner,
-    preferenceRepository: PreferenceRepository,
     dotsState: BrailleDotsState,
     buzzer: Vibrator? = null,
+    preferenceRepository: PreferenceRepository = get(),
     crossinline block: () -> Unit = {}
 ): Unit = eventIncorrect.observe(
     lifecycleOwner,
