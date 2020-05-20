@@ -13,6 +13,7 @@ import android.hardware.usb.UsbManager
 import android.net.Uri
 import android.os.Vibrator
 import android.provider.Settings
+import android.provider.Settings.SettingNotFoundException
 import android.view.accessibility.AccessibilityManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
@@ -20,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.github.braillesystems.learnbraille.R
 import timber.log.Timber
+
 
 val Context.usbManager get() = getSystemService(Context.USB_SERVICE) as UsbManager
 val Context.accessibilityManager: AccessibilityManager?
@@ -57,12 +59,16 @@ fun Fragment.sendMarketIntent(appPackageName: String) {
     }
 }
 
-// TODO do not work
 val Context.isAccessibilityEnabled: Boolean by logged {
-    Settings.Secure.getInt(
-        contentResolver,
-        Settings.Secure.ACCESSIBILITY_ENABLED
-    ) == 1
+    try {
+        Settings.Secure.getInt(
+            contentResolver,
+            Settings.Secure.ACCESSIBILITY_ENABLED
+        ) == 1
+    } catch (e: SettingNotFoundException) {
+        Timber.e(e)
+        false
+    }
 }
 
 /**
