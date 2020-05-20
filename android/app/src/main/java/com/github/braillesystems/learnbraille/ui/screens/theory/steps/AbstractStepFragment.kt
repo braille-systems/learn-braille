@@ -3,12 +3,12 @@ package com.github.braillesystems.learnbraille.ui.screens.theory.steps
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.COURSE_ID
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.HelpMsgId
 import com.github.braillesystems.learnbraille.ui.screens.theory.toCurrentStep
+import com.github.braillesystems.learnbraille.utils.navigate
 import com.github.braillesystems.learnbraille.utils.updateTitle
 
 
@@ -31,7 +31,7 @@ abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWith
     override fun onOptionsItemSelected(item: MenuItem) = false.also {
         when (item.itemId) {
             R.id.help -> navigateToHelp()
-            R.id.lessons_list -> findNavController().navigate(R.id.action_global_lessonsListFragment)
+            R.id.lessons_list -> navigate(R.id.action_global_lessonsListFragment)
             R.id.current_course_pos -> toCurrentStep(COURSE_ID)
         }
     }

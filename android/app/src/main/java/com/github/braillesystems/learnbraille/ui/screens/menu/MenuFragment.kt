@@ -11,8 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.COURSE_ID
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
@@ -49,7 +47,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         })
 
         practiceButton.setOnClickListener(interruptingOnClickListener {
-            findNavController().navigate(R.id.action_menuFragment_to_practiceFragment)
+            navigate(R.id.action_menuFragment_to_practiceFragment)
         })
 
         qrPracticeButton.setOnClickListener {
@@ -63,13 +61,13 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             }
         }
 
-        settingsButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_settingsFragment)
-        )
+        settingsButton.setOnClickListener {
+            navigate(R.id.action_menuFragment_to_settingsFragment)
+        }
 
-        exitButton.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_menuFragment_to_exitFragment)
-        )
+        exitButton.setOnClickListener {
+            navigate(R.id.action_menuFragment_to_exitFragment)
+        }
 
     }.root
 

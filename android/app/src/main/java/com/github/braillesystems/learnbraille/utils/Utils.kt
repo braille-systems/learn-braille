@@ -8,6 +8,8 @@ import android.content.Context
 import android.os.Vibrator
 import android.view.accessibility.AccessibilityEvent
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.LearnBrailleApplication
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
@@ -27,24 +29,18 @@ val Fragment.application: LearnBrailleApplication
 fun scope(job: Job = Job()) = CoroutineScope(Dispatchers.Main + job)
 
 fun Vibrator?.checkedBuzz(pattern: BuzzPattern, preferenceRepository: PreferenceRepository) =
-    executeIf(preferenceRepository.buzzEnabled) {
-        buzz(pattern)
-    }
+    executeIf(preferenceRepository.buzzEnabled) { buzz(pattern) }
 
 fun checkedToast(msg: String, context: Context?, preferenceRepository: PreferenceRepository) =
     executeIf(preferenceRepository.toastsEnabled) {
-        Toast.makeText(
-            context, msg, preferenceRepository.toastDuration
-        ).show()
+        Toast.makeText(context, msg, preferenceRepository.toastDuration).show()
     }
 
 fun Fragment.checkedToast(msg: String, preferenceRepository: PreferenceRepository = get()) =
     checkedToast(msg, context, preferenceRepository)
 
 fun Fragment.toast(msg: String, preferenceRepository: PreferenceRepository = get()) =
-    Toast.makeText(
-        context, msg, preferenceRepository.toastDuration
-    ).show()
+    Toast.makeText(context, msg, preferenceRepository.toastDuration).show()
 
 fun Context.announceByAccessibility(
     announcement: String
@@ -61,6 +57,22 @@ fun Context.announceByAccessibility(
 
 fun Fragment.announceByAccessibility(announcement: String) =
     application.announceByAccessibility(announcement)
+
+val Fragment.actionBar: ActionBar?
+    get() = (activity as AppCompatActivity).supportActionBar
+
+/**
+ * Throws if action bar is not available
+ */
+var Fragment.title: String
+    get() = requireNotNull(actionBar).title.toString()
+    set(value) {
+        requireNotNull(actionBar).title = value
+    }
+
+fun Fragment.updateTitle(title: String) {
+    this.title = title
+}
 
 fun <T> stringify(s: SerializationStrategy<T>, obj: T) = Json.stringify(s, obj)
 fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.parse(d, s)
