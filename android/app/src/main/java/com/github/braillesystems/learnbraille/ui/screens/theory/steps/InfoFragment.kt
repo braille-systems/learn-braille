@@ -12,7 +12,7 @@ import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInfoBin
 import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
-import com.github.braillesystems.learnbraille.utils.announce
+import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 
 class InfoFragment : AbstractStepFragment(R.string.lessons_help_info) {
 
@@ -31,7 +31,7 @@ class InfoFragment : AbstractStepFragment(R.string.lessons_help_info) {
         require(step.data is Info)
         infoTextView.text = step.data.text.parseAsHtml()
         infoTextView.movementMethod = ScrollingMovementMethod()
-        announce(step.data.text)
+        checkedAnnounce(step.data.text)
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_info)
         setHasOptionsMenu(true)
