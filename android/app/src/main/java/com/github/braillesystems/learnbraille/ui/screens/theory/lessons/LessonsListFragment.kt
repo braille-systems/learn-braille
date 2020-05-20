@@ -64,6 +64,7 @@ class LessonsListFragment : Fragment() {
                             R.color.colorOnBackgroundDark
                         )
                     )
+                    lessonState.setImageResource(R.drawable.unlocked)
                 } else {
                     clickListener = disabledListener
                     lessonName.setTextColor(
@@ -72,6 +73,7 @@ class LessonsListFragment : Fragment() {
                             R.color.colorOnBackgroundLight
                         )
                     )
+                    lessonState.setImageResource(R.drawable.locked)
                 }
             }
             lessonsList.adapter = adapter

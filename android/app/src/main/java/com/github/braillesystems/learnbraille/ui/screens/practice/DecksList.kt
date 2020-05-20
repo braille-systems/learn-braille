@@ -63,6 +63,7 @@ class DecksList : Fragment() {
                             R.color.colorOnBackgroundDark
                         )
                     )
+                    deckState.setImageResource(R.drawable.unlocked)
                 } else {
                     deckName.setTextColor(
                         ContextCompat.getColor(
@@ -70,6 +71,7 @@ class DecksList : Fragment() {
                             R.color.colorOnBackgroundLight
                         )
                     )
+                    deckState.setImageResource(R.drawable.locked)
                 }
             }
         }
