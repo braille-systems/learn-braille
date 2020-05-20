@@ -14,7 +14,7 @@
         tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_menuFragment_to_practiceFragment"
-            app:destination="@id/practiceFragment" />
+            app:destination="@id/cardFragment" />
         <action
             android:id="@+id/action_menuFragment_to_exitFragment"
             app:destination="@id/exitFragment" />
@@ -28,10 +28,14 @@
         android:label="fragment_exit"
         tools:layout="@layout/fragment_exit" />
     <fragment
-        android:id="@+id/practiceFragment"
+        android:id="@+id/cardFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.practice.CardFragment"
-        android:label="fragment_practice"
-        tools:layout="@layout/fragment_practice" />
+        android:label="fragment_card"
+        tools:layout="@layout/fragment_card">
+        <action
+            android:id="@+id/action_cardFragment_to_decksList"
+            app:destination="@id/decksList" />
+    </fragment>
     <fragment
         android:id="@+id/helpFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.help.HelpFragment"
@@ -46,6 +50,15 @@
         android:id="@+id/settingsFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.settings.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/decksList"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.practice.DecksList"
+        android:label="fragment_decks_list"
+        tools:layout="@layout/fragment_decks_list">
+        <action
+            android:id="@+id/action_decksList_to_cardFragment"
+            app:destination="@id/cardFragment" />
+    </fragment>
 
     <action
         android:id="@+id/action_global_menuFragment"

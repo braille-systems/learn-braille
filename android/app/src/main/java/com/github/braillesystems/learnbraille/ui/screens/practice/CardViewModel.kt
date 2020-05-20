@@ -78,7 +78,7 @@ class CardViewModel(
         val material = practiceRepository.getNextMaterial()
         require(material.data is Symbol)
         material.data.apply {
-            _symbol.value = symbol.toString()
+            _symbol.value = char.toString()
             expectedDots = brailleDots
         }
     }

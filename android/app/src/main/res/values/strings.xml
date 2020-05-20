@@ -39,6 +39,15 @@
     <string name="practice_hint">Подсказка</string>
     <string name="practice_next">Далее</string>
     <string name="practice_actionbar_title_template">Практика: %d из %d</string>
+    <string name="decks_list_title">Список колод</string>
+    <string name="decks_list_no_material_in_deck">
+        Колода %s еще не доступна, пройдите эти карточки в уроках!
+    </string>
+
+    <string name="deck_name_all">Все символы</string>
+    <string name="deck_name_ru_letters">Русские буквы</string>
+    <string name="deck_name_digits">Цифры</string>
+    <string name="deck_name_special_symbols">Специальные символы</string>
 
     <string name="practice_help">
         <![CDATA[
@@ -214,6 +223,7 @@
     <string name="menu_title_current_step">К текущему шагу</string>
     <string name="menu_title_lessons_list">Навигация по курсу</string>
     <string name="menu_title_hide">Скрыть это меню</string>
+    <string name="menu_title_decks_list">Список колод</string>
 
     <!--    Help-->
 
