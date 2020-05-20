@@ -89,25 +89,14 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         lifecycleOwner = this@CardFragment
 
 
-        // TODO extract to method
-        if (preferences.inputOnFlyCheck) {
-            viewModel.observeEventCorrect(
-                viewLifecycleOwner, preferences, dotsState, buzzer = null
-            ) { updateTitle(title) }
-            viewModel.observeEventSoftCorrect(
-                viewLifecycleOwner, preferences, buzzer
-            ) { showCorrectToast() }
-        } else {
-            viewModel.observeEventCorrect(
-                viewLifecycleOwner, preferences, dotsState, buzzer
-            ) {
-                updateTitle(title)
-                showCorrectToast()
-            }
-        }
+        viewModel.observeCheckedOnFly(
+            viewLifecycleOwner, dotsState, buzzer,
+            block = { updateTitle(title) },
+            softBlock = ::showCorrectToast
+        )
 
         viewModel.observeEventIncorrect(
-            viewLifecycleOwner, preferences, dotsState, buzzer
+            viewLifecycleOwner, dotsState, buzzer
         ) {
             viewModel.symbol.value?.let { symbol ->
                 require(symbol.length == 1)

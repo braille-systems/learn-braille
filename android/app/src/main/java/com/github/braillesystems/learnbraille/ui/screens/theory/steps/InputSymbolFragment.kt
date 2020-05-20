@@ -87,30 +87,14 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
             toPrevStep(step)
         }
 
-        if (preferenceRepository.inputOnFlyCheck) {
-            viewModel.observeEventCorrect(
-                viewLifecycleOwner,
-                preferenceRepository,
-                dotsState, buzzer = null
-            ) { toNextStep(step, markThisAsPassed = true) }
-            viewModel.observeEventSoftCorrect(
-                viewLifecycleOwner, preferenceRepository, buzzer
-            ) { showCorrectToast() }
-        } else {
-            viewModel.observeEventCorrect(
-                viewLifecycleOwner,
-                preferenceRepository,
-                dotsState, buzzer
-            ) {
-                showCorrectToast()
-                toNextStep(step, markThisAsPassed = true)
-            }
-        }
+        viewModel.observeCheckedOnFly(
+            viewLifecycleOwner, dotsState, buzzer,
+            block = { toNextStep(step, markThisAsPassed = true) },
+            softBlock = ::showCorrectToast
+        )
 
         viewModel.observeEventIncorrect(
-            viewLifecycleOwner,
-            preferenceRepository,
-            dotsState
+            viewLifecycleOwner, dotsState
         ) {
             val notify = {
                 showIncorrectToast(step.data.material)
