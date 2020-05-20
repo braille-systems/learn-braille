@@ -1,8 +1,10 @@
 package com.github.braillesystems.learnbraille.data.dsl
 
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.data.entities.KnownMaterial
 import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.data.entities.Symbol
+import com.github.braillesystems.learnbraille.res.content
 import kotlin.reflect.KProperty
 
 
@@ -72,5 +74,21 @@ class SymbolsBuilder(private val symbolType: String, block: SymbolsBuilder.() ->
     fun symbol(char: Char, brailleDots: BrailleDots) {
         @Suppress("NAME_SHADOWING") val char = char.toUpperCase()
         _map[char] = Symbol(char, brailleDots, symbolType)
+    }
+}
+
+
+class known(vararg chars: Char) {
+
+    private val cs = chars.map(Char::toUpperCase)
+    private var knownMaterials: List<KnownMaterial>? = null
+
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): List<KnownMaterial> {
+        require(property.name == "knownMaterials") {
+            "Property should have name knownMaterials to be used by database"
+        }
+        return knownMaterials ?: cs.map {
+            KnownMaterial(DEFAULT_ID, content.symbols.getValue(it).id)
+        }.also { knownMaterials = it }
     }
 }
