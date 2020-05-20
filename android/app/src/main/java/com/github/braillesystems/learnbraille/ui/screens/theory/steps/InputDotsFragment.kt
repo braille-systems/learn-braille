@@ -20,8 +20,8 @@ import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
 import com.github.braillesystems.learnbraille.ui.views.*
-import com.github.braillesystems.learnbraille.utils.announce
 import com.github.braillesystems.learnbraille.utils.application
+import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import com.github.braillesystems.learnbraille.utils.checkedBuzz
 import org.koin.android.ext.android.inject
 import timber.log.Timber
@@ -54,7 +54,7 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
             ?: getString(R.string.lessons_show_dots_info_template)
                 .format(step.data.dots.spelling)
         infoTextView.text = infoText
-        announce(infoText.toString())
+        checkedAnnounce(infoText.toString())
         brailleDots.dotsState.display(step.data.dots)
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_input_dots)

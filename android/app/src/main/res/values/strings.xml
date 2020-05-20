@@ -16,6 +16,7 @@
     <string name="preference_golubina_book_steps_enabled">golubina_book_steps_enabled</string>
     <string name="preference_practice_use_passed_material">practice_use_passed_material</string>
     <string name="preference_traverse_dots_in_enumeration_order">traverse_dots_in_enumeration_order</string>
+    <string name="preference_enable_additional_announcements">enable_additional_announcements</string>
     <string name="preference_practice_use_only_seen_materials">practice_use_only_seen_materials</string>
 
     <string name="input_correct">Правильно!</string>
@@ -285,6 +286,13 @@
     <string name="preference_title_only_seen_materials">Повторять только изученное</string>
     <string name="preference_summary_only_seen_materials">
         В разделе \"Практика\" повторять только символы, пройденные в разделе \"Теория\".
+    </string>
+    <string name="preference_title_additional_announcements">
+        Автоозвучка текстов
+    </string>
+    <string name="preference_summary_additional_announcements">
+        Автоматически озвучивать длинные тексты (например, в справке и разделе \"теория\")
+        средством экранного чтения, не дожидаясь фокусировки на текстовом поле.
     </string>
 
 </resources>

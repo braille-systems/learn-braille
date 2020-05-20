@@ -21,6 +21,7 @@ import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
 import com.github.braillesystems.learnbraille.ui.views.*
 import com.github.braillesystems.learnbraille.utils.announce
 import com.github.braillesystems.learnbraille.utils.application
+import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import com.github.braillesystems.learnbraille.utils.checkedBuzz
 import org.koin.android.ext.android.inject
 import timber.log.Timber
@@ -53,7 +54,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         val symbol = step.data.material.data
         letter.text = symbol.char.toString()
         brailleDots.dotsState.display(symbol.brailleDots)
-        announce(introStringNotNullLogged(step.data.material))
+        checkedAnnounce(introStringNotNullLogged(step.data.material))
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_input_symbol)
         setHasOptionsMenu(true)

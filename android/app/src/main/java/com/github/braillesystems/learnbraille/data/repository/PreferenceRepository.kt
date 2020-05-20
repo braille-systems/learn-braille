@@ -21,6 +21,7 @@ interface PreferenceRepository {
     val practiceUseMaterialsPassedInCourse: Boolean
     val traverseDotsInEnumerationOrder: Boolean
     val inputOnFlyCheck: Boolean
+    val additionalAnnouncementsEnabled: Boolean
     val practiceUseOnlyKnownMaterials: Boolean
 
     val currentUserId: Long
@@ -84,6 +85,13 @@ class PreferenceRepositoryImpl(
     override val inputOnFlyCheck: Boolean by logged {
         context.preferences.getBoolean(
             context.getString(R.string.preference_title_on_fly_check),
+            false
+        )
+    }
+
+    override val additionalAnnouncementsEnabled: Boolean by logged {
+        context.preferences.getBoolean(
+            context.getString(R.string.preference_enable_additional_announcements),
             false
         )
     }
