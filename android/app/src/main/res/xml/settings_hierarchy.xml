@@ -56,5 +56,5 @@
         android:theme="@style/SwitchPreferenceButton"
         android:title="@string/preference_title_additional_announcements"
         app:iconSpaceReserved="false" />
-    
+
 </androidx.preference.PreferenceScreen>
