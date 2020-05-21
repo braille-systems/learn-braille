@@ -41,7 +41,6 @@
     <dimen name="action_bar_button_size">50dp</dimen>
 
     <dimen name="list_text_size">20sp</dimen>
-    <dimen name="list_icon_scale">1.2</dimen>
     <dimen name="list_icon_marginEnd">16dp</dimen>
     <dimen name="list_item_padding">18dp</dimen>
     <dimen name="list_item_margin">8dp</dimen>
