@@ -58,7 +58,7 @@
         app:iconSpaceReserved="false" />
 
     <androidx.preference.SwitchPreferenceCompat
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:key="@string/preference_additional_exit_buttons_enabled"
         android:summary="@string/preference_summary_additional_exit"
         android:theme="@style/SwitchPreferenceButton"
