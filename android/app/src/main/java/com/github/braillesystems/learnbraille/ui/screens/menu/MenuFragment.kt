@@ -58,18 +58,23 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             navigate(R.id.action_menuFragment_to_practiceFragment)
         })
 
-        qrPracticeButton.also {
-            buttons += it
-        }.setOnClickListener {
-            try {
-                val intent = Intent("com.google.zxing.client.android.SCAN")
-                intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
-                startActivityForResult(intent, qrRequestCode)
-            } catch (e: ActivityNotFoundException) {
-                checkedToast(getString(R.string.qr_intent_cancelled))
-                sendMarketIntent("com.google.zxing.client.android")
+        if (preferenceRepository.additionalQrCodeButtonEnabled) {
+            qrPracticeButton.also {
+                buttons += it
+            }.setOnClickListener {
+                try {
+                    val intent = Intent("com.google.zxing.client.android.SCAN")
+                    intent.putExtra("SCAN_MODE", "QR_CODE_MODE")
+                    startActivityForResult(intent, qrRequestCode)
+                } catch (e: ActivityNotFoundException) {
+                    checkedToast(getString(R.string.qr_intent_cancelled))
+                    sendMarketIntent("com.google.zxing.client.android")
+                }
             }
+        } else {
+            qrPracticeButton.visibility = View.GONE
         }
+
 
         settingsButton.also {
             buttons += it

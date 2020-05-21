@@ -24,6 +24,7 @@ interface PreferenceRepository {
     val additionalAnnouncementsEnabled: Boolean
     val practiceUseOnlyKnownMaterials: Boolean
     val additionalExitButtonsEnabled: Boolean
+    val additionalQrCodeButtonEnabled: Boolean
 
     val currentUserId: Long
     suspend fun getCurrentUser(): User
@@ -107,6 +108,13 @@ class PreferenceRepositoryImpl(
     override val additionalExitButtonsEnabled: Boolean by logged {
         context.preferences.getBoolean(
             context.getString(R.string.preference_additional_exit_buttons_enabled),
+            false
+        )
+    }
+
+    override val additionalQrCodeButtonEnabled: Boolean by logged {
+        context.preferences.getBoolean(
+            context.getString(R.string.preference_additional_qrcode_button_enabled),
             false
         )
     }

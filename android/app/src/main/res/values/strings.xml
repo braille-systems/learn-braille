@@ -19,6 +19,7 @@
     <string name="preference_enable_additional_announcements">enable_additional_announcements</string>
     <string name="preference_practice_use_only_seen_materials">practice_use_only_seen_materials</string>
     <string name="preference_additional_exit_buttons_enabled">additional_exit_buttons_enabled</string>
+    <string name="preference_additional_qrcode_button_enabled">additional_qrcode_button_enabled</string>
 
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
@@ -300,6 +301,12 @@
     </string>
     <string name="preference_summary_additional_exit">
         В главном меню кнопка \"Выход из приложения\", в контекстных меню кнопка \"Скрыть\".
+    </string>
+    <string name="preference_title_additional_qrcode_button">
+        Дополнительная кнопка  \"Сканирование qr-кода\"
+    </string>
+    <string name="preference_summary_additional_qrcode_button">
+        Отображать в главном меню кнопку \"Сканирование qr-кода\".
     </string>
 
 </resources>
