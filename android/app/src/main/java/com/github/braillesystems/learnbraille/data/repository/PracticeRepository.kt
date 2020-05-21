@@ -48,6 +48,10 @@ class PracticeRepositoryImpl(
             }
         }
 
+    /**
+     * Deck changes automatically if `use only known materials` enabled
+     * and previous `currentDeck` became not available.
+     */
     override suspend fun getNextMaterial(): Material =
         if (preferenceRepository.practiceUseOnlyKnownMaterials) {
             cardDao.getRandomKnownMaterialFromDeck(

@@ -35,9 +35,11 @@ class CardViewModel(
 ) : AndroidViewModel(application),
     DotsChecker by dotsChecker {
 
-    private var _symbol = MutableLiveData<String?>()
-    val symbol: LiveData<String?>
-        get() = _symbol
+    private val _symbol = MutableLiveData<String?>()
+    val symbol: LiveData<String?> get() = _symbol
+
+    private val _deckTag = MutableLiveData<String?>()
+    val deckTag: LiveData<String?> get() = _deckTag
 
     var nTries: Int = 0
         private set
@@ -52,7 +54,7 @@ class CardViewModel(
 
     init {
         Timber.i("Initialize practice view model")
-        initializeCard()
+        initializeCard(firstTime = true)
 
         dotsChecker.apply {
             getEnteredDots = this@CardViewModel.getEnteredDots
@@ -74,12 +76,20 @@ class CardViewModel(
         job.cancel()
     }
 
-    private fun initializeCard() = uiScope.launch {
+    private fun initializeCard(firstTime: Boolean = false) = uiScope.launch {
         val material = practiceRepository.getNextMaterial()
         require(material.data is Symbol)
         material.data.apply {
             _symbol.value = char.toString()
             expectedDots = brailleDots
+        }
+
+        // Should be called after getting material because deck changes automatically
+        // if `use only known materials` enabled and previous `currentDeck`
+        // became not available.
+        if (firstTime) {
+            val deck = practiceRepository.getCurrDeck()
+            _deckTag.value = deck.tag
         }
     }
 }
