@@ -31,9 +31,10 @@
         <item name="cornerSizeTopLeft">@dimen/practice_buttons_border_radius</item>
     </style>
 
-    <style name="sideIconButtons" parent="@style/Widget.MaterialComponents.Button.Icon">
+    <style name="sideIconButtons">
         <item name="iconPadding">0dp</item>
         <item name="iconSize">@dimen/practice_buttons_icon_size</item>
+        <item name="iconGravity">textStart</item>
     </style>
 
 
