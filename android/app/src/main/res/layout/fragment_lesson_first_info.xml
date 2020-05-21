@@ -13,14 +13,15 @@
             android:id="@+id/info_text_view"
             android:layout_width="@dimen/lessons_info_width"
             android:layout_height="@dimen/lessons_info_height"
+            android:layout_marginTop="@dimen/lessons_info_top_margin"
             android:scrollbars="vertical"
             android:text=""
             android:textSize="@dimen/lessons_info_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="@dimen/lessons_info_horizontal_bias"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="@dimen/lessons_info_vertical_bias"
             tools:text="ИНФОРМАЦИЯ!" />
 
         <com.google.android.material.button.MaterialButton

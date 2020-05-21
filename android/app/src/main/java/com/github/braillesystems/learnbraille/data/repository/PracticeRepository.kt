@@ -16,8 +16,7 @@ data class DeckNotEmpty(
 interface PracticeRepository {
 
     val currentDeckId: Long
-
-    suspend fun getNextMaterial(): Material
+    suspend fun getNextMaterial(): Material?
     suspend fun getCurrDeck(): Deck
     suspend fun getAllDecks(): List<DeckNotEmpty>
 }
@@ -25,6 +24,7 @@ interface PracticeRepository {
 interface MutablePracticeRepository : PracticeRepository {
 
     override var currentDeckId: Long
+    suspend fun getNextMaterialNotNull(): Material
 }
 
 class PracticeRepositoryImpl(
@@ -48,22 +48,32 @@ class PracticeRepositoryImpl(
             }
         }
 
-    override suspend fun getNextMaterial(): Material =
+    override suspend fun getNextMaterial(): Material? =
         if (preferenceRepository.practiceUseOnlyKnownMaterials) {
             cardDao.getRandomKnownMaterialFromDeck(
-                preferenceRepository.currentUserId, currentDeckId
-            ) ?: run {
-                currentDeckId = ALL_CARDS_DECK_ID
-                getNextMaterial()
-            }
+                preferenceRepository.currentUserId,
+                currentDeckId
+            )
         } else {
-            cardDao
-                .getRandomMaterialFromDeck(currentDeckId)
-                ?: error(
-                    "Material is expected to be prepopulated and " +
-                            "user should not have possibilities to access empty deck"
-                )
+            cardDao.getRandomMaterialFromDeck(currentDeckId)
         }
+
+    /**
+     * Deck changes automatically if `use only known materials` enabled
+     * and previous `currentDeck` became not available.
+     */
+    override suspend fun getNextMaterialNotNull(): Material = getNextMaterial() ?: run {
+        if (preferenceRepository.practiceUseOnlyKnownMaterials) {
+            currentDeckId = ALL_CARDS_DECK_ID
+            getNextMaterial()
+                ?: error("Some materials are expected to be added as known by default")
+        } else {
+            error(
+                "Materials are expected to be prepopulated and " +
+                        "user should not have possibilities to access empty deck"
+            )
+        }
+    }
 
     override suspend fun getCurrDeck(): Deck =
         deckDao.getDeck(currentDeckId) ?: error("Current deck should always exist")

@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.Symbol
-import com.github.braillesystems.learnbraille.data.repository.PracticeRepository
+import com.github.braillesystems.learnbraille.data.repository.MutablePracticeRepository
 import com.github.braillesystems.learnbraille.ui.screens.DotsChecker
 import com.github.braillesystems.learnbraille.ui.screens.MutableDotsChecker
 import com.github.braillesystems.learnbraille.utils.scope
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class CardViewModelFactory(
-    private val practiceRepository: PracticeRepository,
+    private val practiceRepository: MutablePracticeRepository,
     private val application: Application,
     private val getEnteredDots: () -> BrailleDots
 ) : ViewModelProvider.Factory {
@@ -28,16 +28,18 @@ class CardViewModelFactory(
 }
 
 class CardViewModel(
-    private val practiceRepository: PracticeRepository,
+    private val practiceRepository: MutablePracticeRepository,
     application: Application,
     private val getEnteredDots: () -> BrailleDots,
     private val dotsChecker: MutableDotsChecker = MutableDotsChecker.create()
 ) : AndroidViewModel(application),
     DotsChecker by dotsChecker {
 
-    private var _symbol = MutableLiveData<String?>()
-    val symbol: LiveData<String?>
-        get() = _symbol
+    private val _symbol = MutableLiveData<String?>()
+    val symbol: LiveData<String?> get() = _symbol
+
+    private val _deckTag = MutableLiveData<String?>()
+    val deckTag: LiveData<String?> get() = _deckTag
 
     var nTries: Int = 0
         private set
@@ -47,12 +49,12 @@ class CardViewModel(
 
     private var expectedDots: BrailleDots? = null
 
-    val job = Job()
+    private val job = Job()
     private val uiScope = scope(job)
 
     init {
         Timber.i("Initialize practice view model")
-        initializeCard()
+        initializeCard(firstTime = true)
 
         dotsChecker.apply {
             getEnteredDots = this@CardViewModel.getEnteredDots
@@ -74,12 +76,20 @@ class CardViewModel(
         job.cancel()
     }
 
-    private fun initializeCard() = uiScope.launch {
-        val material = practiceRepository.getNextMaterial()
+    private fun initializeCard(firstTime: Boolean = false) = uiScope.launch {
+        val material = practiceRepository.getNextMaterialNotNull()
         require(material.data is Symbol)
         material.data.apply {
             _symbol.value = char.toString()
             expectedDots = brailleDots
+        }
+
+        // Should be called after getting material because deck changes automatically
+        // if `use only known materials` enabled and previous `currentDeck`
+        // became not available.
+        if (firstTime) {
+            val deck = practiceRepository.getCurrDeck()
+            _deckTag.value = deck.tag
         }
     }
 }

@@ -7,10 +7,8 @@ import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.dummyMaterialOf
-import com.github.braillesystems.learnbraille.data.repository.PracticeRepository
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.deckTagToName
@@ -22,7 +20,6 @@ import com.github.braillesystems.learnbraille.ui.views.brailleDots
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.ui.views.subscribe
 import com.github.braillesystems.learnbraille.utils.*
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
@@ -121,16 +118,18 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             }
         )
 
-        lifecycleScope.launch {
-            val practiceRepository: PracticeRepository by inject()
-            val tag = practiceRepository.getCurrDeck().tag
-            val template = if (preferenceRepository.practiceUseOnlyKnownMaterials) {
-                getString(R.string.practice_deck_name_enabled_template)
-            } else {
-                getString(R.string.practice_deck_name_disabled_template)
+        viewModel.deckTag.observe(
+            viewLifecycleOwner,
+            Observer { tag ->
+                if (tag == null) return@Observer
+                val template = if (preferenceRepository.practiceUseOnlyKnownMaterials) {
+                    getString(R.string.practice_deck_name_enabled_template)
+                } else {
+                    getString(R.string.practice_deck_name_disabled_template)
+                }
+                toast(template.format(deckTagToName.getValue(tag)))
             }
-            toast(template.format(deckTagToName.getValue(tag)))
-        }
+        )
 
     }.root
 
