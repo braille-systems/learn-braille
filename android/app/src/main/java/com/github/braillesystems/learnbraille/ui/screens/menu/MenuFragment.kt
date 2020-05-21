@@ -75,7 +75,6 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             qrPracticeButton.visibility = View.GONE
         }
 
-
         settingsButton.also {
             buttons += it
         }.setOnClickListener {

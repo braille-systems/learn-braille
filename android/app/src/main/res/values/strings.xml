@@ -303,7 +303,7 @@
         В главном меню кнопка \"Выход из приложения\", в контекстных меню кнопка \"Скрыть\".
     </string>
     <string name="preference_title_additional_qrcode_button">
-        Дополнительная кнопка  \"Сканирование qr-кода\"
+        Опция \"Сканирование qr-кода\"
     </string>
     <string name="preference_summary_additional_qrcode_button">
         Отображать в главном меню кнопку \"Сканирование qr-кода\".
