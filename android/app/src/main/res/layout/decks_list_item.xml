@@ -36,8 +36,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="@dimen/list_icon_marginEnd"
                 android:importantForAccessibility="no"
-                android:scaleX="@dimen/list_icon_scale"
-                android:scaleY="@dimen/list_icon_scale"
+                android:scaleType="fitXY"
                 tools:srcCompat="@drawable/locked" />
 
             <TextView
