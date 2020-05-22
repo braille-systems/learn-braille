@@ -93,33 +93,66 @@ private val uebDigits by symbols(SymbolType.digit) {
 /**
  * Add here rules, how to display hints for symbols.
  */
-val Context.symbolTypeIntroList: List<P2F<Char, String>> by lazyWithContext {
+object SymbolTypeIntro {
+
     // Prevent lambda of capturing context that will be invalid next time fragment entered,
     // so use `Fragment.getString` outside of lambdas.
-    listOfP2F(
-        getString(R.string.input_letter_intro_template).let {
-            ruSymbols.map::containsKey to { c: Char -> it.format(c) }
-        },
 
-        getString(R.string.input_digit_intro_template).let {
-            uebDigits.map::containsKey to { c: Char -> it.format(c) }
-        },
+    val Context.input: List<P2F<Char, String>> by lazyWithContext {
+        listOfP2F(
+            getString(R.string.input_letter_intro_template).let {
+                ruSymbols.map::containsKey to { c: Char -> it.format(c) }
+            },
 
-        {
-            val other = getString(R.string.input_special_intro_template)
-            val numSign = getString(R.string.input_special_intro_num_sign)
-            val dotIntro = getString(R.string.input_special_intro_dot)
-            val commaIntro = getString(R.string.input_special_intro_comma)
-            val hyphenIntro = getString(R.string.input_special_intro_hyphen)
-            specialSymbols.map::containsKey to { c: Char ->
-                when (c) {
-                    ']' -> numSign
-                    '.' -> dotIntro
-                    ',' -> commaIntro
-                    '-' -> hyphenIntro
-                    else -> other.format(c)
+            getString(R.string.input_digit_intro_template).let {
+                uebDigits.map::containsKey to { c: Char -> it.format(c) }
+            },
+
+            {
+                val other = getString(R.string.input_special_intro_template)
+                val numSign = getString(R.string.input_special_intro_num_sign)
+                val dotIntro = getString(R.string.input_special_intro_dot)
+                val commaIntro = getString(R.string.input_special_intro_comma)
+                val hyphenIntro = getString(R.string.input_special_intro_hyphen)
+                specialSymbols.map::containsKey to { c: Char ->
+                    when (c) {
+                        ']' -> numSign
+                        '.' -> dotIntro
+                        ',' -> commaIntro
+                        '-' -> hyphenIntro
+                        else -> other.format(c)
+                    }
                 }
-            }
-        }()
-    )
+            }()
+        )
+    }
+
+    val Context.show: List<P2F<Char, String>> by lazyWithContext {
+        listOfP2F(
+            getString(R.string.show_letter_intro_template).let {
+                ruSymbols.map::containsKey to { c: Char -> it.format(c) }
+            },
+
+            getString(R.string.show_digit_intro_template).let {
+                uebDigits.map::containsKey to { c: Char -> it.format(c) }
+            },
+
+            {
+                val other = getString(R.string.show_special_intro_template)
+                val numSign = getString(R.string.show_special_intro_num_sign)
+                val dotIntro = getString(R.string.show_special_intro_dot)
+                val commaIntro = getString(R.string.show_special_intro_comma)
+                val hyphenIntro = getString(R.string.show_special_intro_hyphen)
+                specialSymbols.map::containsKey to { c: Char ->
+                    when (c) {
+                        ']' -> numSign
+                        '.' -> dotIntro
+                        ',' -> commaIntro
+                        '-' -> hyphenIntro
+                        else -> other.format(c)
+                    }
+                }
+            }()
+        )
+    }
 }

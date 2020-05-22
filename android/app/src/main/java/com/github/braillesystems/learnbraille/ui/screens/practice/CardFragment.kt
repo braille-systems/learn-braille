@@ -136,7 +136,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
     private fun announceIntro(symbol: String) {
         require(symbol.length == 1)
         val material = dummyMaterialOf(symbol.first())
-        val intro = introStringNotNullLogged(material)
+        val intro = introStringNotNullLogged(material, IntroMode.INPUT)
         checkedAnnounce(intro)
     }
 

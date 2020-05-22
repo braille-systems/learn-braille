@@ -54,7 +54,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         val symbol = step.data.material.data
         letter.text = symbol.char.toString()
         brailleDots.dotsState.display(symbol.brailleDots)
-        checkedAnnounce(introStringNotNullLogged(step.data.material))
+        checkedAnnounce(introStringNotNullLogged(step.data.material, IntroMode.INPUT))
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_input_symbol)
         setHasOptionsMenu(true)
@@ -115,7 +115,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         viewModel.observeEventPassHint(
             viewLifecycleOwner, dotsState
         ) {
-            val msg = introStringNotNullLogged(step.data.material)
+            val msg = introStringNotNullLogged(step.data.material, IntroMode.INPUT)
             announce(msg)
         }
 
