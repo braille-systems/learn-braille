@@ -1,12 +1,13 @@
 package com.github.braillesystems.learnbraille.ui.screens.theory.lessons
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.github.braillesystems.learnbraille.COURSE_ID
 import com.github.braillesystems.learnbraille.R
@@ -15,8 +16,8 @@ import com.github.braillesystems.learnbraille.data.repository.TheoryRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsListBinding
 import com.github.braillesystems.learnbraille.databinding.LessonsListItemBinding
 import com.github.braillesystems.learnbraille.ui.screens.theory.toLastLessonStep
+import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.checkedToast
-import com.github.braillesystems.learnbraille.utils.scope
 import com.github.braillesystems.learnbraille.utils.title
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -39,7 +40,7 @@ class LessonsListFragment : Fragment() {
 
         title = getString(R.string.lessons_title_lessons_list)
 
-        scope().launch {
+        lifecycleScope.launch {
             val curr = theoryRepository.getCurrentStep(COURSE_ID)
             val lessons = theoryRepository.getAllCourseLessons(COURSE_ID)
             val activeListener = object : LessonItemListener {
@@ -57,10 +58,22 @@ class LessonsListFragment : Fragment() {
                 lessonName.text = "${item.id}. ${item.name}"
                 if (item.id <= curr.lessonId) {
                     clickListener = activeListener
-                    lessonName.setTextColor(Color.BLACK)
+                    lessonName.setTextColor(
+                        ContextCompat.getColor(
+                            application,
+                            R.color.colorOnBackgroundDark
+                        )
+                    )
+                    lessonState.setImageResource(R.drawable.unlocked)
                 } else {
                     clickListener = disabledListener
-                    lessonName.setTextColor(Color.GRAY)
+                    lessonName.setTextColor(
+                        ContextCompat.getColor(
+                            application,
+                            R.color.colorOnBackgroundLight
+                        )
+                    )
+                    lessonState.setImageResource(R.drawable.locked)
                 }
             }
             lessonsList.adapter = adapter

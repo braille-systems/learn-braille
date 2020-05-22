@@ -78,6 +78,12 @@ internal val testLessons by lessons {
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Show(content.symbols.getValue('Ц'))
         +Input(content.symbols.getValue('Ц'))
+
+        +Info("""Symbols of other types for testing""")
+        +Input(content.symbols.getValue(']'))
+        +Input(content.symbols.getValue('1'))
+        +Input(content.symbols.getValue('2'))
+
         +Info(
             """Поздравляем! Второй урок пройден. В следующем занятии мы узнаем, 
                     как с помощью букв А, Б и Ц составить цифры 1, 2 и 3."""

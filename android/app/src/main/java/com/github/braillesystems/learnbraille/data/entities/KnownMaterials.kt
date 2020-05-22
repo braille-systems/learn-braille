@@ -16,4 +16,7 @@ interface KnownMaterialDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(knowledge: KnownMaterial)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(knowledge: List<KnownMaterial>)
 }

@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.screens.practice.CardFragment">
 
-        <com.github.braillesystems.learnbraille.ui.views.BigLetterView
+        <com.github.braillesystems.learnbraille.ui.views.InputBigLetterView
             android:id="@+id/letter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,8 +49,10 @@
             android:layout_height="@dimen/practice_buttons_height"
             android:contentDescription="@string/practice_hint"
             android:onClick="@{() -> cardViewModel.onHint()}"
+            android:paddingStart="@dimen/practice_buttons_icon_hint_padding"
+            android:paddingEnd="@dimen/practice_buttons_icon_hint_padding"
             android:scaleType="fitCenter"
-            android:text="@string/hint_icon"
+            android:text="@string/practice_hint_icon_symbol"
             android:textColor="@color/colorOnPrimary"
             android:textSize="@dimen/practice_buttons_icon_hint_size"
             app:layout_constraintBottom_toBottomOf="parent"

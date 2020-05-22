@@ -23,11 +23,4 @@
         android:title="@string/menu_title_current_step"
         android:visible="true"
         app:showAsAction="never" />
-
-    <item
-        android:id="@+id/hide"
-        android:enabled="true"
-        android:title="@string/menu_title_hide"
-        android:visible="true"
-        app:showAsAction="never" />
 </menu>

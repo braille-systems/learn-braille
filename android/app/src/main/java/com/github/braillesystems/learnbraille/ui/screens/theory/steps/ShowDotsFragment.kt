@@ -14,7 +14,7 @@ import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
-import com.github.braillesystems.learnbraille.utils.announceByAccessibility
+import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import timber.log.Timber
 
 class ShowDotsFragment : AbstractStepFragment(R.string.lessons_help_show_dots) {
@@ -38,7 +38,7 @@ class ShowDotsFragment : AbstractStepFragment(R.string.lessons_help_show_dots) {
             ?: getString(R.string.lessons_show_dots_info_template)
                 .format(step.data.dots.spelling)
         infoTextView.text = infoText
-        announceByAccessibility(infoText.toString())
+        checkedAnnounce(infoText.toString())
         brailleDots.dotsState.display(step.data.dots)
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_show_dots)

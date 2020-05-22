@@ -1,11 +1,13 @@
 package com.github.braillesystems.learnbraille.data.dsl
 
 import com.github.braillesystems.learnbraille.data.entities.*
+import com.github.braillesystems.learnbraille.res.DeckTags
 import com.github.braillesystems.learnbraille.utils.side
 import kotlin.reflect.KProperty
 
 
 const val DEFAULT_ID = -1L
+const val ALL_CARDS_DECK_ID = 1L
 
 typealias StepAnnotationName = String
 typealias StepWithAnnotations = Pair<Step, List<StepAnnotationName>>
@@ -137,14 +139,16 @@ class DataBuilder(
     fun decks(block: DecksBuilder.() -> Unit) =
         DecksBuilder(block).side {
             it.deckToPredicate.forEach { (deck, p) ->
-                val deckId = decks.size + 1L
-                _decks += deck.copy(id = deckId)
-
-                materials
-                    .filter { material -> p(material.data) }
-                    .forEach { material ->
-                        _cards += Card(deckId, material.id)
+                val deckId =
+                    if (deck.tag == DeckTags.all) ALL_CARDS_DECK_ID
+                    else decks.size + 2L
+                val deckMaterials = materials.filter { material -> p(material.data) }
+                if (deckMaterials.isNotEmpty()) {
+                    _decks += deck.copy(id = deckId)
+                    _cards += deckMaterials.map { material ->
+                        Card(deckId, material.id)
                     }
+                }
             }
         }
 }
@@ -161,8 +165,8 @@ class DecksBuilder(block: DecksBuilder.() -> Unit) {
         block()
     }
 
-    fun deck(name: String, description: String = "", entryCriterion: (MaterialData) -> Boolean) {
-        val deck = Deck(DEFAULT_ID, name, description)
+    fun deck(tag: String, entryCriterion: (MaterialData) -> Boolean) {
+        val deck = Deck(DEFAULT_ID, tag)
         _deckToPredicate[deck] = entryCriterion
     }
 }

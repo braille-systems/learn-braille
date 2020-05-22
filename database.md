@@ -3,6 +3,9 @@
 ![LBDB](https://user-images.githubusercontent.com/25281147/81498004-5a5cb000-92d3-11ea-9c53-7246ef9d0176.png)
 
 
+Update: `Deck` does not have description.
+
+
 By `dbdiagram.io`:
 
 ```
@@ -85,7 +88,6 @@ Table step_annotations {
 Table decks {
   id long [pk]
   name varchar [not null]
-  description varchar [not null, default: '']
 }
 
 Table cards {

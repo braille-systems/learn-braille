@@ -20,9 +20,6 @@ class LearnBrailleApplication : Application() {
 
         val koinModule = module {
             single { LearnBrailleDatabase.buildDatabase(this@LearnBrailleApplication) }
-            factory<PracticeRepository> {
-                PracticeRepositoryImpl(get<LearnBrailleDatabase>().materialDao)
-            }
             factory<PreferenceRepository> {
                 PreferenceRepositoryImpl(
                     this@LearnBrailleApplication,
@@ -35,11 +32,25 @@ class LearnBrailleApplication : Application() {
                     get<LearnBrailleDatabase>().userDao
                 )
             }
+            factory<PracticeRepository> {
+                val db = get<LearnBrailleDatabase>()
+                PracticeRepositoryImpl(
+                    this@LearnBrailleApplication,
+                    db.deckDao, db.cardDao, get()
+                )
+            }
+            factory<MutablePracticeRepository> {
+                val db = get<LearnBrailleDatabase>()
+                PracticeRepositoryImpl(
+                    this@LearnBrailleApplication,
+                    db.deckDao, db.cardDao, get()
+                )
+            }
             factory<TheoryRepository> {
                 get<LearnBrailleDatabase>().run {
                     TheoryRepositoryImpl(
                         lessonDao, stepDao,
-                        currentStepDao, lastCourseStepDao, lastLessonStepDao,
+                        currentStepDao, lastCourseStepDao, lastLessonStepDao, knownMaterialDao,
                         get()
                     )
                 }
@@ -48,7 +59,7 @@ class LearnBrailleApplication : Application() {
                 get<LearnBrailleDatabase>().run {
                     TheoryRepositoryImpl(
                         lessonDao, stepDao,
-                        currentStepDao, lastCourseStepDao, lastLessonStepDao,
+                        currentStepDao, lastCourseStepDao, lastLessonStepDao, knownMaterialDao,
                         get()
                     )
                 }

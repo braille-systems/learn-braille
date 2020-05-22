@@ -8,7 +8,6 @@ import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import timber.log.Timber
@@ -116,7 +115,7 @@ private class SpeechRecognitionListener(fragment: Fragment) : RecognitionListene
                 exitProcess(0)
             }
             if (matches[0] == "нет") {
-                hostFragment.findNavController().navigate(R.id.action_global_menuFragment)
+                hostFragment.navigate(R.id.action_global_menuFragment)
             }
         } catch (e: Exception) {
             Timber.e(e)

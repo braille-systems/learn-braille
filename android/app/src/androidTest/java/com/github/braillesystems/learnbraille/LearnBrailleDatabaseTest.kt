@@ -34,7 +34,7 @@ class LearnBrailleDatabaseTest {
     private val materials = listOf(
         Material(
             1, Symbol(
-                symbol = 'А',
+                char = 'А',
                 brailleDots = BrailleDots(F, E, E, E, E, E),
                 type = SymbolType.ru
             )
@@ -43,7 +43,7 @@ class LearnBrailleDatabaseTest {
     private val decks = listOf(
         Deck(
             id = 1,
-            name = "Ru letters"
+            tag = "Ru letters"
         )
     )
     private val cards = listOf(
@@ -170,7 +170,7 @@ class LearnBrailleDatabaseTest {
 
     @Test
     fun testDecks() = runBlocking {
-        assertEquals("Ru letters", db.deckDao.getDeck(1)!!.name)
+        assertEquals("Ru letters", db.deckDao.getDeck(1)!!.tag)
     }
 
     @Test

@@ -17,23 +17,34 @@
         android:id="@+id/lesson_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_margin="@dimen/list_item_margin">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="@{() -> clickListener.onClick(lesson)}"
-            android:orientation="vertical"
-            android:paddingStart="18dp"
-            android:paddingTop="18dp"
-            android:paddingEnd="18dp"
-            android:paddingBottom="18dp">
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/list_item_padding"
+            android:paddingTop="@dimen/list_item_padding"
+            android:paddingEnd="@dimen/list_item_padding"
+            android:paddingBottom="@dimen/list_item_padding">
+
+            <ImageView
+                android:id="@+id/lesson_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/list_icon_marginEnd"
+                android:importantForAccessibility="no"
+                android:scaleType="fitXY"
+                tools:srcCompat="@drawable/locked" />
 
             <TextView
                 android:id="@+id/lesson_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/list_text_size"
                 tools:text="Lesson name" />
 
         </LinearLayout>

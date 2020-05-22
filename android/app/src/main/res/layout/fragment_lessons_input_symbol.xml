@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.github.braillesystems.learnbraille.ui.views.BigLetterView
+        <com.github.braillesystems.learnbraille.ui.views.InputBigLetterView
             android:id="@+id/letter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,11 +46,13 @@
             android:id="@+id/hint_button"
             android:layout_width="@dimen/practice_buttons_width"
             android:layout_height="@dimen/practice_buttons_small_height"
-            app:backgroundTint="@color/colorSecondary"
             android:contentDescription="@string/lessons_hint"
             android:onClick="@{() -> inputViewModel.onHint()}"
-            android:text="@string/hint_icon"
-            android:textSize="@dimen/practice_buttons_icon_size"
+            android:paddingStart="@dimen/practice_buttons_icon_hint_padding"
+            android:paddingEnd="@dimen/practice_buttons_icon_hint_padding"
+            android:text="@string/practice_hint_icon_symbol"
+            android:textSize="@dimen/practice_buttons_icon_hint_size"
+            app:backgroundTint="@color/colorSecondary"
             app:layout_constraintBottom_toTopOf="@+id/prev_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

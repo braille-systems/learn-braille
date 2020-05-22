@@ -5,4 +5,6 @@
     <color name="colorOnPrimary">#ffffff</color>
     <color name="colorOnSecondary">#ffffff</color>
     <color name="colorBackground">#ffffff</color>
+    <color name="colorOnBackgroundDark">#000000</color>
+    <color name="colorOnBackgroundLight">#504c51</color>
 </resources>

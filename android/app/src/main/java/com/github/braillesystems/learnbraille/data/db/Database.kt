@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.github.braillesystems.learnbraille.data.entities.*
+import com.github.braillesystems.learnbraille.res.knownMaterials
 import com.github.braillesystems.learnbraille.res.prepopulationData
 import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.Job
@@ -24,7 +25,7 @@ import timber.log.Timber
         Course::class, Lesson::class, Step::class, StepAnnotation::class, StepHasAnnotation::class,
         CurrentStep::class, LastCourseStep::class, LastLessonStep::class
     ],
-    version = 14,
+    version = 16,
     exportSchema = false
 )
 @TypeConverters(
@@ -50,18 +51,16 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
     abstract val lastCourseStepDao: LastCourseStepDao
     abstract val lastLessonStepDao: LastLessonStepDao
 
-    private lateinit var forcePrepopulationJob: Job
 
     @Volatile
     private var prepopulationFinished = true
+    private lateinit var forcePrepopulationJob: Job
 
     fun init(): LearnBrailleDatabase = this.also {
         forcePrepopulationJob = scope().launch {
-            // Expect to have at list one user in prepopulation list
             if (userDao.getUser(1) != null) {
                 Timber.i("DB has been already initialized")
             } else {
-                Timber.i("DB is not been initialized yet")
                 prepopulationFinished = false
             }
         }
@@ -77,7 +76,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
             )
         }
 
-    companion object : KoinComponent {
+    companion object {
 
         const val name = "learn_braille_database"
 
@@ -87,7 +86,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
                 LearnBrailleDatabase::class.java,
                 name
             )
-            .addCallback(object : Callback() {
+            .addCallback(object : Callback(), KoinComponent {
 
                 @SuppressLint("SyntheticAccessor")
                 override fun onCreate(db: SupportSQLiteDatabase) {
@@ -103,7 +102,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
                 }
 
                 private fun prepopulate() {
-                    Timber.i("Prepopulate")
+                    Timber.i("Prepopulate DB")
                     get<LearnBrailleDatabase>().apply {
                         prepopulationData.use {
                             scope().launch {
@@ -118,7 +117,8 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
                                 stepDao.insert(steps)
                                 stepAnnotationDao.insert(stepAnnotations)
                                 stepHasAnnotationDao.insert(stepHasAnnotations)
-                                // TODO insert minimum amount of letters to known
+                                // TODO apply for multiple users
+                                knownMaterialDao.insert(knownMaterials.map { it.copy(userId = 1) })
 
                                 Timber.i("Finnish database prepopulation")
                                 prepopulationFinished = true

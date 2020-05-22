@@ -1,8 +1,10 @@
 package com.github.braillesystems.learnbraille.data.dsl
 
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.data.entities.KnownMaterial
 import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.data.entities.Symbol
+import com.github.braillesystems.learnbraille.res.content
 import kotlin.reflect.KProperty
 
 
@@ -30,10 +32,10 @@ class MaterialsBuilder(block: MaterialsBuilder.() -> Unit) {
         _materials = materials.mapIndexed { index, material ->
             material.copy(id = index + 1L).apply {
                 if (data is Symbol) {
-                    require(!_symbols.contains(data.symbol)) {
-                        "Symbol (symbol = ${data.symbol}, type = ${data.type}) already exists"
+                    require(!_symbols.contains(data.char)) {
+                        "Symbol (symbol = ${data.char}, type = ${data.type}) already exists"
                     }
-                    _symbols[data.symbol] = this
+                    _symbols[data.char] = this
                 }
             }
         }.toMutableList()
@@ -69,7 +71,24 @@ class SymbolsBuilder(private val symbolType: String, block: SymbolsBuilder.() ->
 
     operator fun get(symbol: Char): Symbol? = _map[symbol]
 
-    fun symbol(symbol: Char, brailleDots: BrailleDots) {
-        _map[symbol] = Symbol(symbol, brailleDots, symbolType)
+    fun symbol(char: Char, brailleDots: BrailleDots) {
+        @Suppress("NAME_SHADOWING") val char = char.toUpperCase()
+        _map[char] = Symbol(char, brailleDots, symbolType)
+    }
+}
+
+
+class known(vararg chars: Char) {
+
+    private val cs = chars.map(Char::toUpperCase)
+    private var knownMaterials: List<KnownMaterial>? = null
+
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): List<KnownMaterial> {
+        require(property.name == "knownMaterials") {
+            "Property should have name knownMaterials to be used by database"
+        }
+        return knownMaterials ?: cs.map {
+            KnownMaterial(DEFAULT_ID, content.symbols.getValue(it).id)
+        }.also { knownMaterials = it }
     }
 }

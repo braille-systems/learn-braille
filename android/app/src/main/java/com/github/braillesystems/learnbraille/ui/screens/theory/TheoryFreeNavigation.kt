@@ -6,7 +6,6 @@ package com.github.braillesystems.learnbraille.ui.screens.theory
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
-import androidx.navigation.fragment.findNavController
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.data.repository.MutableTheoryRepository
 import com.github.braillesystems.learnbraille.data.repository.TheoryRepository
@@ -37,8 +36,7 @@ fun getAction(step: Step): NavDirections =
 
 fun AbstractStepFragment.getStepArg(): Step = parse(Step.serializer(), getStringArg(stepArgName))
 
-fun Fragment.toStep(step: Step) =
-    findNavController().navigate(getAction(step))
+fun Fragment.toStep(step: Step) = navigate(getAction(step))
 
 fun AbstractStepFragment.toNextStep(
     thisStep: Step,

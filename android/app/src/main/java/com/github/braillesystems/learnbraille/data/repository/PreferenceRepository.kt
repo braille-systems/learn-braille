@@ -1,14 +1,13 @@
 package com.github.braillesystems.learnbraille.data.repository
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.widget.Toast
-import androidx.preference.PreferenceManager
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.User
 import com.github.braillesystems.learnbraille.data.entities.UserDao
 import com.github.braillesystems.learnbraille.utils.BuzzPattern
 import com.github.braillesystems.learnbraille.utils.logged
+import com.github.braillesystems.learnbraille.utils.preferences
 import timber.log.Timber
 
 
@@ -16,12 +15,15 @@ interface PreferenceRepository {
 
     val buzzEnabled: Boolean
     val toastsEnabled: Boolean
-    val brailleTrainerEnabled: Boolean get() = false
+    val brailleTrainerEnabled: Boolean get() = false // Uncomment in android manifest when set true
     val speechRecognitionEnabled: Boolean
     val golubinaBookStepsEnabled: Boolean
-    val practiceUseMaterialsPassedInCourse: Boolean
     val traverseDotsInEnumerationOrder: Boolean
     val inputOnFlyCheck: Boolean
+    val additionalAnnouncementsEnabled: Boolean
+    val practiceUseOnlyKnownMaterials: Boolean
+    val additionalExitButtonsEnabled: Boolean
+    val additionalQrCodeButtonEnabled: Boolean
 
     val currentUserId: Long
     suspend fun getCurrentUser(): User
@@ -33,6 +35,10 @@ interface PreferenceRepository {
 
 interface MutablePreferenceRepository : PreferenceRepository
 
+/**
+ * Keep default values same as in `settings_hierarchy`.
+ * Values here will be used before the user first time visit to the preferences.
+ */
 class PreferenceRepositoryImpl(
     private val context: Context,
     private val userDao: UserDao
@@ -55,7 +61,7 @@ class PreferenceRepositoryImpl(
     override val speechRecognitionEnabled: Boolean by logged {
         context.preferences.getBoolean(
             context.getString(R.string.preference_speech_recognition_enabled),
-            false
+            false // To enable, set to `true` and uncomment permission in AndroidManifest
         )
     }
 
@@ -66,24 +72,44 @@ class PreferenceRepositoryImpl(
         )
     }
 
-    override val practiceUseMaterialsPassedInCourse: Boolean by logged {
-        context.preferences.getBoolean(
-            context.getString(R.string.preference_practice_use_passed_material),
-            // to enable recognition, set to `true` and uncomment permission in AndroidManifest
-            false // TODO
-        )
-    }
-
     override val traverseDotsInEnumerationOrder: Boolean by logged {
         context.preferences.getBoolean(
             context.getString(R.string.preference_traverse_dots_in_enumeration_order),
-            false
+            true
         )
     }
 
     override val inputOnFlyCheck: Boolean by logged {
         context.preferences.getBoolean(
             context.getString(R.string.preference_title_on_fly_check),
+            false
+        )
+    }
+
+    override val additionalAnnouncementsEnabled: Boolean by logged {
+        context.preferences.getBoolean(
+            context.getString(R.string.preference_enable_additional_announcements),
+            true
+        )
+    }
+
+    override val practiceUseOnlyKnownMaterials: Boolean by logged {
+        context.preferences.getBoolean(
+            context.getString(R.string.preference_practice_use_only_known_materials),
+            true
+        )
+    }
+
+    override val additionalExitButtonsEnabled: Boolean by logged {
+        context.preferences.getBoolean(
+            context.getString(R.string.preference_additional_exit_buttons_enabled),
+            true
+        )
+    }
+
+    override val additionalQrCodeButtonEnabled: Boolean by logged {
+        context.preferences.getBoolean(
+            context.getString(R.string.preference_additional_qrcode_button_enabled),
             false
         )
     }
@@ -99,6 +125,3 @@ class PreferenceRepositoryImpl(
             Timber.i("Current user = $it")
         } ?: error("Current user should always exist")
 }
-
-private val Context.preferences: SharedPreferences
-    get() = PreferenceManager.getDefaultSharedPreferences(this)

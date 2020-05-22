@@ -8,37 +8,26 @@ package com.github.braillesystems.learnbraille.utils
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.hardware.usb.UsbManager
 import android.net.Uri
 import android.os.Vibrator
 import android.provider.Settings
+import android.provider.Settings.SettingNotFoundException
 import android.view.accessibility.AccessibilityManager
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
+import com.github.braillesystems.learnbraille.R
 import timber.log.Timber
+
 
 val Context.usbManager get() = getSystemService(Context.USB_SERVICE) as UsbManager
 val Context.accessibilityManager: AccessibilityManager?
     get() =
         if (!isAccessibilityEnabled) null
         else getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
-
-val Fragment.actionBar: ActionBar?
-    get() = (activity as AppCompatActivity).supportActionBar
-
-/**
- * Throws if action bar is not available
- */
-var Fragment.title: String
-    get() = requireNotNull(actionBar).title.toString()
-    set(value) {
-        requireNotNull(actionBar).title = value
-    }
-
-fun Fragment.updateTitle(title: String) {
-    this.title = title
-}
 
 fun Fragment.getStringArg(name: String): String =
     arguments?.getString(name) ?: error("No $name found in args")
@@ -71,8 +60,40 @@ fun Fragment.sendMarketIntent(appPackageName: String) {
 }
 
 val Context.isAccessibilityEnabled: Boolean by logged {
-    Settings.Secure.getInt(
-        contentResolver,
-        Settings.Secure.ACCESSIBILITY_ENABLED
-    ) == 1
+    try {
+        Settings.Secure.getInt(
+            contentResolver,
+            Settings.Secure.ACCESSIBILITY_ENABLED
+        ) == 1
+    } catch (e: SettingNotFoundException) {
+        Timber.e(e)
+        false
+    }
 }
+
+/**
+ * Fixes multiple navigation issue: `IllegalArgumentException x is unknown to this NavController`
+ * https://blog.jakelee.co.uk/resolving-crash-illegalargumentexception-x-is-unknown-to-this-navcontroller/
+ */
+fun Fragment.navigate(id: Int): Unit = try {
+    findNavController().navigate(id)
+} catch (e: IllegalArgumentException) {
+    Timber.e("Multitouch navigation", e)
+}
+
+/**
+ * Fixes multiple navigation issue: `IllegalArgumentException x is unknown to this NavController`
+ * https://blog.jakelee.co.uk/resolving-crash-illegalargumentexception-x-is-unknown-to-this-navcontroller/
+ */
+fun Fragment.navigate(action: NavDirections) = try {
+    findNavController().navigate(action)
+} catch (e: IllegalArgumentException) {
+    Timber.e("Multitouch navigation", e)
+}
+
+val Context.appName: String by lazyWithContext { getString(R.string.app_name) }
+val Fragment.appName: String
+    get() = context?.appName ?: error("Fragment is expected to have a context")
+
+val Context.preferences: SharedPreferences
+    get() = PreferenceManager.getDefaultSharedPreferences(this)
