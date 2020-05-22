@@ -2,7 +2,7 @@
 
     <!--    App common-->
 
-    <string name="app_name">Learn Braille Beta</string>
+    <string name="app_name">Learn Braille</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_help_message">No help message</string>
 

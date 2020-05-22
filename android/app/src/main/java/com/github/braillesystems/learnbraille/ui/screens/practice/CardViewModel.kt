@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.Symbol
-import com.github.braillesystems.learnbraille.data.repository.PracticeRepository
+import com.github.braillesystems.learnbraille.data.repository.MutablePracticeRepository
 import com.github.braillesystems.learnbraille.ui.screens.DotsChecker
 import com.github.braillesystems.learnbraille.ui.screens.MutableDotsChecker
 import com.github.braillesystems.learnbraille.utils.scope
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class CardViewModelFactory(
-    private val practiceRepository: PracticeRepository,
+    private val practiceRepository: MutablePracticeRepository,
     private val application: Application,
     private val getEnteredDots: () -> BrailleDots
 ) : ViewModelProvider.Factory {
@@ -28,7 +28,7 @@ class CardViewModelFactory(
 }
 
 class CardViewModel(
-    private val practiceRepository: PracticeRepository,
+    private val practiceRepository: MutablePracticeRepository,
     application: Application,
     private val getEnteredDots: () -> BrailleDots,
     private val dotsChecker: MutableDotsChecker = MutableDotsChecker.create()
@@ -49,7 +49,7 @@ class CardViewModel(
 
     private var expectedDots: BrailleDots? = null
 
-    val job = Job()
+    private val job = Job()
     private val uiScope = scope(job)
 
     init {
@@ -77,7 +77,7 @@ class CardViewModel(
     }
 
     private fun initializeCard(firstTime: Boolean = false) = uiScope.launch {
-        val material = practiceRepository.getNextMaterial()
+        val material = practiceRepository.getNextMaterialNotNull()
         require(material.data is Symbol)
         material.data.apply {
             _symbol.value = char.toString()

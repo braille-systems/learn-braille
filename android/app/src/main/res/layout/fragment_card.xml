@@ -49,6 +49,8 @@
             android:layout_height="@dimen/practice_buttons_height"
             android:contentDescription="@string/practice_hint"
             android:onClick="@{() -> cardViewModel.onHint()}"
+            android:paddingStart="@dimen/practice_buttons_icon_hint_padding"
+            android:paddingEnd="@dimen/practice_buttons_icon_hint_padding"
             android:scaleType="fitCenter"
             android:text="@string/practice_hint_icon_symbol"
             android:textColor="@color/colorOnPrimary"
