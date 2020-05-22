@@ -4,47 +4,41 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
-import com.github.braillesystems.learnbraille.data.entities.Material
-import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.data.entities.spelling
-import com.github.braillesystems.learnbraille.res.SymbolTypeIntro
+import com.github.braillesystems.learnbraille.res.inputSymbolPrintRules
+import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
 import com.github.braillesystems.learnbraille.utils.checkedToast
-import com.github.braillesystems.learnbraille.utils.peek
 import com.github.braillesystems.learnbraille.utils.toast
 import timber.log.Timber
 
-enum class IntroMode {
+enum class PrintMode {
     INPUT, SHOW
 }
 
 fun Fragment.showCorrectToast(): Unit = toast(getString(R.string.input_correct))
 
-fun Fragment.showIncorrectToast(material: Material? = null): Unit =
-    if (material == null) toast(getString(R.string.input_incorrect))
+fun Fragment.showIncorrectToast(c: Char? = null): Unit =
+    if (c == null) toast(getString(R.string.input_incorrect))
     else toast(
         "${getString(R.string.input_incorrect)} " +
-                introString(material, IntroMode.INPUT).orEmpty()
+                printString(c, PrintMode.INPUT).orEmpty()
     )
 
 fun Fragment.showHintDotsToast(expectedDots: BrailleDots) =
     checkedToast(getString(R.string.input_dots_hint_template).format(expectedDots.spelling))
 
-fun Context.introString(material: Material, mode: IntroMode): String? =
-    when (material.data) {
-        is Symbol -> SymbolTypeIntro.run {
-            when (mode) {
-                IntroMode.INPUT -> input.peek(material.data.char)
-                IntroMode.SHOW -> show.peek(material.data.char)
-            }
-        }
+fun Context.printString(c: Char, mode: PrintMode): String? =
+    when (mode) {
+        PrintMode.INPUT -> inputSymbolPrintRules[c]
+        PrintMode.SHOW -> showSymbolPrintRules[c]
     }
 
-fun Context.introStringNotNullLogged(material: Material, mode: IntroMode): String =
-    introString(material, mode) ?: "".also { Timber.e("Intro should be available") }
+fun Context.printStringNotNullLogged(c: Char, mode: PrintMode): String =
+    printString(c, mode) ?: "".also { Timber.e("Intro should be available") }
 
-fun Fragment.introString(material: Material, mode: IntroMode): String? =
+fun Fragment.printString(c: Char, mode: PrintMode): String? =
     (context ?: null.also { Timber.w("Context is not available") })
-        ?.run { introString(material, mode) }
+        ?.run { printString(c, mode) }
 
-fun Fragment.introStringNotNullLogged(material: Material, mode: IntroMode): String =
-    context?.introStringNotNullLogged(material, mode) ?: error("Context is not available")
+fun Fragment.printStringNotNullLogged(c: Char, mode: PrintMode): String =
+    context?.printStringNotNullLogged(c, mode) ?: error("Context is not available")

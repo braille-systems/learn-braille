@@ -4,9 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
-import com.github.braillesystems.learnbraille.data.entities.dummyMaterialOf
-import com.github.braillesystems.learnbraille.ui.IntroMode
-import com.github.braillesystems.learnbraille.ui.introString
+import com.github.braillesystems.learnbraille.ui.PrintMode
+import com.github.braillesystems.learnbraille.ui.printString
 import timber.log.Timber
 
 open class BigLetterView : TextView {
@@ -21,16 +20,16 @@ open class BigLetterView : TextView {
         context, attrSet, defStyleAttr
     )
 
-    protected fun addContextListener(mode: IntroMode) {
+    protected fun addContextListener(mode: PrintMode) {
         addTextChangedListener(
             afterTextChanged = { text ->
                 if (text == null) return@addTextChangedListener
                 require(text.length == 1)
-                contentDescription = context.introString(
-                    dummyMaterialOf(text.first()), mode
-                ) ?: text.first().toLowerCase().toString().also {
-                    Timber.e("Symbol intro not found: $text")
-                }
+                contentDescription = context
+                    .printString(text.first(), mode)
+                    ?: text.first().toLowerCase().toString().also {
+                        Timber.e("Symbol intro not found: $text")
+                    }
             }
         )
     }
@@ -49,7 +48,7 @@ class InputBigLetterView : BigLetterView {
     )
 
     init {
-        addContextListener(IntroMode.INPUT)
+        addContextListener(PrintMode.INPUT)
     }
 }
 
@@ -66,6 +65,6 @@ class ShowBigLetterView : BigLetterView {
     )
 
     init {
-        addContextListener(IntroMode.SHOW)
+        addContextListener(PrintMode.SHOW)
     }
 }

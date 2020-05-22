@@ -8,8 +8,8 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Show
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowSymbolBinding
-import com.github.braillesystems.learnbraille.ui.IntroMode
-import com.github.braillesystems.learnbraille.ui.introStringNotNullLogged
+import com.github.braillesystems.learnbraille.ui.PrintMode
+import com.github.braillesystems.learnbraille.ui.printStringNotNullLogged
 import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
@@ -38,7 +38,7 @@ class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbo
         require(step.data.material.data is Symbol)
         letter.text = step.data.material.data.char.toString()
         brailleDots.dotsState.display(step.data.material.data.brailleDots)
-        checkedAnnounce(introStringNotNullLogged(step.data.material, IntroMode.SHOW))
+        checkedAnnounce(printStringNotNullLogged(step.data.material.data.char, PrintMode.SHOW))
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_show_symbol)
         setHasOptionsMenu(true)

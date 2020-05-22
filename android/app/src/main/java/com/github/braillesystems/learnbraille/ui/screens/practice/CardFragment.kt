@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.data.entities.dummyMaterialOf
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.deckTagToName
@@ -93,7 +92,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         ) {
             viewModel.symbol.value?.let { symbol ->
                 require(symbol.length == 1)
-                showIncorrectToast(dummyMaterialOf(symbol.first()))
+                showIncorrectToast(symbol.first())
             } ?: checkedToast(getString(R.string.input_loading))
             updateTitle(title)
         }
@@ -107,8 +106,9 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         viewModel.observeEventPassHint(
             viewLifecycleOwner, dotsState
         ) {
-            val symbol = viewModel.symbol.value ?: return@observeEventPassHint
-            announceIntro(symbol)
+            viewModel.symbol.value?.let {
+                announceIntro(it)
+            }
         }
 
         viewModel.symbol.observe(
@@ -136,8 +136,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
 
     private fun announceIntro(symbol: String) {
         require(symbol.length == 1)
-        val material = dummyMaterialOf(symbol.first())
-        val intro = introStringNotNullLogged(material, IntroMode.INPUT)
+        val intro = printStringNotNullLogged(symbol.first(), PrintMode.INPUT)
         checkedAnnounce(intro)
     }
 

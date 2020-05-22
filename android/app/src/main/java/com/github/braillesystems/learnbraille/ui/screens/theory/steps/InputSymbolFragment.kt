@@ -15,7 +15,10 @@ import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputSymbolBinding
 import com.github.braillesystems.learnbraille.ui.*
-import com.github.braillesystems.learnbraille.ui.screens.*
+import com.github.braillesystems.learnbraille.ui.screens.observeCheckedOnFly
+import com.github.braillesystems.learnbraille.ui.screens.observeEventHint
+import com.github.braillesystems.learnbraille.ui.screens.observeEventIncorrect
+import com.github.braillesystems.learnbraille.ui.screens.observeEventPassHint
 import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
@@ -55,7 +58,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         val symbol = step.data.material.data
         letter.text = symbol.char.toString()
         brailleDots.dotsState.display(symbol.brailleDots)
-        checkedAnnounce(introStringNotNullLogged(step.data.material, IntroMode.INPUT))
+        checkedAnnounce(printStringNotNullLogged(symbol.char, PrintMode.INPUT))
 
         updateStepTitle(step.lessonId, step.id, R.string.lessons_title_input_symbol)
         setHasOptionsMenu(true)
@@ -99,7 +102,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
             viewLifecycleOwner, dotsState
         ) {
             val notify = {
-                showIncorrectToast(step.data.material)
+                showIncorrectToast(symbol.char)
                 buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern, preferenceRepository)
             }
             if (userTouchedDots) notify()
@@ -116,7 +119,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         viewModel.observeEventPassHint(
             viewLifecycleOwner, dotsState
         ) {
-            val msg = introStringNotNullLogged(step.data.material, IntroMode.INPUT)
+            val msg = printStringNotNullLogged(symbol.char, PrintMode.INPUT)
             announce(msg)
         }
 
