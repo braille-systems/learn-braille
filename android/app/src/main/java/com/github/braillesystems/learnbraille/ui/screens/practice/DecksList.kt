@@ -2,6 +2,7 @@ package com.github.braillesystems.learnbraille.ui.screens.practice
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.repository.DeckNotEmpty
 import com.github.braillesystems.learnbraille.data.repository.MutablePracticeRepository
+import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.DecksListItemBinding
 import com.github.braillesystems.learnbraille.databinding.FragmentDecksListBinding
 import com.github.braillesystems.learnbraille.res.deckTagToName
@@ -24,6 +26,7 @@ import org.koin.android.ext.android.inject
 class DecksList : Fragment() {
 
     private val practiceRepository: MutablePracticeRepository by inject()
+    private val preferenceRepository: PreferenceRepository by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,6 +75,9 @@ class DecksList : Fragment() {
                         )
                     )
                     deckState.setImageResource(R.drawable.locked)
+                }
+                if (!preferenceRepository.practiceUseOnlyKnownMaterials) {
+                    deckState.visibility = View.GONE
                 }
             }
         }
