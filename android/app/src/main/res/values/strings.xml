@@ -14,10 +14,11 @@
     <string name="preference_current_user">current_user</string>
     <string name="preference_speech_recognition_enabled">speech_recognition_enabled</string>
     <string name="preference_golubina_book_steps_enabled">golubina_book_steps_enabled</string>
-    <string name="preference_practice_use_passed_material">practice_use_passed_material</string>
     <string name="preference_traverse_dots_in_enumeration_order">traverse_dots_in_enumeration_order</string>
     <string name="preference_enable_additional_announcements">enable_additional_announcements</string>
-    <string name="preference_practice_use_only_seen_materials">practice_use_only_seen_materials</string>
+    <string name="preference_practice_use_only_known_materials">practice_use_only_known_materials</string>
+    <string name="preference_additional_exit_buttons_enabled">additional_exit_buttons_enabled</string>
+    <string name="preference_additional_qrcode_button_enabled">additional_qrcode_button_enabled</string>
 
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
@@ -123,10 +124,15 @@
         <br>
         <b>Практика:</b> Повторение символов.
         <br>
+        <b>Настройки:</b> Параметры приложения.
+        <br>
+        В настройках можно включить ещё одну кнопку - <b>\"сканировать QR-код\"</b>.
+        <br>
         <b>Сканировать QR-код:</b> если у Вас есть набор карточек с текстом Брайля и
         QR-кодами на обороте, по нажатию кнопки вы можете отсканировать QR-код и проверить,
         что написано на карточке. Для этого необходимо дополнительное приложение.
         Если его ещё нет, по нажатию кнопки Вы будете перенаправлены на страницу для скачивания приложения.
+        <br>
         <br>
         Находясь в любом разделе приложения, Вы всегда можете вызвать справку по данному разделу,
         нажав экранную кнопку <b>\"справка\"</b> в правом верхнем углу экрана.
@@ -294,6 +300,20 @@
     <string name="preference_summary_additional_announcements">
         Автоматически озвучивать длинные тексты (например, в справке и разделе \"теория\")
         средством экранного чтения, не дожидаясь фокусировки на текстовом поле.
+    </string>
+    <string name="preference_title_additional_exit">
+        Дополнительные кнопки навигации
+    </string>
+    <string name="preference_summary_additional_exit">
+        В главном меню кнопка \"Выход из приложения\", в разделе \"Теория\" -
+        кнопка \"Скрыть это меню\" в списке \"Другие функции\" (удобно при использовании программы
+        экранного доступа).
+    </string>
+    <string name="preference_title_additional_qrcode_button">
+        Опция \"Сканирование QR-кода\"
+    </string>
+    <string name="preference_summary_additional_qrcode_button">
+        Отображать в главном меню кнопку \"Сканирование QR-кода\" для игры с карточками.
     </string>
 
 </resources>
