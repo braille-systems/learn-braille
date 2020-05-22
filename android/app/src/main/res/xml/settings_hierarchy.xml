@@ -3,7 +3,7 @@
 
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
-        android:key="@string/preference_practice_use_only_seen_materials"
+        android:key="@string/preference_practice_use_only_known_materials"
         android:summary="@string/preference_summary_only_seen_materials"
         android:theme="@style/SwitchPreferenceButton"
         android:title="@string/preference_title_only_seen_materials"

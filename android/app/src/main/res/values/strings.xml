@@ -14,10 +14,9 @@
     <string name="preference_current_user">current_user</string>
     <string name="preference_speech_recognition_enabled">speech_recognition_enabled</string>
     <string name="preference_golubina_book_steps_enabled">golubina_book_steps_enabled</string>
-    <string name="preference_practice_use_passed_material">practice_use_passed_material</string>
     <string name="preference_traverse_dots_in_enumeration_order">traverse_dots_in_enumeration_order</string>
     <string name="preference_enable_additional_announcements">enable_additional_announcements</string>
-    <string name="preference_practice_use_only_seen_materials">practice_use_only_seen_materials</string>
+    <string name="preference_practice_use_only_known_materials">practice_use_only_known_materials</string>
     <string name="preference_additional_exit_buttons_enabled">additional_exit_buttons_enabled</string>
     <string name="preference_additional_qrcode_button_enabled">additional_qrcode_button_enabled</string>
 
