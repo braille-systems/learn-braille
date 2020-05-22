@@ -22,6 +22,9 @@
 
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
+    <string name="input_dots_hint_template">Ответ: точки %s</string>
+    <string name="input_loading">Подождите, задание загружается</string>
+
     <string name="input_letter_intro_template">Введите букву: %s</string>
     <string name="input_digit_intro_template">Введите цифру: %s</string>
     <string name="input_special_intro_template">Введите символ: %s</string>
@@ -29,8 +32,14 @@
     <string name="input_special_intro_dot">Введите символ: Литературная точка</string>
     <string name="input_special_intro_hyphen">Введите символ: Дефис</string>
     <string name="input_special_intro_comma">Введите запятую</string>
-    <string name="input_dots_hint_template">Ответ: точки %s</string>
-    <string name="input_loading">Подождите, задание загружается</string>
+
+    <string name="show_letter_intro_template">Буква: %s</string>
+    <string name="show_digit_intro_template">Цифра: %s</string>
+    <string name="show_special_intro_template">Символ: %s</string>
+    <string name="show_special_intro_num_sign">Цифровой знак</string>
+    <string name="show_special_intro_dot">Литературная точка</string>
+    <string name="show_special_intro_hyphen">Дефис</string>
+    <string name="show_special_intro_comma">Запятая</string>
 
     <!--    QR-->
 

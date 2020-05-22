@@ -15,10 +15,16 @@ import com.github.braillesystems.learnbraille.data.entities.InputDots
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputDotsBinding
-import com.github.braillesystems.learnbraille.ui.screens.*
+import com.github.braillesystems.learnbraille.ui.screens.observeCheckedOnFly
+import com.github.braillesystems.learnbraille.ui.screens.observeEventHint
+import com.github.braillesystems.learnbraille.ui.screens.observeEventIncorrect
+import com.github.braillesystems.learnbraille.ui.screens.observeEventPassHint
 import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
+import com.github.braillesystems.learnbraille.ui.showCorrectToast
+import com.github.braillesystems.learnbraille.ui.showHintDotsToast
+import com.github.braillesystems.learnbraille.ui.showIncorrectToast
 import com.github.braillesystems.learnbraille.ui.views.*
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
