@@ -1,4 +1,4 @@
-package com.github.braillesystems.learnbraille.ui.screens
+package com.github.braillesystems.learnbraille.ui
 
 import android.content.Context
 import androidx.fragment.app.Fragment

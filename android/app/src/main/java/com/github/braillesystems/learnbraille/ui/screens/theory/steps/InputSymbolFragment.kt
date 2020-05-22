@@ -14,6 +14,7 @@ import com.github.braillesystems.learnbraille.data.entities.Input
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputSymbolBinding
+import com.github.braillesystems.learnbraille.ui.*
 import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep

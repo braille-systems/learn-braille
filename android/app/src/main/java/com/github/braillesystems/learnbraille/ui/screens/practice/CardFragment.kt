@@ -12,6 +12,7 @@ import com.github.braillesystems.learnbraille.data.entities.dummyMaterialOf
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.deckTagToName
+import com.github.braillesystems.learnbraille.ui.*
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainerSignalHandler
 import com.github.braillesystems.learnbraille.ui.screens.*

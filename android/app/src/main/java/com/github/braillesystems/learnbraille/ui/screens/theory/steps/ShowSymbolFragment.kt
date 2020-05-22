@@ -8,8 +8,8 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Show
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowSymbolBinding
-import com.github.braillesystems.learnbraille.ui.screens.IntroMode
-import com.github.braillesystems.learnbraille.ui.screens.introStringNotNullLogged
+import com.github.braillesystems.learnbraille.ui.IntroMode
+import com.github.braillesystems.learnbraille.ui.introStringNotNullLogged
 import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep

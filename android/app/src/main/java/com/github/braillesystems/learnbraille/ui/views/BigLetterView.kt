@@ -5,8 +5,8 @@ import android.util.AttributeSet
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
 import com.github.braillesystems.learnbraille.data.entities.dummyMaterialOf
-import com.github.braillesystems.learnbraille.ui.screens.IntroMode
-import com.github.braillesystems.learnbraille.ui.screens.introString
+import com.github.braillesystems.learnbraille.ui.IntroMode
+import com.github.braillesystems.learnbraille.ui.introString
 import timber.log.Timber
 
 open class BigLetterView : TextView {
