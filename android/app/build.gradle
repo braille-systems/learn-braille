@@ -98,3 +98,9 @@ dependencies {
     //Settings
     implementation 'androidx.preference:preference:1.1.1'
 }
+
+android {
+    lintOptions {
+        disable 'MissingTranslation'
+    }
+}
