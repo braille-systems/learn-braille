@@ -36,7 +36,6 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
     private lateinit var dotsState: BrailleDotsState
     private var userTouchedDots: Boolean = false
     private var buzzer: Vibrator? = null
-    private val preferenceRepository: PreferenceRepository by inject()
     private lateinit var viewModel: InputViewModel
 
     override fun onCreateView(
@@ -54,14 +53,15 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
 
         val step = getStepArg()
         require(step.data is Input)
+        initialize(step, prevButton, nextButton)
+
         require(step.data.material.data is Symbol)
         val symbol = step.data.material.data
         letter.text = symbol.char.toString()
         brailleDots.dotsState.display(symbol.brailleDots)
         checkedAnnounce(printStringNotNullLogged(symbol.char, PrintMode.INPUT))
 
-        updateStepTitle(step.lessonId, step.id, R.string.lessons_title_input_symbol)
-        setHasOptionsMenu(true)
+        updateTitle(getString(R.string.lessons_title_input_symbol))
 
         expectedDots = symbol.brailleDots
         userTouchedDots = false

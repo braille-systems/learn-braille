@@ -13,7 +13,9 @@
     <dimen name="practice_dots_vertical_bias">0.85</dimen>
     <dimen name="practice_buttons_vertical_bias">0.9</dimen>
 
-    <dimen name="practice_buttons_width">35dp</dimen>
+    <dimen name="side_buttons_width">35dp</dimen>
+    <dimen name="side_buttons_extended_width">50</dimen>
+
     <dimen name="practice_buttons_height">200dp</dimen>
     <dimen name="practice_buttons_small_height">75dp</dimen>
     <dimen name="practice_buttons_icon_size">30dp</dimen>
@@ -28,6 +30,7 @@
     <dimen name="lessons_info_width">270dp</dimen>
     <dimen name="lessons_info_height">0dp</dimen>
     <dimen name="lessons_info_text_size">18sp</dimen>
+    <dimen name="lessons_info_extended_text_size">30sp</dimen>
     <dimen name="lessons_letter_vertical_bias">0.0</dimen>
     <dimen name="lessons_dots_info_width">394dp</dimen>
     <dimen name="lessons_dots_info_height">175dp</dimen>

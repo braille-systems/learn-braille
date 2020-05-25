@@ -59,10 +59,10 @@
 
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
-        android:key="@string/preference_additional_exit_buttons_enabled"
-        android:summary="@string/preference_summary_additional_exit"
+        android:key="@string/preference_extended_accessibility"
+        android:summary="@string/preference_summary_extended_accessibility"
         android:theme="@style/SwitchPreferenceButton"
-        android:title="@string/preference_title_additional_exit"
+        android:title="@string/preference_title_extended_accessibility"
         app:iconSpaceReserved="false" />
 
     <androidx.preference.SwitchPreferenceCompat

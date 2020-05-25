@@ -22,7 +22,7 @@ interface PreferenceRepository {
     val inputOnFlyCheck: Boolean
     val additionalAnnouncementsEnabled: Boolean
     val practiceUseOnlyKnownMaterials: Boolean
-    val additionalExitButtonsEnabled: Boolean
+    val extendedAccessibilityEnabled: Boolean
     val additionalQrCodeButtonEnabled: Boolean
 
     val currentUserId: Long
@@ -100,9 +100,9 @@ class PreferenceRepositoryImpl(
         )
     }
 
-    override val additionalExitButtonsEnabled: Boolean by logged {
+    override val extendedAccessibilityEnabled: Boolean by logged {
         context.preferences.getBoolean(
-            context.getString(R.string.preference_additional_exit_buttons_enabled),
+            context.getString(R.string.preference_extended_accessibility),
             true
         )
     }

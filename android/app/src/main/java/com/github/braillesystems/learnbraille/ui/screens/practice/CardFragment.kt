@@ -57,6 +57,10 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         updateTitle(title)
         setHasOptionsMenu(true)
 
+        if (preferenceRepository.extendedAccessibilityEnabled) {
+            hintButton.width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
+            nextButton.width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
+        }
 
         dotsState = brailleDots.dotsState.apply {
             subscribe(View.OnClickListener {

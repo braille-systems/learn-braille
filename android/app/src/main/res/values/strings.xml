@@ -17,7 +17,7 @@
     <string name="preference_traverse_dots_in_enumeration_order">traverse_dots_in_enumeration_order</string>
     <string name="preference_enable_additional_announcements">enable_additional_announcements</string>
     <string name="preference_practice_use_only_known_materials">practice_use_only_known_materials</string>
-    <string name="preference_additional_exit_buttons_enabled">additional_exit_buttons_enabled</string>
+    <string name="preference_extended_accessibility">extended_accessibility</string>
     <string name="preference_additional_qrcode_button_enabled">additional_qrcode_button_enabled</string>
 
     <string name="input_correct">Правильно!</string>
@@ -313,13 +313,12 @@
         Автоматически озвучивать длинные тексты (например, в справке и разделе \"теория\")
         средством экранного чтения, не дожидаясь фокусировки на текстовом поле.
     </string>
-    <string name="preference_title_additional_exit">
-        Добавочные кнопки навигации
+    <string name="preference_title_extended_accessibility">
+        Режим повышенной доступности
     </string>
-    <string name="preference_summary_additional_exit">
-        В главном меню кнопка \"Выход из приложения\", в разделе \"Теория\" -
-        кнопка \"Скрыть это меню\" в списке \"Другие функции\" (удобно при использовании программы
-        экранного доступа).
+    <string name="preference_summary_extended_accessibility">
+        Больше размер шрифта в степах. Дополнительные кнопки выхода (удобно при использовании программы
+        экранного доступа). Шире боковые кнопки в практике и теории.
     </string>
     <string name="preference_title_additional_qrcode_button">
         Опция \"Сканирование QR-кода\"
