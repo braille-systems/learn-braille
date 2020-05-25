@@ -12,7 +12,7 @@ import com.github.braillesystems.learnbraille.utils.rules
 
 
 /**
- * Do not forget to register new types of symbols in `symbolTypeDisplayList` below.
+ * Do not forget to register print rules below for the new types of symbols.
  *
  * Always use this variable to get materials.
  */
