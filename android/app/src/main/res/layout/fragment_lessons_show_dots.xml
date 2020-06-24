@@ -8,20 +8,6 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/title_text_view"
-            android:layout_width="@dimen/lessons_title_width"
-            android:layout_height="@dimen/lessons_title_height"
-            android:text=""
-            android:textAlignment="center"
-            android:textSize="@dimen/lessons_title_text_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="@dimen/lessons_title_vertical_bias"
-            tools:text="ЗАГОЛОВОК!" />
-
-        <TextView
             android:id="@+id/info_text_view"
             android:layout_width="@dimen/lessons_dots_info_width"
             android:layout_height="@dimen/lessons_dots_info_height"
@@ -31,8 +17,7 @@
             app:layout_constraintBottom_toTopOf="@+id/braille_dots"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_text_view"
-            app:layout_constraintVertical_bias="0.16000003"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="ИНФОРМАЦИЯ!" />
 
         <com.github.braillesystems.learnbraille.ui.views.BrailleDotsView
@@ -48,20 +33,6 @@
             app:layout_constraintVertical_bias="@dimen/practice_dots_vertical_bias" />
 
         <!--        Buttons-->
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/to_curr_step_button"
-            style="@style/sideIconButtons"
-            android:layout_width="@dimen/practice_buttons_width"
-            android:layout_height="@dimen/practice_buttons_small_height"
-            android:backgroundTint="@color/colorSecondary"
-            android:contentDescription="@string/lessons_progress"
-            app:icon="@drawable/to_progress"
-            app:layout_constraintBottom_toTopOf="@+id/next_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/prev_button"

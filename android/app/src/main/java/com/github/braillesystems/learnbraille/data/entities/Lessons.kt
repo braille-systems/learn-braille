@@ -2,21 +2,28 @@ package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
 
-@Entity(tableName = "lesson")
+
+@Entity(tableName = "lessons", primaryKeys = ["id", "course_id"])
 data class Lesson(
-
-    @PrimaryKey(autoGenerate = false)
     val id: Long,
-
-    val name: String
+    @ColumnInfo(name = "course_id")
+    val courseId: Long,
+    val name: String,
+    val description: String
 )
 
 @Dao
 interface LessonDao {
 
     @Insert
-    suspend fun insertLessons(lessons: List<Lesson>)
+    suspend fun insert(lessons: List<Lesson>)
 
-    @Query("DELETE FROM lesson")
-    suspend fun deleteAll()
+    @Query(
+        """
+        select * from lessons
+        where course_id = :courseId
+        order by id
+        """
+    )
+    suspend fun getAllCourseLessons(courseId: Long): List<Lesson>
 }

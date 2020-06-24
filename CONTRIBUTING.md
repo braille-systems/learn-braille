@@ -17,3 +17,10 @@ For building and running the app, your either need to download a virtual Android
 - Also look around each time you do something new to see, how such thing was formatted and impelemented before.
 - Set up Android Studio proper kotlin code style `editor -> code style -> kotlin -> set from -> predefined -> Kotlin style guide`.
 - Apply autoformatting to edited files each time before commit.
+
+## Adding content
+
+There are handy DSL that allows write content in the typesafe way.
+
+- All app content should be placed into `com.github.braillesystems.learnbraille.res` package.
+- Use `DslTest.kt` file as DSL tutorial.

@@ -7,34 +7,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/title_text_view"
-            android:layout_width="@dimen/lessons_title_width"
-            android:layout_height="@dimen/lessons_title_height"
-            android:text=""
-            android:textAlignment="center"
-            android:textSize="@dimen/lessons_title_text_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="@dimen/lessons_title_vertical_bias"
-            tools:text="ЗАГОЛОВОК!" />
-
         <!--        Buttons-->
 
         <TextView
             android:id="@+id/info_text_view"
             android:layout_width="@dimen/lessons_info_width"
             android:layout_height="@dimen/lessons_info_height"
+            android:layout_marginTop="@dimen/lessons_info_top_margin"
             android:scrollbars="vertical"
             android:text=""
             android:textSize="@dimen/lessons_info_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="@dimen/lessons_info_horizontal_bias"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_text_view"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="@dimen/lessons_info_vertical_bias"
             tools:text="ИНФОРМАЦИЯ!" />
 
@@ -49,20 +35,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="@dimen/practice_buttons_vertical_bias"
-            app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/to_curr_step_button"
-            style="@style/sideIconButtons"
-            android:layout_width="@dimen/practice_buttons_width"
-            android:layout_height="@dimen/practice_buttons_small_height"
-            android:backgroundTint="@color/colorSecondary"
-            android:contentDescription="@string/lessons_progress"
-            app:icon="@drawable/to_progress"
-            app:layout_constraintBottom_toTopOf="@+id/next_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
             app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.parseAsHtml
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.databinding.FragmentHelpBinding
-import com.github.braillesystems.learnbraille.utils.formatHTML
+import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import com.github.braillesystems.learnbraille.utils.getStringArg
-import com.github.braillesystems.learnbraille.utils.updateTitle
+import com.github.braillesystems.learnbraille.utils.removeHtmlMarkup
+import com.github.braillesystems.learnbraille.utils.title
 
 class HelpFragment : Fragment() {
 
@@ -26,9 +28,12 @@ class HelpFragment : Fragment() {
         false
     ).apply {
 
-        updateTitle(getString(R.string.help_title))
+        title = getString(R.string.help_title)
+
+        val content = getStringArg(helpMessageArgName)
+        helpMessage.text = content.parseAsHtml()
         helpMessage.movementMethod = ScrollingMovementMethod()
-        helpMessage.text = formatHTML(getStringArg(helpMessageArgName))
+        checkedAnnounce(content.removeHtmlMarkup())
 
     }.root
 }

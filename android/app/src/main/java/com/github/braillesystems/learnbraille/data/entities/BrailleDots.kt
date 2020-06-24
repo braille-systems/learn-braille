@@ -2,6 +2,8 @@ package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.TypeConverter
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
+import kotlinx.serialization.Serializable
+
 
 /**
  * State of one Braille dot.
@@ -16,9 +18,11 @@ enum class BrailleDot {
     }
 }
 
+
 /**
  * Combination on Braille dots for one symbol in 6-dots notation.
  */
+@Serializable
 data class BrailleDots(
     val b1: BrailleDot = E, val b2: BrailleDot = E, val b3: BrailleDot = E,
     val b4: BrailleDot = E, val b5: BrailleDot = E, val b6: BrailleDot = E
@@ -61,6 +65,7 @@ val BrailleDots.spelling: String
         }
         .filterNotNull()
         .joinToString(separator = ", ")
+
 
 class BrailleDotsConverters {
 

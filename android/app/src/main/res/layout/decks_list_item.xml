@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.github.braillesystems.learnbraille.data.repository.DeckNotEmpty" />
+
+        <variable
+            name="clickListener"
+            type="com.github.braillesystems.learnbraille.ui.screens.practice.DecksItemListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/lesson_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/list_item_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> clickListener.onClick(item)}"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/list_item_padding"
+            android:paddingTop="@dimen/list_item_padding"
+            android:paddingEnd="@dimen/list_item_padding"
+            android:paddingBottom="@dimen/list_item_padding">
+
+            <ImageView
+                android:id="@+id/deck_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/list_icon_marginEnd"
+                android:importantForAccessibility="no"
+                android:scaleType="fitXY"
+                tools:srcCompat="@drawable/locked" />
+
+            <TextView
+                android:id="@+id/deck_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/list_text_size"
+                tools:text="Deck name" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

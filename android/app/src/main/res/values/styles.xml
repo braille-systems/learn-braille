@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
 
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorSecondary">@color/colorSecondary</item>
@@ -31,16 +31,16 @@
         <item name="cornerSizeTopLeft">@dimen/practice_buttons_border_radius</item>
     </style>
 
-    <style name="sideIconButtons" parent="@style/Widget.MaterialComponents.Button.Icon">
+    <style name="sideIconButtons">
         <item name="iconPadding">0dp</item>
         <item name="iconSize">@dimen/practice_buttons_icon_size</item>
+        <item name="iconGravity">textStart</item>
     </style>
 
 
     <style name="brailleDots">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:forceDarkAllowed">false</item>
     </style>
 
     <style name="SwitchPreferenceButton" parent="Theme.AppCompat.Light">

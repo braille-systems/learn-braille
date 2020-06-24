@@ -1,5 +1,12 @@
 package com.github.braillesystems.learnbraille.utils
 
+import kotlin.reflect.KProperty
+
+/**
+ * The file contains suitable extension functions for kotlin
+ * that are not specific for particular project.
+ */
+
 inline fun <T, R> T?.side(block: (T) -> R) {
     if (this != null) block(this)
 }
@@ -13,3 +20,41 @@ operator fun MatchGroupCollection.component5() = get(4)
 val Any?.devnull: Unit get() {}
 
 fun String.removeHtmlMarkup() = Regex("""<[^>]*>""").replace(this, "")
+
+inline fun executeIf(cond: Boolean, block: () -> Unit) {
+    if (cond) block()
+}
+
+inline fun <T> T?.executeIf(cond: Boolean, block: T.() -> Unit) {
+    if (this != null && cond) block()
+}
+
+
+typealias P2F <T, R> = Pair<(T) -> Boolean, (T) -> R>
+
+fun <T, R> listOfP2F(vararg p2f: P2F<T, R>): List<P2F<T, R>> = p2f.toList()
+
+fun <T, R> Iterable<P2F<T, R>>.peek(key: T): R? {
+    forEach { (p, f) -> if (p(key)) return f(key) }
+    return null
+}
+
+
+typealias Rule <T, R> = P2F<T, R>
+
+class rules<C, T, R>(private vararg val ruleProviders: C.() -> Rule<T, R>) {
+    var value: Rules<T, R>? = null
+    operator fun getValue(thisRef: C, property: KProperty<*>): Rules<T, R> =
+        value ?: Rules(ruleProviders.map { thisRef.it() }).also { value = it }
+}
+
+class Rules<T, R>(private val rules: Iterable<Rule<T, R>>) {
+    operator fun get(x: T): R? = rules.peek(x)
+}
+
+
+class lazyWithContext<C, R>(private val getter: C.(String) -> R) {
+    var value: R? = null
+    operator fun getValue(thisRef: C, property: KProperty<*>): R =
+        value ?: thisRef.getter(property.name).also { value = it }
+}
