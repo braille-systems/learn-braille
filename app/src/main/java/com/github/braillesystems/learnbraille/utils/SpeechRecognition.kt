@@ -29,7 +29,7 @@ class SpeechRecognition(
     private var mSpeechRecognizerIntent: Intent? = null
 
     init {
-        executeIf(preferenceRepository.speechRecognitionEnabled) {
+        runIf(preferenceRepository.speechRecognitionEnabled) {
             try {
                 initialize()
             } catch (e: Throwable) {
@@ -83,7 +83,7 @@ class SpeechRecognition(
         mSpeechRecognizer?.setRecognitionListener(SpeechRecognitionListener(fragment))
     }
 
-    fun onDestroy() = executeIf(preferenceRepository.speechRecognitionEnabled) {
+    fun onDestroy() = runIf(preferenceRepository.speechRecognitionEnabled) {
         try {
             mSpeechRecognizer?.destroy()
         } catch (e: Throwable) {

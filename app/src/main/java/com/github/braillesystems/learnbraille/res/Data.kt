@@ -48,11 +48,9 @@ val prepopulationData by data(
             description = """
                 Курс, основанный на методике В. В. Голубиной: символы изучаютсяв том порядке, 
                 как их придумал Луи Брайль для французского языка. 
-                Одновременно изучаются и цифры."""
-        ) {
-            +golubinaIntroLessons
-            +someMoreGolubinaLessons
-        }
+                Одновременно изучаются и цифры.""",
+            lessons = golubinaIntroLessons
+        )
     }
 
     decks {

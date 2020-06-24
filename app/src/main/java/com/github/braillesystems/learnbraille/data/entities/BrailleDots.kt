@@ -59,11 +59,10 @@ val BrailleDots.list: List<BrailleDot>
 
 val BrailleDots.spelling: String
     get() = list
-        .mapIndexed { index, brailleDot ->
+        .mapIndexedNotNull { index, brailleDot ->
             if (brailleDot == E) null
             else (index + 1).toString()
         }
-        .filterNotNull()
         .joinToString(separator = ", ")
 
 

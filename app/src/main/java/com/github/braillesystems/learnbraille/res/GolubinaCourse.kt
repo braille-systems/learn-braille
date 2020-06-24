@@ -241,15 +241,6 @@ internal val golubinaIntroLessons by lessons {
                     букву Х и цифру 8."""
         )
     }
-}
-
-/*
-* In lessons with words input I tried to bear a scheme '6+-2 words'
-* but there are several exceptions, e. g. where words are especially long/short
-* or when new symbols are difficult
-* */
-
-internal val someMoreGolubinaLessons by lessons {
 
     lesson(
         name = "Буква Х и цифра 8"

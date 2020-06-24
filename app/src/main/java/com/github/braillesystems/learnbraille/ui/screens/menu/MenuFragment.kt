@@ -127,10 +127,10 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
     }
 
     private fun requestPermissions() {
-        executeIf(preferenceRepository.speechRecognitionEnabled) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return@executeIf
+        runIf(preferenceRepository.speechRecognitionEnabled) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return@runIf
             val permission = requireContext().checkSelfPermission(Manifest.permission.RECORD_AUDIO)
-            if (permission == PackageManager.PERMISSION_GRANTED) return@executeIf
+            if (permission == PackageManager.PERMISSION_GRANTED) return@runIf
             requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), recordAudioPermissionCode)
         }
     }

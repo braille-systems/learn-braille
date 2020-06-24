@@ -1,10 +1,5 @@
 package com.github.braillesystems.learnbraille.utils
 
-/**
- * The file contains suitable extension functions for Android Framework
- * that are not specific for particular project.
- */
-
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -22,6 +17,10 @@ import androidx.preference.PreferenceManager
 import com.github.braillesystems.learnbraille.R
 import timber.log.Timber
 
+/**
+ * The file contains suitable extension functions for Android Framework
+ * that are not specific for particular project.
+ */
 
 val Context.usbManager get() = getSystemService(Context.USB_SERVICE) as UsbManager
 val Context.accessibilityManager: AccessibilityManager?
@@ -78,7 +77,7 @@ val Context.isAccessibilityEnabled: Boolean by logged {
 fun Fragment.navigate(id: Int): Unit = try {
     findNavController().navigate(id)
 } catch (e: IllegalArgumentException) {
-    Timber.e("Multitouch navigation", e)
+    Timber.e(e, "Multitouch navigation")
 }
 
 /**
@@ -88,10 +87,10 @@ fun Fragment.navigate(id: Int): Unit = try {
 fun Fragment.navigate(action: NavDirections) = try {
     findNavController().navigate(action)
 } catch (e: IllegalArgumentException) {
-    Timber.e("Multitouch navigation", e)
+    Timber.e(e, "Multitouch navigation")
 }
 
-val Context.appName: String by lazyWithContext { getString(R.string.app_name) }
+val Context.appName: String get() = getString(R.string.app_name)
 val Fragment.appName: String
     get() = context?.appName ?: error("Fragment is expected to have a context")
 

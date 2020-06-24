@@ -34,7 +34,6 @@ class data(
 }
 
 class DataWrapper(private val data: DataBuilder) {
-
     fun use(block: DataBuilder.() -> Unit) = data.block()
 }
 

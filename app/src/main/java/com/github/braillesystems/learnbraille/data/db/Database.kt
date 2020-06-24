@@ -67,6 +67,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
     }
 
     val isInitialized: Boolean
+        @SuppressLint("BinaryOperationInTimber")
         get() = (forcePrepopulationJob.isCompleted && prepopulationFinished).also {
             if (it) Timber.i("DB has been prepopulated")
             else Timber.i(

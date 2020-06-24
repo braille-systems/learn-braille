@@ -5,7 +5,6 @@ import com.github.braillesystems.learnbraille.utils.side
 import kotlin.reflect.KProperty
 
 class lessons(private val block: LessonsBuilder.() -> Unit) {
-
     operator fun getValue(thisRef: Any?, property: KProperty<*>) = LessonsBuilder(block)
 }
 

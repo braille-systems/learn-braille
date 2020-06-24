@@ -21,26 +21,24 @@ val Any?.devnull: Unit get() {}
 
 fun String.removeHtmlMarkup() = Regex("""<[^>]*>""").replace(this, "")
 
-inline fun executeIf(cond: Boolean, block: () -> Unit) {
+inline fun runIf(cond: Boolean, block: () -> Unit) {
     if (cond) block()
 }
 
-inline fun <T> T?.executeIf(cond: Boolean, block: T.() -> Unit) {
+inline fun <T> T?.runIf(cond: Boolean, block: T.() -> Unit) {
     if (this != null && cond) block()
 }
 
 
-typealias P2F <T, R> = Pair<(T) -> Boolean, (T) -> R>
+typealias Rule <T, R> = Pair<(T) -> Boolean, (T) -> R>
 
-fun <T, R> listOfP2F(vararg p2f: P2F<T, R>): List<P2F<T, R>> = p2f.toList()
-
-fun <T, R> Iterable<P2F<T, R>>.peek(key: T): R? {
-    forEach { (p, f) -> if (p(key)) return f(key) }
+fun <T, R> Iterable<Rule<T, R>>.matchF(key: T): ((T) -> R)? {
+    forEach { (p, f) -> if (p(key)) return f }
     return null
 }
 
+fun <T, R> Iterable<Rule<T, R>>.match(key: T): R? = matchF(key)?.invoke(key)
 
-typealias Rule <T, R> = P2F<T, R>
 
 class rules<C, T, R>(private vararg val ruleProviders: C.() -> Rule<T, R>) {
     var value: Rules<T, R>? = null
@@ -49,7 +47,7 @@ class rules<C, T, R>(private vararg val ruleProviders: C.() -> Rule<T, R>) {
 }
 
 class Rules<T, R>(private val rules: Iterable<Rule<T, R>>) {
-    operator fun get(x: T): R? = rules.peek(x)
+    operator fun get(x: T): R? = rules.match(x)
 }
 
 

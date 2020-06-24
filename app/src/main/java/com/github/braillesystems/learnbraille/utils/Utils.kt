@@ -1,9 +1,5 @@
 package com.github.braillesystems.learnbraille.utils
 
-/**
- * This file contains suitable extension functions for this project.
- */
-
 import android.content.Context
 import android.os.Vibrator
 import android.view.accessibility.AccessibilityEvent
@@ -23,6 +19,9 @@ import org.koin.android.ext.android.get
 import timber.log.Timber
 import kotlin.reflect.KProperty
 
+/**
+ * This file contains suitable extension functions for this project.
+ */
 
 val Fragment.application: LearnBrailleApplication
     get() = requireNotNull(activity).application as LearnBrailleApplication
@@ -31,10 +30,10 @@ fun scope(job: Job = Job()) = CoroutineScope(Dispatchers.Main + job)
 
 
 fun Vibrator?.checkedBuzz(pattern: BuzzPattern, preferenceRepository: PreferenceRepository) =
-    executeIf(preferenceRepository.buzzEnabled) { buzz(pattern) }
+    runIf(preferenceRepository.buzzEnabled) { buzz(pattern) }
 
 fun checkedToast(msg: String, context: Context?, preferenceRepository: PreferenceRepository) =
-    executeIf(preferenceRepository.toastsEnabled) {
+    runIf(preferenceRepository.toastsEnabled) {
         Toast.makeText(context, msg, preferenceRepository.toastDuration).show()
     }
 
@@ -61,7 +60,7 @@ fun Fragment.announce(announcement: String) =
 fun Fragment.checkedAnnounce(
     announcement: String,
     preferenceRepository: PreferenceRepository = get()
-) = executeIf(preferenceRepository.additionalAnnouncementsEnabled) {
+) = runIf(preferenceRepository.additionalAnnouncementsEnabled) {
     announce(announcement)
 }
 
