@@ -21,7 +21,7 @@ The app is [available](https://play.google.com/store/apps/details?id=com.github.
 ### System Requirements and limitations
 
 To successfully run this application, your smartphone or tablet PC must satisfy the following conditions:
-- Android 4.4 KitKat or higher (`5.1` is required for `google talkback` optimisations.
+- Android 4.4 KitKat or higher (`5.1` is required for `google talkback` optimisations).
 - Screen of size not less then 4 inches.
 
 For accessibility, you will require TalkBack service.
