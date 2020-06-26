@@ -1,7 +1,6 @@
-package com.github.braillesystems.learnbraille
+package com.github.braillesystems.learnbraille.data.dsl
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.github.braillesystems.learnbraille.data.dsl.*
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
@@ -109,7 +108,10 @@ private val worstLessons by lessons {
             dots = BrailleDots(F, F, F, F, F, F)
         )
         +Show(content.symbols.getValue('Z'))
-        for (material in getMaterials('Б', 'Z')) {
+        for (material in getMaterials(
+            'Б',
+            'Z'
+        )) {
             +Input(material)
         }
         +LastInfo("LastInfo")
