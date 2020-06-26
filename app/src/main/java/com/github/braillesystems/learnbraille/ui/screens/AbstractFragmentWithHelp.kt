@@ -24,9 +24,9 @@ abstract class AbstractFragmentWithHelp(private val helpMsgId: HelpMsgId) : Frag
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
-        super.onOptionsItemSelected(item).also {
-            if (item.itemId == R.id.help) navigateToHelp()
-        }
+        super
+            .onOptionsItemSelected(item)
+            .also { if (item.itemId == R.id.help) navigateToHelp() }
 
     protected fun navigateToHelp() {
         navigateToHelp(helpMsg)
