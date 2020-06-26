@@ -125,8 +125,8 @@ private class DotsCheckerImpl : MutableDotsChecker {
     private val isCorrect: Boolean
         get() = (enteredDots == expectedDots).also {
             Timber.i(
-                if (it) "Correct: " else "Incorrect: " +
-                        "entered = ${enteredDots}, expected = $expectedDots"
+                if (it) "Correct: "
+                else "Incorrect: entered = $enteredDots, expected = $expectedDots"
             )
         }
 
