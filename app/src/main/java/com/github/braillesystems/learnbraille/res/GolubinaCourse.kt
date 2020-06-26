@@ -8,9 +8,8 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 
 internal val golubinaIntroLessons by lessons {
 
-    val name1 = "Знакомство с шеститочием"
     lesson(
-        name = name1
+        name = "Знакомство с шеститочием"
     ) {
         +FirstInfo(
             """Перед Вами пошаговый курс для обучения с нуля системе Луи Брайля.
