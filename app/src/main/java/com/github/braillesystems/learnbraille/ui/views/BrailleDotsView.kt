@@ -106,6 +106,6 @@ fun BrailleDotsState.subscribe(listener: View.OnClickListener) =
     checkBoxes.forEach { it.setOnClickListener(listener) }
 
 fun BrailleDotsState.display(brailleDots: BrailleDots): Unit =
-    (checkBoxes zip brailleDots.list).forEach { (checkBox, dot) ->
-        checkBox.isChecked = dot == BrailleDot.F
-    }.also { clickable(false) }
+    (checkBoxes zip brailleDots.list)
+        .forEach { (checkBox, dot) -> checkBox.isChecked = dot == BrailleDot.F }
+        .also { clickable(false) }

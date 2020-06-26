@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean = try {
         navController.navigateUp()
     } catch (e: IllegalArgumentException) {
-        Timber.e("Multitouch navigation", e)
+        Timber.e(e, "Multitouch navigation")
         false
     }
 }
