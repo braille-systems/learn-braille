@@ -83,12 +83,8 @@ class known(vararg chars: Char) {
     private val cs = chars.map(Char::toUpperCase)
     private var knownMaterials: List<KnownMaterial>? = null
 
-    operator fun getValue(thisRef: Any?, property: KProperty<*>): List<KnownMaterial> {
-        require(property.name == "knownMaterials") {
-            "Property should have name knownMaterials to be used by database"
-        }
-        return knownMaterials ?: cs.map {
+    operator fun getValue(thisRef: Any?, property: KProperty<*>): List<KnownMaterial> =
+        knownMaterials ?: cs.map {
             KnownMaterial(DEFAULT_ID, content.symbols.getValue(it).id)
         }.also { knownMaterials = it }
-    }
 }

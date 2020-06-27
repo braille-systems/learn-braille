@@ -25,7 +25,8 @@ val prepopulationData by data(
     materials = content,
     stepAnnotations = listOf(
         StepAnnotation.golubinaBookRequired
-    )
+    ),
+    knownMaterials = knownMaterials
 ) {
 
     users {
