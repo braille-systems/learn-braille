@@ -7,14 +7,12 @@ import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.launch
 
 interface TheoryRepository {
-
     suspend fun getCurrentStep(courseId: Long): Step
     suspend fun getLastCourseStep(courseId: Long): Step
     suspend fun getAllCourseLessons(courseId: Long): List<Lesson>
 }
 
 interface MutableTheoryRepository : TheoryRepository {
-
     suspend fun getNextStepAndUpdate(thisStep: Step, markThisAsPassed: Boolean = false): Step?
     suspend fun getPrevStepAndUpdate(thisStep: Step): Step?
     suspend fun getCurrentStepAndUpdate(courseId: Long): Step
