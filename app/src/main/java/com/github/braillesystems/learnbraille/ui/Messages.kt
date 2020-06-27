@@ -41,4 +41,6 @@ fun Fragment.printString(c: Char, mode: PrintMode): String? =
         ?.run { printString(c, mode) }
 
 fun Fragment.printStringNotNullLogged(c: Char, mode: PrintMode): String =
-    context?.printStringNotNullLogged(c, mode) ?: error("Context is not available")
+    context
+        ?.printStringNotNullLogged(c, mode)
+        ?: error("Context is not available")

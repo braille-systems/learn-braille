@@ -6,6 +6,20 @@ import com.github.braillesystems.learnbraille.utils.side
 import kotlin.reflect.KProperty
 
 
+interface Data {
+    val users: List<User>?
+    val materials: List<Material>?
+    val decks: List<Deck>?
+    val cards: List<Card>?
+    val courses: List<Course>?
+    val lessons: List<Lesson>?
+    val steps: List<Step>?
+    val stepAnnotations: List<StepAnnotation>?
+    val stepsHasAnnotations: List<StepHasAnnotation>?
+    val knownMaterials: List<KnownMaterial>?
+}
+
+
 const val DEFAULT_ID = -1L
 const val ALL_CARDS_DECK_ID = 1L
 
@@ -21,20 +35,11 @@ annotation class DataBuilderMarker
 class data(
     private val materials: MaterialsBuilder,
     private val stepAnnotations: List<StepAnnotationName>,
+    private val knownMaterials: List<KnownMaterial>,
     private val block: DataBuilder.() -> Unit
 ) {
-
-    internal operator fun getValue(thisRef: Any?, property: KProperty<*>): DataWrapper {
-        require(property.name == "prepopulationData") {
-            "This value is used to prepopulate database, do not change it's name"
-        }
-        val data = DataBuilder(materials, stepAnnotations, block)
-        return DataWrapper(data)
-    }
-}
-
-class DataWrapper(private val data: DataBuilder) {
-    fun use(block: DataBuilder.() -> Unit) = data.block()
+    internal operator fun getValue(thisRef: Any?, property: KProperty<*>): Data =
+        DataBuilder(materials, stepAnnotations, knownMaterials, block)
 }
 
 
@@ -42,43 +47,48 @@ class DataWrapper(private val data: DataBuilder) {
 class DataBuilder(
     private val _materials: MaterialsBuilder,
     private val stepAnnotationNames: List<StepAnnotationName>,
+    private val _knownMaterials: List<KnownMaterial>,
     block: DataBuilder.() -> Unit
-) {
+) : Data {
 
     private val _users = mutableListOf<User>()
-    internal val users: List<User>
+    override val users: List<User>
         get() = _users
 
-    internal val materials: List<Material>
+    override val materials: List<Material>
         get() = _materials.materials
 
     private val _decks = mutableListOf<Deck>()
-    internal val decks: List<Deck>
+    override val decks: List<Deck>
         get() = _decks
 
     private val _cards = mutableListOf<Card>()
-    internal val cards: List<Card>
+    override val cards: List<Card>
         get() = _cards
 
     private val _courses = mutableListOf<Course>()
-    internal val courses: List<Course>
+    override val courses: List<Course>
         get() = _courses
 
     private val _lessons = mutableListOf<Lesson>()
-    internal val lessons: List<Lesson>
+    override val lessons: List<Lesson>
         get() = _lessons
 
     private val _steps = mutableListOf<Step>()
-    internal val steps: List<Step>
+    override val steps: List<Step>
         get() = _steps
 
     private val _stepAnnotations = mutableListOf<StepAnnotation>()
-    internal val stepAnnotations: List<StepAnnotation>
+    override val stepAnnotations: List<StepAnnotation>
         get() = _stepAnnotations
 
-    private val _stepHasAnnotations = mutableListOf<StepHasAnnotation>()
-    internal val stepHasAnnotations: List<StepHasAnnotation>
-        get() = _stepHasAnnotations
+    private val _stepsHasAnnotations = mutableListOf<StepHasAnnotation>()
+    override val stepsHasAnnotations: List<StepHasAnnotation>
+        get() = _stepsHasAnnotations
+
+    override val knownMaterials: List<KnownMaterial> by lazy {
+        _knownMaterials.map { it.copy(userId = 1) }
+    }
 
     init {
         block()
@@ -123,7 +133,7 @@ class DataBuilder(
                     stepAnnotationNames.forEach {
                         val stepAnnotation = annotationByName[it]?.id
                             ?: error("Step annotated with not existing annotation: $it")
-                        _stepHasAnnotations += StepHasAnnotation(
+                        _stepsHasAnnotations += StepHasAnnotation(
                             courseId = courseId,
                             lessonId = lessonId,
                             stepId = stepId,

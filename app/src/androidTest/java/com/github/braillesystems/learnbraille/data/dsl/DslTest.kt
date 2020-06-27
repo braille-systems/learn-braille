@@ -29,9 +29,13 @@ private val enSymbols by symbols(symbolType = "en") {
 }
 
 
+val knownMaterials by known()
+
+
 private val prepopulationData by data(
     materials = content,
-    stepAnnotations = listOf("book", "bomb")
+    stepAnnotations = listOf("book", "bomb"),
+    knownMaterials = knownMaterials
 ) {
 
     users {
@@ -196,13 +200,11 @@ private val stepHasAnnotations = listOf(
 @RunWith(AndroidJUnit4::class)
 class DslTest {
 
-    private lateinit var data: DataBuilder
+    private lateinit var data: Data
 
     @Before
     fun getBuilder() {
-        prepopulationData.use {
-            data = this
-        }
+        data = prepopulationData
     }
 
     @Test
@@ -247,6 +249,6 @@ class DslTest {
 
     @Test
     fun testStepAnnotations() {
-        assertEquals(stepHasAnnotations, data.stepHasAnnotations)
+        assertEquals(stepHasAnnotations, data.stepsHasAnnotations)
     }
 }

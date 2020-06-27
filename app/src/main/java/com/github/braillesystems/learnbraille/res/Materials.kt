@@ -35,15 +35,13 @@ val knownMaterials by known(
 
 val Context.inputSymbolPrintRules by rules<Context, Char, String>(
     {
-        getString(R.string.input_letter_intro_template).let {
-            ruSymbols.map::containsKey to { c: Char -> it.format(c) }
-        }
+        val t = getString(R.string.input_letter_intro_template)
+        ruSymbols.map::containsKey to { c: Char -> t.format(c) }
     },
 
     {
-        getString(R.string.input_digit_intro_template).let {
-            uebDigits.map::containsKey to { c: Char -> it.format(c) }
-        }
+        val t = getString(R.string.input_digit_intro_template)
+        uebDigits.map::containsKey to { c: Char -> t.format(c) }
     },
 
     {
@@ -66,15 +64,13 @@ val Context.inputSymbolPrintRules by rules<Context, Char, String>(
 
 val Context.showSymbolPrintRules by rules<Context, Char, String>(
     {
-        getString(R.string.show_letter_intro_template).let {
-            ruSymbols.map::containsKey to { c: Char -> it.format(c) }
-        }
+        val t = getString(R.string.show_letter_intro_template)
+        ruSymbols.map::containsKey to { c: Char -> t.format(c) }
     },
 
     {
-        getString(R.string.show_digit_intro_template).let {
-            uebDigits.map::containsKey to { c: Char -> it.format(c) }
-        }
+        val t = getString(R.string.show_digit_intro_template)
+        uebDigits.map::containsKey to { c: Char -> t.format(c) }
     },
 
     {
