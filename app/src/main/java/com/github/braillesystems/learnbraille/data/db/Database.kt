@@ -64,6 +64,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
      */
     fun init(): LearnBrailleDatabase = this.also {
         forcePrepopulationJob = scope().launch {
+            // Request value from database to force database callbacks evaluation
             Timber.i("userDao.getUser(1) = ${userDao.getUser(1)}")
         }
     }
