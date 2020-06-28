@@ -41,7 +41,7 @@ fun <T, R> Iterable<Rule<T, R>>.match(key: T): R? = matchF(key)?.invoke(key)
 
 
 class rules<C, T, R>(private vararg val ruleProviders: C.() -> Rule<T, R>) {
-    var value: Rules<T, R>? = null
+    private var value: Rules<T, R>? = null
     operator fun getValue(thisRef: C, property: KProperty<*>): Rules<T, R> =
         value ?: Rules(ruleProviders.map { thisRef.it() }).also { value = it }
 }
@@ -52,7 +52,7 @@ class Rules<T, R>(private val rules: Iterable<Rule<T, R>>) {
 
 
 class lazyWithContext<C, R>(private val getter: C.(String) -> R) {
-    var value: R? = null
+    private var value: R? = null
     operator fun getValue(thisRef: C, property: KProperty<*>): R =
         value ?: thisRef.getter(property.name).also { value = it }
 }
