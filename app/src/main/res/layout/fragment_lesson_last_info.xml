@@ -12,6 +12,8 @@
                 android:layout_width="@dimen/lessons_info_width"
                 android:layout_height="@dimen/lessons_info_height"
                 android:layout_marginTop="10dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:text=""
                 android:textSize="@dimen/lessons_info_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"

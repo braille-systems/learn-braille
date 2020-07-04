@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.getSystemService
-import androidx.core.text.parseAsHtml
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
@@ -55,11 +54,13 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
         require(step.data is InputDots)
         initialize(step, prevButton, nextButton)
 
-        val infoText = step.data.text?.parseAsHtml()
-            ?: getString(R.string.lessons_show_dots_info_template)
-                .format(step.data.dots.spelling)
-        infoTextView.text = infoText
-        checkedAnnounce(infoText.toString())
+        val infoText = step.data.text
+            ?: getString(R.string.lessons_show_dots_info_template).format(step.data.dots.spelling)
+        setText(
+            text = infoText,
+            infoTextView = infoTextView
+        )
+        checkedAnnounce(infoText)
         brailleDots.dotsState.display(step.data.dots)
 
         updateTitle(getString(R.string.lessons_title_input_dots))

@@ -3,7 +3,6 @@ package com.github.braillesystems.learnbraille.ui.screens.theory.steps
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.text.parseAsHtml
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.ShowDots
@@ -34,11 +33,13 @@ class ShowDotsFragment : AbstractStepFragment(R.string.lessons_help_show_dots) {
         require(step.data is ShowDots)
         initialize(step, prevButton, nextButton)
 
-        val infoText = step.data.text?.parseAsHtml()
-            ?: getString(R.string.lessons_show_dots_info_template)
-                .format(step.data.dots.spelling)
-        infoTextView.text = infoText
-        checkedAnnounce(infoText.toString())
+        val infoText = step.data.text
+            ?: getString(R.string.lessons_show_dots_info_template).format(step.data.dots.spelling)
+        setText(
+            text = infoText,
+            infoTextView = infoTextView
+        )
+        checkedAnnounce(infoText)
         brailleDots.dotsState.display(step.data.dots)
 
         updateTitle(getString(R.string.lessons_title_show_dots))
