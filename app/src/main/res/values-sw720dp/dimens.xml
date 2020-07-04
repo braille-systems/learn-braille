@@ -29,7 +29,6 @@
     <dimen name="lessons_dots_info_height">175dp</dimen>
 
     <dimen name="big_letter_text_size">150sp</dimen>
-    <dimen name="help_message_text_size">30sp</dimen>
 
     <dimen name="big_buttons_border_radius">30dp</dimen>
 
