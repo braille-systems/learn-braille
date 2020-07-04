@@ -176,7 +176,7 @@
     <string name="lessons_help_template">
         <![CDATA[
         %s
-        <br><br><br><br>
+        &<br><br><br>
         %s
         ]]>
     </string>

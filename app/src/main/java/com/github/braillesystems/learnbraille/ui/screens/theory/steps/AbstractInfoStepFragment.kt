@@ -15,6 +15,7 @@ abstract class AbstractInfoStepFragment(helpMsgId: HelpMsgId) : AbstractStepFrag
         checkedAnnounce(text)
         if (preferenceRepository.extendedAccessibilityEnabled) {
             infoTextView.textSize = resources.getDimension(R.dimen.lessons_info_extended_text_size)
+            // TODO text size
         }
     }
 }

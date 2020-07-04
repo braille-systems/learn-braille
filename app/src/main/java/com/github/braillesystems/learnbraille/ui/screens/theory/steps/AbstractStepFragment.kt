@@ -14,6 +14,7 @@ import com.github.braillesystems.learnbraille.ui.screens.theory.toCurrentStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
 import com.github.braillesystems.learnbraille.utils.navigate
+import com.github.braillesystems.learnbraille.utils.setSize
 import org.koin.android.ext.android.inject
 import com.github.braillesystems.learnbraille.utils.updateTitle as utilUpdateTitle
 
@@ -35,12 +36,12 @@ abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWith
         this.step = step
         setHasOptionsMenu(true)
         if (preferenceRepository.extendedAccessibilityEnabled) {
-            prevButton?.let {
-                it.width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
-            }
-            nextButton?.let {
-                it.width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
-            }
+            prevButton?.setSize(
+                width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
+            )
+            nextButton?.setSize(
+                width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
+            )
         }
     }
 

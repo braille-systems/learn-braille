@@ -10,7 +10,7 @@
     <dimen name="braille_dots_scale_of_view">2.1</dimen>
     <dimen name="letter_practice_scale_of_view">2.2</dimen>
 
-    <!--    TODO side buttons extended-->
+    <dimen name="side_buttons_extended_width">90dp</dimen>
     <dimen name="side_buttons_width">75dp</dimen>
     <dimen name="practice_buttons_height">320dp</dimen>
     <dimen name="practice_buttons_small_height">170dp</dimen>

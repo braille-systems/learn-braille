@@ -14,7 +14,7 @@
     <dimen name="practice_buttons_vertical_bias">0.9</dimen>
 
     <dimen name="side_buttons_width">35dp</dimen>
-    <dimen name="side_buttons_extended_width">50</dimen>
+    <dimen name="side_buttons_extended_width">50dp</dimen>
 
     <dimen name="practice_buttons_height">200dp</dimen>
     <dimen name="practice_buttons_small_height">75dp</dimen>
