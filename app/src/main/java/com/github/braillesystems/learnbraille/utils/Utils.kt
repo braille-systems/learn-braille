@@ -86,10 +86,12 @@ fun <T> stringify(s: SerializationStrategy<T>, obj: T) = Json.stringify(s, obj)
 fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.parse(d, s)
 
 
-class logged<C, R>(private val getter: C.(String) -> R) {
-
+class logged<C, R>(
+    private val logger: (String) -> Unit = { Timber.d(it) },
+    private val getter: C.(KProperty<*>) -> R
+) {
     operator fun getValue(thisRef: C, property: KProperty<*>): R =
-        thisRef.getter(property.name).also {
-            Timber.i("${property.name} -> $it")
+        thisRef.getter(property).also {
+            logger("${property.name} -> $it")
         }
 }
