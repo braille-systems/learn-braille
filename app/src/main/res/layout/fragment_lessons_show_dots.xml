@@ -8,17 +8,17 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/info_text_view"
-            android:layout_width="@dimen/lessons_dots_info_width"
-            android:layout_height="@dimen/lessons_dots_info_height"
-            android:text=""
-            android:textAlignment="center"
-            android:textSize="@dimen/lessons_info_text_size"
-            app:layout_constraintBottom_toTopOf="@+id/braille_dots"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="ИНФОРМАЦИЯ!" />
+                android:id="@+id/info_text_view"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/lessons_dots_info_height"
+                android:text=""
+                android:textAlignment="center"
+                android:textSize="@dimen/lessons_info_text_size"
+                app:layout_constraintBottom_toTopOf="@+id/braille_dots"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="ИНФОРМАЦИЯ!" />
 
         <com.github.braillesystems.learnbraille.ui.views.BrailleDotsView
             android:id="@+id/braille_dots"
@@ -37,7 +37,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/prev_button"
             style="@style/sideIconButtons"
-            android:layout_width="@dimen/practice_buttons_width"
+            android:layout_width="@dimen/side_buttons_width"
             android:layout_height="@dimen/practice_buttons_height"
             android:contentDescription="@string/lessons_prev"
             app:icon="@drawable/navigate_left"
@@ -50,7 +50,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/next_button"
             style="@style/sideIconButtons"
-            android:layout_width="@dimen/practice_buttons_width"
+            android:layout_width="@dimen/side_buttons_width"
             android:layout_height="@dimen/practice_buttons_height"
             android:contentDescription="@string/lessons_next"
             app:icon="@drawable/navigate_right"

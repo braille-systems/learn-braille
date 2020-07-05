@@ -13,7 +13,9 @@
     <dimen name="practice_dots_vertical_bias">0.85</dimen>
     <dimen name="practice_buttons_vertical_bias">0.9</dimen>
 
-    <dimen name="practice_buttons_width">35dp</dimen>
+    <dimen name="side_buttons_width">35dp</dimen>
+    <dimen name="side_buttons_extended_width">50dp</dimen>
+
     <dimen name="practice_buttons_height">200dp</dimen>
     <dimen name="practice_buttons_small_height">75dp</dimen>
     <dimen name="practice_buttons_icon_size">30dp</dimen>

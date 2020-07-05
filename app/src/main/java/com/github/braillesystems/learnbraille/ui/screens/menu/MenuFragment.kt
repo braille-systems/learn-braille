@@ -81,7 +81,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             navigate(R.id.action_menuFragment_to_settingsFragment)
         }
 
-        if (preferenceRepository.additionalExitButtonsEnabled) {
+        if (preferenceRepository.extendedAccessibilityEnabled) {
             exitButton.also {
                 buttons += it
             }.setOnClickListener {

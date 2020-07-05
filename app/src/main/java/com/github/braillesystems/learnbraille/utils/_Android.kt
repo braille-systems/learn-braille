@@ -10,6 +10,7 @@ import android.os.Vibrator
 import android.provider.Settings
 import android.provider.Settings.SettingNotFoundException
 import android.view.accessibility.AccessibilityManager
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
@@ -96,3 +97,10 @@ val Fragment.appName: String
 
 val Context.preferences: SharedPreferences
     get() = PreferenceManager.getDefaultSharedPreferences(this)
+
+fun Button.setSize(width: Int? = null, height: Int? = null) {
+    layoutParams = layoutParams.apply {
+        width?.let { this.width = width }
+        height?.let { this.height = height }
+    }
+}

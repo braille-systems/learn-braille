@@ -11,8 +11,6 @@ import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowSym
 import com.github.braillesystems.learnbraille.ui.PrintMode
 import com.github.braillesystems.learnbraille.ui.printStringNotNullLogged
 import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
-import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
-import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
@@ -35,20 +33,16 @@ class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbo
 
         val step = getStepArg()
         require(step.data is Show)
+        initialize(step, prevButton, nextButton)
+
         require(step.data.material.data is Symbol)
         letter.text = step.data.material.data.char.toString()
         brailleDots.dotsState.display(step.data.material.data.brailleDots)
         checkedAnnounce(printStringNotNullLogged(step.data.material.data.char, PrintMode.SHOW))
 
-        updateStepTitle(step.lessonId, step.id, R.string.lessons_title_show_symbol)
-        setHasOptionsMenu(true)
-
-        prevButton.setOnClickListener {
-            toPrevStep(step)
-        }
-        nextButton.setOnClickListener {
-            toNextStep(step, markThisAsPassed = true)
-        }
+        updateTitle(getString(R.string.lessons_title_show_symbol))
+        setPrevButton(prevButton)
+        setNextButton(nextButton)
 
     }.root
 }
