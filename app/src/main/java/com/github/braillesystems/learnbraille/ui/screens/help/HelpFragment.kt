@@ -1,14 +1,13 @@
 package com.github.braillesystems.learnbraille.ui.screens.help
 
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.text.parseAsHtml
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.databinding.FragmentHelpBinding
+import com.github.braillesystems.learnbraille.ui.views.setSeparatedText
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import com.github.braillesystems.learnbraille.utils.getStringArg
 import com.github.braillesystems.learnbraille.utils.removeHtmlMarkup
@@ -31,8 +30,7 @@ class HelpFragment : Fragment() {
         title = getString(R.string.help_title)
 
         val content = getStringArg(helpMessageArgName)
-        helpMessage.text = content.parseAsHtml()
-        helpMessage.movementMethod = ScrollingMovementMethod()
+        helpView.setSeparatedText(content)
         checkedAnnounce(content.removeHtmlMarkup())
 
     }.root
