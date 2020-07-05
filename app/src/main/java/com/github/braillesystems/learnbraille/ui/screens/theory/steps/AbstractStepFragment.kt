@@ -37,7 +37,12 @@ abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWith
             super.helpMsg, getString(R.string.lessons_help_common)
         )
 
-    protected fun initialize(step: Step, prevButton: Button?, nextButton: Button?) {
+    protected fun initialize(
+        step: Step,
+        prevButton: Button? = null,
+        nextButton: Button? = null,
+        hintButton: Button? = null
+    ) {
         this.step = step
         setHasOptionsMenu(true)
         if (preferenceRepository.extendedAccessibilityEnabled) {
@@ -45,6 +50,9 @@ abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWith
                 width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
             )
             nextButton?.setSize(
+                width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
+            )
+            hintButton?.setSize(
                 width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
             )
         }

@@ -52,7 +52,7 @@ class InputDotsFragment : AbstractStepFragment(R.string.lessons_help_input_dots)
 
         val step = getStepArg()
         require(step.data is InputDots)
-        initialize(step, prevButton, nextButton)
+        initialize(step, prevButton, nextButton, hintButton)
 
         val infoText = step.data.text
             ?: getString(R.string.lessons_show_dots_info_template).format(step.data.dots.spelling)

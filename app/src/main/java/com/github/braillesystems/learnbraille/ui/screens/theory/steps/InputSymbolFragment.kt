@@ -51,7 +51,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
 
         val step = getStepArg()
         require(step.data is Input)
-        initialize(step, prevButton, nextButton)
+        initialize(step, prevButton, nextButton, hintButton)
 
         require(step.data.material.data is Symbol)
         val symbol = step.data.material.data
