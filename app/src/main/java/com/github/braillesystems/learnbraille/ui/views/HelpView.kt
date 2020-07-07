@@ -19,10 +19,14 @@ class HelpView : LinearLayout {
     ) : super(
         context, attrSet, defStyleAttr
     )
+
+    companion object {
+        const val DELIMITER = '&'
+    }
 }
 
 fun HelpView.setSeparatedText(text: String) {
-    val helpItems = text.split('&')
+    val helpItems = text.split(HelpView.DELIMITER)
     helpItems.forEach { helpItem ->
         val textView = TextView(context).apply {
             setPaddingRelative(2, 0, 2, 0)
