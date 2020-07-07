@@ -6,6 +6,7 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.list
+import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.res.inputSymbolPrintRules
 import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
 import com.github.braillesystems.learnbraille.utils.*
@@ -45,6 +46,9 @@ fun Fragment.showHintDotsToast(expectedDots: BrailleDots) =
                 .joinToString(separator = ", ")
         )
         .side { checkedToast(it) }
+
+fun Fragment.showHintToast(expectedDots: BrailleDots) =
+    checkedToast(getString(R.string.input_hint_template).format(expectedDots.spelling))
 
 fun Context.printString(c: Char, mode: PrintMode): String? =
     when (mode) {

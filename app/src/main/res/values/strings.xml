@@ -25,6 +25,7 @@
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
     <string name="input_loading">Подождите, задание загружается</string>
+    <string name="input_hint_template">Ответ: точки %s</string>
     <string name="input_dots_hint_template">Ответ: %s</string>
     <string name="input_dots_hint_1">точка 1 слева сверху</string>
     <string name="input_dots_hint_2">точка 2 слева посередине</string>
