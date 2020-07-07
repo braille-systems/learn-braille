@@ -15,17 +15,17 @@
         android:layout_height="match_parent">
 
         <TextView
-                android:id="@+id/info_text_view"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/lessons_dots_info_height"
-                android:text=""
-                android:textAlignment="center"
-                android:textSize="@dimen/lessons_info_text_size"
-                app:layout_constraintBottom_toTopOf="@+id/braille_dots"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="ИНФОРМАЦИЯ!" />
+            android:id="@+id/info_text_view"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/lessons_dots_info_height"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="@dimen/lessons_info_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/braille_dots"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="ИНФОРМАЦИЯ!" />
 
         <com.github.braillesystems.learnbraille.ui.views.BrailleDotsView
             android:id="@+id/braille_dots"
