@@ -2,6 +2,7 @@ package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.TypeConverter
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
+import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import kotlinx.serialization.Serializable
 
 
@@ -58,12 +59,16 @@ val BrailleDots.list: List<BrailleDot>
     get() = listOf(b1, b2, b3, b4, b5, b6)
 
 val BrailleDots.spelling: String
+    get() = filled.joinToString(separator = ", ", transform = Int::toString)
+
+val BrailleDots.filled: List<Int>
     get() = list
         .mapIndexedNotNull { index, brailleDot ->
-            if (brailleDot == E) null
-            else (index + 1).toString()
+            if (brailleDot == F) index + 1
+            else null
         }
-        .joinToString(separator = ", ")
+
+operator fun BrailleDots.contains(i: Int) = i in filled
 
 
 class BrailleDotsConverters {

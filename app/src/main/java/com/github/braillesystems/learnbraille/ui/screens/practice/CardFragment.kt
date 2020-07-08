@@ -108,7 +108,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         viewModel.observeEventHint(
             viewLifecycleOwner, dotsState
         ) { expectedDots ->
-            showHintDotsToast(expectedDots)
+            showHintToast(expectedDots)
         }
 
         viewModel.observeEventPassHint(
