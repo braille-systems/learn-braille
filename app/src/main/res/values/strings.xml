@@ -176,8 +176,8 @@
 
     <string name="lessons_title_info">Текст</string>
     <string name="lessons_title_last_info">Заключение</string>
-    <string name="lessons_title_input_symbol">Ввод точек</string>
-    <string name="lessons_title_input_dots">Ввод точек</string>
+    <string name="lessons_title_input_symbol">Введите точки</string>
+    <string name="lessons_title_input_dots">Введите точки</string>
     <string name="lessons_title_show_symbol">Изучение</string>
     <string name="lessons_title_show_dots">Точки</string>
     <string name="lessons_title_lessons_list">Уроки</string>
@@ -205,7 +205,9 @@
         непройденному шагу.
         &<br>
         Чтобы урок стал доступен в меню <b>\"навигация по курсу\"</b>, надо пройти все шаги в
-        предыдущих уроках. В уроке обычно от 20 до 30 шагов.
+        предыдущих уроках. В уроке обычно от 20 до 30 шагов. Заголовок шага содержит номер урока,
+        затем номер шага после точки с запятой, затем тип шага: \"введите точки\", или \"точки\"
+        (то есть демонстрация символа), или \"текст\".
         ]]>
     </string>
 
