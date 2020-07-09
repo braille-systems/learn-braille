@@ -131,12 +131,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner,
             Observer { tag ->
                 if (tag == null) return@Observer
-                val template = if (preferenceRepository.practiceUseOnlyKnownMaterials) {
-                    getString(R.string.practice_deck_name_enabled_template)
-                } else {
-                    getString(R.string.practice_deck_name_disabled_template)
-                }
-                toast(template.format(deckTagToName.getValue(tag)))
+                toastDeck()
             }
         )
 
@@ -171,12 +166,28 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             R.id.decks_list -> navigate(R.id.action_cardFragment_to_decksList)
             R.id.use_known -> {
                 preferenceRepository.practiceUseOnlyKnownMaterials = true
-                navigate(R.id.action_cardFragment_self) // Make onCreateOptionsMenu to be called
+                recreateOptionsMenu()
             }
             R.id.not_use_known -> {
                 preferenceRepository.practiceUseOnlyKnownMaterials = false
-                navigate(R.id.action_cardFragment_self) // Make onCreateOptionsMenu to be called
+                recreateOptionsMenu()
             }
+        }
+    }
+
+    private fun recreateOptionsMenu() {
+        activity?.invalidateOptionsMenu()
+        toastDeck()
+    }
+
+    private fun toastDeck() {
+        val template = if (preferenceRepository.practiceUseOnlyKnownMaterials) {
+            getString(R.string.practice_deck_name_enabled_template)
+        } else {
+            getString(R.string.practice_deck_name_disabled_template)
+        }
+        viewModel.deckTag.value?.let {
+            toast(template.format(deckTagToName.getValue(it)))
         }
     }
 }
