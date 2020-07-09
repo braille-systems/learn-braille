@@ -8,7 +8,7 @@ For building and running the app, your either need to download a virtual Android
 
 ## Git workflow
 
-- Write short and informative commit messages. [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/).
+- Write short and informative commit messages. Start them with reference to issue (begins with `#`). [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/).
 - Follow [a successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/).
 
 ## Coding style
