@@ -86,12 +86,20 @@ fun <T> stringify(s: SerializationStrategy<T>, obj: T) = Json.stringify(s, obj)
 fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.parse(d, s)
 
 
-class logged<C, R>(
+class logged<C, T>(
     private val logger: (String) -> Unit = { Timber.d(it) },
-    private val getter: C.(KProperty<*>) -> R
+    private val setter: (C.(T) -> Unit)? = null,
+    private val getter: C.(KProperty<*>) -> T
 ) {
-    operator fun getValue(thisRef: C, property: KProperty<*>): R =
+
+    operator fun getValue(thisRef: C, property: KProperty<*>): T =
         thisRef.getter(property).also {
             logger("${property.name} -> $it")
         }
+
+    operator fun setValue(thisRef: C, property: KProperty<*>, value: T) =
+        setter
+            ?.let { thisRef.it(value) }
+            ?.also { logger("${property.name} <- $value") }
+            ?: error("Setter is expected to be set")
 }

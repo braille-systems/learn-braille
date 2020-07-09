@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
+import com.github.braillesystems.learnbraille.data.repository.MutablePreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.deckTagToName
 import com.github.braillesystems.learnbraille.ui.*
@@ -26,7 +26,7 @@ import timber.log.Timber
 
 class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
 
-    private val preferenceRepository: PreferenceRepository by inject()
+    private val preferenceRepository: MutablePreferenceRepository by inject()
 
     private lateinit var viewModel: CardViewModel
     private lateinit var dotsState: BrailleDotsState
@@ -149,13 +149,34 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.card_menu, menu)
+        val p = Pair(
+            preferenceRepository.extendedAccessibilityEnabled,
+            preferenceRepository.practiceUseOnlyKnownMaterials
+        )
+        inflater.inflate(
+            when (p) {
+                true to true -> R.menu.card_menu_hide
+                false to true -> R.menu.card_menu
+                true to false -> R.menu.card_menu_use_known_hide
+                false to false -> R.menu.card_menu_use_known
+                else -> unreachable
+            },
+            menu
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = false.also {
         when (item.itemId) {
             R.id.help -> navigateToHelp()
             R.id.decks_list -> navigate(R.id.action_cardFragment_to_decksList)
+            R.id.use_known -> {
+                preferenceRepository.practiceUseOnlyKnownMaterials = true
+                navigate(R.id.action_cardFragment_self) // Make onCreateOptionsMenu to be called
+            }
+            R.id.not_use_known -> {
+                preferenceRepository.practiceUseOnlyKnownMaterials = false
+                navigate(R.id.action_cardFragment_self) // Make onCreateOptionsMenu to be called
+            }
         }
     }
 }

@@ -3,10 +3,26 @@
 
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
-        android:key="@string/preference_practice_use_only_known_materials"
-        android:summary="@string/preference_summary_only_seen_materials"
+        android:key="@string/preference_extended_accessibility"
+        android:summary="@string/preference_summary_extended_accessibility"
         android:theme="@style/SwitchPreferenceButton"
-        android:title="@string/preference_title_only_seen_materials"
+        android:title="@string/preference_title_extended_accessibility"
+        app:iconSpaceReserved="false" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/preference_additional_qrcode_button_enabled"
+        android:summary="@string/preference_summary_additional_qrcode_button"
+        android:theme="@style/SwitchPreferenceButton"
+        android:title="@string/preference_title_additional_qrcode_button"
+        app:iconSpaceReserved="false" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/preference_golubina_book_steps_enabled"
+        android:summary="@string/preference_summary_use_golubina_textbook"
+        android:theme="@style/SwitchPreferenceButton"
+        android:title="@string/preference_title_use_golubina_textbook"
         app:iconSpaceReserved="false" />
 
     <androidx.preference.SwitchPreferenceCompat
@@ -35,14 +51,6 @@
 
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
-        android:key="@string/preference_golubina_book_steps_enabled"
-        android:summary="@string/preference_summary_use_golubina_textbook"
-        android:theme="@style/SwitchPreferenceButton"
-        android:title="@string/preference_title_use_golubina_textbook"
-        app:iconSpaceReserved="false" />
-
-    <androidx.preference.SwitchPreferenceCompat
-        android:defaultValue="true"
         android:key="@string/preference_traverse_dots_in_enumeration_order"
         android:summary="@string/preference_summary_traversal_order"
         android:theme="@style/SwitchPreferenceButton"
@@ -55,22 +63,6 @@
         android:summary="@string/preference_summary_additional_announcements"
         android:theme="@style/SwitchPreferenceButton"
         android:title="@string/preference_title_additional_announcements"
-        app:iconSpaceReserved="false" />
-
-    <androidx.preference.SwitchPreferenceCompat
-        android:defaultValue="true"
-        android:key="@string/preference_extended_accessibility"
-        android:summary="@string/preference_summary_extended_accessibility"
-        android:theme="@style/SwitchPreferenceButton"
-        android:title="@string/preference_title_extended_accessibility"
-        app:iconSpaceReserved="false" />
-
-    <androidx.preference.SwitchPreferenceCompat
-        android:defaultValue="false"
-        android:key="@string/preference_additional_qrcode_button_enabled"
-        android:summary="@string/preference_summary_additional_qrcode_button"
-        android:theme="@style/SwitchPreferenceButton"
-        android:title="@string/preference_title_additional_qrcode_button"
         app:iconSpaceReserved="false" />
 
 </androidx.preference.PreferenceScreen>

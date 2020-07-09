@@ -35,6 +35,10 @@
         <action
             android:id="@+id/action_cardFragment_to_decksList"
             app:destination="@id/decksList" />
+        <action
+            android:id="@+id/action_cardFragment_self"
+            app:destination="@id/cardFragment"
+            app:popUpTo="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/helpFragment"

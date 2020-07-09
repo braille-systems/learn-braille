@@ -33,7 +33,9 @@ interface PreferenceRepository {
     val incorrectBuzzPattern: BuzzPattern get() = longArrayOf(0, 200)
 }
 
-interface MutablePreferenceRepository : PreferenceRepository
+interface MutablePreferenceRepository : PreferenceRepository {
+    override var practiceUseOnlyKnownMaterials: Boolean
+}
 
 /**
  * Keep default values same as in `settings_hierarchy`.
@@ -93,12 +95,23 @@ class PreferenceRepositoryImpl(
         )
     }
 
-    override val practiceUseOnlyKnownMaterials: Boolean by logged {
-        context.preferences.getBoolean(
-            context.getString(R.string.preference_practice_use_only_known_materials),
-            true
-        )
-    }
+    override var practiceUseOnlyKnownMaterials: Boolean by logged(
+        getter = {
+            context.preferences.getBoolean(
+                context.getString(R.string.preference_practice_use_only_known_materials),
+                true
+            )
+        },
+        setter = {
+            with(context.preferences.edit()) {
+                putBoolean(
+                    context.getString(R.string.preference_practice_use_only_known_materials),
+                    it
+                )
+                apply()
+            }
+        }
+    )
 
     override val extendedAccessibilityEnabled: Boolean by logged {
         context.preferences.getBoolean(
