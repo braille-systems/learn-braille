@@ -72,7 +72,10 @@ abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWith
     }
 
     protected fun updateTitle(msg: String) {
-        utilUpdateTitle("${step.lessonId}:${step.id} $msg")
+        utilUpdateTitle(
+            if (preferenceRepository.extendedAccessibilityEnabled) "${step.lessonId} ${step.id} $msg"
+            else "${step.lessonId}.${step.id} $msg"
+        )
     }
 
     protected fun setNextButton(button: Button) {
