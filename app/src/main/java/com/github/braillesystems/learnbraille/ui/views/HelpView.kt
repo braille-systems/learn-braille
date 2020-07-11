@@ -29,7 +29,7 @@ fun HelpView.setSeparatedText(text: String) {
     val helpItems = text.split(HelpView.DELIMITER)
     helpItems.forEach { helpItem ->
         val textView = TextView(context).apply {
-            setPaddingRelative(2, 0, 2, 0)
+            setPaddingRelative(30, 0, 20, 0)
             setTextSize(
                 TypedValue.COMPLEX_UNIT_SP,
                 context.resources.getDimension(R.dimen.help_message_text_size)
