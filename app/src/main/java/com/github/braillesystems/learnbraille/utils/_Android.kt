@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.github.braillesystems.learnbraille.R
 import timber.log.Timber
+import kotlin.reflect.KProperty
 
 /**
  * The file contains suitable extension functions for Android Framework
@@ -103,4 +104,14 @@ fun Button.setSize(width: Int? = null, height: Int? = null) {
         width?.let { this.width = width }
         height?.let { this.height = height }
     }
+}
+
+class logged<C, R>(
+    private val logger: (String) -> Unit = { Timber.d(it) },
+    private val getter: C.(KProperty<*>) -> R
+) {
+    operator fun getValue(thisRef: C, property: KProperty<*>): R =
+        thisRef.getter(property).also {
+            logger("${property.name} -> $it")
+        }
 }
