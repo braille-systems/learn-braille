@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.github.braillesystems.learnbraille.ui.views.ShowBigLetterView
+            android:id="@+id/letter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="@dimen/letter_practice_scale_of_view"
+            android:scaleY="@dimen/letter_practice_scale_of_view"
+            android:textSize="@dimen/big_letter_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/braille_dots"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="M" />
+
+        <com.github.braillesystems.learnbraille.ui.views.BrailleDotsView
+            android:id="@+id/braille_dots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="@dimen/braille_dots_scale_of_view"
+            android:scaleY="@dimen/braille_dots_scale_of_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="@dimen/practice_dots_vertical_bias" />
+
+        <!--        Buttons-->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/prev_button"
+            style="@style/sideIconButtons"
+            android:layout_width="@dimen/side_buttons_width"
+            android:layout_height="@dimen/practice_buttons_height"
+            android:contentDescription="@string/lessons_prev"
+            app:icon="@drawable/navigate_left"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="@dimen/practice_buttons_vertical_bias"
+            app:shapeAppearanceOverlay="@style/sideLeftButtonsShape" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/next_button"
+            style="@style/sideIconButtons"
+            android:layout_width="@dimen/side_buttons_width"
+            android:layout_height="@dimen/practice_buttons_height"
+            android:contentDescription="@string/lessons_next"
+            app:icon="@drawable/navigate_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="@dimen/practice_buttons_vertical_bias"
+            app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

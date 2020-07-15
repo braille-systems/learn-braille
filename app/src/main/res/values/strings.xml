@@ -1,0 +1,341 @@
+<resources>
+    <!--    Note: "double quotes" make TalkBack emphasize a text between them-->
+    <!--    & delimiter splits talkback sections in the help-->
+
+    <!--    App common-->
+
+    <string name="app_name">Learn Braille</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_help_message">No help message</string>
+
+    <string name="voice_record_denial">Вы не сможете использовать возможности голосового управления</string>
+
+    <string name="preference_use_debug_lessons">use_debug_lessons</string>
+    <string name="preference_enable_buzz">enable_buzz</string>
+    <string name="preference_enable_toasts">enable_toasts</string>
+    <string name="preference_current_user">current_user</string>
+    <string name="preference_speech_recognition_enabled">speech_recognition_enabled</string>
+    <string name="preference_golubina_book_steps_enabled">golubina_book_steps_enabled</string>
+    <string name="preference_traverse_dots_in_enumeration_order">traverse_dots_in_enumeration_order</string>
+    <string name="preference_enable_additional_announcements">enable_additional_announcements</string>
+    <string name="preference_practice_use_only_known_materials">practice_use_only_known_materials</string>
+    <string name="preference_extended_accessibility">extended_accessibility</string>
+    <string name="preference_additional_qrcode_button_enabled">additional_qrcode_button_enabled</string>
+
+    <string name="input_correct">Правильно!</string>
+    <string name="input_incorrect">Неправильно!</string>
+    <string name="input_loading">Подождите, задание загружается</string>
+    <string name="input_hint_template">Ответ: точки %s</string>
+    <string name="input_dots_hint_template">Ответ: %s</string>
+    <string name="input_dots_hint_1">точка 1 слева сверху</string>
+    <string name="input_dots_hint_2">точка 2 слева посередине</string>
+    <string name="input_dots_hint_3">точка 3 слева снизу</string>
+    <string name="input_dots_hint_4">точка 4 справа сверху</string>
+    <string name="input_dots_hint_5">точка 5 справа посередине</string>
+    <string name="input_dots_hint_6">точка 6 справа снизу</string>
+
+    <string name="input_letter_intro_template">Введите букву: %s</string>
+    <string name="input_digit_intro_template">Введите цифру: %s</string>
+    <string name="input_special_intro_template">Введите символ: %s</string>
+    <string name="input_special_intro_num_sign">Введите цифровой знак</string>
+    <string name="input_special_intro_dot">Введите символ: Литературная точка</string>
+    <string name="input_special_intro_hyphen">Введите символ: Дефис</string>
+    <string name="input_special_intro_comma">Введите запятую</string>
+
+    <string name="show_letter_intro_template">Буква: %s</string>
+    <string name="show_digit_intro_template">Цифра: %s</string>
+    <string name="show_special_intro_template">Символ: %s</string>
+    <string name="show_special_intro_num_sign">Цифровой знак</string>
+    <string name="show_special_intro_dot">Литературная точка</string>
+    <string name="show_special_intro_hyphen">Дефис</string>
+    <string name="show_special_intro_comma">Запятая</string>
+
+    <!--    QR-->
+
+    <string name="qr_intent_cancelled">Установите сканнер qr кодов и попробуйте снова</string>
+
+    <!--    Practice-->
+
+    <string name="practice_hint_icon_symbol">\?</string>
+    <string name="practice_hint">Подсказка</string>
+    <string name="practice_next">Далее</string>
+    <string name="practice_actionbar_title_template">Практика: %d из %d</string>
+    <string name="practice_deck_name_enabled_template">
+        Колода: \"%s\"\nПовторять только изученные: включено
+    </string>
+    <string name="practice_deck_name_disabled_template">
+        Колода: \"%s\"\nПовторять только изученные: выключено
+    </string>
+    <string name="decks_list_title">Список колод</string>
+    <string name="decks_list_no_material_in_deck">
+        Колода \"%s\" ещё недоступна, пройдите эти карточки в уроках или отключите
+        \"повторять только изученное\" в разделе \"настройки\".
+    </string>
+
+    <string name="deck_name_all">Все символы</string>
+    <string name="deck_name_ru_letters">Русские буквы</string>
+    <string name="deck_name_digits">Цифры</string>
+    <string name="deck_name_special_symbols">Специальные символы</string>
+
+
+    <string name="practice_help">
+        <![CDATA[
+        Практика:
+        <br><br>
+        В случайном порядке выдаются задания - \"карточки\" с символами.<br>
+        В верхней половине экрана выведен символ,
+        который нужно ввести в шеститочии в нижней половине экрана и нажать кнопку <b>\“далее\”</b>
+        справа.
+        &<br>
+        По умолчанию выдаются только карточки с символами, изученными в разделе \"теория\". Чтобы
+        повторять любые символы, измените это в настройках приложения.
+        &<br>
+        <b>Выход в меню</b> приложения - кнопка вверху слева.
+        &<br>
+        <b>Список колод</b> - кнопка вверху справа.
+        &<br>
+        Карточки объединены в колоды по типам символов, например, колода русских букв, колода цифр.
+        Эта кнопка ведёт в меню выбора колоды.
+        &<br>
+        <b>Вызов справки</b> - кнопка вверху справа, левее списка колод.
+        &<br>
+        Если Вы <b>забыли символ</b>, можно нажать <b>кнопку \"подсказка\"</b> слева внизу экрана.
+        По нажатию этой кнопки будет выведено сообщение с верными номерами точек, шеститочие будет
+        заполнено правильными точками и недоступно для переключения. После этого нужно нажать кнопку
+        <b>\"далее\"</b> и ввести ту же букву ещё раз.
+        ]]>
+    </string>
+
+    <!--    Exit-->
+
+    <string name="exit_yes">Выйти</string>
+    <string name="exit_no">Вернуться в меню</string>
+    <string name="exit_question">Хотите ли Вы выйти?</string>
+
+    <!--    Greeting-->
+
+    <string name="greeting_title">HeyHey!</string>
+    <string name="greeting">Hello!</string>
+    <string name="greeting_exit">Выйти</string>
+    <string name="greeting_start">Начать</string>
+
+    <!--    Menu-->
+
+    <string name="menu_continue">ТЕОРИЯ</string>
+    <string name="menu_practice">ПРАКТИКА</string>
+    <string name="menu_qt">СКАНИРОВАТЬ QR-КОД</string>
+    <string name="menu_stacked_help">СПРАВКА</string>
+    <string name="menu_settings">НАСТРОЙКИ</string>
+    <string name="menu_exit">ВЫХОД</string>
+    <string name="menu_actionbar_text_template">%s. Меню</string>
+    <string name="menu_db_not_initialized_warning">
+        Загружаем базу данных. Попробуйте ещё раз!
+    </string>
+    <string name="menu_qr_empty_result">Ошибка. Пустой результат сканирования</string>
+
+    <string name="menu_help">
+        <![CDATA[
+        <b>Обучение системе Луи Брайля: главное меню.</b>
+        &<br><br>
+        <b>Теория:</b> пошаговые уроки с демонстрацией плоскопечатных и
+        рельефно-точечных символов крупным шрифтом, вводом символов и поясняющими комментариями.
+        &<br>
+        <b>Практика:</b> Повторение символов.
+        &<br>
+        <b>Настройки:</b> Параметры приложения.
+        &<br>
+        В настройках можно включить ещё одну кнопку - <b>\"сканировать QR-код\"</b>.
+        &<br>
+        <b>Сканировать QR-код:</b> если у Вас есть набор карточек с текстом Брайля и
+        QR-кодами на обороте, по нажатию кнопки вы можете отсканировать QR-код и проверить,
+        что написано на карточке. Для этого необходимо дополнительное приложение.
+        Если его ещё нет, по нажатию кнопки Вы будете перенаправлены на страницу для скачивания приложения.
+        <br>
+        &<br>
+        Находясь в любом разделе приложения, Вы всегда можете вызвать справку по данному разделу,
+        нажав экранную кнопку <b>\"справка\"</b> в правом верхнем углу экрана.
+        ]]>
+    </string>
+
+
+    <!--    Lessons-->
+
+    <string name="lessons_next">Вперёд</string>
+    <string name="lessons_prev">Назад</string>
+    <string name="lessons_hint">Подсказка</string>
+    <string name="lessons_progress">К прогрессу</string>
+    <string name="lessons_input_dots_info_template">
+        Введите точки: %s
+    </string>
+    <string name="lessons_show_dots_info_template">
+        Выведены точки: %s
+    </string>
+    <string name="lessons_not_available_lesson">
+        Урок %d ещё недоступен, пройдите сначала предыдущие уроки. \nВы остановились на уроке %d
+    </string>
+
+    <string name="lessons_title_info">Текст</string>
+    <string name="lessons_title_last_info">Заключение</string>
+    <string name="lessons_title_input_symbol">Введите точки</string>
+    <string name="lessons_title_input_dots">Введите точки</string>
+    <string name="lessons_title_show_symbol">Изучение</string>
+    <string name="lessons_title_show_dots">Точки</string>
+    <string name="lessons_title_lessons_list">Уроки</string>
+
+    <string name="lessons_help_template">
+        <![CDATA[
+        %s
+        &<br><br><br>
+        %s
+        ]]>
+    </string>
+
+    <string name="lessons_help_common">
+        <![CDATA[
+        <b>Переход</b> к следующему шагу - кнопка <b>\"вперёд\"</b> справа по центру,
+         к предыдущему - кнопка <b>назад</b> слева по центру.
+        &<br>
+        <b>Выход в меню</b> приложения - кнопка <b>\"перейти вверх\"</b> в верхней панели слева.
+        &<br>
+        <b>Вызов справки</b> - кнопка в верхней панели справа.
+        &<br>
+        <b>\"Другие функции\"</b> - кнопка в верхней панели рядом с кнопкой <b>\"справка\"</b>.
+        Нажатие этой кнопки вызывает выпадающее меню с функциями <b>\"навигация по курсу\"</b>, то есть
+        переход к другому уроку, и <b>\"к текущему шагу\"</b>, то есть переход к последнему
+        непройденному шагу.
+        &<br>
+        Чтобы урок стал доступен в меню <b>\"навигация по курсу\"</b>, надо пройти все шаги в
+        предыдущих уроках. В уроке обычно от 20 до 30 шагов. Заголовок шага содержит номер урока,
+        затем номер шага после точки с запятой, затем тип шага: \"введите точки\", или \"точки\"
+        (то есть демонстрация символа), или \"текст\".
+        ]]>
+    </string>
+
+    <string name="lessons_help_input_symbol">
+        <![CDATA[
+        Пошаговый курс - <b>шаг с вводом символа.</b>
+        &<br><br>
+        В верхней половине экрана крупным шрифтом выведен символ, который нужно ввести в шеститочии
+        в нижней половине экрана.
+        &<br>
+        Над кнопкой "назад" находится кнопка подсказки, она работает так же, как и в практике.
+         ]]>
+    </string>
+
+    <string name="lessons_help_input_dots">
+        <![CDATA[
+        Пошаговый курс - <b>шаг с вводом точек.</b>
+        <br><br>
+        Введите в шеститочии на экране точки с указанными номерами.
+        ]]>
+    </string>
+
+    <string name="lessons_help_show_symbol">
+        <![CDATA[
+        Пошаговый курс - <b>шаг с демонстрацией символа.</b>
+        <br><br>
+        В верхней половине экрана крупным шрифтом выведен плоскопечатный символ, а в нижней части -
+        его представление точечным шрифтом. Нужно изучить точечный символ.
+        ]]>
+    </string>
+
+    <string name="lessons_help_show_dots">
+        <![CDATA[
+        Пошаговый курс - <b>шаг с демонстрацией точек.</b>
+        <br><br>
+        На экран выведен точечный символ. Внимательно изучите его.
+        ]]>
+    </string>
+
+    <string name="lessons_help_info">
+        <![CDATA[
+        Пошаговый курс - <b>шаг с информационным сообщением.</b>
+        <br><br>
+        Ознакомьтесь с сообщением, выведенном в текстовом поле по центру экрана.
+        ]]>
+    </string>
+
+    <string name="lessons_help_last_info">
+        <![CDATA[
+        <b>Самый последний шаг курса! Поздравляем!</b>
+        <br><br>
+        Чтобы выйти в главное меню, нажмите дважды кнопку слева сверху.
+        ]]>
+    </string>
+
+    <!--    Braille dots-->
+
+    <string name="braille_dot_1">точка один</string>
+    <string name="braille_dot_2">точка два</string>
+    <string name="braille_dot_3">точка три</string>
+    <string name="braille_dot_4">точка четыре</string>
+    <string name="braille_dot_5">точка пять</string>
+    <string name="braille_dot_6">точка шесть</string>
+
+    <!--    Action menu-->
+
+    <string name="menu_title_help">Справка</string>
+    <string name="menu_title_current_step">К текущему шагу</string>
+    <string name="menu_title_lessons_list">Навигация по курсу</string>
+    <string name="menu_title_hide">Скрыть это меню</string>
+    <string name="menu_title_decks_list">Список колод</string>
+
+    <!--    Help-->
+
+    <string name="help_title">Справка</string>
+
+    <!-- USB -->
+
+    <string name="usb_permission_granted">Установлено соединение с Тренажёром Брайля</string>
+    <string name="usb_permission_denied">Разрешение на подключение не выдано</string>
+    <string name="usb_device_disconnected">Тренажёр Брайля отключён</string>
+    <string name="usb_unknown_device">Этот аппарат не поддерживается</string>
+
+    <!--    Settings-->
+
+    <string name="preferences_actionbar_title">Настройки</string>
+    <string name="preference_title_notifications">Всплывающие уведомления</string>
+    <string name="preference_title_buzz">Вибрация</string>
+    <string name="preference_summary_buzz">Вибрация в ответ на результат выполнения задания.</string>
+    <string name="preference_title_use_golubina_textbook">Шаги с букварём</string>
+    <string name="preference_summary_use_golubina_textbook">
+        Показывать шаги с обращением к бумажному букварю Голубиной в теоретическом курсе.
+    </string>
+    <string name="preference_summary_notifications">Включить/отключить краткие всплывающие
+        подсказки (кроме самых важных).</string>
+    <string name="preference_title_traversal_order">Обход точек в порядке нумерации</string>
+    <string name="preference_summary_traversal_order">Работает с Андроид 5.1. Если включено,
+        программа экранного доступа обходит точки шеститочия в порядке 1-2-3-4-5-6,
+        иначе 1-4-2-5-3-6.
+    </string>
+    <string name="preference_title_on_fly_check">Проверка ввода \"на лету\"</string>
+    <string name="preference_summary_on_fly_check">Выводить сообщение \"правильно\",
+        как только в шеститочии введена корректная комбинация,
+        не дожидаясь нажатия кнопки \"вперёд\".
+    </string>
+    <string name="preference_title_only_seen_materials">Повторять только изученное</string>
+    <string name="preference_summary_only_seen_materials">
+        В разделе \"Практика\" повторять только символы, пройденные в разделе \"Теория\".
+    </string>
+    <string name="preference_title_additional_announcements">
+        Автоозвучка текстов
+    </string>
+    <string name="preference_summary_additional_announcements">
+        Автоматически озвучивать длинные тексты (например, в справке и разделе \"теория\")
+        средством экранного чтения, не дожидаясь фокусировки на текстовом поле.
+    </string>
+    <string name="preference_title_extended_accessibility">
+        Режим повышенной доступности
+    </string>
+    <string name="preference_summary_extended_accessibility">
+        Крупный шрифт в разделе \"теория\". Дополнительные кнопки выхода (удобно при использовании программы
+        экранного доступа). Шире боковые кнопки в практике и теории.
+    </string>
+    <string name="preference_title_additional_qrcode_button">
+        Опция \"Сканирование QR-кода\"
+    </string>
+    <string name="preference_summary_additional_qrcode_button">
+        Отображать в главном меню кнопку \"Сканирование QR-кода\" для игры с карточками.
+    </string>
+
+</resources>

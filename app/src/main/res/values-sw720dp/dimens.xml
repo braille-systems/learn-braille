@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="braille_dot_size">25dp</dimen>
+    <dimen name="braille_dots_unchecked_width">3dp</dimen>
+    <dimen name="braille_dots_outer_horizontal_margin">30dp</dimen>
+    <dimen name="braille_dots_outer_vertical_margin">30dp</dimen>
+    <dimen name="braille_dots_inner_horizontal_margin">20dp</dimen>
+    <dimen name="braille_dots_inner_vertical_margin">25dp</dimen>
+    <dimen name="braille_dots_scale_of_one_dot">2.6</dimen>
+    <dimen name="braille_dots_scale_of_view">2.1</dimen>
+    <dimen name="letter_practice_scale_of_view">2.2</dimen>
+
+    <dimen name="side_buttons_extended_width">90dp</dimen>
+    <dimen name="side_buttons_width">75dp</dimen>
+    <dimen name="practice_buttons_height">320dp</dimen>
+    <dimen name="practice_buttons_small_height">170dp</dimen>
+    <dimen name="practice_buttons_icon_size">90dp</dimen>
+    <dimen name="practice_buttons_icon_hint_size">65dp</dimen>
+    <dimen name="practice_buttons_border_radius">60dp</dimen>
+
+    <dimen name="lessons_title_width">428dp</dimen>
+    <dimen name="lessons_title_height">100dp</dimen>
+    <dimen name="lessons_title_text_size">40sp</dimen>
+    <dimen name="lessons_title_vertical_bias">0.05</dimen>
+    <dimen name="lessons_info_width">590dp</dimen>
+    <dimen name="lessons_info_height">0dp</dimen>
+    <dimen name="lessons_info_text_size">35sp</dimen>
+    <dimen name="lessons_letter_vertical_bias">0.0</dimen>
+    <dimen name="lessons_dots_info_width">394dp</dimen>
+    <dimen name="lessons_dots_info_height">175dp</dimen>
+
+    <dimen name="big_letter_text_size">150sp</dimen>
+
+    <dimen name="big_buttons_border_radius">30dp</dimen>
+
+    <dimen name="menu_text_size">65dp</dimen>
+</resources>
