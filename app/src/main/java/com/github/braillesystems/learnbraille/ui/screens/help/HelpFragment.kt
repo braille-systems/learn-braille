@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.databinding.FragmentHelpBinding
-import com.github.braillesystems.learnbraille.ui.views.setSeparatedText
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import com.github.braillesystems.learnbraille.utils.getStringArg
 import com.github.braillesystems.learnbraille.utils.removeHtmlMarkup

@@ -8,6 +8,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.LearnBrailleApplication
+import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -85,13 +86,7 @@ fun Fragment.updateTitle(title: String) {
 fun <T> stringify(s: SerializationStrategy<T>, obj: T) = Json.stringify(s, obj)
 fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.parse(d, s)
 
-
-class logged<C, R>(
-    private val logger: (String) -> Unit = { Timber.d(it) },
-    private val getter: C.(KProperty<*>) -> R
-) {
-    operator fun getValue(thisRef: C, property: KProperty<*>): R =
-        thisRef.getter(property).also {
-            logger("${property.name} -> $it")
-        }
+val Context.extendedTextSize: Float by lazyWithContext {
+    // Size applied in runtime is different
+    resources.getDimension(R.dimen.lessons_info_text_size) / 5 * 3
 }

@@ -19,7 +19,7 @@ operator fun MatchGroupCollection.component5() = get(4)
 
 val Any?.devnull: Unit get() {}
 
-fun String.removeHtmlMarkup() = Regex("""<[^>]*>""").replace(this, "")
+fun String.removeHtmlMarkup() = Regex("""<[^>]*>|&""").replace(this, "")
 
 inline fun runIf(cond: Boolean, block: () -> Unit) {
     if (cond) block()
