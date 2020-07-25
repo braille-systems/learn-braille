@@ -18,4 +18,7 @@ interface CourseDao {
 
     @Query("select * from courses where id = :id")
     suspend fun getCourse(id: Long): Course?
+
+    @Query("delete from courses")
+    suspend fun clear()
 }

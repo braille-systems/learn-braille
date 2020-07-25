@@ -19,4 +19,7 @@ interface KnownMaterialDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(knowledge: List<KnownMaterial>)
+
+    @Query("delete from known_materials")
+    suspend fun clear()
 }

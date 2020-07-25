@@ -6,6 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.github.braillesystems.learnbraille.data.dsl.Data
 import com.github.braillesystems.learnbraille.data.entities.*
@@ -53,11 +54,14 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
     abstract val lastCourseStepDao: LastCourseStepDao
     abstract val lastLessonStepDao: LastLessonStepDao
 
-
     @Volatile
     private var prepopulationFinished = true
+
+    @Volatile
     private var forcePrepopulationJob: Job? = null
-    private var callbackJob: Job? = null
+
+    @Volatile
+    private var prepareDbJob: Job? = null
 
     /**
      * Should be called at the start of application.
@@ -75,7 +79,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
             val forceJobCompleted = forcePrepopulationJob
                 ?.isCompleted
                 ?: error("Call database init function before")
-            val callbackJobCompleted = callbackJob?.isCompleted == true || callbackJob == null
+            val callbackJobCompleted = prepareDbJob?.isCompleted == true || prepareDbJob == null
             return (prepopulationFinished && forceJobCompleted && callbackJobCompleted).also {
                 if (it) Timber.i("DB has been prepopulated")
                 else Timber.i(
@@ -87,9 +91,21 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
             }
         }
 
-    private fun prepopulate(data: Data): Job = scope().launch {
-        Timber.i("Start database prepopulation")
-        prepopulationFinished = false
+    private fun prepare(block: suspend LearnBrailleDatabase.() -> Unit) {
+        prepareDbJob = scope().launch {
+            Timber.i("Start database prepopulation")
+            prepopulationFinished = false
+
+            this@LearnBrailleDatabase.block()
+
+            prepopulationFinished = true
+            Timber.i("Finnish database prepopulation")
+        }
+    }
+
+    private suspend fun populateAll(data: Data) = populateAll16(data)
+
+    private suspend fun populateAll16(data: Data) {
         data.apply {
             users?.let { userDao.insert(it) }
             materials?.let { materialDao.insert(it) }
@@ -102,8 +118,21 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
             stepsHasAnnotations?.let { stepHasAnnotationDao.insert(it) }
             knownMaterials?.let { knownMaterialDao.insert(it) }
         }
-        prepopulationFinished = true
-        Timber.i("Finnish database prepopulation")
+    }
+
+    private suspend fun clearAll() = clearAll16()
+
+    private suspend fun clearAll16() {
+        userDao.clear()
+        materialDao.clear()
+        deckDao.clear()
+        cardDao.clear()
+        courseDao.clear()
+        lessonDao.clear()
+        stepDao.clear()
+        stepAnnotationDao.clear()
+        stepHasAnnotationDao.clear()
+        knownMaterialDao.clear()
     }
 
     companion object {
@@ -133,12 +162,24 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
 
                 private fun prepopulate() {
                     Timber.i("Prepopulate DB")
-                    get<LearnBrailleDatabase>().apply {
-                        callbackJob = prepopulate(prepopulationData)
-                    }
+                    val db = get<LearnBrailleDatabase>()
+                    db.prepare { populateAll(prepopulationData) }
                 }
             })
+            .addMigrations()
             .fallbackToDestructiveMigration()
             .build()
+
+        private fun contentUpdateMigration(fromVersion: Int, toVersion: Int) =
+            contentUpdateMigration16(fromVersion, toVersion)
+
+        private fun contentUpdateMigration16(fromVersion: Int, toVersion: Int) =
+            object : Migration(fromVersion, toVersion), KoinComponent {
+                override fun migrate(database: SupportSQLiteDatabase) =
+                    get<LearnBrailleDatabase>().prepare {
+                        clearAll16()
+                        populateAll16(prepopulationData)
+                    }
+            }
     }
 }
