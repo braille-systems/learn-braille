@@ -17,8 +17,6 @@ import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.json.Json
 import org.koin.android.ext.android.get
-import timber.log.Timber
-import kotlin.reflect.KProperty
 
 /**
  * This file contains suitable extension functions for this project.
@@ -35,14 +33,53 @@ fun Vibrator?.checkedBuzz(pattern: BuzzPattern, preferenceRepository: Preference
 
 fun checkedToast(msg: String, context: Context?, preferenceRepository: PreferenceRepository) =
     runIf(preferenceRepository.toastsEnabled) {
+        if (GlobalToastState.repeatsLast(
+                msg,
+                preferenceRepository.toastDuration == Toast.LENGTH_SHORT
+            )
+        ) {
+            return
+        }
         Toast.makeText(context, msg, preferenceRepository.toastDuration).show()
     }
 
 fun Fragment.checkedToast(msg: String, preferenceRepository: PreferenceRepository = get()) =
     checkedToast(msg, context, preferenceRepository)
 
-fun Fragment.toast(msg: String, preferenceRepository: PreferenceRepository = get()) =
+class GlobalToastState {
+    companion object {
+        const val SHORT_DURATION_TIMEOUT: Long = 4000 // private in Toast.java
+        const val LONG_DURATION_TIMEOUT: Long = 7000
+
+        var lastToastMsg: String = ""
+        var lastToastInvocationTime: Long = 0L
+
+        fun repeatsLast(msg: String, isShort: Boolean): Boolean {
+            val timeNow = System.currentTimeMillis()
+            val toastDuration: Long = if (isShort) SHORT_DURATION_TIMEOUT else LONG_DURATION_TIMEOUT
+            if (msg == lastToastMsg
+                && lastToastInvocationTime + toastDuration > timeNow
+            ) {
+                return false
+            }
+            lastToastInvocationTime = timeNow
+            lastToastMsg = msg
+            return true
+        }
+    }
+}
+
+fun Fragment.toast(msg: String, preferenceRepository: PreferenceRepository = get()) {
+    if (GlobalToastState.repeatsLast(
+            msg,
+            preferenceRepository.toastDuration == Toast.LENGTH_SHORT
+        )
+    ) {
+        return
+    }
     Toast.makeText(context, msg, preferenceRepository.toastDuration).show()
+}
+
 
 fun Context.announce(announcement: String) {
     val manager = accessibilityManager ?: return
