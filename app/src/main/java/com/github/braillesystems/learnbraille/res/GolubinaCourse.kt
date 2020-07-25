@@ -170,11 +170,23 @@ internal val golubinaIntroLessons by lessons {
                     <br>
                     Буква Г - точки 1, 2, 4 и 5.
                     <br>
-                    В следующих четырёх шагах нужно ознакомиться с буквами и ввести их."""
+                    В следующих шагах нужно ознакомиться с буквами и ввести их."""
         )
         +Show(content.symbols.getValue('Ф'))
+        +Info(
+            """
+                Откройте страницу 15 в букваре. Вверху страницы найдите рельефно-графическое
+                изображение буквы Ф и рядом букву Ф, пять раз написанную релефно-точечным шрифтом
+                """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('Ф')/*, repeat = 5*/)
         +Show(content.symbols.getValue('Г'))
+        +Info(
+            """
+                В букваре под буквой Ф - буква Г. Изучите её графическое представление
+                и точечный состав.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('Г')/*, repeat = 5*/)
         +Info(
             """
@@ -208,6 +220,12 @@ internal val golubinaIntroLessons by lessons {
                     как правило, пользуются символом правой квадратной скобки: ]"""
         )
         +Show(content.symbols.getValue(']'))
+        +Info(
+            """
+                В букваре на странице 14, перед страницей с буквами Ф и Г - цифровой знак.
+                Найдите четвёртую сверху строчку. В ней цифровой знак повторён пять раз.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue(']')/*, repeat = 3*/)
         +Info(
             """
@@ -231,6 +249,12 @@ internal val golubinaIntroLessons by lessons {
         +Input(content.symbols.getValue('6'))
         +Show(content.symbols.getValue('7'))
         +Input(content.symbols.getValue('7'))
+        +Info(
+            """
+                На пятой сверху строчке на странице 14 букваря написаны цифры от одного до пяти.
+                Изучите каждую цифру.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """
                     Урок 4 пройден! Рекомендуем самостоятельно изучить цифры и числа на странице 15
@@ -263,17 +287,29 @@ internal val golubinaIntroLessons by lessons {
                     Буква Х  обозначается точками 1, 2 и 5.
                     <br>
                     Цифра 8 - это цифровой знак и буква Х.
-                    Потренируемся писать этот символ."""
+                    """
         )
+
         +Show(content.symbols.getValue('Х'))
+        +Info(
+            """
+                Откройте страницу 16 в букваре Голубиной. В верхней части страницы найдите
+                рельефно-графическую букву Х и рядом строку из пяти брайлевских букв Х.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('Х'))
         +Input(content.symbols.getValue('8'))
         +Info(
             """
-                    В следующих шагах введите различные символы, в том числе буквы Х и цифру 8.
+                    В следующих шагах введите по буквам слово ЦЕХ
                     """
         )
         inputChars("ЦЕХ")
+        +Info(
+            """
+                Наберите слово БАЦ
+            """
+        )
         +Input(content.symbols.getValue(']'))
         +Input(content.symbols.getValue('8') /*, repeat = 5*/)
         +Input(content.symbols.getValue('7'))
@@ -281,8 +317,12 @@ internal val golubinaIntroLessons by lessons {
         inputChars("БАЦ")
         +Info(
             """
-                    Урок 5 пройден! Материал о букве Х и цифре 8 находится на странице 16 в букваре.
-                    Если у Вас есть возможность, изучите эту страницу самостоятельно.
+                Далее введите, поставив цифровой знак цифровой знак число "Восемьсот семдесят шесть"
+            """
+        )
+        +Info(
+            """
+                    Урок 5 пройден!
                     <br>
                     На следующем занятии мы освоим буквы И и Ж, а также цифры 9 и 0"""
         )
@@ -300,10 +340,14 @@ internal val golubinaIntroLessons by lessons {
                     <br>
                     Буква Ж - это точки 2, 4 и 5.
                     Цифровой знак и буква Ж образуют цифру 0.
-                    <br>
-                    Введите символы, которые образуют слово ЖАБА"""
+                    """
         )
-        inputChars("ЖАБА")
+        +Info(
+            """
+                Раскройте букварь на странице 17. В верхней части листа найдите рельефно-графические
+                и рельефно-точечные изображения букв Ж и И.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Введите буквы, составляющие слово БАГАЖ"""
         )
@@ -328,7 +372,7 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """
                     Урок 6 закончен. Теперь Вы, помимо букв, знаете все цифры.
-                    Буквы И, Ж и примеры к ним можно найти в букваре на странице 17.
+                    Примеры слов и чисел к этому уроку можно найти в букваре внизу страницы 17.
                     <br>
                     Следующий урок посвящён буквам К, Л и М."""
         )
@@ -363,6 +407,12 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('К'))
         +Show(content.symbols.getValue('Л'))
         +Info(
+            """
+                    Сейчас предлагаем Вам найти страницу 19 в букваре, где вверху изображена зрячая
+                    буква К и рядом с ней строка из пяти брайлевских букв К. Ниже находится буква Л.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
+        +Info(
             """Введите по буквам слово КЛАД"""
         )
         inputChars("КЛАД")
@@ -382,6 +432,11 @@ internal val golubinaIntroLessons by lessons {
         )
         +Show(content.symbols.getValue('М'))
         +Info(
+            """
+                    На той же странице 19 в букваре найдите и изучите под буквами К, Л букву М.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
+        +Info(
             """В следующих трёх шагах ведите по буквам слово МЕЛ"""
         )
         inputChars("МЕЛ")
@@ -396,7 +451,9 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """
                     Мы подошли к концу урока 7.
-                    Буквам К, Л, М посвящены страницы 19 и 20 букваря.
+                    <br>
+                    Буквам К, Л, М посвящены страницы 19 и 20 букваря; желательно
+                    повторить материал, прочитав слова и числа на этих страницах.
                     <br>
                     На следующем занятии мы узнаем, как обозначается буква Н."""
         )
@@ -409,9 +466,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 8. Буква Н.</b>
                     <br><br>
-                    Рекомендуем в дополнение к этому уроку изучить букву Н 
-                    на страницах 21 и 22 букваря.
-                    <br>
                     Начнём занятие с повторения. Введите по буквам слово КАМБАЛА.
                     """
         )
@@ -427,6 +481,11 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('Н'))
+        +Info(
+            """
+                    Раскройте страницу 20 букваря и найдите вверху букву Н.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('Н'))
         +Info(
             """Введите по буквам слово БАНАН"""
@@ -442,7 +501,8 @@ internal val golubinaIntroLessons by lessons {
         inputChars("БЛАНК")
         +Info(
             """
-                    На этом урок 8 завершается.
+                    На этом урок 8 завершается. Для закрепления материала полезно прочесть
+                    содержание страниц 20 и 21 в букваре.
                     <br>
                     В следующий раз изучим букву О и знак препинания ЗАПЯТАЯ.
                     """
@@ -455,8 +515,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 9. Буква О и знак препинания "Запятая".</b>
                     <br><br>
-                    Материалы к этому уроку есть на страницах 23-24 в букваре.
-                    <br>
                     Как обычно, в начале занятия повторим пройденное.
                     Введите по буквам слово НАДЕЖДА.
                     """
@@ -471,6 +529,12 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('О'))
+        +Info(
+            """
+                    Возьмите букварь и откройте страницу 23. Сверху найдите букву О.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
+
         +Info(
             """Наберите по буквам слово ОБЛАКО"""
         )
@@ -497,7 +561,9 @@ internal val golubinaIntroLessons by lessons {
         )
         inputChars("ГЕОЛОГ,")
         +Info(
-            """Урок 9 подходит к концу. В следующем уроке нас ждёт изучение буквы П."""
+            """Урок 9 подходит к концу. В следующем уроке нас ждёт изучение буквы П.
+                    Материалы к этому занятию можно прочесть на страницах 23-24 в букваре.
+            """
         )
     }
     lesson(
@@ -507,8 +573,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 10. Буква П.</b>
                     <br><br>
-                    Этот урок полезно закрепить, изучив страницу 25 в книге Голубиной.
-                    <br>
                     В виде разминки перед уроком повторим изученные ранее символы.
                     Введите по буквам слово МОЛОКО и поставьте после него запятую.
                     """
@@ -523,6 +587,11 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('П'))
+        +Info(
+            """
+                    Найдём букву П в букваре. Для этого раскройте страницу 25 и изучите верхнюю строку.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Введите отдельными символами слово ПЕНА"""
         )
@@ -540,7 +609,10 @@ internal val golubinaIntroLessons by lessons {
         )
         inputChars("КАПКАН")
         +Info(
-            """Вот и пройден десятый урок. Следующее занятие отведено для изучения буквы Ч"""
+            """
+                Вот и пройден десятый урок. Следующее занятие отведено для изучения буквы Ч.
+                Изученный урок полезно закрепить, прочтя слова на странице 25 в книге Голубиной.
+            """
         )
     }
 
@@ -551,8 +623,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 11. Буква Ч.</b>
                     <br><br>
-                    Буква Ч и слова с ней находятся на странице 26 в букваре Голубиной.
-                    <br>
                     Перед началом работы немного повторим прошлые уроки.
                     Введите по буквам слово ХЛОПОК.
                     """
@@ -572,6 +642,11 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('Ч'))
+        +Info(
+            """
+                    Теперь ознакомьтесь с буквой Ч в книге Голубиной, в верхней части страницы 26.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Введите по буквам слово ЧЕК"""
         )
@@ -619,6 +694,11 @@ internal val golubinaIntroLessons by lessons {
         )
         +Show(content.symbols.getValue('Р'))
         +Info(
+            """
+                    Раскройте страницу 27 в букваре и ознакомьтесь с бувой Р вверху листа.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
+        +Info(
             """Наберите последовательно, по буквам слово РЕКА"""
         )
         inputChars("РЕКА")
@@ -652,8 +732,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 13. Буква С.</b>
                     <br><br>
-                    Буква С изучается в букваре на странице 29.
-                    <br>
                     Перед уроком вспомним старый материал.
                     Введите по буквам слово МАРАФОН
                     """
@@ -669,6 +747,11 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('С'))
+        +Info(
+            """
+                    Перейдите в букваре Голубиной к странице 29 и прочтите сверху строку с буквой С.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """В следующих шагах наберите слово САЖА"""
         )
@@ -705,9 +788,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 14. Буква Т и знак 'Дефис'.</b>
                     <br><br>
-                    В букваре В. В. Голубиной Вы найдёте урок о букве Т на странице 30 
-                    и о знаке 'Дефис' на странице 31.
-                    <br>
                     Как обычно, предварим урок повторением пройденного.
                     Введите символы, составляющие слово СОЛНЦЕ
                     """
@@ -728,6 +808,11 @@ internal val golubinaIntroLessons by lessons {
         )
         +Show(content.symbols.getValue('Т'))
         +Info(
+            """
+                    В букваре В. В. Голубиной найдите букву Т на странице 30
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
+        +Info(
             """Далее, пожалуйста, введите слово ТЕКСТ"""
         )
         inputChars("ТЕКСТ")
@@ -745,6 +830,11 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('-'))
+        +Info(
+            """
+                   Переверните страницу в букваре. На странице 31 найдите по центру знак "дефис".
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Введите по символам слово ПОЛ-ЛИМОНА"""
         )
@@ -768,8 +858,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 15. Буква У.</b>
                     <br><br>
-                    В книге Голубиной буква У вводится на странице 32.
-                    <br>
                     Вспомним для начала материал прошлых уроков.
                     На следующих этапах введите по буквам слово ТЕЛЕФОН
                     """
@@ -783,6 +871,13 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('У'))
+        +Info(
+            """
+                   В книге Голубиной буква У вводится на странице 32.
+                   <br>
+                   Откройте эту страницу и прочтите верхнюю строку.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """В следующих шагах введите, пожалуйста, слово УГОЛ"""
         )
@@ -818,8 +913,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 16. Буква Щ.</b>
                     <br><br>
-                    Букварь содержит урок с буквой Щ на странице 33.
-                    <br>
                     В виде разминки повторим ранее изученное.
                     Введите буквы, которые сложатся в слово ХУДОЖНИК
                     """
@@ -834,6 +927,13 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('Щ'))
+        +Info(
+            """
+                   Букварь содержит урок с буквой Щ на странице 33.
+                   <br>
+                   Найдите эту страницу и изучите самую верхнюю строку.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Вводя букву за буквой, составьте слово ЩЕГОЛ"""
         )
@@ -868,8 +968,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 17. Буква З.</b>
                     <br><br>
-                    В книге Голубиной букву З можно найти на странице 34.
-                    <br>
                     Новый материал мы будем изучать после краткого повторения.
                     Далее введите буквы слова ЩЕПОТКА
                     """
@@ -884,6 +982,12 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('З'))
+        +Info(
+            """
+                   В книге Голубиной букву З можно найти на странице 34.<br>
+                   Прочтите первую строку на этой странице.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Последовательно, по буквам введите слово ЗАКАЗ"""
         )
@@ -918,8 +1022,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 18. Буква "И краткое".</b>
                     <br><br>
-                    Букварь Голубиной содержит материал на тему буквы Й на странице 35.
-                    <br>
                     Знакомство с новой буквой начнём после небольшой ревизии ранее пройденного.
                     Пожалуйста, введите буквы, образующие слово МИМОЗА
                     """
@@ -939,6 +1041,13 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('Й'))
+        +Info(
+            """
+                   Букварь Голубиной содержит материал на тему буквы Й на странице 35.
+                   <br>
+                   Ознакомьтесь с рельефно-графическим и рельефно-точечным изображением буквы "Й" на первой строке.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Буква за буквой, введите точечным шрифтом слово КЛЕЙ"""
         )
@@ -976,9 +1085,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 19. Твёрдый знак и литературная точка.</b>
                     <br><br>
-                    Желательно во время или после занятия прочесть соответствующий раздел букваря
-                    на странице 36.
-                    <br>
                     Вначале повторим ранее изученные буквы.
                     Введите по буквам прилагательное ОСЕННИЙ
                     """
@@ -993,6 +1099,13 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('Ъ'))
+        +Info(
+            """
+                   Откройте раздел букваря, где изучается твёрдый знак, на странице 36.
+                   <br>
+                   Прочтите верхнюю строку, которая содержит твёрдый знак.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Введите по буквам слово СЪЕЗД"""
         )
@@ -1010,6 +1123,12 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('.'))
+        +Info(
+            """
+                   В середине страницы 36 букваря, где мы изучали твёрдый знак, найдите и прочтите
+                   строку с изображением литературной точки.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('.'))
         +Info(
             """
@@ -1034,9 +1153,7 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 20. Буква Ы.</b>
                     <br><br>
-                    Если Вы хотите найти урок с буквой Ы в букваре, посетите страницы 37 и 38.
-                    <br>
-                    А сейчас ради закрепления пройденного введите по символам слово ОБЪЕДИНЕНИЕ
+                    Ради закрепления пройденного введите по символам слово ОБЪЕДИНЕНИЕ
                     """
         )
         inputChars("ОБЪЕДИНЕНИЕ")
@@ -1054,6 +1171,12 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('Ы'))
+        +Info(
+            """
+                   Теперь посетим страницу 37 букваря, где нужно найти и прочесть верхнюю строку - 
+                   рельефно-графические и рельефно-точечное изображение буквы Ы.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Набирая буквы одна за одной, введите слово МЫЛО"""
         )
@@ -1089,8 +1212,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 21. Мягкий знак.</b>
                     <br><br>
-                    В дополнение к этому уроку можно изучить страницы 39 и 40 в букваре.
-                    <br>
                     Как и в прошлые разы, перед занятием повторим ранее изученное.
                     Введите, набирая отдельные буквы, прилагательное РЫЖИЙ
                     """
@@ -1105,6 +1226,14 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('Ь'))
+        +Info(
+            """
+                   Откройте страницу 39 в букваре Голубиной. Изучите первую строку, где содержится
+                   мягкий знак.
+                   <br>
+                   После урока рекомендуем прочесть слова на страницах 39 и 40.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Введите по буквам существительное СОЛЬ"""
         )
@@ -1140,8 +1269,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 22. Буквы Ё и Ш.</b>
                     <br><br>
-                    Вводный текст о буквах Ё и Ш можно найти в букваре на страницах 41 и 42.
-                    <br>
                     Перед уроком будет полезно вспомнить буквы, пройденные на прошлых занятиях.
                     Введите шаг за шагом слово АПЕЛЬСИН
                     """
@@ -1157,6 +1284,13 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('Ё'))
+        +Info(
+            """
+                   Вводный текст о буквах Ё и Ш можно найти в букваре на страницах 41 и 42.
+                   <br>
+                   Откройте страницу 41 и прочтите верхнюю строку с буквой Ё.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Шаг за шагом введите слово ЁЛКА"""
         )
@@ -1174,6 +1308,11 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('Ш'))
+        +Info(
+            """
+                   Прочтите строку с буквой Ш в середине страницы 41 букваря.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Наберите отдельными символами слово ШЁЛК"""
         )
@@ -1206,8 +1345,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 23. Буква 'Я'.</b>
                     <br><br>
-                    Изучению буквы 'Я' отведены страницы 43 и 44 в букваре Голубиной.
-                    <br>
                     Мы выучили уже много букв, и перед занятием повторим часть из них.
                     Введите по буквам слово МИШЕНЬ
                     """
@@ -1223,6 +1360,13 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('Я'))
+        +Info(
+            """
+                   Изучению буквы 'Я' отведены страницы 43 и 44 в букваре Голубиной.
+                   <br>
+                   Откройте страницу 43 и прочтите верхнюю строку - пять букв 'Я' подряд.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Введите брайлевские буквы, которые составляют слово ЯБЛОКО"""
         )
@@ -1259,8 +1403,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 24. Буква 'Ю'.</b>
                     <br><br>
-                    Буква 'Ю' и слова с ней находятся на страницах 45 и 46 в букваре. 
-                    <br>
                     Начнём с ревизии уже изученных букв и специальных символов.
                     Введите, набирая отдельные буквы, слово ПОЛЯНА и поставьте после него запятую
                     """
@@ -1275,6 +1417,13 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('Ю'))
+        +Info(
+            """
+                   Буква 'Ю' и слова с ней находятся на страницах 45 и 46 в букваре. 
+                   <br>
+                   Найдите сорок пятую страницу и ознакомьтесь с буквой Ю в самой верхней строке.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Наберите по символам слово с новой буквой: ЮБКА"""
         )
@@ -1316,9 +1465,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 25. Буква 'Э'.</b>
                     <br><br>
-                    Для развития памяти пальцев рекомендуется в дополнение к этому уроку
-                    просмотреть материал о букве Э на страницах 47 и 48 в букваре. 
-                    <br>
                     Перед погружением в новый материал повторим пройденное.
                     Введите по буквам слово ИНТЕРЕСНЫЙ
                     """
@@ -1339,6 +1485,14 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('Э'))
+        +Info(
+            """
+                   Для развития памяти пальцев рекомендуется в дополнение к этому уроку
+                   просмотреть материал о букве Э на страницах 47 и 48 в букваре. 
+                   <br>
+                   Сейчас откройте страницу 47 и прочтите первую строку, где написана буква 'Э'.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Вводя отдельные буквы, составьте слово ЭХО"""
         )
@@ -1380,9 +1534,6 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок 26. Буква 'В'.</b>
                     <br><br>
-                    Для более тщательного изучения буквы 'В' мы рекомендуем обратиться к букварю
-                    Голубиной, страницы 49 и 50.
-                    <br>
                     В начале этого занятия вспомним материал, ранее пройденный в курсе.
                     Пожалуйста, наберите буквы, составляющие слово ЭНЦИКЛОПЕДИЯ
                     """
@@ -1397,6 +1548,15 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('В'))
+        +Info(
+            """
+                    Для более тщательного изучения буквы 'В' мы рекомендуем обратиться к букварю
+                    Голубиной, страницы 49 и 50.
+                    <br>
+                    В данный момент предлагаем Вам раскрыть страницу 49 и прочесть верхнюю строку,
+                    где написана буква 'В'.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
             """Наберите первое слово с буквой 'В' - слово ВОР"""
         )
