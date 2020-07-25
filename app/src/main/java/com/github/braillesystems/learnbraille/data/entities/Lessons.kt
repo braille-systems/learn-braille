@@ -26,4 +26,7 @@ interface LessonDao {
         """
     )
     suspend fun getAllCourseLessons(courseId: Long): List<Lesson>
+
+    @Query("delete from lessons")
+    suspend fun clear()
 }
