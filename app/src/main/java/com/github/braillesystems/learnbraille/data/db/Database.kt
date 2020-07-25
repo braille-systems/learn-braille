@@ -11,6 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.github.braillesystems.learnbraille.data.dsl.Data
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.res.prepopulationData
+import com.github.braillesystems.learnbraille.utils.devnull
 import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -27,7 +28,7 @@ import timber.log.Timber
         Course::class, Lesson::class, Step::class, StepAnnotation::class, StepHasAnnotation::class,
         CurrentStep::class, LastCourseStep::class, LastLessonStep::class
     ],
-    version = 16,
+    version = 17,
     exportSchema = false
 )
 @TypeConverters(
@@ -68,8 +69,9 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
      */
     fun init(): LearnBrailleDatabase = this.also {
         forcePrepopulationJob = scope().launch {
+            Timber.i("Force db preparation")
             // Request value from database to force database callbacks evaluation
-            Timber.i("userDao.getUser(1) = ${userDao.getUser(1)}")
+            userDao.getUser(1).devnull
         }
     }
 
@@ -79,14 +81,14 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
             val forceJobCompleted = forcePrepopulationJob
                 ?.isCompleted
                 ?: error("Call database init function before")
-            val callbackJobCompleted = prepareDbJob?.isCompleted == true || prepareDbJob == null
-            return (prepopulationFinished && forceJobCompleted && callbackJobCompleted).also {
+            val prepareDbJobCompleted = prepareDbJob?.isCompleted == true || prepareDbJob == null
+            return (prepopulationFinished && forceJobCompleted && prepareDbJobCompleted).also {
                 if (it) Timber.i("DB has been prepopulated")
                 else Timber.i(
                     "DB has not been prepopulated: " +
                             "prepopulationFinished = $prepopulationFinished, " +
                             "forceJobCompleted = $forceJobCompleted, " +
-                            "callbackJobCompleted = $callbackJobCompleted"
+                            "prepareDbJobCompleted = $prepareDbJobCompleted"
                 )
             }
         }
@@ -166,7 +168,9 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
                     db.prepare { populateAll(prepopulationData) }
                 }
             })
-            .addMigrations()
+            .addMigrations(
+                contentUpdateMigration(16, 17)
+            )
             .fallbackToDestructiveMigration()
             .build()
 
