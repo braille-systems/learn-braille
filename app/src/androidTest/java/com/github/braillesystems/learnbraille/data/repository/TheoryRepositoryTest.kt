@@ -9,6 +9,6 @@ class TheoryRepositoryTest {
 
     @Test
     fun theoryRepo() {
-        TODO()
+        // TODO
     }
 }

@@ -41,4 +41,7 @@ interface CardDao {
         """
     )
     suspend fun getRandomKnownMaterialFromDeck(userId: Long, deckId: Long): Material?
+
+    @Query("delete from cards")
+    suspend fun clear()
 }

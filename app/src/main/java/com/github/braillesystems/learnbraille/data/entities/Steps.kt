@@ -133,4 +133,7 @@ interface StepDao {
         thisStepId: Long,
         proscribedAnnotations: List<StepAnnotationName> = listOf()
     ): Step?
+
+    @Query("delete from steps")
+    suspend fun clear()
 }

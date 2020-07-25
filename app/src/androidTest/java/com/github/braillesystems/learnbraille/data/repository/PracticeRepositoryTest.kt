@@ -9,6 +9,6 @@ class PracticeRepositoryTest {
 
     @Test
     fun practiceRepo() {
-        TODO()
+        // TODO
     }
 }

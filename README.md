@@ -26,4 +26,4 @@ To successfully run this application, your smartphone or tablet PC must satisfy 
 
 For accessibility, you will require TalkBack service.
 It is pre-installed by default on a majority of devices.
-For others available in the Google Play.
+For others it is available in the Google Play.

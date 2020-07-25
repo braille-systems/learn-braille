@@ -11,6 +11,9 @@ inline fun <T, R> T?.side(block: (T) -> R) {
     if (this != null) block(this)
 }
 
+val unreachable: Nothing
+    get() = error("Unreachable code executed")
+
 operator fun MatchGroupCollection.component1() = get(0)
 operator fun MatchGroupCollection.component2() = get(1)
 operator fun MatchGroupCollection.component3() = get(2)
