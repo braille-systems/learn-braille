@@ -27,7 +27,7 @@ import timber.log.Timber
         Course::class, Lesson::class, Step::class, StepAnnotation::class, StepHasAnnotation::class,
         CurrentStep::class, LastCourseStep::class, LastLessonStep::class
     ],
-    version = 16,
+    version = 17,
     exportSchema = false
 )
 @TypeConverters(
@@ -166,7 +166,9 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
                     db.prepare { populateAll(prepopulationData) }
                 }
             })
-            .addMigrations()
+            .addMigrations(
+                contentUpdateMigration(16, 17)
+            )
             .fallbackToDestructiveMigration()
             .build()
 
