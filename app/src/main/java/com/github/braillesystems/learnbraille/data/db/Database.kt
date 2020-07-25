@@ -93,6 +93,8 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
 
     private fun prepare(block: suspend LearnBrailleDatabase.() -> Unit) {
         prepareDbJob = scope().launch {
+            prepareDbJob?.join()
+
             Timber.i("Start database prepopulation")
             prepopulationFinished = false
 
