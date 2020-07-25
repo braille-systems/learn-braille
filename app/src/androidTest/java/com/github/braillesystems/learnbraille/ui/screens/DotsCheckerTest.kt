@@ -9,6 +9,6 @@ class DotsCheckerTest {
 
     @Test
     fun dotsChecker() {
-        TODO()
+        // TODO
     }
 }
