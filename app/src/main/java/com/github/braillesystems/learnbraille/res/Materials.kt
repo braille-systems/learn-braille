@@ -138,7 +138,7 @@ private val specialSymbols by symbols(SymbolType.special) {
     symbol(char = ']', brailleDots = BrailleDots(E, E, F, F, F, F)) // Number sign
     symbol(char = ',', brailleDots = BrailleDots(E, F, E, E, E, E)) // Comma
     symbol(char = '-', brailleDots = BrailleDots(E, E, F, E, E, F)) // Hyphen
-    symbol(char = '.', brailleDots = BrailleDots(E, F, F, E, F, E)) // Dot
+    symbol(char = '.', brailleDots = BrailleDots(E, F, E, E, F, F)) // Dot
 }
 
 private val uebDigits by symbols(SymbolType.digit) {
