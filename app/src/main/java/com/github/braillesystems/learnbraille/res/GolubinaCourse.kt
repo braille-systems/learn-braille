@@ -310,16 +310,13 @@ internal val golubinaIntroLessons by lessons {
                 Наберите слово БАЦ
             """
         )
-        +Input(content.symbols.getValue(']'))
-        +Input(content.symbols.getValue('8') /*, repeat = 5*/)
-        +Input(content.symbols.getValue('7'))
-        +Input(content.symbols.getValue('6'))
         inputChars("БАЦ")
         +Info(
             """
                 Далее введите, поставив цифровой знак цифровой знак число "Восемьсот семдесят шесть"
             """
         )
+        inputChars("]876")
         +Info(
             """
                     Урок 5 пройден!
