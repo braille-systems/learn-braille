@@ -11,7 +11,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.github.braillesystems.learnbraille.data.dsl.Data
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.res.prepopulationData
+import com.github.braillesystems.learnbraille.utils.DateConverters
 import com.github.braillesystems.learnbraille.utils.devnull
+import com.github.braillesystems.learnbraille.utils.logged
 import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -19,22 +21,24 @@ import org.koin.core.KoinComponent
 import org.koin.core.get
 import timber.log.Timber
 
-
 @Database(
     entities =
     [
         User::class, Material::class, KnownMaterial::class,
         Deck::class, Card::class,
         Course::class, Lesson::class, Step::class, StepAnnotation::class, StepHasAnnotation::class,
-        CurrentStep::class, LastCourseStep::class, LastLessonStep::class
+        CurrentStep::class, LastCourseStep::class, LastLessonStep::class,
+        Action::class
     ],
-    version = 17,
-    exportSchema = false
+    version = 18,
+    exportSchema = true
 )
 @TypeConverters(
     BrailleDotsConverters::class,
     MaterialDataTypeConverters::class,
-    StepDataConverters::class
+    StepDataConverters::class,
+    ActionTypeConverters::class,
+    DateConverters::class
 )
 abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
 
@@ -55,53 +59,38 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
     abstract val lastCourseStepDao: LastCourseStepDao
     abstract val lastLessonStepDao: LastLessonStepDao
 
-    @Volatile
-    private var prepopulationFinished = true
+    abstract val actionDao: ActionDao
 
     @Volatile
-    private var forcePrepopulationJob: Job? = null
-
-    @Volatile
-    private var prepareDbJob: Job? = null
+    private lateinit var prepareDbJob: Job
 
     /**
-     * Should be called at the start of application.
+     * Run init every time application starts, after initializing DI
+     * (migrations use it to get DB instance).
+     *
+     * Android Room prepopulation and migrations are lazy,
+     * they will start with the first request, blocking it.
+     * So a user will wait without any feedback if DB preparation takes some time.
+     *
+     * The better way is to call `init` before first request and do preparations asynchronously
+     * and check DB preparation manually before requesting some data first time.
      */
     fun init(): LearnBrailleDatabase = this.also {
-        forcePrepopulationJob = scope().launch {
-            Timber.i("Force db preparation")
-            // Request value from database to force database callbacks evaluation
+        prepareDbJob = scope().launch {
+            Timber.i("Request value from database to force database callbacks and migrations")
             userDao.getUser(1).devnull
         }
     }
 
-    val isInitialized: Boolean
-        @SuppressLint("BinaryOperationInTimber")
-        get() {
-            val forceJobCompleted = forcePrepopulationJob
-                ?.isCompleted
-                ?: error("Call database init function before")
-            val prepareDbJobCompleted = prepareDbJob?.isCompleted == true || prepareDbJob == null
-            return (prepopulationFinished && forceJobCompleted && prepareDbJobCompleted).also {
-                if (it) Timber.i("DB has been prepopulated")
-                else Timber.i(
-                    "DB has not been prepopulated: " +
-                            "prepopulationFinished = $prepopulationFinished, " +
-                            "forceJobCompleted = $forceJobCompleted, " +
-                            "prepareDbJobCompleted = $prepareDbJobCompleted"
-                )
-            }
-        }
+    val isInitialized: Boolean by logged {
+        prepareDbJob.isCompleted
+    }
 
     private fun prepare(block: suspend LearnBrailleDatabase.() -> Unit) {
-        prepareDbJob = scope().launch {
-            Timber.i("Start database prepopulation")
-            prepopulationFinished = false
-
+        scope(prepareDbJob).launch {
+            Timber.i("Start database preparation")
             this@LearnBrailleDatabase.block()
-
-            prepopulationFinished = true
-            Timber.i("Finnish database prepopulation")
+            Timber.i("Finnish database preparation")
         }
     }
 
@@ -169,7 +158,21 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
                 }
             })
             .addMigrations(
-                contentUpdateMigration(16, 17)
+                contentUpdateMigration(16, 17),
+                object : Migration(17, 18), KoinComponent {
+                    override fun migrate(database: SupportSQLiteDatabase) =
+                        get<LearnBrailleDatabase>().prepare {
+                            database.execSQL(
+                                """
+                                    CREATE TABLE actions (
+                                        id   INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+                                        type TEXT     NOT NULL,
+                                        date INTEGER  NOT NULL
+                                    )
+                                """.trimIndent()
+                            )
+                        }
+                }
             )
             .fallbackToDestructiveMigration()
             .build()

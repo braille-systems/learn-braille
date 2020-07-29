@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.text.parseAsHtml
-import com.github.braillesystems.learnbraille.COURSE_ID
+import com.github.braillesystems.learnbraille.COURSE
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Step
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
@@ -99,7 +99,7 @@ abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWith
         when (item.itemId) {
             R.id.help -> navigateToHelp()
             R.id.lessons_list -> navigate(R.id.action_global_lessonsListFragment)
-            R.id.current_course_pos -> toCurrentStep(COURSE_ID)
+            R.id.current_course_pos -> toCurrentStep(COURSE.id)
         }
     }
 

@@ -123,6 +123,7 @@
 
     <string name="menu_continue">ТЕОРИЯ</string>
     <string name="menu_practice">ПРАКТИКА</string>
+    <string name="menu_stats">СТАТИСТИКА</string>
     <string name="menu_qt">СКАНИРОВАТЬ QR-КОД</string>
     <string name="menu_stacked_help">СПРАВКА</string>
     <string name="menu_settings">НАСТРОЙКИ</string>
@@ -141,6 +142,8 @@
         рельефно-точечных символов крупным шрифтом, вводом символов и поясняющими комментариями.
         &<br>
         <b>Практика:</b> Повторение символов.
+        &<br>
+        <b>Статистика:</b> Ваша активность в приложении.
         &<br>
         <b>Настройки:</b> Параметры приложения.
         &<br>
@@ -337,5 +340,38 @@
     <string name="preference_summary_additional_qrcode_button">
         Отображать в главном меню кнопку \"Сканирование QR-кода\" для игры с карточками.
     </string>
+
+    <!--    Stats-->
+
+    <string name="stats_template">
+        <![CDATA[
+        <br>
+        <br>
+        <b>За последние %s дней:</b>
+        <br>
+        <br>
+        Практика:
+        <br>
+        пройдено карточек: %s
+        <br>
+        потребовалось подсказок: %s
+        <br>
+        потрачено попыток: %s
+        <br>
+        <br>
+        Теория:
+        <br>
+        пройдено шагов: %s
+        <br>
+        пройдено шагов с вводом: %s
+        ]]>
+    </string>
+
+    <string name="stats_help">
+        В разделе \"статистика\" отражается ваша активность в приложении за последнюю неделю
+        и за последний месяц.
+    </string>
+
+    <string name="stats_title">Статистика</string>
 
 </resources>

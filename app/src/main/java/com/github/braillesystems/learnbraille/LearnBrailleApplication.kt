@@ -24,11 +24,11 @@ class LearnBrailleApplication : Application() {
 
             single { LearnBrailleDatabase.buildDatabase(this@LearnBrailleApplication) }
 
-            factory<StatsRepository> {
-                StatsRepositoryImpl(get<LearnBrailleDatabase>().actionDao)
+            factory<ActionsRepository> {
+                ActionsRepositoryImpl(get<LearnBrailleDatabase>().actionDao)
             }
-            factory<MutableStatsRepository> {
-                StatsRepositoryImpl(get<LearnBrailleDatabase>().actionDao)
+            factory<MutableActionsRepository> {
+                ActionsRepositoryImpl(get<LearnBrailleDatabase>().actionDao)
             }
 
             factory<PreferenceRepository> {
@@ -80,7 +80,7 @@ class LearnBrailleApplication : Application() {
 
             factory { (getEnteredDots: () -> BrailleDots) ->
                 CardViewModelFactory(
-                    get(),
+                    get(), get(),
                     this@LearnBrailleApplication,
                     getEnteredDots
                 )

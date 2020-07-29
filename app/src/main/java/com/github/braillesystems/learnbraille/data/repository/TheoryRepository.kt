@@ -26,7 +26,8 @@ class TheoryRepositoryImpl(
     private val lastCourseStepDao: LastCourseStepDao,
     private val lastLessonStepDao: LastLessonStepDao,
     private val knownMaterialDao: KnownMaterialDao,
-    private val preferenceRepository: PreferenceRepository
+    private val preferenceRepository: PreferenceRepository,
+    private val actionsRepository: MutableActionsRepository
 ) : MutableTheoryRepository {
 
     private val proscribedAnnotations
@@ -36,10 +37,12 @@ class TheoryRepositoryImpl(
         )
 
     override suspend fun getNextStepAndUpdate(thisStep: Step, markThisAsPassed: Boolean): Step? {
-        val next = stepDao.getNextStep(
-            thisStep.courseId, thisStep.lessonId, thisStep.id,
-            proscribedAnnotations
-        ) ?: return null
+        val next = stepDao
+            .getNextStep(
+                thisStep.courseId, thisStep.lessonId, thisStep.id,
+                proscribedAnnotations
+            )
+            ?: return null
         val curr = requireNotNull(
             stepDao.getCurrentStep(preferenceRepository.currentUserId, thisStep.courseId)
         )
@@ -61,17 +64,20 @@ class TheoryRepositoryImpl(
                 next.courseId, next.lessonId, next.id
             )
         )
+        actionsRepository.addAction(TheoryPassStep(thisStep.data is BaseInput))
 
         return updateAndReturn()
     }
 
     override suspend fun getPrevStepAndUpdate(thisStep: Step): Step? =
-        stepDao.getPrevStep(
-            thisStep.courseId,
-            thisStep.lessonId,
-            thisStep.id,
-            proscribedAnnotations
-        )?.also { updateLast(it) }
+        stepDao
+            .getPrevStep(
+                thisStep.courseId,
+                thisStep.lessonId,
+                thisStep.id,
+                proscribedAnnotations
+            )
+            ?.also { updateLast(it) }
 
     override suspend fun getCurrentStepAndUpdate(courseId: Long): Step =
         getCurrentStep(courseId).also { updateLast(it) }
@@ -80,7 +86,8 @@ class TheoryRepositoryImpl(
      * LessonId is supposed to exist for this courseId.
      */
     override suspend fun getLastLessonOrCurrentStepAndUpdate(courseId: Long, lessonId: Long): Step =
-        stepDao.getLastStep(preferenceRepository.currentUserId, courseId, lessonId)
+        stepDao
+            .getLastStep(preferenceRepository.currentUserId, courseId, lessonId)
             ?.also { updateLast(it) }
             ?: error(
                 "No such lessonId ($lessonId) exists for course ($courseId) " +
@@ -88,26 +95,31 @@ class TheoryRepositoryImpl(
             )
 
     override suspend fun getCurrentStep(courseId: Long): Step =
-        stepDao.getCurrentStep(preferenceRepository.currentUserId, courseId)
+        stepDao
+            .getCurrentStep(preferenceRepository.currentUserId, courseId)
             ?: initCoursePos(courseId)
 
     override suspend fun getLastCourseStep(courseId: Long): Step =
-        stepDao.getLastStep(preferenceRepository.currentUserId, courseId)
+        stepDao
+            .getLastStep(preferenceRepository.currentUserId, courseId)
             ?: initCoursePos(courseId)
 
     override suspend fun getAllCourseLessons(courseId: Long): List<Lesson> =
         lessonDao.getAllCourseLessons(courseId)
 
     private suspend fun initCoursePos(courseId: Long): Step =
-        stepDao.getFirstCourseStep(courseId)?.also { first ->
-            updateLast(first)
-            currentStepDao.update(
-                CurrentStep(
-                    preferenceRepository.currentUserId,
-                    first.courseId, first.lessonId, first.id
+        stepDao
+            .getFirstCourseStep(courseId)
+            ?.also { first ->
+                updateLast(first)
+                currentStepDao.update(
+                    CurrentStep(
+                        preferenceRepository.currentUserId,
+                        first.courseId, first.lessonId, first.id
+                    )
                 )
-            )
-        } ?: error("First course step should always exist")
+            }
+            ?: error("First course step should always exist")
 
     private fun updateLast(step: Step): Unit = scope().launch {
         lastCourseStepDao.update(

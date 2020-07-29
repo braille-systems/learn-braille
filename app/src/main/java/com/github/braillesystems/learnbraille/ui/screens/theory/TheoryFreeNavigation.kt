@@ -34,7 +34,8 @@ fun getAction(step: Step): NavDirections =
         }
     }
 
-fun AbstractStepFragment.getStepArg(): Step = parse(Step.serializer(), getStringArg(stepArgName))
+fun AbstractStepFragment.getStepArg(): Step =
+    parse(Step.serializer(), getFragmentStringArg(stepArgName))
 
 fun Fragment.toStep(step: Step) = navigate(getAction(step))
 

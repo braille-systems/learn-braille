@@ -1,5 +1,6 @@
 package com.github.braillesystems.learnbraille.utils
 
+import java.util.*
 import kotlin.reflect.KProperty
 
 /**
@@ -48,7 +49,7 @@ fun <T, R> Iterable<Rule<T, R>>.match(key: T): R? = matchF(key)?.invoke(key)
 operator fun <T, R> Rules<T, R>.get(x: T): R? = match(x)
 
 /**
- * Is very useful to choose android text resource depending on some condition.
+ * It is very useful to choose android text resource depending on some condition.
  * (In that case prevent lambda of capturing context that will be invalid next time fragment entered,
  * so use `Fragment.getString` outside of (...) -> String lambdas.)
  * ```
@@ -93,5 +94,21 @@ class rules<C, T, R>(private vararg val ruleProviders: C.() -> Rule<T, R>) {
 class lazyWithContext<C, R>(private val getter: C.(KProperty<*>) -> R) {
     private var value: R? = null
     operator fun getValue(thisRef: C, property: KProperty<*>): R =
-        value ?: thisRef.getter(property).also { value = it }
+        value ?: thisRef
+            .getter(property)
+            .also { value = it }
 }
+
+class Days(val v: Int) {
+    operator fun unaryMinus(): Days = Days(-v)
+}
+
+operator fun Date.plus(days: Days): Date =
+    GregorianCalendar()
+        .apply {
+            time = this@plus
+            add(Calendar.DATE, days.v)
+        }
+        .time
+
+operator fun Date.minus(days: Days): Date = plus(-days)
