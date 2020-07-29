@@ -7,8 +7,10 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.github.braillesystems.learnbraille.LearnBrailleApplication
 import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

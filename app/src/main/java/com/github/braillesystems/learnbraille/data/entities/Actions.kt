@@ -12,7 +12,17 @@ data class Action(
     var id: Long = 0,
     val type: ActionType,
     val date: Date = Date()
-)
+) {
+    companion object {
+        val creationQuery = """
+            CREATE TABLE actions (
+                id   INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+                type TEXT     NOT NULL,
+                date INTEGER  NOT NULL
+            )
+        """.trimIndent()
+    }
+}
 
 @Dao
 interface ActionDao {

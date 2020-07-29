@@ -1,7 +1,9 @@
 package com.github.braillesystems.learnbraille.data.db
 
 import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.content.Context
+import android.database.sqlite.SQLiteDatabase
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -16,7 +18,6 @@ import com.github.braillesystems.learnbraille.utils.logged
 import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
 import org.koin.core.get
 import timber.log.Timber
@@ -65,15 +66,12 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
     private lateinit var prepareDbJob: Job
 
     /**
-     * Run init every time application starts, after initializing DI
-     * (migrations use it to get DB instance).
-     *
      * Android Room prepopulation and migrations are lazy,
      * they will start with the first request, blocking it.
      *
      * TODO add reference to docs
      */
-    fun init(): LearnBrailleDatabase = this.also {
+    private fun init(): LearnBrailleDatabase = this.also {
         prepareDbJob = scope().launch {
             Timber.i("Requesting value from database to force database callbacks and migrations")
             Timber.i("Start database preparation")
@@ -113,9 +111,9 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
 
                 private fun prepopulate() {
                     Timber.i("Prepopulate DB")
-                    runBlocking {
-                        get<LearnBrailleDatabase>().apply {
-                            prepopulationData.apply {
+                    get<LearnBrailleDatabase>().apply {
+                        scope(prepareDbJob).launch {
+                            prepopulationData.run {
                                 users?.let { userDao.insert(it) }
                                 materials?.let { materialDao.insert(it) }
                                 decks?.let { deckDao.insert(it) }
@@ -132,25 +130,78 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
                 }
             })
             .addMigrations(
-                object : Migration(16, 17), KoinComponent {
-                    override fun migrate(database: SupportSQLiteDatabase) {
-                        // TODO 16-17 migration
-                    }
-                },
-                object : Migration(17, 18), KoinComponent {
-                    override fun migrate(database: SupportSQLiteDatabase) {
-                        database.execSQL(
-                            """
-                                CREATE TABLE actions (
-                                    id   INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
-                                    type TEXT     NOT NULL,
-                                    date INTEGER  NOT NULL
-                                )
-                            """.trimIndent()
-                        )
-                    }
-                }
+                MIGRATION_16_17,
+                MIGRATION_17_18
             )
             .build()
+            .init()
+    }
+}
+
+private val MIGRATION_16_17 = object : Migration(16, 17), KoinComponent {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        Timber.i("Start 16-17 migration")
+
+        database.execSQL("delete from materials")
+        database.execSQL("delete from steps")
+        database.execSQL("delete from step_has_annotations")
+
+        Timber.i("Removed old content")
+
+        prepopulationData.run {
+            materials?.forEach {
+                database.insert(
+                    "materials",
+                    SQLiteDatabase.CONFLICT_IGNORE,
+                    it.run {
+                        ContentValues().apply {
+                            put("id", id)
+                            put("data", MaterialDataTypeConverters().to(data))
+                        }
+                    }
+                )
+            }
+            Timber.i("Materials loaded")
+
+            steps?.forEach {
+                database.insert(
+                    "steps",
+                    SQLiteDatabase.CONFLICT_IGNORE,
+                    it.run {
+                        ContentValues().apply {
+                            put("id", id)
+                            put("course_id", courseId)
+                            put("lesson_id", lessonId)
+                            put("data", StepDataConverters().to(data))
+                        }
+                    }
+                )
+            }
+            Timber.i("Steps loaded")
+
+            stepsHasAnnotations?.forEach {
+                database.insert(
+                    "step_has_annotations",
+                    SQLiteDatabase.CONFLICT_IGNORE,
+                    it.run {
+                        ContentValues().apply {
+                            put("course_id", courseId)
+                            put("lesson_id", lessonId)
+                            put("step_id", stepId)
+                            put("annotation_id", annotationId)
+                        }
+                    }
+                )
+            }
+            Timber.i("Steps-annotations mapping loaded")
+        }
+    }
+}
+
+private val MIGRATION_17_18 = object : Migration(17, 18), KoinComponent {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        Timber.i("Start 17-18 migration")
+        database.execSQL(Action.creationQuery)
+        Timber.i("Actions table created")
     }
 }
