@@ -8,7 +8,6 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.github.braillesystems.learnbraille.data.dsl.Data
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.res.prepopulationData
 import com.github.braillesystems.learnbraille.utils.DateConverters
@@ -17,6 +16,7 @@ import com.github.braillesystems.learnbraille.utils.logged
 import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
 import org.koin.core.get
 import timber.log.Timber
@@ -70,60 +70,20 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
      *
      * Android Room prepopulation and migrations are lazy,
      * they will start with the first request, blocking it.
-     * So a user will wait without any feedback if DB preparation takes some time.
      *
-     * The better way is to call `init` before first request and do preparations asynchronously
-     * and check DB preparation manually before requesting some data first time.
+     * TODO add reference to docs
      */
     fun init(): LearnBrailleDatabase = this.also {
         prepareDbJob = scope().launch {
-            Timber.i("Request value from database to force database callbacks and migrations")
+            Timber.i("Requesting value from database to force database callbacks and migrations")
+            Timber.i("Start database preparation")
             userDao.getUser(1).devnull
+            Timber.i("Finnish database preparation")
         }
     }
 
     val isInitialized: Boolean by logged {
         prepareDbJob.isCompleted
-    }
-
-    private fun prepare(block: suspend LearnBrailleDatabase.() -> Unit) {
-        scope(prepareDbJob).launch {
-            Timber.i("Start database preparation")
-            this@LearnBrailleDatabase.block()
-            Timber.i("Finnish database preparation")
-        }
-    }
-
-    private suspend fun populateAll(data: Data) = populateAll16(data)
-
-    private suspend fun populateAll16(data: Data) {
-        data.apply {
-            users?.let { userDao.insert(it) }
-            materials?.let { materialDao.insert(it) }
-            decks?.let { deckDao.insert(it) }
-            cards?.let { cardDao.insert(it) }
-            courses?.let { courseDao.insert(it) }
-            lessons?.let { lessonDao.insert(it) }
-            steps?.let { stepDao.insert(it) }
-            stepAnnotations?.let { stepAnnotationDao.insert(it) }
-            stepsHasAnnotations?.let { stepHasAnnotationDao.insert(it) }
-            knownMaterials?.let { knownMaterialDao.insert(it) }
-        }
-    }
-
-    private suspend fun clearAll() = clearAll16()
-
-    private suspend fun clearAll16() {
-        userDao.clear()
-        materialDao.clear()
-        deckDao.clear()
-        cardDao.clear()
-        courseDao.clear()
-        lessonDao.clear()
-        stepDao.clear()
-        stepAnnotationDao.clear()
-        stepHasAnnotationDao.clear()
-        knownMaterialDao.clear()
     }
 
     companion object {
@@ -153,40 +113,44 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
 
                 private fun prepopulate() {
                     Timber.i("Prepopulate DB")
-                    val db = get<LearnBrailleDatabase>()
-                    db.prepare { populateAll(prepopulationData) }
+                    runBlocking {
+                        get<LearnBrailleDatabase>().apply {
+                            prepopulationData.apply {
+                                users?.let { userDao.insert(it) }
+                                materials?.let { materialDao.insert(it) }
+                                decks?.let { deckDao.insert(it) }
+                                cards?.let { cardDao.insert(it) }
+                                courses?.let { courseDao.insert(it) }
+                                lessons?.let { lessonDao.insert(it) }
+                                steps?.let { stepDao.insert(it) }
+                                stepAnnotations?.let { stepAnnotationDao.insert(it) }
+                                stepsHasAnnotations?.let { stepHasAnnotationDao.insert(it) }
+                                knownMaterials?.let { knownMaterialDao.insert(it) }
+                            }
+                        }
+                    }
                 }
             })
             .addMigrations(
-                contentUpdateMigration(16, 17),
+                object : Migration(16, 17), KoinComponent {
+                    override fun migrate(database: SupportSQLiteDatabase) {
+                        // TODO 16-17 migration
+                    }
+                },
                 object : Migration(17, 18), KoinComponent {
-                    override fun migrate(database: SupportSQLiteDatabase) =
-                        get<LearnBrailleDatabase>().prepare {
-                            database.execSQL(
-                                """
-                                    CREATE TABLE actions (
-                                        id   INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
-                                        type TEXT     NOT NULL,
-                                        date INTEGER  NOT NULL
-                                    )
-                                """.trimIndent()
-                            )
-                        }
+                    override fun migrate(database: SupportSQLiteDatabase) {
+                        database.execSQL(
+                            """
+                                CREATE TABLE actions (
+                                    id   INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+                                    type TEXT     NOT NULL,
+                                    date INTEGER  NOT NULL
+                                )
+                            """.trimIndent()
+                        )
+                    }
                 }
             )
-            .fallbackToDestructiveMigration()
             .build()
-
-        private fun contentUpdateMigration(fromVersion: Int, toVersion: Int) =
-            contentUpdateMigration16(fromVersion, toVersion)
-
-        private fun contentUpdateMigration16(fromVersion: Int, toVersion: Int) =
-            object : Migration(fromVersion, toVersion), KoinComponent {
-                override fun migrate(database: SupportSQLiteDatabase) =
-                    get<LearnBrailleDatabase>().prepare {
-                        clearAll16()
-                        populateAll16(prepopulationData)
-                    }
-            }
     }
 }
