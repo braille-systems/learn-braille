@@ -59,3 +59,11 @@ class lazyWithContext<C, R>(private val getter: C.(String) -> R) {
     operator fun getValue(thisRef: C, property: KProperty<*>): R =
         value ?: thisRef.getter(property.name).also { value = it }
 }
+
+inline fun <T> tryN(n: Int, stop: (T) -> Boolean, get: () -> T): T? {
+    repeat(n) {
+        val v = get()
+        if (stop(v)) return v
+    }
+    return null
+}
