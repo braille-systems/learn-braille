@@ -5,15 +5,19 @@ import androidx.lifecycle.*
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.PracticeHintAction
 import com.github.braillesystems.learnbraille.data.entities.PracticeSubmission
+import com.github.braillesystems.learnbraille.data.entities.MaterialData
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.data.repository.MutableActionsRepository
 import com.github.braillesystems.learnbraille.data.repository.MutablePracticeRepository
 import com.github.braillesystems.learnbraille.ui.screens.DotsChecker
 import com.github.braillesystems.learnbraille.ui.screens.MutableDotsChecker
 import com.github.braillesystems.learnbraille.utils.scope
+import com.github.braillesystems.learnbraille.utils.tryN
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
+import java.util.concurrent.ArrayBlockingQueue
 
 class CardViewModelFactory(
     private val practiceRepository: MutablePracticeRepository,
@@ -57,6 +61,9 @@ class CardViewModel(
     private val job = Job()
     private val uiScope = scope(job)
 
+    private val nSkipMaterials = 2
+    private val materialsQueue: Queue<MaterialData> = ArrayBlockingQueue(nSkipMaterials)
+
     init {
         Timber.i("Initialize practice view model")
         initializeCard(firstTime = true)
@@ -95,9 +102,19 @@ class CardViewModel(
     }
 
     private fun initializeCard(firstTime: Boolean = false) = uiScope.launch {
-        val material = practiceRepository.getNextMaterialNotNull()
+        val material = tryN(
+            n = 5,
+            stop = { it.data !in materialsQueue },
+            get = { practiceRepository.getNextMaterialNotNull() }
+        ) ?: practiceRepository.getNextMaterialNotNull()
+
+        if (material.data !in materialsQueue) {
+            if (materialsQueue.size == nSkipMaterials) materialsQueue.poll()
+            materialsQueue.add(material.data)
+        }
+
         require(material.data is Symbol)
-        material.data.apply {
+        material.data.run {
             _symbol.value = char.toString()
             expectedDots = brailleDots
         }

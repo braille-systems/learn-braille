@@ -83,6 +83,7 @@ internal val testLessons by lessons {
         +Input(content.symbols.getValue(']'))
         +Input(content.symbols.getValue('1'))
         +Input(content.symbols.getValue('2'))
+        +Input(content.symbols.getValue('3'))
 
         +Info(
             """Поздравляем! Второй урок пройден. В следующем занятии мы узнаем, 

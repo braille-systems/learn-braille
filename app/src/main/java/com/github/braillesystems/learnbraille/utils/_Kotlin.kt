@@ -112,3 +112,11 @@ operator fun Date.plus(days: Days): Date =
         .time
 
 operator fun Date.minus(days: Days): Date = plus(-days)
+
+inline fun <T> tryN(n: Int, stop: (T) -> Boolean, get: () -> T): T? {
+    repeat(n) {
+        val v = get()
+        if (stop(v)) return v
+    }
+    return null
+}
