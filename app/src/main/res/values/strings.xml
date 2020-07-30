@@ -331,7 +331,7 @@
         Автоозвучка текстов
     </string>
     <string name="preference_summary_additional_announcements">
-        Автоматически озвучивать длинные тексты (например, в справке и разделе \"теория\")
+        Автоматически озвучивать тексты (например, задания, справку)
         средством экранного чтения, не дожидаясь фокусировки на текстовом поле.
     </string>
     <string name="preference_title_extended_accessibility">

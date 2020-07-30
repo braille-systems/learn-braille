@@ -89,7 +89,7 @@ class PreferenceRepositoryImpl(
     override val additionalAnnouncementsEnabled: Boolean by logged {
         context.preferences.getBoolean(
             context.getString(R.string.preference_enable_additional_announcements),
-            false
+            true
         )
     }
 
