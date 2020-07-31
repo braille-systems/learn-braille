@@ -10,7 +10,6 @@ import com.github.braillesystems.learnbraille.data.entities.PracticeSubmission
 import com.github.braillesystems.learnbraille.data.entities.TheoryPassStep
 import com.github.braillesystems.learnbraille.data.repository.Actions
 import com.github.braillesystems.learnbraille.data.repository.ActionsRepository
-import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentStatsBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.utils.Days
@@ -24,7 +23,6 @@ import org.koin.android.ext.android.inject
 
 class StatsFragment : AbstractFragmentWithHelp(R.string.stats_help) {
 
-    private val preferenceRepository: PreferenceRepository by inject()
     private val actionsRepository: ActionsRepository by inject()
     private val job = Job()
 
