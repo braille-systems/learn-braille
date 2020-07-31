@@ -58,6 +58,21 @@ class LearnBrailleApplication : Application() {
                 )
             }
 
+            factory<BrowserRepository> {
+                val db = get<LearnBrailleDatabase>()
+                BrowserRepositoryImpl(
+                    this@LearnBrailleApplication,
+                    get(), db.deckDao, db.cardDao
+                )
+            }
+            factory<MutableBrowserRepository> {
+                val db = get<LearnBrailleDatabase>()
+                BrowserRepositoryImpl(
+                    this@LearnBrailleApplication,
+                    get(), db.deckDao, db.cardDao
+                )
+            }
+
             factory<TheoryRepository> {
                 get<LearnBrailleDatabase>().run {
                     TheoryRepositoryImpl(

@@ -58,6 +58,12 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             navigate(R.id.action_menuFragment_to_practiceFragment)
         })
 
+        binding.browserButton.also {
+            buttons += it
+        }.setOnClickListener(interruptingOnClickListener {
+            navigate(R.id.action_menuFragment_to_browserFragment)
+        })
+
         binding.statsButton.also {
             buttons += it
         }.setOnClickListener(interruptingOnClickListener {

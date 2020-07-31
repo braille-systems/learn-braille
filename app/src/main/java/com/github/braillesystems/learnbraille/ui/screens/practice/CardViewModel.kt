@@ -2,11 +2,7 @@ package com.github.braillesystems.learnbraille.ui.screens.practice
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.github.braillesystems.learnbraille.data.entities.BrailleDots
-import com.github.braillesystems.learnbraille.data.entities.PracticeHintAction
-import com.github.braillesystems.learnbraille.data.entities.PracticeSubmission
-import com.github.braillesystems.learnbraille.data.entities.MaterialData
-import com.github.braillesystems.learnbraille.data.entities.Symbol
+import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.data.repository.MutableActionsRepository
 import com.github.braillesystems.learnbraille.data.repository.MutablePracticeRepository
 import com.github.braillesystems.learnbraille.ui.screens.DotsChecker
