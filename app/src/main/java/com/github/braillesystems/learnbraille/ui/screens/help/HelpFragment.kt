@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.databinding.FragmentHelpBinding
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
-import com.github.braillesystems.learnbraille.utils.getStringArg
+import com.github.braillesystems.learnbraille.utils.getFragmentStringArg
 import com.github.braillesystems.learnbraille.utils.removeHtmlMarkup
 import com.github.braillesystems.learnbraille.utils.title
 
@@ -28,7 +28,7 @@ class HelpFragment : Fragment() {
 
         title = getString(R.string.help_title)
 
-        val content = getStringArg(helpMessageArgName)
+        val content = getFragmentStringArg(helpMessageArgName)
         helpView.setSeparatedText(content)
         checkedAnnounce(content.removeHtmlMarkup())
 

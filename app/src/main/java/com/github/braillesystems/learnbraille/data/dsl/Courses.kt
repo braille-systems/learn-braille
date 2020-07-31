@@ -3,6 +3,15 @@ package com.github.braillesystems.learnbraille.data.dsl
 import com.github.braillesystems.learnbraille.data.entities.Course
 import com.github.braillesystems.learnbraille.utils.side
 
+sealed class CourseID(val id: Long)
+object DevelopersCourse : CourseID(1)
+class UsersCourse(id: Long) : CourseID(id) {
+    init {
+        require(id > 1) {
+            "id == 1 stands for developers course"
+        }
+    }
+}
 
 /**
  * Provided values have no ID

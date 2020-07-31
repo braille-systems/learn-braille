@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.github.braillesystems.learnbraille.COURSE_ID
+import com.github.braillesystems.learnbraille.COURSE
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Lesson
 import com.github.braillesystems.learnbraille.data.repository.TheoryRepository
@@ -41,10 +41,10 @@ class LessonsListFragment : Fragment() {
         title = getString(R.string.lessons_title_lessons_list)
 
         lifecycleScope.launch {
-            val curr = theoryRepository.getCurrentStep(COURSE_ID)
-            val lessons = theoryRepository.getAllCourseLessons(COURSE_ID)
+            val curr = theoryRepository.getCurrentStep(COURSE.id)
+            val lessons = theoryRepository.getAllCourseLessons(COURSE.id)
             val activeListener = object : LessonItemListener {
-                override fun onClick(item: Lesson) = toLastLessonStep(COURSE_ID, item.id)
+                override fun onClick(item: Lesson) = toLastLessonStep(COURSE.id, item.id)
             }
             val disabledListener = object : LessonItemListener {
                 override fun onClick(item: Lesson) =

@@ -3,8 +3,11 @@ package com.github.braillesystems.learnbraille.ui.screens.practice
 import android.app.Application
 import androidx.lifecycle.*
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.data.entities.PracticeHintAction
+import com.github.braillesystems.learnbraille.data.entities.PracticeSubmission
 import com.github.braillesystems.learnbraille.data.entities.MaterialData
 import com.github.braillesystems.learnbraille.data.entities.Symbol
+import com.github.braillesystems.learnbraille.data.repository.MutableActionsRepository
 import com.github.braillesystems.learnbraille.data.repository.MutablePracticeRepository
 import com.github.braillesystems.learnbraille.ui.screens.DotsChecker
 import com.github.braillesystems.learnbraille.ui.screens.MutableDotsChecker
@@ -18,6 +21,7 @@ import java.util.concurrent.ArrayBlockingQueue
 
 class CardViewModelFactory(
     private val practiceRepository: MutablePracticeRepository,
+    private val actionsRepository: MutableActionsRepository,
     private val application: Application,
     private val getEnteredDots: () -> BrailleDots
 ) : ViewModelProvider.Factory {
@@ -25,7 +29,7 @@ class CardViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         if (modelClass.isAssignableFrom(CardViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            CardViewModel(practiceRepository, application, getEnteredDots) as T
+            CardViewModel(practiceRepository, actionsRepository, application, getEnteredDots) as T
         } else {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
@@ -33,6 +37,7 @@ class CardViewModelFactory(
 
 class CardViewModel(
     private val practiceRepository: MutablePracticeRepository,
+    private val actionsRepository: MutableActionsRepository,
     application: Application,
     private val getEnteredDots: () -> BrailleDots,
     private val dotsChecker: MutableDotsChecker = MutableDotsChecker.create()
@@ -54,6 +59,7 @@ class CardViewModel(
     private var expectedDots: BrailleDots? = null
 
     private val job = Job()
+    private val uiScope = scope(job)
 
     private val nSkipMaterials = 2
     private val materialsQueue: Queue<MaterialData> = ArrayBlockingQueue(nSkipMaterials)
@@ -73,6 +79,19 @@ class CardViewModel(
             onCorrectHandler = {
                 initializeCard()
                 nCorrect++
+                uiScope.launch {
+                    actionsRepository.addAction(PracticeSubmission(isCorrect = true))
+                }
+            }
+            onHintHandler = {
+                uiScope.launch {
+                    actionsRepository.addAction(PracticeHintAction)
+                }
+            }
+            onIncorrectHandler = {
+                uiScope.launch {
+                    actionsRepository.addAction(PracticeSubmission(isCorrect = false))
+                }
             }
         }
     }
@@ -82,7 +101,7 @@ class CardViewModel(
         job.cancel()
     }
 
-    private fun initializeCard(firstTime: Boolean = false) = scope(job).launch {
+    private fun initializeCard(firstTime: Boolean = false) = uiScope.launch {
         val material = tryN(
             n = 5,
             stop = { it.data !in materialsQueue },

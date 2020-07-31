@@ -36,6 +36,19 @@
             tools:ignore="SpUsage" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/stats_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:insetLeft="8dp"
+            android:insetRight="8dp"
+            android:text="@string/menu_stats"
+            android:textColor="@color/colorOnSecondary"
+            android:textSize="@dimen/menu_text_size"
+            app:shapeAppearanceOverlay="@style/bigButtonsShape"
+            tools:ignore="SpUsage" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/qr_practice_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
