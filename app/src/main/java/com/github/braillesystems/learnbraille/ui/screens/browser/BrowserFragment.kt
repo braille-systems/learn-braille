@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.data.entities.Symbol
+import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.data.repository.BrowserRepository
 import com.github.braillesystems.learnbraille.databinding.BrowserListItemBinding
 import com.github.braillesystems.learnbraille.databinding.FragmentBrowserBinding
@@ -53,7 +54,10 @@ class BrowserFragment : AbstractFragmentWithHelp(R.string.browser_help) {
             binding.materialsList.adapter = BrowserListAdapter(materials) { item ->
                 this.item = item
                 materialText.text = when (item.data) {
-                    is Symbol -> application.showSymbolPrintRules[item.data.char]
+                    is Symbol -> getString(R.string.browser_represent_template).format(
+                        application.showSymbolPrintRules[item.data.char].toString(),
+                        item.data.brailleDots.spelling
+                    )
                 }
                 clickListener = listener
             }
