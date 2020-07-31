@@ -31,7 +31,7 @@ class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view
         title = getString(R.string.browser_symbol_view_title)
         setHasOptionsMenu(true)
 
-        val m: Material = parse(Material.serializer(), getStringArg("material"))
+        val m: Material = parse(Material.serializer(), getFragmentStringArg("material"))
         require(m.data is Symbol)
 
         val msg = getString(R.string.browser_represent_template).format(

@@ -22,6 +22,9 @@
             android:id="@+id/action_menuFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
         <action
+            android:id="@+id/action_menuFragment_to_statsFragment"
+            app:destination="@id/statsFragment" />
+        <action
             android:id="@+id/action_menuFragment_to_browserFragment"
             app:destination="@id/browserFragment" />
     </fragment>
@@ -169,7 +172,6 @@
     <action
         android:id="@+id/action_global_lessonsListFragment"
         app:destination="@id/lessonsListFragment" />
-
     <fragment
         android:id="@+id/browserFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.browser.BrowserFragment"
@@ -185,5 +187,14 @@
         <argument
             android:name="material"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/statsFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.stats.StatsFragment"
+        android:label="fragment_stats"
+        tools:layout="@layout/fragment_stats">
+        <action
+            android:id="@+id/action_statsFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
 </navigation>

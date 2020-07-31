@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.github.braillesystems.learnbraille.COURSE_ID
+import com.github.braillesystems.learnbraille.COURSE
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
@@ -49,7 +49,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         binding.lessonsButton.also {
             buttons += it
         }.setOnClickListener(interruptingOnClickListener {
-            toLastCourseStep(COURSE_ID)
+            toLastCourseStep(COURSE.id)
         })
 
         binding.practiceButton.also {
@@ -62,6 +62,12 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             buttons += it
         }.setOnClickListener(interruptingOnClickListener {
             navigate(R.id.action_menuFragment_to_browserFragment)
+        })
+
+        binding.statsButton.also {
+            buttons += it
+        }.setOnClickListener(interruptingOnClickListener {
+            navigate(R.id.action_menuFragment_to_statsFragment)
         })
 
         if (preferenceRepository.additionalQrCodeButtonEnabled) {
@@ -148,41 +154,35 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         }
 
     private fun colorButtons(buttons: List<MaterialButton>) {
-        val (ps, bs) = when (buttons.size) {
-            3 -> {
-                val (b1, b2, b3) = buttons
-                listOf(b1, b3) to listOf(b2)
+        buttons
+            .filterIndexed { i, _ -> i % 2 == 0 }
+            .forEach {
+                it.setTextColor(
+                    ContextCompat.getColor(
+                        application, R.color.colorOnSecondary
+                    )
+                )
+                it.setBackgroundColor(
+                    ContextCompat.getColor(
+                        application, R.color.colorSecondary
+                    )
+                )
             }
-            4 -> {
-                val (b1, b2, b3, b4) = buttons
-                listOf(b1, b3) to listOf(b2, b4)
+
+        buttons
+            .filterIndexed { i, _ -> i % 2 != 0 }
+            .forEach {
+                it.setTextColor(
+                    ContextCompat.getColor(
+                        application, R.color.colorOnPrimary
+                    )
+                )
+                it.setBackgroundColor(
+                    ContextCompat.getColor(
+                        application, R.color.colorPrimary
+                    )
+                )
             }
-            else -> listOf<MaterialButton>() to listOf()
-        }
-        ps.forEach {
-            it.setTextColor(
-                ContextCompat.getColor(
-                    application, R.color.colorOnSecondary
-                )
-            )
-            it.setBackgroundColor(
-                ContextCompat.getColor(
-                    application, R.color.colorSecondary
-                )
-            )
-        }
-        bs.forEach {
-            it.setTextColor(
-                ContextCompat.getColor(
-                    application, R.color.colorOnPrimary
-                )
-            )
-            it.setBackgroundColor(
-                ContextCompat.getColor(
-                    application, R.color.colorPrimary
-                )
-            )
-        }
     }
 
     companion object {

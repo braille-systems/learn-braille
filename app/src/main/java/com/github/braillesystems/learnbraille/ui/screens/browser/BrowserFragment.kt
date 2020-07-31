@@ -14,10 +14,7 @@ import com.github.braillesystems.learnbraille.databinding.BrowserListItemBinding
 import com.github.braillesystems.learnbraille.databinding.FragmentBrowserBinding
 import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
-import com.github.braillesystems.learnbraille.utils.application
-import com.github.braillesystems.learnbraille.utils.navigate
-import com.github.braillesystems.learnbraille.utils.stringify
-import com.github.braillesystems.learnbraille.utils.title
+import com.github.braillesystems.learnbraille.utils.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
