@@ -1,11 +1,8 @@
 package com.github.braillesystems.learnbraille.ui.screens.stats
 
 import android.os.Bundle
-import android.text.Spanned
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.text.parseAsHtml
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.PracticeHintAction
@@ -13,17 +10,19 @@ import com.github.braillesystems.learnbraille.data.entities.PracticeSubmission
 import com.github.braillesystems.learnbraille.data.entities.TheoryPassStep
 import com.github.braillesystems.learnbraille.data.repository.Actions
 import com.github.braillesystems.learnbraille.data.repository.ActionsRepository
-import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentStatsBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
-import com.github.braillesystems.learnbraille.utils.*
+import com.github.braillesystems.learnbraille.utils.Days
+import com.github.braillesystems.learnbraille.utils.scope
+import com.github.braillesystems.learnbraille.utils.title
+import kotlinx.android.synthetic.main.fragment_stats.*
+import kotlinx.android.synthetic.main.fragment_stats_table.view.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class StatsFragment : AbstractFragmentWithHelp(R.string.stats_help) {
 
-    private val preferenceRepository: PreferenceRepository by inject()
     private val actionsRepository: ActionsRepository by inject()
     private val job = Job()
 
@@ -41,56 +40,30 @@ class StatsFragment : AbstractFragmentWithHelp(R.string.stats_help) {
         title = getString(R.string.stats_title)
         setHasOptionsMenu(true)
 
-        val start = 30
-        val end = 20
-
         scope(job).launch {
-            val days = 7
-            val weekActions = actionsRepository.getActionsFrom(Days(days))
-            binding.week.apply {
-                text = formatStatsTemplate(days, weekActions)
-                setPaddingRelative(start, 0, end, 0)
-                if (preferenceRepository.extendedAccessibilityEnabled) {
-                    setTextSize(
-                        TypedValue.COMPLEX_UNIT_SP,
-                        application.extendedTextSize
-                    )
+            val statsList = listOf(stats_week to 7, stats_month to 30)
+            for (statsData in statsList) {
+                val actions: Actions = actionsRepository.getActionsFrom(Days(statsData.second))
+                val cardsMastered =
+                    actions.count { it.type is PracticeSubmission && it.type.isCorrect }
+                val hintsUsed = actions.count { it.type is PracticeHintAction }
+                val totalAttempts = actions.count { it.type is PracticeSubmission }
+
+                val theoryStepsPassed = actions.count { it.type is TheoryPassStep }
+                val theoryInputStepsPassed =
+                    actions.count { it.type is TheoryPassStep && it.type.isInput }
+
+                statsData.first.apply {
+                    practice_mastered_cards.text = """$cardsMastered"""
+                    practice_hints.text = """$hintsUsed"""
+                    practice_total_attempts.text = """$totalAttempts"""
+
+                    theory_steps_passed.text = """$theoryStepsPassed"""
+                    theory_input_steps_passed.text = """$theoryInputStepsPassed"""
                 }
             }
         }
-
-        scope(job).launch {
-            val days = 30
-            val monthActions = actionsRepository.getActionsFrom(Days(days))
-            binding.month.apply {
-                text = formatStatsTemplate(days, monthActions)
-                setPaddingRelative(start, 0, end, 0)
-                if (preferenceRepository.extendedAccessibilityEnabled) {
-                    setTextSize(
-                        TypedValue.COMPLEX_UNIT_SP,
-                        application.extendedTextSize
-                    )
-                }
-            }
-        }
-
     }.root
 
     override fun onDestroy() = super.onDestroy().also { job.cancel() }
-
-    private fun formatStatsTemplate(days: Int, actions: Actions): Spanned =
-        getString(R.string.stats_template)
-            .format(
-                /* days */ days.toString(),
-                /* cards passed */ actions.count {
-                    it.type is PracticeSubmission && it.type.isCorrect
-                },
-                /* used hints */ actions.count { it.type is PracticeHintAction },
-                /* tries */ actions.count { it.type is PracticeSubmission },
-                /* steps passed */ actions.count { it.type is TheoryPassStep },
-                /* input steps passed */ actions.count {
-                    it.type is TheoryPassStep && it.type.isInput
-                }
-            )
-            .parseAsHtml()
 }

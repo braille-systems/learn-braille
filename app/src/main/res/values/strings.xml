@@ -350,35 +350,20 @@
 
     <!--    Stats-->
 
-    <string name="stats_template">
-        <![CDATA[
-        <br>
-        <br>
-        <b>За последние %s дней:</b>
-        <br>
-        <br>
-        Практика:
-        <br>
-        пройдено карточек: %s
-        <br>
-        потребовалось подсказок: %s
-        <br>
-        потрачено попыток: %s
-        <br>
-        <br>
-        Теория:
-        <br>
-        пройдено шагов: %s
-        <br>
-        пройдено шагов с вводом: %s
-        ]]>
-    </string>
-
     <string name="stats_help">
         В разделе \"статистика\" отражается ваша активность в приложении за последнюю неделю
         и за последний месяц.
     </string>
 
     <string name="stats_title">Статистика</string>
+    <string name="stats_practice_title">Практика:</string>
+    <string name="stats_property_mastered_card">Пройдено карточек</string>
+    <string name="stats_property_hints_used">Потребовалось подсказок</string>
+    <string name="stats_property_total_attempts">Потрачено попыток</string>
+    <string name="stats_title_theory">Теория:</string>
+    <string name="stats_property_steps_passed">Пройдено шагов</string>
+    <string name="stats_property_input_steps_passed">Пройдено шагов с вводом</string>
+    <string name="stats_section_7days">За последние 7 дней</string>
+    <string name="stats_section_30days">За последние 30 дней</string>
 
 </resources>
