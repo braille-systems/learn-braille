@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.github.braillesystems.learnbraille.R
@@ -14,6 +13,7 @@ import com.github.braillesystems.learnbraille.data.repository.BrowserRepository
 import com.github.braillesystems.learnbraille.databinding.BrowserListItemBinding
 import com.github.braillesystems.learnbraille.databinding.FragmentBrowserBinding
 import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
+import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.navigate
 import com.github.braillesystems.learnbraille.utils.stringify
@@ -21,7 +21,7 @@ import com.github.braillesystems.learnbraille.utils.title
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
-class BrowserFragment : Fragment() {
+class BrowserFragment : AbstractFragmentWithHelp(R.string.browser_help) {
 
     private val browserRepository: BrowserRepository by inject()
 
@@ -37,6 +37,7 @@ class BrowserFragment : Fragment() {
     ).also { binding ->
 
         title = getString(R.string.browser_title)
+        setHasOptionsMenu(true)
 
         lifecycleScope.launch {
             val deckId = browserRepository.currentDeckId
@@ -44,9 +45,12 @@ class BrowserFragment : Fragment() {
             val listener = object : BrowserItemListener {
                 override fun onClick(item: Material) {
                     val arg = stringify(Material.serializer(), item)
-                    navigate(
-                        BrowserFragmentDirections.actionBrowserFragmentToMaterialViewFragment(arg)
-                    )
+                    when (item.data) {
+                        is Symbol -> navigate(
+                            BrowserFragmentDirections
+                                .actionBrowserFragmentToMaterialViewFragment(arg)
+                        )
+                    }
                 }
             }
             binding.materialsList.adapter = BrowserListAdapter(materials) { item ->

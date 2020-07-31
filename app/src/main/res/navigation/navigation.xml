@@ -175,21 +175,8 @@
         android:name="com.github.braillesystems.learnbraille.ui.screens.browser.BrowserFragment"
         android:label="BrowserFragment">
         <action
-            android:id="@+id/action_browserFragment_to_browserDecksListFragment"
-            app:destination="@id/browserDecksListFragment"
-            app:popUpTo="@id/browserFragment" />
-        <action
             android:id="@+id/action_browserFragment_to_materialViewFragment"
             app:destination="@id/symbolViewFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/browserDecksListFragment"
-        android:name="com.github.braillesystems.learnbraille.ui.screens.browser.BrowserDecksListFragment"
-        android:label="BrowserDecksListFragment">
-        <action
-            android:id="@+id/action_browserDecksListFragment_to_browserFragment"
-            app:destination="@id/browserFragment"
-            app:popUpTo="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/symbolViewFragment"

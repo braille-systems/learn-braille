@@ -4,18 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.databinding.FragmentSymbolViewBinding
 import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
+import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.*
 
-class SymbolViewFragment : Fragment() {
+class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view_help) {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +29,7 @@ class SymbolViewFragment : Fragment() {
     ).also { binding ->
 
         title = getString(R.string.browser_symbol_view_title)
+        setHasOptionsMenu(true)
 
         val m: Material = parse(Material.serializer(), getStringArg("material"))
         require(m.data is Symbol)
