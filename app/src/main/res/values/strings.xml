@@ -123,6 +123,7 @@
 
     <string name="menu_continue">ТЕОРИЯ</string>
     <string name="menu_practice">ПРАКТИКА</string>
+    <string name="menu_browser">МАТЕРИАЛЫ</string>
     <string name="menu_qt">СКАНИРОВАТЬ QR-КОД</string>
     <string name="menu_stacked_help">СПРАВКА</string>
     <string name="menu_settings">НАСТРОЙКИ</string>
@@ -297,6 +298,12 @@
     <string name="usb_permission_denied">Разрешение на подключение не выдано</string>
     <string name="usb_device_disconnected">Тренажёр Брайля отключён</string>
     <string name="usb_unknown_device">Этот аппарат не поддерживается</string>
+
+    <!--    Browser-->
+
+    <string name="browser_title">Обзор материалов</string>
+    <string name="browser_represent_template">%s - обозначается точками: %s</string>
+    <string name="browser_symbol_view_title">Просмотр символа</string>
 
     <!--    Settings-->
 

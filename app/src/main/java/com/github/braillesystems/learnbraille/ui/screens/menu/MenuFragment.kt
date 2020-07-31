@@ -38,7 +38,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         R.layout.fragment_menu,
         container,
         false
-    ).apply {
+    ).also { binding ->
 
         title = getString(R.string.menu_actionbar_text_template).format(appName)
         setHasOptionsMenu(true)
@@ -46,20 +46,26 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
         val buttons = mutableListOf<MaterialButton>()
 
-        lessonsButton.also {
+        binding.lessonsButton.also {
             buttons += it
         }.setOnClickListener(interruptingOnClickListener {
             toLastCourseStep(COURSE_ID)
         })
 
-        practiceButton.also {
+        binding.practiceButton.also {
             buttons += it
         }.setOnClickListener(interruptingOnClickListener {
             navigate(R.id.action_menuFragment_to_practiceFragment)
         })
 
+        binding.browserButton.also {
+            buttons += it
+        }.setOnClickListener(interruptingOnClickListener {
+            navigate(R.id.action_menuFragment_to_browserFragment)
+        })
+
         if (preferenceRepository.additionalQrCodeButtonEnabled) {
-            qrPracticeButton.also {
+            binding.qrPracticeButton.also {
                 buttons += it
             }.setOnClickListener {
                 try {
@@ -72,23 +78,23 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
                 }
             }
         } else {
-            qrPracticeButton.visibility = View.GONE
+            binding.qrPracticeButton.visibility = View.GONE
         }
 
-        settingsButton.also {
+        binding.settingsButton.also {
             buttons += it
         }.setOnClickListener {
             navigate(R.id.action_menuFragment_to_settingsFragment)
         }
 
         if (preferenceRepository.extendedAccessibilityEnabled) {
-            exitButton.also {
+            binding.exitButton.also {
                 buttons += it
             }.setOnClickListener {
                 navigate(R.id.action_menuFragment_to_exitFragment)
             }
         } else {
-            exitButton.visibility = View.GONE
+            binding.exitButton.visibility = View.GONE
         }
 
         colorButtons(buttons)

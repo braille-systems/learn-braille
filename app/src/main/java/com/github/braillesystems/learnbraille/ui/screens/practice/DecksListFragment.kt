@@ -23,7 +23,7 @@ import com.github.braillesystems.learnbraille.utils.title
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
-class DecksList : Fragment() {
+class DecksListFragment : Fragment() {
 
     private val practiceRepository: MutablePracticeRepository by inject()
     private val preferenceRepository: PreferenceRepository by inject()
