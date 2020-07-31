@@ -33,6 +33,7 @@
                 android:id="@+id/material_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorOnBackgroundDark"
                 android:textSize="@dimen/list_text_size"
                 tools:text="Deck name" />
 
