@@ -42,9 +42,9 @@
     <string name="input_special_intro_hyphen">Введите символ: Дефис</string>
     <string name="input_special_intro_comma">Введите запятую</string>
 
-    <string name="show_letter_intro_template">Буква: %s</string>
-    <string name="show_digit_intro_template">Цифра: %s</string>
-    <string name="show_special_intro_template">Символ: %s</string>
+    <string name="show_letter_intro_template">Буква %s</string>
+    <string name="show_digit_intro_template">Цифра %s</string>
+    <string name="show_special_intro_template">Символ %s</string>
     <string name="show_special_intro_num_sign">Цифровой знак</string>
     <string name="show_special_intro_dot">Литературная точка</string>
     <string name="show_special_intro_hyphen">Дефис</string>
@@ -123,7 +123,7 @@
 
     <string name="menu_continue">ТЕОРИЯ</string>
     <string name="menu_practice">ПРАКТИКА</string>
-    <string name="menu_browser">МАТЕРИАЛЫ</string>
+    <string name="menu_browser">СИМВОЛЫ</string>
     <string name="menu_stats">СТАТИСТИКА</string>
     <string name="menu_qt">QR-КОД</string>
     <string name="menu_stacked_help">СПРАВКА</string>
@@ -144,6 +144,8 @@
         &<br>
         <b>Практика:</b> Повторение символов.
         &<br>
+        <b>Символы:</b> Список букв, специальных символов и цифр с указанием точечного состава.
+        &<br>
         <b>Статистика:</b> Информация о Вашей активности в приложении.
         &<br>
         <b>Настройки:</b> Параметры приложения.
@@ -158,6 +160,9 @@
         &<br>
         Находясь в любом разделе приложения, Вы всегда можете вызвать справку по данному разделу,
         нажав экранную кнопку <b>\"справка\"</b> в правом верхнем углу экрана.
+        &<br>
+        Из всякого раздела, кроме главного меню приложения, можно выйти в предыдущий, нажав кнопку
+        <b>\"Перейти вверх\"</b> в левом верхнем углу экрана.
         ]]>
     </string>
 
@@ -304,13 +309,34 @@
 
     <!--    Browser-->
 
-    <string name="browser_title">Обзор материалов</string>
-    <string name="browser_represent_template">%s - точки %s</string>
+    <string name="browser_title">Список символов</string>
+    <string name="browser_represent_template">%s: точки %s</string>
     <string name="browser_symbol_view_title">Просмотр символа</string>
-    <!--    TODO-->
-    <string name="browser_help">HEEEEELP</string>
-    <!--TODO-->
-    <string name="browser_symbol_view_help">HEEEEELP</string>
+
+    <string name="browser_help">
+        <![CDATA[
+        В данном разделе можно просмотреть точечный состав любой буквы,
+        цифры или специального символа. Буквы расположены здесь в порядке \"зрячего\" алфавита,
+        а не в порядке \"ключа Брайля\", как они изучаются в курсе.
+        Помните, что при написании чисел нужно вначале ставить цифровой знак.
+        &<br>
+        Нажатие на символ в списке (или двойное нажатие, если Вы используете программу TalkBack)
+        открывает окно, где этот символ крупным шрифтом выведен на экран.
+        &<br>
+        Из этого раздела можно выйти в главное меню, нажав кнопку <b>\"Перейти вверх\"</b>
+        в левом верхнем углу экрана.
+        ]]>
+    </string>
+
+    <string name="browser_symbol_view_help">
+        <![CDATA[
+        В верхней половине экр(ана выведен \"зрячий\" (плоскопечатный) символ, в нижней половине -
+        его точечный состав.
+        &<br>
+        Из этого раздела можно выйти обратно к списку символов, нажав кнопку <b>\"Перейти вверх\"</b>
+        в левом верхнем углу экрана.
+        ]]>
+    </string>
 
     <!--    Settings-->
 
@@ -362,8 +388,13 @@
     <!--    Stats-->
 
     <string name="stats_help">
-        В разделе \"статистика\" отражается ваша активность в приложении за последнюю неделю
+        <![CDATA[
+        В разделе \"Статистика\" отражается Ваша активность в приложении за последнюю неделю
         и за последний месяц.
+        &<br>
+        Из этого раздела можно выйти в главное меню, нажав кнопку \"Перейти вверх\" (стрелка влево)
+        в левом верхнем углу экрана.
+        ]]>
     </string>
 
     <string name="stats_title">Статистика</string>
