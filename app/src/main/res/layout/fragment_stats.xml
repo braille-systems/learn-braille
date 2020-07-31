@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -9,21 +8,34 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="@dimen/margin_text"
+            android:layout_marginEnd="@dimen/margin_text"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/week"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/lessons_info_text_size"
-                tools:text="@string/stats_template" />
+                android:text="@string/stats_section_7days"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="@dimen/lessons_title_text_size" />
+
+            <include
+                android:id="@+id/stats_week"
+                layout="@layout/fragment_stats_table" />
 
             <TextView
-                android:id="@+id/month"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/lessons_info_text_size"
-                tools:text="@string/stats_template" />
+                android:text="@string/stats_section_30days"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="@dimen/lessons_title_text_size" />
+
+            <include
+                android:id="@+id/stats_month"
+                layout="@layout/fragment_stats_table" />
 
         </LinearLayout>
     </ScrollView>
