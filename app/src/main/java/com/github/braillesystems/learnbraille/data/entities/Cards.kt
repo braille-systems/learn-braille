@@ -41,4 +41,18 @@ interface CardDao {
         """
     )
     suspend fun getRandomKnownMaterialFromDeck(userId: Long, deckId: Long): Material?
+
+    @Query(
+        """
+        select m.* from cards as c
+        inner join materials as m on m.id = c.material_id
+        inner join decks as d on d.id = c.deck_id
+        where d.id = :id
+        order by m.id
+        """
+    )
+    suspend fun getAllMaterialsFromDeck(id: Long): List<Material>
+
+    @Query("delete from cards")
+    suspend fun clear()
 }

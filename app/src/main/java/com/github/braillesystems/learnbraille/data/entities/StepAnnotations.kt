@@ -14,4 +14,7 @@ interface StepAnnotationDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(annotations: List<StepAnnotation>)
+
+    @Query("delete from step_annotations")
+    suspend fun clear()
 }

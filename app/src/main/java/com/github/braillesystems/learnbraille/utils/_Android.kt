@@ -15,8 +15,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import androidx.room.TypeConverter
 import com.github.braillesystems.learnbraille.R
 import timber.log.Timber
+import java.util.*
 import kotlin.reflect.KProperty
 
 /**
@@ -25,13 +27,16 @@ import kotlin.reflect.KProperty
  */
 
 val Context.usbManager get() = getSystemService(Context.USB_SERVICE) as UsbManager
+
 val Context.accessibilityManager: AccessibilityManager?
     get() =
         if (!isAccessibilityEnabled) null
         else getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
 
-fun Fragment.getStringArg(name: String): String =
-    arguments?.getString(name) ?: error("No $name found in args")
+fun Fragment.getFragmentStringArg(name: String): String =
+    arguments
+        ?.getString(name)
+        ?: error("No $name found in args")
 
 typealias BuzzPattern = LongArray
 
@@ -106,12 +111,29 @@ fun Button.setSize(width: Int? = null, height: Int? = null) {
     }
 }
 
-class logged<C, R>(
+class logged<C, T>(
     private val logger: (String) -> Unit = { Timber.d(it) },
-    private val getter: C.(KProperty<*>) -> R
+    private val setter: (C.(T) -> Unit)? = null,
+    private val getter: C.(KProperty<*>) -> T
 ) {
-    operator fun getValue(thisRef: C, property: KProperty<*>): R =
-        thisRef.getter(property).also {
-            logger("${property.name} -> $it")
-        }
+
+    operator fun getValue(thisRef: C, property: KProperty<*>): T =
+        thisRef
+            .getter(property)
+            .also { logger("${property.name} -> $it") }
+
+    operator fun setValue(thisRef: C, property: KProperty<*>, value: T) =
+        setter
+            ?.let { thisRef.it(value) }
+            ?.also { logger("${property.name} <- $value") }
+            ?: error("Setter is expected to be set")
+}
+
+class DateConverters {
+
+    @TypeConverter
+    fun to(d: Date): Long = d.time
+
+    @TypeConverter
+    fun from(value: Long): Date = Date(value)
 }

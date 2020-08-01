@@ -12,7 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.github.braillesystems.learnbraille.COURSE_ID
+import com.github.braillesystems.learnbraille.COURSE
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
@@ -38,7 +38,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         R.layout.fragment_menu,
         container,
         false
-    ).apply {
+    ).also { binding ->
 
         title = getString(R.string.menu_actionbar_text_template).format(appName)
         setHasOptionsMenu(true)
@@ -46,20 +46,32 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
         val buttons = mutableListOf<MaterialButton>()
 
-        lessonsButton.also {
+        binding.lessonsButton.also {
             buttons += it
         }.setOnClickListener(interruptingOnClickListener {
-            toLastCourseStep(COURSE_ID)
+            toLastCourseStep(COURSE.id)
         })
 
-        practiceButton.also {
+        binding.practiceButton.also {
             buttons += it
         }.setOnClickListener(interruptingOnClickListener {
             navigate(R.id.action_menuFragment_to_practiceFragment)
         })
 
+        binding.browserButton.also {
+            buttons += it
+        }.setOnClickListener(interruptingOnClickListener {
+            navigate(R.id.action_menuFragment_to_browserFragment)
+        })
+
+        binding.statsButton.also {
+            buttons += it
+        }.setOnClickListener(interruptingOnClickListener {
+            navigate(R.id.action_menuFragment_to_statsFragment)
+        })
+
         if (preferenceRepository.additionalQrCodeButtonEnabled) {
-            qrPracticeButton.also {
+            binding.qrPracticeButton.also {
                 buttons += it
             }.setOnClickListener {
                 try {
@@ -72,23 +84,23 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
                 }
             }
         } else {
-            qrPracticeButton.visibility = View.GONE
+            binding.qrPracticeButton.visibility = View.GONE
         }
 
-        settingsButton.also {
+        binding.settingsButton.also {
             buttons += it
         }.setOnClickListener {
             navigate(R.id.action_menuFragment_to_settingsFragment)
         }
 
         if (preferenceRepository.extendedAccessibilityEnabled) {
-            exitButton.also {
+            binding.exitButton.also {
                 buttons += it
             }.setOnClickListener {
                 navigate(R.id.action_menuFragment_to_exitFragment)
             }
         } else {
-            exitButton.visibility = View.GONE
+            binding.exitButton.visibility = View.GONE
         }
 
         colorButtons(buttons)
@@ -142,41 +154,35 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         }
 
     private fun colorButtons(buttons: List<MaterialButton>) {
-        val (ps, bs) = when (buttons.size) {
-            3 -> {
-                val (b1, b2, b3) = buttons
-                listOf(b1, b3) to listOf(b2)
+        buttons
+            .filterIndexed { i, _ -> i % 2 == 0 }
+            .forEach {
+                it.setTextColor(
+                    ContextCompat.getColor(
+                        application, R.color.colorOnSecondary
+                    )
+                )
+                it.setBackgroundColor(
+                    ContextCompat.getColor(
+                        application, R.color.colorSecondary
+                    )
+                )
             }
-            4 -> {
-                val (b1, b2, b3, b4) = buttons
-                listOf(b1, b3) to listOf(b2, b4)
+
+        buttons
+            .filterIndexed { i, _ -> i % 2 != 0 }
+            .forEach {
+                it.setTextColor(
+                    ContextCompat.getColor(
+                        application, R.color.colorOnPrimary
+                    )
+                )
+                it.setBackgroundColor(
+                    ContextCompat.getColor(
+                        application, R.color.colorPrimary
+                    )
+                )
             }
-            else -> listOf<MaterialButton>() to listOf()
-        }
-        ps.forEach {
-            it.setTextColor(
-                ContextCompat.getColor(
-                    application, R.color.colorOnSecondary
-                )
-            )
-            it.setBackgroundColor(
-                ContextCompat.getColor(
-                    application, R.color.colorSecondary
-                )
-            )
-        }
-        bs.forEach {
-            it.setTextColor(
-                ContextCompat.getColor(
-                    application, R.color.colorOnPrimary
-                )
-            )
-            it.setBackgroundColor(
-                ContextCompat.getColor(
-                    application, R.color.colorPrimary
-                )
-            )
-        }
     }
 
     companion object {
