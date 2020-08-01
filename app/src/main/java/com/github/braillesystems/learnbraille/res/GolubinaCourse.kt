@@ -251,7 +251,8 @@ internal val golubinaIntroLessons by lessons {
         +Input(content.symbols.getValue('7'))
         +Info(
             """
-                На пятой сверху строчке на странице 14 букваря написаны цифры от одного до пяти.
+                На пятой сверху строчке на странице 14 букваря, под строкой с цифровым знаком,
+                написаны цифры от одного до пяти.
                 Изучите каждую цифру.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
@@ -281,6 +282,11 @@ internal val golubinaIntroLessons by lessons {
                     В следующих шести шагах введите по буквам слово БАГДАД."""
         )
         inputChars("БАГДАД")
+        +Info(
+            """Наберите в следующих четырёх шагах число СТО ДВАДЦАТЬ ТРИ, поставив перед ним
+               цифровой знак.
+            """
+        )
         inputChars("]123")
         +Info(
             """
@@ -313,7 +319,7 @@ internal val golubinaIntroLessons by lessons {
         inputChars("БАЦ")
         +Info(
             """
-                Далее введите, поставив цифровой знак цифровой знак число "Восемьсот семдесят шесть"
+                Далее введите, поставив цифровой знак, число "Восемьсот семдесят шесть"
             """
         )
         inputChars("]876")
@@ -430,7 +436,8 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('М'))
         +Info(
             """
-                    На той же странице 19 в букваре найдите и изучите под буквами К, Л букву М.
+                    На той же странице 19 в букваре найдите и прочтите строку с буквой М
+                    под строками с буквами К, Л.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
@@ -480,7 +487,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Н'))
         +Info(
             """
-                    Раскройте страницу 20 букваря и найдите вверху букву Н.
+                    Раскройте страницу 21 букваря и найдите вверху букву Н.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('Н'))
@@ -499,7 +506,7 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """
                     На этом урок 8 завершается. Для закрепления материала полезно прочесть
-                    содержание страниц 20 и 21 в букваре.
+                    текст на страницах 21 и 22 в букваре.
                     <br>
                     В следующий раз изучим букву О и знак препинания ЗАПЯТАЯ.
                     """
@@ -771,8 +778,6 @@ internal val golubinaIntroLessons by lessons {
         inputChars("ЧЕСНОК")
         +Info(
             """
-                    Урок 13 завершён. Теперь мы, помимо прочего, знаем точечный состав буквы 'Р'.
-                    За этим уроком следует занятие, посвящённое букве С.
                     Мы подошли к финалу урока 13. К этому моменту мы уже изучили 19 букв,
                     знак препинания 'ЗАПЯТАЯ' и цифры. В следующем уроке изучим букву Т.
                     """
@@ -829,7 +834,8 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('-'))
         +Info(
             """
-                   Переверните страницу в букваре. На странице 31 найдите по центру знак "дефис".
+                   Переверните страницу в букваре. На странице 31 найдите по центру знак "дефис",
+                   повторённый пять раз.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
@@ -996,7 +1002,7 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Наберите по буквам очень важное для нас слово АЗБУКА"""
         )
-        inputChars("КЛЕЩ")
+        inputChars("АЗБУКА")
         +Info(
             """В следующих пяти шагах введите слово АРБУЗ"""
         )
@@ -1100,7 +1106,7 @@ internal val golubinaIntroLessons by lessons {
             """
                    Откройте раздел букваря, где изучается твёрдый знак, на странице 36.
                    <br>
-                   Прочтите верхнюю строку, которая содержит твёрдый знак.
+                   Прочтите верхнюю строку, которая содержит пять повторов этого символа.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
@@ -1349,7 +1355,7 @@ internal val golubinaIntroLessons by lessons {
         inputChars("МИШЕНЬ")
         +Info(
             """
-                    Познакомимся с точечным составом буквы, последней в зрячем алфавите, 
+                    Познакомимся с точечным составом буквы, последней в русском алфавите, 
                     но не в нашем курсе - с буквой Я.
                     <br>
                     Буква 'Я' - это точки 1, 2, 4 и 6. Иначе говоря, эта буква составлена из точек
