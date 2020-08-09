@@ -44,7 +44,7 @@ fun <T, R> Rules<T, R>.matchF(key: T): ((T) -> R)? {
     return null
 }
 
-fun <T, R> Iterable<Rule<T, R>>.match(key: T): R? = matchF(key)?.invoke(key)
+fun <T, R> Rules<T, R>.match(key: T): R? = matchF(key)?.invoke(key)
 
 operator fun <T, R> Rules<T, R>.get(x: T): R? = match(x)
 
