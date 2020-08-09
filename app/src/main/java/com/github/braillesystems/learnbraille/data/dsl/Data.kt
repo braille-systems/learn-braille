@@ -32,7 +32,7 @@ typealias LessonWithSteps = Pair<Lesson, List<StepWithAnnotations>>
 annotation class DataBuilderMarker
 
 
-class data(
+class DataStorage(
     private val materials: MaterialsBuilder,
     private val stepAnnotations: List<StepAnnotationName>,
     private val knownMaterials: List<KnownMaterial>,

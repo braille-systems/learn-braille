@@ -3,7 +3,7 @@ package com.github.braillesystems.learnbraille.res
 import android.content.Context
 import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.data.dsl.data
+import com.github.braillesystems.learnbraille.data.dsl.DataStorage
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.utils.lazyWithContext
 
@@ -21,7 +21,7 @@ import com.github.braillesystems.learnbraille.utils.lazyWithContext
  * Correctness of all information should be checked in compile time or in runtime.
  * If you need some additional info, do not hardcode it. Just make request to the new DSL feature.
  */
-val prepopulationData by data(
+val prepopulationData by DataStorage(
     materials = content,
     stepAnnotations = listOf(
         StepAnnotation.golubinaBookRequired

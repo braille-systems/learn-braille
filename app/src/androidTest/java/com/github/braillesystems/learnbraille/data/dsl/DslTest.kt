@@ -32,7 +32,7 @@ private val enSymbols by symbols(symbolType = "en") {
 val knownMaterials by known()
 
 
-private val prepopulationData by data(
+private val prepopulationData by DataStorage(
     materials = content,
     stepAnnotations = listOf("book", "bomb"),
     knownMaterials = knownMaterials
