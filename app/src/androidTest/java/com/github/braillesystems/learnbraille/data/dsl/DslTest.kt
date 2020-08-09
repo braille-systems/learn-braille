@@ -200,7 +200,7 @@ private val stepHasAnnotations = listOf(
 @RunWith(AndroidJUnit4::class)
 class DslTest {
 
-    private lateinit var data: Data
+    private lateinit var data: DataStorage
 
     @Before
     fun getBuilder() {

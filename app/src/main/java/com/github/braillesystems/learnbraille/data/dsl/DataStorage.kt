@@ -6,7 +6,7 @@ import com.github.braillesystems.learnbraille.utils.side
 import kotlin.reflect.KProperty
 
 
-interface Data {
+interface DataStorage {
     val users: List<User>?
     val materials: List<Material>?
     val decks: List<Deck>?
@@ -32,13 +32,13 @@ typealias LessonWithSteps = Pair<Lesson, List<StepWithAnnotations>>
 annotation class DataBuilderMarker
 
 
-class DataStorage(
+class data(
     private val materials: MaterialsBuilder,
     private val stepAnnotations: List<StepAnnotationName>,
     private val knownMaterials: List<KnownMaterial>,
     private val block: DataBuilder.() -> Unit
 ) {
-    internal operator fun getValue(thisRef: Any?, property: KProperty<*>): Data =
+    internal operator fun getValue(thisRefgit : Any?, property: KProperty<*>): DataStorage =
         DataBuilder(materials, stepAnnotations, knownMaterials, block)
 }
 
@@ -49,7 +49,7 @@ class DataBuilder(
     private val stepAnnotationNames: List<StepAnnotationName>,
     private val _knownMaterials: List<KnownMaterial>,
     block: DataBuilder.() -> Unit
-) : Data {
+) : DataStorage {
 
     private val _users = mutableListOf<User>()
     override val users: List<User>
