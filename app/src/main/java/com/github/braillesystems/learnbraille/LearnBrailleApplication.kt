@@ -6,6 +6,8 @@ import com.github.braillesystems.learnbraille.data.dsl.UsersCourse
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.repository.*
 import com.github.braillesystems.learnbraille.ui.screens.practice.CardViewModelFactory
+import com.github.braillesystems.learnbraille.utils.devnull
+import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.Koin
 import org.koin.core.context.startKoin
@@ -105,6 +107,9 @@ class LearnBrailleApplication : Application() {
             androidContext(this@LearnBrailleApplication)
             modules(koinModule)
         }.koin
+
+        // Touch database to force it's preparation
+        get<LearnBrailleDatabase>().devnull
     }
 }
 
