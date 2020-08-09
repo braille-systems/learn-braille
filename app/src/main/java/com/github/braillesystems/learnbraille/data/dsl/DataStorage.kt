@@ -38,7 +38,7 @@ class data(
     private val knownMaterials: List<KnownMaterial>,
     private val block: DataBuilder.() -> Unit
 ) {
-    internal operator fun getValue(thisRefgit : Any?, property: KProperty<*>): DataStorage =
+    internal operator fun getValue(thisRef: Any?, property: KProperty<*>): DataStorage =
         DataBuilder(materials, stepAnnotations, knownMaterials, block)
 }
 
