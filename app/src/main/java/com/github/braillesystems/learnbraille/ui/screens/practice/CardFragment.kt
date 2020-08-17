@@ -58,12 +58,11 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         setHasOptionsMenu(true)
 
         if (preferenceRepository.extendedAccessibilityEnabled) {
-            hintButton.setSize(
-                width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
-            )
-            nextButton.setSize(
-                width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
-            )
+            for (button in arrayOf(hintButton, nextButton, flipButton)){
+                button.setSize(
+                    width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
+                )
+            }
         }
 
         dotsState = brailleDots.dotsState.apply {
