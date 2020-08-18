@@ -60,6 +60,7 @@
     <string name="practice_hint">Подсказка</string>
     <string name="practice_next">Далее</string>
     <string name="practice_actionbar_title_template">Практика: %d из %d</string>
+    <string name="practice_actionbar_title">Практика</string>
     <string name="practice_deck_name_enabled_template">
         Колода: \"%s\"\nПовторять только изученные: включено
     </string>
@@ -130,6 +131,7 @@
     <string name="menu_settings">НАСТРОЙКИ</string>
     <string name="menu_exit">ВЫХОД</string>
     <string name="menu_actionbar_text_template">%s. Меню</string>
+    <string name="menu_actionbar_text">Меню</string>
     <string name="menu_db_not_initialized_warning">
         Загружаем базу данных. Попробуйте ещё раз!
     </string>
