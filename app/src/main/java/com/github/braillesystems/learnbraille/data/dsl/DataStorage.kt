@@ -128,7 +128,9 @@ class DataBuilder(
 
                 stepsWithAnnotations.forEachIndexed { iStep, (step, stepAnnotationNames) ->
                     val stepId = iStep + 1L
-                    _steps += step.copy(id = stepId, courseId = courseId, lessonId = lessonId)
+                    _steps += step
+                        .copy(id = stepId, courseId = courseId, lessonId = lessonId)
+                        .interpolateText(course.name)
 
                     stepAnnotationNames.forEach {
                         val stepAnnotation = annotationByName[it]?.id
@@ -179,3 +181,28 @@ class DecksBuilder(block: DecksBuilder.() -> Unit) {
         _deckToPredicate[deck] = entryCriterion
     }
 }
+
+object InfoInterpolation {
+    const val iStep = "#istep"
+    const val iLesson = "#ilesson"
+    const val courseName = "#courseName"
+}
+
+private fun Step.interpolateText(courseName: String): Step =
+    this.copy(
+        data =
+        if (data !is BaseInfo) data
+        else {
+            when (data) {
+                is FirstInfo -> FirstInfo(interpolateTextHelper(data.text, courseName))
+                is LastInfo -> LastInfo(interpolateTextHelper(data.text, courseName))
+                is Info -> Info(interpolateTextHelper(data.text, courseName))
+            }
+        }
+    )
+
+private fun Step.interpolateTextHelper(text: String, courseName: String): String =
+    text
+        .replace(InfoInterpolation.iStep, id.toString())
+        .replace(InfoInterpolation.iLesson, lessonId.toString())
+        .replace(InfoInterpolation.courseName, courseName)
