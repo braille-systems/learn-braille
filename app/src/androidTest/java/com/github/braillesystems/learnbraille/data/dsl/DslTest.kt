@@ -118,7 +118,9 @@ private val worstLessons by lessons {
         )) {
             +Input(material)
         }
-        +LastInfo("LastInfo")
+        +LastInfo(InfoInterpolation.run {
+            "LastInfo with stepId: $iStep, lessonId: $iLesson, courseName: $courseName"
+        })
     }
 }
 
@@ -184,7 +186,10 @@ private val steps = listOf(
     Step(5, 2, 1, Show(content.symbols.getValue('Z'))),
     Step(6, 2, 1, Input(content.symbols.getValue('Б'))),
     Step(7, 2, 1, Input(content.symbols.getValue('Z'))),
-    Step(8, 2, 1, LastInfo("LastInfo"))
+    Step(
+        8, 2, 1,
+        LastInfo("LastInfo with stepId: 8, lessonId: 1, courseName: Worst course")
+    )
 )
 private val stepAnnotations = listOf(
     StepAnnotation(1, "book"),
