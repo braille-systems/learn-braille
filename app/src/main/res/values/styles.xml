@@ -44,6 +44,7 @@
         <item name="android:scaleX">2.6</item>
         <item name="android:scaleY">2.6</item>
         <item name="android:button">@drawable/round_checkbox</item>
+        <item name="background">@color/colorBackground</item>
     </style>
 
     <style name="SwitchPreferenceButton" parent="Theme.AppCompat.Light">
