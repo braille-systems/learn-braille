@@ -8,7 +8,6 @@ import com.github.braillesystems.learnbraille.data.entities.DeckDao
 import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.utils.preferences
 
-
 data class DeckNotEmpty(
     val deck: Deck,
     val containsCards: Boolean

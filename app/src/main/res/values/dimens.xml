@@ -49,5 +49,6 @@
     <dimen name="list_icon_marginEnd">16dp</dimen>
     <dimen name="list_item_padding">18dp</dimen>
     <dimen name="list_item_margin">8dp</dimen>
+    <dimen name="margin_text">20dp</dimen>
 
 </resources>

@@ -17,8 +17,6 @@ import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.json.Json
 import org.koin.android.ext.android.get
-import timber.log.Timber
-import kotlin.reflect.KProperty
 
 /**
  * This file contains suitable extension functions for this project.

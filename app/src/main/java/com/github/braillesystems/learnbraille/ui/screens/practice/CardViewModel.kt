@@ -2,18 +2,22 @@ package com.github.braillesystems.learnbraille.ui.screens.practice
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.github.braillesystems.learnbraille.data.entities.BrailleDots
-import com.github.braillesystems.learnbraille.data.entities.Symbol
+import com.github.braillesystems.learnbraille.data.entities.*
+import com.github.braillesystems.learnbraille.data.repository.MutableActionsRepository
 import com.github.braillesystems.learnbraille.data.repository.MutablePracticeRepository
 import com.github.braillesystems.learnbraille.ui.screens.DotsChecker
 import com.github.braillesystems.learnbraille.ui.screens.MutableDotsChecker
 import com.github.braillesystems.learnbraille.utils.scope
+import com.github.braillesystems.learnbraille.utils.tryN
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
+import java.util.concurrent.ArrayBlockingQueue
 
 class CardViewModelFactory(
     private val practiceRepository: MutablePracticeRepository,
+    private val actionsRepository: MutableActionsRepository,
     private val application: Application,
     private val getEnteredDots: () -> BrailleDots
 ) : ViewModelProvider.Factory {
@@ -21,7 +25,7 @@ class CardViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         if (modelClass.isAssignableFrom(CardViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            CardViewModel(practiceRepository, application, getEnteredDots) as T
+            CardViewModel(practiceRepository, actionsRepository, application, getEnteredDots) as T
         } else {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
@@ -29,6 +33,7 @@ class CardViewModelFactory(
 
 class CardViewModel(
     private val practiceRepository: MutablePracticeRepository,
+    private val actionsRepository: MutableActionsRepository,
     application: Application,
     private val getEnteredDots: () -> BrailleDots,
     private val dotsChecker: MutableDotsChecker = MutableDotsChecker.create()
@@ -52,6 +57,9 @@ class CardViewModel(
     private val job = Job()
     private val uiScope = scope(job)
 
+    private val nSkipMaterials = 2
+    private val materialsQueue: Queue<MaterialData> = ArrayBlockingQueue(nSkipMaterials)
+
     init {
         Timber.i("Initialize practice view model")
         initializeCard(firstTime = true)
@@ -67,6 +75,19 @@ class CardViewModel(
             onCorrectHandler = {
                 initializeCard()
                 nCorrect++
+                uiScope.launch {
+                    actionsRepository.addAction(PracticeSubmission(isCorrect = true))
+                }
+            }
+            onHintHandler = {
+                uiScope.launch {
+                    actionsRepository.addAction(PracticeHintAction)
+                }
+            }
+            onIncorrectHandler = {
+                uiScope.launch {
+                    actionsRepository.addAction(PracticeSubmission(isCorrect = false))
+                }
             }
         }
     }
@@ -77,9 +98,19 @@ class CardViewModel(
     }
 
     private fun initializeCard(firstTime: Boolean = false) = uiScope.launch {
-        val material = practiceRepository.getNextMaterialNotNull()
+        val material = tryN(
+            n = 5,
+            stop = { it.data !in materialsQueue },
+            get = { practiceRepository.getNextMaterialNotNull() }
+        ) ?: practiceRepository.getNextMaterialNotNull()
+
+        if (material.data !in materialsQueue) {
+            if (materialsQueue.size == nSkipMaterials) materialsQueue.poll()
+            materialsQueue.add(material.data)
+        }
+
         require(material.data is Symbol)
-        material.data.apply {
+        material.data.run {
             _symbol.value = char.toString()
             expectedDots = brailleDots
         }

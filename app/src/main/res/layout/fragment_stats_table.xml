@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="40dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/stats_practice_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textSize="@dimen/lessons_info_text_size" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:stretchColumns="0,1">
+
+        <View style="@style/tableHorizontalRule" />
+
+        <TableRow>
+
+            <TextView
+                style="@style/tableItemTextView"
+                android:text="@string/stats_property_mastered_card" />
+
+            <TextView
+                android:id="@+id/practice_mastered_cards"
+                style="@style/tableItemValueTextView"
+                tools:text="15" />
+        </TableRow>
+
+        <View style="@style/tableHorizontalRule" />
+
+        <TableRow>
+
+            <TextView
+                style="@style/tableItemTextView"
+                android:text="@string/stats_property_hints_used" />
+
+            <TextView
+                android:id="@+id/practice_hints"
+                style="@style/tableItemValueTextView"
+                tools:text="3" />
+        </TableRow>
+
+        <View style="@style/tableHorizontalRule" />
+
+        <TableRow>
+
+            <TextView
+                style="@style/tableItemTextView"
+                android:text="@string/stats_property_total_attempts" />
+
+            <TextView
+                android:id="@+id/practice_total_attempts"
+                style="@style/tableItemValueTextView"
+                tools:text="19" />
+        </TableRow>
+
+        <View style="@style/tableHorizontalRule" />
+    </TableLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/stats_title_theory"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textSize="@dimen/lessons_info_text_size" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:stretchColumns="0,1">
+
+        <View style="@style/tableHorizontalRule" />
+
+        <TableRow>
+
+            <TextView
+                style="@style/tableItemTextView"
+                android:text="@string/stats_property_steps_passed" />
+
+            <TextView
+                android:id="@+id/theory_steps_passed"
+                style="@style/tableItemValueTextView"
+                tools:text="25" />
+        </TableRow>
+
+        <View style="@style/tableHorizontalRule" />
+
+        <TableRow>
+
+            <TextView
+                style="@style/tableItemTextView"
+                android:text="@string/stats_property_input_steps_passed" />
+
+            <TextView
+                android:id="@+id/theory_input_steps_passed"
+                style="@style/tableItemValueTextView"
+                tools:text="11" />
+        </TableRow>
+
+        <View style="@style/tableHorizontalRule" />
+    </TableLayout>
+
+</LinearLayout>

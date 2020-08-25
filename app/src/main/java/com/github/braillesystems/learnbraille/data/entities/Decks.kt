@@ -33,4 +33,7 @@ interface DeckDao {
         """
     )
     suspend fun getAvailableDecks(userId: Long): List<Deck>
+
+    @Query("delete from decks")
+    suspend fun clear()
 }
