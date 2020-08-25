@@ -13,7 +13,7 @@ jobs:
       - name: Set up detekt
         run: curl -sSLO https://github.com/detekt/detekt/releases/download/v1.12.0-RC1/detekt && chmod a+x detekt
       - name: Static check with detekt
-        run: ./detekt
+        run: ./detekt -c detekt-config.yml --build-upon-default-config
       - name: set up JDK 1.8
         uses: actions/setup-java@v1
         with:
