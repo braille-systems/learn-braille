@@ -16,10 +16,15 @@ import com.github.braillesystems.learnbraille.utils.rules
  *
  * Always use this variable to get materials.
  */
+
+// TODO write a migration for lat, greek
+
 val content by materials {
     +ruSymbols
     +specialSymbols
     +uebDigits
+    +latinLetters
+    +greekLetters
 }
 
 val knownMaterials by known(
@@ -45,6 +50,16 @@ val Context.inputSymbolPrintRules by rules<Context, Char, String>(
     },
 
     {
+        val t = getString(R.string.input_latin_letter_intro_template)
+        latinLetters.map::containsKey to { c: Char -> t.format(c) }
+    },
+
+    {
+        val t = getString(R.string.input_greek_letter_intro_template)
+        greekLetters.map::containsKey to { c: Char -> t.format(c) }
+    },
+
+    {
         val other = getString(R.string.input_special_intro_template)
         val numSign = getString(R.string.input_special_intro_num_sign)
         val dotIntro = getString(R.string.input_special_intro_dot)
@@ -63,6 +78,8 @@ val Context.inputSymbolPrintRules by rules<Context, Char, String>(
 )
 
 val Context.showSymbolPrintRules by rules<Context, Char, String>(
+    // TODO reduce repeated code
+
     {
         val t = getString(R.string.show_letter_intro_template)
         ruSymbols.map::containsKey to { c: Char -> t.format(c) }
@@ -71,6 +88,16 @@ val Context.showSymbolPrintRules by rules<Context, Char, String>(
     {
         val t = getString(R.string.show_digit_intro_template)
         uebDigits.map::containsKey to { c: Char -> t.format(c) }
+    },
+
+    {
+        val t = getString(R.string.show_latin_letter_intro_template)
+        latinLetters.map::containsKey to { c: Char -> t.format(c) }
+    },
+
+    {
+        val t = getString(R.string.show_greek_letter_intro_template)
+        greekLetters.map::containsKey to { c: Char -> t.format(c) }
     },
 
     {
@@ -94,6 +121,8 @@ val Context.showSymbolPrintRules by rules<Context, Char, String>(
 
 object SymbolType {
     const val ru = "ru"
+    const val latin = "Latin"
+    const val greek = "greek"
     const val special = "special"
     const val digit = "digit"
 }
@@ -152,4 +181,62 @@ private val uebDigits by symbols(SymbolType.digit) {
     symbol(char = '8', brailleDots = BrailleDots(F, F, E, E, F, E))
     symbol(char = '9', brailleDots = BrailleDots(E, F, E, F, E, E))
     symbol(char = '0', brailleDots = BrailleDots(E, F, E, F, F, E))
+}
+
+private val latinLetters by symbols(SymbolType.latin) {
+    symbol(char = 'A', brailleDots = BrailleDots(F, E, E, E, E, E))
+    symbol(char = 'B', brailleDots = BrailleDots(F, F, E, E, E, E))
+    symbol(char = 'C', brailleDots = BrailleDots(F, E, E, F, E, E))
+    symbol(char = 'D', brailleDots = BrailleDots(F, E, E, F, F, E))
+    symbol(char = 'E', brailleDots = BrailleDots(F, E, E, E, F, E))
+    symbol(char = 'F', brailleDots = BrailleDots(F, F, E, F, E, E))
+    symbol(char = 'G', brailleDots = BrailleDots(F, F, E, F, F, E))
+    symbol(char = 'H', brailleDots = BrailleDots(F, F, E, E, F, E))
+    symbol(char = 'I', brailleDots = BrailleDots(E, F, E, F, E, E))
+    symbol(char = 'J', brailleDots = BrailleDots(E, F, E, F, F, E))
+    symbol(char = 'K', brailleDots = BrailleDots(F, E, F, E, E, E))
+    symbol(char = 'L', brailleDots = BrailleDots(F, F, F, E, E, E))
+    symbol(char = 'M', brailleDots = BrailleDots(F, E, F, F, E, E))
+    symbol(char = 'N', brailleDots = BrailleDots(F, E, F, F, F, E))
+    symbol(char = 'O', brailleDots = BrailleDots(F, E, F, E, F, E))
+    symbol(char = 'P', brailleDots = BrailleDots(F, F, F, F, E, E))
+    symbol(char = 'Q', brailleDots = BrailleDots(F, F, F, F, F, E))
+    symbol(char = 'R', brailleDots = BrailleDots(F, F, F, E, F, E))
+    symbol(char = 'S', brailleDots = BrailleDots(E, F, F, F, E, E))
+    symbol(char = 'T', brailleDots = BrailleDots(E, F, F, F, F, E))
+    symbol(char = 'U', brailleDots = BrailleDots(F, E, F, E, E, F))
+    symbol(char = 'V', brailleDots = BrailleDots(F, F, F, E, E, F))
+    symbol(char = 'W', brailleDots = BrailleDots(E, F, E, F, F, F))
+    symbol(char = 'X', brailleDots = BrailleDots(F, E, F, F, E, F))
+    symbol(char = 'Y', brailleDots = BrailleDots(F, E, F, F, F, F))
+    symbol(char = 'Z', brailleDots = BrailleDots(F, E, F, E, F, F))
+}
+
+private val greekLetters by symbols(SymbolType.greek) {
+    // Note: A - Alpha (Unicode char 0399); A - English (0041); А - Russian
+    // You may check the code by copying and pasting at https://r12a.github.io/app-conversion/
+    symbol(char = 'Α', brailleDots = BrailleDots(F, E, E, E, E, E))
+    symbol(char = 'Β', brailleDots = BrailleDots(F, F, E, E, E, E))
+    symbol(char = 'Γ', brailleDots = BrailleDots(F, F, E, F, F, E))
+    symbol(char = 'Δ', brailleDots = BrailleDots(F, E, E, F, F, E))
+    symbol(char = 'Ε', brailleDots = BrailleDots(F, E, E, E, F, E))
+    symbol(char = 'Ζ', brailleDots = BrailleDots(F, E, F, E, F, F))
+    symbol(char = 'Η', brailleDots = BrailleDots(E, F, E, F, F, E))
+    symbol(char = 'Θ', brailleDots = BrailleDots(F, F, E, E, F, E))
+    symbol(char = 'Ι', brailleDots = BrailleDots(E, F, E, F, E, E))
+    symbol(char = 'Κ', brailleDots = BrailleDots(F, E, F, E, E, E))
+    symbol(char = 'Λ', brailleDots = BrailleDots(F, F, F, E, E, E))
+    symbol(char = 'Μ', brailleDots = BrailleDots(F, E, F, F, E, E))
+    symbol(char = 'Ν', brailleDots = BrailleDots(F, E, F, F, F, E))
+    symbol(char = 'Ξ', brailleDots = BrailleDots(F, E, F, F, E, F))
+    symbol(char = 'Ο', brailleDots = BrailleDots(F, E, F, E, F, E))
+    symbol(char = 'Π', brailleDots = BrailleDots(F, F, F, F, E, E))
+    symbol(char = 'Ρ', brailleDots = BrailleDots(F, F, F, E, F, E))
+    symbol(char = 'Σ', brailleDots = BrailleDots(E, F, F, F, E, E))
+    symbol(char = 'Τ', brailleDots = BrailleDots(E, F, F, F, F, E))
+    symbol(char = 'Υ', brailleDots = BrailleDots(F, E, F, E, E, F))
+    symbol(char = 'Φ', brailleDots = BrailleDots(F, F, E, F, E, E))
+    symbol(char = 'Χ', brailleDots = BrailleDots(F, E, E, F, E, E))
+    symbol(char = 'Ψ', brailleDots = BrailleDots(F, E, F, F, F, F))
+    symbol(char = 'Ω', brailleDots = BrailleDots(E, F, E, F, F, F))
 }

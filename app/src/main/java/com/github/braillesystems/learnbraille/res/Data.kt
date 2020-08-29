@@ -55,9 +55,22 @@ val prepopulationData by data(
     }
 
     decks {
-        deck(DeckTags.all) { true }  // This deck should always exist
+        deck(DeckTags.all) { true } // This deck should always exist
+        deck(DeckTags.allWithRus) { data ->
+            data is Symbol && data.type in listOf(
+                SymbolType.ru,
+                SymbolType.special,
+                SymbolType.digit
+            )
+        }
         deck(DeckTags.ruLetters) { data ->
             data is Symbol && data.type == SymbolType.ru
+        }
+        deck(DeckTags.latinLetters) { data ->
+            data is Symbol && data.type == SymbolType.latin
+        }
+        deck(DeckTags.greekLetters) { data ->
+            data is Symbol && data.type == SymbolType.greek
         }
         deck(DeckTags.special) { data ->
             data is Symbol && data.type == SymbolType.special
@@ -74,7 +87,10 @@ object StepAnnotation {
 
 object DeckTags {
     const val all = "all"
+    const val allWithRus = "all_with_rus"
     const val ruLetters = "ru_letters"
+    const val latinLetters = "latin_letters"
+    const val greekLetters = "greek_letters"
     const val digits = "digits"
     const val special = "special"
 }
@@ -83,7 +99,10 @@ val Context.deckTagToName: Map<String, String> by lazyWithContext {
     DeckTags.run {
         mapOf(
             all to getString(R.string.deck_name_all),
+            allWithRus to getString(R.string.deck_name_all_with_ru),
             ruLetters to getString(R.string.deck_name_ru_letters),
+            latinLetters to getString(R.string.deck_name_latin_letters),
+            greekLetters to getString(R.string.deck_name_greek_letters),
             digits to getString(R.string.deck_name_digits),
             special to getString(R.string.deck_name_special_symbols)
         )

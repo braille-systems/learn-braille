@@ -35,6 +35,8 @@
     <string name="input_dots_hint_6">точка 6 справа снизу</string>
 
     <string name="input_letter_intro_template">Введите букву: %s</string>
+    <string name="input_latin_letter_intro_template">Введите латинскую букву: %s</string>
+    <string name="input_greek_letter_intro_template">Введите греческую букву: %s</string>
     <string name="input_digit_intro_template">Введите цифру: %s</string>
     <string name="input_special_intro_template">Введите символ: %s</string>
     <string name="input_special_intro_num_sign">Введите цифровой знак</string>
@@ -43,6 +45,8 @@
     <string name="input_special_intro_comma">Введите запятую</string>
 
     <string name="show_letter_intro_template">Буква %s</string>
+    <string name="show_latin_letter_intro_template">Латинская буква %s</string>
+    <string name="show_greek_letter_intro_template">Греческая буква %s</string>
     <string name="show_digit_intro_template">Цифра %s</string>
     <string name="show_special_intro_template">Символ %s</string>
     <string name="show_special_intro_num_sign">Цифровой знак</string>
@@ -74,7 +78,10 @@
     </string>
 
     <string name="deck_name_all">Все символы</string>
+    <string name="deck_name_all_with_ru">Все символы, кроме латинских и греческих букв</string>
     <string name="deck_name_ru_letters">Русские буквы</string>
+    <string name="deck_name_latin_letters">Латинские буквы</string>
+    <string name="deck_name_greek_letters">Греческие буквы</string>
     <string name="deck_name_digits">Цифры</string>
     <string name="deck_name_special_symbols">Специальные символы</string>
 
