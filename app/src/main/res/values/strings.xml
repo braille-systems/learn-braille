@@ -43,6 +43,8 @@
     <string name="input_special_intro_dot">Введите символ: Литературная точка</string>
     <string name="input_special_intro_hyphen">Введите символ: Дефис</string>
     <string name="input_special_intro_comma">Введите запятую</string>
+    <string name="input_special_intro_latin_capital">Введите признак большой буквы латинского алфавита</string>
+    <string name="input_special_intro_greek_capital">Введите признак большой буквы греческого алфавита</string>
 
     <string name="show_letter_intro_template">Буква %s</string>
     <string name="show_latin_letter_intro_template">Латинская буква %s</string>
@@ -59,6 +61,8 @@
     <string name="letter_caption_latin">Латинская буква</string>
     <string name="letter_caption_digit">Цифра</string>
     <string name="letter_caption_special">Специальный символ</string>
+    <string name="letter_caption_special_latin_capital">Признак большой буквы латинского алфавита</string>
+    <string name="letter_caption_special_greek_capital">Признак большой буквы греческого алфавита</string>
     <string name="empty_string"></string>
 
     <!--    QR-->
@@ -334,7 +338,10 @@
         В данном разделе можно просмотреть точечный состав любой буквы,
         цифры или специального символа. Буквы расположены здесь в порядке \"зрячего\" алфавита,
         а не в порядке \"ключа Брайля\", как они изучаются в курсе.
-        Помните, что при написании чисел нужно вначале ставить цифровой знак.
+        &<br>
+        Помните, что при написании чисел нужно вначале ставить цифровой знак. При написании слов на
+        латинице или по-гречески внутри русского текста в начале слова надо ставить признак
+        латинской / греческой буквы.
         &<br>
         Нажатие на символ в списке (или двойное нажатие, если Вы используете программу TalkBack)
         открывает окно, где этот символ крупным шрифтом выведен на экран.

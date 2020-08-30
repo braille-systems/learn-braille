@@ -66,12 +66,16 @@ val Context.inputSymbolPrintRules by rules<Context, Char, String>(
         val dotIntro = getString(R.string.input_special_intro_dot)
         val commaIntro = getString(R.string.input_special_intro_comma)
         val hyphenIntro = getString(R.string.input_special_intro_hyphen)
+        val latinCapitalIntro = getString(R.string.input_special_intro_latin_capital)
+        val greekCapitalIntro = getString(R.string.input_special_intro_greek_capital)
         specialSymbols.map::containsKey to { c: Char ->
             when (c) {
                 ']' -> numSign
                 '.' -> dotIntro
                 ',' -> commaIntro
                 '-' -> hyphenIntro
+                'Ⓛ' -> latinCapitalIntro
+                'Ⓖ' -> greekCapitalIntro
                 else -> other.format(c)
             }
         }
@@ -107,12 +111,16 @@ val Context.showSymbolPrintRules by rules<Context, Char, String>(
         val dotIntro = getString(R.string.show_special_intro_dot)
         val commaIntro = getString(R.string.show_special_intro_comma)
         val hyphenIntro = getString(R.string.show_special_intro_hyphen)
+        val latinCapitalIntro = getString(R.string.letter_caption_special_latin_capital)
+        val greekCapitalIntro = getString(R.string.letter_caption_special_greek_capital)
         specialSymbols.map::containsKey to { c: Char ->
             when (c) {
                 ']' -> numSign
                 '.' -> dotIntro
                 ',' -> commaIntro
                 '-' -> hyphenIntro
+                'Ⓛ' -> latinCapitalIntro
+                'Ⓖ' -> greekCapitalIntro
                 else -> other.format(c)
             }
         }
@@ -120,6 +128,10 @@ val Context.showSymbolPrintRules by rules<Context, Char, String>(
 )
 
 fun getCaptionTitleId(symbol: Symbol): Int {
+    when(symbol.char) {
+        'Ⓛ' -> return R.string.letter_caption_special_latin_capital
+        'Ⓖ' -> return R.string.letter_caption_special_greek_capital
+    }
     return when (symbol.type) {
         SymbolType.ru -> R.string.letter_caption_ru
         SymbolType.greek -> R.string.letter_caption_greek
@@ -177,6 +189,8 @@ private val ruSymbols by symbols(SymbolType.ru) {
 
 private val specialSymbols by symbols(SymbolType.special) {
     symbol(char = ']', brailleDots = BrailleDots(E, E, F, F, F, F)) // Number sign
+    symbol(char = 'Ⓛ', brailleDots = BrailleDots(E, E, E, E, E, F)) // Latin capital
+    symbol(char = 'Ⓖ', brailleDots = BrailleDots(E, E, E, F, F, F)) // Greek capital
     symbol(char = ',', brailleDots = BrailleDots(E, F, E, E, E, E)) // Comma
     symbol(char = '-', brailleDots = BrailleDots(E, E, F, E, E, F)) // Hyphen
     symbol(char = '.', brailleDots = BrailleDots(E, F, E, E, F, F)) // Dot
