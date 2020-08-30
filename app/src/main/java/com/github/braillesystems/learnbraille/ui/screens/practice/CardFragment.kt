@@ -124,7 +124,6 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             Observer {
                 if (it == null) return@Observer
                 announceIntro(it)
-
             }
         )
 
