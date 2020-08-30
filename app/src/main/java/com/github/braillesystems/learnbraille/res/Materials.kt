@@ -8,6 +8,7 @@ import com.github.braillesystems.learnbraille.data.dsl.symbols
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.utils.rules
 
 
@@ -117,6 +118,17 @@ val Context.showSymbolPrintRules by rules<Context, Char, String>(
         }
     }
 )
+
+fun getCaptionTitleId(symbol: Symbol): Int {
+    return when (symbol.type) {
+        SymbolType.ru -> R.string.letter_caption_ru
+        SymbolType.greek -> R.string.letter_caption_greek
+        SymbolType.latin -> R.string.letter_caption_latin
+        SymbolType.digit -> R.string.letter_caption_digit
+        SymbolType.special -> R.string.letter_caption_special
+        else -> R.string.empty_string
+    }
+}
 
 
 object SymbolType {

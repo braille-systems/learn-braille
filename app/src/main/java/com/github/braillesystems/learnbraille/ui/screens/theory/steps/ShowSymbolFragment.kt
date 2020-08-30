@@ -8,6 +8,7 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Show
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowSymbolBinding
+import com.github.braillesystems.learnbraille.res.getCaptionTitleId
 import com.github.braillesystems.learnbraille.ui.PrintMode
 import com.github.braillesystems.learnbraille.ui.printStringNotNullLogged
 import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
@@ -35,10 +36,13 @@ class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbo
         require(step.data is Show)
         initialize(step, prevButton, nextButton)
 
-        require(step.data.material.data is Symbol)
-        letter.text = step.data.material.data.char.toString()
-        brailleDots.dotsState.display(step.data.material.data.brailleDots)
-        checkedAnnounce(printStringNotNullLogged(step.data.material.data.char, PrintMode.SHOW))
+        step.data.material.apply{
+            require(data is Symbol)
+            letter.text = data.char.toString()
+            letterCaptionTextView.text = getString(getCaptionTitleId(data))
+            brailleDots.dotsState.display(data.brailleDots)
+            checkedAnnounce(printStringNotNullLogged(data.char, PrintMode.SHOW))
+        }
 
         updateTitle(getString(R.string.lessons_title_show_symbol))
         setPrevButton(prevButton)

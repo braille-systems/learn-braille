@@ -124,6 +124,14 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             Observer {
                 if (it == null) return@Observer
                 announceIntro(it)
+
+            }
+        )
+
+        viewModel.symbolCaptionId.observe(
+            viewLifecycleOwner,
+            Observer {
+                letterCaptionTextView.text = it?.let { it1 -> getString(it1) }
             }
         )
 

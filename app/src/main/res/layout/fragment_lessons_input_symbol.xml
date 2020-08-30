@@ -14,18 +14,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/letter_caption_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/bigLetterCaptionStyle"/>
+
         <com.github.braillesystems.learnbraille.ui.views.InputBigLetterView
             android:id="@+id/letter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX="@dimen/letter_practice_scale_of_view"
-            android:scaleY="@dimen/letter_practice_scale_of_view"
-            android:textSize="@dimen/big_letter_text_size"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/braille_dots"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            style="@style/bigLetterStyle"
             tools:text="M" />
 
         <com.github.braillesystems.learnbraille.ui.views.BrailleDotsView

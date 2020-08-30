@@ -8,6 +8,7 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.databinding.FragmentSymbolViewBinding
+import com.github.braillesystems.learnbraille.res.getCaptionTitleId
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
@@ -35,6 +36,7 @@ class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view
         require(m.data is Symbol)
 
         binding.letter.text = m.data.char.toString()
+        binding.letterCaptionTextView.text = getString(getCaptionTitleId(m.data))
         binding.brailleDots.dotsState.display(m.data.brailleDots)
 
     }.root

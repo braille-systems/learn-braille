@@ -54,6 +54,13 @@
     <string name="show_special_intro_hyphen">Дефис</string>
     <string name="show_special_intro_comma">Запятая</string>
 
+    <string name="letter_caption_ru">Русская буква</string>
+    <string name="letter_caption_greek">Греческая буква</string>
+    <string name="letter_caption_latin">Латинская буква</string>
+    <string name="letter_caption_digit">Цифра</string>
+    <string name="letter_caption_special">Специальный символ</string>
+    <string name="empty_string"></string>
+
     <!--    QR-->
 
     <string name="qr_intent_cancelled">Установите сканнер qr кодов и попробуйте снова</string>
@@ -416,5 +423,7 @@
     <string name="stats_property_input_steps_passed">Пройдено шагов с вводом</string>
     <string name="stats_section_7days">За последние 7 дней</string>
     <string name="stats_section_30days">За последние 30 дней</string>
+
+    <string name="letter_caption_example">Пример заголовка</string>
 
 </resources>
