@@ -18,7 +18,7 @@
             android:id="@+id/letter_caption_text_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/letter"
             style="@style/bigLetterCaptionStyle"/>
 
         <com.github.braillesystems.learnbraille.ui.views.InputBigLetterView
