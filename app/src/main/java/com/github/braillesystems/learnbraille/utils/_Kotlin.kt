@@ -83,6 +83,7 @@ operator fun <T, R> Rules<T, R>.get(x: T): R? = match(x)
  * )
  * ```
  */
+@Suppress("ClassNaming")
 class rules<C, T, R>(private vararg val ruleProviders: C.() -> Rule<T, R>) {
     private var value: Rules<T, R>? = null
     operator fun getValue(thisRef: C, property: KProperty<*>): Rules<T, R> =
@@ -91,6 +92,7 @@ class rules<C, T, R>(private vararg val ruleProviders: C.() -> Rule<T, R>) {
             .also { value = it }
 }
 
+@Suppress("ClassNaming")
 class lazyWithContext<C, R>(private val getter: C.(KProperty<*>) -> R) {
     private var value: R? = null
     operator fun getValue(thisRef: C, property: KProperty<*>): R =

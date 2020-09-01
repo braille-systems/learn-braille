@@ -36,6 +36,7 @@ class TheoryRepositoryImpl(
             else StepAnnotation.golubinaBookRequired
         )
 
+    @Suppress("ReturnCount")
     override suspend fun getNextStepAndUpdate(thisStep: Step, markThisAsPassed: Boolean): Step? {
         val next = stepDao
             .getNextStep(
