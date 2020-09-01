@@ -21,3 +21,9 @@ exceptions:
 naming:
   MatchingDeclarationName:
     active: false
+  ClassNaming:
+    active: false
+  ConstructorParameterNaming:
+    active: false
+  MemberNameEqualsClassName:
+    active: false

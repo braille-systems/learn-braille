@@ -111,7 +111,6 @@ fun Button.setSize(width: Int? = null, height: Int? = null) {
     }
 }
 
-@Suppress("ClassNaming")
 class logged<C, T>(
     private val logger: (String) -> Unit = { Timber.d(it) },
     private val setter: (C.(T) -> Unit)? = null,
