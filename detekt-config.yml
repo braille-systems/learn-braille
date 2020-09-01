@@ -1,0 +1,9 @@
+# see https://github.com/detekt/detekt/blob/master/detekt-core/src/main/resources/default-detekt-config.yml for examples
+
+complexity:
+   TooManyFunctions:
+      excludes: ['**/utils/**']
+
+style:
+   WildcardImport:
+      active: false
