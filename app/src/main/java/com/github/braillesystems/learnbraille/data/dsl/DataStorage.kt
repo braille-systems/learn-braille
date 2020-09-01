@@ -31,7 +31,7 @@ typealias LessonWithSteps = Pair<Lesson, List<StepWithAnnotations>>
 @DslMarker
 annotation class DataBuilderMarker
 
-
+@Suppress("ClassNaming")
 class data(
     private val materials: MaterialsBuilder,
     private val stepAnnotations: List<StepAnnotationName>,
@@ -45,8 +45,10 @@ class data(
 
 @DataBuilderMarker
 class DataBuilder(
+    @Suppress("ConstructorParameterNaming")
     private val _materials: MaterialsBuilder,
     private val stepAnnotationNames: List<StepAnnotationName>,
+    @Suppress("ConstructorParameterNaming")
     private val _knownMaterials: List<KnownMaterial>,
     block: DataBuilder.() -> Unit
 ) : DataStorage {

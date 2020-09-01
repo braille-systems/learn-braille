@@ -196,6 +196,7 @@ private class DotsCheckerImpl : MutableDotsChecker {
     }
 }
 
+@Suppress("LongParameterList")
 inline fun DotsChecker.observeCheckedOnFly(
     lifecycleOwner: LifecycleOwner,
     dotsState: BrailleDotsState,

@@ -1,9 +1,23 @@
 # see https://github.com/detekt/detekt/blob/master/detekt-core/src/main/resources/default-detekt-config.yml for examples
 
 complexity:
-   TooManyFunctions:
-      excludes: ['**/utils/**']
+  TooManyFunctions:
+    active: false
+  LongMethod:
+    active: false
+  LongParameterList:
+    active: false
 
 style:
-   WildcardImport:
-      active: false
+  WildcardImport:
+    active: false
+  MagicNumber:
+    active: false
+
+exceptions:
+  TooGenericExceptionCaught:
+    excludes: ['**/SpeechRecognition.kt']
+
+naming:
+  MatchingDeclarationName:
+    active: false

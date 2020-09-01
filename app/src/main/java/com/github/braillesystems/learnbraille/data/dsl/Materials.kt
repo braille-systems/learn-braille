@@ -8,8 +8,10 @@ import com.github.braillesystems.learnbraille.res.content
 import kotlin.reflect.KProperty
 
 
+@Suppress("ClassNaming")
 open class materials(private val block: MaterialsBuilder.() -> Unit) {
 
+    @Suppress("MemberNameEqualsClassName")
     private var materials: MaterialsBuilder? = null
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>) =
@@ -48,9 +50,10 @@ class MaterialsBuilder(block: MaterialsBuilder.() -> Unit) {
     }
 }
 
-
+@Suppress("ClassNaming")
 class symbols(private val symbolType: String, private val block: SymbolsBuilder.() -> Unit) {
 
+    @Suppress("MemberNameEqualsClassName")
     private var symbols: SymbolsBuilder? = null
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>) =
@@ -77,7 +80,7 @@ class SymbolsBuilder(private val symbolType: String, block: SymbolsBuilder.() ->
     }
 }
 
-
+@Suppress("ClassNaming")
 class known(vararg chars: Char) {
 
     private val cs = chars.map(Char::toUpperCase)
