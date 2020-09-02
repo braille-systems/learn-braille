@@ -24,6 +24,15 @@ operator fun MatchGroupCollection.component3() = get(2)
 operator fun MatchGroupCollection.component4() = get(3)
 operator fun MatchGroupCollection.component5() = get(4)
 
+operator fun <A, B> Pair<A, B>.compareTo(other: Pair<A, B>): Int
+        where A : Comparable<A>, B : Comparable<B> =
+    when {
+        first < other.first -> -1
+        first == other.first && second < other.second -> -1
+        equals(other) -> 0
+        else -> 1
+    }
+
 val Any?.devnull: Unit get() {}
 
 fun String.removeHtmlMarkup() = Regex("""<[^>]*>|&""").replace(this, "")

@@ -2,6 +2,7 @@ package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
 import com.github.braillesystems.learnbraille.data.dsl.StepAnnotationName
+import com.github.braillesystems.learnbraille.utils.compareTo
 import kotlinx.serialization.Serializable
 
 
@@ -20,14 +21,9 @@ data class Step(
         require(other.courseId == courseId) {
             "Only steps of the same course are comparable"
         }
-        if (this == other) return 0
-        return if (lessonId < other.lessonId ||
-            (lessonId == other.lessonId && id < other.id)
-        ) {
-            -1
-        } else {
-            1
-        }
+        val id1 = lessonId to id
+        val id2 = other.run { lessonId to id }
+        return id1.compareTo(id2)
     }
 }
 
