@@ -9,7 +9,7 @@ import java.util.*
 @Entity(tableName = "actions")
 data class Action(
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
+    var id: DBid = 0,
     val type: ActionType,
     val date: Date = Date()
 ) {

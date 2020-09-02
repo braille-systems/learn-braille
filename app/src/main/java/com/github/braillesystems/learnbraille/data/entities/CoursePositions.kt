@@ -2,20 +2,19 @@ package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
 
-
 /**
  * `Current` means: last not passed.
  */
 @Entity(tableName = "current_step", primaryKeys = ["user_id", "course_id"])
 data class CurrentStep(
     @ColumnInfo(name = "user_id")
-    val userId: Long,
+    val userId: DBid,
     @ColumnInfo(name = "course_id")
-    val courseId: Long,
+    val courseId: DBid,
     @ColumnInfo(name = "lesson_id")
-    val lessonId: Long,
+    val lessonId: DBid,
     @ColumnInfo(name = "step_id")
-    val stepId: Long
+    val stepId: DBid
 )
 
 @Dao
@@ -28,20 +27,19 @@ interface CurrentStepDao {
     suspend fun update(currentStep: CurrentStep)
 }
 
-
 /**
  * `Last` means: last seen.
  */
 @Entity(tableName = "last_course_step", primaryKeys = ["user_id", "course_id"])
 data class LastCourseStep(
     @ColumnInfo(name = "user_id")
-    val userId: Long,
+    val userId: DBid,
     @ColumnInfo(name = "course_id")
-    val courseId: Long,
+    val courseId: DBid,
     @ColumnInfo(name = "lesson_id")
-    val lessonId: Long,
+    val lessonId: DBid,
     @ColumnInfo(name = "step_id")
-    val stepId: Long
+    val stepId: DBid
 )
 
 @Dao
@@ -54,20 +52,19 @@ interface LastCourseStepDao {
     suspend fun update(lastCourseStep: LastCourseStep)
 }
 
-
 /**
  * Last step, what user visited in lesson
  */
 @Entity(tableName = "last_lesson_step", primaryKeys = ["user_id", "course_id", "lesson_id"])
 data class LastLessonStep(
     @ColumnInfo(name = "user_id")
-    val userId: Long,
+    val userId: DBid,
     @ColumnInfo(name = "course_id")
-    val courseId: Long,
+    val courseId: DBid,
     @ColumnInfo(name = "lesson_id")
-    val lessonId: Long,
+    val lessonId: DBid,
     @ColumnInfo(name = "step_id")
-    val stepId: Long
+    val stepId: DBid
 )
 
 @Dao

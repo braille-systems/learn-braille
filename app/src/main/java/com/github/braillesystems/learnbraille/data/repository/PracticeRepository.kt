@@ -2,10 +2,7 @@ package com.github.braillesystems.learnbraille.data.repository
 
 import android.content.Context
 import com.github.braillesystems.learnbraille.data.dsl.ALL_CARDS_DECK_ID
-import com.github.braillesystems.learnbraille.data.entities.CardDao
-import com.github.braillesystems.learnbraille.data.entities.Deck
-import com.github.braillesystems.learnbraille.data.entities.DeckDao
-import com.github.braillesystems.learnbraille.data.entities.Material
+import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.utils.preferences
 
 data class DeckNotEmpty(
@@ -14,14 +11,14 @@ data class DeckNotEmpty(
 )
 
 interface PracticeRepository {
-    val currentDeckId: Long
+    val currentDeckId: DBid
     suspend fun getNextMaterial(): Material?
     suspend fun getCurrDeck(): Deck
     suspend fun getAllDecks(): List<DeckNotEmpty>
 }
 
 interface MutablePracticeRepository : PracticeRepository {
-    override var currentDeckId: Long
+    override var currentDeckId: DBid
     suspend fun getNextMaterialNotNull(): Material
 }
 
@@ -35,7 +32,7 @@ class PracticeRepositoryImpl(
     private val currDeckPreference: String
         get() = "practice_curr_deck_${preferenceRepository.currentUserId}"
 
-    override var currentDeckId: Long
+    override var currentDeckId: DBid
         get() = context.preferences.getLong(
             currDeckPreference, ALL_CARDS_DECK_ID
         )

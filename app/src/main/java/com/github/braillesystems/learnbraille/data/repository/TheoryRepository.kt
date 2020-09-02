@@ -7,16 +7,16 @@ import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.launch
 
 interface TheoryRepository {
-    suspend fun getCurrentStep(courseId: Long): Step
-    suspend fun getLastCourseStep(courseId: Long): Step
-    suspend fun getAllCourseLessons(courseId: Long): List<Lesson>
+    suspend fun getCurrentStep(courseId: DBid): Step
+    suspend fun getLastCourseStep(courseId: DBid): Step
+    suspend fun getAllCourseLessons(courseId: DBid): List<Lesson>
 }
 
 interface MutableTheoryRepository : TheoryRepository {
     suspend fun getNextStepAndUpdate(thisStep: Step, markThisAsPassed: Boolean = false): Step?
     suspend fun getPrevStepAndUpdate(thisStep: Step): Step?
-    suspend fun getCurrentStepAndUpdate(courseId: Long): Step
-    suspend fun getLastLessonOrCurrentStepAndUpdate(courseId: Long, lessonId: Long): Step
+    suspend fun getCurrentStepAndUpdate(courseId: DBid): Step
+    suspend fun getLastLessonOrCurrentStepAndUpdate(courseId: DBid, lessonId: DBid): Step
 }
 
 class TheoryRepositoryImpl(
@@ -79,13 +79,13 @@ class TheoryRepositoryImpl(
             )
             ?.also { updateLast(it) }
 
-    override suspend fun getCurrentStepAndUpdate(courseId: Long): Step =
+    override suspend fun getCurrentStepAndUpdate(courseId: DBid): Step =
         getCurrentStep(courseId).also { updateLast(it) }
 
     /**
      * LessonId is supposed to exist for this courseId.
      */
-    override suspend fun getLastLessonOrCurrentStepAndUpdate(courseId: Long, lessonId: Long): Step =
+    override suspend fun getLastLessonOrCurrentStepAndUpdate(courseId: DBid, lessonId: DBid): Step =
         stepDao
             .getLastStep(preferenceRepository.currentUserId, courseId, lessonId)
             ?.also { updateLast(it) }
@@ -94,20 +94,20 @@ class TheoryRepositoryImpl(
                         "or current step is behind lesson with such lessonId"
             )
 
-    override suspend fun getCurrentStep(courseId: Long): Step =
+    override suspend fun getCurrentStep(courseId: DBid): Step =
         stepDao
             .getCurrentStep(preferenceRepository.currentUserId, courseId)
             ?: initCoursePos(courseId)
 
-    override suspend fun getLastCourseStep(courseId: Long): Step =
+    override suspend fun getLastCourseStep(courseId: DBid): Step =
         stepDao
             .getLastStep(preferenceRepository.currentUserId, courseId)
             ?: initCoursePos(courseId)
 
-    override suspend fun getAllCourseLessons(courseId: Long): List<Lesson> =
+    override suspend fun getAllCourseLessons(courseId: DBid): List<Lesson> =
         lessonDao.getAllCourseLessons(courseId)
 
-    private suspend fun initCoursePos(courseId: Long): Step =
+    private suspend fun initCoursePos(courseId: DBid): Step =
         stepDao
             .getFirstCourseStep(courseId)
             ?.also { first ->
@@ -137,8 +137,8 @@ class TheoryRepositoryImpl(
     }.devnull
 
     private fun updateKnown(step: Step): Unit = scope().launch {
-        when (step.data) {
-            is Input -> knownMaterialDao.insert(
+        if (step.data is Input) {
+            knownMaterialDao.insert(
                 KnownMaterial(
                     preferenceRepository.currentUserId,
                     step.data.material.id

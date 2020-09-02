@@ -5,15 +5,14 @@ import com.github.braillesystems.learnbraille.data.dsl.StepAnnotationName
 import com.github.braillesystems.learnbraille.utils.compareTo
 import kotlinx.serialization.Serializable
 
-
 @Entity(tableName = "steps", primaryKeys = ["id", "course_id", "lesson_id"])
 @Serializable
 data class Step(
-    val id: Long,
+    val id: DBid,
     @ColumnInfo(name = "course_id")
-    val courseId: Long,
+    val courseId: DBid,
     @ColumnInfo(name = "lesson_id")
-    val lessonId: Long,
+    val lessonId: DBid,
     val data: StepData
 ) : Comparable<Step> {
 
@@ -37,7 +36,7 @@ interface StepDao {
     suspend fun insert(steps: List<Step>)
 
     @Query("select * from steps where id = :id")
-    suspend fun getStep(id: Long): Step?
+    suspend fun getStep(id: DBid): Step?
 
     @Query(
         """
@@ -47,7 +46,7 @@ interface StepDao {
         where cs.user_id = :userId and cs.course_id = :courseId
         """
     )
-    suspend fun getCurrentStep(userId: Long, courseId: Long): Step?
+    suspend fun getCurrentStep(userId: DBid, courseId: DBid): Step?
 
     @Query(
         """
@@ -57,7 +56,7 @@ interface StepDao {
         where ls.user_id = :userId and ls.course_id = :courseId
         """
     )
-    suspend fun getLastStep(userId: Long, courseId: Long): Step?
+    suspend fun getLastStep(userId: DBid, courseId: DBid): Step?
 
     @Query(
         """
@@ -67,7 +66,7 @@ interface StepDao {
         where ls.user_id = :userId and ls.course_id = :courseId and ls.lesson_id = :lessonId
         """
     )
-    suspend fun getLastStep(userId: Long, courseId: Long, lessonId: Long): Step?
+    suspend fun getLastStep(userId: DBid, courseId: DBid, lessonId: DBid): Step?
 
     @Query(
         """
@@ -76,7 +75,7 @@ interface StepDao {
         order by steps.lesson_id, steps.id limit 1
         """
     )
-    suspend fun getFirstCourseStep(courseId: Long): Step?
+    suspend fun getFirstCourseStep(courseId: DBid): Step?
 
     @Query(
         """
@@ -98,9 +97,9 @@ interface StepDao {
         """
     )
     suspend fun getNextStep(
-        courseId: Long,
-        thisLessonId: Long,
-        thisStepId: Long,
+        courseId: DBid,
+        thisLessonId: DBid,
+        thisStepId: DBid,
         proscribedAnnotations: List<StepAnnotationName> = listOf()
     ): Step?
 
@@ -124,9 +123,9 @@ interface StepDao {
         """
     )
     suspend fun getPrevStep(
-        courseId: Long,
-        thisLessonId: Long,
-        thisStepId: Long,
+        courseId: DBid,
+        thisLessonId: DBid,
+        thisStepId: DBid,
         proscribedAnnotations: List<StepAnnotationName> = listOf()
     ): Step?
 

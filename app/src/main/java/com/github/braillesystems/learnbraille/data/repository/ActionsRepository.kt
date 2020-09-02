@@ -9,6 +9,8 @@ import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.launch
 import java.util.*
 
+typealias Actions = List<Action>
+
 interface ActionsRepository {
     suspend fun getActionsFrom(days: Days): Actions
 }
@@ -40,5 +42,3 @@ class ActionsRepositoryImpl(
                 }
             }
 }
-
-typealias Actions = List<Action>
