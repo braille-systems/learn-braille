@@ -8,7 +8,7 @@ import com.github.braillesystems.learnbraille.data.repository.MutablePracticeRep
 import com.github.braillesystems.learnbraille.ui.screens.DotsChecker
 import com.github.braillesystems.learnbraille.ui.screens.MutableDotsChecker
 import com.github.braillesystems.learnbraille.utils.scope
-import com.github.braillesystems.learnbraille.utils.tryN
+import com.github.braillesystems.learnbraille.utils.retryN
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -98,7 +98,7 @@ class CardViewModel(
     }
 
     private fun initializeCard(firstTime: Boolean = false) = uiScope.launch {
-        val material = tryN(
+        val material = retryN(
             n = 5,
             stop = { it.data !in materialsQueue },
             get = { practiceRepository.getNextMaterialNotNull() }

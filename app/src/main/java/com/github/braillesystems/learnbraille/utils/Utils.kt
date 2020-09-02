@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.LearnBrailleApplication
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
+import com.github.braillesystems.learnbraille.koin
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -28,13 +29,18 @@ val Fragment.application: LearnBrailleApplication
 fun scope(job: Job = Job()) = CoroutineScope(Dispatchers.Main + job)
 
 
-fun Vibrator?.checkedBuzz(pattern: BuzzPattern, preferenceRepository: PreferenceRepository) =
-    runIf(preferenceRepository.buzzEnabled) { buzz(pattern) }
+fun Vibrator?.checkedBuzz(
+    pattern: BuzzPattern,
+    preferenceRepository: PreferenceRepository = koin.get()
+) = runIf(preferenceRepository.buzzEnabled) { buzz(pattern) }
 
-fun checkedToast(msg: String, context: Context?, preferenceRepository: PreferenceRepository) =
-    runIf(preferenceRepository.toastsEnabled) {
-        Toast.makeText(context, msg, preferenceRepository.toastDuration).show()
-    }
+fun checkedToast(
+    msg: String,
+    context: Context?,
+    preferenceRepository: PreferenceRepository = koin.get()
+) = runIf(preferenceRepository.toastsEnabled) {
+    Toast.makeText(context, msg, preferenceRepository.toastDuration).show()
+}
 
 fun Fragment.checkedToast(msg: String, preferenceRepository: PreferenceRepository = get()) =
     checkedToast(msg, context, preferenceRepository)
@@ -53,8 +59,7 @@ fun Context.announce(announcement: String) {
     manager.sendAccessibilityEvent(event)
 }
 
-fun Fragment.announce(announcement: String) =
-    application.announce(announcement)
+fun Fragment.announce(announcement: String) = contextNotNull.announce(announcement)
 
 fun Fragment.checkedAnnounce(
     announcement: String,
@@ -83,6 +88,7 @@ fun Fragment.updateTitle(title: String) {
 
 fun <T> stringify(s: SerializationStrategy<T>, obj: T) = Json.stringify(s, obj)
 fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.parse(d, s)
+
 
 val Context.extendedTextSize: Float by lazyWithContext {
     // Size applied in runtime is different
