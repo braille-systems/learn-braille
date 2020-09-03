@@ -1,6 +1,5 @@
 package com.github.braillesystems.learnbraille.data.dsl
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
@@ -9,7 +8,6 @@ import com.github.braillesystems.learnbraille.res.MarkerType
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 
 private val content by materials {
     +ruSymbols
@@ -19,13 +17,17 @@ private val content by materials {
     // ...
 }
 
-private val ruSymbols by symbols(symbolType = "ru") {
+private val ruSymbols by symbols(
+    symbolType = "ru"
+) {
     symbol(char = 'А', brailleDots = BrailleDots(F, E, E, E, E, E))
     symbol(char = 'Б', brailleDots = BrailleDots(F, F, E, E, E, E))
     // ...
 }
 
-private val enSymbols by symbols(symbolType = "en") {
+private val enSymbols by symbols(
+    symbolType = "en"
+) {
     symbol(char = 'Z', brailleDots = BrailleDots(F, F, F, E, E, E))
     // ...
 }
@@ -120,7 +122,11 @@ private val worstLessons by lessons {
             text = "Введите все шесть точек",
             dots = BrailleDots(F, F, F, F, F, F)
         )
-        +Show(content.symbols.getValue('Z'))
+        +Show(
+            content.symbols.getValue(
+                'Z'
+            )
+        )
         for (material in getMaterials(
             'Б',
             'Z'
@@ -224,7 +230,6 @@ private val stepHasAnnotations = listOf(
     StepHasAnnotation(2, 1, 2, 2)
 )
 
-@RunWith(AndroidJUnit4::class)
 class DslTest {
 
     private lateinit var data: DataStorage

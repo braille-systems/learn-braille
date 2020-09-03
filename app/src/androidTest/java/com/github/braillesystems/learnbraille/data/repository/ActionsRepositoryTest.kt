@@ -57,9 +57,4 @@ class ActionsRepositoryTest {
     fun getAll() = runBlocking {
         assertEquals(actions.toList(), repo.getActionsFrom(Days(100)))
     }
-
-    @Test
-    fun rejectLast() = runBlocking {
-        assertEquals(listOf(actions.first()), repo.getActionsFrom(Days(10)))
-    }
 }

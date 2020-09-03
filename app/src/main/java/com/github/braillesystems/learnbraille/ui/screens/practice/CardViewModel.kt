@@ -7,8 +7,8 @@ import com.github.braillesystems.learnbraille.data.repository.MutableActionsRepo
 import com.github.braillesystems.learnbraille.data.repository.MutablePracticeRepository
 import com.github.braillesystems.learnbraille.ui.screens.DotsChecker
 import com.github.braillesystems.learnbraille.ui.screens.MutableDotsChecker
-import com.github.braillesystems.learnbraille.utils.scope
 import com.github.braillesystems.learnbraille.utils.retryN
+import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
