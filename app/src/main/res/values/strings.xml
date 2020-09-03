@@ -42,6 +42,11 @@
     <string name="input_special_intro_hyphen">Введите символ: Дефис</string>
     <string name="input_special_intro_comma">Введите запятую</string>
 
+    <!--    TODO-->
+    <string name="input_mod_greek">Введите модификатор греческого</string>
+    <string name="input_mod_latin">Введите модификатор латинского</string>
+    <string name="input_mod_capital">Введите модификатор заглавной буквы</string>
+
     <string name="show_letter_intro_template">Буква %s</string>
     <string name="show_digit_intro_template">Цифра %s</string>
     <string name="show_special_intro_template">Символ %s</string>
@@ -49,6 +54,11 @@
     <string name="show_special_intro_dot">Литературная точка</string>
     <string name="show_special_intro_hyphen">Дефис</string>
     <string name="show_special_intro_comma">Запятая</string>
+
+    <!--    TODO-->
+    <string name="show_mod_greek">Модификатор греческого</string>
+    <string name="show_mod_latin">Модификатор латинского</string>
+    <string name="show_mod_capital">Модификатор заглавной буквы</string>
 
     <!--    QR-->
 
@@ -192,6 +202,9 @@
     <string name="lessons_title_show_symbol">Изучение</string>
     <string name="lessons_title_show_dots">Точки</string>
     <string name="lessons_title_lessons_list">Уроки</string>
+    <!--    TODO-->
+    <string name="lessons_title_input_marker">Введите маркер</string>
+    <string name="lessons_title_show_marker">Маркерный символ</string>
 
     <string name="lessons_help_template">
         <![CDATA[
@@ -248,6 +261,19 @@
         ]]>
     </string>
 
+    <!--    TODO-->
+    <string name="lessons_help_input_marker">
+        <![CDATA[
+        Пошаговый курс - <b>шаг с вводом маркерного символа.</b>
+        <br><br>
+        Введите в шеститочии на экране точки с указанными номерами.
+        &<br>
+        Если нажать кнопку \"подсказка\", расположенную над кнопкой \"назад\", выведется сообщение
+        с правильным ответом и точки переключатся в правильное состояние. Чтобы пройти то же
+        упражнение после подсказки, нажмите кнопку \"вперёд\".
+        ]]>
+    </string>
+
     <string name="lessons_help_show_symbol">
         <![CDATA[
         Пошаговый курс - <b>шаг с демонстрацией символа.</b>
@@ -260,6 +286,15 @@
     <string name="lessons_help_show_dots">
         <![CDATA[
         Пошаговый курс - <b>шаг с демонстрацией точек.</b>
+        <br><br>
+        На экран выведен точечный символ. Внимательно изучите его.
+        ]]>
+    </string>
+
+    <!--    TODO-->
+    <string name="lessons_help_show_marker">
+        <![CDATA[
+        Пошаговый курс - <b>шаг с демонстрацией маркерных символов.</b>
         <br><br>
         На экран выведен точечный символ. Внимательно изучите его.
         ]]>

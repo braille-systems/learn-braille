@@ -207,4 +207,30 @@
         app:destination="@id/firstInfoFragment"
         app:popUpTo="@id/menuFragment" />
 
+    <fragment
+        android:id="@+id/inputMarkerFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.InputMarkerFragment"
+        android:label="@string/lessons_title_input_marker">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_inputMarkerFragment"
+        app:destination="@id/inputMarkerFragment"
+        app:popUpTo="@id/menuFragment" />
+
+    <fragment
+        android:id="@+id/showMarkerFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.ShowMarkerFragment"
+        android:label="@string/lessons_title_show_marker">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_showMarkerFragment"
+        app:destination="@id/showMarkerFragment"
+        app:popUpTo="@id/menuFragment" />
+
 </navigation>

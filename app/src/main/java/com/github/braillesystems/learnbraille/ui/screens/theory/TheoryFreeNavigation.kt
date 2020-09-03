@@ -27,11 +27,11 @@ fun getAction(step: Step): NavDirections =
             is ShowDots -> MenuFragmentDirections.actionGlobalShowDotsFragment(arg)
             is Input -> when (step.data.material.data) {
                 is Symbol -> MenuFragmentDirections.actionGlobalInputSymbolFragment(arg)
-                else -> TODO()
+                is MarkerSymbol -> MenuFragmentDirections.actionGlobalInputMarkerFragment(arg)
             }
             is Show -> when (step.data.material.data) {
                 is Symbol -> MenuFragmentDirections.actionGlobalShowSymbolFragment(arg)
-                else -> TODO()
+                is MarkerSymbol -> MenuFragmentDirections.actionGlobalShowMarkerFragment(arg)
             }
         }
     }

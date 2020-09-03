@@ -3,6 +3,7 @@ package com.github.braillesystems.learnbraille.res
 import android.content.Context
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.dsl.known
+import com.github.braillesystems.learnbraille.data.dsl.markers
 import com.github.braillesystems.learnbraille.data.dsl.materials
 import com.github.braillesystems.learnbraille.data.dsl.symbols
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
@@ -33,6 +34,7 @@ val content by materials {
     +ruSymbols
     +specialSymbols
     +uebDigits
+    +ms
 }
 
 val knownMaterials by known(
@@ -104,6 +106,40 @@ val Context.showSymbolPrintRules by rules<Context, Char, String>(
     }
 )
 
+val Context.inputMarkerPrintRules by rules<Context, MarkerType, String>(
+    {
+        val s = getString(R.string.input_mod_capital)
+        MarkerType.Capital::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_mod_greek)
+        MarkerType.Greek::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_mod_latin)
+        MarkerType.Latin::equals to { _: MarkerType -> s }
+    }
+)
+
+val Context.showMarkerPrintRules by rules<Context, MarkerType, String>(
+    {
+        val s = getString(R.string.show_mod_capital)
+        MarkerType.Capital::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_mod_greek)
+        MarkerType.Greek::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_mod_latin)
+        MarkerType.Latin::equals to { _: MarkerType -> s }
+    }
+)
+
 private val ruSymbols by symbols(SymbolType.ru) {
     symbol(char = 'А', brailleDots = BrailleDots(F, E, E, E, E, E))
     symbol(char = 'Б', brailleDots = BrailleDots(F, F, E, E, E, E))
@@ -158,4 +194,11 @@ private val uebDigits by symbols(SymbolType.digit) {
     symbol(char = '8', brailleDots = BrailleDots(F, F, E, E, F, E))
     symbol(char = '9', brailleDots = BrailleDots(E, F, E, F, E, E))
     symbol(char = '0', brailleDots = BrailleDots(E, F, E, F, F, E))
+}
+
+// TODO fix braille dots
+private val ms by markers {
+    marker(MarkerType.Greek, BrailleDots(F, F, F, E, E, F))
+    marker(MarkerType.Latin, BrailleDots(F, F, F, E, F, F))
+    marker(MarkerType.Capital, BrailleDots(F, E, F, F, E, F))
 }
