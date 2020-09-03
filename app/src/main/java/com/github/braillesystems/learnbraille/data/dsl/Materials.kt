@@ -7,7 +7,6 @@ import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.res.content
 import kotlin.reflect.KProperty
 
-
 open class materials(private val block: MaterialsBuilder.() -> Unit) {
 
     private var materials: MaterialsBuilder? = null
@@ -43,7 +42,7 @@ class MaterialsBuilder(block: MaterialsBuilder.() -> Unit) {
 
     operator fun SymbolsBuilder.unaryPlus() {
         symbols.forEach { symbol ->
-            this@MaterialsBuilder._materials.add(Material(DEFAULT_ID, symbol))
+            this@MaterialsBuilder._materials.add(Material(UNDEFINED_ID, symbol))
         }
     }
 }
@@ -85,6 +84,6 @@ class known(vararg chars: Char) {
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>): List<KnownMaterial> =
         knownMaterials ?: cs.map {
-            KnownMaterial(DEFAULT_ID, content.symbols.getValue(it).id)
+            KnownMaterial(UNDEFINED_ID, content.symbols.getValue(it).id)
         }.also { knownMaterials = it }
 }

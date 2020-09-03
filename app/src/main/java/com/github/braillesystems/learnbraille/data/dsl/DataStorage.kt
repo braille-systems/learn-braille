@@ -5,7 +5,6 @@ import com.github.braillesystems.learnbraille.res.DeckTags
 import com.github.braillesystems.learnbraille.utils.side
 import kotlin.reflect.KProperty
 
-
 interface DataStorage {
     val users: List<User>?
     val materials: List<Material>?
@@ -19,29 +18,18 @@ interface DataStorage {
     val knownMaterials: List<KnownMaterial>?
 }
 
-
-const val DEFAULT_ID = -1L
-const val ALL_CARDS_DECK_ID = 1L
-
-typealias StepAnnotationName = String
 typealias StepWithAnnotations = Pair<Step, List<StepAnnotationName>>
 typealias LessonWithSteps = Pair<Lesson, List<StepWithAnnotations>>
 
-
-@DslMarker
-annotation class DataBuilderMarker
-
-
 class data(
     private val materials: MaterialsBuilder,
-    private val stepAnnotations: List<StepAnnotationName>,
+    private val stepAnnotationNames: List<StepAnnotationName>,
     private val knownMaterials: List<KnownMaterial>,
     private val block: DataBuilder.() -> Unit
 ) {
     internal operator fun getValue(thisRef: Any?, property: KProperty<*>): DataStorage =
-        DataBuilder(materials, stepAnnotations, knownMaterials, block)
+        DataBuilder(materials, stepAnnotationNames, knownMaterials, block)
 }
-
 
 @DataBuilderMarker
 class DataBuilder(
@@ -164,7 +152,6 @@ class DataBuilder(
         }
 }
 
-
 @DataBuilderMarker
 class DecksBuilder(block: DecksBuilder.() -> Unit) {
 
@@ -177,18 +164,12 @@ class DecksBuilder(block: DecksBuilder.() -> Unit) {
     }
 
     fun deck(tag: String, entryCriterion: (MaterialData) -> Boolean) {
-        val deck = Deck(DEFAULT_ID, tag)
+        val deck = Deck(UNDEFINED_ID, tag)
         _deckToPredicate[deck] = entryCriterion
     }
 }
 
-object InfoInterpolation {
-    const val iStep = "#istep"
-    const val iLesson = "#ilesson"
-    const val courseName = "#courseName"
-}
-
-private fun Step.interpolateText(courseName: String): Step =
+private fun Step.interpolateText(courseName: CourseName): Step =
     this.copy(
         data =
         if (data !is BaseInfo) data
@@ -201,7 +182,7 @@ private fun Step.interpolateText(courseName: String): Step =
         }
     )
 
-private fun Step.interpolateTextHelper(text: String, courseName: String): String =
+private fun Step.interpolateTextHelper(text: HtmlText, courseName: CourseName): HtmlText =
     text
         .replace(InfoInterpolation.iStep, id.toString())
         .replace(InfoInterpolation.iLesson, lessonId.toString())

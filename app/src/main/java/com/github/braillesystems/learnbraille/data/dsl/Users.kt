@@ -1,7 +1,8 @@
 package com.github.braillesystems.learnbraille.data.dsl
 
 import com.github.braillesystems.learnbraille.data.entities.User
-
+import com.github.braillesystems.learnbraille.data.entities.UserLogin
+import com.github.braillesystems.learnbraille.data.entities.UserName
 
 @DataBuilderMarker
 class UsersBuilder(block: UsersBuilder.() -> Unit) {
@@ -14,7 +15,7 @@ class UsersBuilder(block: UsersBuilder.() -> Unit) {
         block()
     }
 
-    fun user(login: String, name: String) {
+    fun user(login: UserLogin, name: UserName) {
         _users += User(
             login = login,
             name = name

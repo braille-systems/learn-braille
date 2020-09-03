@@ -1,7 +1,6 @@
 package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
-import com.github.braillesystems.learnbraille.data.dsl.StepAnnotationName
 import com.github.braillesystems.learnbraille.utils.compareTo
 import kotlinx.serialization.Serializable
 

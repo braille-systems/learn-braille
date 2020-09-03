@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.dsl.data
 import com.github.braillesystems.learnbraille.data.entities.Symbol
+import com.github.braillesystems.learnbraille.utils.contextNotNull
 import com.github.braillesystems.learnbraille.utils.lazyWithContext
-
 
 /**
  * Do not change name of this property, it is used for prepopulation.
@@ -19,17 +19,19 @@ import com.github.braillesystems.learnbraille.utils.lazyWithContext
  * It is better to simply have only one value declared as `by materials`.
  *
  * Correctness of all information should be checked in compile time or in runtime.
- * If you need some additional info, do not hardcode it. Just make request to the new DSL feature.
+ * If some additional info is need, do not hardcode it.
+ * Just make request to the new DSL feature via github issues.
  */
 val prepopulationData by data(
     materials = content,
-    stepAnnotations = listOf(
+    stepAnnotationNames = listOf(
         StepAnnotation.golubinaBookRequired
     ),
     knownMaterials = knownMaterials
 ) {
 
     users {
+        // Default user should always exist and be first in the list of users
         user(
             login = "default",
             name = "John Smith"
@@ -37,7 +39,7 @@ val prepopulationData by data(
     }
 
     courses {
-        // This course should be always be first
+        // Dev course should be always be first
         course(
             name = "Test course for developers",
             description = "Small course for tests during development",
@@ -55,7 +57,9 @@ val prepopulationData by data(
     }
 
     decks {
-        deck(DeckTags.all) { true }  // This deck should always exist
+        // All cards deck should always exist and be first in the list
+        deck(DeckTags.all) { true }
+
         deck(DeckTags.ruLetters) { data ->
             data is Symbol && data.type == SymbolType.ru
         }
@@ -91,4 +95,4 @@ val Context.deckTagToName: Map<String, String> by lazyWithContext {
 }
 
 val Fragment.deckTagToName
-    get() = context?.deckTagToName ?: error("Fragment should have context")
+    get() = contextNotNull.deckTagToName

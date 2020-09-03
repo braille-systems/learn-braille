@@ -22,7 +22,7 @@ class LessonsBuilder(block: LessonsBuilder.() -> Unit) {
     fun lesson(name: String, description: String = "", block: StepsBuilder.() -> Unit) =
         StepsBuilder(block).side {
             _lessons += Pair(
-                Lesson(DEFAULT_ID, DEFAULT_ID, name, description),
+                Lesson(UNDEFINED_ID, UNDEFINED_ID, name, description),
                 it.steps
             )
         }
@@ -41,7 +41,7 @@ class StepsBuilder(block: StepsBuilder.() -> Unit) {
 
     operator fun StepData.unaryPlus() {
         _steps += Pair(
-            Step(DEFAULT_ID, DEFAULT_ID, DEFAULT_ID, this),
+            Step(UNDEFINED_ID, UNDEFINED_ID, UNDEFINED_ID, this),
             listOf()
         )
     }
@@ -51,7 +51,7 @@ class StepsBuilder(block: StepsBuilder.() -> Unit) {
             "First and Last steps of the course should not be annotated"
         }
         _steps += Pair(
-            Step(DEFAULT_ID, DEFAULT_ID, DEFAULT_ID, first),
+            Step(UNDEFINED_ID, UNDEFINED_ID, UNDEFINED_ID, first),
             second
         )
     }
