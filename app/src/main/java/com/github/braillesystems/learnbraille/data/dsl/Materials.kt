@@ -47,7 +47,6 @@ class MaterialsBuilder(block: MaterialsBuilder.() -> Unit) {
     }
 }
 
-
 class symbols(private val symbolType: String, private val block: SymbolsBuilder.() -> Unit) {
 
     private var symbols: SymbolsBuilder? = null
@@ -76,14 +75,14 @@ class SymbolsBuilder(private val symbolType: String, block: SymbolsBuilder.() ->
     }
 }
 
-
 class known(vararg chars: Char) {
 
     private val cs = chars.map(Char::toUpperCase)
     private var knownMaterials: List<KnownMaterial>? = null
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>): List<KnownMaterial> =
-        knownMaterials ?: cs.map {
-            KnownMaterial(UNDEFINED_ID, content.symbols.getValue(it).id)
-        }.also { knownMaterials = it }
+        knownMaterials
+            ?: cs
+                .map { KnownMaterial(UNDEFINED_ID, content.symbols.getValue(it).id) }
+                .also { knownMaterials = it }
 }
