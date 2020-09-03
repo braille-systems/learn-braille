@@ -1,9 +1,7 @@
 package com.github.braillesystems.learnbraille.data.dsl
 
-import com.github.braillesystems.learnbraille.data.entities.BrailleDots
-import com.github.braillesystems.learnbraille.data.entities.KnownMaterial
-import com.github.braillesystems.learnbraille.data.entities.Material
-import com.github.braillesystems.learnbraille.data.entities.Symbol
+import com.github.braillesystems.learnbraille.data.entities.*
+import com.github.braillesystems.learnbraille.res.MarkerType
 import com.github.braillesystems.learnbraille.res.content
 import kotlin.reflect.KProperty
 
@@ -26,15 +24,27 @@ class MaterialsBuilder(block: MaterialsBuilder.() -> Unit) {
     val symbols: Map<Char, Material>
         get() = _symbols
 
+    private val _markers = mutableMapOf<MarkerType, Material>()
+    val markers: Map<MarkerType, Material>
+        get() = _markers
+
     init {
         block()
         _materials = materials.mapIndexed { index, material ->
             material.copy(id = index + 1L).apply {
-                if (data is Symbol) {
-                    require(!_symbols.contains(data.char)) {
-                        "Symbol (symbol = ${data.char}, type = ${data.type}) already exists"
+                when (data) {
+                    is Symbol -> {
+                        require(!_symbols.contains(data.char)) {
+                            "Symbol (symbol = ${data.char}, type = ${data.type}) already exists"
+                        }
+                        _symbols[data.char] = this
                     }
-                    _symbols[data.char] = this
+                    is MarkerSymbol -> {
+                        require(!_markers.contains(data.type)) {
+                            "Symbol (type = ${data.type}"
+                        }
+                        _markers[data.type] = this
+                    }
                 }
             }
         }.toMutableList()
@@ -45,8 +55,13 @@ class MaterialsBuilder(block: MaterialsBuilder.() -> Unit) {
             this@MaterialsBuilder._materials.add(Material(UNDEFINED_ID, symbol))
         }
     }
-}
 
+    operator fun MarkersBuilder.unaryPlus() {
+        markers.forEach { marker ->
+            this@MaterialsBuilder._materials.add(Material(UNDEFINED_ID, marker))
+        }
+    }
+}
 
 class symbols(private val symbolType: String, private val block: SymbolsBuilder.() -> Unit) {
 
@@ -76,6 +91,31 @@ class SymbolsBuilder(private val symbolType: String, block: SymbolsBuilder.() ->
     }
 }
 
+class markers(private val block: MarkersBuilder.() -> Unit) {
+
+    private var markers: MarkersBuilder? = null
+
+    operator fun getValue(thisRef: Any?, property: KProperty<*>) =
+        markers ?: MarkersBuilder(block).also { markers = it }
+}
+
+class MarkersBuilder(private val block: MarkersBuilder.() -> Unit) {
+
+    private val _map = mutableMapOf<MarkerType, MarkerSymbol>()
+    val map: Map<MarkerType, MarkerSymbol> get() = _map
+    internal val markers: List<MarkerSymbol>
+        get() = _map.values.toList()
+
+    init {
+        block()
+    }
+
+    operator fun get(type: MarkerType): MarkerSymbol? = _map[type]
+
+    fun marker(type: MarkerType, brailleDots: BrailleDots) {
+        _map[type] = MarkerSymbol(type, brailleDots)
+    }
+}
 
 class known(vararg chars: Char) {
 
@@ -83,7 +123,8 @@ class known(vararg chars: Char) {
     private var knownMaterials: List<KnownMaterial>? = null
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>): List<KnownMaterial> =
-        knownMaterials ?: cs.map {
-            KnownMaterial(UNDEFINED_ID, content.symbols.getValue(it).id)
-        }.also { knownMaterials = it }
+        knownMaterials
+            ?: cs
+                .map { KnownMaterial(UNDEFINED_ID, content.symbols.getValue(it).id) }
+                .also { knownMaterials = it }
 }

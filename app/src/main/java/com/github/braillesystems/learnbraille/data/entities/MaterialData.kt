@@ -1,6 +1,7 @@
 package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.TypeConverter
+import com.github.braillesystems.learnbraille.res.MarkerType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UnstableDefault
@@ -28,4 +29,11 @@ data class Symbol(
     val brailleDots: BrailleDots,
     @SerialName("symbol_type")
     val type: SymbolType
+) : MaterialData()
+
+@Serializable
+data class MarkerSymbol(
+    @SerialName("marker_type")
+    val type: MarkerType,
+    val brailleDots: BrailleDots
 ) : MaterialData()

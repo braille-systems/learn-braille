@@ -9,11 +9,19 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.utils.rules
+import kotlinx.serialization.Serializable
 
 object SymbolType {
     const val ru = "ru"
     const val special = "special"
     const val digit = "digit"
+}
+
+@Serializable
+enum class MarkerType {
+    Capital,
+    Greek,
+    Latin
 }
 
 /**

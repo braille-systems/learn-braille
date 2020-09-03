@@ -58,6 +58,7 @@ class BrowserFragment : AbstractFragmentWithHelp(R.string.browser_help) {
                         application.showSymbolPrintRules[item.data.char].toString(),
                         item.data.brailleDots.spelling
                     )
+                    else -> TODO()
                 }
                 clickListener = listener
             }
