@@ -1,5 +1,7 @@
 # Learn Braille
 
+[![Actions Status](https://github.com/braille-systems/learn-braille/workflows/Android%20CI/badge.svg)](https://github.com/braille-systems/learn-braille/actions)
+
 Learn Braille is an android application for teaching Braille writing system.
 
 It is one of the few apps primarily designed for Russian Braille system, 
