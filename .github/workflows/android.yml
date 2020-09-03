@@ -43,6 +43,12 @@ jobs:
         with:
           name: documentation-html
           path: app/build/dokka/
+      - name: Upload artifact (test reports)
+        uses: actions/upload-artifact@v1
+        with:
+          name: test-reports
+          path: app/build/reports/
+        if: always()
 
   static-check:
     runs-on: ubuntu-latest
