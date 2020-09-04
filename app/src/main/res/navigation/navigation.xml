@@ -91,13 +91,26 @@
         android:name="com.github.braillesystems.learnbraille.ui.screens.browser.BrowserFragment"
         android:label="@string/browser_title">
         <action
-            android:id="@+id/action_browserFragment_to_materialViewFragment"
+            android:id="@+id/action_browserFragment_to_symbolViewFragment"
             app:destination="@id/symbolViewFragment" />
+        <action
+            android:id="@+id/action_browserFragment_to_markerViewFragment"
+            app:destination="@id/markerViewFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/symbolViewFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.browser.SymbolViewFragment"
+        android:label="@string/browser_symbol_view_title">
+        <argument
+            android:name="material"
+            app:argType="string" />
+    </fragment>
+
+    <!--    TODO marker title -->
+    <fragment
+        android:id="@+id/markerViewFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.browser.MarkerViewFragment"
         android:label="@string/browser_symbol_view_title">
         <argument
             android:name="material"

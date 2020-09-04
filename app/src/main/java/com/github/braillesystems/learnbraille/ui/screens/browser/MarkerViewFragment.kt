@@ -5,24 +5,27 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.data.entities.MarkerSymbol
 import com.github.braillesystems.learnbraille.data.entities.Material
-import com.github.braillesystems.learnbraille.data.entities.Symbol
-import com.github.braillesystems.learnbraille.databinding.FragmentSymbolViewBinding
+import com.github.braillesystems.learnbraille.databinding.FragmentMarkerViewBinding
+import com.github.braillesystems.learnbraille.res.showMarkerPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
+import com.github.braillesystems.learnbraille.utils.contextNotNull
+import com.github.braillesystems.learnbraille.utils.get
 import com.github.braillesystems.learnbraille.utils.getFragmentStringArg
 import com.github.braillesystems.learnbraille.utils.parse
 
-class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view_help) {
+class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view_help) {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = DataBindingUtil.inflate<FragmentSymbolViewBinding>(
+    ) = DataBindingUtil.inflate<FragmentMarkerViewBinding>(
         inflater,
-        R.layout.fragment_symbol_view,
+        R.layout.fragment_marker_view,
         container,
         false
     ).also { binding ->
@@ -30,9 +33,9 @@ class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view
         setHasOptionsMenu(true)
 
         val m: Material = parse(Material.serializer(), getFragmentStringArg("material"))
-        require(m.data is Symbol)
+        require(m.data is MarkerSymbol)
 
-        binding.letter.text = m.data.char.toString()
+        binding.infoTextView.text = contextNotNull.showMarkerPrintRules[m.data.type]
         binding.brailleDots.dotsState.display(m.data.brailleDots)
 
     }.root
