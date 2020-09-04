@@ -10,6 +10,11 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.utils.rules
 
+object SymbolType {
+    const val ru = "ru"
+    const val special = "special"
+    const val digit = "digit"
+}
 
 /**
  * Do not forget to register print rules below for the new types of symbols.
@@ -90,13 +95,6 @@ val Context.showSymbolPrintRules by rules<Context, Char, String>(
         }
     }
 )
-
-
-object SymbolType {
-    const val ru = "ru"
-    const val special = "special"
-    const val digit = "digit"
-}
 
 private val ruSymbols by symbols(SymbolType.ru) {
     symbol(char = 'А', brailleDots = BrailleDots(F, E, E, E, E, E))

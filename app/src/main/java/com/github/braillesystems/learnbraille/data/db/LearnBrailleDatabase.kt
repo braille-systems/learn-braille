@@ -68,8 +68,6 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
     /**
      * Android Room prepopulation and migrations are lazy,
      * they will start with the first request, blocking it.
-     *
-     * TODO add reference to docs
      */
     private fun init(): LearnBrailleDatabase = this.also {
         prepareDbJob = scope().launch {
@@ -88,6 +86,10 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
 
         const val name = "learn_braille_database"
 
+        /**
+         * Try to run `build` before first user's request (mb in Application's `onCreate`)
+         * to make DB likely prepared until it is really needed.
+         */
         fun buildDatabase(context: Context) = Room
             .databaseBuilder(
                 context.applicationContext,

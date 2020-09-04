@@ -3,13 +3,13 @@ package com.github.braillesystems.learnbraille.data.repository
 import android.content.Context
 import android.widget.Toast
 import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.data.entities.DBid
 import com.github.braillesystems.learnbraille.data.entities.User
 import com.github.braillesystems.learnbraille.data.entities.UserDao
 import com.github.braillesystems.learnbraille.utils.BuzzPattern
 import com.github.braillesystems.learnbraille.utils.logged
 import com.github.braillesystems.learnbraille.utils.preferences
 import timber.log.Timber
-
 
 interface PreferenceRepository {
 
@@ -25,7 +25,7 @@ interface PreferenceRepository {
     val extendedAccessibilityEnabled: Boolean
     val additionalQrCodeButtonEnabled: Boolean
 
-    val currentUserId: Long
+    val currentUserId: DBid
     suspend fun getCurrentUser(): User
 
     val toastDuration get() = Toast.LENGTH_SHORT
@@ -114,7 +114,7 @@ class PreferenceRepositoryImpl(
         )
     }
 
-    override val currentUserId: Long by logged {
+    override val currentUserId: DBid by logged {
         context.preferences.getLong(
             context.getString(R.string.preference_current_user), 1
         )

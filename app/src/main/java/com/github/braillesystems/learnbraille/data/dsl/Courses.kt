@@ -1,11 +1,16 @@
 package com.github.braillesystems.learnbraille.data.dsl
 
 import com.github.braillesystems.learnbraille.data.entities.Course
+import com.github.braillesystems.learnbraille.data.entities.CourseDesc
+import com.github.braillesystems.learnbraille.data.entities.CourseName
+import com.github.braillesystems.learnbraille.data.entities.DBid
 import com.github.braillesystems.learnbraille.utils.side
 
-sealed class CourseID(val id: Long)
+sealed class CourseID(val id: DBid)
+
 object DevelopersCourse : CourseID(1)
-class UsersCourse(id: Long) : CourseID(id) {
+
+class UsersCourse(id: DBid) : CourseID(id) {
     init {
         require(id > 1) {
             "id == 1 stands for developers course"
@@ -13,9 +18,6 @@ class UsersCourse(id: Long) : CourseID(id) {
     }
 }
 
-/**
- * Provided values have no ID
- */
 @DataBuilderMarker
 class CoursesBuilder(block: CoursesBuilder.() -> Unit) {
 
@@ -27,14 +29,16 @@ class CoursesBuilder(block: CoursesBuilder.() -> Unit) {
         block()
     }
 
-    fun course(name: String, description: String, block: LessonAccumulatorBuilder.() -> Unit) =
-        LessonAccumulatorBuilder(block).side {
-            val course = Course(DEFAULT_ID, name, description)
-            _data[course] = it.lessons
-        }
+    fun course(
+        name: CourseName, description: CourseDesc,
+        block: LessonAccumulatorBuilder.() -> Unit
+    ) = LessonAccumulatorBuilder(block).side {
+        val course = Course(UNDEFINED_ID, name, description)
+        _data[course] = it.lessons
+    }
 
-    fun course(name: String, description: String, lessons: LessonsBuilder) {
-        val course = Course(DEFAULT_ID, name, description)
+    fun course(name: CourseName, description: CourseDesc, lessons: LessonsBuilder) {
+        val course = Course(UNDEFINED_ID, name, description)
         _data[course] = lessons.lessons
     }
 }

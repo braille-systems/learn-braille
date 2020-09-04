@@ -6,7 +6,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 
-
 @Serializable
 sealed class MaterialData
 
@@ -21,11 +20,12 @@ class MaterialDataTypeConverters {
     fun from(s: String): MaterialData = Json.parse(MaterialData.serializer(), s)
 }
 
+typealias SymbolType = String
 
 @Serializable
 data class Symbol(
     val char: Char,
     val brailleDots: BrailleDots,
     @SerialName("symbol_type")
-    val type: String
+    val type: SymbolType
 ) : MaterialData()

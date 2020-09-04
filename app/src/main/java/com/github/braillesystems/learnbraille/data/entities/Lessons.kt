@@ -2,14 +2,16 @@ package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
 
+typealias LessonName = String
+typealias LessonDesc = String
 
 @Entity(tableName = "lessons", primaryKeys = ["id", "course_id"])
 data class Lesson(
-    val id: Long,
+    val id: DBid,
     @ColumnInfo(name = "course_id")
-    val courseId: Long,
-    val name: String,
-    val description: String
+    val courseId: DBid,
+    val name: LessonName,
+    val description: LessonDesc
 )
 
 @Dao
@@ -25,7 +27,7 @@ interface LessonDao {
         order by id
         """
     )
-    suspend fun getAllCourseLessons(courseId: Long): List<Lesson>
+    suspend fun getAllCourseLessons(courseId: DBid): List<Lesson>
 
     @Query("delete from lessons")
     suspend fun clear()

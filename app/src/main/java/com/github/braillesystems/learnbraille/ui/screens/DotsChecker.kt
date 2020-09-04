@@ -227,7 +227,7 @@ inline fun DotsChecker.observeEventCorrect(
     Observer {
         if (!it) return@Observer
         Timber.i("Handle correct")
-        buzzer.checkedBuzz(preferenceRepository.correctBuzzPattern, preferenceRepository)
+        buzzer.checkedBuzz(preferenceRepository.correctBuzzPattern)
         dotsState.uncheck()
         block()
         onCorrectComplete()
@@ -244,7 +244,7 @@ inline fun DotsChecker.observeEventSoftCorrect(
     Observer {
         if (!it) return@Observer
         Timber.i("Handle soft correct")
-        buzzer.checkedBuzz(preferenceRepository.correctBuzzPattern, preferenceRepository)
+        buzzer.checkedBuzz(preferenceRepository.correctBuzzPattern)
         block()
         onSoftCorrectComplete()
     }
@@ -261,7 +261,7 @@ inline fun DotsChecker.observeEventIncorrect(
     Observer {
         if (!it) return@Observer
         Timber.i("Handle incorrect: entered = ${dotsState.spelling}")
-        buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern, preferenceRepository)
+        buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern)
         dotsState.uncheck()
         block()
         onIncorrectComplete()

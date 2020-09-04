@@ -36,7 +36,7 @@ val knownMaterials by known()
 
 private val prepopulationData by data(
     materials = content,
-    stepAnnotations = listOf("book", "bomb"),
+    stepAnnotationNames = listOf("book", "bomb"),
     knownMaterials = knownMaterials
 ) {
 

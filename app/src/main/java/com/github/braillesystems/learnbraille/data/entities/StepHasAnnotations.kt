@@ -2,20 +2,19 @@ package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
 
-
 @Entity(
     tableName = "step_has_annotations",
     primaryKeys = ["course_id", "lesson_id", "step_id", "annotation_id"]
 )
 data class StepHasAnnotation(
     @ColumnInfo(name = "course_id")
-    val courseId: Long,
+    val courseId: DBid,
     @ColumnInfo(name = "lesson_id")
-    val lessonId: Long,
+    val lessonId: DBid,
     @ColumnInfo(name = "step_id")
-    val stepId: Long,
+    val stepId: DBid,
     @ColumnInfo(name = "annotation_id")
-    val annotationId: Long
+    val annotationId: DBid
 )
 
 @Dao
