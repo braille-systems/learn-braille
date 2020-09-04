@@ -223,7 +223,7 @@
     <fragment
         android:id="@+id/inputMarkerFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.InputMarkerFragment"
-        android:label="@string/lessons_title_input_marker">
+        android:label="@string/lessons_title_input_symbol">
         <argument
             android:name="step"
             app:argType="string" />
@@ -236,7 +236,7 @@
     <fragment
         android:id="@+id/showMarkerFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.ShowMarkerFragment"
-        android:label="@string/lessons_title_show_marker">
+        android:label="@string/lessons_title_show_symbol">
         <argument
             android:name="step"
             app:argType="string" />

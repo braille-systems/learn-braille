@@ -47,7 +47,7 @@ class ShowMarkerFragment : AbstractStepFragment(R.string.lessons_help_show_marke
         checkedAnnounce(infoText)
         binding.brailleDots.dotsState.display(data.brailleDots)
 
-        updateTitle(getString(R.string.lessons_title_show_marker))
+        updateTitle(getString(R.string.lessons_title_show_symbol))
         setPrevButton(binding.prevButton)
         setNextButton(binding.nextButton)
 
