@@ -69,7 +69,7 @@ class InputMarkerFragment : AbstractStepFragment(R.string.lessons_help_input_mar
         checkedAnnounce(infoText)
         binding.brailleDots.dotsState.display(data.brailleDots)
 
-        updateTitle(getString(R.string.lessons_title_input_marker))
+        updateTitle(getString(R.string.lessons_title_input_symbol))
 
         expectedDots = data.brailleDots
         userTouchedDots = false

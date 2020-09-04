@@ -20,9 +20,9 @@ object SymbolType {
 
 @Serializable
 enum class MarkerType {
-    Capital,
-    Greek,
-    Latin
+    RussianCapital,
+    GreekCapital,
+    LatinCapital
 }
 
 /**
@@ -108,35 +108,35 @@ val Context.showSymbolPrintRules by rules<Context, Char, String>(
 
 val Context.inputMarkerPrintRules by rules<Context, MarkerType, String>(
     {
-        val s = getString(R.string.input_mod_capital)
-        MarkerType.Capital::equals to { _: MarkerType -> s }
+        val s = getString(R.string.input_mod_ru_capital)
+        MarkerType.RussianCapital::equals to { _: MarkerType -> s }
     },
 
     {
-        val s = getString(R.string.input_mod_greek)
-        MarkerType.Greek::equals to { _: MarkerType -> s }
+        val s = getString(R.string.input_mod_greek_capital)
+        MarkerType.GreekCapital::equals to { _: MarkerType -> s }
     },
 
     {
-        val s = getString(R.string.input_mod_latin)
-        MarkerType.Latin::equals to { _: MarkerType -> s }
+        val s = getString(R.string.input_mod_latin_capital)
+        MarkerType.LatinCapital::equals to { _: MarkerType -> s }
     }
 )
 
 val Context.showMarkerPrintRules by rules<Context, MarkerType, String>(
     {
         val s = getString(R.string.show_mod_capital)
-        MarkerType.Capital::equals to { _: MarkerType -> s }
+        MarkerType.RussianCapital::equals to { _: MarkerType -> s }
     },
 
     {
         val s = getString(R.string.show_mod_greek)
-        MarkerType.Greek::equals to { _: MarkerType -> s }
+        MarkerType.GreekCapital::equals to { _: MarkerType -> s }
     },
 
     {
         val s = getString(R.string.show_mod_latin)
-        MarkerType.Latin::equals to { _: MarkerType -> s }
+        MarkerType.LatinCapital::equals to { _: MarkerType -> s }
     }
 )
 
@@ -196,9 +196,8 @@ private val uebDigits by symbols(SymbolType.digit) {
     symbol(char = '0', brailleDots = BrailleDots(E, F, E, F, F, E))
 }
 
-// TODO fix braille dots
 private val ms by markers {
-    marker(MarkerType.Greek, BrailleDots(F, F, F, E, E, F))
-    marker(MarkerType.Latin, BrailleDots(F, F, F, E, F, F))
-    marker(MarkerType.Capital, BrailleDots(F, E, F, F, E, F))
+    marker(MarkerType.GreekCapital, BrailleDots(E, E, E, F, F, F))
+    marker(MarkerType.LatinCapital, BrailleDots(E, E, E, F, E, F))
+    marker(MarkerType.RussianCapital, BrailleDots(E, E, E, F, F, E))
 }

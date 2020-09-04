@@ -33,12 +33,12 @@ private val enSymbols by symbols(
 }
 
 private val markers1 by markers {
-    marker(MarkerType.Greek, BrailleDots(F, F, F, E, E, F))
+    marker(MarkerType.GreekCapital, BrailleDots(E, E, E, F, F, F))
 }
 
 private val markers2 by markers {
-    marker(MarkerType.Latin, BrailleDots(F, F, F, E, F, F))
-    marker(MarkerType.Capital, BrailleDots(F, E, F, F, E, F))
+    marker(MarkerType.LatinCapital, BrailleDots(E, E, E, F, E, F))
+    marker(MarkerType.RussianCapital, BrailleDots(E, E, E, F, F, E))
 }
 
 val knownMaterials by known()
@@ -156,9 +156,9 @@ private val mats = listOf(
     Material(1, Symbol(char = 'А', brailleDots = BrailleDots(F, E, E, E, E, E), type = "ru")),
     Material(2, Symbol(char = 'Б', brailleDots = BrailleDots(F, F, E, E, E, E), type = "ru")),
     Material(3, Symbol(char = 'Z', brailleDots = BrailleDots(F, F, F, E, E, E), type = "en")),
-    Material(4, MarkerSymbol(MarkerType.Greek, BrailleDots(F, F, F, E, E, F))),
-    Material(5, MarkerSymbol(MarkerType.Latin, BrailleDots(F, F, F, E, F, F))),
-    Material(6, MarkerSymbol(MarkerType.Capital, BrailleDots(F, E, F, F, E, F)))
+    Material(4, MarkerSymbol(MarkerType.GreekCapital, BrailleDots(E, E, E, F, F, F))),
+    Material(5, MarkerSymbol(MarkerType.LatinCapital, BrailleDots(E, E, E, F, E, F))),
+    Material(6, MarkerSymbol(MarkerType.RussianCapital, BrailleDots(E, E, E, F, F, E)))
 )
 
 private val decks = listOf(

@@ -42,10 +42,9 @@
     <string name="input_special_intro_hyphen">Введите символ: Дефис</string>
     <string name="input_special_intro_comma">Введите запятую</string>
 
-    <!--    TODO-->
-    <string name="input_mod_greek">Введите модификатор греческого</string>
-    <string name="input_mod_latin">Введите модификатор латинского</string>
-    <string name="input_mod_capital">Введите модификатор заглавной буквы</string>
+    <string name="input_mod_greek_capital">Введите признак большой греческой буквы</string>
+    <string name="input_mod_latin_capital">Введите признак большой латинской буквы</string>
+    <string name="input_mod_ru_capital">Введите признак большой буквы русского алфавита</string>
 
     <string name="show_letter_intro_template">Буква %s</string>
     <string name="show_digit_intro_template">Цифра %s</string>
@@ -55,10 +54,9 @@
     <string name="show_special_intro_hyphen">Дефис</string>
     <string name="show_special_intro_comma">Запятая</string>
 
-    <!--    TODO-->
-    <string name="show_mod_greek">Модификатор греческого</string>
-    <string name="show_mod_latin">Модификатор латинского</string>
-    <string name="show_mod_capital">Модификатор заглавной буквы</string>
+    <string name="show_mod_greek">Признак большой греческой буквы</string>
+    <string name="show_mod_latin">Признак большой латинской буквы</string>
+    <string name="show_mod_capital">Признак большой буквы русского алфавита</string>
 
     <!--    QR-->
 
@@ -202,9 +200,6 @@
     <string name="lessons_title_show_symbol">Изучение</string>
     <string name="lessons_title_show_dots">Точки</string>
     <string name="lessons_title_lessons_list">Уроки</string>
-    <!--    TODO-->
-    <string name="lessons_title_input_marker">Введите маркер</string>
-    <string name="lessons_title_show_marker">Маркерный символ</string>
 
     <string name="lessons_help_template">
         <![CDATA[
@@ -261,12 +256,12 @@
         ]]>
     </string>
 
-    <!--    TODO-->
     <string name="lessons_help_input_marker">
         <![CDATA[
-        Пошаговый курс - <b>шаг с вводом маркерного символа.</b>
+        Пошаговый курс - <b>шаг с вводом специального символа.</b>
         <br><br>
-        Введите в шеститочии на экране точки с указанными номерами.
+        В верхней половине экрана дано описание символа, который нужно ввести в шеститочии
+        в нижней половине экрана.
         &<br>
         Если нажать кнопку \"подсказка\", расположенную над кнопкой \"назад\", выведется сообщение
         с правильным ответом и точки переключатся в правильное состояние. Чтобы пройти то же
@@ -291,12 +286,12 @@
         ]]>
     </string>
 
-    <!--    TODO-->
     <string name="lessons_help_show_marker">
         <![CDATA[
-        Пошаговый курс - <b>шаг с демонстрацией маркерных символов.</b>
+        Пошаговый курс - <b>шаг с демонстрацией специального символа.</b>
         <br><br>
-        На экран выведен точечный символ. Внимательно изучите его.
+        В верхней половине экрана словами описан специальный символ, а в шеститочии в нижней части
+         - его точечный состав. Внимательно изучите этот символ.
         ]]>
     </string>
 

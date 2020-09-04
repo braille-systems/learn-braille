@@ -68,9 +68,11 @@ internal val testLessons by lessons {
         +Input(content.symbols.getValue('А'))
 
         // Testing marker symbols representation
-        val greek = content.markers.getValue(MarkerType.Greek)
+        val greek = content.markers.getValue(MarkerType.GreekCapital)
         +Show(greek)
         +Input(greek)
+        +Show(content.markers.getValue(MarkerType.LatinCapital))
+        +Show(content.markers.getValue(MarkerType.RussianCapital))
 
         +Show(content.symbols.getValue('Б'))
         +Info(
