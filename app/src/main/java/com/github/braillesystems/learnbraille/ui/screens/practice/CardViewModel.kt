@@ -109,7 +109,7 @@ class CardViewModel(
             materialsQueue.add(material.data)
         }
 
-        require(material.data is Symbol)
+        require(material.data is Symbol) // TODO #250 change for symbols desk
         material.data.run {
             _symbol.value = char.toString()
             expectedDots = brailleDots

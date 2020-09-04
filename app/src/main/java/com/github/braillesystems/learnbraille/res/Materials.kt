@@ -22,7 +22,8 @@ object SymbolType {
 enum class MarkerType {
     RussianCapital,
     GreekCapital,
-    LatinCapital
+    LatinCapital,
+    NumberSign
 }
 
 /**
@@ -32,7 +33,7 @@ enum class MarkerType {
  */
 val content by materials {
     +ruSymbols
-    +specialSymbols
+    +punctuationSigns
     +uebDigits
     +ms
 }
@@ -61,13 +62,11 @@ val Context.inputSymbolPrintRules by rules<Context, Char, String>(
 
     {
         val other = getString(R.string.input_special_intro_template)
-        val numSign = getString(R.string.input_special_intro_num_sign)
         val dotIntro = getString(R.string.input_special_intro_dot)
         val commaIntro = getString(R.string.input_special_intro_comma)
         val hyphenIntro = getString(R.string.input_special_intro_hyphen)
-        specialSymbols.map::containsKey to { c: Char ->
+        punctuationSigns.map::containsKey to { c: Char ->
             when (c) {
-                ']' -> numSign
                 '.' -> dotIntro
                 ',' -> commaIntro
                 '-' -> hyphenIntro
@@ -90,13 +89,11 @@ val Context.showSymbolPrintRules by rules<Context, Char, String>(
 
     {
         val other = getString(R.string.show_special_intro_template)
-        val numSign = getString(R.string.show_special_intro_num_sign)
         val dotIntro = getString(R.string.show_special_intro_dot)
         val commaIntro = getString(R.string.show_special_intro_comma)
         val hyphenIntro = getString(R.string.show_special_intro_hyphen)
-        specialSymbols.map::containsKey to { c: Char ->
+        punctuationSigns.map::containsKey to { c: Char ->
             when (c) {
-                ']' -> numSign
                 '.' -> dotIntro
                 ',' -> commaIntro
                 '-' -> hyphenIntro
@@ -120,6 +117,11 @@ val Context.inputMarkerPrintRules by rules<Context, MarkerType, String>(
     {
         val s = getString(R.string.input_mod_latin_capital)
         MarkerType.LatinCapital::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_mod_num_sign)
+        MarkerType.NumberSign::equals to { _: MarkerType -> s }
     }
 )
 
@@ -137,6 +139,11 @@ val Context.showMarkerPrintRules by rules<Context, MarkerType, String>(
     {
         val s = getString(R.string.show_mod_latin)
         MarkerType.LatinCapital::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_mod_num_sign)
+        MarkerType.NumberSign::equals to { _: MarkerType -> s }
     }
 )
 
@@ -176,8 +183,7 @@ private val ruSymbols by symbols(SymbolType.ru) {
     symbol(char = 'Я', brailleDots = BrailleDots(F, F, E, F, E, F))
 }
 
-private val specialSymbols by symbols(SymbolType.special) {
-    symbol(char = ']', brailleDots = BrailleDots(E, E, F, F, F, F)) // Number sign
+private val punctuationSigns by symbols(SymbolType.special) {
     symbol(char = ',', brailleDots = BrailleDots(E, F, E, E, E, E)) // Comma
     symbol(char = '-', brailleDots = BrailleDots(E, E, F, E, E, F)) // Hyphen
     symbol(char = '.', brailleDots = BrailleDots(E, F, E, E, F, F)) // Dot
@@ -200,4 +206,5 @@ private val ms by markers {
     marker(MarkerType.GreekCapital, BrailleDots(E, E, E, F, F, F))
     marker(MarkerType.LatinCapital, BrailleDots(E, E, E, F, E, F))
     marker(MarkerType.RussianCapital, BrailleDots(E, E, E, F, F, E))
+    marker(MarkerType.NumberSign, BrailleDots(E, E, F, F, F, F))
 }

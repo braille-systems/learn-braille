@@ -88,7 +88,7 @@ internal val testLessons by lessons {
         +Input(content.symbols.getValue('Ц'))
 
         +Info("""Symbols of other types for testing""")
-        +Input(content.symbols.getValue(']'))
+        +Input(content.symbols.getValue(','))
         +Input(content.symbols.getValue('1'))
         +Input(content.symbols.getValue('2'))
         +Input(content.symbols.getValue('3'))
