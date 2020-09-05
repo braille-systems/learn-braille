@@ -15,10 +15,11 @@ import kotlinx.serialization.Serializable
 
 object SymbolType {
     const val ru = "ru"
+    const val digit = "digit"
     const val latin = "Latin"
     const val greek = "greek"
     const val special = "special"
-    const val digit = "digit"
+    const val math = "math"
 }
 
 @Serializable
@@ -26,6 +27,9 @@ enum class MarkerType {
     RussianCapital,
     GreekCapital,
     LatinCapital,
+    LatinSmall,
+    BoldFont,
+    ItalicFont,
     NumberSign
 }
 
@@ -35,7 +39,7 @@ enum class MarkerType {
  * Always use this variable to get materials.
  */
 
-// TODO write a migration for lat, greek
+// TODO write a migration for lat, greek, etc
 
 val content by materials {
     +ruSymbols
@@ -43,6 +47,7 @@ val content by materials {
     +uebDigits
     +latinLetters
     +greekLetters
+    +mathSigns
     +ms
 }
 
@@ -83,11 +88,54 @@ val Context.inputSymbolPrintRules by rules<Context, Char, String>(
         val dotIntro = getString(R.string.input_special_intro_dot)
         val commaIntro = getString(R.string.input_special_intro_comma)
         val hyphenIntro = getString(R.string.input_special_intro_hyphen)
+        val exclamationIntro = getString(R.string.input_special_intro_exclamation)
+        val questionIntro = getString(R.string.input_special_intro_question)
+        val quotationLeftIntro = getString(R.string.input_special_intro_quotation_left)
+        val quotationRightIntro = getString(R.string.input_special_intro_quotation_right)
+        val parenthesisLeftIntro = getString(R.string.input_special_intro_parenthesis_left)
+        val parenthesisRightIntro = getString(R.string.input_special_intro_parenthesis_right)
+        val asteriskIntro = getString(R.string.input_special_intro_asterisk)
+        val colonIntro = getString(R.string.input_special_intro_colon)
+        val semicolonIntro = getString(R.string.input_special_intro_semicolon)
+        val stressIntro = getString(R.string.input_special_intro_stress)
         punctuationSigns.map::containsKey to { c: Char ->
             when (c) {
                 '.' -> dotIntro
                 ',' -> commaIntro
-                '-' -> hyphenIntro
+                '—' -> hyphenIntro
+                '!' -> exclamationIntro
+                '?' -> questionIntro
+                '«' -> quotationLeftIntro
+                '»' -> quotationRightIntro
+                '(' -> parenthesisLeftIntro
+                ')' -> parenthesisRightIntro
+                '*' -> asteriskIntro
+                ':' -> colonIntro
+                ';' -> semicolonIntro
+                '\'' -> stressIntro
+                else -> other.format(c)
+            }
+        }
+    },
+
+    {
+        val other = getString(R.string.input_math_intro_template)
+        val plusIntro = getString(R.string.input_math_plus)
+        val minusIntro = getString(R.string.input_math_minus)
+        val dotMultIntro = getString(R.string.input_math_dot_mult)
+        val crossMultIntro = getString(R.string.input_math_cross_mult)
+        val fracDivisionIntro = getString(R.string.input_math_division_fraction)
+        val divisionIntro = getString(R.string.input_math_division)
+        val equalityIntro = getString(R.string.input_math_equality)
+        mathSigns.map::containsKey to { c: Char ->
+            when (c) {
+                '+' -> plusIntro
+                '-' -> minusIntro
+                '·' -> dotMultIntro
+                '✕' -> crossMultIntro
+                '/' -> fracDivisionIntro
+                '÷' -> divisionIntro
+                '=' -> equalityIntro
                 else -> other.format(c)
             }
         }
@@ -95,7 +143,6 @@ val Context.inputSymbolPrintRules by rules<Context, Char, String>(
 )
 
 val Context.showSymbolPrintRules by rules<Context, Char, String>(
-    // TODO reduce repeated code
 
     {
         val t = getString(R.string.show_letter_intro_template)
@@ -122,24 +169,87 @@ val Context.showSymbolPrintRules by rules<Context, Char, String>(
         val dotIntro = getString(R.string.show_special_intro_dot)
         val commaIntro = getString(R.string.show_special_intro_comma)
         val hyphenIntro = getString(R.string.show_special_intro_hyphen)
+        val exclamationIntro = getString(R.string.show_special_intro_exclamation)
+        val questionIntro = getString(R.string.show_special_intro_question)
+        val quotationLeftIntro = getString(R.string.show_special_intro_quotation_left)
+        val quotationRightIntro = getString(R.string.show_special_intro_quotation_right)
+        val parenthesisLeftIntro = getString(R.string.show_special_intro_parenthesis_left)
+        val parenthesisRightIntro = getString(R.string.show_special_intro_parenthesis_right)
+        val asteriskIntro = getString(R.string.show_special_intro_asterisk)
+        val colonIntro = getString(R.string.show_special_intro_colon)
+        val semicolonIntro = getString(R.string.show_special_intro_semicolon)
+        val stressIntro = getString(R.string.show_special_intro_stress)
         punctuationSigns.map::containsKey to { c: Char ->
             when (c) {
                 '.' -> dotIntro
                 ',' -> commaIntro
-                '-' -> hyphenIntro
+                '—' -> hyphenIntro
+                '!' -> exclamationIntro
+                '?' -> questionIntro
+                '«' -> quotationLeftIntro
+                '»' -> quotationRightIntro
+                '(' -> parenthesisLeftIntro
+                ')' -> parenthesisRightIntro
+                '*' -> asteriskIntro
+                ':' -> colonIntro
+                ';' -> semicolonIntro
+                '\'' -> stressIntro
+                else -> other.format(c)
+            }
+        }
+    },
+
+    {
+        val other = getString(R.string.show_math_intro_template)
+        val plusIntro = getString(R.string.show_math_plus)
+        val minusIntro = getString(R.string.show_math_minus)
+        val dotMultIntro = getString(R.string.show_math_dot_mult)
+        val crossMultIntro = getString(R.string.show_math_cross_mult)
+        val fracDivisionIntro = getString(R.string.show_math_division_fraction)
+        val divisionIntro = getString(R.string.show_math_division)
+        val equalityIntro = getString(R.string.show_math_equality)
+        mathSigns.map::containsKey to { c: Char ->
+            when (c) {
+                '+' -> plusIntro
+                '-' -> minusIntro
+                '·' -> dotMultIntro
+                '✕' -> crossMultIntro
+                '/' -> fracDivisionIntro
+                '÷' -> divisionIntro
+                '=' -> equalityIntro
                 else -> other.format(c)
             }
         }
     }
 )
 
+fun getSpecialCaptionId(symbol: Symbol): Int? {
+    val specialCaptions = mapOf(
+        '.' to R.string.show_special_intro_dot, ',' to R.string.show_special_intro_comma,
+        '—' to R.string.show_special_intro_hyphen,
+        '!' to R.string.show_special_intro_exclamation,
+        '?' to R.string.show_special_intro_question,
+        '«' to R.string.show_special_intro_quotation_left,
+        '»' to R.string.show_special_intro_quotation_right,
+        '(' to R.string.show_special_intro_parenthesis_left,
+        ')' to R.string.show_special_intro_parenthesis_right,
+        '*' to R.string.show_special_intro_asterisk,
+        ':' to R.string.show_special_intro_colon,
+        ';' to R.string.show_special_intro_semicolon,
+        '\'' to R.string.show_special_intro_stress,
+        '+' to R.string.show_math_plus,
+        '-' to R.string.show_math_minus,
+        '·' to R.string.show_math_dot_mult,
+        '✕' to R.string.show_math_cross_mult,
+        '/' to R.string.show_math_division_fraction,
+        '÷' to R.string.show_math_division,
+        '=' to R.string.show_math_equality
+    )
+    return if (specialCaptions.containsKey(symbol.char)) specialCaptions[symbol.char] else null
+}
+
 fun getCaptionTitleId(symbol: Symbol): Int {
-    val specialCaptionId = when(symbol.char) {
-        '.' -> R.string.show_special_intro_dot
-        ',' -> R.string.show_special_intro_comma
-        '-' -> R.string.show_special_intro_hyphen
-        else -> null
-    }
+    val specialCaptionId = getSpecialCaptionId(symbol)
     if (specialCaptionId != null) {
         return specialCaptionId
     }
@@ -170,6 +280,21 @@ val Context.inputMarkerPrintRules by rules<Context, MarkerType, String>(
     },
 
     {
+        val s = getString(R.string.input_mod_latin_small)
+        MarkerType.LatinSmall::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_mod_bold)
+        MarkerType.BoldFont::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_mod_italic)
+        MarkerType.ItalicFont::equals to { _: MarkerType -> s }
+    },
+
+    {
         val s = getString(R.string.input_mod_num_sign)
         MarkerType.NumberSign::equals to { _: MarkerType -> s }
     }
@@ -189,6 +314,26 @@ val Context.showMarkerPrintRules by rules<Context, MarkerType, String>(
     {
         val s = getString(R.string.show_mod_latin)
         MarkerType.LatinCapital::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_mod_latin)
+        MarkerType.LatinCapital::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_mod_latin_small)
+        MarkerType.LatinSmall::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_mod_bold)
+        MarkerType.BoldFont::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_mod_italic)
+        MarkerType.ItalicFont::equals to { _: MarkerType -> s }
     },
 
     {
@@ -234,8 +379,28 @@ private val ruSymbols by symbols(SymbolType.ru) {
 }
 private val punctuationSigns by symbols(SymbolType.special) {
     symbol(char = ',', brailleDots = BrailleDots(E, F, E, E, E, E)) // Comma
-    symbol(char = '-', brailleDots = BrailleDots(E, E, F, E, E, F)) // Hyphen
+    symbol(char = '—', brailleDots = BrailleDots(E, E, F, E, E, F)) // Hyphen
     symbol(char = '.', brailleDots = BrailleDots(E, F, E, E, F, F)) // Dot
+    symbol(char = '!', brailleDots = BrailleDots(E, F, F, E, F, E)) // Exclamation mark
+    symbol(char = '?', brailleDots = BrailleDots(E, F, E, E, E, F)) // Question mark
+    symbol(char = '«', brailleDots = BrailleDots(E, F, F, E, E, F)) // Left quotation mark
+    symbol(char = '»', brailleDots = BrailleDots(E, E, F, E, F, F)) // Right quotation mark
+    symbol(char = '(', brailleDots = BrailleDots(F, F, E, E, E, F)) // Left parenthesis
+    symbol(char = ')', brailleDots = BrailleDots(E, E, F, F, F, E)) // Right parenthesis
+    symbol(char = '*', brailleDots = BrailleDots(E, E, F, E, F, E)) // Asterisk
+    symbol(char = ':', brailleDots = BrailleDots(E, F, E, E, F, E)) // Colon
+    symbol(char = ';', brailleDots = BrailleDots(E, F, F, E, E, E)) // Semicolon
+    symbol(char = '\'', brailleDots = BrailleDots(E, E, E, F, E, E)) // Stress
+}
+
+private val mathSigns by symbols(SymbolType.math) {
+    symbol(char = '+', brailleDots = BrailleDots(E, F, F, E, F, E)) // Plus
+    symbol(char = '-', brailleDots = BrailleDots(E, E, F, E, E, F)) // Minus
+    symbol(char = '·', brailleDots = BrailleDots(E, E, F, E, E, E)) // Dot multiplication
+    symbol(char = '✕', brailleDots = BrailleDots(E, F, F, E, E, F)) // Cross multiplication
+    symbol(char = '/', brailleDots = BrailleDots(E, E, F, E, F, F)) // Division (fraction)
+    symbol(char = '÷', brailleDots = BrailleDots(E, F, E, E, F, F)) // Division
+    symbol(char = '=', brailleDots = BrailleDots(E, F, F, E, F, F)) // Equality
 }
 
 private val uebDigits by symbols(SymbolType.digit) {
@@ -312,6 +477,9 @@ private val greekLetters by symbols(SymbolType.greek) {
 private val ms by markers {
     marker(MarkerType.GreekCapital, BrailleDots(E, E, E, F, F, F))
     marker(MarkerType.LatinCapital, BrailleDots(E, E, E, F, E, F))
+    marker(MarkerType.LatinSmall, BrailleDots(E, E, E, E, E, F))
     marker(MarkerType.RussianCapital, BrailleDots(E, E, E, F, F, E))
+    marker(MarkerType.BoldFont, BrailleDots(F, F, E, F, F, F))
+    marker(MarkerType.ItalicFont, BrailleDots(E, E, E, F, F, F))
     marker(MarkerType.NumberSign, BrailleDots(E, E, F, F, F, F))
 }

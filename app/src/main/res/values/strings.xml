@@ -40,28 +40,72 @@
     <string name="input_greek_letter_intro_template">Введите греческую букву: %s</string>
     <string name="input_digit_intro_template">Введите цифру: %s</string>
     <string name="input_special_intro_template">Введите символ: %s</string>
+    <string name="input_math_intro_template">Введите математический символ: %s</string>
     <string name="input_special_intro_dot">Введите символ: Литературная точка</string>
     <string name="input_special_intro_hyphen">Введите символ: Дефис</string>
     <string name="input_special_intro_comma">Введите запятую</string>
+    <string name="input_special_intro_exclamation">Введите восклицательный знак</string>
+    <string name="input_special_intro_question">Введите вопросительный знак</string>
+    <string name="input_special_intro_quotation_left">Введите открывающую кавычку</string>
+    <string name="input_special_intro_quotation_right">Введите закрывающую кавычку</string>
+    <string name="input_special_intro_parenthesis_left">Введите левую литературную скобку</string>
+    <string name="input_special_intro_parenthesis_right">Введите правую литературную скобку</string>
+    <string name="input_special_intro_asterisk">Введите звёздочку</string>
+    <string name="input_special_intro_colon">Введите двоеточие</string>
+    <string name="input_special_intro_semicolon">Введите точку с запятой</string>
+    <string name="input_special_intro_stress">Введите знак ударения</string>
 
     <string name="input_mod_greek_capital">Введите признак большой буквы греческого алфавита</string>
     <string name="input_mod_latin_capital">Введите признак большой буквы латинского алфавита</string>
+    <string name="input_mod_latin_small">Введите признак малой буквы латинского алфавита</string>
     <string name="input_mod_ru_capital">Введите признак большой буквы русского алфавита</string>
     <string name="input_mod_num_sign">Введите цифровой знак</string>
+    <string name="input_mod_bold">Введите признак жирного шрифта</string>
+    <string name="input_mod_italic">Введите признак курсивного шрифта</string>
+
+    <string name="input_math_plus">Введите знак Плюс</string>
+    <string name="input_math_minus">Введите знак Минус</string>
+    <string name="input_math_dot_mult">Введите знак умножения точкой</string>
+    <string name="input_math_cross_mult">Введите знак умножения крестом</string>
+    <string name="input_math_division_fraction">Введите знак деления (углом)</string>
+    <string name="input_math_division">Введите знак деления (двумя точками)</string>
+    <string name="input_math_equality">Введите знак равенства</string>
 
     <string name="show_letter_intro_template">Буква %s</string>
     <string name="show_latin_letter_intro_template">Латинская буква %s</string>
     <string name="show_greek_letter_intro_template">Греческая буква %s</string>
     <string name="show_digit_intro_template">Цифра %s</string>
     <string name="show_special_intro_template">Символ %s</string>
+    <string name="show_math_intro_template">Математический символ %s</string>
     <string name="show_special_intro_dot">Литературная точка</string>
     <string name="show_special_intro_hyphen">Дефис</string>
     <string name="show_special_intro_comma">Запятая</string>
+    <string name="show_special_intro_exclamation">Восклицательный знак</string>
+    <string name="show_special_intro_question">Вопросительный знак</string>
+    <string name="show_special_intro_quotation_left">Открывающая кавычка</string>
+    <string name="show_special_intro_quotation_right">Закрывающая кавычка</string>
+    <string name="show_special_intro_parenthesis_left">Левая литературная скобка</string>
+    <string name="show_special_intro_parenthesis_right">Правая литературная скобка</string>
+    <string name="show_special_intro_asterisk">Звёздочка</string>
+    <string name="show_special_intro_colon">Двоеточие</string>
+    <string name="show_special_intro_semicolon">Точка с запятой</string>
+    <string name="show_special_intro_stress">Ударение</string>
 
     <string name="show_mod_greek">Признак большой греческой буквы</string>
     <string name="show_mod_latin">Признак большой латинской буквы</string>
+    <string name="show_mod_latin_small">Признак малой латинской буквы</string>
     <string name="show_mod_capital">Признак большой буквы русского алфавита</string>
     <string name="show_mod_num_sign">Цифровой знак</string>
+    <string name="show_mod_bold">Признак жирного шрифта</string>
+    <string name="show_mod_italic">Признак курсивного шрифта</string>
+
+    <string name="show_math_plus">Знак Плюс</string>
+    <string name="show_math_minus">Знак Минус</string>
+    <string name="show_math_dot_mult">Знак умножения точкой</string>
+    <string name="show_math_cross_mult">Знак умножения крестом</string>
+    <string name="show_math_division_fraction">Знак деления (углом)</string>
+    <string name="show_math_division">Знак деления (двумя точками)</string>
+    <string name="show_math_equality">Знак равенства</string>
 
     <string name="letter_caption_ru">Русская буква</string>
     <string name="letter_caption_greek">Греческая буква</string>
@@ -101,6 +145,7 @@
     <string name="deck_name_digits">Цифры</string>
     <string name="deck_name_punctuation">Знаки препинания</string>
     <string name="deck_name_markers">Специальные символы</string>
+    <string name="deck_name_math">Математические символы</string>
 
 
     <string name="practice_help">

@@ -61,11 +61,11 @@ val prepopulationData by data(
         // All cards deck should always exist and be first in the list
         deck(DeckTags.all) { true }
         deck(DeckTags.allWithRus) { data ->
-            data is Symbol && data.type in listOf(
-                SymbolType.ru,
-                SymbolType.special,
-                SymbolType.digit
+            data is Symbol && data.type !in listOf(
+                SymbolType.greek,
+                SymbolType.latin
             )
+                    || data !is Symbol
         }
         deck(DeckTags.ruLetters) { data ->
             data is Symbol && data.type == SymbolType.ru
@@ -79,12 +79,16 @@ val prepopulationData by data(
         deck(DeckTags.special) { data ->
             data is Symbol && data.type == SymbolType.special
         }
-        deck(DeckTags.markers) {data ->
+        deck(DeckTags.markers) { data ->
             data is MarkerSymbol
         }
         deck(DeckTags.digits) { data ->
             data is Symbol && data.type == SymbolType.digit
         }
+        deck(DeckTags.math) {data ->
+            data is Symbol && data.type == SymbolType.math
+        }
+
     }
 }
 
@@ -102,6 +106,7 @@ object DeckTags {
     const val digits = "digits"
     const val markers = "markers"
     const val special = "special"
+    const val math = "math"
 }
 
 val Context.deckTagToName: Map<String, String> by lazyWithContext {
@@ -114,7 +119,8 @@ val Context.deckTagToName: Map<String, String> by lazyWithContext {
             greekLetters to getString(R.string.deck_name_greek_letters),
             digits to getString(R.string.deck_name_digits),
             markers to getString(R.string.deck_name_markers),
-            special to getString(R.string.deck_name_punctuation)
+            special to getString(R.string.deck_name_punctuation),
+            math to getString(R.string.deck_name_math)
         )
     }
 }
