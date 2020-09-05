@@ -35,7 +35,7 @@ class StatsFragment : AbstractFragmentWithHelp(R.string.stats_help) {
         R.layout.fragment_stats,
         container,
         false
-    ).also { binding ->
+    ).also {
 
         title = getString(R.string.stats_title)
         setHasOptionsMenu(true)

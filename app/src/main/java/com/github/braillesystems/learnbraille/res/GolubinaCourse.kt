@@ -215,19 +215,17 @@ internal val golubinaIntroLessons by lessons {
             """
                     Переходим к изучению цифр.
                     <br>
-                    Чтобы отличить цифры от букв, перед числами и цифрами ставится цифровой знак.
-                    Этот символ обозначается точками 3, 4, 5, 6.
-                    Когда нужно обозначить цифровой знак в обычном, плоскопечатном письме, 
-                    как правило, пользуются символом правой квадратной скобки: ]"""
+                    Чтобы отличить цифры от букв, перед числами и цифрами ставится <b>цифровой знак.</b>
+                    Этот символ обозначается точками 3, 4, 5, 6. """
         )
-        +Show(content.symbols.getValue(']'))
+        +Show(content.markers.getValue(MarkerType.NumberSign))
         +Info(
             """
                 В букваре на странице 14, перед страницей с буквами Ф и Г - цифровой знак.
                 Найдите четвёртую сверху строчку. В ней цифровой знак повторён пять раз.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
-        +Input(content.symbols.getValue(']')/*, repeat = 3*/)
+        +Input(content.markers.getValue(MarkerType.NumberSign))
         +Info(
             """
                     В следующих шагах изучим цифры 1, 2, 3, 4, 5, 6, 7.
@@ -288,7 +286,8 @@ internal val golubinaIntroLessons by lessons {
                цифровой знак.
             """
         )
-        inputChars("]123")
+        +Input(content.markers.getValue(MarkerType.NumberSign))
+        inputChars("123")
         +Info(
             """
                     Буква Х  обозначается точками 1, 2 и 5.
@@ -323,7 +322,8 @@ internal val golubinaIntroLessons by lessons {
                 Далее введите, поставив цифровой знак, число "Восемьсот семдесят шесть"
             """
         )
-        inputChars("]876")
+        +Input(content.markers.getValue(MarkerType.NumberSign))
+        inputChars("876")
         +Info(InfoInterpolation.run {
             """
                     Урок $iLesson пройден!
@@ -372,7 +372,8 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите по символам число 850"""
         )
-        inputChars("]850")
+        +Input(content.markers.getValue(MarkerType.NumberSign))
+        inputChars("850")
         +Info(InfoInterpolation.run {
             """
                     Урок $iLesson закончен. Теперь Вы, помимо букв, знаете все цифры.
@@ -636,7 +637,8 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите отдельными символами число 215, поставив перед ним цифровой знак"""
         )
-        inputChars("]215")
+        +Input(content.markers.getValue(MarkerType.NumberSign))
+        inputChars("215")
 
         +Info(
             """
@@ -799,7 +801,8 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Теперь наберите число 870, сначала поставив цифровой знак"""
         )
-        inputChars("]870")
+        +Input(content.markers.getValue(MarkerType.NumberSign))
+        inputChars("870")
         +Info(
             """
                     Теперь рассмотрим букву 'Т'.
@@ -1034,7 +1037,8 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Также в качестве повторения введите цифровой знак, а за ним число 964"""
         )
-        inputChars("]964")
+        +Input(content.markers.getValue(MarkerType.NumberSign))
+        inputChars("964")
         +Info(
             """
                     Переходим к главному в сегодняшнем уроке: ознакомимся с буквой 'И краткое'.
@@ -1165,7 +1169,8 @@ internal val golubinaIntroLessons by lessons {
             """Также повторим специальные символы.
                     Введите цифровой знак, запятую, дефис и точку"""
         )
-        inputChars("],-.")
+        +Input(content.markers.getValue(MarkerType.NumberSign))
+        inputChars(",-.")
         +Info(
             """
                     Переходим к изучению точечного состава буквы Ы.
@@ -1479,7 +1484,8 @@ internal val golubinaIntroLessons by lessons {
                     за ним число 1984
                     """
         )
-        inputChars("]1984")
+        +Input(content.markers.getValue(MarkerType.NumberSign))
+        inputChars("1984")
         +Info(
             """
                     Давайте изучим букву 'Э'.

@@ -63,8 +63,8 @@ class SpeechRecognition(
                         }
                     }
 
-                    override fun onError(utteranceId: String) {}
-                    override fun onStart(utteranceId: String) {}
+                    override fun onError(p0: String?) = Unit
+                    override fun onStart(p0: String?) = Unit
                 })
 
             }
@@ -94,14 +94,14 @@ class SpeechRecognition(
 
 private class SpeechRecognitionListener(fragment: Fragment) : RecognitionListener {
 
-    override fun onBeginningOfSpeech() {}
-    override fun onBufferReceived(buffer: ByteArray) {}
-    override fun onEndOfSpeech() {}
-    override fun onError(error: Int) {}
-    override fun onEvent(eventType: Int, params: Bundle) {}
-    override fun onPartialResults(partialResults: Bundle) {}
-    override fun onReadyForSpeech(params: Bundle) {}
-    override fun onRmsChanged(rmsdB: Float) {}
+    override fun onBeginningOfSpeech() = Unit
+    override fun onBufferReceived(buffer: ByteArray) = Unit
+    override fun onEndOfSpeech() = Unit
+    override fun onError(error: Int) = Unit
+    override fun onEvent(eventType: Int, params: Bundle) = Unit
+    override fun onPartialResults(partialResults: Bundle) = Unit
+    override fun onReadyForSpeech(params: Bundle) = Unit
+    override fun onRmsChanged(rmsdB: Float) = Unit
 
     private val hostFragment: Fragment = fragment
 

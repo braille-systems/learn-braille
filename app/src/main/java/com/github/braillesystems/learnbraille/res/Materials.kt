@@ -3,6 +3,7 @@ package com.github.braillesystems.learnbraille.res
 import android.content.Context
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.dsl.known
+import com.github.braillesystems.learnbraille.data.dsl.markers
 import com.github.braillesystems.learnbraille.data.dsl.materials
 import com.github.braillesystems.learnbraille.data.dsl.symbols
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
@@ -10,7 +11,23 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.utils.rules
+import kotlinx.serialization.Serializable
 
+object SymbolType {
+    const val ru = "ru"
+    const val latin = "Latin"
+    const val greek = "greek"
+    const val special = "special"
+    const val digit = "digit"
+}
+
+@Serializable
+enum class MarkerType {
+    RussianCapital,
+    GreekCapital,
+    LatinCapital,
+    NumberSign
+}
 
 /**
  * Do not forget to register print rules below for the new types of symbols.
@@ -22,10 +39,11 @@ import com.github.braillesystems.learnbraille.utils.rules
 
 val content by materials {
     +ruSymbols
-    +specialSymbols
+    +punctuationSigns
     +uebDigits
     +latinLetters
     +greekLetters
+    +ms
 }
 
 val knownMaterials by known(
@@ -62,20 +80,14 @@ val Context.inputSymbolPrintRules by rules<Context, Char, String>(
 
     {
         val other = getString(R.string.input_special_intro_template)
-        val numSign = getString(R.string.input_special_intro_num_sign)
         val dotIntro = getString(R.string.input_special_intro_dot)
         val commaIntro = getString(R.string.input_special_intro_comma)
         val hyphenIntro = getString(R.string.input_special_intro_hyphen)
-        val latinCapitalIntro = getString(R.string.input_special_intro_latin_capital)
-        val greekCapitalIntro = getString(R.string.input_special_intro_greek_capital)
-        specialSymbols.map::containsKey to { c: Char ->
+        punctuationSigns.map::containsKey to { c: Char ->
             when (c) {
-                ']' -> numSign
                 '.' -> dotIntro
                 ',' -> commaIntro
                 '-' -> hyphenIntro
-                'Ⓛ' -> latinCapitalIntro
-                'Ⓖ' -> greekCapitalIntro
                 else -> other.format(c)
             }
         }
@@ -107,20 +119,14 @@ val Context.showSymbolPrintRules by rules<Context, Char, String>(
 
     {
         val other = getString(R.string.show_special_intro_template)
-        val numSign = getString(R.string.show_special_intro_num_sign)
         val dotIntro = getString(R.string.show_special_intro_dot)
         val commaIntro = getString(R.string.show_special_intro_comma)
         val hyphenIntro = getString(R.string.show_special_intro_hyphen)
-        val latinCapitalIntro = getString(R.string.letter_caption_special_latin_capital)
-        val greekCapitalIntro = getString(R.string.letter_caption_special_greek_capital)
-        specialSymbols.map::containsKey to { c: Char ->
+        punctuationSigns.map::containsKey to { c: Char ->
             when (c) {
-                ']' -> numSign
                 '.' -> dotIntro
                 ',' -> commaIntro
                 '-' -> hyphenIntro
-                'Ⓛ' -> latinCapitalIntro
-                'Ⓖ' -> greekCapitalIntro
                 else -> other.format(c)
             }
         }
@@ -128,10 +134,6 @@ val Context.showSymbolPrintRules by rules<Context, Char, String>(
 )
 
 fun getCaptionTitleId(symbol: Symbol): Int {
-    when(symbol.char) {
-        'Ⓛ' -> return R.string.letter_caption_special_latin_capital
-        'Ⓖ' -> return R.string.letter_caption_special_greek_capital
-    }
     return when (symbol.type) {
         SymbolType.ru -> R.string.letter_caption_ru
         SymbolType.greek -> R.string.letter_caption_greek
@@ -142,14 +144,49 @@ fun getCaptionTitleId(symbol: Symbol): Int {
     }
 }
 
+val Context.inputMarkerPrintRules by rules<Context, MarkerType, String>(
+    {
+        val s = getString(R.string.input_mod_ru_capital)
+        MarkerType.RussianCapital::equals to { _: MarkerType -> s }
+    },
 
-object SymbolType {
-    const val ru = "ru"
-    const val latin = "Latin"
-    const val greek = "greek"
-    const val special = "special"
-    const val digit = "digit"
-}
+    {
+        val s = getString(R.string.input_mod_greek_capital)
+        MarkerType.GreekCapital::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_mod_latin_capital)
+        MarkerType.LatinCapital::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_mod_num_sign)
+        MarkerType.NumberSign::equals to { _: MarkerType -> s }
+    }
+)
+
+val Context.showMarkerPrintRules by rules<Context, MarkerType, String>(
+    {
+        val s = getString(R.string.show_mod_capital)
+        MarkerType.RussianCapital::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_mod_greek)
+        MarkerType.GreekCapital::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_mod_latin)
+        MarkerType.LatinCapital::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_mod_num_sign)
+        MarkerType.NumberSign::equals to { _: MarkerType -> s }
+    }
+)
 
 private val ruSymbols by symbols(SymbolType.ru) {
     symbol(char = 'А', brailleDots = BrailleDots(F, E, E, E, E, E))
@@ -186,11 +223,7 @@ private val ruSymbols by symbols(SymbolType.ru) {
     symbol(char = 'Ю', brailleDots = BrailleDots(F, F, E, E, F, F))
     symbol(char = 'Я', brailleDots = BrailleDots(F, F, E, F, E, F))
 }
-
-private val specialSymbols by symbols(SymbolType.special) {
-    symbol(char = ']', brailleDots = BrailleDots(E, E, F, F, F, F)) // Number sign
-    symbol(char = 'Ⓛ', brailleDots = BrailleDots(E, E, E, E, E, F)) // Latin capital
-    symbol(char = 'Ⓖ', brailleDots = BrailleDots(E, E, E, F, F, F)) // Greek capital
+private val punctuationSigns by symbols(SymbolType.special) {
     symbol(char = ',', brailleDots = BrailleDots(E, F, E, E, E, E)) // Comma
     symbol(char = '-', brailleDots = BrailleDots(E, E, F, E, E, F)) // Hyphen
     symbol(char = '.', brailleDots = BrailleDots(E, F, E, E, F, F)) // Dot
@@ -265,4 +298,11 @@ private val greekLetters by symbols(SymbolType.greek) {
     symbol(char = 'Χ', brailleDots = BrailleDots(F, E, E, F, E, E))
     symbol(char = 'Ψ', brailleDots = BrailleDots(F, E, F, F, F, F))
     symbol(char = 'Ω', brailleDots = BrailleDots(E, F, E, F, F, F))
+}
+
+private val ms by markers {
+    marker(MarkerType.GreekCapital, BrailleDots(E, E, E, F, F, F))
+    marker(MarkerType.LatinCapital, BrailleDots(E, E, E, F, E, F))
+    marker(MarkerType.RussianCapital, BrailleDots(E, E, E, F, F, E))
+    marker(MarkerType.NumberSign, BrailleDots(E, E, F, F, F, F))
 }

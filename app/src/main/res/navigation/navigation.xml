@@ -91,13 +91,25 @@
         android:name="com.github.braillesystems.learnbraille.ui.screens.browser.BrowserFragment"
         android:label="@string/browser_title">
         <action
-            android:id="@+id/action_browserFragment_to_materialViewFragment"
+            android:id="@+id/action_browserFragment_to_symbolViewFragment"
             app:destination="@id/symbolViewFragment" />
+        <action
+            android:id="@+id/action_browserFragment_to_markerViewFragment"
+            app:destination="@id/markerViewFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/symbolViewFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.browser.SymbolViewFragment"
+        android:label="@string/browser_symbol_view_title">
+        <argument
+            android:name="material"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/markerViewFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.browser.MarkerViewFragment"
         android:label="@string/browser_symbol_view_title">
         <argument
             android:name="material"
@@ -205,6 +217,32 @@
     <action
         android:id="@+id/action_global_firstInfoFragment"
         app:destination="@id/firstInfoFragment"
+        app:popUpTo="@id/menuFragment" />
+
+    <fragment
+        android:id="@+id/inputMarkerFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.InputMarkerFragment"
+        android:label="@string/lessons_title_input_symbol">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_inputMarkerFragment"
+        app:destination="@id/inputMarkerFragment"
+        app:popUpTo="@id/menuFragment" />
+
+    <fragment
+        android:id="@+id/showMarkerFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.ShowMarkerFragment"
+        android:label="@string/lessons_title_show_symbol">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_showMarkerFragment"
+        app:destination="@id/showMarkerFragment"
         app:popUpTo="@id/menuFragment" />
 
 </navigation>

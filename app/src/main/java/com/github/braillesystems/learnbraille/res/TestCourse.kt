@@ -66,6 +66,14 @@ internal val testLessons by lessons {
                     буква А точечным шрифтом."""
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('А'))
+
+        // Testing marker symbols representation
+        val greek = content.markers.getValue(MarkerType.GreekCapital)
+        +Show(greek)
+        +Input(greek)
+        +Show(content.markers.getValue(MarkerType.LatinCapital))
+        +Show(content.markers.getValue(MarkerType.RussianCapital))
+
         +Show(content.symbols.getValue('Б'))
         +Info(
             """Снова изучим страницу 13 в букваре. Под строкой с буквой А - 
@@ -80,7 +88,7 @@ internal val testLessons by lessons {
         +Input(content.symbols.getValue('Ц'))
 
         +Info("""Symbols of other types for testing""")
-        +Input(content.symbols.getValue(']'))
+        +Input(content.symbols.getValue(','))
         +Input(content.symbols.getValue('1'))
         +Input(content.symbols.getValue('2'))
         +Input(content.symbols.getValue('3'))

@@ -5,7 +5,6 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import kotlinx.serialization.Serializable
 
-
 /**
  * State of one Braille dot.
  */
@@ -18,7 +17,6 @@ enum class BrailleDot {
         fun valueOf(c: Char) = valueOf(c.toString())
     }
 }
-
 
 /**
  * Combination on Braille dots for one symbol in 6-dots notation.
@@ -69,7 +67,6 @@ val BrailleDots.filled: List<Int>
         }
 
 operator fun BrailleDots.contains(i: Int) = i in filled
-
 
 class BrailleDotsConverters {
 

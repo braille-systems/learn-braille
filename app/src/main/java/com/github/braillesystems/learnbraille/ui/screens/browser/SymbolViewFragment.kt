@@ -14,7 +14,6 @@ import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.getFragmentStringArg
 import com.github.braillesystems.learnbraille.utils.parse
-import com.github.braillesystems.learnbraille.utils.title
 
 class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view_help) {
 
@@ -29,7 +28,6 @@ class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view
         false
     ).also { binding ->
 
-        title = getString(R.string.browser_symbol_view_title)
         setHasOptionsMenu(true)
 
         val m: Material = parse(Material.serializer(), getFragmentStringArg("material"))

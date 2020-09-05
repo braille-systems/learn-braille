@@ -6,9 +6,9 @@ import androidx.room.*
 @Entity(tableName = "cards", primaryKeys = ["deck_id", "material_id"])
 data class Card(
     @ColumnInfo(name = "deck_id")
-    val deckId: Long,
+    val deckId: DBid,
     @ColumnInfo(name = "material_id")
-    val materialId: Long
+    val materialId: DBid
 )
 
 @Dao
@@ -26,7 +26,7 @@ interface CardDao {
         order by RANDOM() limit 1
         """
     )
-    suspend fun getRandomMaterialFromDeck(deckId: Long): Material?
+    suspend fun getRandomMaterialFromDeck(deckId: DBid): Material?
 
     @Query(
         """
@@ -40,7 +40,7 @@ interface CardDao {
         order by RANDOM() limit 1
         """
     )
-    suspend fun getRandomKnownMaterialFromDeck(userId: Long, deckId: Long): Material?
+    suspend fun getRandomKnownMaterialFromDeck(userId: DBid, deckId: DBid): Material?
 
     @Query(
         """
@@ -51,7 +51,7 @@ interface CardDao {
         order by m.id
         """
     )
-    suspend fun getAllMaterialsFromDeck(id: Long): List<Material>
+    suspend fun getAllMaterialsFromDeck(id: DBid): List<Material>
 
     @Query("delete from cards")
     suspend fun clear()

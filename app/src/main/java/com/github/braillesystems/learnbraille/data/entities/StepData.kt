@@ -6,12 +6,9 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 
-
 /**
  * There are specific step types in the app.
  * They differs by visual representation and by the data they contain.
- *
- * Step type can be determined by `is` check.
  *
  * All texts are in html format. Use .parseAsHtml android extension function.
  */
@@ -29,6 +26,7 @@ class StepDataConverters {
     fun from(string: String) = Json.parse(StepData.serializer(), string)
 }
 
+typealias HtmlText = String
 
 /**
  * Represents step types with information.
@@ -42,7 +40,7 @@ sealed class BaseInfo : StepData()
 @Serializable
 data class Info(
     @SerialName("info")
-    val text: String
+    val text: HtmlText
 ) : BaseInfo()
 
 /**
@@ -51,7 +49,7 @@ data class Info(
 @Serializable
 data class FirstInfo(
     @SerialName("info")
-    val text: String
+    val text: HtmlText
 ) : BaseInfo()
 
 /**
@@ -60,7 +58,7 @@ data class FirstInfo(
 @Serializable
 data class LastInfo(
     @SerialName("info")
-    val text: String
+    val text: HtmlText
 ) : BaseInfo()
 
 
@@ -83,7 +81,7 @@ data class Input(
  */
 @Serializable
 data class InputDots(
-    val text: String?,
+    val text: HtmlText?,
     val dots: BrailleDots
 ) : BaseInput()
 
@@ -107,6 +105,6 @@ data class Show(
  */
 @Serializable
 data class ShowDots(
-    val text: String?,
+    val text: HtmlText?,
     val dots: BrailleDots
 ) : BaseShow()
