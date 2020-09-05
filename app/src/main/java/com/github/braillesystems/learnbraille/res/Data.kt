@@ -90,6 +90,7 @@ val prepopulationData by data(
 
 object StepAnnotation {
     const val golubinaBookRequired = "golubina_book_required"
+    const val slateStylusRequired = "brl_slate_stylus_required"
 }
 
 object DeckTags {

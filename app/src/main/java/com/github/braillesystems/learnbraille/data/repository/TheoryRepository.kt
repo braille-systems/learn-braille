@@ -3,6 +3,7 @@ package com.github.braillesystems.learnbraille.data.repository
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.res.StepAnnotation
 import com.github.braillesystems.learnbraille.utils.devnull
+import com.github.braillesystems.learnbraille.utils.runIf
 import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.launch
 
@@ -30,11 +31,19 @@ class TheoryRepositoryImpl(
     private val actionsRepository: MutableActionsRepository
 ) : MutableTheoryRepository {
 
+    private fun getProscribedAnnotation(): List<String> {
+        val result = arrayListOf<String>()
+        listOf(
+            !preferenceRepository.golubinaBookStepsEnabled to StepAnnotation.golubinaBookRequired,
+            !preferenceRepository.slateStylusStepsEnabled to StepAnnotation.slateStylusRequired
+        ).forEach {
+            runIf (it.first) { result.add(it.second) }
+        }
+        return result
+    }
+
     private val proscribedAnnotations
-        get() = listOfNotNull(
-            if (preferenceRepository.golubinaBookStepsEnabled) null
-            else StepAnnotation.golubinaBookRequired
-        )
+        get() = getProscribedAnnotation()
 
     @Suppress("ReturnCount")
     override suspend fun getNextStepAndUpdate(thisStep: Step, markThisAsPassed: Boolean): Step? {

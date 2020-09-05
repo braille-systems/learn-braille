@@ -18,6 +18,7 @@ interface PreferenceRepository {
     val brailleTrainerEnabled: Boolean get() = false // Uncomment in android manifest when set true
     val speechRecognitionEnabled: Boolean
     val golubinaBookStepsEnabled: Boolean
+    val slateStylusStepsEnabled: Boolean
     val traverseDotsInEnumerationOrder: Boolean
     val inputOnFlyCheck: Boolean
     val additionalAnnouncementsEnabled: Boolean
@@ -68,6 +69,13 @@ class PreferenceRepositoryImpl(
     override val golubinaBookStepsEnabled: Boolean by logged {
         context.preferences.getBoolean(
             context.getString(R.string.preference_golubina_book_steps_enabled),
+            true
+        )
+    }
+
+    override val slateStylusStepsEnabled: Boolean by logged {
+        context.preferences.getBoolean(
+            context.getString(R.string.preference_slate_stylus_steps_enabled),
             true
         )
     }
