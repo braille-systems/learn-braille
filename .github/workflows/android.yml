@@ -48,7 +48,7 @@ jobs:
         with:
           name: test-reports
           path: app/build/reports/
-        if: always()
+        if: success() || failure()
 
   static-check:
     runs-on: ubuntu-latest
