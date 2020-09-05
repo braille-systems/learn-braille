@@ -107,7 +107,6 @@
             app:argType="string" />
     </fragment>
 
-    <!--    TODO marker title -->
     <fragment
         android:id="@+id/markerViewFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.browser.MarkerViewFragment"
