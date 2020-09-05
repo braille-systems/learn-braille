@@ -134,6 +134,11 @@ val Context.showSymbolPrintRules by rules<Context, Char, String>(
 )
 
 fun getCaptionTitleId(symbol: Symbol): Int {
+    when(symbol.char) {
+        '.' -> return R.string.show_special_intro_dot
+        ',' -> return R.string.show_special_intro_comma
+        '-' -> return R.string.show_special_intro_hyphen
+    }
     return when (symbol.type) {
         SymbolType.ru -> R.string.letter_caption_ru
         SymbolType.greek -> R.string.letter_caption_greek
