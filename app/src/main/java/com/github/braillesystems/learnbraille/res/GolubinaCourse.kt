@@ -107,18 +107,20 @@ internal val golubinaIntroLessons by lessons {
             dots = BrailleDots(F, F, F, F, E, F)
         )
         +Info(
-            """Откройте букварь на странице 12. 
+            """Откройте пособие на странице 12. 
                     В верхней строке 14 раз повторён символ полного шеститочия. 
                     &<br>
                     Начиная со второй строки - тренировочные упражнения. 
                     Самостоятельно потренируйтесь читать отдельные комбинации точек."""
         ).annotate(StepAnnotation.golubinaBookRequired)
-        +InputDots(text="""Введите "средние точки" 2 и 5""", dots=BrailleDots(E, F, E, E, F, E))
-        +Info("""Запишите "средние точки" 2 и 5 на брайлевском приборе.
+        +InputDots(text = """Введите "средние точки" 2 и 5""", dots = BrailleDots(E, F, E, E, F, E))
+        +Info(
+            """Запишите "средние точки" 2 и 5 на брайлевском приборе.
                       &<br>
                       Если у Вас нет возможности писать по Брайлю, в разделе "Настройки" можно отключить
                       шаги, требующие обращения к брайлевскому прибору.
-        """).annotate(StepAnnotation.slateStylusRequired)
+        """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """Урок $iLesson закончен. В следующем уроке мы изучим буквы А, Б, Ц, Д, Е."""
         })
@@ -131,9 +133,9 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок $iLesson. Буквы А, Б, Ц, Д, Е.</b>
                     <br><br>
-                    Некоторые символы Брайля обозначают как букву, так и цифру. Это буквы А, Б,
-                    Ц и так далее. С добавлением цифрового знака, который мы изучим в следующем
-                    уроке, из них получаются цифры 1, 2, 3 и так далее."""
+                    В нашем курсе буквы изучаются не в порядке русского алфавита, а в порядке 
+                    <b>"ключа Брайля"</b>: сперва те, что состоят из двух верхних рядов точек, затем
+                    остальные. Этот порядок пришёл к нам из латинского алфавита Луи Брайля. """
         })
         +Info(
             """Буква А обозначается одной точкой, точкой номер один.
@@ -141,14 +143,14 @@ internal val golubinaIntroLessons by lessons {
         )
         +Show(content.symbols.getValue('А'))
         +Info(
-            """Откройте букварь на странице 13. Вверху слева рельефно-графическое
+            """Откройте пособие на странице 13. Вверху слева рельефно-графическое
                     изображение буквы А. Рядом после полного шеститочия пять раз повторена 
                     буква А точечным шрифтом."""
         ).annotate(StepAnnotation.golubinaBookRequired)
-        +Input(content.symbols.getValue('А')/*, repeat = 5*/)
+        +Input(content.symbols.getValue('А'))
         +Show(content.symbols.getValue('Б'))
         +Info(
-            """Снова изучим страницу 13 в букваре. Под строкой с буквой А - 
+            """Снова изучим страницу 13 в пособии. Под строкой с буквой А - 
                     такая же с буквой Б."""
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('Б'))
@@ -156,36 +158,107 @@ internal val golubinaIntroLessons by lessons {
             """
                     Буква Ц: точки 1 и 4
                     <br><br>
-                    Ознакомьтесь с буквой Ц на странице 13 букваря. 
+                    Ознакомьтесь с буквой Ц на странице 13 пособия. 
                     Строка с буквой Ц находится под строкой с буквой Б."""
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Show(content.symbols.getValue('Ц'))
-        +Input(content.symbols.getValue('Ц')/*, repeat = 5*/)
+        +Input(content.symbols.getValue('Ц'))
         +Show(content.symbols.getValue('Д'))
-        +Input(content.symbols.getValue('Д')/*, repeat = 5*/)
+        +Input(content.symbols.getValue('Д'))
         +Info(
             """Последняя буква в этом уроке - буква Е. 
                     Она обозначается двумя точками: номер 1 и 5."""
         )
         +Show(content.symbols.getValue('Е'))
-        +Input(content.symbols.getValue('Е')/*, repeat = 5*/)
+        +Input(content.symbols.getValue('Е'))
+        +Info("""В следующих трёх шагах нужно ввести буквы Б, А, Ц (вместе это слово БАЦ).""")
+        inputChars("БАЦ")
+        +Info("""Теперь наберите в следующих трёх шагах, вводя букву за буквой, слово ДЕД.""")
+        inputChars("ДЕД")
+        +Info("""Далее в следующих четырёх шагах введите слово БАБА.""")
+        inputChars("БАБА")
         +Info(InfoInterpolation.run {
             """Урок $iLesson закончен. В следующем занятии займёмся повторением букв А, Б, Ц, Д, Е
-                 и выучим буквы Ф, Г. Рекомендуем в дополнение к уроку потренироваться 
-                 вводить изученные буквы в разделе "Практика"."""
+                 и потренируемся писать цифры от 1 до 5, образуемые с помощью этих букв. Рекомендуем
+                 в дополнение к уроку потренироваться вводить изученные буквы в разделе "Практика"."""
         })
     }
+
     lesson(
-        name = "Буквы Ф, Г"
+        name = "Цифры от 1 до 5"
     ) {
         +Info(InfoInterpolation.run {
             """
-                    <b>Урок $iLesson. Буквы Ф, Г.</b>
+                    <b>Урок $iLesson. Цифры от 1 до 5.</b>
+                    <br><br>
+                    В этом уроке мы начнём изучать цифры. Но для начала повторим пройденное.
+                    В следующих шагах введите буквы, изученные в прошлом уроке."""
+        })
+        inputChars("АБЦДЕ")
+        +Info(
+            """
+                    Переходим к изучению цифр.
+                    <br>
+                    Запомним, 10 символов первой строки «Ключа Брайля» обозначают 10 латинских и 
+                    русских букв, а также арабские цифры.
+                    &<br>
+                    Для того, чтобы букву преобразовать в цифру, перед ней ставится 
+                    <b>«Цифровой знак»</b>. Он обозначается четырьмя точками: номер 3, 4, 5 и 6.
+                    """
+        )
+        +Show(content.markers.getValue(MarkerType.NumberSign))
+        +Info(
+            """
+                В пособии на странице 14, после страницы с буквами от А до Е - цифровой знак.
+                Найдите четвёртую сверху строчку. В ней цифровой знак повторён пять раз.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
+        +Input(content.markers.getValue(MarkerType.NumberSign))
+        +Info(
+            """
+                    В следующих шагах изучим цифры 1, 2, 3, 4, 5.
+                    Они получаются из букв А, Б, Ц, Д, Е добавлением цифрового знака.
+                    Например, цифра 3, как и число 3 - это цифровой знак + Ц.
+                    Число двадцать четыре - это цифровой знак, затем буквы Б и Д. 
+                    В уроках мы для краткости не будем всякий раз ставить цифровой знак."""
+        )
+        +Show(content.symbols.getValue('1'))
+        +Input(content.symbols.getValue('1'))
+        +Show(content.symbols.getValue('2'))
+        +Input(content.symbols.getValue('2'))
+        +Show(content.symbols.getValue('3'))
+        +Input(content.symbols.getValue('3'))
+        +Show(content.symbols.getValue('4'))
+        +Input(content.symbols.getValue('4'))
+        +Show(content.symbols.getValue('5'))
+        +Input(content.symbols.getValue('5'))
+        +Info(
+            """
+                На пятой сверху строчке на странице 14 пособия, под строкой с цифровым знаком,
+                написаны цифры от одного до пяти.
+                Изучите каждую цифру.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired)
+        +Info(InfoInterpolation.run {
+            """
+                    Урок $iLesson пройден! Рекомендуем самостоятельно изучить цифры и числа на странице 15
+                    в пособии (внизу страницы).
+                    <br>
+                    Следующий урок будет посвящён буквам Ф, Г и цифрам 6, 7."""
+        })
+    }
+
+    lesson(
+        name = "Буквы Ф, Г и цифры 6, 7"
+    ) {
+        +Info(InfoInterpolation.run {
+            """
+                    <b>Урок $iLesson. Буквы Ф, Г и цифры 6, 7.</b>
                     <br><br>
                     Перед прохождением нового материала повторим пройденное.
-                    В следующих трёх шагах нужно ввести буквы Б, А, Ц (вместе это слово БАЦ)."""
+                    В следующих пяти шагах нужно ввести буквы Б, E, Д, А (вместе это слово БЕДА)."""
         })
-        inputChars("БАЦ")
+        inputChars("БЕДА")
         +Info(
             """
                     Теперь познакомимся с буквами Ф и Г.
@@ -199,92 +272,36 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Ф'))
         +Info(
             """
-                Откройте страницу 15 в букваре. Вверху страницы найдите рельефно-графическое
-                изображение буквы Ф и рядом букву Ф, пять раз написанную релефно-точечным шрифтом
+                Откройте страницу 15 в пособии. Вверху страницы найдите рельефно-графическое
+                изображение буквы Ф и рядом букву Ф, пять раз написанную рельефно-точечным шрифтом.
                 """
         ).annotate(StepAnnotation.golubinaBookRequired)
-        +Input(content.symbols.getValue('Ф')/*, repeat = 5*/)
+        +Input(content.symbols.getValue('Ф'))
         +Show(content.symbols.getValue('Г'))
         +Info(
             """
-                В букваре под буквой Ф - буква Г. Изучите её графическое представление
+                В пособии под буквой Ф - буква Г. Изучите её графическое представление
                 и точечный состав.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
-        +Input(content.symbols.getValue('Г')/*, repeat = 5*/)
+        +Input(content.symbols.getValue('Г'))
         +Info(
             """
                     В следующих трёх шагах введите по буквам слово БЕГ."""
         )
         inputChars("БЕГ")
-        +Info(InfoInterpolation.run {
-            """Поздравляем! Урок $iLesson пройден. В следующем занятии мы узнаем, 
-                    как с помощью букв А, Б, Ц, Д, Е, Ф, Г составить цифры 1, 2, 3, 4, 5 и 6."""
-        })
-    }
-
-    lesson(
-        name = "Цифры от 1 до 6"
-    ) {
-        +Info(InfoInterpolation.run {
-            """
-                    <b>Урок $iLesson. Цифры от 1 до 6.</b>
-                    <br><br>
-                    В этом уроке мы начнём изучать цифры. Но для начала повторим пройденное.
-                    В следующих шагах введите буквы, изученные в прошлых двух уроках."""
-        })
-        inputChars("АБЦДЕФГ")
         +Info(
             """
-                    Переходим к изучению цифр.
-                    <br>
-                    Чтобы отличить цифры от букв, перед числами и цифрами ставится <b>цифровой знак.</b>
-                    Этот символ обозначается точками 3, 4, 5, 6. """
+                    Цифровой знак и буква Ф за ним обозначают арабскую цифру 6 или число 6.
+                    &<br>
+                    Цифровой знак и буква Г за ним - это семёрка.
+                    &<br>
+                    В следующих трёх шагах введите число ШЕСТЬДЕСЯТ СЕМЬ."""
         )
-        +Show(content.markers.getValue(MarkerType.NumberSign))
-        +Info(
-            """
-                В букваре на странице 14, перед страницей с буквами Ф и Г - цифровой знак.
-                Найдите четвёртую сверху строчку. В ней цифровой знак повторён пять раз.
-            """
-        ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.markers.getValue(MarkerType.NumberSign))
-        +Info(
-            """
-                    В следующих шагах изучим цифры 1, 2, 3, 4, 5, 6, 7.
-                    Они получаются из букв А, Б, Ц, Д, Е, Ф, Г добавлением цифрового знака.
-                    Например, цифра и число 3 - это цифровой знак + Ц.
-                    Число двадцать семь - это цифровой знак, затем буквы Б и Г. 
-                    В уроках мы для краткости не будем всякий раз ставить цифровой знак."""
-        )
-        +Show(content.symbols.getValue('1'))
-        +Input(content.symbols.getValue('1'))
-        +Show(content.symbols.getValue('2'))
-        +Input(content.symbols.getValue('2'))
-        +Show(content.symbols.getValue('3'))
-        +Input(content.symbols.getValue('3'))
-        +Show(content.symbols.getValue('4'))
-        +Input(content.symbols.getValue('4'))
-        +Show(content.symbols.getValue('5'))
-        +Input(content.symbols.getValue('5'))
-        +Show(content.symbols.getValue('6'))
-        +Input(content.symbols.getValue('6'))
-        +Show(content.symbols.getValue('7'))
-        +Input(content.symbols.getValue('7'))
-        +Info(
-            """
-                На пятой сверху строчке на странице 14 букваря, под строкой с цифровым знаком,
-                написаны цифры от одного до пяти.
-                Изучите каждую цифру.
-            """
-        ).annotate(StepAnnotation.golubinaBookRequired)
+        inputChars("67")
         +Info(InfoInterpolation.run {
-            """
-                    Урок $iLesson пройден! Рекомендуем самостоятельно изучить цифры и числа на странице 15
-                    в букваре (внизу страницы).
-                    <br>
-                    Следующий урок будет посвящён повторению, а также мы изучим 
-                    букву Х и цифру 8."""
+            """Поздравляем! Урок $iLesson пройден."""
         })
     }
 
@@ -296,7 +313,7 @@ internal val golubinaIntroLessons by lessons {
                     <b>Урок $iLesson. Буква Х и цифра 8.</b>
                     <br><br>
                     По окончании этого урока Вы узнаете букву Х и цифру 8. 
-                    Но перед изучением нового повторим пройденное. Введите по буквам слово ФЕБ. """
+                    Но перед изучением нового повторим пройденное. Введите по буквам слово ФЕБ."""
         })
         inputChars("ФЕБ")
         +Info(
@@ -322,7 +339,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Х'))
         +Info(
             """
-                Откройте страницу 16 в букваре Голубиной. В верхней части страницы найдите
+                Откройте страницу 16 в пособии Голубиной. В верхней части страницы найдите
                 рельефно-графическую букву Х и рядом строку из пяти брайлевских букв Х.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
@@ -342,7 +359,7 @@ internal val golubinaIntroLessons by lessons {
         inputChars("БАЦ")
         +Info(
             """
-                Далее введите, поставив цифровой знак, число "Восемьсот семдесят шесть"
+                Далее введите, поставив цифровой знак, число "Восемьсот семьдесят шесть"
             """
         )
         +Input(content.markers.getValue(MarkerType.NumberSign))
@@ -371,7 +388,7 @@ internal val golubinaIntroLessons by lessons {
         })
         +Info(
             """
-                Раскройте букварь на странице 17. В верхней части листа найдите рельефно-графические
+                Раскройте пособие на странице 17. В верхней части листа найдите рельефно-графические
                 и рельефно-точечные изображения букв Ж и И.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
@@ -400,7 +417,7 @@ internal val golubinaIntroLessons by lessons {
         +Info(InfoInterpolation.run {
             """
                     Урок $iLesson закончен. Теперь Вы, помимо букв, знаете все цифры.
-                    Примеры слов и чисел к этому уроку можно найти в букваре внизу страницы 17.
+                    Примеры слов и чисел к этому уроку можно найти в пособии внизу страницы 17.
                     <br>
                     Следующий урок посвящён буквам К, Л и М."""
         })
@@ -436,7 +453,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Л'))
         +Info(
             """
-                    Сейчас предлагаем Вам найти страницу 19 в букваре, где вверху изображена зрячая
+                    Сейчас предлагаем Вам найти страницу 19 в пособии, где вверху изображена рельефная
                     буква К и рядом с ней строка из пяти брайлевских букв К. Ниже находится буква Л.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
@@ -461,7 +478,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('М'))
         +Info(
             """
-                    На той же странице 19 в букваре найдите и прочтите строку с буквой М
+                    На той же странице 19 в пособии найдите и прочтите строку с буквой М
                     под строками с буквами К, Л.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
@@ -481,7 +498,7 @@ internal val golubinaIntroLessons by lessons {
             """
                     Мы подошли к концу урока $iLesson.
                     <br>
-                    Буквам К, Л, М посвящены страницы 19 и 20 букваря; желательно
+                    Буквам К, Л, М посвящены страницы 19 и 20 пособия; желательно
                     повторить материал, прочитав слова и числа на этих страницах.
                     <br>
                     На следующем занятии мы узнаем, как обозначается буква Н."""
@@ -512,7 +529,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Н'))
         +Info(
             """
-                    Раскройте страницу 21 букваря и найдите вверху букву Н.
+                    Раскройте страницу 21 пособия и найдите вверху букву Н.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('Н'))
@@ -531,7 +548,7 @@ internal val golubinaIntroLessons by lessons {
         +Info(InfoInterpolation.run {
             """
                     На этом урок $iLesson завершается. Для закрепления материала полезно прочесть
-                    текст на страницах 21 и 22 в букваре.
+                    текст на страницах 21 и 22 в пособии.
                     <br>
                     В следующий раз изучим букву О и знак препинания ЗАПЯТАЯ.
                     """
@@ -560,7 +577,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('О'))
         +Info(
             """
-                    Возьмите букварь и откройте страницу 23. Сверху найдите букву О.
+                    Возьмите пособие и откройте страницу 23. Сверху найдите букву О.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
 
@@ -591,7 +608,7 @@ internal val golubinaIntroLessons by lessons {
         inputChars("ГЕОЛОГ,")
         +Info(InfoInterpolation.run {
             """Урок $iLesson подходит к концу. В следующем уроке нас ждёт изучение буквы П.
-                    Материалы к этому занятию можно прочесть на страницах 23-24 в букваре.
+                    Материалы к этому занятию можно прочесть на страницах 23-24 в пособии.
             """
         })
     }
@@ -618,7 +635,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('П'))
         +Info(
             """
-                    Найдём букву П в букваре. Для этого раскройте страницу 25 и изучите верхнюю строку.
+                    Найдём букву П в пособии. Для этого раскройте страницу 25 и изучите верхнюю строку.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
@@ -707,7 +724,7 @@ internal val golubinaIntroLessons by lessons {
             """
                     <b>Урок $iLesson. Буква Р.</b>
                     <br><br>
-                    Этому уроку соответствует страницы 27 и 28 букваря.
+                    Этому уроку соответствует страницы 27 и 28 пособия.
                     <br>
                     Перед стартом повторим материал прошлых уроков. 
                     Введите по символам слово ПЧЕЛА.
@@ -725,7 +742,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Р'))
         +Info(
             """
-                    Раскройте страницу 27 в букваре и ознакомьтесь с бувой Р вверху листа.
+                    Раскройте страницу 27 в пособии и ознакомьтесь с буквой Р вверху листа.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
@@ -779,7 +796,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('С'))
         +Info(
             """
-                    Перейдите в букваре Голубиной к странице 29 и прочтите сверху строку с буквой С.
+                    Перейдите в пособии Голубиной к странице 29 и прочтите сверху строку с буквой С.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
@@ -838,7 +855,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Т'))
         +Info(
             """
-                    В букваре В. В. Голубиной найдите букву Т на странице 30
+                    В пособии В. В. Голубиной найдите букву Т на странице 30
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
@@ -861,7 +878,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('-'))
         +Info(
             """
-                   Переверните страницу в букваре. На странице 31 найдите по центру знак "дефис",
+                   Переверните страницу в пособии. На странице 31 найдите по центру знак "дефис",
                    повторённый пять раз.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
@@ -959,7 +976,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Щ'))
         +Info(
             """
-                   Букварь содержит урок с буквой Щ на странице 33.
+                   Пособие содержит урок с буквой Щ на странице 33.
                    <br>
                    Найдите эту страницу и изучите самую верхнюю строку.
             """
@@ -1074,7 +1091,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Й'))
         +Info(
             """
-                   Букварь Голубиной содержит материал на тему буквы Й на странице 35.
+                   Пособие под редакцией В. Голубиной содержит материал на тему буквы Й на странице 35.
                    <br>
                    Ознакомьтесь с рельефно-графическим и рельефно-точечным изображением буквы "Й" на первой строке.
             """
@@ -1132,7 +1149,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Ъ'))
         +Info(
             """
-                   Откройте раздел букваря, где изучается твёрдый знак, на странице 36.
+                   Откройте раздел пособия, где изучается твёрдый знак, на странице 36.
                    <br>
                    Прочтите верхнюю строку, которая содержит пять повторов этого символа.
             """
@@ -1156,7 +1173,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('.'))
         +Info(
             """
-                   В середине страницы 36 букваря, где мы изучали твёрдый знак, найдите и прочтите
+                   В середине страницы 36 пособия, где мы изучали твёрдый знак, найдите и прочтите
                    строку с изображением литературной точки.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
@@ -1205,7 +1222,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Ы'))
         +Info(
             """
-                   Теперь посетим страницу 37 букваря, где нужно найти и прочесть верхнюю строку - 
+                   Теперь посетим страницу 37 пособия, где нужно найти и прочесть верхнюю строку - 
                    рельефно-графические и рельефно-точечное изображение буквы Ы.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
@@ -1260,7 +1277,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Ь'))
         +Info(
             """
-                   Откройте страницу 39 в букваре Голубиной. Изучите первую строку, где содержится
+                   Откройте страницу 39 в пособии Голубиной. Изучите первую строку, где содержится
                    мягкий знак.
                    <br>
                    После урока рекомендуем прочесть слова на страницах 39 и 40.
@@ -1318,7 +1335,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Ё'))
         +Info(
             """
-                   Вводный текст о буквах Ё и Ш можно найти в букваре на страницах 41 и 42.
+                   Вводный текст о буквах Ё и Ш можно найти в пособии на страницах 41 и 42.
                    <br>
                    Откройте страницу 41 и прочтите верхнюю строку с буквой Ё.
             """
@@ -1342,7 +1359,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Ш'))
         +Info(
             """
-                   Прочтите строку с буквой Ш в середине страницы 41 букваря.
+                   Прочтите строку с буквой Ш в середине страницы 41 пособия.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
@@ -1394,7 +1411,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Я'))
         +Info(
             """
-                   Изучению буквы 'Я' отведены страницы 43 и 44 в букваре Голубиной.
+                   Изучению буквы 'Я' отведены страницы 43 и 44 в пособии под редакцией В. Голубиной.
                    <br>
                    Откройте страницу 43 и прочтите верхнюю строку - пять букв 'Я' подряд.
             """
@@ -1451,7 +1468,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Ю'))
         +Info(
             """
-                   Буква 'Ю' и слова с ней находятся на страницах 45 и 46 в букваре. 
+                   Буква 'Ю' и слова с ней находятся на страницах 45 и 46 в пособии. 
                    <br>
                    Найдите сорок пятую страницу и ознакомьтесь с буквой Ю в самой верхней строке.
             """
@@ -1521,7 +1538,7 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """
                    Для развития памяти пальцев рекомендуется в дополнение к этому уроку
-                   просмотреть материал о букве Э на страницах 47 и 48 в букваре. 
+                   просмотреть материал о букве Э на страницах 47 и 48 в пособии. 
                    <br>
                    Сейчас откройте страницу 47 и прочтите первую строку, где написана буква 'Э'.
             """
@@ -1583,7 +1600,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('В'))
         +Info(
             """
-                    Для более тщательного изучения буквы 'В' мы рекомендуем обратиться к букварю
+                    Для более тщательного изучения буквы 'В' мы рекомендуем обратиться к пособию В.
                     Голубиной, страницы 49 и 50.
                     <br>
                     В данный момент предлагаем Вам раскрыть страницу 49 и прочесть верхнюю строку,
