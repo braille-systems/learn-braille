@@ -26,7 +26,8 @@ import com.github.braillesystems.learnbraille.utils.lazyWithContext
 val prepopulationData by data(
     materials = content,
     stepAnnotationNames = listOf(
-        StepAnnotation.golubinaBookRequired
+        StepAnnotation.golubinaBookRequired,
+        StepAnnotation.slateStylusRequired
     ),
     knownMaterials = knownMaterials
 ) {
