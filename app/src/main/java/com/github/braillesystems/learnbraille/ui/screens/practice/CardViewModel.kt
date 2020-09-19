@@ -41,8 +41,8 @@ class CardViewModel(
 ) : AndroidViewModel(application),
     DotsChecker by dotsChecker {
 
-    private val _symbol = MutableLiveData<String?>()
-    val symbol: LiveData<String?> get() = _symbol
+    private val _symbol = MutableLiveData<MaterialData>()
+    val symbol: LiveData<MaterialData> get() = _symbol
 
     // not string! https://medium.com/androiddevelopers/locale-changes-and-the-androidviewmodel-antipattern-84eb677660d9
     private val _symbolCaptionId = MutableLiveData<Int?>()
@@ -114,11 +114,13 @@ class CardViewModel(
             materialsQueue.add(material.data)
         }
 
-        require(material.data is Symbol) // TODO #250 change for symbols desk
-        material.data.run {
-            _symbol.value = char.toString()
-            _symbolCaptionId.value = getCaptionTitleId(this)
-            expectedDots = brailleDots
+        material.data.let {
+            _symbol.value = it
+            if (it is Symbol) _symbolCaptionId.value = getCaptionTitleId(it)
+            expectedDots = when (it) {
+                is Symbol -> it.brailleDots
+                is MarkerSymbol -> it.brailleDots
+            }
         }
 
         // Should be called after getting material because deck changes automatically

@@ -60,7 +60,6 @@
         <item name="android:importantForAccessibility">no</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">@dimen/lessons_title_text_size</item>
-        <item name="android:text">@string/letter_caption_example</item>
     </style>
 
     <style name="SwitchPreferenceButton" parent="Theme.AppCompat.Light">

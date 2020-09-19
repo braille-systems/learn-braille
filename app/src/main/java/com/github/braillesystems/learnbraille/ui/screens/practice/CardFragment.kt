@@ -2,15 +2,19 @@ package com.github.braillesystems.learnbraille.ui.screens.practice
 
 import android.os.Bundle
 import android.os.Vibrator
+import android.util.TypedValue
 import android.view.*
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.data.entities.MarkerSymbol
+import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.deckTagToName
+import com.github.braillesystems.learnbraille.res.inputMarkerPrintRules
 import com.github.braillesystems.learnbraille.ui.*
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainerSignalHandler
@@ -20,6 +24,7 @@ import com.github.braillesystems.learnbraille.ui.views.brailleDots
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.ui.views.subscribe
 import com.github.braillesystems.learnbraille.utils.*
+import kotlinx.android.synthetic.main.fragment_card.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
@@ -50,7 +55,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         R.layout.fragment_card,
         container,
         false
-    ).apply {
+    ).also { binding ->
 
         Timber.i("onCreateView")
 
@@ -58,15 +63,19 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         setHasOptionsMenu(true)
 
         if (preferenceRepository.extendedAccessibilityEnabled) {
-            hintButton.setSize(
+            binding.hintButton.setSize(
                 width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
             )
-            nextButton.setSize(
+            binding.nextButton.setSize(
                 width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
+            )
+            binding.markerDescription.setTextSize(
+                TypedValue.COMPLEX_UNIT_SP,
+                application.extendedTextSize
             )
         }
 
-        dotsState = brailleDots.dotsState.apply {
+        dotsState = binding.brailleDots.dotsState.apply {
             subscribe(View.OnClickListener {
                 viewModel.onSoftCheck()
             })
@@ -76,7 +85,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             parametersOf({ dotsState.brailleDots })
         }
         viewModel = ViewModelProvider(
-            this@CardFragment, viewModelFactory
+            this, viewModelFactory
         ).get(CardViewModel::class.java)
         buzzer = activity?.getSystemService()
         BrailleTrainer.setSignalHandler(object : BrailleTrainerSignalHandler {
@@ -85,9 +94,25 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         })
 
 
-        cardViewModel = viewModel
-        lifecycleOwner = this@CardFragment
+        binding.cardViewModel = viewModel
+        binding.lifecycleOwner = this@CardFragment
 
+
+        viewModel.symbol.observe(viewLifecycleOwner, Observer {
+            if (it == null) return@Observer
+            when (it) {
+                is Symbol -> {
+                    binding.letter.visibility = View.VISIBLE
+                    binding.markerDescription.visibility = View.GONE
+                    binding.letter.text = it.char.toString()
+                }
+                is MarkerSymbol -> {
+                    binding.letter.visibility = View.GONE
+                    binding.markerDescription.visibility = View.VISIBLE
+                    binding.markerDescription.text = contextNotNull.inputMarkerPrintRules[it.type]
+                }
+            }
+        })
 
         viewModel.observeCheckedOnFly(
             viewLifecycleOwner, dotsState, buzzer,
@@ -99,8 +124,10 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner, dotsState, buzzer
         ) {
             viewModel.symbol.value?.let { symbol ->
-                require(symbol.length == 1)
-                showIncorrectToast(symbol.first())
+                when (symbol) {
+                    is Symbol -> showIncorrectToast(symbol.char)
+                    is MarkerSymbol -> showIncorrectToast()
+                }
             } ?: checkedToast(getString(R.string.input_loading))
             updateTitle(title)
         }
@@ -115,7 +142,10 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner, dotsState
         ) {
             viewModel.symbol.value?.let {
-                announceIntro(it)
+                when (it) {
+                    is Symbol -> announceIntro(it.char.toString())
+                    is MarkerSymbol -> checkedAnnounce(contextNotNull.inputMarkerPrintRules[it.type]!!)
+                }
             }
         }
 
@@ -123,14 +153,17 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner,
             Observer {
                 if (it == null) return@Observer
-                announceIntro(it)
+                when (it) {
+                    is Symbol -> announceIntro(it.char.toString())
+                    is MarkerSymbol -> checkedAnnounce(contextNotNull.inputMarkerPrintRules[it.type]!!)
+                }
             }
         )
 
         viewModel.symbolCaptionId.observe(
             viewLifecycleOwner,
             Observer {
-                letterCaptionTextView.text = it?.let { it1 -> getString(it1) }
+                letter_caption_text_view.text = it?.let { it1 -> getString(it1) }
             }
         )
 
