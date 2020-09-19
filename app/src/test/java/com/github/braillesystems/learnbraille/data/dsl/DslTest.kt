@@ -4,14 +4,16 @@ import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import com.github.braillesystems.learnbraille.res.DeckTags
+import com.github.braillesystems.learnbraille.res.MarkerType
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-
 private val content by materials {
     +ruSymbols
     +enSymbols
+    +markers1
+    +markers2
     // ...
 }
 
@@ -30,9 +32,16 @@ private val enSymbols by symbols(
     // ...
 }
 
+private val markers1 by markers {
+    marker(MarkerType.GreekCapital, BrailleDots(E, E, E, F, F, F))
+}
+
+private val markers2 by markers {
+    marker(MarkerType.LatinCapital, BrailleDots(E, E, E, F, E, F))
+    marker(MarkerType.RussianCapital, BrailleDots(E, E, E, F, F, E))
+}
 
 val knownMaterials by known()
-
 
 private val prepopulationData by data(
     materials = content,
@@ -142,32 +151,44 @@ private val users = listOf(
     User(0, "default2", ""),
     User(0, "default3", "")
 )
+
 private val mats = listOf(
     Material(1, Symbol(char = 'А', brailleDots = BrailleDots(F, E, E, E, E, E), type = "ru")),
     Material(2, Symbol(char = 'Б', brailleDots = BrailleDots(F, F, E, E, E, E), type = "ru")),
-    Material(3, Symbol(char = 'Z', brailleDots = BrailleDots(F, F, F, E, E, E), type = "en"))
+    Material(3, Symbol(char = 'Z', brailleDots = BrailleDots(F, F, F, E, E, E), type = "en")),
+    Material(4, MarkerSymbol(MarkerType.GreekCapital, BrailleDots(E, E, E, F, F, F))),
+    Material(5, MarkerSymbol(MarkerType.LatinCapital, BrailleDots(E, E, E, F, E, F))),
+    Material(6, MarkerSymbol(MarkerType.RussianCapital, BrailleDots(E, E, E, F, F, E)))
 )
+
 private val decks = listOf(
     Deck(2, "Ru letters"),
     Deck(3, "En letters"),
     Deck(1, DeckTags.all)
 )
+
 private val cards = listOf(
     Card(2, 1),
     Card(2, 2),
     Card(3, 3),
     Card(1, 1),
     Card(1, 2),
-    Card(1, 3)
+    Card(1, 3),
+    Card(1, 4),
+    Card(1, 5),
+    Card(1, 6)
 )
+
 private val courses = listOf(
     Course(1, "Best course", "The best"),
     Course(2, "Worst course", "The worst")
 )
+
 private val lessons = listOf(
     Lesson(1, 1, "Wow", ""),
     Lesson(1, 2, "1", "")
 )
+
 private val steps = listOf(
     Step(1, 1, 1, FirstInfo("first")),
     Step(2, 1, 1, Info("with book")),
@@ -197,16 +218,17 @@ private val steps = listOf(
         LastInfo("LastInfo with stepId: 8, lessonId: 1, courseName: Worst course")
     )
 )
+
 private val stepAnnotations = listOf(
     StepAnnotation(1, "book"),
     StepAnnotation(2, "bomb")
 )
+
 private val stepHasAnnotations = listOf(
     StepHasAnnotation(1, 1, 2, 1),
     StepHasAnnotation(2, 1, 2, 1),
     StepHasAnnotation(2, 1, 2, 2)
 )
-
 
 class DslTest {
 

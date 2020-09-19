@@ -7,12 +7,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.data.entities.MarkerSymbol
 import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.data.repository.BrowserRepository
 import com.github.braillesystems.learnbraille.databinding.BrowserListItemBinding
 import com.github.braillesystems.learnbraille.databinding.FragmentBrowserBinding
+import com.github.braillesystems.learnbraille.res.showMarkerPrintRules
 import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.utils.*
@@ -46,7 +48,11 @@ class BrowserFragment : AbstractFragmentWithHelp(R.string.browser_help) {
                     when (item.data) {
                         is Symbol -> navigate(
                             BrowserFragmentDirections
-                                .actionBrowserFragmentToMaterialViewFragment(arg)
+                                .actionBrowserFragmentToSymbolViewFragment(arg)
+                        )
+                        is MarkerSymbol -> navigate(
+                            BrowserFragmentDirections
+                                .actionBrowserFragmentToMarkerViewFragment(arg)
                         )
                     }
                 }
@@ -55,7 +61,11 @@ class BrowserFragment : AbstractFragmentWithHelp(R.string.browser_help) {
                 this.item = item
                 materialText.text = when (item.data) {
                     is Symbol -> getString(R.string.browser_represent_template).format(
-                        application.showSymbolPrintRules[item.data.char].toString(),
+                        contextNotNull.showSymbolPrintRules[item.data.char].toString(),
+                        item.data.brailleDots.spelling
+                    )
+                    is MarkerSymbol -> getString(R.string.browser_represent_template).format(
+                        contextNotNull.showMarkerPrintRules[item.data.type].toString(),
                         item.data.brailleDots.spelling
                     )
                 }

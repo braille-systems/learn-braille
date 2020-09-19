@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.dsl.data
+import com.github.braillesystems.learnbraille.data.entities.MarkerSymbol
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.utils.contextNotNull
 import com.github.braillesystems.learnbraille.utils.lazyWithContext
@@ -66,6 +67,9 @@ val prepopulationData by data(
         deck(DeckTags.special) { data ->
             data is Symbol && data.type == SymbolType.special
         }
+        deck(DeckTags.markers) {data ->
+            data is MarkerSymbol
+        }
         deck(DeckTags.digits) { data ->
             data is Symbol && data.type == SymbolType.digit
         }
@@ -80,6 +84,7 @@ object DeckTags {
     const val all = "all"
     const val ruLetters = "ru_letters"
     const val digits = "digits"
+    const val markers = "markers"
     const val special = "special"
 }
 
@@ -89,7 +94,8 @@ val Context.deckTagToName: Map<String, String> by lazyWithContext {
             all to getString(R.string.deck_name_all),
             ruLetters to getString(R.string.deck_name_ru_letters),
             digits to getString(R.string.deck_name_digits),
-            special to getString(R.string.deck_name_special_symbols)
+            markers to getString(R.string.deck_name_markers),
+            special to getString(R.string.deck_name_punctuation)
         )
     }
 }

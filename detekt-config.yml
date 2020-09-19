@@ -5,6 +5,8 @@ complexity:
     active: false
   LongMethod:
     active: false
+  ComplexMethod:
+    active: false
   LongParameterList:
     active: false
 

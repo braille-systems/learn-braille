@@ -40,8 +40,8 @@ class CardViewModel(
 ) : AndroidViewModel(application),
     DotsChecker by dotsChecker {
 
-    private val _symbol = MutableLiveData<String?>()
-    val symbol: LiveData<String?> get() = _symbol
+    private val _symbol = MutableLiveData<MaterialData>()
+    val symbol: LiveData<MaterialData> get() = _symbol
 
     private val _deckTag = MutableLiveData<String?>()
     val deckTag: LiveData<String?> get() = _deckTag
@@ -109,10 +109,12 @@ class CardViewModel(
             materialsQueue.add(material.data)
         }
 
-        require(material.data is Symbol)
-        material.data.run {
-            _symbol.value = char.toString()
-            expectedDots = brailleDots
+        material.data.let {
+            _symbol.value = it
+            expectedDots = when (it) {
+                is Symbol -> it.brailleDots
+                is MarkerSymbol -> it.brailleDots
+            }
         }
 
         // Should be called after getting material because deck changes automatically

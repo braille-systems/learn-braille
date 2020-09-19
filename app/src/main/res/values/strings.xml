@@ -37,18 +37,26 @@
     <string name="input_letter_intro_template">Введите букву: %s</string>
     <string name="input_digit_intro_template">Введите цифру: %s</string>
     <string name="input_special_intro_template">Введите символ: %s</string>
-    <string name="input_special_intro_num_sign">Введите цифровой знак</string>
     <string name="input_special_intro_dot">Введите символ: Литературная точка</string>
     <string name="input_special_intro_hyphen">Введите символ: Дефис</string>
     <string name="input_special_intro_comma">Введите запятую</string>
 
+    <string name="input_mod_greek_capital">Введите признак большой греческой буквы</string>
+    <string name="input_mod_latin_capital">Введите признак большой латинской буквы</string>
+    <string name="input_mod_ru_capital">Введите признак большой буквы русского алфавита</string>
+    <string name="input_mod_num_sign">Введите цифровой знак</string>
+
     <string name="show_letter_intro_template">Буква %s</string>
     <string name="show_digit_intro_template">Цифра %s</string>
     <string name="show_special_intro_template">Символ %s</string>
-    <string name="show_special_intro_num_sign">Цифровой знак</string>
     <string name="show_special_intro_dot">Литературная точка</string>
     <string name="show_special_intro_hyphen">Дефис</string>
     <string name="show_special_intro_comma">Запятая</string>
+
+    <string name="show_mod_greek">Признак большой греческой буквы</string>
+    <string name="show_mod_latin">Признак большой латинской буквы</string>
+    <string name="show_mod_capital">Признак большой буквы русского алфавита</string>
+    <string name="show_mod_num_sign">Цифровой знак</string>
 
     <!--    QR-->
 
@@ -76,7 +84,8 @@
     <string name="deck_name_all">Все символы</string>
     <string name="deck_name_ru_letters">Русские буквы</string>
     <string name="deck_name_digits">Цифры</string>
-    <string name="deck_name_special_symbols">Специальные символы</string>
+    <string name="deck_name_punctuation">Знаки препинания</string>
+    <string name="deck_name_markers">Специальные символы</string>
 
 
     <string name="practice_help">
@@ -248,6 +257,19 @@
         ]]>
     </string>
 
+    <string name="lessons_help_input_marker">
+        <![CDATA[
+        Пошаговый курс - <b>шаг с вводом специального символа.</b>
+        <br><br>
+        В верхней половине экрана дано описание символа, который нужно ввести в шеститочии
+        в нижней половине экрана.
+        &<br>
+        Если нажать кнопку \"подсказка\", расположенную над кнопкой \"назад\", выведется сообщение
+        с правильным ответом и точки переключатся в правильное состояние. Чтобы пройти то же
+        упражнение после подсказки, нажмите кнопку \"вперёд\".
+        ]]>
+    </string>
+
     <string name="lessons_help_show_symbol">
         <![CDATA[
         Пошаговый курс - <b>шаг с демонстрацией символа.</b>
@@ -262,6 +284,15 @@
         Пошаговый курс - <b>шаг с демонстрацией точек.</b>
         <br><br>
         На экран выведен точечный символ. Внимательно изучите его.
+        ]]>
+    </string>
+
+    <string name="lessons_help_show_marker">
+        <![CDATA[
+        Пошаговый курс - <b>шаг с демонстрацией специального символа.</b>
+        <br><br>
+        В верхней половине экрана словами описан специальный символ, а в шеститочии в нижней части
+         - его точечный состав. Внимательно изучите этот символ.
         ]]>
     </string>
 
@@ -332,7 +363,17 @@
 
     <string name="browser_symbol_view_help">
         <![CDATA[
-        В верхней половине экр(ана выведен \"зрячий\" (плоскопечатный) символ, в нижней половине -
+        В верхней половине экрана выведен \"зрячий\" (плоскопечатный) символ, в нижней половине -
+        его точечный состав.
+        &<br>
+        Из этого раздела можно выйти обратно к списку символов, нажав кнопку <b>\"Перейти вверх\"</b>
+        в левом верхнем углу экрана.
+        ]]>
+    </string>
+
+    <string name="browser_marker_view_help">
+        <![CDATA[
+        В верхней половине экрана выведен текст - описание символа, в нижней половине -
         его точечный состав.
         &<br>
         Из этого раздела можно выйти обратно к списку символов, нажав кнопку <b>\"Перейти вверх\"</b>
