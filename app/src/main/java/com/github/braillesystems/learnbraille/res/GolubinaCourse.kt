@@ -58,34 +58,16 @@ internal val golubinaIntroLessons by lessons {
         +InputDots(text = "Введите точку один", dots = BrailleDots(F, E, E, E, E, E))
         +ShowDots(
             text = "Перед Вами символ шрифта Брайля - <br>" +
-                    " точка номер два",
-            dots = BrailleDots(E, F, E, E, E, E)
-        )
-        +InputDots(text = "Введите точку два", dots = BrailleDots(E, F, E, E, E, E))
-        +ShowDots(
-            text = "Перед Вами символ шрифта Брайля - <br>" +
                     " точка номер три",
             dots = BrailleDots(E, E, F, E, E, E)
         )
         +InputDots(text = "Введите точку три", dots = BrailleDots(E, E, F, E, E, E))
         +ShowDots(
             text = "Перед Вами символ шрифта Брайля - <br>" +
-                    " точка номер четыре",
-            dots = BrailleDots(E, E, E, F, E, E)
-        )
-        +InputDots(text = "Введите точку четыре", dots = BrailleDots(E, E, E, F, E, E))
-        +ShowDots(
-            text = "Перед Вами символ шрифта Брайля - <br>" +
                     " точка номер пять",
             dots = BrailleDots(E, E, E, E, F, E)
         )
         +InputDots(text = "Введите точку пять", dots = BrailleDots(E, E, E, E, F, E))
-        +ShowDots(
-            text = "Перед Вами символ шрифта Брайля - <br>" +
-                    " точка номер шесть",
-            dots = BrailleDots(E, E, E, E, E, F)
-        )
-        +InputDots(text = "Введите точку шесть", dots = BrailleDots(E, E, E, E, E, F))
         +InputDots(
             text = """Теперь выполним пять практических заданий без обучающей картинки. 
                       <br>
