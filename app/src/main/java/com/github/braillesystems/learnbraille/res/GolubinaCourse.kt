@@ -115,9 +115,9 @@ internal val golubinaIntroLessons by lessons {
         +InputDots(text = """Введите "средние точки" 2 и 5""", dots = BrailleDots(E, F, E, E, F, E))
         +Info(
             """Запишите "средние точки" 2 и 5 на брайлевском приборе.
-                      <br>
-                      Если у Вас нет возможности писать по Брайлю, в разделе "Настройки" можно отключить
-                      шаги, требующие обращения к брайлевскому прибору.
+                  <br>
+                  Совет: если у Вас нет возможности писать на брайлевском приборе, в разделе "Настройки" можно отключить
+                  шаги, требующие обращения к брайлевскому прибору.
         """
         ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
@@ -147,12 +147,14 @@ internal val golubinaIntroLessons by lessons {
                     буква А точечным шрифтом."""
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('А'))
+        slateStylusLine('А')
         +Show(content.symbols.getValue('Б'))
         +Info(
             """Снова изучим страницу 13 в пособии. Под строкой с буквой А - 
                     такая же с буквой Б."""
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('Б'))
+        slateStylusLine('Б')
         +Info(
             """
                     Буква Ц: точки 1 и 4
@@ -176,6 +178,12 @@ internal val golubinaIntroLessons by lessons {
         inputChars("ДЕД")
         +Info("""Далее в следующих четырёх шагах введите слово БАБА.""")
         inputChars("БАБА")
+        +Info(
+            """Запишите на брайлевском приборе три строки: из букв Ц, Д и Е.
+                    <br>
+                    После этого запишите через пробел слова: БАЦ, ДЕД, БАБА.
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """Урок $iLesson закончен. В следующем занятии займёмся повторением букв А, Б, Ц, Д, Е
                  и потренируемся писать цифры от 1 до 5, образуемые с помощью этих букв. Рекомендуем
@@ -221,16 +229,7 @@ internal val golubinaIntroLessons by lessons {
                     Число двадцать четыре - это цифровой знак, затем буквы Б и Д. 
                     В уроках мы для краткости не будем всякий раз ставить цифровой знак."""
         )
-        +Show(content.symbols.getValue('1'))
-        +Input(content.symbols.getValue('1'))
-        +Show(content.symbols.getValue('2'))
-        +Input(content.symbols.getValue('2'))
-        +Show(content.symbols.getValue('3'))
-        +Input(content.symbols.getValue('3'))
-        +Show(content.symbols.getValue('4'))
-        +Input(content.symbols.getValue('4'))
-        +Show(content.symbols.getValue('5'))
-        +Input(content.symbols.getValue('5'))
+        showAndInputChars("12345")
         +Info(
             """
                 На пятой сверху строчке на странице 14 пособия, под строкой с цифровым знаком,
@@ -238,6 +237,12 @@ internal val golubinaIntroLessons by lessons {
                 Изучите каждую цифру.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        +Info(
+            """
+                    Запишите, используя брайлевский прибор, цифровой знак и за ним изученные пять цифр.
+                    Получится число "двенадцать тысяч триста сорок пять".
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """
                     Урок $iLesson пройден! Рекомендуем самостоятельно изучить цифры и числа на странице 15
@@ -276,6 +281,7 @@ internal val golubinaIntroLessons by lessons {
                 """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('Ф'))
+        slateStylusLine('Ф')
         +Show(content.symbols.getValue('Г'))
         +Info(
             """
@@ -284,6 +290,7 @@ internal val golubinaIntroLessons by lessons {
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('Г'))
+        slateStylusLine('Г')
         +Info(
             """
                     В следующих трёх шагах введите по буквам слово БЕГ."""
@@ -299,6 +306,9 @@ internal val golubinaIntroLessons by lessons {
         )
         +Input(content.markers.getValue(MarkerType.NumberSign))
         inputChars("67")
+        +Info(
+            """Напишите слово БЕГ и число "ШЕСТДЕСЯТ СЕМЬ" при помощи брайлевского прибора."""
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """Поздравляем! Урок $iLesson пройден."""
         })
@@ -315,10 +325,7 @@ internal val golubinaIntroLessons by lessons {
                     Но перед изучением нового повторим пройденное. Введите по буквам слово ФЕБ."""
         })
         inputChars("ФЕБ")
-        +Info(
-            """
-                    В следующих шести шагах введите по буквам слово БАГДАД."""
-        )
+        +Info("""В следующих шести шагах введите по буквам слово БАГДАД.""")
         inputChars("БАГДАД")
         +Info(
             """Наберите в следующих четырёх шагах число СТО ДВАДЦАТЬ ТРИ, поставив перед ним
@@ -344,25 +351,17 @@ internal val golubinaIntroLessons by lessons {
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('Х'))
         +Input(content.symbols.getValue('8'))
-        +Info(
-            """
-                    В следующих шагах введите по буквам слово ЦЕХ
-                    """
-        )
+        slateStylusLine('Х')
+        +Info("""В следующих шагах введите по буквам слово ЦЕХ""")
         inputChars("ЦЕХ")
-        +Info(
-            """
-                Наберите слово БАЦ
-            """
-        )
-        inputChars("БАЦ")
-        +Info(
-            """
-                Далее введите, поставив цифровой знак, число "Восемьсот семьдесят шесть"
-            """
-        )
+        +Info("""Наберите восклицание АХ""")
+        inputChars("АХ")
+        +Info("""Далее введите, поставив цифровой знак, число "ВОСЕМЬСОТ СЕМЬДЕСЯТ ШЕСТЬ" """)
         +Input(content.markers.getValue(MarkerType.NumberSign))
         inputChars("876")
+        +Info(
+            """Введите на брайлевском приборе слова ЦЕХ, АХ и число ВОСЕМЬСОТ СЕМЬДЕСЯТ ШЕСТЬ."""
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """
                     Урок $iLesson пройден!
@@ -391,6 +390,8 @@ internal val golubinaIntroLessons by lessons {
                 и рельефно-точечные изображения букв Ж и И.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('Ж')
+        slateStylusLine('И')
         +Info(
             """Введите буквы, составляющие слово БАГАЖ"""
         )
@@ -413,6 +414,13 @@ internal val golubinaIntroLessons by lessons {
         )
         +Input(content.markers.getValue(MarkerType.NumberSign))
         inputChars("850")
+        +Info(
+            """
+                    Напишите с помощью брайлевского прибора слова, набранные до этого на экране:
+                    <br>
+                    БАГДАД, ЖАЖДА, ГИД, ИЖИЦА и число ВОСЕМЬСОТ ПЯТЬДЕСЯТ.
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """
                     Урок $iLesson закончен. Теперь Вы, помимо букв, знаете все цифры.
@@ -456,6 +464,8 @@ internal val golubinaIntroLessons by lessons {
                     буква К и рядом с ней строка из пяти брайлевских букв К. Ниже находится буква Л.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('К')
+        slateStylusLine('Л')
         +Info(
             """Введите по буквам слово КЛАД"""
         )
@@ -481,6 +491,7 @@ internal val golubinaIntroLessons by lessons {
                     под строками с буквами К, Л.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('М')
         +Info(
             """В следующих трёх шагах ведите по буквам слово МЕЛ"""
         )
@@ -493,6 +504,13 @@ internal val golubinaIntroLessons by lessons {
             """Напоследок введите по буквам слово ФИАЛКА"""
         )
         inputChars("ФИАЛКА")
+        +Info(
+            """
+                    Напишите на брайлевском приборе пройденные в уроке слова:
+                    <br>
+                    КЛАД, БЕЛКА, МЕЛ, МАК, ФИАЛКА.
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """
                     Мы подошли к концу урока $iLesson.
@@ -532,6 +550,7 @@ internal val golubinaIntroLessons by lessons {
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('Н'))
+        slateStylusLine('Н')
         +Info(
             """Введите по буквам слово БАНАН"""
         )
@@ -544,6 +563,13 @@ internal val golubinaIntroLessons by lessons {
             """Теперь введите по буквам слово БЛАНК"""
         )
         inputChars("БЛАНК")
+        +Info(
+            """
+                    С помощью брайлевского прибора запишите введённые ранее слова:
+                    <br>
+                    БАНАН, ЦЕНА, БЛАНК.
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """
                     На этом урок $iLesson завершается. Для закрепления материала полезно прочесть
@@ -579,6 +605,7 @@ internal val golubinaIntroLessons by lessons {
                     Возьмите пособие и откройте страницу 23. Сверху найдите букву О.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('О')
 
         +Info(
             """Наберите по буквам слово ОБЛАКО"""
@@ -605,6 +632,16 @@ internal val golubinaIntroLessons by lessons {
             """Напоследок введите слово ГЕОЛОГ и тоже поставьте запятую в конце"""
         )
         inputChars("ГЕОЛОГ,")
+        +Info(
+            """
+                    Используя брайлевский прибор, запишите фразу:
+                    <br>
+                    БЕЛОЕ ОБЛАКО, БЛЕДНОЕ ЛИЦО, БЕЛОЕ МОЛОКО
+                    <br>
+                    разделяя перечисляемые элементы запятыми. Затем откройте страницу 24 пособия,
+                    где записана эта фраза, и проверьте себя.
+            """
+        ).annotate(StepAnnotation.golubinaBookRequired, StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """Урок $iLesson подходит к концу. В следующем уроке нас ждёт изучение буквы П.
                     Материалы к этому занятию можно прочесть на страницах 23-24 в пособии.
@@ -637,6 +674,7 @@ internal val golubinaIntroLessons by lessons {
                     Найдём букву П в пособии. Для этого раскройте страницу 25 и изучите верхнюю строку.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('П')
         +Info(
             """Введите отдельными символами слово ПЕНА"""
         )
@@ -709,6 +747,13 @@ internal val golubinaIntroLessons by lessons {
             """Введите по буквам ещё одно, последнее слово: БОЧОНОК"""
         )
         inputChars("БОЧОНОК")
+        +Info(
+            """
+                    Запишите на брайлевском приборе изученные слова, разделяя их запятыми:
+                    <br>
+                    ЧЕК, ОЧКИ, КОЧАН, БОЧОНОК
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """
                     Урок $iLesson, в котором мы изучали букву 'Ч', позади. 
@@ -744,6 +789,7 @@ internal val golubinaIntroLessons by lessons {
                     Раскройте страницу 27 в пособии и ознакомьтесь с буквой Р вверху листа.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('Р')
         +Info(
             """Наберите последовательно, по буквам слово РЕКА"""
         )
@@ -764,6 +810,13 @@ internal val golubinaIntroLessons by lessons {
             """Наберите аналогичным образом последнее слово в сегодняшнем уроке: ГАРАЖ"""
         )
         inputChars("ГАРАЖ")
+        +Info(
+            """
+                    Возьмите брайлевский прибор и запишите через запятую пройденные слова:
+                    <br>
+                    РЕКА, КРАН, КРЕМ, ФАРА, ГАРАЖ
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """
                     Урок $iLesson завершён. Теперь мы, помимо прочего, знаем точечный состав буквы 'Р'.
@@ -798,6 +851,7 @@ internal val golubinaIntroLessons by lessons {
                     Перейдите в пособии Голубиной к странице 29 и прочтите сверху строку с буквой С.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('С')
         +Info(
             """В следующих шагах наберите слово САЖА"""
         )
@@ -818,6 +872,13 @@ internal val golubinaIntroLessons by lessons {
             """В завершение урока введите по буквам слово ЧЕСНОК"""
         )
         inputChars("ЧЕСНОК")
+        +Info(
+            """
+                    Осталось немного поработать с брайлевским прибором. Запишите на нём слова:
+                    <br>
+                    САЖА, СЛЕД, ФАСАД, ДОСКА, ЧЕСНОК
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """
                     Мы подошли к финалу урока $iLesson. К этому моменту мы уже изучили 19 букв,
@@ -891,6 +952,13 @@ internal val golubinaIntroLessons by lessons {
         inputChars("ГДЕ—ЛИБО")
         +Info(
             """
+                    Теперь рекомендуем Вам записать на брайлевском приборе изученные слова:
+                    <br>
+                    ПОЛ—ЛИМОНА, ГДЕ—ЛИБО
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
+        +Info(
+            """
                     На этом урок 14 закончен. Буква Т, которой он был посвящён, стала двадцатой
                     изученной нами. Также мы познакомились со знаком 'дефис'.
                     В следующий раз перейдём к букве У.
@@ -924,6 +992,7 @@ internal val golubinaIntroLessons by lessons {
                    Откройте эту страницу и прочтите верхнюю строку.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('У')
         +Info(
             """В следующих шагах введите, пожалуйста, слово УГОЛ"""
         )
@@ -941,9 +1010,16 @@ internal val golubinaIntroLessons by lessons {
         )
         inputChars("ТРУД")
         +Info(
-            """Последнее, что нужно сделать в этом уроке — введите слово ЧУДЕСА"""
+            """Последнее, что нужно набрать в этом уроке — слово ЧУДЕСА"""
         )
         inputChars("ЧУДЕСА")
+        +Info(
+            """
+                    Набранные в этом уроке слова запишем и на брайлевском приборе через запятую:
+                    <br>
+                    УГОЛ, ЛУНА, КРУГ, ТРУД, ЧУДЕСА
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """
                     Урок $iLesson окончен. Мы изучили букву У — первую букву, где нам встретилась точка
@@ -973,6 +1049,7 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Show(content.symbols.getValue('Щ'))
+        slateStylusLine('Щ')
         +Info(
             """
                    Пособие содержит урок с буквой Щ на странице 33.
@@ -997,9 +1074,16 @@ internal val golubinaIntroLessons by lessons {
         )
         inputChars("ЩЕПКА")
         +Info(
-            """Перед тем, как мы закончим занятие, введите слово ОЩУЩЕНИЕ"""
+            """И последнее: введите слово ОЩУЩЕНИЕ"""
         )
         inputChars("ОЩУЩЕНИЕ")
+        +Info(
+            """
+                    Перед тем, как мы закончим занятие, запишите на брайлевском приборе все пройденные слова:
+                    <br>
+                    ЩЕГОЛ, ПЛАЩ, КЛЕЩ, ЩЕПКА, ОЩУЩЕНИЕ
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """
                     Урок $iLesson - буква Щ - подходит к завершению. Теперь нам известны 22 буквы русского
@@ -1034,6 +1118,7 @@ internal val golubinaIntroLessons by lessons {
                    Прочтите первую строку на этой странице.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('З')
         +Info(
             """Последовательно, по буквам введите слово ЗАКАЗ"""
         )
@@ -1051,9 +1136,16 @@ internal val golubinaIntroLessons by lessons {
         )
         inputChars("АРБУЗ")
         +Info(
-            """И последнее, что сегодня осталось сделать: введите слово ЗАДАЧА"""
+            """И последнее, что сегодня осталось ввести: слово ЗАДАЧА"""
         )
         inputChars("ЗАДАЧА")
+        +Info(
+            """
+                    Для закрепления материала напишите слова на брайлевском приборе:
+                    <br>
+                    ЗАКАЗ, ЗЕРНО, АЗБУКА, АРБУЗ, ЗАДАЧА
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """                    
                     Вы успешно окончили урок $iLesson - буква З. На следующем занятии перейдём к освоению
@@ -1095,6 +1187,7 @@ internal val golubinaIntroLessons by lessons {
                    Ознакомьтесь с рельефно-графическим и рельефно-точечным изображением буквы "Й" на первой строке.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('Й')
         +Info(
             """Буква за буквой, введите точечным шрифтом слово КЛЕЙ"""
         )
@@ -1115,6 +1208,13 @@ internal val golubinaIntroLessons by lessons {
             """Наконец, введите последнее слово в этом уроке: РАЙОН"""
         )
         inputChars("РАЙОН")
+        +Info(
+            """
+                    Все пройденные слова следует записать на брайлевском приборе. Напомним, это слова
+                    <br>
+                    КЛЕЙ, УЛЕЙ, РЕЙС, ЗНОЙ, РАЙОН
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """                    
                     Урок $iLesson - буква 'И краткое' - окончен. Теперь мы знаем уже 4 буквы, содержащие
@@ -1153,6 +1253,7 @@ internal val golubinaIntroLessons by lessons {
                    Прочтите верхнюю строку, которая содержит пять повторов этого символа.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('Ъ')
         +Info(
             """Введите по буквам слово СЪЕЗД"""
         )
@@ -1178,13 +1279,23 @@ internal val golubinaIntroLessons by lessons {
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('.'))
         +Info(
+            "Используя брайлевский прибор, запишите строку из одних точек."
+        ).annotate(StepAnnotation.slateStylusRequired)
+        +Info(
             """
                     В следующих шагах введите по буквам целое предложение: "Ленинград — город-герой".
                     <br>
                     В конце поставьте литературную точку.
                     """
         )
-        inputChars("ЛЕНИНГРАД—ГОРОД—ГЕРОЙ")
+        inputChars("ЛЕНИНГРАД—ГОРОД—ГЕРОЙ.")
+        +Info(
+            """
+                    Теперь запишите на брайлевском приборе то же самое предложение:
+                    <br>
+                    ЛЕНИНГРАД — ГОРОД—ГЕРОЙ.
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """                    
                     На этом мы завершаем занятие номер $iLesson. Осталось ещё семь уроков, после чего 
@@ -1225,6 +1336,7 @@ internal val golubinaIntroLessons by lessons {
                    рельефно-графические и рельефно-точечное изображение буквы Ы.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('Ы')
         +Info(
             """Набирая буквы одна за одной, введите слово МЫЛО"""
         )
@@ -1245,10 +1357,17 @@ internal val golubinaIntroLessons by lessons {
             """Введите последнее слово - существительное во множественном числе: КОЗЫ"""
         )
         inputChars("КОЗЫ")
+        +Info(
+            """
+                    Все изученные слова, пожалуйста, запишите и на брайлевском приборе:
+                    <br>
+                    МЫЛО, ЛЫЖИ, КЛЫК, МУЗЫКА, КОЗЫ
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """                    
                     Урок $iLesson - буква 'Ы' - подходит к завершению.
-                    Остались неизученными семь букв русского алфавита; для них отведены оставшиеся
+                    Остались неизученными семь букв русского алфавита; для них отведены последующие
                     шесть уроков. На следующем занятии будем осваивать мягкий знак.
                     """
         })
@@ -1282,6 +1401,7 @@ internal val golubinaIntroLessons by lessons {
                    После урока рекомендуем прочесть слова на страницах 39 и 40.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('Ь')
         +Info(
             """Введите по буквам существительное СОЛЬ"""
         )
@@ -1303,6 +1423,13 @@ internal val golubinaIntroLessons by lessons {
             """Введите последнее в этом занятии слово: СТАЛЬ"""
         )
         inputChars("СТАЛЬ")
+        +Info(
+            """
+                    Как обычно, напишите на брайлевском приборе изученные слова:
+                    <br>
+                    СОЛЬ, МЕЛЬ, КОНЬ, РУЧЬИ, СТАЛЬ
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """                    
                     Урок $iLesson, в котором мы изучили мягкий знак, пройден.
@@ -1339,6 +1466,7 @@ internal val golubinaIntroLessons by lessons {
                    Откройте страницу 41 и прочтите верхнюю строку с буквой Ё.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('Ё')
         +Info(
             """Шаг за шагом введите слово ЁЛКА"""
         )
@@ -1361,6 +1489,7 @@ internal val golubinaIntroLessons by lessons {
                    Прочтите строку с буквой Ш в середине страницы 41 пособия.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('Ш')
         +Info(
             """Наберите отдельными символами слово ШЁЛК"""
         )
@@ -1377,6 +1506,13 @@ internal val golubinaIntroLessons by lessons {
             """Наконец, перед тем, как мы закончим урок, введите слово КОШКА"""
         )
         inputChars("КОШКА")
+        +Info(
+            """
+                    Используя брайлевский прибор, запишите изученные в этом уроке существительные:
+                    <br>
+                    ЁЛКА, КЛЁН, ШЁЛК, ШЕСТ, ШАРФ, КОШКА
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """                    
                     Урок $iLesson, посвящённый буквам Ё и Ш, завершён.
@@ -1415,6 +1551,7 @@ internal val golubinaIntroLessons by lessons {
                    Откройте страницу 43 и прочтите верхнюю строку - пять букв 'Я' подряд.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('Я')
         +Info(
             """Введите брайлевские буквы, которые составляют слово ЯБЛОКО"""
         )
@@ -1437,6 +1574,13 @@ internal val golubinaIntroLessons by lessons {
             """Последнее слово в сегодняшнем уроке - ЗЕМЛЯ"""
         )
         inputChars("ЗЕМЛЯ")
+        +Info(
+            """
+                    Запишите на брайлевском приборе изученные слова с буквой Я:
+                    <br>
+                    ЯБЛОКО, ЯГОДА, ПЯТНО, ЦАПЛЯ, ЗЕМЛЯ
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """
                     Урок $iLesson - буква Я - успешно завершён.
@@ -1472,6 +1616,7 @@ internal val golubinaIntroLessons by lessons {
                    Найдите сорок пятую страницу и ознакомьтесь с буквой Ю в самой верхней строке.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('Ю')
         +Info(
             """Наберите по символам слово с новой буквой: ЮБКА"""
         )
@@ -1497,6 +1642,13 @@ internal val golubinaIntroLessons by lessons {
             """Завершающее задание в этом уроке - введите буквы слова СЮЖЕТ"""
         )
         inputChars("СЮЖЕТ")
+        +Info(
+            """
+                    Снова возьмите брайлевский прибор и напишите пройденные слова с буквами Ю, Т:
+                    <br>
+                    ЮБКА, УТЮГ, ТЮБИК, ТРЮК, СЮЖЕТ
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """
                     Урок $iLesson - русская буква Ю - закончен. Нам осталось пройти всего два занятия,
@@ -1542,6 +1694,7 @@ internal val golubinaIntroLessons by lessons {
                    Сейчас откройте страницу 47 и прочтите первую строку, где написана буква 'Э'.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('Э')
         +Info(
             """Вводя отдельные буквы, составьте слово ЭХО"""
         )
@@ -1568,6 +1721,13 @@ internal val golubinaIntroLessons by lessons {
             """В последнем задании нужно ввести слово ЭСТРАДА"""
         )
         inputChars("ЭСТРАДА")
+        +Info(
+            """
+                    Теперь запишите введённые ранее слова на брайлевском приборе:
+                    <br>
+                    ЭХО, ПОЭМА, ЭКРАН, ЭПИЗОД, ЭСТРАДА
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """
                     Урок $iLesson, в ходе которого мы выучили букву Э, закончен.
@@ -1606,6 +1766,7 @@ internal val golubinaIntroLessons by lessons {
                     где написана буква 'В'.
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
+        slateStylusLine('В')
         +Info(
             """Наберите первое слово с буквой 'В' - слово ВОР"""
         )
@@ -1632,6 +1793,13 @@ internal val golubinaIntroLessons by lessons {
             """Заключительное упражнение: наберите слово КОРОВА"""
         )
         inputChars("КОРОВА")
+        +Info(
+            """
+                    Не забудьте для тренировки написать на брайлевском приборе набранные слова:
+                    <br>
+                    ВОР, ВРАЧ, ВОРОНА, СЕВЕР, КОРОВА.
+            """
+        ).annotate(StepAnnotation.slateStylusRequired)
         +Info(InfoInterpolation.run {
             """
                 Урок $iLesson - буква В - закончен.
@@ -1701,6 +1869,13 @@ internal val golubinaIntroLessons by lessons {
             """Введите по буквам слово ВЫВОД: и поставьте в конце двоеточие"""
         )
         inputChars("ВЫВОД:")
+        +Info(
+            """
+                    Перепишите, используя брайлевский прибор, предложение со страницы 54 пособия:
+                    <br>
+                    Летний Сад омывается реками: Невой, Мойкой, Фонтанкой и Лебяжьей Канавкой.
+            """
+        ).annotate(StepAnnotation.slateStylusRequired, StepAnnotation.golubinaBookRequired)
         +Info(InfoInterpolation.run {
             """
                 Урок $iLesson - двоеточие и точка с запятой - подошёл к концу.
