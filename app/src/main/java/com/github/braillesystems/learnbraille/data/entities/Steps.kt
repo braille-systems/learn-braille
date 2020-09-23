@@ -35,7 +35,7 @@ interface StepDao {
     suspend fun insert(steps: List<Step>)
 
     @Query("select * from steps where id = :id")
-    suspend fun getStep(id: DBid): Step?
+    suspend fun step(id: DBid): Step?
 
     @Query(
         """
@@ -45,7 +45,7 @@ interface StepDao {
         where cs.user_id = :userId and cs.course_id = :courseId
         """
     )
-    suspend fun getCurrentStep(userId: DBid, courseId: DBid): Step?
+    suspend fun currentStep(userId: DBid, courseId: DBid): Step?
 
     @Query(
         """
@@ -55,7 +55,7 @@ interface StepDao {
         where ls.user_id = :userId and ls.course_id = :courseId
         """
     )
-    suspend fun getLastStep(userId: DBid, courseId: DBid): Step?
+    suspend fun lastStep(userId: DBid, courseId: DBid): Step?
 
     @Query(
         """
@@ -65,7 +65,7 @@ interface StepDao {
         where ls.user_id = :userId and ls.course_id = :courseId and ls.lesson_id = :lessonId
         """
     )
-    suspend fun getLastStep(userId: DBid, courseId: DBid, lessonId: DBid): Step?
+    suspend fun lastStep(userId: DBid, courseId: DBid, lessonId: DBid): Step?
 
     @Query(
         """
@@ -74,7 +74,7 @@ interface StepDao {
         order by steps.lesson_id, steps.id limit 1
         """
     )
-    suspend fun getFirstCourseStep(courseId: DBid): Step?
+    suspend fun firstCourseStep(courseId: DBid): Step?
 
     @Query(
         """
@@ -95,7 +95,7 @@ interface StepDao {
         limit 1
         """
     )
-    suspend fun getNextStep(
+    suspend fun nextStep(
         courseId: DBid,
         thisLessonId: DBid,
         thisStepId: DBid,
@@ -121,7 +121,7 @@ interface StepDao {
         limit 1
         """
     )
-    suspend fun getPrevStep(
+    suspend fun prevStep(
         courseId: DBid,
         thisLessonId: DBid,
         thisStepId: DBid,

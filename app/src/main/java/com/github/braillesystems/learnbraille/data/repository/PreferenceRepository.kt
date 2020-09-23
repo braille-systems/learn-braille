@@ -113,7 +113,7 @@ class PreferenceRepositoryImpl(
     }
 
     override suspend fun getCurrentUser(): User =
-        userDao.getUser(currentUserId)
+        userDao.user(currentUserId)
             ?.also { Timber.i("Current user = $it") }
             ?: error("Current user should always exist")
 }

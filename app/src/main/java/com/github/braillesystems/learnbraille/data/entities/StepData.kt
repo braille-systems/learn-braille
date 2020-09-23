@@ -32,7 +32,9 @@ typealias HtmlText = String
  * Represents step types with information.
  */
 @Serializable
-sealed class BaseInfo : StepData()
+sealed class BaseInfo : StepData() {
+    abstract val text: HtmlText
+}
 
 /**
  * Step displays information text for the user.
@@ -40,7 +42,7 @@ sealed class BaseInfo : StepData()
 @Serializable
 data class Info(
     @SerialName("info")
-    val text: HtmlText
+    override val text: HtmlText
 ) : BaseInfo()
 
 /**
@@ -49,7 +51,7 @@ data class Info(
 @Serializable
 data class FirstInfo(
     @SerialName("info")
-    val text: HtmlText
+    override val text: HtmlText
 ) : BaseInfo()
 
 /**
@@ -58,7 +60,7 @@ data class FirstInfo(
 @Serializable
 data class LastInfo(
     @SerialName("info")
-    val text: HtmlText
+    override val text: HtmlText
 ) : BaseInfo()
 
 
@@ -72,6 +74,8 @@ sealed class BaseInput : StepData()
 data class Input(
     val material: Material
 ) : BaseInput()
+
+// TODO add ReflectedInput
 
 /**
  * Step prompts the user to enter dots with specific numbers.
@@ -96,6 +100,8 @@ sealed class BaseShow : StepData()
 data class Show(
     val material: Material
 ) : BaseShow()
+
+// TODO ReflectedShow
 
 /**
  * Step shows Braille dots with specific numbers.

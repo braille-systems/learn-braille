@@ -17,10 +17,10 @@ interface MaterialDao {
     suspend fun insert(materials: List<Material>)
 
     @Query("select * from materials where id = :id")
-    suspend fun getMaterial(id: DBid): Material?
+    suspend fun material(id: DBid): Material?
 
     @Query("select * from materials order by RANDOM() limit 1")
-    suspend fun getRandomMaterial(): Material?
+    suspend fun randomMaterial(): Material?
 
     @Query("Delete from materials")
     suspend fun clear()

@@ -26,7 +26,7 @@ interface CardDao {
         order by RANDOM() limit 1
         """
     )
-    suspend fun getRandomMaterialFromDeck(deckId: DBid): Material?
+    suspend fun randomMaterialFromDeck(deckId: DBid): Material?
 
     @Query(
         """
@@ -40,7 +40,7 @@ interface CardDao {
         order by RANDOM() limit 1
         """
     )
-    suspend fun getRandomKnownMaterialFromDeck(userId: DBid, deckId: DBid): Material?
+    suspend fun randomKnownMaterialFromDeck(userId: DBid, deckId: DBid): Material?
 
     @Query(
         """
@@ -51,7 +51,7 @@ interface CardDao {
         order by m.id
         """
     )
-    suspend fun getAllMaterialsFromDeck(id: DBid): List<Material>
+    suspend fun allMaterialsFromDeck(id: DBid): List<Material>
 
     @Query("delete from cards")
     suspend fun clear()

@@ -31,7 +31,7 @@ interface ActionDao {
     suspend fun insert(vararg actions: Action)
 
     @Query("select * from actions where date >= :date")
-    suspend fun getAllActionsSince(date: Long): List<Action>
+    suspend fun allActionsSince(date: Long): List<Action>
 
     @Query("delete from actions")
     suspend fun clear()

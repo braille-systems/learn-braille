@@ -9,20 +9,6 @@ import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.utils.contextNotNull
 import com.github.braillesystems.learnbraille.utils.lazyWithContext
 
-/**
- * Do not change name of this property, it is used for prepopulation.
- *
- * Use `DslTest.kt` file as DSL tutorial.
- *
- * Text in steps is parsed as HTML.
- *
- * If using `content.symbols.getValue`, `content` should be added to `data` as `materials`.
- * It is better to simply have only one value declared as `by materials`.
- *
- * Correctness of all information should be checked in compile time or in runtime.
- * If some additional info is need, do not hardcode it.
- * Just make request to the new DSL feature via github issues.
- */
 val prepopulationData by data(
     materials = content,
     stepAnnotationNames = listOf(
@@ -67,7 +53,7 @@ val prepopulationData by data(
         deck(DeckTags.special) { data ->
             data is Symbol && data.type == SymbolType.special
         }
-        deck(DeckTags.markers) {data ->
+        deck(DeckTags.markers) { data ->
             data is MarkerSymbol
         }
         deck(DeckTags.digits) { data ->

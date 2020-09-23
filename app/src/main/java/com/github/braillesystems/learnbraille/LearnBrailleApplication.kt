@@ -45,33 +45,36 @@ class LearnBrailleApplication : Application() {
                 )
             }
 
+            factory<MaterialsRepository> {
+                val db = get<LearnBrailleDatabase>()
+                MaterialsRepositoryImpl(db.deckDao, db.cardDao, get())
+            }
+
             factory<PracticeRepository> {
                 val db = get<LearnBrailleDatabase>()
                 PracticeRepositoryImpl(
                     this@LearnBrailleApplication,
-                    db.deckDao, db.cardDao, get()
+                    db.deckDao, get(), get()
                 )
             }
             factory<MutablePracticeRepository> {
                 val db = get<LearnBrailleDatabase>()
                 PracticeRepositoryImpl(
                     this@LearnBrailleApplication,
-                    db.deckDao, db.cardDao, get()
+                    db.deckDao, get(), get()
                 )
             }
 
             factory<BrowserRepository> {
-                val db = get<LearnBrailleDatabase>()
                 BrowserRepositoryImpl(
                     this@LearnBrailleApplication,
-                    get(), db.deckDao, db.cardDao
+                    get(), get()
                 )
             }
             factory<MutableBrowserRepository> {
-                val db = get<LearnBrailleDatabase>()
                 BrowserRepositoryImpl(
                     this@LearnBrailleApplication,
-                    get(), db.deckDao, db.cardDao
+                    get(), get()
                 )
             }
 
@@ -96,7 +99,7 @@ class LearnBrailleApplication : Application() {
 
             factory { (getEnteredDots: () -> BrailleDots) ->
                 CardViewModelFactory(
-                    get(), get(),
+                    get(), get(), get(),
                     this@LearnBrailleApplication,
                     getEnteredDots
                 )

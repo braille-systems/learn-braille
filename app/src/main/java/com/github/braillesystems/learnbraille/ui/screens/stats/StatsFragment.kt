@@ -43,7 +43,7 @@ class StatsFragment : AbstractFragmentWithHelp(R.string.stats_help) {
         scope(job).launch {
             val statsList = listOf(stats_week to 7, stats_month to 30)
             for (statsData in statsList) {
-                val actions: Actions = actionsRepository.getActionsFrom(Days(statsData.second))
+                val actions: Actions = actionsRepository.actionsFrom(Days(statsData.second))
                 val cardsMastered =
                     actions.count { it.type is PracticeSubmission && it.type.isCorrect }
                 val hintsUsed = actions.count { it.type is PracticeHintAction }

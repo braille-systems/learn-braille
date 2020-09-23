@@ -19,7 +19,7 @@ interface CourseDao {
     suspend fun insert(courses: List<Course>)
 
     @Query("select * from courses where id = :id")
-    suspend fun getCourse(id: DBid): Course?
+    suspend fun course(id: DBid): Course?
 
     @Query("delete from courses")
     suspend fun clear()

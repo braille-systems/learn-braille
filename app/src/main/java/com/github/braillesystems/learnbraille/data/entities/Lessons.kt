@@ -27,7 +27,7 @@ interface LessonDao {
         order by id
         """
     )
-    suspend fun getAllCourseLessons(courseId: DBid): List<Lesson>
+    suspend fun allCourseLessons(courseId: DBid): List<Lesson>
 
     @Query("delete from lessons")
     suspend fun clear()

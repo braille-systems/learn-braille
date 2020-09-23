@@ -41,8 +41,8 @@ class LessonsListFragment : Fragment() {
         title = getString(R.string.lessons_title_lessons_list)
 
         lifecycleScope.launch {
-            val curr = theoryRepository.getCurrentStep(COURSE.id)
-            val lessons = theoryRepository.getAllCourseLessons(COURSE.id)
+            val curr = theoryRepository.currentStep(COURSE.id)
+            val lessons = theoryRepository.allCourseLessons(COURSE.id)
             val activeListener = object : LessonItemListener {
                 override fun onClick(item: Lesson) = toLastLessonStep(COURSE.id, item.id)
             }

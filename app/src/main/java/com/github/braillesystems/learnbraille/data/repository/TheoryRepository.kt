@@ -7,17 +7,19 @@ import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.launch
 
 interface TheoryRepository {
-    suspend fun getCurrentStep(courseId: DBid): Step
-    suspend fun getLastCourseStep(courseId: DBid): Step
-    suspend fun getAllCourseLessons(courseId: DBid): List<Lesson>
+    suspend fun currentStep(courseId: DBid): Step
+    suspend fun lastCourseStep(courseId: DBid): Step
+    suspend fun allCourseLessons(courseId: DBid): List<Lesson>
 }
 
 interface MutableTheoryRepository : TheoryRepository {
-    suspend fun getNextStepAndUpdate(thisStep: Step, markThisAsPassed: Boolean = false): Step?
-    suspend fun getPrevStepAndUpdate(thisStep: Step): Step?
-    suspend fun getCurrentStepAndUpdate(courseId: DBid): Step
-    suspend fun getLastLessonOrCurrentStepAndUpdate(courseId: DBid, lessonId: DBid): Step
+    suspend fun nextStepAndMove(thisStep: Step, markThisAsPassed: Boolean = false): Step?
+    suspend fun prevStepAndMove(thisStep: Step): Step?
+    suspend fun currentStepAndMove(courseId: DBid): Step
+    suspend fun lastLessonOrCurrentStepAndMove(courseId: DBid, lessonId: DBid): Step
 }
+
+// TODO refactor theory repo and navigation
 
 class TheoryRepositoryImpl(
     private val lessonDao: LessonDao,
@@ -37,16 +39,15 @@ class TheoryRepositoryImpl(
         )
 
     @Suppress("ReturnCount")
-    override suspend fun getNextStepAndUpdate(thisStep: Step, markThisAsPassed: Boolean): Step? {
+    override suspend fun nextStepAndMove(thisStep: Step, markThisAsPassed: Boolean): Step? {
         val next = stepDao
-            .getNextStep(
+            .nextStep(
                 thisStep.courseId, thisStep.lessonId, thisStep.id,
                 proscribedAnnotations
             )
             ?: return null
-        val curr = requireNotNull(
-            stepDao.getCurrentStep(preferenceRepository.currentUserId, thisStep.courseId)
-        )
+        val curr = stepDao
+            .currentStep(preferenceRepository.currentUserId, thisStep.courseId)!!
 
         val updateAndReturn = {
             updateLast(next)
@@ -70,9 +71,9 @@ class TheoryRepositoryImpl(
         return updateAndReturn()
     }
 
-    override suspend fun getPrevStepAndUpdate(thisStep: Step): Step? =
+    override suspend fun prevStepAndMove(thisStep: Step): Step? =
         stepDao
-            .getPrevStep(
+            .prevStep(
                 thisStep.courseId,
                 thisStep.lessonId,
                 thisStep.id,
@@ -80,37 +81,37 @@ class TheoryRepositoryImpl(
             )
             ?.also { updateLast(it) }
 
-    override suspend fun getCurrentStepAndUpdate(courseId: DBid): Step =
-        getCurrentStep(courseId).also { updateLast(it) }
+    override suspend fun currentStepAndMove(courseId: DBid): Step =
+        currentStep(courseId).also { updateLast(it) }
 
     /**
      * LessonId is supposed to exist for this courseId.
      */
-    override suspend fun getLastLessonOrCurrentStepAndUpdate(courseId: DBid, lessonId: DBid): Step =
+    override suspend fun lastLessonOrCurrentStepAndMove(courseId: DBid, lessonId: DBid): Step =
         stepDao
-            .getLastStep(preferenceRepository.currentUserId, courseId, lessonId)
+            .lastStep(preferenceRepository.currentUserId, courseId, lessonId)
             ?.also { updateLast(it) }
             ?: error(
                 "No such lessonId ($lessonId) exists for course ($courseId) " +
                         "or current step is behind lesson with such lessonId"
             )
 
-    override suspend fun getCurrentStep(courseId: DBid): Step =
+    override suspend fun currentStep(courseId: DBid): Step =
         stepDao
-            .getCurrentStep(preferenceRepository.currentUserId, courseId)
+            .currentStep(preferenceRepository.currentUserId, courseId)
             ?: initCoursePos(courseId)
 
-    override suspend fun getLastCourseStep(courseId: DBid): Step =
+    override suspend fun lastCourseStep(courseId: DBid): Step =
         stepDao
-            .getLastStep(preferenceRepository.currentUserId, courseId)
+            .lastStep(preferenceRepository.currentUserId, courseId)
             ?: initCoursePos(courseId)
 
-    override suspend fun getAllCourseLessons(courseId: DBid): List<Lesson> =
-        lessonDao.getAllCourseLessons(courseId)
+    override suspend fun allCourseLessons(courseId: DBid): List<Lesson> =
+        lessonDao.allCourseLessons(courseId)
 
     private suspend fun initCoursePos(courseId: DBid): Step =
         stepDao
-            .getFirstCourseStep(courseId)
+            .firstCourseStep(courseId)
             ?.also { first ->
                 updateLast(first)
                 currentStepDao.update(

@@ -41,7 +41,7 @@ class BrowserFragment : AbstractFragmentWithHelp(R.string.browser_help) {
 
         lifecycleScope.launch {
             val deckId = browserRepository.currentDeckId
-            val materials = browserRepository.getAllMaterialsFromDeck(deckId)
+            val materials = browserRepository.allMaterialsFromDeck(deckId)
             val listener = object : BrowserItemListener {
                 override fun onClick(item: Material) {
                     val arg = stringify(Material.serializer(), item)
