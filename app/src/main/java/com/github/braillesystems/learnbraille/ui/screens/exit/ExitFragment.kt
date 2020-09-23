@@ -1,6 +1,5 @@
 package com.github.braillesystems.learnbraille.ui.screens.exit
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.databinding.FragmentExitBinding
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
+import com.github.braillesystems.learnbraille.utils.exitToLauncher
 import com.github.braillesystems.learnbraille.utils.navigate
 import com.github.braillesystems.learnbraille.utils.title
 
@@ -29,10 +29,7 @@ class ExitFragment : Fragment() {
         checkedAnnounce(title)
 
         exitButton.setOnClickListener {
-            val homeIntent = Intent(Intent.ACTION_MAIN)
-            homeIntent.addCategory(Intent.CATEGORY_HOME)
-            homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(homeIntent)
+            exitToLauncher()
         }
 
         continueButton.setOnClickListener {
