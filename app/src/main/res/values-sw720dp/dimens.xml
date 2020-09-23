@@ -8,7 +8,6 @@
     <dimen name="braille_dots_inner_vertical_margin">25dp</dimen>
     <dimen name="braille_dots_scale_of_one_dot">2.6</dimen>
     <dimen name="braille_dots_scale_of_view">2.1</dimen>
-    <dimen name="letter_practice_scale_of_view">2.2</dimen>
 
     <dimen name="side_buttons_extended_width">90dp</dimen>
     <dimen name="side_buttons_width">75dp</dimen>
@@ -27,8 +26,7 @@
     <dimen name="lessons_dots_info_width">394dp</dimen>
     <dimen name="lessons_dots_info_height">175dp</dimen>
 
-    <dimen name="big_letter_text_size">150sp</dimen>
-    <dimen name="big_letter_caption_padding">15dp</dimen>
+    <dimen name="big_letter_text_size">330sp</dimen>
 
     <dimen name="big_buttons_border_radius">30dp</dimen>
 
