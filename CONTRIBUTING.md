@@ -24,3 +24,32 @@ There are handy DSL that allows write content in the typesafe way.
 
 - All app content should be placed into `com.github.braillesystems.learnbraille.res` package.
 - Use `DslTest.kt` file as DSL tutorial.
+
+Information correctness should be checked in compile time or in app initialization runtime as much as possible. If some additional info is need, do not hardcode it. Just make request to the new DSL feature via github issues.
+
+Adding rules, prevent lambda of capturing context that will be invalid next time fragment entered, so use `Fragment.getString` outside of lambdas.
+
+#### Adding course
+
+1. Create lessons by `lessons` delegate.
+2. Create course in `CourseBuilder` and add lessons to it.
+
+Always use `com.github.braillesystems.learnbraille.res.content` value to get materials, they are indexed here in proper way.
+
+#### Adding deck
+
+1. Add new deck tag to `DeckTags`.
+2. Map tag to deck's predicate in `DecksBuilder`.
+3. Map deck's tag to user-visible string in `deckTagToName`.
+
+#### Adding materials
+
+1. Create materials by one of delegates: `markers` or `symbols`.
+2. Add created materials to the `contens` (`materials` delegate).
+3. Add to `inputSymbolPrintRules` and `showSymbolPrintRules`, or to `inputMarkerPrintRules` and `showMarkerPrintRules`.
+
+New materials can be marked as known by default in `knownMaterials` (`known` delegate).
+
+## Database
+
+Database scheme is described [here](https://github.com/braille-systems/learn-braille/blob/master/database.md).
