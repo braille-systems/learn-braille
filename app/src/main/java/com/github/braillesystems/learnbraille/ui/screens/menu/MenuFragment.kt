@@ -3,7 +3,6 @@ package com.github.braillesystems.learnbraille.ui.screens.menu
 import android.app.Activity.RESULT_OK
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -122,19 +121,6 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            recordAudioPermissionCode -> if (grantResults.first() != PackageManager.PERMISSION_GRANTED) {
-                toast(getString(R.string.voice_record_denial))
-            }
-        }
-    }
-
     private fun interruptingOnClickListener(block: (View) -> Unit) =
         View.OnClickListener {
             if (db.isInitialized) block(it)
@@ -175,6 +161,5 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     companion object {
         private const val qrRequestCode = 0
-        private const val recordAudioPermissionCode = 29
     }
 }
