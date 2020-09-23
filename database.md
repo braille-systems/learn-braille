@@ -1,12 +1,8 @@
 # Database
 
-![LBDB](https://user-images.githubusercontent.com/25281147/81498004-5a5cb000-92d3-11ea-9c53-7246ef9d0176.png)
-
-
-Update: `Deck` does not have description.
-
-
 By `dbdiagram.io`:
+
+![LBDB](https://user-images.githubusercontent.com/25281147/81498004-5a5cb000-92d3-11ea-9c53-7246ef9d0176.png)
 
 ```
 // All fields [not null] by default
@@ -95,3 +91,5 @@ Table cards {
   material_id long [pk, ref: > materials.id]
 }
 ```
+
+Update: `decks` does not have description.
