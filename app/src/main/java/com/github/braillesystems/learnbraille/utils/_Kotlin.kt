@@ -57,6 +57,8 @@ fun <T, R> Rules<T, R>.match(key: T): R? = matchF(key)?.invoke(key)
 
 operator fun <T, R> Rules<T, R>.get(x: T): R? = match(x)
 
+fun <T, R> Rules<T, R>.getValue(x: T): R = match(x) ?: error("No rule match value")
+
 /**
  * It is very useful to choose android text resource depending on some condition.
  * (In that case prevent lambda of capturing context that will be invalid next time fragment entered,

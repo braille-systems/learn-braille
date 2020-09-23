@@ -15,10 +15,13 @@ import com.github.braillesystems.learnbraille.data.repository.PreferenceReposito
 import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.deckTagToName
 import com.github.braillesystems.learnbraille.res.inputMarkerPrintRules
-import com.github.braillesystems.learnbraille.ui.*
+import com.github.braillesystems.learnbraille.res.inputSymbolPrintRules
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainerSignalHandler
 import com.github.braillesystems.learnbraille.ui.screens.*
+import com.github.braillesystems.learnbraille.ui.showCorrectToast
+import com.github.braillesystems.learnbraille.ui.showHintToast
+import com.github.braillesystems.learnbraille.ui.showIncorrectToast
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
 import com.github.braillesystems.learnbraille.ui.views.brailleDots
 import com.github.braillesystems.learnbraille.ui.views.dotsState
@@ -86,7 +89,9 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         viewModel = ViewModelProvider(
             this, viewModelFactory
         ).get(CardViewModel::class.java)
+
         buzzer = activity?.getSystemService()
+
         BrailleTrainer.setSignalHandler(object : BrailleTrainerSignalHandler {
             override fun onJoystickRight() = viewModel.onCheck()
             override fun onJoystickLeft() = viewModel.onHint()
@@ -103,7 +108,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
                 is Symbol -> {
                     binding.letter.visibility = View.VISIBLE
                     binding.markerDescription.visibility = View.GONE
-                    binding.letter.text = it.char.toString()
+                    binding.letter.letter = it.char
                 }
                 is MarkerSymbol -> {
                     binding.letter.visibility = View.GONE
@@ -123,10 +128,11 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner, dotsState, buzzer
         ) {
             viewModel.symbol.value?.let { symbol ->
-                when (symbol) {
-                    is Symbol -> showIncorrectToast(symbol.char)
-                    is MarkerSymbol -> showIncorrectToast()
+                val hint = when (symbol) {
+                    is Symbol -> contextNotNull.inputSymbolPrintRules.getValue(symbol.char)
+                    is MarkerSymbol -> contextNotNull.inputMarkerPrintRules.getValue(symbol.type)
                 }
+                showIncorrectToast(hint)
             } ?: checkedToast(getString(R.string.input_loading))
             updateTitle(title)
         }
@@ -176,7 +182,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
 
     private fun announceIntro(symbol: String) {
         require(symbol.length == 1)
-        val intro = printStringNotNullLogged(symbol.first(), PrintMode.INPUT)
+        val intro = contextNotNull.inputSymbolPrintRules.getValue(symbol.first())
         checkedAnnounce(intro)
     }
 

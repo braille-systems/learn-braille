@@ -13,7 +13,7 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.Input
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputSymbolBinding
-import com.github.braillesystems.learnbraille.ui.*
+import com.github.braillesystems.learnbraille.res.inputSymbolPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.observeCheckedOnFly
 import com.github.braillesystems.learnbraille.ui.screens.observeEventHint
 import com.github.braillesystems.learnbraille.ui.screens.observeEventIncorrect
@@ -21,11 +21,11 @@ import com.github.braillesystems.learnbraille.ui.screens.observeEventPassHint
 import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
+import com.github.braillesystems.learnbraille.ui.showCorrectToast
+import com.github.braillesystems.learnbraille.ui.showHintToast
+import com.github.braillesystems.learnbraille.ui.showIncorrectToast
 import com.github.braillesystems.learnbraille.ui.views.*
-import com.github.braillesystems.learnbraille.utils.announce
-import com.github.braillesystems.learnbraille.utils.application
-import com.github.braillesystems.learnbraille.utils.checkedAnnounce
-import com.github.braillesystems.learnbraille.utils.checkedBuzz
+import com.github.braillesystems.learnbraille.utils.*
 import timber.log.Timber
 
 class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_symbol) {
@@ -57,7 +57,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         val symbol = step.data.material.data
         letter.text = symbol.char.toString()
         brailleDots.dotsState.display(symbol.brailleDots)
-        checkedAnnounce(printStringNotNullLogged(symbol.char, PrintMode.INPUT))
+        checkedAnnounce(contextNotNull.inputSymbolPrintRules.getValue(symbol.char))
 
         updateTitle(getString(R.string.lessons_title_input_symbol))
 
@@ -100,7 +100,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
             viewLifecycleOwner, dotsState
         ) {
             val notify = {
-                showIncorrectToast(symbol.char)
+                showIncorrectToast(contextNotNull.inputSymbolPrintRules.getValue(symbol.char))
                 buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern, preferenceRepository)
             }
             if (userTouchedDots) notify()
@@ -117,7 +117,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         viewModel.observeEventPassHint(
             viewLifecycleOwner, dotsState
         ) {
-            val msg = printStringNotNullLogged(symbol.char, PrintMode.INPUT)
+            val msg = contextNotNull.inputSymbolPrintRules.getValue(symbol.char)
             announce(msg)
         }
 

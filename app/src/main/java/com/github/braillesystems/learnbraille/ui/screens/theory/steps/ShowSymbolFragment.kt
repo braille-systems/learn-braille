@@ -8,12 +8,13 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Show
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowSymbolBinding
-import com.github.braillesystems.learnbraille.ui.PrintMode
-import com.github.braillesystems.learnbraille.ui.printStringNotNullLogged
+import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
+import com.github.braillesystems.learnbraille.utils.contextNotNull
+import com.github.braillesystems.learnbraille.utils.getValue
 import timber.log.Timber
 
 class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbol) {
@@ -38,7 +39,7 @@ class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbo
         require(step.data.material.data is Symbol)
         letter.text = step.data.material.data.char.toString()
         brailleDots.dotsState.display(step.data.material.data.brailleDots)
-        checkedAnnounce(printStringNotNullLogged(step.data.material.data.char, PrintMode.SHOW))
+        checkedAnnounce(contextNotNull.showSymbolPrintRules.getValue(step.data.material.data.char))
 
         updateTitle(getString(R.string.lessons_title_show_symbol))
         setPrevButton(prevButton)
