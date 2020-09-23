@@ -1,5 +1,6 @@
 package com.github.braillesystems.learnbraille.ui.screens.practice
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +44,7 @@ class DecksListFragment : Fragment() {
 
         lifecycleScope.launch {
             val decks = practiceRepository.allDecksWithAvailability()
+            val currDeck = practiceRepository.currentDeck()
             val listener = object : DecksItemListener {
                 override fun onClick(item: DeckWithAvailability) =
                     if (item.containsCards) {
@@ -58,6 +60,11 @@ class DecksListFragment : Fragment() {
             decksList.adapter = DecksListAdapter(decks) { item ->
                 this.item = item
                 deckName.text = deckTagToName.getValue(item.deck.tag)
+                deckName.setTypeface(
+                    deckName.typeface,
+                    if (item.deck == currDeck) Typeface.BOLD
+                    else Typeface.NORMAL
+                )
                 clickListener = listener
                 if (item.containsCards) {
                     deckName.setTextColor(
