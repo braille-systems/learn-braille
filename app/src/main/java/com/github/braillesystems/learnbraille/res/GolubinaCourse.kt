@@ -1302,7 +1302,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите цифровой знак, запятую, дефис и точку"""
         )
         +Input(content.markers.getValue(MarkerType.NumberSign))
-        inputChars(",-.")
+        inputChars(",—.")
         +Info(
             """
                     Переходим к изучению точечного состава буквы Ы.
