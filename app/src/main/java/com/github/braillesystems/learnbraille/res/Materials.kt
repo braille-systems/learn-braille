@@ -343,6 +343,7 @@ val Context.showMarkerPrintRules by rules<Context, MarkerType, String>(
 )
 
 private val ruSymbols by symbols(SymbolType.ru) {
+    // UTF-16: 0410-042F
     symbol(char = 'А', brailleDots = BrailleDots(F, E, E, E, E, E))
     symbol(char = 'Б', brailleDots = BrailleDots(F, F, E, E, E, E))
     symbol(char = 'В', brailleDots = BrailleDots(E, F, E, F, F, F))
@@ -404,6 +405,8 @@ private val mathSigns by symbols(SymbolType.math) {
 }
 
 private val uebDigits by symbols(SymbolType.digit) {
+    // UTF-16: 0030-0039
+    symbol(char = '0', brailleDots = BrailleDots(E, F, E, F, F, E))
     symbol(char = '1', brailleDots = BrailleDots(F, E, E, E, E, E))
     symbol(char = '2', brailleDots = BrailleDots(F, F, E, E, E, E))
     symbol(char = '3', brailleDots = BrailleDots(F, E, E, F, E, E))
@@ -413,10 +416,10 @@ private val uebDigits by symbols(SymbolType.digit) {
     symbol(char = '7', brailleDots = BrailleDots(F, F, E, F, F, E))
     symbol(char = '8', brailleDots = BrailleDots(F, F, E, E, F, E))
     symbol(char = '9', brailleDots = BrailleDots(E, F, E, F, E, E))
-    symbol(char = '0', brailleDots = BrailleDots(E, F, E, F, F, E))
 }
 
 private val latinLetters by symbols(SymbolType.latin) {
+    // UTF-16: 0041-005A
     symbol(char = 'A', brailleDots = BrailleDots(F, E, E, E, E, E))
     symbol(char = 'B', brailleDots = BrailleDots(F, F, E, E, E, E))
     symbol(char = 'C', brailleDots = BrailleDots(F, E, E, F, E, E))
@@ -446,8 +449,9 @@ private val latinLetters by symbols(SymbolType.latin) {
 }
 
 private val greekLetters by symbols(SymbolType.greek) {
-    // Note: A - Alpha (Unicode char 0399); A - English (0041); А - Russian
+    // Note: A - Alpha (Unicode char 0391); A - English (0041); А - Russian (0410)
     // You may check the code by copying and pasting at https://r12a.github.io/app-conversion/
+    // Capital greek letters in UTF-16: 0391-03A9
     symbol(char = 'Α', brailleDots = BrailleDots(F, E, E, E, E, E))
     symbol(char = 'Β', brailleDots = BrailleDots(F, F, E, E, E, E))
     symbol(char = 'Γ', brailleDots = BrailleDots(F, F, E, F, F, E))
