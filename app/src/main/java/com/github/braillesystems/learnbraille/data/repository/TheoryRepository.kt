@@ -19,8 +19,6 @@ interface MutableTheoryRepository : TheoryRepository {
     suspend fun lastLessonOrCurrentStepAndMove(courseId: DBid, lessonId: DBid): Step
 }
 
-// TODO refactor theory repo and navigation
-
 class TheoryRepositoryImpl(
     private val lessonDao: LessonDao,
     private val stepDao: StepDao,

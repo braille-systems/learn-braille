@@ -1,6 +1,7 @@
 package com.github.braillesystems.learnbraille.res
 
 import android.content.Context
+import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.dsl.known
 import com.github.braillesystems.learnbraille.data.dsl.markers
@@ -9,6 +10,7 @@ import com.github.braillesystems.learnbraille.data.dsl.symbols
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
+import com.github.braillesystems.learnbraille.utils.contextNotNull
 import com.github.braillesystems.learnbraille.utils.rules
 import kotlinx.serialization.Serializable
 
@@ -48,6 +50,11 @@ val knownMaterials by known(
  * Prevent lambda of capturing context that will be invalid next time fragment entered,
  * so use `Fragment.getString` outside of lambdas.
  */
+
+val Fragment.inputSymbolPrintRules get() = contextNotNull.inputSymbolPrintRules
+val Fragment.showSymbolPrintRules get() = contextNotNull.showSymbolPrintRules
+val Fragment.inputMarkerPrintRules get() = contextNotNull.inputMarkerPrintRules
+val Fragment.showMarkerPrintRules get() = contextNotNull.showMarkerPrintRules
 
 val Context.inputSymbolPrintRules by rules<Context, Char, String>(
     {

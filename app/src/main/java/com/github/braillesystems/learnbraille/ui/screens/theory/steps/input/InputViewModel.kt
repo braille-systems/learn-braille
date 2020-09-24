@@ -1,4 +1,4 @@
-package com.github.braillesystems.learnbraille.ui.screens.theory.steps
+package com.github.braillesystems.learnbraille.ui.screens.theory.steps.input
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

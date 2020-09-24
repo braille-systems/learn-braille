@@ -63,6 +63,7 @@ class StatsFragment : AbstractFragmentWithHelp(R.string.stats_help) {
                 }
             }
         }
+
     }.root
 
     override fun onDestroy() = super.onDestroy().also { job.cancel() }

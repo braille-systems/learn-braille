@@ -8,9 +8,11 @@ import kotlin.reflect.KProperty
  * that are not specific for particular project.
  */
 
-inline fun <T, R> T?.side(block: (T) -> R) {
+inline fun <T> T?.side(block: (T) -> Unit) {
     if (this != null) block(this)
 }
+
+fun <T, R> T.turn(f: (T) -> R): R = f(this)
 
 /**
  * Try to use sealed classes to avoid using `unreachable`.

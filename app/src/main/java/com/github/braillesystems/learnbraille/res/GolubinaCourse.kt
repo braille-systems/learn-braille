@@ -37,60 +37,60 @@ internal val golubinaIntroLessons by lessons {
         +ShowDots(
             text = "Перед Вами символ Брайля - <br>" +
                     " точка номер один",
-            dots = BrailleDots(F, E, E, E, E, E)
+            brailleDots = BrailleDots(F, E, E, E, E, E)
         )
         +InputDots(
             text = "Введите точку один",
-            dots = BrailleDots(F, E, E, E, E, E)
+            brailleDots = BrailleDots(F, E, E, E, E, E)
         )
         +ShowDots(
             text = "Точка номер два",
-            dots = BrailleDots(E, F, E, E, E, E)
+            brailleDots = BrailleDots(E, F, E, E, E, E)
         )
         +InputDots(
             text = "Введите точку два",
-            dots = BrailleDots(E, F, E, E, E, E)
+            brailleDots = BrailleDots(E, F, E, E, E, E)
         )
         +ShowDots(
             text = "Комбинация точек 1 и 2",
-            dots = BrailleDots(F, F, E, E, E, E)
+            brailleDots = BrailleDots(F, F, E, E, E, E)
         )
         +InputDots(
             text = "Введите комбинацию: точки 1 и 2",
-            dots = BrailleDots(F, F, E, E, E, E)
+            brailleDots = BrailleDots(F, F, E, E, E, E)
         )
         +InputDots(
             text = "Введите комбинацию точек 1 и 3",
-            dots = BrailleDots(F, E, F, E, E, E)
+            brailleDots = BrailleDots(F, E, F, E, E, E)
         )
         +InputDots(
             text = "Введите комбинацию точек 1, 3 и 4",
-            dots = BrailleDots(F, E, F, F, E, E)
+            brailleDots = BrailleDots(F, E, F, F, E, E)
         )
         +InputDots(
             // repeat = 3
             text = "Введите комбинацию точек 1, 3 и 6",
-            dots = BrailleDots(F, E, F, E, E, F)
+            brailleDots = BrailleDots(F, E, F, E, E, F)
         )
         +InputDots(
             // repeat = 3
             text = "Введите комбинацию точек 1, 5 и 6",
-            dots = BrailleDots(F, E, E, E, F, F)
+            brailleDots = BrailleDots(F, E, E, E, F, F)
         )
         +InputDots(
             // repeat = 3
             text = "Введите комбинацию точек 2, 3, 4 и 5",
-            dots = BrailleDots(E, F, F, F, F, E)
+            brailleDots = BrailleDots(E, F, F, F, F, E)
         )
         +ShowDots(
             text = "Перед Вами полное шеститочие: <br>" +
                     "точки 1, 2, 3, 4, 5, 6",
-            dots = BrailleDots(F, F, F, F, F, F)
+            brailleDots = BrailleDots(F, F, F, F, F, F)
         )
         +InputDots(
             // repeat = 3
             text = "Введите все шесть точек",
-            dots = BrailleDots(F, F, F, F, F, F)
+            brailleDots = BrailleDots(F, F, F, F, F, F)
         )
         +Info(
             """Откройте букварь на странице 12. 

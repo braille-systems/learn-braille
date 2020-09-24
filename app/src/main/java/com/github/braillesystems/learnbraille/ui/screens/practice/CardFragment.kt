@@ -2,7 +2,6 @@ package com.github.braillesystems.learnbraille.ui.screens.practice
 
 import android.os.Bundle
 import android.os.Vibrator
-import android.util.TypedValue
 import android.view.*
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
@@ -15,9 +14,9 @@ import com.github.braillesystems.learnbraille.data.repository.PreferenceReposito
 import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.deckTagToName
 import com.github.braillesystems.learnbraille.res.inputMarkerPrintRules
-import com.github.braillesystems.learnbraille.res.inputSymbolPrintRules
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainerSignalHandler
+import com.github.braillesystems.learnbraille.ui.inputPrint
 import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.showCorrectToast
 import com.github.braillesystems.learnbraille.ui.showHintToast
@@ -35,18 +34,10 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
 
     private val preferenceRepository: PreferenceRepository by inject()
 
-    private lateinit var viewModel: CardViewModel
+    // This value can change during ViewModel lifetime (ViewModelProvider does not call
+    // ViewModelFactory each time onCreateView runs). And once created ViewModel
+    // should be able to use up to date dotsState.
     private lateinit var dotsState: BrailleDotsState
-    private var buzzer: Vibrator? = null
-
-    private val title: String
-        get() = getString(R.string.practice_actionbar_title_template).let {
-            if (::viewModel.isInitialized) it.format(
-                viewModel.nCorrect,
-                viewModel.nTries
-            )
-            else it.format(0, 0)
-        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,36 +52,31 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
 
         Timber.i("onCreateView")
 
-        updateTitle(title)
+        title = title()
         setHasOptionsMenu(true)
 
         if (preferenceRepository.extendedAccessibilityEnabled) {
-            binding.hintButton.setSize(
-                width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
-            )
-            binding.nextButton.setSize(
-                width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
-            )
-            binding.markerDescription.setTextSize(
-                TypedValue.COMPLEX_UNIT_SP,
-                application.extendedTextSize
+            applyExtendedAccessibility(
+                leftButton = binding.hintButton,
+                rightButton = binding.nextButton,
+                textView = binding.markerDescription
             )
         }
 
-        dotsState = binding.brailleDots.dotsState.apply {
-            subscribe(View.OnClickListener {
-                viewModel.onSoftCheck()
-            })
-        }
+        dotsState = binding.brailleDots.dotsState
 
         val viewModelFactory: CardViewModelFactory by inject {
             parametersOf({ dotsState.brailleDots })
         }
-        viewModel = ViewModelProvider(
-            this, viewModelFactory
-        ).get(CardViewModel::class.java)
+        val viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(CardViewModel::class.java)
 
-        buzzer = activity?.getSystemService()
+        dotsState.subscribe(View.OnClickListener {
+            viewModel.onSoftCheck()
+        })
+
+
+        val buzzer: Vibrator? = activity?.getSystemService()
 
         BrailleTrainer.setSignalHandler(object : BrailleTrainerSignalHandler {
             override fun onJoystickRight() = viewModel.onCheck()
@@ -113,28 +99,24 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
                 is MarkerSymbol -> {
                     binding.letter.visibility = View.GONE
                     binding.markerDescription.visibility = View.VISIBLE
-                    binding.markerDescription.text = contextNotNull.inputMarkerPrintRules[it.type]
+                    binding.markerDescription.text = inputMarkerPrintRules[it.type]
                 }
             }
         })
 
         viewModel.observeCheckedOnFly(
             viewLifecycleOwner, dotsState, buzzer,
-            block = { updateTitle(title) },
+            block = { title = title(viewModel) },
             softBlock = ::showCorrectToast
         )
 
         viewModel.observeEventIncorrect(
             viewLifecycleOwner, dotsState, buzzer
         ) {
-            viewModel.symbol.value?.let { symbol ->
-                val hint = when (symbol) {
-                    is Symbol -> contextNotNull.inputSymbolPrintRules.getValue(symbol.char)
-                    is MarkerSymbol -> contextNotNull.inputMarkerPrintRules.getValue(symbol.type)
-                }
-                showIncorrectToast(hint)
-            } ?: checkedToast(getString(R.string.input_loading))
-            updateTitle(title)
+            viewModel.symbol.value
+                ?.let { showIncorrectToast(inputPrint(it)) }
+                ?: checkedToast(getString(R.string.input_loading))
+            title = title(viewModel)
         }
 
         viewModel.observeEventHint(
@@ -147,10 +129,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner, dotsState
         ) {
             viewModel.symbol.value?.let {
-                when (it) {
-                    is Symbol -> announceIntro(it.char.toString())
-                    is MarkerSymbol -> checkedAnnounce(contextNotNull.inputMarkerPrintRules[it.type]!!)
-                }
+                checkedAnnounce(inputPrint(it))
             }
         }
 
@@ -158,10 +137,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             viewLifecycleOwner,
             Observer {
                 if (it == null) return@Observer
-                when (it) {
-                    is Symbol -> announceIntro(it.char.toString())
-                    is MarkerSymbol -> checkedAnnounce(contextNotNull.inputMarkerPrintRules[it.type]!!)
-                }
+                checkedAnnounce(inputPrint(it))
             }
         )
 
@@ -180,11 +156,11 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
 
     }.root
 
-    private fun announceIntro(symbol: String) {
-        require(symbol.length == 1)
-        val intro = contextNotNull.inputSymbolPrintRules.getValue(symbol.first())
-        checkedAnnounce(intro)
-    }
+    private fun title(viewModel: CardViewModel? = null): String =
+        getString(R.string.practice_actionbar_title_template).run {
+            if (viewModel == null) format(0, 0)
+            else format(viewModel.nCorrect, viewModel.nTries)
+        }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.card_menu, menu)

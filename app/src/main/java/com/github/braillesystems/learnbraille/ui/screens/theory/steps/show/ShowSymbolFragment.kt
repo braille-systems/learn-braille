@@ -1,21 +1,21 @@
-package com.github.braillesystems.learnbraille.ui.screens.theory.steps
+package com.github.braillesystems.learnbraille.ui.screens.theory.steps.show
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Show
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowSymbolBinding
 import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
-import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
+import com.github.braillesystems.learnbraille.ui.screens.theory.steps.AbstractStepFragment
+import com.github.braillesystems.learnbraille.ui.screens.theory.steps.StepBinding
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
-import com.github.braillesystems.learnbraille.utils.contextNotNull
 import com.github.braillesystems.learnbraille.utils.getValue
-import timber.log.Timber
 
 class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbol) {
 
@@ -28,22 +28,24 @@ class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbo
         R.layout.fragment_lessons_show_symbol,
         container,
         false
+    ).init(
+        titleId = R.string.lessons_title_show_symbol,
+        binding = {
+            object : StepBinding {
+                override val prevButton: Button? = this@init.prevButton
+                override val nextButton: Button? = this@init.nextButton
+            }
+        }
     ).apply {
 
-        Timber.i("onCreateView")
+        val stepData = step.data
+        require(stepData is Show)
 
-        val step = getStepArg()
-        require(step.data is Show)
-        initialize(step, prevButton, nextButton)
-
-        require(step.data.material.data is Symbol)
-        letter.text = step.data.material.data.char.toString()
-        brailleDots.dotsState.display(step.data.material.data.brailleDots)
-        checkedAnnounce(contextNotNull.showSymbolPrintRules.getValue(step.data.material.data.char))
-
-        updateTitle(getString(R.string.lessons_title_show_symbol))
-        setPrevButton(prevButton)
-        setNextButton(nextButton)
+        val data = stepData.material.data
+        require(data is Symbol)
+        letter.letter = data.char
+        checkedAnnounce(showSymbolPrintRules.getValue(data.char))
+        brailleDots.dotsState.display(data.brailleDots)
 
     }.root
 }

@@ -83,7 +83,7 @@ class LearnBrailleDatabaseTest {
             id = 3,
             data = ShowDots(
                 text = "Перед Вами полное шеститочие",
-                dots = BrailleDots(F, F, F, F, F, F)
+                brailleDots = BrailleDots(F, F, F, F, F, F)
             ),
             lessonId = 1, courseId = 1
         ),
@@ -91,7 +91,7 @@ class LearnBrailleDatabaseTest {
             id = 4,
             data = InputDots(
                 text = "Введите все шесть точек",
-                dots = BrailleDots(F, F, F, F, F, F)
+                brailleDots = BrailleDots(F, F, F, F, F, F)
             ),
             lessonId = 2, courseId = 1
         ),

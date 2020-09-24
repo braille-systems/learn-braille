@@ -1,13 +1,14 @@
-package com.github.braillesystems.learnbraille.ui.screens.theory.steps
+package com.github.braillesystems.learnbraille.ui.screens.theory.steps.info
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.data.entities.LastInfo
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonLastInfoBinding
-import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
+import com.github.braillesystems.learnbraille.ui.screens.theory.steps.StepBinding
 
 class LastInfoFragment : AbstractInfoStepFragment(R.string.lessons_help_last_info) {
 
@@ -20,14 +21,13 @@ class LastInfoFragment : AbstractInfoStepFragment(R.string.lessons_help_last_inf
         R.layout.fragment_lesson_last_info,
         container,
         false
-    ).apply {
-
-        val step = getStepArg()
-        require(step.data is LastInfo)
-        initialize(step, prevButton, null)
-        updateTitle(getString(R.string.lessons_title_last_info))
-        setText(step.data.text, infoTextView)
-        setPrevButton(prevButton)
-
-    }.root
+    ).init(
+        titleId = R.string.lessons_title_last_info,
+        binding = {
+            object : StepBinding {
+                override val prevButton: Button? = this@init.prevButton
+                override val textView: TextView? = this@init.infoTextView
+            }
+        }
+    ).root
 }

@@ -2,7 +2,10 @@ package com.github.braillesystems.learnbraille.utils
 
 import android.content.Context
 import android.os.Vibrator
+import android.util.TypedValue
 import android.view.accessibility.AccessibilityEvent
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -72,13 +75,16 @@ fun Fragment.checkedAnnounce(
 val Fragment.actionBar: ActionBar?
     get() = (activity as AppCompatActivity).supportActionBar
 
+val Fragment.actionBarNotNull: ActionBar
+    get() = actionBar ?: error("Action bar is not supported")
+
 /**
  * Throws if action bar is not available
  */
 var Fragment.title: String
-    get() = requireNotNull(actionBar).title.toString()
+    get() = actionBarNotNull.title.toString()
     set(value) {
-        requireNotNull(actionBar).title = value
+        actionBarNotNull.title = value
     }
 
 fun Fragment.updateTitle(title: String) {
@@ -93,4 +99,22 @@ fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.parse(d, s)
 val Context.extendedTextSize: Float by lazyWithContext {
     // Size applied in runtime is different
     resources.getDimension(R.dimen.lessons_info_text_size) / 5 * 3
+}
+
+fun Fragment.applyExtendedAccessibility(
+    leftButton: Button? = null,
+    rightButton: Button? = null,
+    leftMiddleButton: Button? = null,
+    rightMiddleButton: Button? = null,
+    textView: TextView? = null
+) {
+    val width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
+    leftButton?.setSize(width = width)
+    rightButton?.setSize(width = width)
+    leftMiddleButton?.setSize(width = width)
+    rightMiddleButton?.setSize(width = width)
+    textView?.setTextSize(
+        TypedValue.COMPLEX_UNIT_SP,
+        contextNotNull.extendedTextSize
+    )
 }

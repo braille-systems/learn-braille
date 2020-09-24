@@ -65,7 +65,9 @@ data class LastInfo(
 
 
 @Serializable
-sealed class BaseInput : StepData()
+sealed class BaseInput : StepData() {
+    abstract val brailleDots: BrailleDots
+}
 
 /**
  * Step prompts the user to enter something.
@@ -73,9 +75,12 @@ sealed class BaseInput : StepData()
 @Serializable
 data class Input(
     val material: Material
-) : BaseInput()
-
-// TODO add ReflectedInput
+) : BaseInput() {
+    override val brailleDots: BrailleDots
+        get() = when (material.data) {
+            is OneBrailleSymbol -> material.data.brailleDots
+        }
+}
 
 /**
  * Step prompts the user to enter dots with specific numbers.
@@ -86,12 +91,15 @@ data class Input(
 @Serializable
 data class InputDots(
     val text: HtmlText?,
-    val dots: BrailleDots
+    @SerialName("dots") // backward compatibility
+    override val brailleDots: BrailleDots
 ) : BaseInput()
 
 
 @Serializable
-sealed class BaseShow : StepData()
+sealed class BaseShow : StepData() {
+    abstract val brailleDots: BrailleDots
+}
 
 /**
  * Step shows something.
@@ -99,9 +107,12 @@ sealed class BaseShow : StepData()
 @Serializable
 data class Show(
     val material: Material
-) : BaseShow()
-
-// TODO ReflectedShow
+) : BaseShow() {
+    override val brailleDots: BrailleDots
+        get() = when (material.data) {
+            is OneBrailleSymbol -> material.data.brailleDots
+        }
+}
 
 /**
  * Step shows Braille dots with specific numbers.
@@ -112,5 +123,6 @@ data class Show(
 @Serializable
 data class ShowDots(
     val text: HtmlText?,
-    val dots: BrailleDots
+    @SerialName("dots")
+    override val brailleDots: BrailleDots
 ) : BaseShow()
