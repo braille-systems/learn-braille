@@ -6,6 +6,7 @@ import com.github.braillesystems.learnbraille.data.dsl.lessons
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
+import com.github.braillesystems.learnbraille.res.PunctuationSigns.Hyphen
 
 internal val golubinaIntroLessons by lessons {
 
@@ -917,7 +918,7 @@ internal val golubinaIntroLessons by lessons {
                     точки буквы Ц — в верхней трети шеститочия, точки дефиса — в самой нижней.
                     """
         )
-        +Show(content.symbols.getValue('—'))
+        +Show(content.symbols.getValue(Hyphen.c))
         +Info(
             """
                    Переверните страницу в пособии. На странице 31 найдите по центру знак "дефис",
@@ -927,11 +928,11 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите по символам слово ПОЛ-ЛИМОНА"""
         )
-        inputChars("ПОЛ—ЛИМОНА")
+        inputChars("ПОЛ${Hyphen.c}ЛИМОНА")
         +Info(
             """И последнее слово, которое нужно ввести в этом уроке — местоимение ГДЕ-ЛИБО"""
         )
-        inputChars("ГДЕ—ЛИБО")
+        inputChars("ГДЕ${Hyphen.c}ЛИБО")
         +Info(
             """
                     Теперь рекомендуем Вам записать на брайлевском приборе изученные слова:
@@ -1270,7 +1271,7 @@ internal val golubinaIntroLessons by lessons {
                     В конце поставьте литературную точку.
                     """
         )
-        inputChars("ЛЕНИНГРАД—ГОРОД—ГЕРОЙ.")
+        inputChars("ЛЕНИНГРАД${Hyphen.c}ГОРОД${Hyphen.c}ГЕРОЙ.")
         +Info(
             """
                     Теперь запишите на брайлевском приборе то же самое предложение:
@@ -1302,7 +1303,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите цифровой знак, запятую, дефис и точку"""
         )
         +Input(content.markers.getValue(MarkerType.NumberSign))
-        inputChars(",—.")
+        inputChars(",${Hyphen.c}.")
         +Info(
             """
                     Переходим к изучению точечного состава буквы Ы.

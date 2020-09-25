@@ -61,12 +61,12 @@ val prepopulationData by data(
     decks {
         // All cards deck should always exist and be first in the list
         deck(DeckTags.all) { true }
+
         deck(DeckTags.allWithRus) { data ->
-            data is Symbol && data.type !in listOf(
-                SymbolType.greek,
-                SymbolType.latin
-            )
-                    || data !is Symbol
+            val isNative = data is Symbol
+                    && data.type != SymbolType.greek
+                    && data.type != SymbolType.latin
+            isNative || data !is Symbol
         }
         deck(DeckTags.ruLetters) { data ->
             data is Symbol && data.type == SymbolType.ru
@@ -86,10 +86,9 @@ val prepopulationData by data(
         deck(DeckTags.digits) { data ->
             data is Symbol && data.type == SymbolType.digit
         }
-        deck(DeckTags.math) {data ->
+        deck(DeckTags.math) { data ->
             data is Symbol && data.type == SymbolType.math
         }
-
     }
 }
 

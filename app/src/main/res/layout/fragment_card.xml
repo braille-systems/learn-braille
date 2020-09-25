@@ -17,8 +17,8 @@
         tools:context=".ui.screens.practice.CardFragment">
 
         <TextView
-            android:id="@+id/letter_caption_text_view"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/letter_caption"
+                app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/letter"
             style="@style/bigLetterCaptionStyle"/>

@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.data.repository.MutableActionsRepository
 import com.github.braillesystems.learnbraille.data.repository.MutablePracticeRepository
-import com.github.braillesystems.learnbraille.res.getCaptionTitleId
 import com.github.braillesystems.learnbraille.ui.screens.DotsChecker
 import com.github.braillesystems.learnbraille.ui.screens.MutableDotsChecker
 import com.github.braillesystems.learnbraille.utils.retryN
@@ -43,10 +42,6 @@ class CardViewModel(
 
     private val _symbol = MutableLiveData<MaterialData>()
     val symbol: LiveData<MaterialData> get() = _symbol
-
-    // not string! https://medium.com/androiddevelopers/locale-changes-and-the-androidviewmodel-antipattern-84eb677660d9
-    private val _symbolCaptionId = MutableLiveData<Int?>()
-    val symbolCaptionId: LiveData<Int?> get() = _symbolCaptionId
 
     private val _deckTag = MutableLiveData<String?>()
     val deckTag: LiveData<String?> get() = _deckTag
@@ -116,7 +111,6 @@ class CardViewModel(
 
         material.data.let {
             _symbol.value = it
-            if (it is Symbol) _symbolCaptionId.value = getCaptionTitleId(it)
             expectedDots = when (it) {
                 is Symbol -> it.brailleDots
                 is MarkerSymbol -> it.brailleDots

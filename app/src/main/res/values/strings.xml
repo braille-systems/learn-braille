@@ -112,7 +112,6 @@
     <string name="letter_caption_latin">Латинская буква</string>
     <string name="letter_caption_digit">Цифра</string>
     <string name="letter_caption_special">Специальный символ</string>
-    <string name="empty_string"></string>
 
     <!--    QR-->
 

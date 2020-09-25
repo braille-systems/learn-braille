@@ -13,6 +13,7 @@ import com.github.braillesystems.learnbraille.data.entities.MarkerSymbol
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
+import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.res.deckTagToName
 import com.github.braillesystems.learnbraille.res.inputMarkerPrintRules
 import com.github.braillesystems.learnbraille.ui.*
@@ -24,7 +25,6 @@ import com.github.braillesystems.learnbraille.ui.views.brailleDots
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.ui.views.subscribe
 import com.github.braillesystems.learnbraille.utils.*
-import kotlinx.android.synthetic.main.fragment_card.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
@@ -105,11 +105,13 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
                     binding.letter.visibility = View.VISIBLE
                     binding.markerDescription.visibility = View.GONE
                     binding.letter.text = it.char.toString()
+                    binding.letterCaption.text = captionRules.getValue(it)
                 }
                 is MarkerSymbol -> {
                     binding.letter.visibility = View.GONE
                     binding.markerDescription.visibility = View.VISIBLE
                     binding.markerDescription.text = contextNotNull.inputMarkerPrintRules[it.type]
+                    binding.letterCaption.text = ""
                 }
             }
         })
@@ -157,13 +159,6 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
                     is Symbol -> announceIntro(it.char.toString())
                     is MarkerSymbol -> checkedAnnounce(contextNotNull.inputMarkerPrintRules[it.type]!!)
                 }
-            }
-        )
-
-        viewModel.symbolCaptionId.observe(
-            viewLifecycleOwner,
-            Observer {
-                letter_caption_text_view.text = it?.let { it1 -> getString(it1) }
             }
         )
 

@@ -19,7 +19,7 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import timber.log.Timber
 
-class BrailleDotView : CheckBox {
+class BrailleDotView : androidx.appcompat.widget.AppCompatCheckBox {
 
     constructor(context: Context) : super(context)
 
