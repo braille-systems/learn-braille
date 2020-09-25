@@ -44,12 +44,12 @@ class ShowMarkerFragment : AbstractStepFragment(R.string.lessons_help_show_marke
 
         val stepData = step.data
         require(stepData is Show)
-
         val data = stepData.material.data
         require(data is MarkerSymbol)
+
         val text = showMarkerPrintRules.getValue(data.type)
-        stepBinding.textView?.text = text.parseAsHtml()
-        checkedAnnounce(text.removeHtmlMarkup())
+        infoTextView.text = text
+        checkedAnnounce(text)
         brailleDots.dotsState.display(data.brailleDots)
 
     }.root

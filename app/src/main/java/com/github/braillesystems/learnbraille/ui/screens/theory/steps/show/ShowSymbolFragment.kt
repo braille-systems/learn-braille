@@ -41,9 +41,9 @@ class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbo
 
         val stepData = step.data
         require(stepData is Show)
-
         val data = stepData.material.data
         require(data is Symbol)
+
         letter.letter = data.char
         letterCaption.text = captionRules.getValue(data)
         checkedAnnounce(showSymbolPrintRules.getValue(data.char))

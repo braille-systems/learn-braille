@@ -68,7 +68,7 @@ abstract class AbstractInputStepFragment(helpMsgId: HelpMsgId) : AbstractStepFra
             viewModel.observeEventIncorrect(
                 viewLifecycleOwner, dotsState
             ) {
-                val notify = {
+                fun notify() {
                     toastIncorrect(data)
                     buzzer.checkedBuzz(
                         preferenceRepository.incorrectBuzzPattern,

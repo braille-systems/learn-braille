@@ -309,7 +309,6 @@ val Context.inputSymbolPrintRules by rules<Context, Char, String>(
 )
 
 val Context.showSymbolPrintRules by rules<Context, Char, String>(
-
     {
         val t = getString(R.string.show_letter_intro_template)
         ruSymbols.map::containsKey to { c: Char -> t.format(c) }
