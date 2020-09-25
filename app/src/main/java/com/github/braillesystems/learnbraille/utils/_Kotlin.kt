@@ -12,7 +12,8 @@ inline fun <T> T?.side(block: (T) -> Unit) {
     if (this != null) block(this)
 }
 
-fun <T, R> T.turn(f: (T) -> R): R = f(this)
+inline fun <T> forEach(vararg xs: T, block: (T) -> Unit) = xs.forEach(block)
+inline fun <T> applyForEach(vararg xs: T, block: T.() -> Unit) = xs.forEach { it.block() }
 
 /**
  * Try to use sealed classes to avoid using `unreachable`.
