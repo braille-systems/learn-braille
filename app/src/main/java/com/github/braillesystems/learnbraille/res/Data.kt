@@ -12,7 +12,8 @@ import com.github.braillesystems.learnbraille.utils.lazyWithContext
 val prepopulationData by data(
     materials = content,
     stepAnnotationNames = listOf(
-        StepAnnotation.golubinaBookRequired
+        StepAnnotation.golubinaBookRequired,
+        StepAnnotation.slateStylusRequired
     ),
     knownMaterials = knownMaterials
 ) {
@@ -47,8 +48,20 @@ val prepopulationData by data(
         // All cards deck should always exist and be first in the list
         deck(DeckTags.all) { true }
 
+        deck(DeckTags.allWithRus) { data ->
+            val isNative = data is Symbol
+                    && data.type != SymbolType.greek
+                    && data.type != SymbolType.latin
+            isNative || data !is Symbol
+        }
         deck(DeckTags.ruLetters) { data ->
             data is Symbol && data.type == SymbolType.ru
+        }
+        deck(DeckTags.latinLetters) { data ->
+            data is Symbol && data.type == SymbolType.latin
+        }
+        deck(DeckTags.greekLetters) { data ->
+            data is Symbol && data.type == SymbolType.greek
         }
         deck(DeckTags.special) { data ->
             data is Symbol && data.type == SymbolType.special
@@ -59,29 +72,41 @@ val prepopulationData by data(
         deck(DeckTags.digits) { data ->
             data is Symbol && data.type == SymbolType.digit
         }
+        deck(DeckTags.math) { data ->
+            data is Symbol && data.type == SymbolType.math
+        }
     }
 }
 
 object StepAnnotation {
     const val golubinaBookRequired = "golubina_book_required"
+    const val slateStylusRequired = "brl_slate_stylus_required"
 }
 
 object DeckTags {
     const val all = "all"
+    const val allWithRus = "all_with_rus"
     const val ruLetters = "ru_letters"
+    const val latinLetters = "latin_letters"
+    const val greekLetters = "greek_letters"
     const val digits = "digits"
     const val markers = "markers"
     const val special = "special"
+    const val math = "math"
 }
 
 val Context.deckTagToName: Map<String, String> by lazyWithContext {
     DeckTags.run {
         mapOf(
             all to getString(R.string.deck_name_all),
+            allWithRus to getString(R.string.deck_name_all_with_ru),
             ruLetters to getString(R.string.deck_name_ru_letters),
+            latinLetters to getString(R.string.deck_name_latin_letters),
+            greekLetters to getString(R.string.deck_name_greek_letters),
             digits to getString(R.string.deck_name_digits),
             markers to getString(R.string.deck_name_markers),
-            special to getString(R.string.deck_name_punctuation)
+            special to getString(R.string.deck_name_punctuation),
+            math to getString(R.string.deck_name_math)
         )
     }
 }

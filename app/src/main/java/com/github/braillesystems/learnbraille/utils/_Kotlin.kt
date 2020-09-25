@@ -60,7 +60,7 @@ fun <T, R> Rules<T, R>.match(key: T): R? = matchF(key)?.invoke(key)
 
 operator fun <T, R> Rules<T, R>.get(x: T): R? = match(x)
 
-fun <T, R> Rules<T, R>.getValue(x: T): R = match(x) ?: error("No rule match value")
+fun <T, R> Rules<T, R>.getValue(x: T): R = match(x) ?: error("No rule match value $x")
 
 /**
  * It is very useful to choose android text resource depending on some condition.

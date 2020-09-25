@@ -10,6 +10,7 @@ import com.github.braillesystems.learnbraille.data.entities.Input
 import com.github.braillesystems.learnbraille.data.entities.StepData
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputSymbolBinding
+import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.res.inputSymbolPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.theory.steps.StepBinding
 import com.github.braillesystems.learnbraille.ui.showIncorrectToast
@@ -44,6 +45,7 @@ class InputSymbolFragment : AbstractInputStepFragment(R.string.lessons_help_inpu
         val data = stepData.material.data
         require(data is Symbol)
         letter.letter = data.char
+        letterCaption.text = captionRules.getValue(data)
         checkedAnnounce(inputSymbolPrintRules.getValue(data.char))
 
         inputViewModel = viewModel

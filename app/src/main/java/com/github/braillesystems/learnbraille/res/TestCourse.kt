@@ -36,7 +36,7 @@ internal val testLessons by lessons {
             brailleDots = BrailleDots(F, F, F, F, F, F)
         )
         +Info(
-            """Откройте букварь на странице 12. 
+            """Откройте пособие на странице 12. 
                 В верхней строке 14 раз повторён символ полного шеститочия."""
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Info(
@@ -61,7 +61,7 @@ internal val testLessons by lessons {
         )
         +Show(content.symbols.getValue('А'))
         +Info(
-            """Откройте букварь на странице 13. Вверху слева рельефно-графическое
+            """Откройте пособие на странице 13. Вверху слева рельефно-графическое
                     изображение буквы А. Рядом после полного шеститочия пять раз повторена 
                     буква А точечным шрифтом."""
         ).annotate(StepAnnotation.golubinaBookRequired)
@@ -76,12 +76,12 @@ internal val testLessons by lessons {
 
         +Show(content.symbols.getValue('Б'))
         +Info(
-            """Снова изучим страницу 13 в букваре. Под строкой с буквой А - 
+            """Снова изучим страницу 13 в пособии. Под строкой с буквой А - 
                     такая же с буквой Б."""
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Input(content.symbols.getValue('Б'))
         +Info(
-            """Ознакомьтесь с буквой Ц на странице 13 букваря. 
+            """Ознакомьтесь с буквой Ц на странице 13 пособия. 
                     Строка с буквой Ц находится под строкой с буквой Б."""
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Show(content.symbols.getValue('Ц'))

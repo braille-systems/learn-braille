@@ -12,6 +12,7 @@ import com.github.braillesystems.learnbraille.data.entities.MarkerSymbol
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
+import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.res.deckTagToName
 import com.github.braillesystems.learnbraille.res.inputMarkerPrintRules
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
@@ -95,11 +96,13 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
                     binding.letter.visibility = View.VISIBLE
                     binding.markerDescription.visibility = View.GONE
                     binding.letter.letter = it.char
+                    binding.letterCaption.text = captionRules.getValue(it)
                 }
                 is MarkerSymbol -> {
                     binding.letter.visibility = View.GONE
                     binding.markerDescription.visibility = View.VISIBLE
                     binding.markerDescription.text = inputMarkerPrintRules[it.type]
+                    binding.letterCaption.text = ""
                 }
             }
         })

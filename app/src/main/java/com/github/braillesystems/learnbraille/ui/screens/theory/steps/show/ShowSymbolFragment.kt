@@ -9,6 +9,7 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Show
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowSymbolBinding
+import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.theory.steps.AbstractStepFragment
 import com.github.braillesystems.learnbraille.ui.screens.theory.steps.StepBinding
@@ -44,6 +45,7 @@ class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbo
         val data = stepData.material.data
         require(data is Symbol)
         letter.letter = data.char
+        letterCaption.text = captionRules.getValue(data)
         checkedAnnounce(showSymbolPrintRules.getValue(data.char))
         brailleDots.dotsState.display(data.brailleDots)
 

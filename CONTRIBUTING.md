@@ -48,6 +48,8 @@ Always use `com.github.braillesystems.learnbraille.res.content` value to get mat
 2. Add created materials to the `contens` (`materials` delegate).
 3. Add to `inputSymbolPrintRules` and `showSymbolPrintRules`, or to `inputMarkerPrintRules` and `showMarkerPrintRules`.
 
+Symbols that are not from particular alphabet and does not exist on classical american keyboard should be treated as special and be added via `enum class`.
+
 New materials can be marked as known by default in `knownMaterials` (`known` delegate).
 
 ## Database

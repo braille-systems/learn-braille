@@ -209,3 +209,4 @@ private val MIGRATION_17_18 = object : Migration(17, 18), KoinComponent {
 }
 
 // TODO migration that preserves current true user's position
+// TODO materials migration

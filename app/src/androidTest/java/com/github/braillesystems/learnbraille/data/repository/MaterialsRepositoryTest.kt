@@ -164,6 +164,8 @@ class MaterialsRepositoryTest {
                     get() = unreachable
                 override val golubinaBookStepsEnabled: Boolean
                     get() = unreachable
+                override val slateStylusStepsEnabled: Boolean
+                    get() = unreachable
                 override val traverseDotsInEnumerationOrder: Boolean
                     get() = unreachable
                 override val inputOnFlyCheck: Boolean

@@ -8,10 +8,12 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.databinding.FragmentSymbolViewBinding
+import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.getFragmentStringArg
+import com.github.braillesystems.learnbraille.utils.getValue
 import com.github.braillesystems.learnbraille.utils.parse
 
 class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view_help) {
@@ -25,15 +27,16 @@ class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view
         R.layout.fragment_symbol_view,
         container,
         false
-    ).also { binding ->
+    ).apply {
 
         setHasOptionsMenu(true)
 
         val m: Material = parse(Material.serializer(), getFragmentStringArg("material"))
         require(m.data is Symbol)
 
-        binding.letter.letter = m.data.char
-        binding.brailleDots.dotsState.display(m.data.brailleDots)
+        letter.letter = m.data.char
+        letterCaption.text = captionRules.getValue(m.data)
+        brailleDots.dotsState.display(m.data.brailleDots)
 
     }.root
 }
