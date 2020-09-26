@@ -2,7 +2,7 @@ package com.github.braillesystems.learnbraille
 
 import android.app.Application
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
-import com.github.braillesystems.learnbraille.data.dsl.DevelopersCourse
+import com.github.braillesystems.learnbraille.data.dsl.UsersCourse
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.repository.*
 import com.github.braillesystems.learnbraille.ui.screens.practice.CardViewModelFactory
@@ -119,4 +119,4 @@ class LearnBrailleApplication : Application() {
 lateinit var koin: Koin
     private set
 
-val COURSE = DevelopersCourse
+val COURSE = UsersCourse(2)
