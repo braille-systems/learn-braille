@@ -29,11 +29,11 @@ internal val testLessons by lessons {
         )
         +ShowDots(
             text = "Перед Вами полное шеститочие",
-            dots = BrailleDots(F, F, F, F, F, F)
+            brailleDots = BrailleDots(F, F, F, F, F, F)
         )
         +InputDots(
             text = "Введите все шесть точек",
-            dots = BrailleDots(F, F, F, F, F, F)
+            brailleDots = BrailleDots(F, F, F, F, F, F)
         )
         +Info(
             """Откройте пособие на странице 12. 

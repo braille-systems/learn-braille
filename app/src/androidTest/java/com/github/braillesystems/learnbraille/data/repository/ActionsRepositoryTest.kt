@@ -55,6 +55,11 @@ class ActionsRepositoryTest {
 
     @Test
     fun getAll() = runBlocking {
-        assertEquals(actions.toList(), repo.getActionsFrom(Days(100)))
+        assertEquals(actions.toList(), repo.actionsFrom(Days(100)))
+    }
+
+    @Test
+    fun getSince() = runBlocking {
+        assertEquals(listOf(actions.first()), repo.actionsFrom(Days(25)))
     }
 }

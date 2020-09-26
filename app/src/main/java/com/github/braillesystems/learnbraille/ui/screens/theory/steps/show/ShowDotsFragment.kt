@@ -1,18 +1,20 @@
-package com.github.braillesystems.learnbraille.ui.screens.theory.steps
+package com.github.braillesystems.learnbraille.ui.screens.theory.steps.show
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.ShowDots
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowDotsBinding
-import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
+import com.github.braillesystems.learnbraille.ui.screens.theory.steps.AbstractStepFragment
+import com.github.braillesystems.learnbraille.ui.screens.theory.steps.StepBinding
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
-import timber.log.Timber
 
 class ShowDotsFragment : AbstractStepFragment(R.string.lessons_help_show_dots) {
 
@@ -25,26 +27,25 @@ class ShowDotsFragment : AbstractStepFragment(R.string.lessons_help_show_dots) {
         R.layout.fragment_lessons_show_dots,
         container,
         false
+    ).init(
+        titleId = R.string.lessons_title_show_dots,
+        binding = {
+            object : StepBinding {
+                override val prevButton: Button? = this@init.prevButton
+                override val nextButton: Button? = this@init.nextButton
+                override val textView: TextView? = this@init.infoTextView
+            }
+        }
     ).apply {
 
-        Timber.i("Initialize show dots fragment")
+        val data = step.data
+        require(data is ShowDots)
 
-        val step = getStepArg()
-        require(step.data is ShowDots)
-        initialize(step, prevButton, nextButton)
-
-        val infoText = step.data.text
-            ?: getString(R.string.lessons_show_dots_info_template).format(step.data.dots.spelling)
-        setText(
-            text = infoText,
-            infoTextView = infoTextView
-        )
-        checkedAnnounce(infoText)
-        brailleDots.dotsState.display(step.data.dots)
-
-        updateTitle(getString(R.string.lessons_title_show_dots))
-        setPrevButton(prevButton)
-        setNextButton(nextButton)
+        val text = data.text
+            ?: getString(R.string.lessons_show_dots_info_template).format(data.brailleDots.spelling)
+        infoTextView.text = text
+        checkedAnnounce(text)
+        brailleDots.dotsState.display(data.brailleDots)
 
     }.root
 }

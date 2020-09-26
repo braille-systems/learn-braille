@@ -12,9 +12,8 @@ import com.github.braillesystems.learnbraille.res.showMarkerPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
-import com.github.braillesystems.learnbraille.utils.contextNotNull
-import com.github.braillesystems.learnbraille.utils.get
 import com.github.braillesystems.learnbraille.utils.getFragmentStringArg
+import com.github.braillesystems.learnbraille.utils.getValue
 import com.github.braillesystems.learnbraille.utils.parse
 
 class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view_help) {
@@ -35,7 +34,7 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
         val m: Material = parse(Material.serializer(), getFragmentStringArg("material"))
         require(m.data is MarkerSymbol)
 
-        binding.infoTextView.text = contextNotNull.showMarkerPrintRules[m.data.type]
+        binding.infoTextView.text = showMarkerPrintRules.getValue(m.data.type)
         binding.brailleDots.dotsState.display(m.data.brailleDots)
 
     }.root

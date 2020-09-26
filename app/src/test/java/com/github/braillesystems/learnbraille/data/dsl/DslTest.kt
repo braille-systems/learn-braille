@@ -116,11 +116,11 @@ private val worstLessons by lessons {
         +Info("Open your book and boom your bomb").annotate("book", "bomb")
         +ShowDots(
             text = "Перед Вами полное шеститочие",
-            dots = BrailleDots(F, F, F, F, F, F)
+            brailleDots = BrailleDots(F, F, F, F, F, F)
         )
         +InputDots(
             text = "Введите все шесть точек",
-            dots = BrailleDots(F, F, F, F, F, F)
+            brailleDots = BrailleDots(F, F, F, F, F, F)
         )
         +Show(
             content.symbols.getValue(
@@ -200,14 +200,14 @@ private val steps = listOf(
         3, 2, 1,
         ShowDots(
             text = "Перед Вами полное шеститочие",
-            dots = BrailleDots(F, F, F, F, F, F)
+            brailleDots = BrailleDots(F, F, F, F, F, F)
         )
     ),
     Step(
         4, 2, 1,
         InputDots(
             text = "Введите все шесть точек",
-            dots = BrailleDots(F, F, F, F, F, F)
+            brailleDots = BrailleDots(F, F, F, F, F, F)
         )
     ),
     Step(5, 2, 1, Show(content.symbols.getValue('Z'))),

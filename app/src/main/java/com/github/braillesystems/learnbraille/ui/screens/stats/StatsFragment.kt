@@ -13,6 +13,7 @@ import com.github.braillesystems.learnbraille.data.repository.ActionsRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentStatsBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.utils.Days
+import com.github.braillesystems.learnbraille.utils.forEach
 import com.github.braillesystems.learnbraille.utils.scope
 import com.github.braillesystems.learnbraille.utils.title
 import kotlinx.android.synthetic.main.fragment_stats.*
@@ -41,28 +42,29 @@ class StatsFragment : AbstractFragmentWithHelp(R.string.stats_help) {
         setHasOptionsMenu(true)
 
         scope(job).launch {
-            val statsList = listOf(stats_week to 7, stats_month to 30)
-            for (statsData in statsList) {
-                val actions: Actions = actionsRepository.getActionsFrom(Days(statsData.second))
+            forEach(stats_week to 7, stats_month to 30) { (view, days) ->
+                val actions: Actions = actionsRepository.actionsFrom(Days(days))
+
                 val cardsMastered =
                     actions.count { it.type is PracticeSubmission && it.type.isCorrect }
                 val hintsUsed = actions.count { it.type is PracticeHintAction }
                 val totalAttempts = actions.count { it.type is PracticeSubmission }
+                view.apply {
+                    practice_mastered_cards.text = cardsMastered.toString()
+                    practice_hints.text = hintsUsed.toString()
+                    practice_total_attempts.text = totalAttempts.toString()
+                }
 
                 val theoryStepsPassed = actions.count { it.type is TheoryPassStep }
                 val theoryInputStepsPassed =
                     actions.count { it.type is TheoryPassStep && it.type.isInput }
-
-                statsData.first.apply {
-                    practice_mastered_cards.text = """$cardsMastered"""
-                    practice_hints.text = """$hintsUsed"""
-                    practice_total_attempts.text = """$totalAttempts"""
-
-                    theory_steps_passed.text = """$theoryStepsPassed"""
-                    theory_input_steps_passed.text = """$theoryInputStepsPassed"""
+                view.apply {
+                    theory_steps_passed.text = theoryStepsPassed.toString()
+                    theory_input_steps_passed.text = theoryInputStepsPassed.toString()
                 }
             }
         }
+
     }.root
 
     override fun onDestroy() = super.onDestroy().also { job.cancel() }

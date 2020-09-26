@@ -16,7 +16,6 @@ interface PreferenceRepository {
     val buzzEnabled: Boolean
     val toastsEnabled: Boolean
     val brailleTrainerEnabled: Boolean get() = false // Uncomment in android manifest when set true
-    val speechRecognitionEnabled: Boolean
     val golubinaBookStepsEnabled: Boolean
     val slateStylusStepsEnabled: Boolean
     val traverseDotsInEnumerationOrder: Boolean
@@ -56,13 +55,6 @@ class PreferenceRepositoryImpl(
         context.preferences.getBoolean(
             context.getString(R.string.preference_enable_toasts),
             true
-        )
-    }
-
-    override val speechRecognitionEnabled: Boolean by logged {
-        context.preferences.getBoolean(
-            context.getString(R.string.preference_speech_recognition_enabled),
-            false // To enable, set to `true` and uncomment permission in AndroidManifest
         )
     }
 
@@ -129,7 +121,7 @@ class PreferenceRepositoryImpl(
     }
 
     override suspend fun getCurrentUser(): User =
-        userDao.getUser(currentUserId)
+        userDao.user(currentUserId)
             ?.also { Timber.i("Current user = $it") }
             ?: error("Current user should always exist")
 }

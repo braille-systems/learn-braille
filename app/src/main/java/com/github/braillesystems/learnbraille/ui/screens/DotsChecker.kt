@@ -77,7 +77,10 @@ interface MutableDotsChecker : DotsChecker {
 }
 
 /**
- * Initialize lateinit callbacks firstly
+ * Initialize lateinit callbacks firstly.
+ *
+ * Callbacks are called before changing state,
+ * so they can access previous state (the next one is obvious).
  */
 private class DotsCheckerImpl : MutableDotsChecker {
 
@@ -125,7 +128,7 @@ private class DotsCheckerImpl : MutableDotsChecker {
     private val isCorrect: Boolean
         get() = (enteredDots == expectedDots).also {
             Timber.i(
-                if (it) "Correct: "
+                if (it) "Correct"
                 else "Incorrect: entered = $enteredDots, expected = $expectedDots"
             )
         }

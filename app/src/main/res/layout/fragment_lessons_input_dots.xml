@@ -7,7 +7,7 @@
 
         <variable
             name="inputViewModel"
-            type="com.github.braillesystems.learnbraille.ui.screens.theory.steps.InputViewModel" />
+            type="com.github.braillesystems.learnbraille.ui.screens.theory.steps.input.InputViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

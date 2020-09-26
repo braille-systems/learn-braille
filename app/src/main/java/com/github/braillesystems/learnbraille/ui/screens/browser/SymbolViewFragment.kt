@@ -27,16 +27,16 @@ class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view
         R.layout.fragment_symbol_view,
         container,
         false
-    ).also { binding ->
+    ).apply {
 
         setHasOptionsMenu(true)
 
         val m: Material = parse(Material.serializer(), getFragmentStringArg("material"))
         require(m.data is Symbol)
 
-        binding.letter.text = m.data.char.toString()
-        binding.letterCaption.text = captionRules.getValue(m.data)
-        binding.brailleDots.dotsState.display(m.data.brailleDots)
+        letter.letter = m.data.char
+        letterCaption.text = captionRules.getValue(m.data)
+        brailleDots.dotsState.display(m.data.brailleDots)
 
     }.root
 }

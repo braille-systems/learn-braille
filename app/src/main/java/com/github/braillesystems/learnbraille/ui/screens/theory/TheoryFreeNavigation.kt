@@ -49,7 +49,7 @@ fun AbstractStepFragment.toNextStep(
 ): Unit =
     if (thisStep.data is LastInfo) Timber.w("Tying to access step after last")
     else scope().launch {
-        val nextStep = theoryRepository.getNextStepAndUpdate(thisStep, markThisAsPassed)
+        val nextStep = theoryRepository.nextStepAndMove(thisStep, markThisAsPassed)
         if (nextStep != null) {
             toStep(nextStep)
         } else {
@@ -64,7 +64,7 @@ fun AbstractStepFragment.toPrevStep(
 ): Unit =
     if (thisStep.data is FirstInfo) Timber.w("Trying to access step before first")
     else scope().launch {
-        theoryRepository.getPrevStepAndUpdate(thisStep)
+        theoryRepository.prevStepAndMove(thisStep)
             ?.let(::toStep)
             ?: error("Prev step should always exist")
     }.devnull
@@ -73,7 +73,7 @@ fun AbstractStepFragment.toCurrentStep(
     courseId: Long,
     theoryRepository: MutableTheoryRepository = get()
 ): Unit = scope().launch {
-    val currStep = theoryRepository.getCurrentStepAndUpdate(courseId)
+    val currStep = theoryRepository.currentStepAndMove(courseId)
     toStep(currStep)
 }.devnull
 
@@ -81,13 +81,13 @@ fun Fragment.toLastCourseStep(
     courseId: Long,
     theoryRepository: TheoryRepository = get()
 ): Unit = scope().launch {
-    val lastStep = theoryRepository.getLastCourseStep(courseId)
+    val lastStep = theoryRepository.lastCourseStep(courseId)
     toStep(lastStep)
 }.devnull
 
 fun Fragment.toLastLessonStep(
     courseId: Long, lessonId: Long, theoryRepository: MutableTheoryRepository = get()
 ): Unit = scope().launch {
-    val lastStep = theoryRepository.getLastLessonOrCurrentStepAndUpdate(courseId, lessonId)
+    val lastStep = theoryRepository.lastLessonOrCurrentStepAndMove(courseId, lessonId)
     toStep(lastStep)
 }.devnull

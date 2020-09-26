@@ -9,18 +9,18 @@
 
         <TextView
             android:id="@+id/letter_caption"
-                app:layout_constraintEnd_toEndOf="parent"
+            style="@style/bigLetterCaptionStyle"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/letter"
-            style="@style/bigLetterCaptionStyle"/>
+            app:layout_constraintTop_toTopOf="@id/letter" />
 
         <com.github.braillesystems.learnbraille.ui.views.ShowBigLetterView
             android:id="@+id/letter"
+            style="@style/bigLetterStyle"
             app:layout_constraintBottom_toTopOf="@+id/braille_dots"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            style="@style/bigLetterStyle"
             tools:text="M" />
 
         <com.github.braillesystems.learnbraille.ui.views.BrailleDotsView

@@ -5,13 +5,15 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 @Serializable
-sealed class S
+sealed class S {
+    abstract val s: String
+}
 
 @Serializable
-data class A(val s: String) : S()
+data class A(override val s: String) : S()
 
 @Serializable
-data class B(val i: Long, val s: String) : S()
+data class B(val i: Long, override val s: String) : S()
 
 class UtilsTest {
 
@@ -30,5 +32,6 @@ class UtilsTest {
         assertEquals(s1 as A, parse(S.serializer(), stringify(S.serializer(), s1)))
         val s2: S = B(100500, "aaa")
         assertEquals(s2 as B, parse(S.serializer(), stringify(S.serializer(), s2)))
+        assertEquals("wow", s1.s)
     }
 }

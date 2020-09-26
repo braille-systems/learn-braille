@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class KotlinTest {
+class _KotlinTest {
 
     @Test
     fun pairCompareTo() {

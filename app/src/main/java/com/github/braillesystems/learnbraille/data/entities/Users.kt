@@ -23,10 +23,10 @@ interface UserDao {
     suspend fun insert(users: List<User>)
 
     @Query("select * from users where :login = login limit 1")
-    suspend fun getUser(login: UserLogin): User?
+    suspend fun user(login: UserLogin): User?
 
     @Query("select * from users where :id = id limit 1")
-    suspend fun getUser(id: DBid): User?
+    suspend fun user(id: DBid): User?
 
     @Query("delete from users")
     suspend fun clear()

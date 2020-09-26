@@ -15,10 +15,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
 
-
-/**
- * Tests data serialization first of all.
- */
 @RunWith(AndroidJUnit4::class)
 class LearnBrailleDatabaseTest {
 
@@ -87,7 +83,7 @@ class LearnBrailleDatabaseTest {
             id = 3,
             data = ShowDots(
                 text = "Перед Вами полное шеститочие",
-                dots = BrailleDots(F, F, F, F, F, F)
+                brailleDots = BrailleDots(F, F, F, F, F, F)
             ),
             lessonId = 1, courseId = 1
         ),
@@ -95,7 +91,7 @@ class LearnBrailleDatabaseTest {
             id = 4,
             data = InputDots(
                 text = "Введите все шесть точек",
-                dots = BrailleDots(F, F, F, F, F, F)
+                brailleDots = BrailleDots(F, F, F, F, F, F)
             ),
             lessonId = 2, courseId = 1
         ),
@@ -157,30 +153,30 @@ class LearnBrailleDatabaseTest {
 
     @Test
     fun testUsers() = runBlocking {
-        assertEquals("default", db.userDao.getUser(1)!!.login)
+        assertEquals("default", db.userDao.user(1)!!.login)
     }
 
     @Test
     fun testMaterials() = runBlocking {
-        val data = db.materialDao.getMaterial(1)!!.data
+        val data = db.materialDao.material(1)!!.data
         require(data is Symbol)
         assertEquals(BrailleDots(F, E, E, E, E, E), data.brailleDots)
     }
 
     @Test
     fun testDecks() = runBlocking {
-        assertEquals("Ru letters", db.deckDao.getDeck(1)!!.tag)
+        assertEquals("Ru letters", db.deckDao.deck(1)!!.tag)
     }
 
     @Test
     fun testCourses() = runBlocking {
-        assertEquals("Super course", db.courseDao.getCourse(1)!!.name)
+        assertEquals("Super course", db.courseDao.course(1)!!.name)
     }
 
     @Test
     fun testSteps() = runBlocking {
         for ((i, step) in steps.withIndex()) {
-            val fromDb = db.stepDao.getStep(i + 1L)!!
+            val fromDb = db.stepDao.step(i + 1L)!!
             assertEquals(step, fromDb)
         }
     }

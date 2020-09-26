@@ -8,9 +8,12 @@ import kotlin.reflect.KProperty
  * that are not specific for particular project.
  */
 
-inline fun <T, R> T?.side(block: (T) -> R) {
+inline fun <T> T?.side(block: (T) -> Unit) {
     if (this != null) block(this)
 }
+
+inline fun <T> forEach(vararg xs: T, block: (T) -> Unit) = xs.forEach(block)
+inline fun <T> applyForEach(vararg xs: T, block: T.() -> Unit) = xs.forEach { it.block() }
 
 /**
  * Try to use sealed classes to avoid using `unreachable`.
@@ -57,7 +60,7 @@ fun <T, R> Rules<T, R>.match(key: T): R? = matchF(key)?.invoke(key)
 
 operator fun <T, R> Rules<T, R>.get(x: T): R? = match(x)
 
-fun <T, R> Rules<T, R>.getValue(x: T): R = match(x) ?: error("No such rule for $x")
+fun <T, R> Rules<T, R>.getValue(x: T): R = match(x) ?: error("No rule match value $x")
 
 /**
  * It is very useful to choose android text resource depending on some condition.

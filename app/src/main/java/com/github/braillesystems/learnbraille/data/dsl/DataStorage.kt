@@ -33,9 +33,9 @@ class data(
 
 @DataBuilderMarker
 class DataBuilder(
-    private val _materials: MaterialsBuilder,
+    materials: MaterialsBuilder,
     private val stepAnnotationNames: List<StepAnnotationName>,
-    private val _knownMaterials: List<KnownMaterial>,
+    knownMaterials: List<KnownMaterial>,
     block: DataBuilder.() -> Unit
 ) : DataStorage {
 
@@ -43,6 +43,7 @@ class DataBuilder(
     override val users: List<User>
         get() = _users
 
+    private val _materials: MaterialsBuilder = materials
     override val materials: List<Material>
         get() = _materials.materials
 
@@ -74,6 +75,7 @@ class DataBuilder(
     override val stepsHasAnnotations: List<StepHasAnnotation>
         get() = _stepsHasAnnotations
 
+    private val _knownMaterials: List<KnownMaterial> = knownMaterials
     override val knownMaterials: List<KnownMaterial> by lazy {
         _knownMaterials.map { it.copy(userId = 1) }
     }

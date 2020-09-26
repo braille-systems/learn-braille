@@ -48,45 +48,48 @@ internal val golubinaIntroLessons by lessons {
         })
         +ShowDots(
             text = "Перед Вами полное шеститочие: <br> точки 1, 2, 3, 4, 5, 6",
-            dots = BrailleDots(F, F, F, F, F, F)
+            brailleDots = BrailleDots(F, F, F, F, F, F)
         )
-        +InputDots(text = "Введите все шесть точек", dots = BrailleDots(F, F, F, F, F, F))
+        +InputDots(text = "Введите все шесть точек", brailleDots = BrailleDots(F, F, F, F, F, F))
         +ShowDots(
             text = "Перед Вами символ шрифта Брайля - <br>" +
                     " точка номер один",
-            dots = BrailleDots(F, E, E, E, E, E)
+            brailleDots = BrailleDots(F, E, E, E, E, E)
         )
-        +InputDots(text = "Введите точку один", dots = BrailleDots(F, E, E, E, E, E))
+        +InputDots(text = "Введите точку один", brailleDots = BrailleDots(F, E, E, E, E, E))
         +ShowDots(
             text = "Перед Вами символ шрифта Брайля - <br>" +
                     " точка номер три",
-            dots = BrailleDots(E, E, F, E, E, E)
+            brailleDots = BrailleDots(E, E, F, E, E, E)
         )
-        +InputDots(text = "Введите точку три", dots = BrailleDots(E, E, F, E, E, E))
+        +InputDots(text = "Введите точку три", brailleDots = BrailleDots(E, E, F, E, E, E))
         +ShowDots(
             text = "Перед Вами символ шрифта Брайля - <br>" +
                     " точка номер пять",
-            dots = BrailleDots(E, E, E, E, F, E)
+            brailleDots = BrailleDots(E, E, E, E, F, E)
         )
-        +InputDots(text = "Введите точку пять", dots = BrailleDots(E, E, E, E, F, E))
+        +InputDots(text = "Введите точку пять", brailleDots = BrailleDots(E, E, E, E, F, E))
         +InputDots(
             text = """Теперь выполним пять практических заданий без обучающей картинки. 
                       <br>
                       Введите комбинацию точек 1 и 3""",
-            dots = BrailleDots(F, E, F, E, E, E)
+            brailleDots = BrailleDots(F, E, F, E, E, E)
         )
-        +InputDots(text = "Введите комбинацию: точки 4 и 6", dots = BrailleDots(E, E, E, F, E, F))
+        +InputDots(
+            text = "Введите комбинацию: точки 4 и 6",
+            brailleDots = BrailleDots(E, E, E, F, E, F)
+        )
         +InputDots(
             text = "Введите комбинацию точек 1, 3, 4 и 6",
-            dots = BrailleDots(F, E, F, F, E, F)
+            brailleDots = BrailleDots(F, E, F, F, E, F)
         )
         +InputDots(
             text = "Введите комбинацию точек 1, 2, 3, 4 и 5",
-            dots = BrailleDots(F, F, F, F, F, E)
+            brailleDots = BrailleDots(F, F, F, F, F, E)
         )
         +InputDots(
             text = "Введите комбинацию точек 1, 2, 3, 4 и 6",
-            dots = BrailleDots(F, F, F, F, E, F)
+            brailleDots = BrailleDots(F, F, F, F, E, F)
         )
         +Info(
             """Откройте пособие на странице 12. 
@@ -95,7 +98,10 @@ internal val golubinaIntroLessons by lessons {
                     Начиная со второй строки - тренировочные упражнения. 
                     Самостоятельно потренируйтесь читать отдельные комбинации точек."""
         ).annotate(StepAnnotation.golubinaBookRequired)
-        +InputDots(text = """Введите "средние точки" 2 и 5""", dots = BrailleDots(E, F, E, E, F, E))
+        +InputDots(
+            text = """Введите "средние точки" 2 и 5""",
+            brailleDots = BrailleDots(E, F, E, E, F, E)
+        )
         +Info(
             """Запишите "средние точки" 2 и 5 на брайлевском приборе.
                   <br>

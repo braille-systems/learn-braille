@@ -17,10 +17,10 @@ interface DeckDao {
     suspend fun insert(decks: List<Deck>)
 
     @Query("select * from decks where id = :id")
-    suspend fun getDeck(id: DBid): Deck?
+    suspend fun deck(id: DBid): Deck?
 
     @Query("select * from decks")
-    suspend fun getAllDecks(): List<Deck>
+    suspend fun allDecks(): List<Deck>
 
     @Query(
         """
@@ -33,7 +33,7 @@ interface DeckDao {
         order by d.id
         """
     )
-    suspend fun getAvailableDecks(userId: DBid): List<Deck>
+    suspend fun availableDecks(userId: DBid): List<Deck>
 
     @Query("delete from decks")
     suspend fun clear()

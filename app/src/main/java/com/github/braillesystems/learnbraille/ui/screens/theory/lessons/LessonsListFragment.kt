@@ -1,6 +1,7 @@
 package com.github.braillesystems.learnbraille.ui.screens.theory.lessons
 
 import android.annotation.SuppressLint
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -41,8 +42,9 @@ class LessonsListFragment : Fragment() {
         title = getString(R.string.lessons_title_lessons_list)
 
         lifecycleScope.launch {
-            val curr = theoryRepository.getCurrentStep(COURSE.id)
-            val lessons = theoryRepository.getAllCourseLessons(COURSE.id)
+            val curr = theoryRepository.currentStep(COURSE.id)
+            val lessons = theoryRepository.allCourseLessons(COURSE.id)
+            val last = theoryRepository.lastCourseStep(curr.courseId)
             val activeListener = object : LessonItemListener {
                 override fun onClick(item: Lesson) = toLastLessonStep(COURSE.id, item.id)
             }
@@ -56,6 +58,11 @@ class LessonsListFragment : Fragment() {
             val adapter = LessonsListAdapter(lessons) { item ->
                 lesson = item
                 lessonName.text = "${item.id}. ${item.name}"
+                lessonName.setTypeface(
+                    lessonName.typeface,
+                    if (item.id == last.lessonId) Typeface.BOLD
+                    else Typeface.NORMAL
+                )
                 if (item.id <= curr.lessonId) {
                     clickListener = activeListener
                     lessonName.setTextColor(

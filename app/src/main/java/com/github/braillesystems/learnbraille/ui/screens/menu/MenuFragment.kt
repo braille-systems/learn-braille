@@ -1,11 +1,8 @@
 package com.github.braillesystems.learnbraille.ui.screens.menu
 
-import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,7 +39,6 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
         title = getString(R.string.menu_actionbar_text_template).format(appName)
         setHasOptionsMenu(true)
-        requestPermissions()
 
         val buttons = mutableListOf<MaterialButton>()
 
@@ -125,28 +121,6 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            recordAudioPermissionCode -> if (grantResults.first() != PackageManager.PERMISSION_GRANTED) {
-                toast(getString(R.string.voice_record_denial))
-            }
-        }
-    }
-
-    private fun requestPermissions() {
-        runIf(preferenceRepository.speechRecognitionEnabled) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return@runIf
-            val permission = requireContext().checkSelfPermission(Manifest.permission.RECORD_AUDIO)
-            if (permission == PackageManager.PERMISSION_GRANTED) return@runIf
-            requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), recordAudioPermissionCode)
-        }
-    }
-
     private fun interruptingOnClickListener(block: (View) -> Unit) =
         View.OnClickListener {
             if (db.isInitialized) block(it)
@@ -187,6 +161,5 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     companion object {
         private const val qrRequestCode = 0
-        private const val recordAudioPermissionCode = 29
     }
 }

@@ -24,16 +24,21 @@ class MaterialDataTypeConverters {
 typealias SymbolType = String
 
 @Serializable
+sealed class OneBrailleSymbol : MaterialData() {
+    abstract val brailleDots: BrailleDots
+}
+
+@Serializable
 data class Symbol(
     val char: Char,
-    val brailleDots: BrailleDots,
+    override val brailleDots: BrailleDots,
     @SerialName("symbol_type")
     val type: SymbolType
-) : MaterialData()
+) : OneBrailleSymbol()
 
 @Serializable
 data class MarkerSymbol(
     @SerialName("marker_type")
     val type: MarkerType,
-    val brailleDots: BrailleDots
-) : MaterialData()
+    override val brailleDots: BrailleDots
+) : OneBrailleSymbol()

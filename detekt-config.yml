@@ -2,13 +2,11 @@
 
 complexity:
   TooManyFunctions:
-    active: false
+    excludes: ['**/utils/**', '**/DotsChecker.kt']
   LongMethod:
-    active: false
-  ComplexMethod:
-    active: false
+    excludes: ['**/*Fragment.kt', '**/*Application.kt']
   LongParameterList:
-    active: false
+    excludes: ['**/*Repository.kt']  # Dependency injection
 
 style:
   WildcardImport:
@@ -16,16 +14,10 @@ style:
   MagicNumber:
     active: false
 
-exceptions:
-  TooGenericExceptionCaught:
-    excludes: ['**/SpeechRecognition.kt']
-
 naming:
   MatchingDeclarationName:
     active: false
   ClassNaming:
-    active: false
-  ConstructorParameterNaming:
-    active: false
+    active: false  # Delegate classes
   MemberNameEqualsClassName:
     active: false

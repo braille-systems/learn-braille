@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.github.braillesystems.learnbraille.data.repository.DeckNotEmpty" />
+            type="com.github.braillesystems.learnbraille.data.repository.DeckWithAvailability" />
 
         <variable
             name="clickListener"

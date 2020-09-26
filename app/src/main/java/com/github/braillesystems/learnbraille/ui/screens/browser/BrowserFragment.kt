@@ -17,7 +17,10 @@ import com.github.braillesystems.learnbraille.databinding.FragmentBrowserBinding
 import com.github.braillesystems.learnbraille.res.showMarkerPrintRules
 import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
-import com.github.braillesystems.learnbraille.utils.*
+import com.github.braillesystems.learnbraille.utils.getValue
+import com.github.braillesystems.learnbraille.utils.navigate
+import com.github.braillesystems.learnbraille.utils.stringify
+import com.github.braillesystems.learnbraille.utils.title
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -41,7 +44,7 @@ class BrowserFragment : AbstractFragmentWithHelp(R.string.browser_help) {
 
         lifecycleScope.launch {
             val deckId = browserRepository.currentDeckId
-            val materials = browserRepository.getAllMaterialsFromDeck(deckId)
+            val materials = browserRepository.allMaterialsFromDeck(deckId)
             val listener = object : BrowserItemListener {
                 override fun onClick(item: Material) {
                     val arg = stringify(Material.serializer(), item)
@@ -61,11 +64,11 @@ class BrowserFragment : AbstractFragmentWithHelp(R.string.browser_help) {
                 this.item = item
                 materialText.text = when (item.data) {
                     is Symbol -> getString(R.string.browser_represent_template).format(
-                        contextNotNull.showSymbolPrintRules[item.data.char].toString(),
+                        showSymbolPrintRules.getValue(item.data.char),
                         item.data.brailleDots.spelling
                     )
                     is MarkerSymbol -> getString(R.string.browser_represent_template).format(
-                        contextNotNull.showMarkerPrintRules[item.data.type].toString(),
+                        showMarkerPrintRules.getValue(item.data.type),
                         item.data.brailleDots.spelling
                     )
                 }

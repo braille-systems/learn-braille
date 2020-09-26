@@ -224,7 +224,11 @@ private val ms by markers {
  * so use `Fragment.getString` outside of lambdas.
  */
 
+val Fragment.inputSymbolPrintRules get() = contextNotNull.inputSymbolPrintRules
+val Fragment.showSymbolPrintRules get() = contextNotNull.showSymbolPrintRules
 val Fragment.captionRules get() = contextNotNull.captionRules
+val Fragment.inputMarkerPrintRules get() = contextNotNull.inputMarkerPrintRules
+val Fragment.showMarkerPrintRules get() = contextNotNull.showMarkerPrintRules
 
 val Context.inputSymbolPrintRules by rules<Context, Char, String>(
     {
@@ -305,7 +309,6 @@ val Context.inputSymbolPrintRules by rules<Context, Char, String>(
 )
 
 val Context.showSymbolPrintRules by rules<Context, Char, String>(
-
     {
         val t = getString(R.string.show_letter_intro_template)
         ruSymbols.map::containsKey to { c: Char -> t.format(c) }

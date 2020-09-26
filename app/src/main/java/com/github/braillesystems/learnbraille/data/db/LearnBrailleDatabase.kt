@@ -73,7 +73,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
         prepareDbJob = scope().launch {
             Timber.i("Requesting value from database to force database callbacks and migrations")
             Timber.i("Start database preparation")
-            userDao.getUser(1).devnull
+            userDao.user(1).devnull
             Timber.i("Finnish database preparation")
         }
     }
@@ -87,7 +87,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
         const val name = "learn_braille_database"
 
         /**
-         * Try to run `build` before first user's request (mb in Application's `onCreate`)
+         * Try to run `buildDatabase` before first user's request (mb in Application's `onCreate`)
          * to make DB likely prepared until it is really needed.
          */
         fun buildDatabase(context: Context) = Room
@@ -208,4 +208,5 @@ private val MIGRATION_17_18 = object : Migration(17, 18), KoinComponent {
     }
 }
 
+// TODO migration that preserves current true user's position
 // TODO materials migration
