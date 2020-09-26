@@ -1,5 +1,6 @@
 package com.github.braillesystems.learnbraille.ui.views
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
@@ -19,7 +20,8 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import timber.log.Timber
 
-class BrailleDotView : androidx.appcompat.widget.AppCompatCheckBox {
+@SuppressLint("AppCompatCustomView") // Causes BrailleDotView misplacement
+class BrailleDotView : CheckBox {
 
     constructor(context: Context) : super(context)
 
