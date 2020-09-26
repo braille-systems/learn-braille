@@ -137,7 +137,7 @@
     </string>
 
     <string name="deck_name_all">Все символы</string>
-    <string name="deck_name_all_with_ru">Все символы, кроме латинских и греческих букв</string>
+    <string name="deck_name_all_but_foreign">Все символы, кроме иностранных букв</string>
     <string name="deck_name_ru_letters">Русские буквы</string>
     <string name="deck_name_latin_letters">Латинские буквы</string>
     <string name="deck_name_greek_letters">Греческие буквы</string>

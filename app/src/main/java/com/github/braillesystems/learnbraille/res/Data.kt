@@ -113,7 +113,7 @@ val Context.deckTagToName: Map<String, String> by lazyWithContext {
     DeckTags.run {
         mapOf(
             all to getString(R.string.deck_name_all),
-            allWithRus to getString(R.string.deck_name_all_with_ru),
+            allWithRus to getString(R.string.deck_name_all_but_foreign),
             ruLetters to getString(R.string.deck_name_ru_letters),
             latinLetters to getString(R.string.deck_name_latin_letters),
             greekLetters to getString(R.string.deck_name_greek_letters),
