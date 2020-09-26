@@ -24,3 +24,5 @@ There are handy DSL that allows write content in the typesafe way.
 
 - All app content should be placed into `com.github.braillesystems.learnbraille.res` package.
 - Use `DslTest.kt` file as DSL tutorial.
+
+Symbols that are not from particular alphabet and does not exist on classical american keyboard should be treated as special and added via `enum class`.

@@ -17,6 +17,13 @@
         tools:context=".ui.screens.practice.CardFragment">
 
         <TextView
+            android:id="@+id/letter_caption"
+                app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/letter"
+            style="@style/bigLetterCaptionStyle"/>
+
+        <TextView
             android:id="@+id/marker_description"
             android:layout_width="0dp"
             android:layout_height="@dimen/lessons_dots_info_height"
@@ -31,17 +38,12 @@
 
         <com.github.braillesystems.learnbraille.ui.views.InputBigLetterView
             android:id="@+id/letter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX="@dimen/letter_practice_scale_of_view"
-            android:scaleY="@dimen/letter_practice_scale_of_view"
             android:text=""
-            android:textSize="@dimen/big_letter_text_size"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/braille_dots"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            style="@style/bigLetterStyle"
             tools:text="M" />
 
         <com.github.braillesystems.learnbraille.ui.views.BrailleDotsView

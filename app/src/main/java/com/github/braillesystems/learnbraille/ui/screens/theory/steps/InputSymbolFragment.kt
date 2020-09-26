@@ -13,6 +13,7 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.Input
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputSymbolBinding
+import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.ui.*
 import com.github.braillesystems.learnbraille.ui.screens.observeCheckedOnFly
 import com.github.braillesystems.learnbraille.ui.screens.observeEventHint
@@ -22,10 +23,7 @@ import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
 import com.github.braillesystems.learnbraille.ui.views.*
-import com.github.braillesystems.learnbraille.utils.announce
-import com.github.braillesystems.learnbraille.utils.application
-import com.github.braillesystems.learnbraille.utils.checkedAnnounce
-import com.github.braillesystems.learnbraille.utils.checkedBuzz
+import com.github.braillesystems.learnbraille.utils.*
 import timber.log.Timber
 
 class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_symbol) {
@@ -56,6 +54,7 @@ class InputSymbolFragment : AbstractStepFragment(R.string.lessons_help_input_sym
         require(step.data.material.data is Symbol)
         val symbol = step.data.material.data
         letter.text = symbol.char.toString()
+        letterCaption.text = captionRules.getValue(symbol)
         brailleDots.dotsState.display(symbol.brailleDots)
         checkedAnnounce(printStringNotNullLogged(symbol.char, PrintMode.INPUT))
 

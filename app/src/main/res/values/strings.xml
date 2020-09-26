@@ -16,6 +16,7 @@
     <string name="preference_current_user">current_user</string>
     <string name="preference_speech_recognition_enabled">speech_recognition_enabled</string>
     <string name="preference_golubina_book_steps_enabled">golubina_book_steps_enabled</string>
+    <string name="preference_slate_stylus_steps_enabled">slate_stylus_steps_enabled</string>
     <string name="preference_traverse_dots_in_enumeration_order">traverse_dots_in_enumeration_order</string>
     <string name="preference_enable_additional_announcements">enable_additional_announcements</string>
     <string name="preference_practice_use_only_known_materials">practice_use_only_known_materials</string>
@@ -35,28 +36,82 @@
     <string name="input_dots_hint_6">точка 6 справа снизу</string>
 
     <string name="input_letter_intro_template">Введите букву: %s</string>
+    <string name="input_latin_letter_intro_template">Введите латинскую букву: %s</string>
+    <string name="input_greek_letter_intro_template">Введите греческую букву: %s</string>
     <string name="input_digit_intro_template">Введите цифру: %s</string>
     <string name="input_special_intro_template">Введите символ: %s</string>
+    <string name="input_math_intro_template">Введите математический символ: %s</string>
     <string name="input_special_intro_dot">Введите символ: Литературная точка</string>
     <string name="input_special_intro_hyphen">Введите символ: Дефис</string>
     <string name="input_special_intro_comma">Введите запятую</string>
+    <string name="input_special_intro_exclamation">Введите восклицательный знак</string>
+    <string name="input_special_intro_question">Введите вопросительный знак</string>
+    <string name="input_special_intro_quotation_left">Введите открывающую кавычку</string>
+    <string name="input_special_intro_quotation_right">Введите закрывающую кавычку</string>
+    <string name="input_special_intro_parenthesis_left">Введите левую литературную скобку</string>
+    <string name="input_special_intro_parenthesis_right">Введите правую литературную скобку</string>
+    <string name="input_special_intro_asterisk">Введите звёздочку</string>
+    <string name="input_special_intro_colon">Введите двоеточие</string>
+    <string name="input_special_intro_semicolon">Введите точку с запятой</string>
+    <string name="input_special_intro_stress">Введите знак ударения</string>
 
-    <string name="input_mod_greek_capital">Введите признак большой греческой буквы</string>
-    <string name="input_mod_latin_capital">Введите признак большой латинской буквы</string>
+    <string name="input_mod_greek_capital">Введите признак большой буквы греческого алфавита</string>
+    <string name="input_mod_latin_capital">Введите признак большой буквы латинского алфавита</string>
+    <string name="input_mod_latin_small">Введите признак малой буквы латинского алфавита</string>
     <string name="input_mod_ru_capital">Введите признак большой буквы русского алфавита</string>
     <string name="input_mod_num_sign">Введите цифровой знак</string>
+    <string name="input_mod_bold">Введите признак жирного шрифта</string>
+    <string name="input_mod_italic">Введите признак курсивного шрифта</string>
+
+    <string name="input_math_plus">Введите знак Плюс</string>
+    <string name="input_math_minus">Введите знак Минус</string>
+    <string name="input_math_dot_mult">Введите знак умножения точкой</string>
+    <string name="input_math_cross_mult">Введите знак умножения крестом</string>
+    <string name="input_math_division_fraction">Введите знак деления (углом)</string>
+    <string name="input_math_division">Введите знак деления (двумя точками)</string>
+    <string name="input_math_equality">Введите знак равенства</string>
 
     <string name="show_letter_intro_template">Буква %s</string>
+    <string name="show_latin_letter_intro_template">Латинская буква %s</string>
+    <string name="show_greek_letter_intro_template">Греческая буква %s</string>
     <string name="show_digit_intro_template">Цифра %s</string>
     <string name="show_special_intro_template">Символ %s</string>
+    <string name="show_math_intro_template">Математический символ %s</string>
     <string name="show_special_intro_dot">Литературная точка</string>
     <string name="show_special_intro_hyphen">Дефис</string>
     <string name="show_special_intro_comma">Запятая</string>
+    <string name="show_special_intro_exclamation">Восклицательный знак</string>
+    <string name="show_special_intro_question">Вопросительный знак</string>
+    <string name="show_special_intro_quotation_left">Открывающая кавычка</string>
+    <string name="show_special_intro_quotation_right">Закрывающая кавычка</string>
+    <string name="show_special_intro_parenthesis_left">Левая литературная скобка</string>
+    <string name="show_special_intro_parenthesis_right">Правая литературная скобка</string>
+    <string name="show_special_intro_asterisk">Звёздочка</string>
+    <string name="show_special_intro_colon">Двоеточие</string>
+    <string name="show_special_intro_semicolon">Точка с запятой</string>
+    <string name="show_special_intro_stress">Ударение</string>
 
     <string name="show_mod_greek">Признак большой греческой буквы</string>
     <string name="show_mod_latin">Признак большой латинской буквы</string>
+    <string name="show_mod_latin_small">Признак малой латинской буквы</string>
     <string name="show_mod_capital">Признак большой буквы русского алфавита</string>
     <string name="show_mod_num_sign">Цифровой знак</string>
+    <string name="show_mod_bold">Признак жирного шрифта</string>
+    <string name="show_mod_italic">Признак курсивного шрифта</string>
+
+    <string name="show_math_plus">Знак Плюс</string>
+    <string name="show_math_minus">Знак Минус</string>
+    <string name="show_math_dot_mult">Знак умножения точкой</string>
+    <string name="show_math_cross_mult">Знак умножения крестом</string>
+    <string name="show_math_division_fraction">Знак деления (углом)</string>
+    <string name="show_math_division">Знак деления (двумя точками)</string>
+    <string name="show_math_equality">Знак равенства</string>
+
+    <string name="letter_caption_ru">Русская буква</string>
+    <string name="letter_caption_greek">Греческая буква</string>
+    <string name="letter_caption_latin">Латинская буква</string>
+    <string name="letter_caption_digit">Цифра</string>
+    <string name="letter_caption_special">Специальный символ</string>
 
     <!--    QR-->
 
@@ -82,10 +137,14 @@
     </string>
 
     <string name="deck_name_all">Все символы</string>
+    <string name="deck_name_all_but_foreign">Все символы, кроме иностранных букв</string>
     <string name="deck_name_ru_letters">Русские буквы</string>
+    <string name="deck_name_latin_letters">Латинские буквы</string>
+    <string name="deck_name_greek_letters">Греческие буквы</string>
     <string name="deck_name_digits">Цифры</string>
     <string name="deck_name_punctuation">Знаки препинания</string>
     <string name="deck_name_markers">Специальные символы</string>
+    <string name="deck_name_math">Математические символы</string>
 
 
     <string name="practice_help">
@@ -103,7 +162,7 @@
         <b>Выход в меню</b> приложения - кнопка вверху слева.
         &<br>
         <b>Список колод</b> - кнопка вверху справа.
-        &<br>
+        <br>
         Карточки объединены в колоды по типам символов, например, колода русских букв, колода цифр.
         Эта кнопка ведёт в меню выбора колоды.
         &<br>
@@ -112,7 +171,7 @@
         Если Вы <b>забыли символ</b>, можно нажать <b>кнопку \"подсказка\"</b> слева внизу экрана.
         По нажатию этой кнопки будет выведено сообщение с верными номерами точек, шеститочие будет
         заполнено правильными точками и недоступно для переключения. После этого нужно нажать кнопку
-        <b>\"далее\"</b> и ввести ту же букву ещё раз.
+        <b>\"далее\"</b> и ввести тот же символ ещё раз.
         ]]>
     </string>
 
@@ -205,7 +264,7 @@
     <string name="lessons_help_template">
         <![CDATA[
         %s
-        &<br><br><br>
+        &<br>
         %s
         ]]>
     </string>
@@ -213,7 +272,7 @@
     <string name="lessons_help_common">
         <![CDATA[
         <b>Переход</b> к следующему шагу - кнопка <b>\"вперёд\"</b> справа по центру,
-         к предыдущему - кнопка <b>назад</b> слева по центру.
+         к предыдущему - кнопка <b>"назад"</b> слева по центру.
         &<br>
         <b>Выход в меню</b> приложения - кнопка <b>\"перейти вверх\"</b> в верхней панели слева.
         &<br>
@@ -351,7 +410,10 @@
         В данном разделе можно просмотреть точечный состав любой буквы,
         цифры или специального символа. Буквы расположены здесь в порядке \"зрячего\" алфавита,
         а не в порядке \"ключа Брайля\", как они изучаются в курсе.
-        Помните, что при написании чисел нужно вначале ставить цифровой знак.
+        &<br>
+        Помните, что при написании чисел нужно вначале ставить цифровой знак. При написании слов на
+        латинице или по-гречески внутри русского текста в начале слова надо ставить признак
+        латинской / греческой буквы.
         &<br>
         Нажатие на символ в списке (или двойное нажатие, если Вы используете программу TalkBack)
         открывает окно, где этот символ крупным шрифтом выведен на экран.
@@ -387,9 +449,13 @@
     <string name="preference_title_notifications">Всплывающие уведомления</string>
     <string name="preference_title_buzz">Вибрация</string>
     <string name="preference_summary_buzz">Вибрация в ответ на результат выполнения задания.</string>
-    <string name="preference_title_use_golubina_textbook">Шаги с букварём</string>
+    <string name="preference_title_use_golubina_textbook">Шаги с бумажным пособием</string>
+    <string name="preference_title_use_slate_stylus">Шаги с брайлевским прибором</string>
     <string name="preference_summary_use_golubina_textbook">
-        Показывать шаги с обращением к бумажному букварю Голубиной в теоретическом курсе.
+        Показывать шаги с обращением к бумажному пособию Голубиной в теоретическом курсе.
+    </string>
+    <string name="preference_summary_use_slate_stylus">
+        Показывать шаги для выполнения с брайлевским прибором в теоретическом курсе.
     </string>
     <string name="preference_summary_notifications">Включить/отключить краткие всплывающие
         подсказки (кроме самых важных).</string>
@@ -450,5 +516,4 @@
     <string name="stats_property_input_steps_passed">Пройдено шагов с вводом</string>
     <string name="stats_section_7days">За последние 7 дней</string>
     <string name="stats_section_30days">За последние 30 дней</string>
-
 </resources>

@@ -30,10 +30,12 @@ class TheoryRepositoryImpl(
     private val actionsRepository: MutableActionsRepository
 ) : MutableTheoryRepository {
 
-    private val proscribedAnnotations
+    private val proscribedAnnotations: List<String>
         get() = listOfNotNull(
             if (preferenceRepository.golubinaBookStepsEnabled) null
-            else StepAnnotation.golubinaBookRequired
+            else StepAnnotation.golubinaBookRequired,
+            if (preferenceRepository.slateStylusStepsEnabled) null
+            else StepAnnotation.slateStylusRequired
         )
 
     @Suppress("ReturnCount")
