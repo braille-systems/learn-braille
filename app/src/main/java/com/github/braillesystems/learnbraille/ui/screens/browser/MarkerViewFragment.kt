@@ -12,6 +12,7 @@ import com.github.braillesystems.learnbraille.res.showMarkerPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
+import com.github.braillesystems.learnbraille.utils.applyExtendedAccessibility
 import com.github.braillesystems.learnbraille.utils.getFragmentStringArg
 import com.github.braillesystems.learnbraille.utils.getValue
 import com.github.braillesystems.learnbraille.utils.parse
@@ -36,6 +37,8 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
 
         binding.infoTextView.text = showMarkerPrintRules.getValue(m.data.type)
         binding.brailleDots.dotsState.display(m.data.brailleDots)
+
+        applyExtendedAccessibility(textView = binding.infoTextView)
 
         // TODO #223 add flip button & apply extended accessibility for it
 
