@@ -1,5 +1,6 @@
 package com.github.braillesystems.learnbraille.ui.screens.practice
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.github.braillesystems.learnbraille.R
-import com.github.braillesystems.learnbraille.data.repository.DeckNotEmpty
+import com.github.braillesystems.learnbraille.data.repository.DeckWithAvailability
 import com.github.braillesystems.learnbraille.data.repository.MutablePracticeRepository
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.DecksListItemBinding
@@ -42,9 +43,10 @@ class DecksListFragment : Fragment() {
         title = getString(R.string.decks_list_title)
 
         lifecycleScope.launch {
-            val decks = practiceRepository.getAllDecks()
+            val decks = practiceRepository.allDecksWithAvailability()
+            val currDeck = practiceRepository.currentDeck()
             val listener = object : DecksItemListener {
-                override fun onClick(item: DeckNotEmpty) =
+                override fun onClick(item: DeckWithAvailability) =
                     if (item.containsCards) {
                         practiceRepository.currentDeckId = item.deck.id
                         navigate(R.id.action_decksList_to_cardFragment)
@@ -58,6 +60,11 @@ class DecksListFragment : Fragment() {
             decksList.adapter = DecksListAdapter(decks) { item ->
                 this.item = item
                 deckName.text = deckTagToName.getValue(item.deck.tag)
+                deckName.setTypeface(
+                    deckName.typeface,
+                    if (item.deck == currDeck) Typeface.BOLD
+                    else Typeface.NORMAL
+                )
                 clickListener = listener
                 if (item.containsCards) {
                     deckName.setTextColor(
@@ -86,8 +93,8 @@ class DecksListFragment : Fragment() {
 }
 
 private class DecksListAdapter(
-    private val decks: List<DeckNotEmpty>,
-    private val bind: DecksListItemBinding.(DeckNotEmpty) -> Unit
+    private val decks: List<DeckWithAvailability>,
+    private val bind: DecksListItemBinding.(DeckWithAvailability) -> Unit
 ) : RecyclerView.Adapter<DeckItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -112,5 +119,5 @@ private class DeckItemViewHolder(
 ) : RecyclerView.ViewHolder(binding.root)
 
 interface DecksItemListener {
-    fun onClick(item: DeckNotEmpty)
+    fun onClick(item: DeckWithAvailability)
 }

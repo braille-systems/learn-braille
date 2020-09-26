@@ -2,11 +2,12 @@ package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
 
+typealias StepAnnotationName = String
 
 @Entity(tableName = "step_annotations", indices = [Index(value = ["name"], unique = true)])
 data class StepAnnotation(
-    @PrimaryKey val id: Long,
-    val name: String
+    @PrimaryKey val id: DBid,
+    val name: StepAnnotationName
 )
 
 @Dao

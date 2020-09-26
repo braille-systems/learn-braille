@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Base application theme. -->
@@ -45,6 +46,22 @@
         <item name="android:scaleY">2.6</item>
         <item name="android:button">@drawable/round_checkbox</item>
         <item name="background">@color/colorBackground</item>
+    </style>
+
+    <style name="bigLetterStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/big_letter_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="bigLetterCaptionStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:importantForAccessibility">no</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/lessons_title_text_size</item>
+        <item name="android:paddingTop">@dimen/big_letter_caption_padding</item>
     </style>
 
     <style name="SwitchPreferenceButton" parent="Theme.AppCompat.Light">

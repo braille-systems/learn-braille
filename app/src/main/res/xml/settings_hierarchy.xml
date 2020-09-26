@@ -26,6 +26,14 @@
         app:iconSpaceReserved="false" />
 
     <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
+        android:key="@string/preference_slate_stylus_steps_enabled"
+        android:summary="@string/preference_summary_use_slate_stylus"
+        android:theme="@style/SwitchPreferenceButton"
+        android:title="@string/preference_title_use_slate_stylus"
+        app:iconSpaceReserved="false" />
+
+    <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="false"
         android:key="@string/preference_additional_qrcode_button_enabled"
         android:summary="@string/preference_summary_additional_qrcode_button"

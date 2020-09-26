@@ -2,11 +2,12 @@ package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
 
+typealias DeckTag = String
 
 @Entity(tableName = "decks")
 data class Deck(
-    @PrimaryKey val id: Long,
-    val tag: String
+    @PrimaryKey val id: DBid,
+    val tag: DeckTag
 )
 
 @Dao
@@ -16,10 +17,10 @@ interface DeckDao {
     suspend fun insert(decks: List<Deck>)
 
     @Query("select * from decks where id = :id")
-    suspend fun getDeck(id: Long): Deck?
+    suspend fun deck(id: DBid): Deck?
 
     @Query("select * from decks")
-    suspend fun getAllDecks(): List<Deck>
+    suspend fun allDecks(): List<Deck>
 
     @Query(
         """
@@ -32,7 +33,7 @@ interface DeckDao {
         order by d.id
         """
     )
-    suspend fun getAvailableDecks(userId: Long): List<Deck>
+    suspend fun availableDecks(userId: DBid): List<Deck>
 
     @Query("delete from decks")
     suspend fun clear()

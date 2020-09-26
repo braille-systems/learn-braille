@@ -2,13 +2,15 @@ package com.github.braillesystems.learnbraille.ui.screens.practice
 
 import android.app.Application
 import androidx.lifecycle.*
+import com.github.braillesystems.learnbraille.data.dsl.ALL_CARDS_DECK_ID
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.data.repository.MutableActionsRepository
 import com.github.braillesystems.learnbraille.data.repository.MutablePracticeRepository
+import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.ui.screens.DotsChecker
 import com.github.braillesystems.learnbraille.ui.screens.MutableDotsChecker
+import com.github.braillesystems.learnbraille.utils.retryN
 import com.github.braillesystems.learnbraille.utils.scope
-import com.github.braillesystems.learnbraille.utils.tryN
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -18,6 +20,7 @@ import java.util.concurrent.ArrayBlockingQueue
 class CardViewModelFactory(
     private val practiceRepository: MutablePracticeRepository,
     private val actionsRepository: MutableActionsRepository,
+    private val preferenceRepository: PreferenceRepository,
     private val application: Application,
     private val getEnteredDots: () -> BrailleDots
 ) : ViewModelProvider.Factory {
@@ -25,7 +28,13 @@ class CardViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
         if (modelClass.isAssignableFrom(CardViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            CardViewModel(practiceRepository, actionsRepository, application, getEnteredDots) as T
+            CardViewModel(
+                practiceRepository,
+                actionsRepository,
+                preferenceRepository,
+                application,
+                getEnteredDots
+            ) as T
         } else {
             throw IllegalArgumentException("Unknown ViewModel class")
         }
@@ -34,17 +43,18 @@ class CardViewModelFactory(
 class CardViewModel(
     private val practiceRepository: MutablePracticeRepository,
     private val actionsRepository: MutableActionsRepository,
+    private val preferenceRepository: PreferenceRepository,
     application: Application,
     private val getEnteredDots: () -> BrailleDots,
     private val dotsChecker: MutableDotsChecker = MutableDotsChecker.create()
 ) : AndroidViewModel(application),
     DotsChecker by dotsChecker {
 
-    private val _symbol = MutableLiveData<String?>()
-    val symbol: LiveData<String?> get() = _symbol
+    private val _symbol = MutableLiveData<MaterialData>()
+    val symbol: LiveData<MaterialData> get() = _symbol
 
-    private val _deckTag = MutableLiveData<String?>()
-    val deckTag: LiveData<String?> get() = _deckTag
+    private val _deckTag = MutableLiveData<String>()
+    val deckTag: LiveData<String> get() = _deckTag
 
     var nTries: Int = 0
         private set
@@ -98,29 +108,41 @@ class CardViewModel(
     }
 
     private fun initializeCard(firstTime: Boolean = false) = uiScope.launch {
-        val material = tryN(
+        // If `use only known materials` turned on and current deck became unavailable
+        if (preferenceRepository.practiceUseOnlyKnownMaterials &&
+            practiceRepository.randomKnownMaterial() == null
+        ) {
+            practiceRepository.currentDeckId = ALL_CARDS_DECK_ID
+        }
+
+        if (firstTime) {
+            val deck = practiceRepository.currentDeck()
+            _deckTag.value = deck.tag
+        }
+
+        val material = retryN(
             n = 5,
             stop = { it.data !in materialsQueue },
-            get = { practiceRepository.getNextMaterialNotNull() }
-        ) ?: practiceRepository.getNextMaterialNotNull()
+            get = { nextMaterial()!! }
+        ) ?: nextMaterial()!!
 
         if (material.data !in materialsQueue) {
             if (materialsQueue.size == nSkipMaterials) materialsQueue.poll()
             materialsQueue.add(material.data)
         }
 
-        require(material.data is Symbol)
-        material.data.run {
-            _symbol.value = char.toString()
-            expectedDots = brailleDots
-        }
-
-        // Should be called after getting material because deck changes automatically
-        // if `use only known materials` enabled and previous `currentDeck`
-        // became not available.
-        if (firstTime) {
-            val deck = practiceRepository.getCurrDeck()
-            _deckTag.value = deck.tag
+        material.data.let {
+            _symbol.value = it
+            expectedDots = when (it) {
+                is OneBrailleSymbol -> it.brailleDots
+            }
         }
     }
+
+    private suspend fun nextMaterial(): Material? =
+        if (preferenceRepository.practiceUseOnlyKnownMaterials) {
+            practiceRepository.randomKnownMaterial()
+        } else {
+            practiceRepository.randomMaterial()
+        }
 }

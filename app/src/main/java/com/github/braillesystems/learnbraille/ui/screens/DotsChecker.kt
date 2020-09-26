@@ -77,7 +77,10 @@ interface MutableDotsChecker : DotsChecker {
 }
 
 /**
- * Initialize lateinit callbacks firstly
+ * Initialize lateinit callbacks firstly.
+ *
+ * Callbacks are called before changing state,
+ * so they can access previous state (the next one is obvious).
  */
 private class DotsCheckerImpl : MutableDotsChecker {
 
@@ -125,7 +128,7 @@ private class DotsCheckerImpl : MutableDotsChecker {
     private val isCorrect: Boolean
         get() = (enteredDots == expectedDots).also {
             Timber.i(
-                if (it) "Correct: "
+                if (it) "Correct"
                 else "Incorrect: entered = $enteredDots, expected = $expectedDots"
             )
         }
@@ -196,6 +199,7 @@ private class DotsCheckerImpl : MutableDotsChecker {
     }
 }
 
+@Suppress("LongParameterList")
 inline fun DotsChecker.observeCheckedOnFly(
     lifecycleOwner: LifecycleOwner,
     dotsState: BrailleDotsState,
@@ -226,7 +230,7 @@ inline fun DotsChecker.observeEventCorrect(
     Observer {
         if (!it) return@Observer
         Timber.i("Handle correct")
-        buzzer.checkedBuzz(preferenceRepository.correctBuzzPattern, preferenceRepository)
+        buzzer.checkedBuzz(preferenceRepository.correctBuzzPattern)
         dotsState.uncheck()
         block()
         onCorrectComplete()
@@ -243,7 +247,7 @@ inline fun DotsChecker.observeEventSoftCorrect(
     Observer {
         if (!it) return@Observer
         Timber.i("Handle soft correct")
-        buzzer.checkedBuzz(preferenceRepository.correctBuzzPattern, preferenceRepository)
+        buzzer.checkedBuzz(preferenceRepository.correctBuzzPattern)
         block()
         onSoftCorrectComplete()
     }
@@ -260,7 +264,7 @@ inline fun DotsChecker.observeEventIncorrect(
     Observer {
         if (!it) return@Observer
         Timber.i("Handle incorrect: entered = ${dotsState.spelling}")
-        buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern, preferenceRepository)
+        buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern)
         dotsState.uncheck()
         block()
         onIncorrectComplete()

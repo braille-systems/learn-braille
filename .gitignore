@@ -1,3 +1,6 @@
+# auto-generated scripts
+detekt
+android-wait-for-emulator
 
 # Created by https://www.toptal.com/developers/gitignore/api/androidstudio,android,gradle
 # Edit at https://www.toptal.com/developers/gitignore?templates=androidstudio,android,gradle

@@ -9,14 +9,11 @@ import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentSymbolViewBinding
+import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
-import com.github.braillesystems.learnbraille.utils.getFragmentStringArg
-import com.github.braillesystems.learnbraille.utils.parse
-import com.github.braillesystems.learnbraille.utils.setSize
-import com.github.braillesystems.learnbraille.utils.title
-import kotlinx.android.synthetic.main.fragment_card.*
+import com.github.braillesystems.learnbraille.utils.*
 import org.koin.android.ext.android.inject
 
 class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view_help) {
@@ -32,21 +29,21 @@ class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view
         R.layout.fragment_symbol_view,
         container,
         false
-    ).also { binding ->
+    ).apply {
 
-        title = getString(R.string.browser_symbol_view_title)
         setHasOptionsMenu(true)
 
         val m: Material = parse(Material.serializer(), getFragmentStringArg("material"))
         require(m.data is Symbol)
 
-        binding.letter.text = m.data.char.toString()
-        binding.brailleDots.dotsState.display(m.data.brailleDots)
+        letter.letter = m.data.char
+        letterCaption.text = captionRules.getValue(m.data)
+        brailleDots.dotsState.display(m.data.brailleDots)
+
+        // TODO #223 add flip button & apply extended accessibility for it
 
         if (preferenceRepository.extendedAccessibilityEnabled) {
-            binding.flipButton.setSize(
-                width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
-            )
+            applyExtendedAccessibility(flipButton = flipButton)
         }
 
     }.root

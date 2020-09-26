@@ -10,6 +10,8 @@ apply plugin: 'androidx.navigation.safeargs'
 
 apply plugin: 'kotlinx-serialization'
 
+apply plugin: 'org.jetbrains.dokka'
+
 android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -37,6 +39,17 @@ android {
         }
     }
     productFlavors {
+    }
+    dokka {
+        outputDirectory = "$buildDir/dokka"
+        packageOptions {
+            prefix = "android"
+            suppress = true
+        }
+        packageOptions{
+            prefix = "androidx"
+            suppress = true
+        }
     }
 }
 

@@ -9,8 +9,10 @@ import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.launch
 import java.util.*
 
+typealias Actions = List<Action>
+
 interface ActionsRepository {
-    suspend fun getActionsFrom(days: Days): Actions
+    suspend fun actionsFrom(days: Days): Actions
 }
 
 interface MutableActionsRepository : ActionsRepository {
@@ -31,14 +33,12 @@ class ActionsRepositoryImpl(
 
     override suspend fun clearAllStats() = actionsDao.clear()
 
-    override suspend fun getActionsFrom(days: Days): Actions =
+    override suspend fun actionsFrom(days: Days): Actions =
         actionsDao
-            .getAllActionsSince((getCurrDate() - days).time)
+            .allActionsSince((getCurrDate() - days).time)
             .also {
                 scope().launch {
                     actionsDao.removeAllActionsBefore((getCurrDate() - keepActionsTime).time)
                 }
             }
 }
-
-typealias Actions = List<Action>

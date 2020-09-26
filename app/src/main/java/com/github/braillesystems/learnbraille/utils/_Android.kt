@@ -26,6 +26,9 @@ import kotlin.reflect.KProperty
  * that are not specific for particular project.
  */
 
+val Fragment.contextNotNull: Context
+    get() = requireNotNull(context)
+
 val Context.usbManager get() = getSystemService(Context.USB_SERVICE) as UsbManager
 
 val Context.accessibilityManager: AccessibilityManager?
@@ -36,7 +39,7 @@ val Context.accessibilityManager: AccessibilityManager?
 fun Fragment.getFragmentStringArg(name: String): String =
     arguments
         ?.getString(name)
-        ?: error("No $name found in args")
+        ?: error("No $name found in fragment args")
 
 typealias BuzzPattern = LongArray
 
@@ -97,9 +100,16 @@ fun Fragment.navigate(action: NavDirections) = try {
     Timber.e(e, "Multitouch navigation")
 }
 
+fun Fragment.exitToLauncher() {
+    val intent = Intent(Intent.ACTION_MAIN).apply {
+        addCategory(Intent.CATEGORY_HOME)
+        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+    }
+    startActivity(intent)
+}
+
 val Context.appName: String get() = getString(R.string.app_name)
-val Fragment.appName: String
-    get() = context?.appName ?: error("Fragment is expected to have a context")
+val Fragment.appName: String get() = contextNotNull.appName
 
 val Context.preferences: SharedPreferences
     get() = PreferenceManager.getDefaultSharedPreferences(this)

@@ -1,26 +1,35 @@
 package com.github.braillesystems.learnbraille.ui.screens.theory.steps
 
 import android.text.method.ScrollingMovementMethod
-import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.text.parseAsHtml
+import androidx.databinding.ViewDataBinding
 import com.github.braillesystems.learnbraille.COURSE
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Step
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.HelpMsgId
+import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toCurrentStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
-import com.github.braillesystems.learnbraille.utils.*
+import com.github.braillesystems.learnbraille.ui.views.BrailleDotsView
+import com.github.braillesystems.learnbraille.utils.applyExtendedAccessibility
+import com.github.braillesystems.learnbraille.utils.navigate
+import com.github.braillesystems.learnbraille.utils.title
 import org.koin.android.ext.android.inject
-import com.github.braillesystems.learnbraille.utils.updateTitle as utilUpdateTitle
 
+interface StepBinding {
+    val prevButton: Button? get() = null
+    val nextButton: Button? get() = null
+    val hintButton: Button? get() = null
+    val textView: TextView? get() = null
+    val brailleDots: BrailleDotsView? get() = null
+}
 
 /**
  * Base class for all steps.
@@ -28,62 +37,52 @@ import com.github.braillesystems.learnbraille.utils.updateTitle as utilUpdateTit
 abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWithHelp(helpMsgId) {
 
     protected val preferenceRepository: PreferenceRepository by inject()
+
     protected lateinit var step: Step
+        private set
+
+    protected lateinit var stepBinding: StepBinding
+        private set
 
     override val helpMsg: String
         get() = getString(R.string.lessons_help_template).format(
             super.helpMsg, getString(R.string.lessons_help_common)
         )
 
-    protected fun initialize(
-        step: Step,
-        prevButton: Button? = null,
-        nextButton: Button? = null,
-        hintButton: Button? = null
-    ) {
-        this.step = step
+    protected fun <B : ViewDataBinding> B.init(
+        titleId: Int,
+        binding: B.() -> StepBinding
+    ): B = init(this, titleId, binding)
+
+    protected open fun <B> init(
+        b: B,
+        titleId: Int,
+        binding: B.() -> StepBinding
+    ): B = b.apply {
         setHasOptionsMenu(true)
-        if (preferenceRepository.extendedAccessibilityEnabled) {
-            prevButton?.setSize(
-                width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
-            )
-            nextButton?.setSize(
-                width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
-            )
-            hintButton?.setSize(
-                width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
-            )
+
+        step = getStepArg()
+        stepBinding = binding()
+
+        val msg = getString(titleId)
+        title = if (preferenceRepository.extendedAccessibilityEnabled) {
+            "${step.lessonId} ${step.id} $msg"
+        } else {
+            "${step.lessonId}.${step.id} $msg"
         }
-    }
 
-    protected fun setText(text: String, infoTextView: TextView) {
-        infoTextView.text = text.parseAsHtml()
-        infoTextView.movementMethod = ScrollingMovementMethod()
-        checkedAnnounce(text)
-        if (preferenceRepository.extendedAccessibilityEnabled) {
-            infoTextView.setTextSize(
-                TypedValue.COMPLEX_UNIT_SP,
-                application.extendedTextSize
-            )
-        }
-    }
-
-    protected fun updateTitle(msg: String) {
-        utilUpdateTitle(
-            if (preferenceRepository.extendedAccessibilityEnabled) "${step.lessonId} ${step.id} $msg"
-            else "${step.lessonId}.${step.id} $msg"
-        )
-    }
-
-    protected fun setNextButton(button: Button) {
-        button.setOnClickListener {
-            toNextStep(step, markThisAsPassed = true)
-        }
-    }
-
-    protected fun setPrevButton(button: Button) {
-        button.setOnClickListener {
-            toPrevStep(step)
+        stepBinding.run {
+            if (preferenceRepository.extendedAccessibilityEnabled) {
+                applyExtendedAccessibility(
+                    leftButton = prevButton,
+                    rightButton = nextButton,
+                    leftMiddleButton = hintButton,
+                    textView = textView
+                )
+            }
+            prevButton?.setOnClickListener { toPrevStep(step) }
+            nextButton?.setOnClickListener { toNextStep(step, markThisAsPassed = true) }
+            textView?.movementMethod = ScrollingMovementMethod()
         }
     }
 
