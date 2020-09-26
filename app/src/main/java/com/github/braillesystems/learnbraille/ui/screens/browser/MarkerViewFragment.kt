@@ -37,5 +37,7 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
         binding.infoTextView.text = showMarkerPrintRules.getValue(m.data.type)
         binding.brailleDots.dotsState.display(m.data.brailleDots)
 
+        // TODO #223 add flip button & apply extended accessibility for it
+
     }.root
 }

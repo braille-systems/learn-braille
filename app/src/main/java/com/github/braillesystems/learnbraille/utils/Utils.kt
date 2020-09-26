@@ -104,17 +104,17 @@ val Context.extendedTextSize: Float by lazyWithContext {
 fun Fragment.applyExtendedAccessibility(
     leftButton: Button? = null,
     rightButton: Button? = null,
-    flipButton: Button? = null,
     leftMiddleButton: Button? = null,
     rightMiddleButton: Button? = null,
     textView: TextView? = null
 ) {
     val width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
-    leftButton?.setSize(width = width)
-    rightButton?.setSize(width = width)
-    flipButton?.setSize(width=width)
-    leftMiddleButton?.setSize(width = width)
-    rightMiddleButton?.setSize(width = width)
+    forEach(
+        leftButton,
+        rightButton,
+        leftMiddleButton,
+        rightMiddleButton
+    ) { it?.setSize(width = width) }
     textView?.setTextSize(
         TypedValue.COMPLEX_UNIT_SP,
         contextNotNull.extendedTextSize

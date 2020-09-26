@@ -40,10 +40,8 @@ class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view
         letterCaption.text = captionRules.getValue(m.data)
         brailleDots.dotsState.display(m.data.brailleDots)
 
-        // TODO #223 add flip button & apply extended accessibility for it
-
         if (preferenceRepository.extendedAccessibilityEnabled) {
-            applyExtendedAccessibility(flipButton = flipButton)
+            applyExtendedAccessibility(rightButton = flipButton)
         }
 
     }.root

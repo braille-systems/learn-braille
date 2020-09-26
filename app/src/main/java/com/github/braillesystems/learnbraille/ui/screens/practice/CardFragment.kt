@@ -60,7 +60,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             applyExtendedAccessibility(
                 leftButton = binding.hintButton,
                 rightButton = binding.nextButton,
-                flipButton = binding.flipButton,
+                rightMiddleButton = binding.flipButton,
                 textView = binding.markerDescription
             )
         }
