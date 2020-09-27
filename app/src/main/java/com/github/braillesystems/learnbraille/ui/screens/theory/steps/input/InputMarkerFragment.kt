@@ -33,6 +33,8 @@ class InputMarkerFragment : AbstractInputStepFragment(R.string.lessons_help_inpu
             object : StepBinding {
                 override val prevButton: Button? = this@init.prevButton
                 override val nextButton: Button? = this@init.nextButton
+                override val flipButton: Button? = this@init.flipButton
+                override val hintButton: Button? = this@init.hintButton
                 override val textView: TextView? = this@init.infoTextView
                 override val brailleDots: BrailleDotsView? = this@init.brailleDots
             }

@@ -52,6 +52,15 @@ abstract class AbstractInputStepFragment(helpMsgId: HelpMsgId) : AbstractStepFra
 
             val buzzer: Vibrator? = activity?.getSystemService()
 
+            stepBinding.flipButton?.setOnClickListener {
+                dotsState = stepBinding.brailleDots?.reflect()?.apply {
+                    subscribe(View.OnClickListener {
+                        viewModel.onSoftCheck()
+                        userTouchedDots = true
+                    })
+                } ?: error("Step with flip button should have brailleDots too")
+            }
+
             viewModel.observeCheckedOnFly(
                 viewLifecycleOwner, { dotsState }, buzzer,
                 block = { toNextStep(step, markThisAsPassed = true) },

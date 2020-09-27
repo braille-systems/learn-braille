@@ -13,6 +13,7 @@ import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowMar
 import com.github.braillesystems.learnbraille.res.showMarkerPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.theory.steps.AbstractStepFragment
 import com.github.braillesystems.learnbraille.ui.screens.theory.steps.StepBinding
+import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
@@ -35,6 +36,7 @@ class ShowMarkerFragment : AbstractStepFragment(R.string.lessons_help_show_marke
             object : StepBinding {
                 override val prevButton: Button? = this@init.prevButton
                 override val nextButton: Button? = this@init.nextButton
+                override val flipButton: Button? = this@init.flipButton
                 override val textView: TextView? = this@init.infoTextView
             }
         }
@@ -48,7 +50,11 @@ class ShowMarkerFragment : AbstractStepFragment(R.string.lessons_help_show_marke
         val text = showMarkerPrintRules.getValue(data.type)
         infoTextView.text = text
         checkedAnnounce(text)
+        brailleDots.mode = BrailleDotsViewMode.Writing
         brailleDots.dotsState.display(data.brailleDots)
+        flipButton.setOnClickListener {
+            brailleDots.reflect().display(data.brailleDots)
+        }
 
     }.root
 }

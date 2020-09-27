@@ -27,6 +27,7 @@ interface StepBinding {
     val prevButton: Button? get() = null
     val nextButton: Button? get() = null
     val hintButton: Button? get() = null
+    val flipButton: Button? get() = null
     val textView: TextView? get() = null
     val brailleDots: BrailleDotsView? get() = null
 }
@@ -77,6 +78,7 @@ abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWith
                     leftButton = prevButton,
                     rightButton = nextButton,
                     leftMiddleButton = hintButton,
+                    rightMiddleButton = flipButton,
                     textView = textView
                 )
             }

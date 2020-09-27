@@ -13,6 +13,7 @@ import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.theory.steps.AbstractStepFragment
 import com.github.braillesystems.learnbraille.ui.screens.theory.steps.StepBinding
+import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
@@ -35,6 +36,7 @@ class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbo
             object : StepBinding {
                 override val prevButton: Button? = this@init.prevButton
                 override val nextButton: Button? = this@init.nextButton
+                override val flipButton: Button? = this@init.flipButton
             }
         }
     ).apply {
@@ -47,7 +49,11 @@ class ShowSymbolFragment : AbstractStepFragment(R.string.lessons_help_show_symbo
         letter.letter = data.char
         letterCaption.text = captionRules.getValue(data)
         checkedAnnounce(showSymbolPrintRules.getValue(data.char))
+        brailleDots.mode = BrailleDotsViewMode.Writing
         brailleDots.dotsState.display(data.brailleDots)
+        flipButton.setOnClickListener {
+            brailleDots.reflect().display(data.brailleDots)
+        }
 
     }.root
 }

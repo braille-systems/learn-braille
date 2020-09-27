@@ -41,7 +41,7 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
         require(m.data is MarkerSymbol)
 
         infoTextView.text = showMarkerPrintRules.getValue(m.data.type)
-        
+
         brailleDots.mode = BrailleDotsViewMode.Reading
         brailleDots.dotsState.display(m.data.brailleDots)
         flipButton.setOnClickListener {

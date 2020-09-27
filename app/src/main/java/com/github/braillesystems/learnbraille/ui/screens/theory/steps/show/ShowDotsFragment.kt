@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.text.parseAsHtml
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.ShowDots
@@ -12,9 +13,11 @@ import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowDotsBinding
 import com.github.braillesystems.learnbraille.ui.screens.theory.steps.AbstractStepFragment
 import com.github.braillesystems.learnbraille.ui.screens.theory.steps.StepBinding
+import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
+import com.github.braillesystems.learnbraille.utils.removeHtmlMarkup
 
 class ShowDotsFragment : AbstractStepFragment(R.string.lessons_help_show_dots) {
 
@@ -33,6 +36,7 @@ class ShowDotsFragment : AbstractStepFragment(R.string.lessons_help_show_dots) {
             object : StepBinding {
                 override val prevButton: Button? = this@init.prevButton
                 override val nextButton: Button? = this@init.nextButton
+                override val flipButton: Button? = this@init.flipButton
                 override val textView: TextView? = this@init.infoTextView
             }
         }
@@ -43,9 +47,14 @@ class ShowDotsFragment : AbstractStepFragment(R.string.lessons_help_show_dots) {
 
         val text = data.text
             ?: getString(R.string.lessons_show_dots_info_template).format(data.brailleDots.spelling)
-        infoTextView.text = text
-        checkedAnnounce(text)
+        infoTextView.text = text.parseAsHtml()
+        checkedAnnounce(text.removeHtmlMarkup())
+
+        brailleDots.mode = BrailleDotsViewMode.Writing
         brailleDots.dotsState.display(data.brailleDots)
+        flipButton.setOnClickListener {
+            brailleDots.reflect().display(data.brailleDots)
+        }
 
     }.root
 }

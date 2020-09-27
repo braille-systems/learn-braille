@@ -2,6 +2,8 @@
     <!--    Note: "double quotes" make TalkBack emphasize a text between them-->
     <!--    & delimiter splits talkback sections in the help-->
 
+    <!--    TODO write about flip button to help-->
+
     <!--    App common-->
 
     <string name="app_name">Learn Braille</string>
@@ -523,5 +525,6 @@
     <string name="stats_property_input_steps_passed">Пройдено шагов с вводом</string>
     <string name="stats_section_7days">За последние 7 дней</string>
     <string name="stats_section_30days">За последние 30 дней</string>
+    <!--    TODO too long description-->
     <string name="flip_card">Режим как для письма (точки 123 слева) или как для чтения (точки 123 справа)</string>
 </resources>

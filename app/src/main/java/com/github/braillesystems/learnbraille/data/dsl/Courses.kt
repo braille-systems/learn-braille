@@ -9,14 +9,7 @@ import com.github.braillesystems.learnbraille.utils.side
 sealed class CourseID(val id: DBid)
 
 object DevelopersCourse : CourseID(1)
-
-class UsersCourse(id: DBid) : CourseID(id) {
-    init {
-        require(id > 1) {
-            "id == 1 stands for developers course"
-        }
-    }
-}
+object UsersCourse : CourseID(2)
 
 @DataBuilderMarker
 class CoursesBuilder(block: CoursesBuilder.() -> Unit) {
