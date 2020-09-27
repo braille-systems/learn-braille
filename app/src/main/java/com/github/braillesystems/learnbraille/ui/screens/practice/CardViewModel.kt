@@ -120,11 +120,11 @@ class CardViewModel(
             _deckTag.value = deck.tag
         }
 
-        val material = retryN(
-            n = 5,
-            stop = { it.data !in materialsQueue },
-            get = { nextMaterial()!! }
-        ) ?: nextMaterial()!!
+        val material = retryN(5) {
+            val m = nextMaterial()
+            if (m.data in materialsQueue) null
+            else m
+        } ?: nextMaterial()
 
         if (material.data !in materialsQueue) {
             if (materialsQueue.size == nSkipMaterials) materialsQueue.poll()
@@ -139,10 +139,11 @@ class CardViewModel(
         }
     }
 
-    private suspend fun nextMaterial(): Material? =
+    private suspend fun nextMaterial(): Material =
         if (preferenceRepository.practiceUseOnlyKnownMaterials) {
             practiceRepository.randomKnownMaterial()
         } else {
             practiceRepository.randomMaterial()
         }
+            ?: error("Current deck should not be empty")
 }
