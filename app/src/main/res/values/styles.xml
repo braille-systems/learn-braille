@@ -45,7 +45,6 @@
         <item name="android:scaleX">@dimen/braille_dots_scale_of_one_dot</item>
         <item name="android:scaleY">@dimen/braille_dots_scale_of_one_dot</item>
         <item name="android:button">@drawable/round_checkbox</item>
-        <item name="background">@color/colorBackground</item>
     </style>
 
     <style name="bigLetterStyle">
