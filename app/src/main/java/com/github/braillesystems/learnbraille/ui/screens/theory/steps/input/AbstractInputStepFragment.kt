@@ -53,20 +53,20 @@ abstract class AbstractInputStepFragment(helpMsgId: HelpMsgId) : AbstractStepFra
             val buzzer: Vibrator? = activity?.getSystemService()
 
             viewModel.observeCheckedOnFly(
-                viewLifecycleOwner, dotsState, buzzer,
+                viewLifecycleOwner, { dotsState }, buzzer,
                 block = { toNextStep(step, markThisAsPassed = true) },
                 softBlock = { showCorrectToast() }
             )
 
             viewModel.observeEventHint(
-                viewLifecycleOwner, dotsState
+                viewLifecycleOwner, { dotsState }
             ) {
                 showHintToast(expectedDots)
                 userTouchedDots = true
             }
 
             viewModel.observeEventIncorrect(
-                viewLifecycleOwner, dotsState
+                viewLifecycleOwner, { dotsState }
             ) {
                 fun notify() {
                     toastIncorrect(data)
@@ -80,7 +80,7 @@ abstract class AbstractInputStepFragment(helpMsgId: HelpMsgId) : AbstractStepFra
             }
 
             viewModel.observeEventPassHint(
-                viewLifecycleOwner, dotsState
+                viewLifecycleOwner, { dotsState }
             ) {
                 onPassHint(data)
             }

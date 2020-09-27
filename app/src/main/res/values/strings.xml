@@ -22,6 +22,7 @@
     <string name="preference_practice_use_only_known_materials">practice_use_only_known_materials</string>
     <string name="preference_extended_accessibility">extended_accessibility</string>
     <string name="preference_additional_qrcode_button_enabled">additional_qrcode_button_enabled</string>
+    <string name="preferences_is_write_mode_first">is_write_mode_first</string>
 
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
@@ -493,6 +494,12 @@
     <string name="preference_summary_additional_qrcode_button">
         Отображать в главном меню кнопку \"QR-код\" для игры с карточками Брайля.
     </string>
+    <!--    TODO-->
+    <string name="preference_title_is_write_mode_first">
+        Точки как для письма по умолчанию
+    </string>
+    <!--    TODO-->
+    <string name="preference_summary_is_write_mode_forst">TODO</string>
 
     <!--    Stats-->
 

@@ -178,6 +178,8 @@ class MaterialsRepositoryTest {
                     get() = unreachable
                 override val additionalQrCodeButtonEnabled: Boolean
                     get() = unreachable
+                override val isWriteModeFirst: Boolean
+                    get() = unreachable
                 override val currentUserId: DBid
                     get() = 1
 

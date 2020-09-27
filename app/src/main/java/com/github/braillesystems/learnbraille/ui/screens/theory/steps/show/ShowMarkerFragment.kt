@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.text.parseAsHtml
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.MarkerSymbol
@@ -18,7 +17,6 @@ import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import com.github.braillesystems.learnbraille.utils.getValue
-import com.github.braillesystems.learnbraille.utils.removeHtmlMarkup
 
 class ShowMarkerFragment : AbstractStepFragment(R.string.lessons_help_show_marker) {
 

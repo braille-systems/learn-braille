@@ -73,10 +73,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         val viewModel = ViewModelProvider(this, viewModelFactory)
             .get(CardViewModel::class.java)
 
-        dotsState.subscribe(View.OnClickListener {
-            viewModel.onSoftCheck()
-        })
-
+        dotsState.subscribe(viewModel)
 
         val buzzer: Vibrator? = activity?.getSystemService()
 
@@ -85,10 +82,14 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             override fun onJoystickLeft() = viewModel.onHint()
         })
 
-
         binding.cardViewModel = viewModel
         binding.lifecycleOwner = this@CardFragment
 
+        binding.flipButton.setOnClickListener {
+            dotsState = binding.brailleDots.reflect().apply {
+                dotsState.subscribe(viewModel)
+            }
+        }
 
         viewModel.symbol.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
@@ -109,13 +110,13 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         })
 
         viewModel.observeCheckedOnFly(
-            viewLifecycleOwner, dotsState, buzzer,
+            viewLifecycleOwner, { dotsState }, buzzer,
             block = { title = title(viewModel) },
             softBlock = ::showCorrectToast
         )
 
         viewModel.observeEventIncorrect(
-            viewLifecycleOwner, dotsState, buzzer
+            viewLifecycleOwner, { dotsState }, buzzer
         ) {
             viewModel.symbol.value
                 ?.let { showIncorrectToast(inputPrint(it)) }
@@ -124,13 +125,13 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         }
 
         viewModel.observeEventHint(
-            viewLifecycleOwner, dotsState
+            viewLifecycleOwner, { dotsState }
         ) { expectedDots ->
             showHintToast(expectedDots)
         }
 
         viewModel.observeEventPassHint(
-            viewLifecycleOwner, dotsState
+            viewLifecycleOwner, { dotsState }
         ) {
             viewModel.symbol.value?.let {
                 checkedAnnounce(inputPrint(it))
@@ -165,6 +166,11 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             if (viewModel == null) format(0, 0)
             else format(viewModel.nCorrect, viewModel.nTries)
         }
+
+    private fun BrailleDotsState.subscribe(viewModel: CardViewModel) =
+        subscribe(View.OnClickListener {
+            viewModel.onSoftCheck()
+        })
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.card_menu, menu)

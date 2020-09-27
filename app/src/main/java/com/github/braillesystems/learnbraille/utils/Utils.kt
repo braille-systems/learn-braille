@@ -108,13 +108,19 @@ fun Fragment.applyExtendedAccessibility(
     rightMiddleButton: Button? = null,
     textView: TextView? = null
 ) {
-    val width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
     forEach(
         leftButton,
         rightButton,
         leftMiddleButton,
         rightMiddleButton
-    ) { it?.setSize(width = width) }
+    ) {
+        it?.setSize(
+            width = resources
+                .getDimension(R.dimen.side_buttons_extended_width)
+                .toInt()
+        )
+    }
+
     textView?.setTextSize(
         TypedValue.COMPLEX_UNIT_SP,
         contextNotNull.extendedTextSize
