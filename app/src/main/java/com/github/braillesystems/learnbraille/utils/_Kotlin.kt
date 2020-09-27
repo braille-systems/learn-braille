@@ -117,10 +117,9 @@ operator fun Date.plus(days: Days): Date =
 
 operator fun Date.minus(days: Days): Date = plus(-days)
 
-inline fun <T> retryN(n: Int, stop: (T) -> Boolean, get: () -> T): T? {
+inline fun <T : Any> retryN(n: Int, get: () -> T?): T? {
     repeat(n) {
-        val v = get()
-        if (stop(v)) return v
+        get()?.let { return it }
     }
     return null
 }

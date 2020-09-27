@@ -1,7 +1,6 @@
 package com.github.braillesystems.learnbraille.utils
 
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class _KotlinTest {
@@ -42,22 +41,29 @@ class _KotlinTest {
 
     @Test
     fun retryNTest() {
-        fun getNextNumber(currentNumber: Int, nextNumbers: IntArray, repeat: Int): Int? {
+        // Last try will succeed
+        fun getTrier(n: Int): () -> Int? {
             var i = 0
-            fun getNextNumber(): Int {
-                return nextNumbers[i++]
+            return {
+                ++i
+                if (i == n) n
+                else null
             }
-
-            fun ifNumberSameAsCurrent(number: Int) = number == currentNumber
-
-            return retryN(repeat, { !ifNumberSameAsCurrent(it) }, { getNextNumber() })
         }
 
-        // Find first number in a sequence different from specified number
-        assertEquals(1, getNextNumber(0, intArrayOf(1, 1, 1), 2))
-        assertEquals(2, getNextNumber(1, intArrayOf(1, 2, 3), 2))
-        assertEquals(2, getNextNumber(1, intArrayOf(1, 2, 3), 3))
-        assertEquals(null, getNextNumber(1, intArrayOf(1, 2, 3), 1))
-        assertEquals(5, getNextNumber(0, intArrayOf(0, 0, 0, 5, 1, 0, 4), 4))
+        assertNull(retryN(-1) { 1 })
+        assertNull(retryN(0) { 1 })
+        run {
+            val trier = getTrier(5)
+            assertNull(retryN(4, trier))
+        }
+        run {
+            val trier = getTrier(5)
+            assertEquals(5, retryN(5, trier))
+        }
+        run {
+            val trier = getTrier(5)
+            assertEquals(5, retryN(10, trier))
+        }
     }
 }
