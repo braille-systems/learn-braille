@@ -11,6 +11,7 @@ import com.github.braillesystems.learnbraille.data.repository.PreferenceReposito
 import com.github.braillesystems.learnbraille.databinding.FragmentSymbolViewBinding
 import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
+import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.applyExtendedAccessibility
@@ -41,6 +42,8 @@ class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view
 
         letter.letter = m.data.char
         letterCaption.text = captionRules.getValue(m.data)
+
+        brailleDots.mode = BrailleDotsViewMode.Reading
         brailleDots.dotsState.display(m.data.brailleDots)
         flipButton.setOnClickListener {
             brailleDots.reflect().display(m.data.brailleDots)

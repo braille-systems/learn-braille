@@ -11,6 +11,7 @@ import com.github.braillesystems.learnbraille.data.repository.PreferenceReposito
 import com.github.braillesystems.learnbraille.databinding.FragmentMarkerViewBinding
 import com.github.braillesystems.learnbraille.res.showMarkerPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
+import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.applyExtendedAccessibility
@@ -40,6 +41,8 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
         require(m.data is MarkerSymbol)
 
         infoTextView.text = showMarkerPrintRules.getValue(m.data.type)
+        
+        brailleDots.mode = BrailleDotsViewMode.Reading
         brailleDots.dotsState.display(m.data.brailleDots)
         flipButton.setOnClickListener {
             brailleDots.reflect().display(m.data.brailleDots)
