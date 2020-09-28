@@ -67,6 +67,14 @@
 
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="true"
+        android:key="@string/preferences_is_write_mode_first"
+        android:summary="@string/preference_summary_is_write_mode_forst"
+        android:theme="@style/SwitchPreferenceButton"
+        android:title="@string/preference_title_is_write_mode_first"
+        app:iconSpaceReserved="false" />
+
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="true"
         android:key="@string/preference_traverse_dots_in_enumeration_order"
         android:summary="@string/preference_summary_traversal_order"
         android:theme="@style/SwitchPreferenceButton"

@@ -21,13 +21,12 @@ class LastInfoFragment : AbstractInfoStepFragment(R.string.lessons_help_last_inf
         R.layout.fragment_lesson_last_info,
         container,
         false
-    ).init(
-        titleId = R.string.lessons_title_last_info,
-        binding = {
-            object : StepBinding {
-                override val prevButton: Button? = this@init.prevButton
-                override val textView: TextView? = this@init.infoTextView
-            }
+    ).iniStep(
+        titleId = R.string.lessons_title_last_info
+    ) {
+        object : StepBinding {
+            override val prevButton: Button? = this@iniStep.prevButton
+            override val textView: TextView? = this@iniStep.infoTextView
         }
-    ).root
+    }.root
 }

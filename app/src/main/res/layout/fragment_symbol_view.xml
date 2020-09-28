@@ -35,5 +35,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="@dimen/practice_dots_vertical_bias" />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/flip_button"
+            style="@style/sideIconButtons"
+            android:layout_width="@dimen/side_buttons_width"
+            android:layout_height="@dimen/practice_buttons_height"
+            android:contentDescription="@string/flip_card"
+            app:icon="@drawable/ic_flip_white_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="@dimen/practice_buttons_vertical_bias"
+            app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -15,7 +15,6 @@ import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHel
 import com.github.braillesystems.learnbraille.utils.Days
 import com.github.braillesystems.learnbraille.utils.forEach
 import com.github.braillesystems.learnbraille.utils.scope
-import com.github.braillesystems.learnbraille.utils.title
 import kotlinx.android.synthetic.main.fragment_stats.*
 import kotlinx.android.synthetic.main.fragment_stats_table.view.*
 import kotlinx.coroutines.Job
@@ -36,10 +35,7 @@ class StatsFragment : AbstractFragmentWithHelp(R.string.stats_help) {
         R.layout.fragment_stats,
         container,
         false
-    ).also {
-
-        title = getString(R.string.stats_title)
-        setHasOptionsMenu(true)
+    ).ini().also {
 
         scope(job).launch {
             forEach(stats_week to 7, stats_month to 30) { (view, days) ->

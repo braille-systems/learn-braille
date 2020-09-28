@@ -200,48 +200,48 @@ private class DotsCheckerImpl : MutableDotsChecker {
 }
 
 @Suppress("LongParameterList")
-inline fun DotsChecker.observeCheckedOnFly(
+fun DotsChecker.observeCheckedOnFly(
     lifecycleOwner: LifecycleOwner,
-    dotsState: BrailleDotsState,
+    getDotsState: () -> BrailleDotsState,
     buzzer: Vibrator? = null,
     preferenceRepository: PreferenceRepository = get(),
-    crossinline block: () -> Unit = {},
-    crossinline softBlock: () -> Unit = {}
+    block: () -> Unit = {},
+    softBlock: () -> Unit = {}
 ) {
     if (preferenceRepository.inputOnFlyCheck) {
-        observeEventCorrect(lifecycleOwner, dotsState, buzzer = null, block = block)
+        observeEventCorrect(lifecycleOwner, getDotsState, buzzer = null, block = block)
         observeEventSoftCorrect(lifecycleOwner, buzzer = buzzer, block = softBlock)
     } else {
-        observeEventCorrect(lifecycleOwner, dotsState, buzzer) {
+        observeEventCorrect(lifecycleOwner, getDotsState, buzzer) {
             softBlock()
             block()
         }
     }
 }
 
-inline fun DotsChecker.observeEventCorrect(
+fun DotsChecker.observeEventCorrect(
     lifecycleOwner: LifecycleOwner,
-    dotsState: BrailleDotsState,
+    getDotsState: () -> BrailleDotsState,
     buzzer: Vibrator? = null,
     preferenceRepository: PreferenceRepository = get(),
-    crossinline block: () -> Unit = {}
+    block: () -> Unit = {}
 ): Unit = eventCorrect.observe(
     lifecycleOwner,
     Observer {
         if (!it) return@Observer
         Timber.i("Handle correct")
         buzzer.checkedBuzz(preferenceRepository.correctBuzzPattern)
-        dotsState.uncheck()
+        getDotsState().uncheck()
         block()
         onCorrectComplete()
     }
 )
 
-inline fun DotsChecker.observeEventSoftCorrect(
+fun DotsChecker.observeEventSoftCorrect(
     lifecycleOwner: LifecycleOwner,
     buzzer: Vibrator? = null,
     preferenceRepository: PreferenceRepository = get(),
-    crossinline block: () -> Unit = {}
+    block: () -> Unit = {}
 ): Unit = eventSoftCorrect.observe(
     lifecycleOwner,
     Observer {
@@ -253,50 +253,50 @@ inline fun DotsChecker.observeEventSoftCorrect(
     }
 )
 
-inline fun DotsChecker.observeEventIncorrect(
+fun DotsChecker.observeEventIncorrect(
     lifecycleOwner: LifecycleOwner,
-    dotsState: BrailleDotsState,
+    getDotsState: () -> BrailleDotsState,
     buzzer: Vibrator? = null,
     preferenceRepository: PreferenceRepository = get(),
-    crossinline block: () -> Unit = {}
+    block: () -> Unit = {}
 ): Unit = eventIncorrect.observe(
     lifecycleOwner,
     Observer {
         if (!it) return@Observer
-        Timber.i("Handle incorrect: entered = ${dotsState.spelling}")
+        Timber.i("Handle incorrect: entered = ${getDotsState().spelling}")
         buzzer.checkedBuzz(preferenceRepository.incorrectBuzzPattern)
-        dotsState.uncheck()
+        getDotsState().uncheck()
         block()
         onIncorrectComplete()
     }
 )
 
-inline fun DotsChecker.observeEventHint(
+fun DotsChecker.observeEventHint(
     lifecycleOwner: LifecycleOwner,
-    dotsState: BrailleDotsState,
-    crossinline block: (BrailleDots) -> Unit = {}
+    getDotsState: () -> BrailleDotsState,
+    block: (BrailleDots) -> Unit = {}
 ): Unit = eventHint.observe(
     lifecycleOwner,
     Observer { expectedDots ->
         if (expectedDots == null) return@Observer
         Timber.i("Handle hint")
-        dotsState.display(expectedDots)
+        getDotsState().display(expectedDots)
         BrailleTrainer.trySend(expectedDots)
         block(expectedDots)
         onHintComplete()
     }
 )
 
-inline fun DotsChecker.observeEventPassHint(
+fun DotsChecker.observeEventPassHint(
     lifecycleOwner: LifecycleOwner,
-    dotsState: BrailleDotsState,
-    crossinline block: () -> Unit = {}
+    getDotsState: () -> BrailleDotsState,
+    block: () -> Unit = {}
 ): Unit = eventPassHint.observe(
     lifecycleOwner,
     Observer {
         if (!it) return@Observer
-        dotsState.uncheck()
-        dotsState.clickable(true)
+        getDotsState().uncheck()
+        getDotsState().clickable(true)
         block()
         onPassHintComplete()
     }

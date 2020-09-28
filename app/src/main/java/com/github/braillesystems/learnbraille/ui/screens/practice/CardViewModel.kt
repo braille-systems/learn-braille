@@ -62,7 +62,8 @@ class CardViewModel(
     var nCorrect: Int = 0
         private set
 
-    private var expectedDots: BrailleDots? = null
+    var expectedDots: BrailleDots? = null
+        private set
 
     private val job = Job()
     private val uiScope = scope(job)
