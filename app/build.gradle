@@ -51,6 +51,9 @@ android {
             suppress = true
         }
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
