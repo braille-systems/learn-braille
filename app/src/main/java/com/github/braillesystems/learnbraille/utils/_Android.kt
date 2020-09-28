@@ -100,7 +100,7 @@ fun Fragment.navigate(action: NavDirections) = try {
     Timber.e(e, "Multitouch navigation")
 }
 
-fun Fragment.exitToLauncher() {
+fun Fragment.navigateToLauncher() {
     val intent = Intent(Intent.ACTION_MAIN).apply {
         addCategory(Intent.CATEGORY_HOME)
         flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
