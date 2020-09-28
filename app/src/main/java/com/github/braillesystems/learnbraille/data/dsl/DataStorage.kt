@@ -5,7 +5,6 @@ import com.github.braillesystems.learnbraille.res.DeckTags
 import com.github.braillesystems.learnbraille.utils.side
 import kotlin.reflect.KProperty
 
-
 interface DataStorage {
     val users: List<User>?
     val materials: List<Material>?
@@ -19,35 +18,24 @@ interface DataStorage {
     val knownMaterials: List<KnownMaterial>?
 }
 
-
-const val DEFAULT_ID = -1L
-const val ALL_CARDS_DECK_ID = 1L
-
-typealias StepAnnotationName = String
 typealias StepWithAnnotations = Pair<Step, List<StepAnnotationName>>
 typealias LessonWithSteps = Pair<Lesson, List<StepWithAnnotations>>
 
-
-@DslMarker
-annotation class DataBuilderMarker
-
-
 class data(
     private val materials: MaterialsBuilder,
-    private val stepAnnotations: List<StepAnnotationName>,
+    private val stepAnnotationNames: List<StepAnnotationName>,
     private val knownMaterials: List<KnownMaterial>,
     private val block: DataBuilder.() -> Unit
 ) {
     internal operator fun getValue(thisRef: Any?, property: KProperty<*>): DataStorage =
-        DataBuilder(materials, stepAnnotations, knownMaterials, block)
+        DataBuilder(materials, stepAnnotationNames, knownMaterials, block)
 }
-
 
 @DataBuilderMarker
 class DataBuilder(
-    private val _materials: MaterialsBuilder,
+    materials: MaterialsBuilder,
     private val stepAnnotationNames: List<StepAnnotationName>,
-    private val _knownMaterials: List<KnownMaterial>,
+    knownMaterials: List<KnownMaterial>,
     block: DataBuilder.() -> Unit
 ) : DataStorage {
 
@@ -55,6 +43,7 @@ class DataBuilder(
     override val users: List<User>
         get() = _users
 
+    private val _materials: MaterialsBuilder = materials
     override val materials: List<Material>
         get() = _materials.materials
 
@@ -86,6 +75,7 @@ class DataBuilder(
     override val stepsHasAnnotations: List<StepHasAnnotation>
         get() = _stepsHasAnnotations
 
+    private val _knownMaterials: List<KnownMaterial> = knownMaterials
     override val knownMaterials: List<KnownMaterial> by lazy {
         _knownMaterials.map { it.copy(userId = 1) }
     }
@@ -128,7 +118,9 @@ class DataBuilder(
 
                 stepsWithAnnotations.forEachIndexed { iStep, (step, stepAnnotationNames) ->
                     val stepId = iStep + 1L
-                    _steps += step.copy(id = stepId, courseId = courseId, lessonId = lessonId)
+                    _steps += step
+                        .copy(id = stepId, courseId = courseId, lessonId = lessonId)
+                        .interpolateText(course.name)
 
                     stepAnnotationNames.forEach {
                         val stepAnnotation = annotationByName[it]?.id
@@ -162,7 +154,6 @@ class DataBuilder(
         }
 }
 
-
 @DataBuilderMarker
 class DecksBuilder(block: DecksBuilder.() -> Unit) {
 
@@ -175,7 +166,26 @@ class DecksBuilder(block: DecksBuilder.() -> Unit) {
     }
 
     fun deck(tag: String, entryCriterion: (MaterialData) -> Boolean) {
-        val deck = Deck(DEFAULT_ID, tag)
+        val deck = Deck(UNDEFINED_ID, tag)
         _deckToPredicate[deck] = entryCriterion
     }
 }
+
+private fun Step.interpolateText(courseName: CourseName): Step =
+    this.copy(
+        data =
+        if (data !is BaseInfo) data
+        else {
+            when (data) {
+                is FirstInfo -> FirstInfo(interpolateTextHelper(data.text, courseName))
+                is LastInfo -> LastInfo(interpolateTextHelper(data.text, courseName))
+                is Info -> Info(interpolateTextHelper(data.text, courseName))
+            }
+        }
+    )
+
+private fun Step.interpolateTextHelper(text: HtmlText, courseName: CourseName): HtmlText =
+    text
+        .replace(InfoInterpolation.iStep, id.toString())
+        .replace(InfoInterpolation.iLesson, lessonId.toString())
+        .replace(InfoInterpolation.courseName, courseName)

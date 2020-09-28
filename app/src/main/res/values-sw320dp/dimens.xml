@@ -9,7 +9,6 @@
     <dimen name="braille_dots_scale_of_one_dot">2.6</dimen>
     <dimen name="braille_dots_scale_of_view">1.1</dimen>
 
-    <dimen name="letter_practice_scale_of_view">0.8</dimen>
     <dimen name="practice_dots_vertical_bias">0.85</dimen>
     <dimen name="practice_buttons_vertical_bias">0.9</dimen>
 
@@ -21,8 +20,6 @@
     <dimen name="practice_buttons_icon_hint_size">32dp</dimen>
     <dimen name="practice_buttons_border_radius">30dp</dimen>
 
-    <dimen name="lessons_title_width">320dp</dimen>
-    <dimen name="lessons_title_height">64dp</dimen>
     <dimen name="lessons_title_text_size">15sp</dimen>
     <dimen name="lessons_title_vertical_bias">0.05</dimen>
     <dimen name="lessons_info_width">230dp</dimen>
@@ -32,7 +29,7 @@
     <dimen name="lessons_dots_info_width">394dp</dimen>
     <dimen name="lessons_dots_info_height">175dp</dimen>
 
-    <dimen name="big_letter_text_size">170sp</dimen>
+    <dimen name="big_letter_text_size">136sp</dimen>
 
     <dimen name="big_buttons_border_radius">30dp</dimen>
 

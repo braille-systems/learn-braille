@@ -1,13 +1,15 @@
 package com.github.braillesystems.learnbraille.ui.views
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
-import com.github.braillesystems.learnbraille.ui.PrintMode
-import com.github.braillesystems.learnbraille.ui.printString
-import timber.log.Timber
+import com.github.braillesystems.learnbraille.res.inputSymbolPrintRules
+import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
+import com.github.braillesystems.learnbraille.utils.getValue
 
+@SuppressLint("AppCompatCustomView")
 open class BigLetterView : TextView {
 
     constructor(context: Context) : super(context)
@@ -20,16 +22,16 @@ open class BigLetterView : TextView {
         context, attrSet, defStyleAttr
     )
 
-    protected fun addContextListener(mode: PrintMode) {
+    var letter: Char
+        get() = super.getText().first()
+        set(value) = super.setText(value.toString())
+
+    protected fun addContextListener(hintGetter: Context.(Char) -> String) {
         addTextChangedListener(
             afterTextChanged = { text ->
                 if (text == null) return@addTextChangedListener
                 require(text.length == 1)
-                contentDescription = context
-                    .printString(text.first(), mode)
-                    ?: text.first().toLowerCase().toString().also {
-                        Timber.e("Symbol intro not found: $text")
-                    }
+                contentDescription = context.hintGetter(text.first())
             }
         )
     }
@@ -48,7 +50,9 @@ class InputBigLetterView : BigLetterView {
     )
 
     init {
-        addContextListener(PrintMode.INPUT)
+        addContextListener { c ->
+            inputSymbolPrintRules.getValue(c)
+        }
     }
 }
 
@@ -65,6 +69,8 @@ class ShowBigLetterView : BigLetterView {
     )
 
     init {
-        addContextListener(PrintMode.SHOW)
+        addContextListener { c ->
+            showSymbolPrintRules.getValue(c)
+        }
     }
 }

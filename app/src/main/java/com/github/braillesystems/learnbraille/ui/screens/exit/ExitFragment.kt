@@ -1,23 +1,18 @@
 package com.github.braillesystems.learnbraille.ui.screens.exit
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.databinding.FragmentExitBinding
-import com.github.braillesystems.learnbraille.utils.SpeechRecognition
+import com.github.braillesystems.learnbraille.ui.screens.AbstractFragment
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import com.github.braillesystems.learnbraille.utils.navigate
-import com.github.braillesystems.learnbraille.utils.updateTitle
-import org.koin.android.ext.android.get
+import com.github.braillesystems.learnbraille.utils.navigateToLauncher
+import com.github.braillesystems.learnbraille.utils.title
 
-
-class ExitFragment : Fragment() {
-
-    private lateinit var recognizer: SpeechRecognition
+class ExitFragment : AbstractFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,19 +23,14 @@ class ExitFragment : Fragment() {
         R.layout.fragment_exit,
         container,
         false
-    ).apply {
+    ).ini().apply {
 
-        val title: String = getString(R.string.exit_question)
-        updateTitle(title)
+        title = getString(R.string.exit_question)
         checkedAnnounce(title)
 
-        recognizer = SpeechRecognition(this@ExitFragment, get())
-
         exitButton.setOnClickListener {
-            val homeIntent = Intent(Intent.ACTION_MAIN)
-            homeIntent.addCategory(Intent.CATEGORY_HOME)
-            homeIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(homeIntent)
+            navigate(R.id.action_global_menuFragment)
+            navigateToLauncher()
         }
 
         continueButton.setOnClickListener {
@@ -48,9 +38,4 @@ class ExitFragment : Fragment() {
         }
 
     }.root
-
-    override fun onDestroy() {
-        super.onDestroy()
-        recognizer.onDestroy()
-    }
 }

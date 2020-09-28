@@ -1,89 +1,91 @@
 package com.github.braillesystems.learnbraille.ui.screens.theory.steps
 
 import android.text.method.ScrollingMovementMethod
-import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.text.parseAsHtml
 import com.github.braillesystems.learnbraille.COURSE
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Step
-import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
+import com.github.braillesystems.learnbraille.ui.dotsMode
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
+import com.github.braillesystems.learnbraille.ui.screens.BrailleDotsInfo
+import com.github.braillesystems.learnbraille.ui.screens.FragmentBinding
 import com.github.braillesystems.learnbraille.ui.screens.HelpMsgId
+import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toCurrentStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
-import com.github.braillesystems.learnbraille.utils.*
-import org.koin.android.ext.android.inject
-import com.github.braillesystems.learnbraille.utils.updateTitle as utilUpdateTitle
+import com.github.braillesystems.learnbraille.utils.checkedToast
+import com.github.braillesystems.learnbraille.utils.navigate
+import com.github.braillesystems.learnbraille.utils.title
 
+interface StepBinding {
+    val prevButton: Button? get() = null
+    val nextButton: Button? get() = null
+    val hintButton: Button? get() = null
+    val flipButton: Button? get() = null
+    val textView: TextView? get() = null
+    val brailleDotsInfo: BrailleDotsInfo? get() = null
+}
 
 /**
  * Base class for all steps.
  */
 abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWithHelp(helpMsgId) {
 
-    protected val preferenceRepository: PreferenceRepository by inject()
     protected lateinit var step: Step
+        private set
+
+    protected lateinit var stepBinding: StepBinding
+        private set
 
     override val helpMsg: String
         get() = getString(R.string.lessons_help_template).format(
             super.helpMsg, getString(R.string.lessons_help_common)
         )
 
-    protected fun initialize(
-        step: Step,
-        prevButton: Button? = null,
-        nextButton: Button? = null,
-        hintButton: Button? = null
-    ) {
-        this.step = step
-        setHasOptionsMenu(true)
-        if (preferenceRepository.extendedAccessibilityEnabled) {
-            prevButton?.setSize(
-                width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
-            )
-            nextButton?.setSize(
-                width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
-            )
-            hintButton?.setSize(
-                width = resources.getDimension(R.dimen.side_buttons_extended_width).toInt()
-            )
+    protected fun <B> B.iniStep(
+        titleId: Int,
+        getBinding: B.() -> StepBinding
+    ) = ini {
+        getBinding().run {
+            object : FragmentBinding {
+                override val leftButton: Button? get() = this@run.prevButton
+                override val rightButton: Button? get() = this@run.nextButton
+                override val leftMiddleButton: Button? get() = this@run.hintButton
+                override val rightMiddleButton: Button? get() = this@run.flipButton
+                override val textView: TextView? get() = this@run.textView
+                override val brailleDotsInfo: BrailleDotsInfo? get() = this@run.brailleDotsInfo
+            }
         }
-    }
+    }.apply {
+        step = getStepArg()
+        stepBinding = getBinding()
 
-    protected fun setText(text: String, infoTextView: TextView) {
-        infoTextView.text = text.parseAsHtml()
-        infoTextView.movementMethod = ScrollingMovementMethod()
-        checkedAnnounce(text)
-        if (preferenceRepository.extendedAccessibilityEnabled) {
-            infoTextView.setTextSize(
-                TypedValue.COMPLEX_UNIT_SP,
-                application.extendedTextSize
-            )
+        val msg = getString(titleId)
+        title = if (preferenceRepository.extendedAccessibilityEnabled) {
+            "${step.lessonId} ${step.id} $msg"
+        } else {
+            "${step.lessonId}.${step.id} $msg"
         }
-    }
 
-    protected fun updateTitle(msg: String) {
-        utilUpdateTitle(
-            if (preferenceRepository.extendedAccessibilityEnabled) "${step.lessonId} ${step.id} $msg"
-            else "${step.lessonId}.${step.id} $msg"
-        )
-    }
-
-    protected fun setNextButton(button: Button) {
-        button.setOnClickListener {
-            toNextStep(step, markThisAsPassed = true)
+        stepBinding.run {
+            prevButton?.setOnClickListener { toPrevStep(step) }
+            nextButton?.setOnClickListener { toNextStep(step, markThisAsPassed = true) }
+            textView?.movementMethod = ScrollingMovementMethod()
         }
+
+        iniStepHelper()
     }
 
-    protected fun setPrevButton(button: Button) {
-        button.setOnClickListener {
-            toPrevStep(step)
+    protected open fun iniStepHelper() = Unit
+
+    protected fun toastDotsMode() {
+        binding.brailleDotsInfo?.view?.mode?.let {
+            checkedToast(dotsMode(it))
         }
     }
 

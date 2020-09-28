@@ -1,26 +1,47 @@
 package com.github.braillesystems.learnbraille.data.repository
 
-import com.github.braillesystems.learnbraille.data.entities.CardDao
-import com.github.braillesystems.learnbraille.data.entities.Deck
-import com.github.braillesystems.learnbraille.data.entities.DeckDao
-import com.github.braillesystems.learnbraille.data.entities.Material
+import com.github.braillesystems.learnbraille.data.entities.*
+
+data class DeckWithAvailability(
+    val deck: Deck,
+    val containsCards: Boolean
+)
 
 interface MaterialsRepository {
-    suspend fun getRandomMaterialFromDeck(id: Long): Material?
-    suspend fun getAllMaterialsFromDeck(id: Long): List<Material>
-    suspend fun getAllDecks(): List<Deck>
+    suspend fun randomMaterialFromDeck(id: DBid): Material?
+    suspend fun randomKnownMaterialFromDeck(id: DBid): Material?
+    suspend fun allMaterialsFromDeck(id: DBid): List<Material>
+    suspend fun allDecks(): List<Deck>
+    suspend fun availableDecks(): List<Deck>
+    suspend fun allDecksWithAvailability(): List<DeckWithAvailability>
 }
 
 open class MaterialsRepositoryImpl(
     private val deckDao: DeckDao,
-    private val cardDao: CardDao
+    private val cardDao: CardDao,
+    private val preferenceRepository: PreferenceRepository
 ) : MaterialsRepository {
 
-    override suspend fun getRandomMaterialFromDeck(id: Long): Material? =
-        cardDao.getRandomMaterialFromDeck(id)
+    override suspend fun randomMaterialFromDeck(id: DBid): Material? =
+        cardDao.randomMaterialFromDeck(id)
 
-    override suspend fun getAllMaterialsFromDeck(id: Long): List<Material> =
-        cardDao.getAllMaterialsFromDeck(id)
+    override suspend fun randomKnownMaterialFromDeck(id: DBid): Material? =
+        cardDao.randomKnownMaterialFromDeck(preferenceRepository.currentUserId, id)
 
-    override suspend fun getAllDecks(): List<Deck> = deckDao.getAllDecks()
+    override suspend fun allMaterialsFromDeck(id: DBid): List<Material> =
+        cardDao.allMaterialsFromDeck(id)
+
+    override suspend fun allDecks(): List<Deck> = deckDao.allDecks()
+
+    override suspend fun availableDecks(): List<Deck> =
+        deckDao.availableDecks(preferenceRepository.currentUserId)
+
+    override suspend fun allDecksWithAvailability(): List<DeckWithAvailability> =
+        if (preferenceRepository.practiceUseOnlyKnownMaterials) {
+            val all = allDecks()
+            val available = availableDecks()
+            all.map { DeckWithAvailability(it, available.contains(it)) }
+        } else {
+            deckDao.allDecks().map { DeckWithAvailability(it, true) }
+        }
 }

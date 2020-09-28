@@ -6,12 +6,9 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 
-
 /**
  * There are specific step types in the app.
  * They differs by visual representation and by the data they contain.
- *
- * Step type can be determined by `is` check.
  *
  * All texts are in html format. Use .parseAsHtml android extension function.
  */
@@ -29,12 +26,15 @@ class StepDataConverters {
     fun from(string: String) = Json.parse(StepData.serializer(), string)
 }
 
+typealias HtmlText = String
 
 /**
  * Represents step types with information.
  */
 @Serializable
-sealed class BaseInfo : StepData()
+sealed class BaseInfo : StepData() {
+    abstract val text: HtmlText
+}
 
 /**
  * Step displays information text for the user.
@@ -42,7 +42,7 @@ sealed class BaseInfo : StepData()
 @Serializable
 data class Info(
     @SerialName("info")
-    val text: String
+    override val text: HtmlText
 ) : BaseInfo()
 
 /**
@@ -51,7 +51,7 @@ data class Info(
 @Serializable
 data class FirstInfo(
     @SerialName("info")
-    val text: String
+    override val text: HtmlText
 ) : BaseInfo()
 
 /**
@@ -60,12 +60,14 @@ data class FirstInfo(
 @Serializable
 data class LastInfo(
     @SerialName("info")
-    val text: String
+    override val text: HtmlText
 ) : BaseInfo()
 
 
 @Serializable
-sealed class BaseInput : StepData()
+sealed class BaseInput : StepData() {
+    abstract val brailleDots: BrailleDots
+}
 
 /**
  * Step prompts the user to enter something.
@@ -73,7 +75,13 @@ sealed class BaseInput : StepData()
 @Serializable
 data class Input(
     val material: Material
-) : BaseInput()
+) : BaseInput() {
+
+    override val brailleDots: BrailleDots
+        get() = when (material.data) {
+            is OneBrailleSymbol -> material.data.brailleDots
+        }
+}
 
 /**
  * Step prompts the user to enter dots with specific numbers.
@@ -83,13 +91,16 @@ data class Input(
  */
 @Serializable
 data class InputDots(
-    val text: String?,
-    val dots: BrailleDots
+    val text: HtmlText?,
+    @SerialName("dots") // backward compatibility
+    override val brailleDots: BrailleDots
 ) : BaseInput()
 
 
 @Serializable
-sealed class BaseShow : StepData()
+sealed class BaseShow : StepData() {
+    abstract val brailleDots: BrailleDots
+}
 
 /**
  * Step shows something.
@@ -97,7 +108,13 @@ sealed class BaseShow : StepData()
 @Serializable
 data class Show(
     val material: Material
-) : BaseShow()
+) : BaseShow() {
+
+    override val brailleDots: BrailleDots
+        get() = when (material.data) {
+            is OneBrailleSymbol -> material.data.brailleDots
+        }
+}
 
 /**
  * Step shows Braille dots with specific numbers.
@@ -107,6 +124,7 @@ data class Show(
  */
 @Serializable
 data class ShowDots(
-    val text: String?,
-    val dots: BrailleDots
+    val text: HtmlText?,
+    @SerialName("dots")
+    override val brailleDots: BrailleDots
 ) : BaseShow()

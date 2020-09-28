@@ -16,15 +16,30 @@
         android:layout_height="match_parent"
         tools:context=".ui.screens.practice.CardFragment">
 
+        <TextView
+            android:id="@+id/letter_caption"
+            style="@style/bigLetterCaptionStyle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/letter" />
+
+        <TextView
+            android:id="@+id/marker_description"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/lessons_dots_info_height"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="@dimen/lessons_info_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/braille_dots"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="" />
+
         <com.github.braillesystems.learnbraille.ui.views.InputBigLetterView
             android:id="@+id/letter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX="@dimen/letter_practice_scale_of_view"
-            android:scaleY="@dimen/letter_practice_scale_of_view"
-            android:text="@{cardViewModel.symbol}"
-            android:textSize="@dimen/big_letter_text_size"
-            android:textStyle="bold"
+            style="@style/bigLetterStyle"
+            android:text=""
             app:layout_constraintBottom_toTopOf="@+id/braille_dots"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +76,20 @@
             app:layout_constraintVertical_bias="@dimen/practice_buttons_vertical_bias"
             app:shapeAppearanceOverlay="@style/sideLeftButtonsShape"
             tools:ignore="SpUsage" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/flip_button"
+            style="@style/sideIconButtons"
+            android:layout_width="@dimen/side_buttons_width"
+            android:layout_height="@dimen/practice_buttons_small_height"
+            android:contentDescription="@string/flip_card"
+            app:backgroundTint="@color/colorSecondary"
+            app:icon="@drawable/ic_flip_white_24dp"
+            app:layout_constraintBottom_toTopOf="@+id/next_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/next_button"

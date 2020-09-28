@@ -5,12 +5,10 @@
     android:id="@+id/navigation"
     app:startDestination="@id/menuFragment">
 
-    <!--    Main navigation-->
-
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.menu.MenuFragment"
-        android:label="fragment_menu"
+        android:label="@string/menu_actionbar_text"
         tools:layout="@layout/fragment_menu">
         <action
             android:id="@+id/action_menuFragment_to_practiceFragment"
@@ -28,38 +26,50 @@
             android:id="@+id/action_menuFragment_to_browserFragment"
             app:destination="@id/browserFragment" />
     </fragment>
+    <action
+        android:id="@+id/action_global_menuFragment"
+        app:destination="@id/menuFragment"
+        app:popUpTo="@id/menuFragment" />
+
     <fragment
         android:id="@+id/exitFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.exit.ExitFragment"
-        android:label="fragment_exit"
+        android:label="@string/exit_question"
         tools:layout="@layout/fragment_exit" />
+
     <fragment
         android:id="@+id/cardFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.practice.CardFragment"
-        android:label="fragment_card"
+        android:label="@string/practice_actionbar_title"
         tools:layout="@layout/fragment_card">
         <action
             android:id="@+id/action_cardFragment_to_decksList"
             app:destination="@id/decksList" />
     </fragment>
+
     <fragment
         android:id="@+id/helpFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.help.HelpFragment"
-        android:label="HelpFragment">
+        android:label="@string/help_title">
         <argument
             android:name="help_message"
             android:defaultValue="@null"
             app:argType="string"
             app:nullable="true" />
     </fragment>
+    <action
+        android:id="@+id/action_global_helpFragment"
+        app:destination="@id/helpFragment" />
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.settings.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:label="@string/preferences_actionbar_title" />
+
     <fragment
         android:id="@+id/decksList"
         android:name="com.github.braillesystems.learnbraille.ui.screens.practice.DecksListFragment"
-        android:label="fragment_decks_list"
+        android:label="@string/decks_list_title"
         tools:layout="@layout/fragment_decks_list">
         <action
             android:id="@+id/action_decksList_to_cardFragment"
@@ -67,134 +77,172 @@
             app:popUpTo="@+id/menuFragment" />
     </fragment>
 
-    <action
-        android:id="@+id/action_global_menuFragment"
-        app:destination="@id/menuFragment"
-        app:popUpTo="@id/menuFragment" />
-    <action
-        android:id="@+id/action_global_helpFragment"
-        app:destination="@id/helpFragment" />
-
-    <!--    Step fragments-->
-
-    <fragment
-        android:id="@+id/infoFragment"
-        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.InfoFragment"
-        android:label="InfoFragment">
-        <argument
-            android:name="step"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/inputDotsFragment"
-        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.InputDotsFragment"
-        android:label="InputDotsFragment">
-        <argument
-            android:name="step"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/inputSymbolFragment"
-        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.InputSymbolFragment"
-        android:label="InputSymbolFragment">
-        <argument
-            android:name="step"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/showDotsFragment"
-        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.ShowDotsFragment"
-        android:label="ShowDotsFragment">
-        <argument
-            android:name="step"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/showSymbolFragment"
-        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.ShowSymbolFragment"
-        android:label="ShowSymbolFragment">
-        <argument
-            android:name="step"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/lastInfoFragment"
-        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.LastInfoFragment"
-        android:label="LastInfoFragment">
-        <argument
-            android:name="step"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/firstInfoFragment"
-        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.FirstInfoFragment"
-        android:label="FirstInfoFragment">
-        <argument
-            android:name="step"
-            app:argType="string" />
-    </fragment>
-
-    <!--    Global step actions-->
-
-    <action
-        android:id="@+id/action_global_showSymbolFragment"
-        app:destination="@id/showSymbolFragment"
-        app:popUpTo="@id/menuFragment" />
-    <action
-        android:id="@+id/action_global_infoFragment"
-        app:destination="@id/infoFragment"
-        app:popUpTo="@id/menuFragment" />
-    <action
-        android:id="@+id/action_global_inputDotsFragment"
-        app:destination="@id/inputDotsFragment"
-        app:popUpTo="@id/menuFragment" />
-    <action
-        android:id="@+id/action_global_inputSymbolFragment"
-        app:destination="@id/inputSymbolFragment"
-        app:popUpTo="@id/menuFragment" />
-    <action
-        android:id="@+id/action_global_showDotsFragment"
-        app:destination="@id/showDotsFragment"
-        app:popUpTo="@id/menuFragment" />
-    <action
-        android:id="@+id/action_global_lastInfoFragment"
-        app:destination="@id/lastInfoFragment"
-        app:popUpTo="@id/menuFragment" />
-    <action
-        android:id="@+id/action_global_firstInfoFragment"
-        app:destination="@id/firstInfoFragment"
-        app:popUpTo="@id/menuFragment" />
     <fragment
         android:id="@+id/lessonsListFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.theory.lessons.LessonsListFragment"
-        android:label="fragment_lessons_list"
+        android:label="@string/lessons_title_lessons_list"
         tools:layout="@layout/fragment_lessons_list" />
     <action
         android:id="@+id/action_global_lessonsListFragment"
         app:destination="@id/lessonsListFragment" />
+
     <fragment
         android:id="@+id/browserFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.browser.BrowserFragment"
-        android:label="BrowserFragment">
+        android:label="@string/browser_title">
         <action
-            android:id="@+id/action_browserFragment_to_materialViewFragment"
+            android:id="@+id/action_browserFragment_to_symbolViewFragment"
             app:destination="@id/symbolViewFragment" />
+        <action
+            android:id="@+id/action_browserFragment_to_markerViewFragment"
+            app:destination="@id/markerViewFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/symbolViewFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.browser.SymbolViewFragment"
-        android:label="SymbolViewFragment">
+        android:label="@string/browser_symbol_view_title">
         <argument
             android:name="material"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/markerViewFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.browser.MarkerViewFragment"
+        android:label="@string/browser_symbol_view_title">
+        <argument
+            android:name="material"
+            app:argType="string" />
+    </fragment>
+
     <fragment
         android:id="@+id/statsFragment"
         android:name="com.github.braillesystems.learnbraille.ui.screens.stats.StatsFragment"
-        android:label="fragment_stats"
+        android:label="@string/stats_title"
         tools:layout="@layout/fragment_stats">
         <action
             android:id="@+id/action_statsFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
     </fragment>
+
+    <!--    Step fragments-->
+
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.info.InfoFragment"
+        android:label="@string/lessons_title_info">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_infoFragment"
+        app:destination="@id/infoFragment"
+        app:popUpTo="@id/menuFragment" />
+
+    <fragment
+        android:id="@+id/inputDotsFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.input.InputDotsFragment"
+        android:label="@string/lessons_title_input_dots">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_inputDotsFragment"
+        app:destination="@id/inputDotsFragment"
+        app:popUpTo="@id/menuFragment" />
+
+    <fragment
+        android:id="@+id/inputSymbolFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.input.InputSymbolFragment"
+        android:label="@string/lessons_title_input_symbol">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_inputSymbolFragment"
+        app:destination="@id/inputSymbolFragment"
+        app:popUpTo="@id/menuFragment" />
+
+    <fragment
+        android:id="@+id/showDotsFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.show.ShowDotsFragment"
+        android:label="@string/lessons_title_show_dots">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_showDotsFragment"
+        app:destination="@id/showDotsFragment"
+        app:popUpTo="@id/menuFragment" />
+
+    <fragment
+        android:id="@+id/showSymbolFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.show.ShowSymbolFragment"
+        android:label="@string/lessons_title_show_symbol">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_showSymbolFragment"
+        app:destination="@id/showSymbolFragment"
+        app:popUpTo="@id/menuFragment" />
+
+    <fragment
+        android:id="@+id/lastInfoFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.info.LastInfoFragment"
+        android:label="@string/lessons_title_last_info">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_lastInfoFragment"
+        app:destination="@id/lastInfoFragment"
+        app:popUpTo="@id/menuFragment" />
+
+    <fragment
+        android:id="@+id/firstInfoFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.info.FirstInfoFragment"
+        android:label="@string/lessons_title_info">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_firstInfoFragment"
+        app:destination="@id/firstInfoFragment"
+        app:popUpTo="@id/menuFragment" />
+
+    <fragment
+        android:id="@+id/inputMarkerFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.input.InputMarkerFragment"
+        android:label="@string/lessons_title_input_symbol">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_inputMarkerFragment"
+        app:destination="@id/inputMarkerFragment"
+        app:popUpTo="@id/menuFragment" />
+
+    <fragment
+        android:id="@+id/showMarkerFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.show.ShowMarkerFragment"
+        android:label="@string/lessons_title_show_symbol">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_showMarkerFragment"
+        app:destination="@id/showMarkerFragment"
+        app:popUpTo="@id/menuFragment" />
+
 </navigation>

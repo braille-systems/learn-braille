@@ -3,6 +3,7 @@ package com.github.braillesystems.learnbraille.data.repository
 import android.content.Context
 import android.widget.Toast
 import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.data.entities.DBid
 import com.github.braillesystems.learnbraille.data.entities.User
 import com.github.braillesystems.learnbraille.data.entities.UserDao
 import com.github.braillesystems.learnbraille.utils.BuzzPattern
@@ -10,22 +11,22 @@ import com.github.braillesystems.learnbraille.utils.logged
 import com.github.braillesystems.learnbraille.utils.preferences
 import timber.log.Timber
 
-
 interface PreferenceRepository {
 
     val buzzEnabled: Boolean
     val toastsEnabled: Boolean
     val brailleTrainerEnabled: Boolean get() = false // Uncomment in android manifest when set true
-    val speechRecognitionEnabled: Boolean
     val golubinaBookStepsEnabled: Boolean
+    val slateStylusStepsEnabled: Boolean
     val traverseDotsInEnumerationOrder: Boolean
     val inputOnFlyCheck: Boolean
     val additionalAnnouncementsEnabled: Boolean
     val practiceUseOnlyKnownMaterials: Boolean
     val extendedAccessibilityEnabled: Boolean
     val additionalQrCodeButtonEnabled: Boolean
+    val isWriteModeFirst: Boolean
 
-    val currentUserId: Long
+    val currentUserId: DBid
     suspend fun getCurrentUser(): User
 
     val toastDuration get() = Toast.LENGTH_SHORT
@@ -58,16 +59,16 @@ class PreferenceRepositoryImpl(
         )
     }
 
-    override val speechRecognitionEnabled: Boolean by logged {
-        context.preferences.getBoolean(
-            context.getString(R.string.preference_speech_recognition_enabled),
-            false // To enable, set to `true` and uncomment permission in AndroidManifest
-        )
-    }
-
     override val golubinaBookStepsEnabled: Boolean by logged {
         context.preferences.getBoolean(
             context.getString(R.string.preference_golubina_book_steps_enabled),
+            true
+        )
+    }
+
+    override val slateStylusStepsEnabled: Boolean by logged {
+        context.preferences.getBoolean(
+            context.getString(R.string.preference_slate_stylus_steps_enabled),
             true
         )
     }
@@ -114,14 +115,21 @@ class PreferenceRepositoryImpl(
         )
     }
 
-    override val currentUserId: Long by logged {
+    override val isWriteModeFirst: Boolean by logged {
+        context.preferences.getBoolean(
+            context.getString(R.string.preferences_is_write_mode_first),
+            true
+        )
+    }
+
+    override val currentUserId: DBid by logged {
         context.preferences.getLong(
             context.getString(R.string.preference_current_user), 1
         )
     }
 
     override suspend fun getCurrentUser(): User =
-        userDao.getUser(currentUserId)
+        userDao.user(currentUserId)
             ?.also { Timber.i("Current user = $it") }
             ?: error("Current user should always exist")
 }

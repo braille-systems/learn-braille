@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/info_text_view"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/lessons_dots_info_height"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="@dimen/lessons_info_text_size"
+            app:layout_constraintBottom_toTopOf="@+id/braille_dots"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="ИНФОРМАЦИЯ!" />
+
+        <com.github.braillesystems.learnbraille.ui.views.BrailleDotsView
+            android:id="@+id/braille_dots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="@dimen/braille_dots_scale_of_view"
+            android:scaleY="@dimen/braille_dots_scale_of_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="@dimen/practice_dots_vertical_bias" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/flip_button"
+            style="@style/sideIconButtons"
+            android:layout_width="@dimen/side_buttons_width"
+            android:layout_height="@dimen/practice_buttons_height"
+            android:contentDescription="@string/flip_card"
+            app:icon="@drawable/ic_flip_white_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="@dimen/practice_buttons_vertical_bias"
+            app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

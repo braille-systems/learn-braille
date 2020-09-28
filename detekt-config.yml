@@ -1,0 +1,25 @@
+# see https://github.com/detekt/detekt/blob/master/detekt-core/src/main/resources/default-detekt-config.yml for examples
+
+complexity:
+  TooManyFunctions:
+    excludes: ['**/utils/**', '**/DotsChecker.kt']
+  LongMethod:
+    excludes: ['**/*Fragment.kt', '**/*Application.kt', '**/LearnBrailleDatabase.kt']
+  ComplexMethod:
+    excludes: ['**/*Fragment.kt']
+  LongParameterList:
+    excludes: ['**/*Repository.kt']  # Dependency injection
+
+style:
+  WildcardImport:
+    active: false
+  MagicNumber:
+    active: false
+
+naming:
+  MatchingDeclarationName:
+    active: false
+  ClassNaming:
+    active: false  # Delegate classes
+  MemberNameEqualsClassName:
+    active: false
