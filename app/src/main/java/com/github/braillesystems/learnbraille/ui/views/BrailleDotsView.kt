@@ -160,8 +160,8 @@ class BrailleDotsView : ConstraintLayout, KoinComponent {
                     dotButton4, dotButton5, dotButton6
                 )
                 Writing to false -> arrayOf(
-                    dotButton1, dotButton2, dotButton3,
-                    dotButton4, dotButton5, dotButton6
+                    dotButton1, dotButton4, dotButton2,
+                    dotButton5, dotButton3, dotButton6
                 )
                 Reading to true -> arrayOf(
                     dotButton1, dotButton2, dotButton3,
