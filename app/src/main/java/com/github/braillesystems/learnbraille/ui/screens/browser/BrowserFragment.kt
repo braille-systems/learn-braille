@@ -36,9 +36,7 @@ class BrowserFragment : AbstractFragmentWithHelp(R.string.browser_help) {
         R.layout.fragment_browser,
         container,
         false
-    ).also { binding ->
-
-        setHasOptionsMenu(true)
+    ).ini().also { binding ->
 
         lifecycleScope.launch {
             val deckId = browserRepository.currentDeckId

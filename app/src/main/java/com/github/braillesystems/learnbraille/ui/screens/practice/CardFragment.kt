@@ -65,7 +65,6 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         Timber.i("onCreateView")
 
         title = title()
-        setHasOptionsMenu(true)
 
         dotsState = binding.brailleDots.dotsState
 
@@ -90,6 +89,9 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         binding.flipButton.setOnClickListener {
             dotsState = binding.brailleDots.reflect().apply {
                 dotsState.subscribe(viewModel)
+                if (viewModel.state == DotsChecker.State.HINT) {
+                    viewModel.expectedDots?.let { display(it) }
+                }
             }
         }
 
@@ -160,6 +162,10 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
                 toast(template.format(deckTagToName.getValue(tag)))
             }
         )
+
+        if (viewModel.state == DotsChecker.State.HINT) {
+            viewModel.expectedDots?.let { dotsState.display(it) }
+        }
 
     }.root
 

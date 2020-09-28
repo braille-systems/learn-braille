@@ -57,6 +57,9 @@ abstract class AbstractInputStepFragment(helpMsgId: HelpMsgId) : AbstractStepFra
                     viewModel.onSoftCheck()
                     userTouchedDots = true
                 })
+                if (viewModel.state == DotsChecker.State.HINT) {
+                    display(expectedDots)
+                }
             }
         }
 
@@ -91,6 +94,10 @@ abstract class AbstractInputStepFragment(helpMsgId: HelpMsgId) : AbstractStepFra
             viewLifecycleOwner, { dotsState }
         ) {
             onPassHint(data)
+        }
+
+        if (viewModel.state == DotsChecker.State.HINT) {
+            expectedDots.let { dotsState.display(it) }
         }
     }
 
