@@ -1,5 +1,6 @@
 package com.github.braillesystems.learnbraille.ui.views
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.TextView
@@ -8,6 +9,7 @@ import com.github.braillesystems.learnbraille.res.inputSymbolPrintRules
 import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
 import com.github.braillesystems.learnbraille.utils.getValue
 
+@SuppressLint("AppCompatCustomView")
 open class BigLetterView : TextView {
 
     constructor(context: Context) : super(context)

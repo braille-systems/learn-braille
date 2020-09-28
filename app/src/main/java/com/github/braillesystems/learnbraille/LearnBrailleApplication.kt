@@ -119,4 +119,4 @@ class LearnBrailleApplication : Application() {
 lateinit var koin: Koin
     private set
 
-val COURSE = UsersCourse(2)
+val COURSE = UsersCourse

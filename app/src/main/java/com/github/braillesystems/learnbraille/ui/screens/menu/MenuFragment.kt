@@ -12,7 +12,6 @@ import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.COURSE
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
-import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.theory.toLastCourseStep
@@ -24,7 +23,6 @@ import timber.log.Timber
 class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
     private val db: LearnBrailleDatabase by inject()
-    private val preferenceRepository: PreferenceRepository by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,10 +33,9 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         R.layout.fragment_menu,
         container,
         false
-    ).also { binding ->
+    ).ini().also { binding ->
 
         title = getString(R.string.menu_actionbar_text_template).format(appName)
-        setHasOptionsMenu(true)
 
         val buttons = mutableListOf<MaterialButton>()
 

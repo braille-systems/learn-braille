@@ -20,7 +20,6 @@ import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHel
 import com.github.braillesystems.learnbraille.utils.getValue
 import com.github.braillesystems.learnbraille.utils.navigate
 import com.github.braillesystems.learnbraille.utils.stringify
-import com.github.braillesystems.learnbraille.utils.title
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -37,10 +36,7 @@ class BrowserFragment : AbstractFragmentWithHelp(R.string.browser_help) {
         R.layout.fragment_browser,
         container,
         false
-    ).also { binding ->
-
-        title = getString(R.string.browser_title)
-        setHasOptionsMenu(true)
+    ).ini().also { binding ->
 
         lifecycleScope.launch {
             val deckId = browserRepository.currentDeckId

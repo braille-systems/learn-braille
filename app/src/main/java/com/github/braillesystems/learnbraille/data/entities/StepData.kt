@@ -76,6 +76,7 @@ sealed class BaseInput : StepData() {
 data class Input(
     val material: Material
 ) : BaseInput() {
+
     override val brailleDots: BrailleDots
         get() = when (material.data) {
             is OneBrailleSymbol -> material.data.brailleDots
@@ -108,6 +109,7 @@ sealed class BaseShow : StepData() {
 data class Show(
     val material: Material
 ) : BaseShow() {
+
     override val brailleDots: BrailleDots
         get() = when (material.data) {
             is OneBrailleSymbol -> material.data.brailleDots

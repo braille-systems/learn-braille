@@ -6,37 +6,35 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
-import androidx.databinding.ViewDataBinding
 import com.github.braillesystems.learnbraille.COURSE
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Step
-import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
+import com.github.braillesystems.learnbraille.ui.dotsMode
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
+import com.github.braillesystems.learnbraille.ui.screens.BrailleDotsInfo
+import com.github.braillesystems.learnbraille.ui.screens.FragmentBinding
 import com.github.braillesystems.learnbraille.ui.screens.HelpMsgId
 import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toCurrentStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
-import com.github.braillesystems.learnbraille.ui.views.BrailleDotsView
-import com.github.braillesystems.learnbraille.utils.applyExtendedAccessibility
+import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.navigate
 import com.github.braillesystems.learnbraille.utils.title
-import org.koin.android.ext.android.inject
 
 interface StepBinding {
     val prevButton: Button? get() = null
     val nextButton: Button? get() = null
     val hintButton: Button? get() = null
+    val flipButton: Button? get() = null
     val textView: TextView? get() = null
-    val brailleDots: BrailleDotsView? get() = null
+    val brailleDotsInfo: BrailleDotsInfo? get() = null
 }
 
 /**
  * Base class for all steps.
  */
 abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWithHelp(helpMsgId) {
-
-    protected val preferenceRepository: PreferenceRepository by inject()
 
     protected lateinit var step: Step
         private set
@@ -49,20 +47,23 @@ abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWith
             super.helpMsg, getString(R.string.lessons_help_common)
         )
 
-    protected fun <B : ViewDataBinding> B.init(
+    protected fun <B> B.iniStep(
         titleId: Int,
-        binding: B.() -> StepBinding
-    ): B = init(this, titleId, binding)
-
-    protected open fun <B> init(
-        b: B,
-        titleId: Int,
-        binding: B.() -> StepBinding
-    ): B = b.apply {
-        setHasOptionsMenu(true)
-
+        getBinding: B.() -> StepBinding
+    ) = ini {
+        getBinding().run {
+            object : FragmentBinding {
+                override val leftButton: Button? get() = this@run.prevButton
+                override val rightButton: Button? get() = this@run.nextButton
+                override val leftMiddleButton: Button? get() = this@run.hintButton
+                override val rightMiddleButton: Button? get() = this@run.flipButton
+                override val textView: TextView? get() = this@run.textView
+                override val brailleDotsInfo: BrailleDotsInfo? get() = this@run.brailleDotsInfo
+            }
+        }
+    }.apply {
         step = getStepArg()
-        stepBinding = binding()
+        stepBinding = getBinding()
 
         val msg = getString(titleId)
         title = if (preferenceRepository.extendedAccessibilityEnabled) {
@@ -72,17 +73,19 @@ abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWith
         }
 
         stepBinding.run {
-            if (preferenceRepository.extendedAccessibilityEnabled) {
-                applyExtendedAccessibility(
-                    leftButton = prevButton,
-                    rightButton = nextButton,
-                    leftMiddleButton = hintButton,
-                    textView = textView
-                )
-            }
             prevButton?.setOnClickListener { toPrevStep(step) }
             nextButton?.setOnClickListener { toNextStep(step, markThisAsPassed = true) }
             textView?.movementMethod = ScrollingMovementMethod()
+        }
+
+        iniStepHelper()
+    }
+
+    protected open fun iniStepHelper() = Unit
+
+    protected fun toastDotsMode() {
+        binding.brailleDotsInfo?.view?.mode?.let {
+            checkedToast(dotsMode(it))
         }
     }
 

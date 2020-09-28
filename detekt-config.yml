@@ -5,6 +5,8 @@ complexity:
     excludes: ['**/utils/**', '**/DotsChecker.kt']
   LongMethod:
     excludes: ['**/*Fragment.kt', '**/*Application.kt', '**/LearnBrailleDatabase.kt']
+  ComplexMethod:
+    excludes: ['**/*Fragment.kt']
   LongParameterList:
     excludes: ['**/*Repository.kt']  # Dependency injection
 

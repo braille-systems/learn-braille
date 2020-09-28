@@ -6,12 +6,21 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.res.inputMarkerPrintRules
 import com.github.braillesystems.learnbraille.res.inputSymbolPrintRules
+import com.github.braillesystems.learnbraille.res.showMarkerPrintRules
+import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
+import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.utils.*
 
 fun Fragment.showCorrectToast() = toast(getString(R.string.input_correct))
 
 fun Fragment.showIncorrectToast(hint: String = "") =
     toast("${getString(R.string.input_incorrect)} $hint")
+
+fun Fragment.dotsMode(mode: BrailleDotsViewMode): String =
+    when (mode) {
+        BrailleDotsViewMode.Writing -> getString(R.string.braille_dots_mode_writing)
+        BrailleDotsViewMode.Reading -> getString(R.string.braille_dots_mode_reading)
+    }
 
 private val Context.dotsHintRules by lazyWithContext<Context, List<String>> {
     listOf(
@@ -45,3 +54,12 @@ fun Context.inputPrint(data: MaterialData): String =
 
 fun Fragment.inputPrint(data: MaterialData): String =
     contextNotNull.inputPrint(data)
+
+fun Context.showPrint(data: MaterialData): String =
+    when (data) {
+        is Symbol -> showSymbolPrintRules.getValue(data.char)
+        is MarkerSymbol -> showMarkerPrintRules.getValue(data.type)
+    }
+
+fun Fragment.showPrint(data: MaterialData): String =
+    contextNotNull.showPrint(data)
