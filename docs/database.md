@@ -93,3 +93,5 @@ Table cards {
 ```
 
 Update: `decks` does not have description.
+Update: `steps.step_data -> steps.data`.
+Update: `decks.name -> decks.tag`.
