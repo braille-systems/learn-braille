@@ -31,7 +31,7 @@ import timber.log.Timber
         CurrentStep::class, LastCourseStep::class, LastLessonStep::class,
         Action::class
     ],
-    version = 18,
+    version = 19,
     exportSchema = true
 )
 @TypeConverters(
@@ -133,7 +133,8 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
             })
             .addMigrations(
                 MIGRATION_16_17,
-                MIGRATION_17_18
+                MIGRATION_17_18,
+                MIGRATION_18_19
             )
             .build()
             .init()
@@ -200,7 +201,7 @@ private val MIGRATION_16_17 = object : Migration(16, 17), KoinComponent {
     }
 }
 
-private val MIGRATION_17_18 = object : Migration(17, 18), KoinComponent {
+private val MIGRATION_17_18 = object : Migration(17, 18) {
     override fun migrate(database: SupportSQLiteDatabase) {
         Timber.i("Start 17-18 migration")
         database.execSQL(Action.creationQuery)
@@ -208,5 +209,119 @@ private val MIGRATION_17_18 = object : Migration(17, 18), KoinComponent {
     }
 }
 
-// TODO migration that preserves current true user's position
-// TODO materials migration
+private val MIGRATION_18_19 = object : Migration(18, 19) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        Timber.i("Start 18-19 migration")
+
+        database.execSQL("delete from lessons")
+        database.execSQL("delete from steps")
+        database.execSQL("delete from decks")
+        database.execSQL("delete from cards")
+        database.execSQL("delete from materials")
+        database.execSQL("delete from step_has_annotations")
+        database.execSQL("delete from step_annotations")
+
+        Timber.i("Old data removed")
+
+        prepopulationData.run {
+            lessons?.forEach {
+                database.insert(
+                    "lessons",
+                    SQLiteDatabase.CONFLICT_ABORT,
+                    it.run {
+                        ContentValues().apply {
+                            put("id", id)
+                            put("course_id", courseId)
+                            put("name", name)
+                            put("description", description)
+                        }
+                    }
+                )
+            }
+
+            steps?.forEach {
+                database.insert(
+                    "steps",
+                    SQLiteDatabase.CONFLICT_ABORT,
+                    it.run {
+                        ContentValues().apply {
+                            put("id", id)
+                            put("course_id", courseId)
+                            put("lesson_id", lessonId)
+                            put("data", StepDataConverters().to(data))
+                        }
+                    }
+                )
+            }
+
+            decks?.forEach {
+                database.insert(
+                    "decks",
+                    SQLiteDatabase.CONFLICT_ABORT,
+                    it.run {
+                        ContentValues().apply {
+                            put("id", id)
+                            put("tag", tag)
+                        }
+                    }
+                )
+            }
+
+            cards?.forEach {
+                database.insert(
+                    "cards",
+                    SQLiteDatabase.CONFLICT_ABORT,
+                    it.run {
+                        ContentValues().apply {
+                            put("deck_id", deckId)
+                            put("material_id", materialId)
+                        }
+                    }
+                )
+            }
+
+            materials?.forEach {
+                database.insert(
+                    "materials",
+                    SQLiteDatabase.CONFLICT_ABORT,
+                    it.run {
+                        ContentValues().apply {
+                            put("id", id)
+                            put("data", MaterialDataTypeConverters().to(data))
+                        }
+                    }
+                )
+            }
+
+            stepAnnotations?.forEach {
+                database.insert(
+                    "step_annotations",
+                    SQLiteDatabase.CONFLICT_ABORT,
+                    it.run {
+                        ContentValues().apply {
+                            put("id", id)
+                            put("name", name)
+                        }
+                    }
+                )
+            }
+
+            stepsHasAnnotations?.forEach {
+                database.insert(
+                    "step_has_annotations",
+                    SQLiteDatabase.CONFLICT_ABORT,
+                    it.run {
+                        ContentValues().apply {
+                            put("course_id", courseId)
+                            put("lesson_id", lessonId)
+                            put("step_id", stepId)
+                            put("annotation_id", annotationId)
+                        }
+                    }
+                )
+            }
+        }
+
+        Timber.i("Finish 18-19 migration")
+    }
+}
