@@ -10,6 +10,7 @@ import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.databinding.FragmentSymbolViewBinding
 import com.github.braillesystems.learnbraille.res.captionRules
+import com.github.braillesystems.learnbraille.ui.dotsMode
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.BrailleDotsInfo
 import com.github.braillesystems.learnbraille.ui.screens.FragmentBinding
@@ -17,10 +18,7 @@ import com.github.braillesystems.learnbraille.ui.showPrint
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
-import com.github.braillesystems.learnbraille.utils.checkedAnnounce
-import com.github.braillesystems.learnbraille.utils.getFragmentStringArg
-import com.github.braillesystems.learnbraille.utils.getValue
-import com.github.braillesystems.learnbraille.utils.parse
+import com.github.braillesystems.learnbraille.utils.*
 
 class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view_help) {
 
@@ -50,8 +48,10 @@ class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view
         checkedAnnounce(showPrint(m.data))
 
         brailleDots.dotsState.display(m.data.brailleDots)
+        checkedToast(dotsMode(brailleDots.mode))
         flipButton.setOnClickListener {
             brailleDots.reflect().display(m.data.brailleDots)
+            checkedToast(dotsMode(brailleDots.mode))
         }
 
     }.root

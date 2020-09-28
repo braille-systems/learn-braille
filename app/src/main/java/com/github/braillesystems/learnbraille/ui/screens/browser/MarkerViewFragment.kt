@@ -11,16 +11,14 @@ import com.github.braillesystems.learnbraille.data.entities.MarkerSymbol
 import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.databinding.FragmentMarkerViewBinding
 import com.github.braillesystems.learnbraille.res.showMarkerPrintRules
+import com.github.braillesystems.learnbraille.ui.dotsMode
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.BrailleDotsInfo
 import com.github.braillesystems.learnbraille.ui.screens.FragmentBinding
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
-import com.github.braillesystems.learnbraille.utils.checkedAnnounce
-import com.github.braillesystems.learnbraille.utils.getFragmentStringArg
-import com.github.braillesystems.learnbraille.utils.getValue
-import com.github.braillesystems.learnbraille.utils.parse
+import com.github.braillesystems.learnbraille.utils.*
 
 class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view_help) {
 
@@ -51,8 +49,10 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
         checkedAnnounce(text)
 
         brailleDots.dotsState.display(m.data.brailleDots)
+        checkedToast(dotsMode(brailleDots.mode))
         flipButton.setOnClickListener {
             brailleDots.reflect().display(m.data.brailleDots)
+            checkedToast(dotsMode(brailleDots.mode))
         }
 
     }.root

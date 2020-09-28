@@ -26,6 +26,11 @@
     <string name="preference_additional_qrcode_button_enabled">additional_qrcode_button_enabled</string>
     <string name="preferences_is_write_mode_first">is_write_mode_first</string>
 
+    <!--    TODO-->
+    <string name="braille_dots_mode_writing">Режим как для письма</string>
+    <!--    TODO-->
+    <string name="braille_dots_mode_reading">Режим как для чтения</string>
+
     <string name="input_correct">Правильно!</string>
     <string name="input_incorrect">Неправильно!</string>
     <string name="input_loading">Подождите, задание загружается</string>
@@ -128,10 +133,10 @@
     <string name="practice_actionbar_title_template">Практика: %d из %d</string>
     <string name="practice_actionbar_title">Практика</string>
     <string name="practice_deck_name_enabled_template">
-        Колода: \"%s\"\nПовторять только изученные: включено
+        Колода: \"%s\"\n\"%s\"\nПовторять только изученные: включено
     </string>
     <string name="practice_deck_name_disabled_template">
-        Колода: \"%s\"\nПовторять только изученные: выключено
+        Колода: \"%s\"\n\"%s\"\nПовторять только изученные: выключено
     </string>
     <string name="decks_list_title">Список колод</string>
     <string name="decks_list_no_material_in_deck">
