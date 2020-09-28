@@ -1,6 +1,5 @@
 package com.github.braillesystems.learnbraille.ui.screens.exit
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -30,11 +29,8 @@ class ExitFragment : AbstractFragment() {
         checkedAnnounce(title)
 
         exitButton.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                activity?.finishAndRemoveTask()
-            } else {
-                navigateToLauncher()
-            }
+            navigate(R.id.action_global_menuFragment)
+            navigateToLauncher()
         }
 
         continueButton.setOnClickListener {
