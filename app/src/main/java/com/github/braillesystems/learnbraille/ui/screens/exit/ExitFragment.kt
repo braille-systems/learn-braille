@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.databinding.FragmentExitBinding
+import com.github.braillesystems.learnbraille.ui.screens.AbstractFragment
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import com.github.braillesystems.learnbraille.utils.exitToLauncher
 import com.github.braillesystems.learnbraille.utils.navigate
 import com.github.braillesystems.learnbraille.utils.title
 
-class ExitFragment : Fragment() {
+class ExitFragment : AbstractFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,7 +23,7 @@ class ExitFragment : Fragment() {
         R.layout.fragment_exit,
         container,
         false
-    ).apply {
+    ).ini().apply {
 
         title = getString(R.string.exit_question)
         checkedAnnounce(title)

@@ -20,6 +20,7 @@ import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode.Readi
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode.Writing
 import com.github.braillesystems.learnbraille.utils.chainify
 import com.github.braillesystems.learnbraille.utils.forEach
+import com.github.braillesystems.learnbraille.utils.unreachable
 import kotlinx.android.synthetic.main.braille_dots_view.view.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -57,6 +58,8 @@ val BrailleDotsViewMode.reflected: BrailleDotsViewMode
 
 /**
  * Represents six Braille dots view.
+ *
+ * Initialize by `setMode` before usage.
  */
 class BrailleDotsView : ConstraintLayout, KoinComponent {
 
@@ -76,34 +79,40 @@ class BrailleDotsView : ConstraintLayout, KoinComponent {
         LayoutInflater
             .from(context)
             .inflate(R.layout.braille_dots_view, this, true)
-
-        mode =
-            if (preferenceRepository.isWriteModeFirst) Writing
-            else Reading
     }
 
-    var mode: BrailleDotsViewMode
-        set(value) {
-            setDescriptionMode(value)
+    // After changing traversal order neighbor views forget that braille dots are next
+    private lateinit var prevView: View
+    private lateinit var nextView: View
+    lateinit var mode: BrailleDotsViewMode
+        private set  // It is not possible to use lateinit var with custom setter
+
+    fun setMode(mode: BrailleDotsViewMode, prevView: View, nextView: View) {
+        this.prevView = prevView
+        this.nextView = nextView
+
+        setDescriptionMode(mode)
+        if (this::mode.isInitialized && this.mode != mode) {
             reflectChecks()
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                setBackgroundMode(value)
-            } else {
-                Timber.w("Unable to set braille dots background due to low API level")
-            }
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                setTraversalMode(value)
-            } else {
-                Timber.w("API level < 22, unable co control accessibility traversal order")
-            }
-
-            field = value
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            setBackgroundMode(mode)
+        } else {
+            Timber.w("Unable to set braille dots background due to low API level")
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            setTraversalMode(mode)
+        } else {
+            Timber.w("API level < 22, unable co control accessibility traversal order")
+        }
+
+        this.mode = mode
+    }
+
     fun reflect(): BrailleDotsState {
-        mode = mode.reflected
+        setMode(mode.reflected, prevView, nextView)
         return dotsState
     }
 
@@ -144,31 +153,29 @@ class BrailleDotsView : ConstraintLayout, KoinComponent {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     private fun setTraversalMode(mode: BrailleDotsViewMode) {
-        fun setAfter(next: BrailleDotView, prev: BrailleDotView) {
+        val dotsOrder: Array<View> =
+            when (mode to preferenceRepository.traverseDotsInEnumerationOrder) {
+                Writing to true -> arrayOf(
+                    dotButton4, dotButton5, dotButton6,
+                    dotButton1, dotButton2, dotButton3
+                )
+                Writing to false -> arrayOf(
+                    dotButton4, dotButton1, dotButton5,
+                    dotButton2, dotButton6, dotButton3
+                )
+                Reading to true -> arrayOf(
+                    dotButton1, dotButton2, dotButton3,
+                    dotButton4, dotButton5, dotButton6
+                )
+                Reading to false -> arrayOf(
+                    dotButton1, dotButton4, dotButton2,
+                    dotButton5, dotButton3, dotButton6
+                )
+                else -> unreachable
+            }
+        chainify(prevView, *dotsOrder, nextView) { prev, next ->
+            prev.accessibilityTraversalBefore = next.id
             next.accessibilityTraversalAfter = prev.id
-        }
-
-        when (mode to preferenceRepository.traverseDotsInEnumerationOrder) {
-            Writing to true -> chainify(
-                dotButton4, dotButton5, dotButton6,
-                dotButton1, dotButton2, dotButton3,
-                block = ::setAfter
-            )
-            Writing to false -> chainify(
-                dotButton4, dotButton1, dotButton5,
-                dotButton2, dotButton6, dotButton3,
-                block = ::setAfter
-            )
-            Reading to true -> chainify(
-                dotButton1, dotButton2, dotButton3,
-                dotButton4, dotButton5, dotButton6,
-                block = ::setAfter
-            )
-            Reading to false -> chainify(
-                dotButton1, dotButton4, dotButton2,
-                dotButton5, dotButton3, dotButton6,
-                block = ::setAfter
-            )
         }
     }
 

@@ -3,6 +3,8 @@ package com.github.braillesystems.learnbraille.ui.screens.practice
 import android.os.Bundle
 import android.os.Vibrator
 import android.view.*
+import android.widget.Button
+import android.widget.TextView
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -10,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.MarkerSymbol
 import com.github.braillesystems.learnbraille.data.entities.Symbol
-import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.res.deckTagToName
@@ -22,18 +23,13 @@ import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.showCorrectToast
 import com.github.braillesystems.learnbraille.ui.showHintToast
 import com.github.braillesystems.learnbraille.ui.showIncorrectToast
-import com.github.braillesystems.learnbraille.ui.views.BrailleDotsState
-import com.github.braillesystems.learnbraille.ui.views.brailleDots
-import com.github.braillesystems.learnbraille.ui.views.dotsState
-import com.github.braillesystems.learnbraille.ui.views.subscribe
+import com.github.braillesystems.learnbraille.ui.views.*
 import com.github.braillesystems.learnbraille.utils.*
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
-
-    private val preferenceRepository: PreferenceRepository by inject()
 
     // This value can change during ViewModel lifetime (ViewModelProvider does not call
     // ViewModelFactory each time onCreateView runs). And once created ViewModel
@@ -49,21 +45,27 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         R.layout.fragment_card,
         container,
         false
-    ).also { binding ->
+    ).ini {
+        object : FragmentBinding {
+            override val leftButton: Button? = this@ini.hintButton
+            override val rightButton: Button? = this@ini.nextButton
+            override val rightMiddleButton: Button? = this@ini.flipButton
+            override val textView: TextView? = this@ini.markerDescription
+            override val brailleDotsInfo: BrailleDotsInfo? = this@ini.run {
+                BrailleDotsInfo(
+                    brailleDots,
+                    if (preferenceRepository.isWriteModeFirst) BrailleDotsViewMode.Writing
+                    else BrailleDotsViewMode.Reading,
+                    hintButton, flipButton
+                )
+            }
+        }
+    }.also { binding ->
 
         Timber.i("onCreateView")
 
         title = title()
         setHasOptionsMenu(true)
-
-        if (preferenceRepository.extendedAccessibilityEnabled) {
-            applyExtendedAccessibility(
-                leftButton = binding.hintButton,
-                rightButton = binding.nextButton,
-                rightMiddleButton = binding.flipButton,
-                textView = binding.markerDescription
-            )
-        }
 
         dotsState = binding.brailleDots.dotsState
 

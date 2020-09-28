@@ -2,10 +2,7 @@ package com.github.braillesystems.learnbraille.utils
 
 import android.content.Context
 import android.os.Vibrator
-import android.util.TypedValue
 import android.view.accessibility.AccessibilityEvent
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -99,30 +96,4 @@ fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.parse(d, s)
 val Context.extendedTextSize: Float by lazyWithContext {
     // Size applied in runtime is different
     resources.getDimension(R.dimen.lessons_info_text_size) / 5 * 3
-}
-
-fun Fragment.applyExtendedAccessibility(
-    leftButton: Button? = null,
-    rightButton: Button? = null,
-    leftMiddleButton: Button? = null,
-    rightMiddleButton: Button? = null,
-    textView: TextView? = null
-) {
-    forEach(
-        leftButton,
-        rightButton,
-        leftMiddleButton,
-        rightMiddleButton
-    ) {
-        it?.setSize(
-            width = resources
-                .getDimension(R.dimen.side_buttons_extended_width)
-                .toInt()
-        )
-    }
-
-    textView?.setTextSize(
-        TypedValue.COMPLEX_UNIT_SP,
-        contextNotNull.extendedTextSize
-    )
 }

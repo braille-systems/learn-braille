@@ -11,8 +11,9 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.InputDots
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputDotsBinding
+import com.github.braillesystems.learnbraille.ui.screens.BrailleDotsInfo
 import com.github.braillesystems.learnbraille.ui.screens.theory.steps.StepBinding
-import com.github.braillesystems.learnbraille.ui.views.BrailleDotsView
+import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import com.github.braillesystems.learnbraille.utils.removeHtmlMarkup
 
@@ -27,19 +28,25 @@ class InputDotsFragment : AbstractInputStepFragment(R.string.lessons_help_input_
         R.layout.fragment_lessons_input_dots,
         container,
         false
-    ).init(
-        titleId = R.string.lessons_title_input_dots,
-        binding = {
-            object : StepBinding {
-                override val prevButton: Button? = this@init.prevButton
-                override val nextButton: Button? = this@init.nextButton
-                override val flipButton: Button? = this@init.flipButton
-                override val hintButton: Button? = this@init.hintButton
-                override val textView: TextView? = this@init.infoTextView
-                override val brailleDots: BrailleDotsView? = this@init.brailleDots
+    ).iniStep(
+        titleId = R.string.lessons_title_input_dots
+    ) {
+        object : StepBinding {
+            override val prevButton: Button? = this@iniStep.prevButton
+            override val nextButton: Button? = this@iniStep.nextButton
+            override val flipButton: Button? = this@iniStep.flipButton
+            override val hintButton: Button? = this@iniStep.hintButton
+            override val textView: TextView? = this@iniStep.infoTextView
+            override val brailleDotsInfo: BrailleDotsInfo? = this@iniStep.run {
+                BrailleDotsInfo(
+                    brailleDots,
+                    if (preferenceRepository.isWriteModeFirst) BrailleDotsViewMode.Writing
+                    else BrailleDotsViewMode.Reading,
+                    prevButton, flipButton
+                )
             }
         }
-    ).apply {
+    }.apply {
 
         val data = step.data
         require(data is InputDots)

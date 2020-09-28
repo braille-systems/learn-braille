@@ -3,7 +3,6 @@ package com.github.braillesystems.learnbraille.ui.screens
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.ui.screens.help.HelpFragmentDirections
 import com.github.braillesystems.learnbraille.utils.navigate
@@ -11,10 +10,11 @@ import timber.log.Timber
 
 typealias HelpMsgId = Int
 
-/**
- * Do not forget to add in onCreate `setHasOptionsMenu(true)`
- */
-abstract class AbstractFragmentWithHelp(private val helpMsgId: HelpMsgId) : Fragment() {
+abstract class AbstractFragmentWithHelp(private val helpMsgId: HelpMsgId) : AbstractFragment() {
+
+    override fun iniHelper() {
+        setHasOptionsMenu(true)
+    }
 
     protected open val helpMsg: String
         get() = getString(helpMsgId)

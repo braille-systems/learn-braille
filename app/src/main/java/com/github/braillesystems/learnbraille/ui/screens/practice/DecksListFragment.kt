@@ -7,27 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.repository.DeckWithAvailability
 import com.github.braillesystems.learnbraille.data.repository.MutablePracticeRepository
-import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.databinding.DecksListItemBinding
 import com.github.braillesystems.learnbraille.databinding.FragmentDecksListBinding
 import com.github.braillesystems.learnbraille.res.deckTagToName
+import com.github.braillesystems.learnbraille.ui.screens.AbstractFragment
 import com.github.braillesystems.learnbraille.utils.application
 import com.github.braillesystems.learnbraille.utils.checkedToast
 import com.github.braillesystems.learnbraille.utils.navigate
-import com.github.braillesystems.learnbraille.utils.title
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
-class DecksListFragment : Fragment() {
+class DecksListFragment : AbstractFragment() {
 
     private val practiceRepository: MutablePracticeRepository by inject()
-    private val preferenceRepository: PreferenceRepository by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,9 +35,7 @@ class DecksListFragment : Fragment() {
         R.layout.fragment_decks_list,
         container,
         false
-    ).apply {
-
-        title = getString(R.string.decks_list_title)
+    ).ini().apply {
 
         lifecycleScope.launch {
             val decks = practiceRepository.allDecksWithAvailability()

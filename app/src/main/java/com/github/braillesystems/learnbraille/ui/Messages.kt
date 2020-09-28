@@ -6,6 +6,8 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.res.inputMarkerPrintRules
 import com.github.braillesystems.learnbraille.res.inputSymbolPrintRules
+import com.github.braillesystems.learnbraille.res.showMarkerPrintRules
+import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
 import com.github.braillesystems.learnbraille.utils.*
 
 fun Fragment.showCorrectToast() = toast(getString(R.string.input_correct))
@@ -45,3 +47,12 @@ fun Context.inputPrint(data: MaterialData): String =
 
 fun Fragment.inputPrint(data: MaterialData): String =
     contextNotNull.inputPrint(data)
+
+fun Context.showPrint(data: MaterialData): String =
+    when (data) {
+        is Symbol -> showSymbolPrintRules.getValue(data.char)
+        is MarkerSymbol -> showMarkerPrintRules.getValue(data.type)
+    }
+
+fun Fragment.showPrint(data: MaterialData): String =
+    contextNotNull.showPrint(data)

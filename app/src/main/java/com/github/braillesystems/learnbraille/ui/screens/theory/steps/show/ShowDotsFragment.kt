@@ -11,15 +11,13 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.ShowDots
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsShowDotsBinding
-import com.github.braillesystems.learnbraille.ui.screens.theory.steps.AbstractStepFragment
+import com.github.braillesystems.learnbraille.ui.screens.BrailleDotsInfo
 import com.github.braillesystems.learnbraille.ui.screens.theory.steps.StepBinding
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
-import com.github.braillesystems.learnbraille.ui.views.display
-import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import com.github.braillesystems.learnbraille.utils.removeHtmlMarkup
 
-class ShowDotsFragment : AbstractStepFragment(R.string.lessons_help_show_dots) {
+class ShowDotsFragment : AbstractShowStepFragment(R.string.lessons_help_show_dots) {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,31 +28,26 @@ class ShowDotsFragment : AbstractStepFragment(R.string.lessons_help_show_dots) {
         R.layout.fragment_lessons_show_dots,
         container,
         false
-    ).init(
-        titleId = R.string.lessons_title_show_dots,
-        binding = {
-            object : StepBinding {
-                override val prevButton: Button? = this@init.prevButton
-                override val nextButton: Button? = this@init.nextButton
-                override val flipButton: Button? = this@init.flipButton
-                override val textView: TextView? = this@init.infoTextView
+    ).iniStep(
+        titleId = R.string.lessons_title_show_dots
+    ) {
+        object : StepBinding {
+            override val prevButton: Button? = this@iniStep.prevButton
+            override val nextButton: Button? = this@iniStep.nextButton
+            override val flipButton: Button? = this@iniStep.flipButton
+            override val textView: TextView? = this@iniStep.infoTextView
+            override val brailleDotsInfo: BrailleDotsInfo? = this@iniStep.run {
+                BrailleDotsInfo(brailleDots, BrailleDotsViewMode.Reading, prevButton, flipButton)
             }
         }
-    ).apply {
+    }.apply {
 
         val data = step.data
         require(data is ShowDots)
-
         val text = data.text
             ?: getString(R.string.lessons_show_dots_info_template).format(data.brailleDots.spelling)
         infoTextView.text = text.parseAsHtml()
         checkedAnnounce(text.removeHtmlMarkup())
-
-        brailleDots.mode = BrailleDotsViewMode.Writing
-        brailleDots.dotsState.display(data.brailleDots)
-        flipButton.setOnClickListener {
-            brailleDots.reflect().display(data.brailleDots)
-        }
 
     }.root
 }
