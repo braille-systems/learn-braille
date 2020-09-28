@@ -156,12 +156,12 @@ class BrailleDotsView : ConstraintLayout, KoinComponent {
         val dotsOrder: Array<View> =
             when (mode to preferenceRepository.traverseDotsInEnumerationOrder) {
                 Writing to true -> arrayOf(
-                    dotButton4, dotButton5, dotButton6,
-                    dotButton1, dotButton2, dotButton3
+                    dotButton1, dotButton2, dotButton3,
+                    dotButton4, dotButton5, dotButton6
                 )
                 Writing to false -> arrayOf(
-                    dotButton4, dotButton1, dotButton5,
-                    dotButton2, dotButton6, dotButton3
+                    dotButton1, dotButton2, dotButton3,
+                    dotButton4, dotButton5, dotButton6
                 )
                 Reading to true -> arrayOf(
                     dotButton1, dotButton2, dotButton3,
