@@ -40,7 +40,7 @@ abstract class AbstractFragment : Fragment() {
         getBinding: B.() -> FragmentBinding = {
             object : FragmentBinding {}
         }
-    ) = this.apply {
+    ) = this.also {
         binding = getBinding().apply {
             brailleDotsInfo?.let { (view, mode, prev, next) ->
                 view.setMode(mode, prev, next)

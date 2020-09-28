@@ -173,6 +173,7 @@ class BrailleDotsView : ConstraintLayout, KoinComponent {
                 )
                 else -> unreachable
             }
+        @Suppress("SpreadOperator")
         chainify(prevView, *dotsOrder, nextView) { prev, next ->
             prev.accessibilityTraversalBefore = next.id
             next.accessibilityTraversalAfter = prev.id
