@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayoutButtons"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    tools:background="@drawable/left_border">
+    android:layout_height="wrap_content">
 
     <com.github.braillesystems.learnbraille.ui.views.BrailleDotView
         android:id="@+id/dotButton1"

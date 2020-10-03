@@ -7,6 +7,7 @@ import android.os.Vibrator
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
@@ -19,13 +20,13 @@ import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.res.deckTagToName
 import com.github.braillesystems.learnbraille.res.inputMarkerPrintRules
+import com.github.braillesystems.learnbraille.ui.announceCorrect
+import com.github.braillesystems.learnbraille.ui.announceIncorrect
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainerSignalHandler
 import com.github.braillesystems.learnbraille.ui.inputPrint
 import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.showHintToast
-import com.github.braillesystems.learnbraille.ui.announceIncorrect
-import com.github.braillesystems.learnbraille.ui.announceCorrect
 import com.github.braillesystems.learnbraille.ui.views.*
 import com.github.braillesystems.learnbraille.utils.*
 import com.google.android.material.button.MaterialButton
@@ -123,9 +124,9 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             block = { title = title(viewModel) },
             softBlock = {
                 announceCorrect()
-                val colorFrom = context?.let { ContextCompat.getColor(it, R.color.colorPrimary) }
-                val colorTo = context?.let { ContextCompat.getColor(it, R.color.colorGreen) }
-                animateButton(binding.nextButton, colorFrom, colorTo)
+                val colorFrom = context?.let { ContextCompat.getColor(it, R.color.colorBackground) }
+                val colorTo = context?.let { ContextCompat.getColor(it, R.color.lightGreen) }
+                animateView(binding.constraintLayout, colorFrom, colorTo)
             }
         )
 
@@ -137,9 +138,9 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
                 ?: checkedToast(getString(R.string.input_loading))
             title = title(viewModel)
 
-            val colorFrom = context?.let { ContextCompat.getColor(it, R.color.colorPrimary) }
-            val colorTo = context?.let { ContextCompat.getColor(it, R.color.colorRed) }
-            animateButton(binding.nextButton, colorFrom, colorTo)
+            val colorFrom = context?.let { ContextCompat.getColor(it, R.color.colorBackground) }
+            val colorTo = context?.let { ContextCompat.getColor(it, R.color.lightRed) }
+            animateView(binding.constraintLayout, colorFrom, colorTo)
         }
 
         viewModel.observeEventHint(
@@ -184,13 +185,6 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         }
 
     }.root
-
-    private fun animateButton(button: MaterialButton, colorFrom: Int?, colorTo: Int?){
-        val duration = 1000
-        ObjectAnimator.ofObject(button, "backgroundColor", ArgbEvaluator(), colorFrom, colorTo, colorFrom)
-            .setDuration(duration.toLong())
-            .start()
-    }
 
     private fun title(viewModel: CardViewModel? = null): String =
         getString(R.string.practice_actionbar_title_template).run {

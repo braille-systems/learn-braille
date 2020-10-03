@@ -1,11 +1,15 @@
 package com.github.braillesystems.learnbraille.utils
 
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Vibrator
+import android.view.View
 import android.view.accessibility.AccessibilityEvent
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.github.braillesystems.learnbraille.LearnBrailleApplication
 import com.github.braillesystems.learnbraille.R
@@ -86,6 +90,14 @@ var Fragment.title: String
 
 fun Fragment.updateTitle(title: String) {
     this.title = title
+}
+
+fun animateView(obj: View?, colorFrom: Int?, colorTo: Int?){
+    val duration = 1000
+    ObjectAnimator
+        .ofObject(obj, "backgroundColor", ArgbEvaluator(), colorFrom, colorTo, colorFrom)
+        .setDuration(duration.toLong())
+        .start()
 }
 
 
