@@ -16,11 +16,6 @@ fun Fragment.showCorrectToast() = toast(getString(R.string.input_correct))
 fun Fragment.showIncorrectToast(hint: String = "") =
     toast("${getString(R.string.input_incorrect)} $hint")
 
-fun Fragment.announceCorrect() = announce(getString(R.string.input_correct))
-
-fun Fragment.announceIncorrect(hint: String = "") =
-    announce("${getString(R.string.input_incorrect)} $hint")
-
 fun Fragment.dotsMode(mode: BrailleDotsViewMode): String =
     when (mode) {
         BrailleDotsViewMode.Writing -> getString(R.string.braille_dots_mode_writing)

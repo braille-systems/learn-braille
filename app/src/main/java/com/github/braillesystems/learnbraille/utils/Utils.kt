@@ -72,6 +72,10 @@ fun Fragment.checkedAnnounce(
     announce(announcement)
 }
 
+fun Fragment.announceCorrect() = announce(getString(R.string.input_correct))
+
+fun Fragment.announceIncorrect(hint: String = "") =
+    announce("${getString(R.string.input_incorrect)} $hint")
 
 val Fragment.actionBar: ActionBar?
     get() = (activity as AppCompatActivity).supportActionBar
@@ -92,7 +96,7 @@ fun Fragment.updateTitle(title: String) {
     this.title = title
 }
 
-fun animateView(obj: View?, colorFrom: Int?, colorTo: Int?){
+fun animateView(obj: View?, colorFrom: Int?, colorTo: Int?) {
     val duration = 1000
     ObjectAnimator
         .ofObject(obj, "backgroundColor", ArgbEvaluator(), colorFrom, colorTo, colorFrom)

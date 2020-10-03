@@ -1,13 +1,10 @@
 package com.github.braillesystems.learnbraille.ui.screens.practice
 
-import android.animation.ArgbEvaluator
-import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.os.Vibrator
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
@@ -20,8 +17,8 @@ import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.res.deckTagToName
 import com.github.braillesystems.learnbraille.res.inputMarkerPrintRules
-import com.github.braillesystems.learnbraille.ui.announceCorrect
-import com.github.braillesystems.learnbraille.ui.announceIncorrect
+import com.github.braillesystems.learnbraille.utils.announceCorrect
+import com.github.braillesystems.learnbraille.utils.announceIncorrect
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainerSignalHandler
 import com.github.braillesystems.learnbraille.ui.inputPrint
@@ -29,7 +26,6 @@ import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.showHintToast
 import com.github.braillesystems.learnbraille.ui.views.*
 import com.github.braillesystems.learnbraille.utils.*
-import com.google.android.material.button.MaterialButton
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber

@@ -150,6 +150,7 @@
     <string name="deck_name_markers">Специальные символы</string>
     <string name="deck_name_math">Математические символы</string>
 
+    <!-- TODO #278 correct help messages after un-setting dots background -->
 
     <string name="practice_help">
         <![CDATA[
