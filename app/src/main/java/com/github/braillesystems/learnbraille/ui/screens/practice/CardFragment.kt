@@ -1,10 +1,13 @@
 package com.github.braillesystems.learnbraille.ui.screens.practice
 
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.os.Vibrator
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -16,15 +19,20 @@ import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.res.deckTagToName
 import com.github.braillesystems.learnbraille.res.inputMarkerPrintRules
-import com.github.braillesystems.learnbraille.ui.*
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainerSignalHandler
+import com.github.braillesystems.learnbraille.ui.inputPrint
 import com.github.braillesystems.learnbraille.ui.screens.*
+import com.github.braillesystems.learnbraille.ui.showHintToast
+import com.github.braillesystems.learnbraille.ui.announceIncorrect
+import com.github.braillesystems.learnbraille.ui.announceCorrect
 import com.github.braillesystems.learnbraille.ui.views.*
 import com.github.braillesystems.learnbraille.utils.*
+import com.google.android.material.button.MaterialButton
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
+
 
 class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
 
@@ -113,16 +121,25 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         viewModel.observeCheckedOnFly(
             viewLifecycleOwner, { dotsState }, buzzer,
             block = { title = title(viewModel) },
-            softBlock = ::showCorrectToast
+            softBlock = {
+                announceCorrect()
+                val colorFrom = context?.let { ContextCompat.getColor(it, R.color.colorPrimary) }
+                val colorTo = context?.let { ContextCompat.getColor(it, R.color.colorGreen) }
+                animateButton(binding.nextButton, colorFrom, colorTo)
+            }
         )
 
         viewModel.observeEventIncorrect(
             viewLifecycleOwner, { dotsState }, buzzer
         ) {
             viewModel.symbol.value
-                ?.let { showIncorrectToast(inputPrint(it)) }
+                ?.let { announceIncorrect(inputPrint(it)) }
                 ?: checkedToast(getString(R.string.input_loading))
             title = title(viewModel)
+
+            val colorFrom = context?.let { ContextCompat.getColor(it, R.color.colorPrimary) }
+            val colorTo = context?.let { ContextCompat.getColor(it, R.color.colorRed) }
+            animateButton(binding.nextButton, colorFrom, colorTo)
         }
 
         viewModel.observeEventHint(
@@ -167,6 +184,13 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         }
 
     }.root
+
+    private fun animateButton(button: MaterialButton, colorFrom: Int?, colorTo: Int?){
+        val duration = 1000
+        ObjectAnimator.ofObject(button, "backgroundColor", ArgbEvaluator(), colorFrom, colorTo, colorFrom)
+            .setDuration(duration.toLong())
+            .start()
+    }
 
     private fun title(viewModel: CardViewModel? = null): String =
         getString(R.string.practice_actionbar_title_template).run {

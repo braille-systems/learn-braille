@@ -11,10 +11,10 @@ import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.utils.*
 
-fun Fragment.showCorrectToast() = toast(getString(R.string.input_correct))
+fun Fragment.announceCorrect() = announce(getString(R.string.input_correct))
 
-fun Fragment.showIncorrectToast(hint: String = "") =
-    toast("${getString(R.string.input_incorrect)} $hint")
+fun Fragment.announceIncorrect(hint: String = "") =
+    announce("${getString(R.string.input_incorrect)} $hint")
 
 fun Fragment.dotsMode(mode: BrailleDotsViewMode): String =
     when (mode) {

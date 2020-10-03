@@ -14,7 +14,7 @@ import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.res.inputSymbolPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.BrailleDotsInfo
 import com.github.braillesystems.learnbraille.ui.screens.theory.steps.StepBinding
-import com.github.braillesystems.learnbraille.ui.showIncorrectToast
+import com.github.braillesystems.learnbraille.ui.announceIncorrect
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import com.github.braillesystems.learnbraille.utils.getValue
@@ -68,8 +68,8 @@ class InputSymbolFragment : AbstractInputStepFragment(R.string.lessons_help_inpu
         return material.data.char
     }
 
-    override fun toastIncorrect(data: StepData) {
-        showIncorrectToast(inputSymbolPrintRules.getValue(data.char()))
+    override fun announceIncorrect(data: StepData) {
+        announceIncorrect(inputSymbolPrintRules.getValue(data.char()))
     }
 
     override fun onPassHint(data: StepData) {
