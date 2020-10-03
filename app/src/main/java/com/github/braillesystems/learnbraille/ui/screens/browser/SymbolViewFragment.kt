@@ -48,10 +48,8 @@ class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view
         checkedAnnounce(showPrint(m.data))
 
         brailleDots.dotsState.display(m.data.brailleDots)
-        checkedToast(dotsMode(brailleDots.mode))
         flipButton.setOnClickListener {
             brailleDots.reflect().display(m.data.brailleDots)
-            checkedToast(dotsMode(brailleDots.mode))
         }
 
     }.root

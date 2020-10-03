@@ -18,9 +18,7 @@ import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode.Reading
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode.Writing
-import com.github.braillesystems.learnbraille.utils.chainify
-import com.github.braillesystems.learnbraille.utils.forEach
-import com.github.braillesystems.learnbraille.utils.unreachable
+import com.github.braillesystems.learnbraille.utils.*
 import kotlinx.android.synthetic.main.braille_dots_view.view.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -108,6 +106,15 @@ class BrailleDotsView : ConstraintLayout, KoinComponent {
             Timber.w("API level < 22, unable co control accessibility traversal order")
         }
 
+        runIf(preferenceRepository.additionalAnnouncementsEnabled) {
+            context.announce(
+                when (mode) {
+                    Writing -> context.getString(R.string.braille_dots_mode_writing)
+                    Reading -> context.getString(R.string.braille_dots_mode_reading)
+                }
+            )
+        }
+
         this.mode = mode
     }
 
@@ -135,7 +142,7 @@ class BrailleDotsView : ConstraintLayout, KoinComponent {
                 Triple(dotButton6, R.string.braille_dot_6, R.string.braille_dot_6_text)
             )
         }
-        dotsMapping.forEach{ (dotButton, desc_id, caption_id) ->
+        dotsMapping.forEach { (dotButton, desc_id, caption_id) ->
             dotButton.contentDescription = context.getString(desc_id)
             dotButton.text = context.getString(caption_id)
         }

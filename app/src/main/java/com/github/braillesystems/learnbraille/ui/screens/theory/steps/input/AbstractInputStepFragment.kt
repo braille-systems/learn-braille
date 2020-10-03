@@ -51,14 +51,12 @@ abstract class AbstractInputStepFragment(helpMsgId: HelpMsgId) : AbstractStepFra
 
         val buzzer: Vibrator? = activity?.getSystemService()
 
-        toastDotsMode()
         stepBinding.flipButton?.setOnClickListener {
             dotsState = stepBinding.brailleDotsInfo!!.view.reflect().apply {
                 subscribe(View.OnClickListener {
                     viewModel.onSoftCheck()
                     userTouchedDots = true
                 })
-                toastDotsMode()
                 if (viewModel.state == DotsChecker.State.HINT) {
                     display(expectedDots)
                 }
