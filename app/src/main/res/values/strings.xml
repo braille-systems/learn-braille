@@ -405,6 +405,13 @@
     <string name="braille_dot_5">точка пять</string>
     <string name="braille_dot_6">точка шесть</string>
 
+    <string name="braille_dot_1_text">1</string>
+    <string name="braille_dot_2_text">2</string>
+    <string name="braille_dot_3_text">3</string>
+    <string name="braille_dot_4_text">4</string>
+    <string name="braille_dot_5_text">5</string>
+    <string name="braille_dot_6_text">6</string>
+
     <!--    Action menu-->
 
     <string name="menu_title_help">Справка</string>
