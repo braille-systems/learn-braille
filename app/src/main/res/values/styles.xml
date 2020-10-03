@@ -48,6 +48,7 @@
         <item name="android:background">@drawable/round_checkbox</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@drawable/round_checkbox</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="bigLetterStyle">
