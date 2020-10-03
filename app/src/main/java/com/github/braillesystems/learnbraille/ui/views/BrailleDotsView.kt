@@ -106,14 +106,12 @@ class BrailleDotsView : ConstraintLayout, KoinComponent {
             Timber.w("API level < 22, unable co control accessibility traversal order")
         }
 
-        runIf(preferenceRepository.additionalAnnouncementsEnabled) {
-            context.announce(
-                when (mode) {
-                    Writing -> context.getString(R.string.braille_dots_mode_writing)
-                    Reading -> context.getString(R.string.braille_dots_mode_reading)
-                }
-            )
-        }
+        context.announce(
+            when (mode) {
+                Writing -> context.getString(R.string.braille_dots_mode_writing)
+                Reading -> context.getString(R.string.braille_dots_mode_reading)
+            }
+        )
 
         this.mode = mode
     }
