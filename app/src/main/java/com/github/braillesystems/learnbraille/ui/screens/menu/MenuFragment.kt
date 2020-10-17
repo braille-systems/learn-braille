@@ -15,10 +15,12 @@ import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.theory.toLastCourseStep
+import com.github.braillesystems.learnbraille.ui.showFlipPreferenceDialog
 import com.github.braillesystems.learnbraille.utils.*
 import com.google.android.material.button.MaterialButton
 import org.koin.android.ext.android.inject
 import timber.log.Timber
+
 
 class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
 
@@ -97,6 +99,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         }
 
         colorButtons(buttons)
+        activity?.showFlipPreferenceDialog() // TODO ask in practice and theory
 
     }.root
 

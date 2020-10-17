@@ -549,4 +549,16 @@
     <string name="stats_section_7days">За последние 7 дней</string>
     <string name="stats_section_30days">За последние 30 дней</string>
     <string name="flip_card">Шеститочие: письмо/чтение</string>
+
+    <string name="fragment_flip_dialog_title">Выберите порядок столбцов в шеститочии</string>
+    <string name="fragment_flip_dialog_msg">
+        Выберите удобный Вам вариант расположения точек <b>при вводе</b>.
+    </string>
+    <string name="fragment_flip_dialog_msg2">
+        Вы всегда сможете изменить это значение в разделе \"Настройки\"/
+        \"Порядок столбцов при вводе\"
+    </string>
+    <string name="dialog_ok">OK</string>
+    <string name="radio_btn_flip">Точки 1, 2, 3 справа (как при письме на брайлевском приборе)</string>
+    <string name="radio_btn_no_flip">Точки 1, 2, 3 слева (как при чтении)</string>
 </resources>
