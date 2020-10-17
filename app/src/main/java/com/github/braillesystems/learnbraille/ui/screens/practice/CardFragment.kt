@@ -1,5 +1,6 @@
 package com.github.braillesystems.learnbraille.ui.screens.practice
 
+import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
 import android.os.Vibrator
 import android.view.*
@@ -17,8 +18,6 @@ import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.res.deckTagToName
 import com.github.braillesystems.learnbraille.res.inputMarkerPrintRules
-import com.github.braillesystems.learnbraille.utils.announceCorrect
-import com.github.braillesystems.learnbraille.utils.announceIncorrect
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainerSignalHandler
 import com.github.braillesystems.learnbraille.ui.inputPrint
@@ -120,9 +119,10 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
             block = { title = title(viewModel) },
             softBlock = {
                 announceCorrect()
-                val colorFrom = context?.let { ContextCompat.getColor(it, R.color.colorBackground) }
-                val colorTo = context?.let { ContextCompat.getColor(it, R.color.lightGreen) }
-                animateView(binding.constraintLayout, colorFrom, colorTo)
+                binding.constraintLayout.background = context?.let { ContextCompat.getDrawable(it, R.drawable.background_animation_green) }
+                val transition = binding.constraintLayout.background as TransitionDrawable
+                transition.startTransition(500)
+                transition.reverseTransition(500)
             }
         )
 
@@ -134,9 +134,10 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
                 ?: checkedToast(getString(R.string.input_loading))
             title = title(viewModel)
 
-            val colorFrom = context?.let { ContextCompat.getColor(it, R.color.colorBackground) }
-            val colorTo = context?.let { ContextCompat.getColor(it, R.color.lightRed) }
-            animateView(binding.constraintLayout, colorFrom, colorTo)
+            binding.constraintLayout.background = context?.let { ContextCompat.getDrawable(it, R.drawable.background_animation_red) }
+            val transition = binding.constraintLayout.background as TransitionDrawable
+            transition.startTransition(500)
+            transition.reverseTransition(500)
         }
 
         viewModel.observeEventHint(
