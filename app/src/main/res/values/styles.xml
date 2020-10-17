@@ -44,7 +44,11 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:scaleX">@dimen/braille_dots_scale_of_one_dot</item>
         <item name="android:scaleY">@dimen/braille_dots_scale_of_one_dot</item>
-        <item name="android:button">@drawable/round_checkbox</item>
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/round_checkbox</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@drawable/round_checkbox</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="bigLetterStyle">

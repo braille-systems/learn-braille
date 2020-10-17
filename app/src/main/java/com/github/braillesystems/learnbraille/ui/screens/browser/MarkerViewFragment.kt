@@ -11,7 +11,6 @@ import com.github.braillesystems.learnbraille.data.entities.MarkerSymbol
 import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.databinding.FragmentMarkerViewBinding
 import com.github.braillesystems.learnbraille.res.showMarkerPrintRules
-import com.github.braillesystems.learnbraille.ui.dotsMode
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.BrailleDotsInfo
 import com.github.braillesystems.learnbraille.ui.screens.FragmentBinding
@@ -47,12 +46,9 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
         val text = showMarkerPrintRules.getValue(m.data.type)
         infoTextView.text = text
         checkedAnnounce(text)
-
         brailleDots.dotsState.display(m.data.brailleDots)
-        checkedToast(dotsMode(brailleDots.mode))
         flipButton.setOnClickListener {
             brailleDots.reflect().display(m.data.brailleDots)
-            checkedToast(dotsMode(brailleDots.mode))
         }
 
     }.root

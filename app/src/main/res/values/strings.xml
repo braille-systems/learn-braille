@@ -129,10 +129,10 @@
     <string name="practice_actionbar_title_template">Практика: %d из %d</string>
     <string name="practice_actionbar_title">Практика</string>
     <string name="practice_deck_name_enabled_template">
-        Колода: \"%s\"\n\"%s\"\nПовторять только изученные: включено
+        Колода: \"%s\"\nПовторять только изученные: включено
     </string>
     <string name="practice_deck_name_disabled_template">
-        Колода: \"%s\"\n\"%s\"\nПовторять только изученные: выключено
+        Колода: \"%s\"\nПовторять только изученные: выключено
     </string>
     <string name="decks_list_title">Список колод</string>
     <string name="decks_list_no_material_in_deck">
@@ -404,6 +404,13 @@
     <string name="braille_dot_4">точка четыре</string>
     <string name="braille_dot_5">точка пять</string>
     <string name="braille_dot_6">точка шесть</string>
+
+    <string name="braille_dot_1_text">1</string>
+    <string name="braille_dot_2_text">2</string>
+    <string name="braille_dot_3_text">3</string>
+    <string name="braille_dot_4_text">4</string>
+    <string name="braille_dot_5_text">5</string>
+    <string name="braille_dot_6_text">6</string>
 
     <!--    Action menu-->
 

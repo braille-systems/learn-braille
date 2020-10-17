@@ -13,10 +13,8 @@ abstract class AbstractShowStepFragment(helpMsgId: HelpMsgId) : AbstractStepFrag
         require(data is BaseShow)
         stepBinding.brailleDotsInfo?.view?.dotsState?.display(data.brailleDots)
             ?: error("Show step should have braille dots")
-        toastDotsMode()
         stepBinding.flipButton?.setOnClickListener {
             stepBinding.brailleDotsInfo?.view?.reflect()?.display(data.brailleDots)
-            toastDotsMode()
         }
     }
 }

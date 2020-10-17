@@ -8,6 +8,8 @@
     <dimen name="braille_dots_inner_vertical_margin">25dp</dimen>
     <dimen name="braille_dots_scale_of_one_dot">2.6</dimen>
     <dimen name="braille_dots_scale_of_view">1</dimen>
+    <!-- For whatever reason dots numbers in the right column appear not strictly in the middle, so we use padding to fix it-->
+    <dimen name="braille_dots_right_column_text_padding">1dp</dimen>
 
     <dimen name="practice_dots_vertical_bias">0.85</dimen>
     <dimen name="practice_buttons_vertical_bias">0.9</dimen>
