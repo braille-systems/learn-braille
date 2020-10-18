@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/fragment_flip_dialog_msg"
         android:layout_margin="10dp"
-        android:textSize="@dimen/lessons_info_text_size"/>
+        android:text="@string/fragment_flip_dialog_msg"
+        android:textSize="@dimen/lessons_info_text_size" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -23,8 +23,8 @@
             android:id="@+id/readingDefault"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/radio_btn_no_flip"
             android:checked="true"
+            android:text="@string/radio_btn_no_flip"
             android:textAlignment="textStart" />
 
         <RadioButton
@@ -41,7 +41,7 @@
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:text="@string/fragment_flip_dialog_msg2"
-        android:textSize="@dimen/lessons_info_text_size"/>
+        android:textSize="@dimen/lessons_info_text_size" />
 
     <Button
         android:id="@+id/btnOK"

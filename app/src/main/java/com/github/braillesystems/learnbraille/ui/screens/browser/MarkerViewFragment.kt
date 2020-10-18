@@ -17,7 +17,10 @@ import com.github.braillesystems.learnbraille.ui.screens.FragmentBinding
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
-import com.github.braillesystems.learnbraille.utils.*
+import com.github.braillesystems.learnbraille.utils.checkedAnnounce
+import com.github.braillesystems.learnbraille.utils.getFragmentStringArg
+import com.github.braillesystems.learnbraille.utils.getValue
+import com.github.braillesystems.learnbraille.utils.parse
 
 class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view_help) {
 
