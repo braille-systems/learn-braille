@@ -9,6 +9,7 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import com.github.braillesystems.learnbraille.res.MarkerType
 import com.github.braillesystems.learnbraille.res.SymbolType
+import com.github.braillesystems.learnbraille.utils.Version
 import com.github.braillesystems.learnbraille.utils.unreachable
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -158,6 +159,8 @@ class MaterialsRepositoryTest {
         repo = MaterialsRepositoryImpl(
             db.deckDao, db.cardDao,
             object : PreferenceRepository {
+                override val lastUpdateDialogVersionShowed: Version
+                    get() = unreachable
                 override val buzzEnabled: Boolean
                     get() = unreachable
                 override val toastsEnabled: Boolean
