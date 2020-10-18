@@ -22,23 +22,39 @@ fun Fragment.dotsMode(mode: BrailleDotsViewMode): String =
         BrailleDotsViewMode.Reading -> getString(R.string.braille_dots_mode_reading)
     }
 
-private val Context.dotsHintRules by lazyWithContext<Context, List<String>> {
+private val Context.dotsReadingHintRules by lazyWithContext<Context, List<String>> {
     listOf(
-        getString(R.string.input_dots_hint_1),
-        getString(R.string.input_dots_hint_2),
-        getString(R.string.input_dots_hint_3),
-        getString(R.string.input_dots_hint_4),
-        getString(R.string.input_dots_hint_5),
-        getString(R.string.input_dots_hint_6)
+        getString(R.string.input_dots_reading_hint_1),
+        getString(R.string.input_dots_reading_hint_2),
+        getString(R.string.input_dots_reading_hint_3),
+        getString(R.string.input_dots_reading_hint_4),
+        getString(R.string.input_dots_reading_hint_5),
+        getString(R.string.input_dots_reading_hint_6)
     )
 }
 
-fun Fragment.showHintDotsToast(expectedDots: BrailleDots) {
+private val Context.dotsWritingHintRules by lazyWithContext<Context, List<String>> {
+    listOf(
+        getString(R.string.input_dots_writing_hint_1),
+        getString(R.string.input_dots_writing_hint_2),
+        getString(R.string.input_dots_writing_hint_3),
+        getString(R.string.input_dots_writing_hint_4),
+        getString(R.string.input_dots_writing_hint_5),
+        getString(R.string.input_dots_writing_hint_6)
+    )
+}
+
+fun Fragment.showHintDotsToast(expectedDots: BrailleDots, mode: BrailleDotsViewMode) {
     val template = getString(R.string.input_dots_hint_template)
     val hint = expectedDots
         .filled
         .joinToString(separator = ", ") {
-            contextNotNull.dotsHintRules[it - 1]
+            contextNotNull.run {
+                when (mode) {
+                    BrailleDotsViewMode.Reading -> dotsReadingHintRules[it - 1]
+                    BrailleDotsViewMode.Writing -> dotsWritingHintRules[it - 1]
+                }
+            }
         }
     checkedToast(template.format(hint))
 }

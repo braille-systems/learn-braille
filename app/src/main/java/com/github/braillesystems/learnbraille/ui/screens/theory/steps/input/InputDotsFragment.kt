@@ -8,11 +8,13 @@ import android.widget.TextView
 import androidx.core.text.parseAsHtml
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
+import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.InputDots
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.databinding.FragmentLessonsInputDotsBinding
 import com.github.braillesystems.learnbraille.ui.screens.BrailleDotsInfo
 import com.github.braillesystems.learnbraille.ui.screens.theory.steps.StepBinding
+import com.github.braillesystems.learnbraille.ui.showHintDotsToast
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import com.github.braillesystems.learnbraille.utils.removeHtmlMarkup
@@ -59,4 +61,12 @@ class InputDotsFragment : AbstractInputStepFragment(R.string.lessons_help_input_
         lifecycleOwner = this@InputDotsFragment
 
     }.root
+
+    override fun toastHint(expectedDots: BrailleDots) {
+        showHintDotsToast(
+            expectedDots,
+            stepBinding.brailleDotsInfo?.view?.mode
+                ?: error("Input dots step should have dots")
+        )
+    }
 }
