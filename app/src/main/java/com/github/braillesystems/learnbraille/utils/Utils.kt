@@ -97,3 +97,19 @@ val Context.extendedTextSize: Float by lazyWithContext {
     // Size applied in runtime is different
     resources.getDimension(R.dimen.lessons_info_text_size) / 5 * 3
 }
+
+data class Version(val v1: Int, val v2: Int, val v3: Int) : Comparable<Version> {
+
+    override fun compareTo(other: Version): Int =
+        Triple(v1, v2, v3).compareTo(other.run { Triple(v1, v2, v3) })
+
+    override fun toString(): String = "$v1.$v2.$v3"
+
+    companion object Factories {
+        fun valueOf(s: String): Version =
+            s
+                .split('.')
+                .map(String::toInt)
+                .let { (v1, v2, v3) -> Version(v1, v2, v3) }
+    }
+}

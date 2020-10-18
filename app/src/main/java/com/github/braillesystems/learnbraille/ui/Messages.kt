@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.*
+import com.github.braillesystems.learnbraille.data.repository.MutablePreferenceRepository
 import com.github.braillesystems.learnbraille.res.inputMarkerPrintRules
 import com.github.braillesystems.learnbraille.res.inputSymbolPrintRules
 import com.github.braillesystems.learnbraille.res.showMarkerPrintRules
@@ -16,6 +17,7 @@ import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.utils.*
 import kotlinx.android.synthetic.main.fragment_flip_dialog.view.*
+import org.koin.android.ext.android.inject
 
 fun Fragment.showCorrectToast() = toast(getString(R.string.input_correct))
 
@@ -70,18 +72,39 @@ fun Context.showPrint(data: MaterialData): String =
 fun Fragment.showPrint(data: MaterialData): String =
     contextNotNull.showPrint(data)
 
-fun FragmentActivity.showFlipPreferenceDialog() {
+private typealias UpdateDialog = FragmentActivity.() -> Unit
+
+private fun FragmentActivity.showFlipPreferenceDialog() {
     val viewGroup: ViewGroup = findViewById(android.R.id.content)
-    val dialogView: View =
-        LayoutInflater.from(this).inflate(R.layout.fragment_flip_dialog, viewGroup, false)
-    val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-    builder.setView(dialogView)
-    builder.setTitle(getString(R.string.fragment_flip_dialog_title))
-    val alertDialog: AlertDialog = builder.create()
-    alertDialog.show()
+    val dialogView: View = LayoutInflater
+        .from(this)
+        .inflate(R.layout.fragment_flip_dialog, viewGroup, false)
+    val alertDialog = AlertDialog.Builder(this).apply {
+        setView(dialogView)
+        setTitle(getString(R.string.fragment_flip_dialog_title))
+    }.create()
+    val preferenceRepository: MutablePreferenceRepository by inject()
     dialogView.btnOK.setOnClickListener {
-        val flipPreferenceOn = dialogView.radioButtonFlip.isChecked
-        // TODO save preference & never ask again
+        preferenceRepository.isWriteModeFirst = dialogView.writingDefault.isChecked
         alertDialog.hide()
     }
+    alertDialog.show()
+}
+
+val FragmentActivity.updateDialogs: List<Pair<Version, UpdateDialog>> by lazyWithContext {
+    listOf(
+        Version(1, 2, 1) to fun FragmentActivity.() {
+            showFlipPreferenceDialog()
+        }
+    ).sortedBy { (version, _) -> version }
+}
+
+fun FragmentActivity.showNewUpdateDialogs() {
+    val preferenceRepository: MutablePreferenceRepository by inject()
+    updateDialogs
+        .filter { (v, _) -> v > preferenceRepository.lastUpdateDialogVersionShowed }
+        .forEach { (v, dialog) ->
+            dialog()
+            preferenceRepository.lastUpdateDialogVersionShowed = v
+        }
 }

@@ -7,11 +7,14 @@ import com.github.braillesystems.learnbraille.data.entities.DBid
 import com.github.braillesystems.learnbraille.data.entities.User
 import com.github.braillesystems.learnbraille.data.entities.UserDao
 import com.github.braillesystems.learnbraille.utils.BuzzPattern
+import com.github.braillesystems.learnbraille.utils.Version
 import com.github.braillesystems.learnbraille.utils.logged
 import com.github.braillesystems.learnbraille.utils.preferences
 import timber.log.Timber
 
 interface PreferenceRepository {
+
+    val lastUpdateDialogVersionShowed: Version
 
     val buzzEnabled: Boolean
     val toastsEnabled: Boolean
@@ -34,7 +37,10 @@ interface PreferenceRepository {
     val incorrectBuzzPattern: BuzzPattern get() = longArrayOf(0, 200)
 }
 
-interface MutablePreferenceRepository : PreferenceRepository
+interface MutablePreferenceRepository : PreferenceRepository {
+    override var lastUpdateDialogVersionShowed: Version
+    override var isWriteModeFirst: Boolean
+}
 
 /**
  * Keep default values same as in `settings_hierarchy`.
@@ -44,6 +50,25 @@ class PreferenceRepositoryImpl(
     private val context: Context,
     private val userDao: UserDao
 ) : MutablePreferenceRepository {
+
+    override var lastUpdateDialogVersionShowed: Version by logged(
+        getter = {
+            val v = context.preferences.getString(
+                context.getString(R.string.preference_app_version),
+                "0.0.0"
+            ) ?: error("Default value should be provided")
+            Version.valueOf(v)
+        },
+        setter = { value ->
+            with(context.preferences.edit()) {
+                putString(
+                    context.getString(R.string.preference_app_version),
+                    value.toString()
+                )
+                apply()
+            }
+        }
+    )
 
     override val buzzEnabled: Boolean by logged {
         context.preferences.getBoolean(
@@ -115,12 +140,23 @@ class PreferenceRepositoryImpl(
         )
     }
 
-    override val isWriteModeFirst: Boolean by logged {
-        context.preferences.getBoolean(
-            context.getString(R.string.preferences_is_write_mode_first),
-            true
-        )
-    }
+    override var isWriteModeFirst: Boolean by logged(
+        getter = {
+            context.preferences.getBoolean(
+                context.getString(R.string.preferences_is_write_mode_first),
+                true
+            )
+        },
+        setter = { value ->
+            with(context.preferences.edit()) {
+                putBoolean(
+                    context.getString(R.string.preferences_is_write_mode_first),
+                    value
+                )
+                apply()
+            }
+        }
+    )
 
     override val currentUserId: DBid by logged {
         context.preferences.getLong(

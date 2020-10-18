@@ -10,6 +10,7 @@
 
     <string name="voice_record_denial">Вы не сможете использовать возможности голосового управления</string>
 
+    <string name="preference_app_version">app_version</string>
     <string name="preference_use_debug_lessons">use_debug_lessons</string>
     <string name="preference_enable_buzz">enable_buzz</string>
     <string name="preference_enable_toasts">enable_toasts</string>

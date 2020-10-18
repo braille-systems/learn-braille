@@ -15,7 +15,7 @@ import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.theory.toLastCourseStep
-import com.github.braillesystems.learnbraille.ui.showFlipPreferenceDialog
+import com.github.braillesystems.learnbraille.ui.showNewUpdateDialogs
 import com.github.braillesystems.learnbraille.utils.*
 import com.google.android.material.button.MaterialButton
 import org.koin.android.ext.android.inject
@@ -38,6 +38,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
     ).ini().also { binding ->
 
         title = getString(R.string.menu_actionbar_text_template).format(appName)
+        activity?.showNewUpdateDialogs()
 
         val buttons = mutableListOf<MaterialButton>()
 
@@ -99,7 +100,6 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         }
 
         colorButtons(buttons)
-        activity?.showFlipPreferenceDialog() // TODO ask in practice and theory
 
     }.root
 
