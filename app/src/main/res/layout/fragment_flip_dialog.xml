@@ -1,53 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_flip_dialog"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <!-- TODO reduce hardcode -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:text="@string/fragment_flip_dialog_msg"
-        android:textSize="@dimen/lessons_info_text_size" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp">
+        android:layout_height="match_parent">
 
-        <RadioButton
-            android:id="@+id/readingDefault"
+        <LinearLayout
+            android:id="@+id/fragment_flip_dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/radio_btn_no_flip"
-            android:textAlignment="textStart" />
+            android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/writingDefault"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/radio_btn_flip"
-            android:textAlignment="textStart" />
-    </RadioGroup>
+            <TextView
+                style="@style/dialogTextView"
+                android:text="@string/fragment_flip_dialog_msg" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:text="@string/fragment_flip_dialog_msg2"
-        android:textSize="@dimen/lessons_info_text_size" />
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dialog_text_view_margin">
 
-    <Button
-        android:id="@+id/btnOK"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:text="@string/dialog_ok" />
-</LinearLayout>
+                <RadioButton
+                    android:id="@+id/readingDefault"
+                    style="@style/radioGroupBtnStyle"
+                    android:checked="true"
+                    android:text="@string/radio_btn_no_flip" />
+
+                <RadioButton
+                    android:id="@+id/writingDefault"
+                    style="@style/radioGroupBtnStyle"
+                    android:text="@string/radio_btn_flip" />
+            </RadioGroup>
+
+            <TextView
+                style="@style/dialogTextView"
+                android:text="@string/fragment_flip_dialog_msg2" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/dialog_text_view_margin">
+
+                <TextView
+                    android:id="@+id/flip_btn_demo_desc_text_view"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="10dp"
+                    android:gravity="center_vertical|right"
+                    android:importantForAccessibility="no"
+                    android:text="@string/flip_btn_demo_desc"
+                    android:textSize="@dimen/lessons_info_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/flip_button_demo"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/flip_button_demo"
+                    style="@style/sideIconButtons"
+                    android:layout_width="@dimen/side_buttons_width"
+                    android:layout_height="@dimen/practice_buttons_small_height"
+                    android:clickable="false"
+                    android:importantForAccessibility="no"
+                    app:backgroundTint="@color/colorSecondary"
+                    app:icon="@drawable/ic_flip_white_24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/flip_btn_demo_desc_text_view"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/btnOK"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dialog_text_view_margin"
+                android:text="@string/dialog_ok"
+                android:textSize="@dimen/ok_btn_text_size" />
+        </LinearLayout>
+    </ScrollView>
+</layout>

@@ -535,7 +535,7 @@
         Отображать в главном меню кнопку \"QR-код\" для игры с карточками Брайля.
     </string>
     <string name="preference_title_is_write_mode_first">
-        При вводе столбец с точками 1, 2, 3 справа
+        Порядок столбцов при вводе
     </string>
     <string name="preference_summary_is_write_mode_forst">
         При заходе в практику или шаг с вводом точек столбец с точками 1, 2, 3 находится справа,
@@ -567,14 +567,12 @@
     <string name="flip_card">Шеститочие: письмо/чтение</string>
 
     <string name="fragment_flip_dialog_title">Выберите порядок столбцов в шеститочии</string>
-    <string name="fragment_flip_dialog_msg">
-        Выберите удобный Вам вариант расположения точек <b>при вводе</b>.
+    <string name="fragment_flip_dialog_msg">Выберите удобный Вам вариант расположения точек <b>при вводе в заданиях</b>.
     </string>
-    <string name="fragment_flip_dialog_msg2">
-        Вы всегда сможете изменить это значение в разделе \"Настройки\"/
-        \"Порядок столбцов при вводе\"
+    <string name="fragment_flip_dialog_msg2">Вы сможете изменить свой выбор в разделе \"Настройки\"/\"Порядок столбцов при вводе\". Кроме того, в заданиях можно менять порядок точек кнопкой <b>\"Шеститочие:письмо/чтение\"</b> в правой части экрана.
     </string>
     <string name="dialog_ok">OK</string>
-    <string name="radio_btn_flip">Точки 1, 2, 3 справа (как при письме на брайлевском приборе)</string>
+    <string name="radio_btn_flip">Точки 1, 2, 3 справа (как при письме на брайлевском приборе, когда лист переворачивается)</string>
     <string name="radio_btn_no_flip">Точки 1, 2, 3 слева (как при чтении)</string>
+    <string name="flip_btn_demo_desc">Так выглядит кнопка <b>\"Шеститочие:письмо/чтение\"</b></string>
 </resources>
