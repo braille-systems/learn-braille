@@ -18,9 +18,7 @@ import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode.Reading
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode.Writing
-import com.github.braillesystems.learnbraille.utils.chainify
-import com.github.braillesystems.learnbraille.utils.forEach
-import com.github.braillesystems.learnbraille.utils.unreachable
+import com.github.braillesystems.learnbraille.utils.*
 import kotlinx.android.synthetic.main.braille_dots_view.view.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -108,6 +106,13 @@ class BrailleDotsView : ConstraintLayout, KoinComponent {
             Timber.w("API level < 22, unable co control accessibility traversal order")
         }
 
+        context.announce(
+            when (mode) {
+                Writing -> context.getString(R.string.braille_dots_mode_writing)
+                Reading -> context.getString(R.string.braille_dots_mode_reading)
+            }
+        )
+
         this.mode = mode
     }
 
@@ -117,27 +122,27 @@ class BrailleDotsView : ConstraintLayout, KoinComponent {
     }
 
     private fun setDescriptionMode(mode: BrailleDotsViewMode) {
-        when (mode) {
-            Writing -> forEach(
-                dotButton4 to R.string.braille_dot_1,
-                dotButton5 to R.string.braille_dot_2,
-                dotButton6 to R.string.braille_dot_3,
-                dotButton1 to R.string.braille_dot_4,
-                dotButton2 to R.string.braille_dot_5,
-                dotButton3 to R.string.braille_dot_6
-            ) { (dotButton, id) ->
-                dotButton.contentDescription = context.getString(id)
-            }
-            Reading -> forEach(
-                dotButton1 to R.string.braille_dot_1,
-                dotButton2 to R.string.braille_dot_2,
-                dotButton3 to R.string.braille_dot_3,
-                dotButton4 to R.string.braille_dot_4,
-                dotButton5 to R.string.braille_dot_5,
-                dotButton6 to R.string.braille_dot_6
-            ) { (dotButton, id) ->
-                dotButton.contentDescription = context.getString(id)
-            }
+        val dotsMapping = when (mode) {
+            Writing -> listOf(
+                Triple(dotButton4, R.string.braille_dot_1, R.string.braille_dot_1_text),
+                Triple(dotButton5, R.string.braille_dot_2, R.string.braille_dot_2_text),
+                Triple(dotButton6, R.string.braille_dot_3, R.string.braille_dot_3_text),
+                Triple(dotButton1, R.string.braille_dot_4, R.string.braille_dot_4_text),
+                Triple(dotButton2, R.string.braille_dot_5, R.string.braille_dot_5_text),
+                Triple(dotButton3, R.string.braille_dot_6, R.string.braille_dot_6_text)
+            )
+            Reading -> listOf(
+                Triple(dotButton1, R.string.braille_dot_1, R.string.braille_dot_1_text),
+                Triple(dotButton2, R.string.braille_dot_2, R.string.braille_dot_2_text),
+                Triple(dotButton3, R.string.braille_dot_3, R.string.braille_dot_3_text),
+                Triple(dotButton4, R.string.braille_dot_4, R.string.braille_dot_4_text),
+                Triple(dotButton5, R.string.braille_dot_5, R.string.braille_dot_5_text),
+                Triple(dotButton6, R.string.braille_dot_6, R.string.braille_dot_6_text)
+            )
+        }
+        dotsMapping.forEach { (dotButton, desc_id, caption_id) ->
+            dotButton.contentDescription = context.getString(desc_id)
+            dotButton.text = context.getString(caption_id)
         }
     }
 
