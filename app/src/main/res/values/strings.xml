@@ -33,12 +33,20 @@
     <string name="input_loading">Подождите, задание загружается</string>
     <string name="input_hint_template">Ответ: точки %s</string>
     <string name="input_dots_hint_template">Ответ: %s</string>
-    <string name="input_dots_hint_1">точка 1 слева сверху</string>
-    <string name="input_dots_hint_2">точка 2 слева посередине</string>
-    <string name="input_dots_hint_3">точка 3 слева снизу</string>
-    <string name="input_dots_hint_4">точка 4 справа сверху</string>
-    <string name="input_dots_hint_5">точка 5 справа посередине</string>
-    <string name="input_dots_hint_6">точка 6 справа снизу</string>
+
+    <string name="input_dots_reading_hint_1">точка 1 слева сверху</string>
+    <string name="input_dots_reading_hint_2">точка 2 слева посередине</string>
+    <string name="input_dots_reading_hint_3">точка 3 слева снизу</string>
+    <string name="input_dots_reading_hint_4">точка 4 справа сверху</string>
+    <string name="input_dots_reading_hint_5">точка 5 справа посередине</string>
+    <string name="input_dots_reading_hint_6">точка 6 справа снизу</string>
+
+    <string name="input_dots_writing_hint_4">точка 4 слева сверху</string>
+    <string name="input_dots_writing_hint_5">точка 5 слева посередине</string>
+    <string name="input_dots_writing_hint_6">точка 6 слева снизу</string>
+    <string name="input_dots_writing_hint_1">точка 1 справа сверху</string>
+    <string name="input_dots_writing_hint_2">точка 2 справа посередине</string>
+    <string name="input_dots_writing_hint_3">точка 3 справа снизу</string>
 
     <string name="input_letter_intro_template">Введите букву: %s</string>
     <string name="input_latin_letter_intro_template">Введите латинскую букву: %s</string>
