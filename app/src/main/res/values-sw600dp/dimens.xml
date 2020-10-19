@@ -9,6 +9,8 @@
     <dimen name="braille_dots_scale_of_one_dot">2.6</dimen>
     <dimen name="braille_dots_scale_of_view">1.8</dimen>
 
+    <dimen name="braille_dots_right_column_text_padding">1dp</dimen>
+
     <dimen name="side_buttons_extended_width">80dp</dimen>
     <dimen name="side_buttons_width">65dp</dimen>
     <dimen name="practice_buttons_height">300dp</dimen>

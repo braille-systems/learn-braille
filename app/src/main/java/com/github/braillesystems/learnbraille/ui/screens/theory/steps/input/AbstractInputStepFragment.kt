@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.content.getSystemService
 import androidx.lifecycle.ViewModelProvider
 import com.github.braillesystems.learnbraille.data.entities.BaseInput
+import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.StepData
 import com.github.braillesystems.learnbraille.ui.screens.*
 import com.github.braillesystems.learnbraille.ui.screens.theory.steps.AbstractStepFragment
@@ -51,14 +52,12 @@ abstract class AbstractInputStepFragment(helpMsgId: HelpMsgId) : AbstractStepFra
 
         val buzzer: Vibrator? = activity?.getSystemService()
 
-        toastDotsMode()
         stepBinding.flipButton?.setOnClickListener {
             dotsState = stepBinding.brailleDotsInfo!!.view.reflect().apply {
                 subscribe(View.OnClickListener {
                     viewModel.onSoftCheck()
                     userTouchedDots = true
                 })
-                toastDotsMode()
                 if (viewModel.state == DotsChecker.State.HINT) {
                     display(expectedDots)
                 }
@@ -74,7 +73,7 @@ abstract class AbstractInputStepFragment(helpMsgId: HelpMsgId) : AbstractStepFra
         viewModel.observeEventHint(
             viewLifecycleOwner, { dotsState }
         ) {
-            showHintToast(expectedDots)
+            toastHint(expectedDots)
             userTouchedDots = true
         }
 
@@ -105,6 +104,10 @@ abstract class AbstractInputStepFragment(helpMsgId: HelpMsgId) : AbstractStepFra
 
     protected open fun toastIncorrect(data: StepData) {
         showIncorrectToast()
+    }
+
+    protected open fun toastHint(expectedDots: BrailleDots) {
+        showHintToast(expectedDots)
     }
 
     protected open fun onPassHint(data: StepData) = Unit

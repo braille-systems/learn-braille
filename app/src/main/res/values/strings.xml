@@ -32,12 +32,20 @@
     <string name="input_loading">Подождите, задание загружается</string>
     <string name="input_hint_template">Ответ: точки %s</string>
     <string name="input_dots_hint_template">Ответ: %s</string>
-    <string name="input_dots_hint_1">точка 1 слева сверху</string>
-    <string name="input_dots_hint_2">точка 2 слева посередине</string>
-    <string name="input_dots_hint_3">точка 3 слева снизу</string>
-    <string name="input_dots_hint_4">точка 4 справа сверху</string>
-    <string name="input_dots_hint_5">точка 5 справа посередине</string>
-    <string name="input_dots_hint_6">точка 6 справа снизу</string>
+
+    <string name="input_dots_reading_hint_1">точка 1 слева сверху</string>
+    <string name="input_dots_reading_hint_2">точка 2 слева посередине</string>
+    <string name="input_dots_reading_hint_3">точка 3 слева снизу</string>
+    <string name="input_dots_reading_hint_4">точка 4 справа сверху</string>
+    <string name="input_dots_reading_hint_5">точка 5 справа посередине</string>
+    <string name="input_dots_reading_hint_6">точка 6 справа снизу</string>
+
+    <string name="input_dots_writing_hint_4">точка 4 слева сверху</string>
+    <string name="input_dots_writing_hint_5">точка 5 слева посередине</string>
+    <string name="input_dots_writing_hint_6">точка 6 слева снизу</string>
+    <string name="input_dots_writing_hint_1">точка 1 справа сверху</string>
+    <string name="input_dots_writing_hint_2">точка 2 справа посередине</string>
+    <string name="input_dots_writing_hint_3">точка 3 справа снизу</string>
 
     <string name="input_letter_intro_template">Введите букву: %s</string>
     <string name="input_latin_letter_intro_template">Введите латинскую букву: %s</string>
@@ -129,10 +137,10 @@
     <string name="practice_actionbar_title_template">Практика: %d из %d</string>
     <string name="practice_actionbar_title">Практика</string>
     <string name="practice_deck_name_enabled_template">
-        Колода: \"%s\"\n\"%s\"\nПовторять только изученные: включено
+        Колода: \"%s\"\nПовторять только изученные: включено
     </string>
     <string name="practice_deck_name_disabled_template">
-        Колода: \"%s\"\n\"%s\"\nПовторять только изученные: выключено
+        Колода: \"%s\"\nПовторять только изученные: выключено
     </string>
     <string name="decks_list_title">Список колод</string>
     <string name="decks_list_no_material_in_deck">
@@ -160,7 +168,7 @@
         который нужно ввести в шеститочии в нижней половине экрана и нажать кнопку <b>\“далее\”</b>
         справа.
         &<br>
-        По умолчанию выдаются только карточки с символами, изученными в разделе \"теория\". Чтобы
+        По умолчанию выдаются только карточки с символами, изученными в разделе \"Обучение\". Чтобы
         повторять любые символы, измените это в настройках приложения.
         &<br>
         <b>Шеститочие: письмо/чтение</b> (розовая кнопка справа по центру) - изменяет порядок столбцов: точки
@@ -197,7 +205,7 @@
 
     <!--    Menu-->
 
-    <string name="menu_continue">ТЕОРИЯ</string>
+    <string name="menu_continue">ОБУЧЕНИЕ</string>
     <string name="menu_practice">ПРАКТИКА</string>
     <string name="menu_browser">СИМВОЛЫ</string>
     <string name="menu_stats">СТАТИСТИКА</string>
@@ -216,7 +224,7 @@
         <![CDATA[
         <b>Обучение системе Луи Брайля: главное меню.</b>
         &<br><br>
-        <b>Теория:</b> пошаговые уроки с демонстрацией плоскопечатных и
+        <b>Обучение:</b> пошаговые уроки с демонстрацией плоскопечатных и
         рельефно-точечных символов крупным шрифтом, вводом символов и поясняющими комментариями.
         &<br>
         <b>Практика:</b> Повторение символов.
@@ -405,6 +413,13 @@
     <string name="braille_dot_5">точка пять</string>
     <string name="braille_dot_6">точка шесть</string>
 
+    <string name="braille_dot_1_text">1</string>
+    <string name="braille_dot_2_text">2</string>
+    <string name="braille_dot_3_text">3</string>
+    <string name="braille_dot_4_text">4</string>
+    <string name="braille_dot_5_text">5</string>
+    <string name="braille_dot_6_text">6</string>
+
     <!--    Action menu-->
 
     <string name="menu_title_help">Справка</string>
@@ -433,7 +448,7 @@
     <string name="browser_help">
         <![CDATA[
         В данном разделе можно просмотреть точечный состав любой буквы,
-        цифры или специального символа. Буквы расположены здесь в порядке \"зрячего\" алфавита,
+        цифры или специального символа. Буквы расположены здесь в алфавитном порядке,
         а не в порядке \"ключа Брайля\", как они изучаются в курсе.
         &<br>
         Помните, что при написании чисел нужно вначале ставить цифровой знак. При написании слов на
@@ -477,10 +492,10 @@
     <string name="preference_title_use_golubina_textbook">Шаги с бумажным пособием</string>
     <string name="preference_title_use_slate_stylus">Шаги с брайлевским прибором</string>
     <string name="preference_summary_use_golubina_textbook">
-        Показывать шаги с обращением к бумажному пособию Голубиной в теоретическом курсе.
+        Показывать шаги с обращением к бумажному пособию Голубиной в разделе "Обучение".
     </string>
     <string name="preference_summary_use_slate_stylus">
-        Показывать шаги для выполнения с брайлевским прибором в теоретическом курсе.
+        Показывать шаги для выполнения с брайлевским прибором в разделе "Обучение".
     </string>
     <string name="preference_summary_notifications">Включить/отключить краткие всплывающие
         подсказки (кроме самых важных).</string>
@@ -496,7 +511,7 @@
     </string>
     <string name="preference_title_only_seen_materials">Повторять только изученное</string>
     <string name="preference_summary_only_seen_materials">
-        В разделе \"Практика\" повторять только символы, пройденные в разделе \"Теория\".
+        В разделе \"Практика\" повторять только символы, пройденные в разделе \"Обучение\".
     </string>
     <string name="preference_title_additional_announcements">
         Автоозвучка текстов
@@ -509,8 +524,8 @@
         Режим повышенной доступности
     </string>
     <string name="preference_summary_extended_accessibility">
-        Крупный шрифт в разделе \"теория\". Дополнительные кнопки выхода (удобно при использовании программы
-        экранного доступа). Шире боковые кнопки в практике и теории.
+        Крупный шрифт в разделе \"Обучение\". Дополнительные кнопки выхода (удобно при использовании программы
+        экранного доступа). Шире боковые кнопки в практике и обучении.
     </string>
     <string name="preference_title_additional_qrcode_button">
         Возможность сканировать QR-код
@@ -543,7 +558,7 @@
     <string name="stats_property_mastered_card">Пройдено карточек</string>
     <string name="stats_property_hints_used">Потребовалось подсказок</string>
     <string name="stats_property_total_attempts">Потрачено попыток</string>
-    <string name="stats_title_theory">Теория:</string>
+    <string name="stats_title_theory">Обучение:</string>
     <string name="stats_property_steps_passed">Пройдено шагов</string>
     <string name="stats_property_input_steps_passed">Пройдено шагов с вводом</string>
     <string name="stats_section_7days">За последние 7 дней</string>

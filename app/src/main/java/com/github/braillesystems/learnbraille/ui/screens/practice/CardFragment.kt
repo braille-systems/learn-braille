@@ -86,7 +86,6 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
         binding.flipButton.setOnClickListener {
             dotsState = binding.brailleDots.reflect().apply {
                 dotsState.subscribe(viewModel)
-                checkedToast(dotsMode(binding.brailleDots.mode))
                 if (viewModel.state == DotsChecker.State.HINT) {
                     viewModel.expectedDots?.let { display(it) }
                 }
@@ -158,10 +157,7 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
                     getString(R.string.practice_deck_name_disabled_template)
                 }
                 toast(
-                    template.format(
-                        deckTagToName.getValue(tag),
-                        dotsMode(binding.brailleDots.mode)
-                    )
+                    template.format(deckTagToName.getValue(tag))
                 )
             }
         )
