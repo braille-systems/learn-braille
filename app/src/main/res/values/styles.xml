@@ -101,4 +101,19 @@
         <item name='android:gravity'>end</item>
     </style>
 
+    <style name="radioGroupBtnStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">textStart</item>
+    </style>
+
+    <style name="dialogTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">@dimen/lessons_info_text_size</item>
+        <item name="android:layout_marginStart">@dimen/dialog_text_view_margin</item>
+        <item name="android:layout_marginEnd">@dimen/dialog_text_view_margin</item>
+    </style>
+
 </resources>

@@ -44,6 +44,16 @@ operator fun <A, B> Pair<A, B>.compareTo(other: Pair<A, B>): Int
         else -> 1
     }
 
+operator fun <A, B, C> Triple<A, B, C>.compareTo(other: Triple<A, B, C>): Int
+        where A : Comparable<A>, B : Comparable<B>, C : Comparable<C> =
+    when {
+        first < other.first -> -1
+        first == other.first && second < other.second -> -1
+        first == other.first && second == other.second && third < other.third -> -1
+        equals(other) -> 0
+        else -> 1
+    }
+
 fun String.removeHtmlMarkup() = Regex("""<[^>]*>|&""").replace(this, "")
 
 inline fun runIf(cond: Boolean, block: () -> Unit) {

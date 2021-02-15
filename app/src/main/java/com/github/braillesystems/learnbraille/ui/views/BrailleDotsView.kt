@@ -18,7 +18,10 @@ import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode.Reading
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode.Writing
-import com.github.braillesystems.learnbraille.utils.*
+import com.github.braillesystems.learnbraille.utils.announce
+import com.github.braillesystems.learnbraille.utils.chainify
+import com.github.braillesystems.learnbraille.utils.forEach
+import com.github.braillesystems.learnbraille.utils.unreachable
 import kotlinx.android.synthetic.main.braille_dots_view.view.*
 import org.koin.core.KoinComponent
 import org.koin.core.inject

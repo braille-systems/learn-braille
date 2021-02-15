@@ -34,4 +34,11 @@ class UtilsTest {
         assertEquals(s2 as B, parse(S.serializer(), stringify(S.serializer(), s2)))
         assertEquals("wow", s1.s)
     }
+
+    @Test
+    fun versionSerialization() {
+        val v = Version(1, 2, 3)
+        assertEquals(v, Version.valueOf(v.toString()))
+        assertEquals(v, Version.valueOf("1.2.3"))
+    }
 }
