@@ -1,5 +1,7 @@
 package com.github.braillesystems.learnbraille.ui.screens.browser
 
+import android.animation.ObjectAnimator
+import android.animation.TypeEvaluator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +12,6 @@ import com.github.braillesystems.learnbraille.data.entities.Material
 import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.databinding.FragmentSymbolViewBinding
 import com.github.braillesystems.learnbraille.res.captionRules
-import com.github.braillesystems.learnbraille.ui.dotsMode
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.ui.screens.BrailleDotsInfo
 import com.github.braillesystems.learnbraille.ui.screens.FragmentBinding
@@ -18,7 +19,10 @@ import com.github.braillesystems.learnbraille.ui.showPrint
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
-import com.github.braillesystems.learnbraille.utils.*
+import com.github.braillesystems.learnbraille.utils.checkedAnnounce
+import com.github.braillesystems.learnbraille.utils.getFragmentStringArg
+import com.github.braillesystems.learnbraille.utils.getValue
+import com.github.braillesystems.learnbraille.utils.parse
 
 class SymbolViewFragment : AbstractFragmentWithHelp(R.string.browser_symbol_view_help) {
 

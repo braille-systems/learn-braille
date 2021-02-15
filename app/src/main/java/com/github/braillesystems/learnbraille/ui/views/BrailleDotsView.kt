@@ -95,12 +95,6 @@ class BrailleDotsView : ConstraintLayout, KoinComponent {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            setBackgroundMode(mode)
-        } else {
-            Timber.w("Unable to set braille dots background due to low API level")
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             setTraversalMode(mode)
         } else {
             Timber.w("API level < 22, unable co control accessibility traversal order")
@@ -182,14 +176,6 @@ class BrailleDotsView : ConstraintLayout, KoinComponent {
         chainify(prevView, *dotsOrder, nextView) { prev, next ->
             prev.accessibilityTraversalBefore = next.id
             next.accessibilityTraversalAfter = prev.id
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun setBackgroundMode(mode: BrailleDotsViewMode) {
-        background = when (mode) {
-            Writing -> context.getDrawable(R.drawable.right_border)
-            Reading -> context.getDrawable(R.drawable.left_border)
         }
     }
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="lightGreen">#9ff57a</color>
+    <color name="lightRed">#ff8282</color>
     <color name="colorPrimary">#263238</color>
     <color name="colorSecondary">#9e3d9a</color>
     <color name="colorOnPrimary">#ffffff</color>
