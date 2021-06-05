@@ -52,7 +52,7 @@ class InputDotsFragment : AbstractInputStepFragment(R.string.lessons_help_input_
 
         val data = step.data
         require(data is InputDots)
-        val text = data.text
+        val text = data.xmlBody
             ?: getString(R.string.lessons_show_dots_info_template).format(data.brailleDots.spelling)
         infoTextView.text = text.parseAsHtml()
         checkedAnnounce(text.removeHtmlMarkup())

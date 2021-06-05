@@ -11,7 +11,7 @@ abstract class AbstractInfoStepFragment(helpMsgId: HelpMsgId) : AbstractStepFrag
     override fun iniStepHelper() {
         val data = step.data
         require(data is BaseInfo)
-        stepBinding.textView?.text = data.text.parseAsHtml()
-        checkedAnnounce(data.text)
+        stepBinding.textView?.text = data.xmlBody.parseAsHtml()
+        checkedAnnounce(data.xmlBody)
     }
 }

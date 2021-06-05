@@ -5,10 +5,15 @@ import kotlinx.serialization.Serializable
 
 @Entity(tableName = "materials")
 @Serializable
-data class Material(
+data class Material (
     @PrimaryKey val id: DBid,
     val data: MaterialData
-)
+) {
+    fun toXml() : String {
+        // TODO implement (it's not easy)
+        return "TODO"
+    }
+}
 
 @Dao
 interface MaterialDao {

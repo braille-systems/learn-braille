@@ -177,9 +177,9 @@ private fun Step.interpolateText(courseName: CourseName): Step =
         if (data !is BaseInfo) data
         else {
             when (data) {
-                is FirstInfo -> FirstInfo(interpolateTextHelper(data.text, courseName))
-                is LastInfo -> LastInfo(interpolateTextHelper(data.text, courseName))
-                is Info -> Info(interpolateTextHelper(data.text, courseName))
+                is FirstInfo -> FirstInfo(interpolateTextHelper(data.xmlBody, courseName))
+                is LastInfo -> LastInfo(interpolateTextHelper(data.xmlBody, courseName))
+                is Info -> Info(interpolateTextHelper(data.xmlBody, courseName))
             }
         }
     )
