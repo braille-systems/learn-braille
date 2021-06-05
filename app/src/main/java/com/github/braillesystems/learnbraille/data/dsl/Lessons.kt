@@ -21,7 +21,7 @@ class LessonsBuilder(block: LessonsBuilder.() -> Unit) {
 
     fun lesson(name: String, description: String = "", block: StepsBuilder.() -> Unit) =
         StepsBuilder(block).side {
-            _lessons += Pair(
+            _lessons += LessonWithSteps(
                 Lesson(UNDEFINED_ID, UNDEFINED_ID, name, description),
                 it.steps
             )
