@@ -1,0 +1,10 @@
+# icons are binary
+*.png binary
+
+# code files and `gradlew` should always have LF line endings
+*.kt text
+*.xml text
+gradlew text
+
+# other files are treated as text by default
+* text=auto
