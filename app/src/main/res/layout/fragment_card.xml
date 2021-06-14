@@ -25,7 +25,11 @@
 
         <TextView
             android:id="@+id/marker_description"
-            style="@style/dotsInfoStyle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/lessons_dots_info_height"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="@dimen/lessons_info_text_size"
             app:layout_constraintBottom_toTopOf="@+id/braille_dots"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -102,4 +106,5 @@
             app:shapeAppearanceOverlay="@style/sideRightButtonsShape" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
