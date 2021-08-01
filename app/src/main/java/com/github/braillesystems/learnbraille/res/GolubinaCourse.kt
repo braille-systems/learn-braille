@@ -8,7 +8,7 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import com.github.braillesystems.learnbraille.res.PunctuationSigns.Hyphen
 
-val golubinaIntroLessons by lessons {
+internal val golubinaIntroLessons by lessons {
 
     lesson(
         name = "Знакомство с шеститочием"

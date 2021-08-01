@@ -19,25 +19,7 @@ interface DataStorage {
 }
 
 typealias StepWithAnnotations = Pair<Step, List<StepAnnotationName>>
-
-class LessonWithSteps(
-    val lesson: Lesson,
-    val steps: List<StepWithAnnotations>
-) : XmlAble {
-
-    override val xmlTag: String = "lesson"
-    override val xmlParams: Map<String, String> = mapOf("name" to lesson.name)
-
-    override val xmlBody: HtmlText
-        get() = {
-            var stepBuilder: HtmlText = ""
-            for (step in steps.dropLast(1)) {
-                stepBuilder += (step.first.data.toXml() + "\n")
-            }
-            stepBuilder + steps.takeLast(1)[0].first.data.toXml()
-        }()
-
-}
+typealias LessonWithSteps = Pair<Lesson, List<StepWithAnnotations>>
 
 class data(
     private val materials: MaterialsBuilder,
@@ -120,21 +102,21 @@ class DataBuilder(
         }
 
         coursesBuilder.data.forEach { (course, lessonsWithSteps) ->
-            require(lessonsWithSteps.first().steps.first().first.data is FirstInfo) {
+            require(lessonsWithSteps.first().second.first().first.data is FirstInfo) {
                 "First step of the course (${course.name}) should be FirstInfo"
             }
-            require(lessonsWithSteps.last().steps.last().first.data is LastInfo) {
+            require(lessonsWithSteps.last().second.last().first.data is LastInfo) {
                 "Last step of the course (${course.name}) should be LastInfo"
             }
 
             val courseId = courses.size + 1L
             _courses += course.copy(id = courseId)
 
-            lessonsWithSteps.forEachIndexed { iLesson, lessonWithAnnotation ->
+            lessonsWithSteps.forEachIndexed { iLesson, (lesson, stepsWithAnnotations) ->
                 val lessonId = iLesson + 1L
-                _lessons += lessonWithAnnotation.lesson.copy(id = lessonId, courseId = courseId)
+                _lessons += lesson.copy(id = lessonId, courseId = courseId)
 
-                lessonWithAnnotation.steps.forEachIndexed { iStep, (step, stepAnnotationNames) ->
+                stepsWithAnnotations.forEachIndexed { iStep, (step, stepAnnotationNames) ->
                     val stepId = iStep + 1L
                     _steps += step
                         .copy(id = stepId, courseId = courseId, lessonId = lessonId)
