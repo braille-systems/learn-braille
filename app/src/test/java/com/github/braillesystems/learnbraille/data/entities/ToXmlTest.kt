@@ -23,7 +23,7 @@ internal fun toXml(brailleDots: BrailleDots): HtmlText {
     var result = ""
     dotsSymbols.dropLast(1).forEach { result += "$it, " }
     result += dotsSymbols.takeLast(1)
-    return "($result)"
+    return "<p>($result)</p>"
 }
 
 internal fun toXml(material: Material): HtmlText {
@@ -113,9 +113,9 @@ class ToXmlTest {
         val cases = mapOf<String, StepData>(
             """<text type="info">dummy text</text>""" to Info("dummy text"),
             """<text type="info">dummy last text</text>""" to LastInfo("dummy last text"),
-            """<reading type="reading" title="look at these dots!">(F, F, F, F, F, F)</reading>"""
+            """<reading type="reading" title="look at these dots!"><p>(F, F, F, F, F, F)</p></reading>"""
                     to ShowDots("look at these dots!", BrailleDots()),
-            """<practice type="practice" title="type in these dots!">(F, F, T, F, F, T)</practice>"""
+            """<practice type="practice" title="type in these dots!"><p>(F, F, T, F, F, T)</p></practice>"""
                     to InputDots("type in these dots!", BrailleDots(E, E, F, E, E, F))
         )
         for ((expectedXml, stepData) in cases) {
