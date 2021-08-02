@@ -13,7 +13,7 @@ import kotlinx.serialization.json.Json
  * All texts are in html format. Use .parseAsHtml android extension function.
  */
 @Serializable
-sealed class StepData : XmlAble
+sealed class StepData
 
 class StepDataConverters {
 
@@ -33,8 +33,7 @@ typealias HtmlText = String
  */
 @Serializable
 sealed class BaseInfo : StepData() {
-    override val xmlTag = "text"
-    override val xmlParams: Map<String, String> = mapOf("type" to "info")
+    abstract val text: HtmlText
 }
 
 /**
@@ -43,7 +42,7 @@ sealed class BaseInfo : StepData() {
 @Serializable
 data class Info(
     @SerialName("info")
-    override val xmlBody: HtmlText
+    override val text: HtmlText
 ) : BaseInfo()
 
 /**
@@ -52,7 +51,7 @@ data class Info(
 @Serializable
 data class FirstInfo(
     @SerialName("info")
-    override val xmlBody: HtmlText
+    override val text: HtmlText
 ) : BaseInfo()
 
 /**
@@ -61,14 +60,13 @@ data class FirstInfo(
 @Serializable
 data class LastInfo(
     @SerialName("info")
-    override val xmlBody: HtmlText
+    override val text: HtmlText
 ) : BaseInfo()
 
 
 @Serializable
 sealed class BaseInput : StepData() {
     abstract val brailleDots: BrailleDots
-    override val xmlTag: String = "practice"
 }
 
 /**
@@ -78,11 +76,6 @@ sealed class BaseInput : StepData() {
 data class Input(
     val material: Material
 ) : BaseInput() {
-    override val xmlParams: Map<String, String> = mapOf(
-        "type" to "practice",
-        "title" to ""
-    )
-    override val xmlBody: HtmlText = material.toXml()
 
     override val brailleDots: BrailleDots
         get() = when (material.data) {
@@ -98,22 +91,15 @@ data class Input(
  */
 @Serializable
 data class InputDots(
-    val text: HtmlText,
+    val text: HtmlText?,
     @SerialName("dots") // backward compatibility
     override val brailleDots: BrailleDots
-) : BaseInput() {
-    override val xmlParams: Map<String, String> = mapOf(
-        "type" to "practice",
-        "title" to text
-    )
-    override val xmlBody: HtmlText = brailleDots.toXml()
-}
+) : BaseInput()
 
 
 @Serializable
 sealed class BaseShow : StepData() {
     abstract val brailleDots: BrailleDots
-    override val xmlTag = "reading"
 }
 
 /**
@@ -127,11 +113,6 @@ data class Show(
         get() = when (material.data) {
             is OneBrailleSymbol -> material.data.brailleDots
         }
-    override val xmlParams: Map<String, String> = mapOf(
-        "type" to "reading",
-        "title" to ""
-    )
-    override val xmlBody: HtmlText = material.toXml()
 }
 
 /**
@@ -142,13 +123,7 @@ data class Show(
  */
 @Serializable
 data class ShowDots(
-    val text: HtmlText,
+    val text: HtmlText?,
     @SerialName("dots")
     override val brailleDots: BrailleDots
-) : BaseShow() {
-    override val xmlParams: Map<String, String> = mapOf(
-        "type" to "reading",
-        "title" to text
-    )
-    override val xmlBody: HtmlText = brailleDots.toXml()
-}
+) : BaseShow()

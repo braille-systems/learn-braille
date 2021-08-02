@@ -51,14 +51,6 @@ data class BrailleDots(
     )
 
     override fun toString() = "$b1$b2$b3$b4$b5$b6"
-
-    fun toXml(): String {
-        val dotsSymbols = this.toString().replace("F", "T").replace("E", "F")
-        var result = ""
-        dotsSymbols.dropLast(1).forEach { result += "$it, " }
-        result += dotsSymbols.takeLast(1)
-        return "($result)"
-    }
 }
 
 val BrailleDots.list: List<BrailleDot>

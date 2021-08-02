@@ -16,20 +16,70 @@ internal val testLessons by lessons {
     }
 }
 
+internal fun toXml(brailleDots: BrailleDots): HtmlText {
+    val dotsSymbols = brailleDots.toString().replace("F", "T").replace("E", "F")
+    var result = ""
+    dotsSymbols.dropLast(1).forEach { result += "$it, " }
+    result += dotsSymbols.takeLast(1)
+    return "($result)"
+}
+
+internal fun toXml(material: Material): HtmlText {
+    return "TODO" // TODO (not easy)
+}
+
+internal fun toXml(stepData: StepData): HtmlText =
+    when (stepData) {
+        is BaseInfo -> object : XmlAble {
+            override val xmlTag: String = "text"
+            override val xmlParams: Map<String, String> = mapOf("type" to "info")
+            override val xmlBody: HtmlText = stepData.text
+        }
+        is BaseInput -> object : XmlAble {
+            override val xmlTag: String = "practice"
+            override val xmlParams = mapOf(
+                "type" to "practice",
+                "title" to if (stepData is InputDots) stepData.text ?: "" else ""
+            )
+            override val xmlBody: HtmlText = when (stepData) {
+                is InputDots -> toXml(stepData.brailleDots)
+                is Input -> toXml(stepData.material)
+                else -> "toXml not implemented for this class"
+            }
+        }
+        is BaseShow -> object : XmlAble {
+            override val xmlTag: String = "reading"
+            override val xmlParams = mapOf(
+                "type" to "reading",
+                "title" to if (stepData is ShowDots) stepData.text ?: "" else ""
+            )
+            override val xmlBody: HtmlText = when (stepData) {
+                is ShowDots -> toXml(stepData.brailleDots)
+                is Input -> toXml(stepData.material)
+                else -> "toXml not implemented for this class"
+            }
+        }
+        else -> object : XmlAble {
+            override val xmlTag: String = stepData.toString()
+            override val xmlParams: Map<String, String> = mapOf()
+            override val xmlBody: HtmlText = "toXml not implemented for this class"
+        }
+    }.toXml()
+
 internal fun toXml(lesson: LessonWithSteps): HtmlText {
     return object : XmlAble {
         override val xmlTag: String = "lesson"
 
-        override val xmlParams: Map<String, String>
-            get() = mapOf("name" to lesson.first.name.replace("\"", "'"))
+        override val xmlParams: Map<String, String> =
+            mapOf("name" to lesson.first.name.replace("\"", "'"))
 
         override val xmlBody: HtmlText
             get() = {
-              var stepBuilder: HtmlText = ""
-                for(step in lesson.second.dropLast(1)){
-                    stepBuilder += (step.first.data.toXml() + "\n") // TODO [... <br>] -> [<p>...</p>]
+                var stepBuilder: HtmlText = ""
+                for (step in lesson.second.dropLast(1)) {
+                    stepBuilder += (toXml(step.first.data) + "\n") // TODO [... <br>] -> [<p>...</p>]
                 }
-                stepBuilder + lesson.second.takeLast(1)[0].first.data.toXml()
+                stepBuilder + toXml(lesson.second.takeLast(1)[0].first.data)
             }()
     }.toXml()
 }
@@ -46,7 +96,7 @@ class ToXmlTest {
                     to InputDots("type in these dots!", BrailleDots(E, E, F, E, E, F))
         )
         for ((expectedXml, stepData) in cases) {
-            assertEquals(expectedXml, stepData.toXml().replace("\n", ""))
+            assertEquals(expectedXml, toXml(stepData).replace("\n", ""))
         }
     }
 
@@ -55,7 +105,7 @@ class ToXmlTest {
         println(toXml(testLessons.lessons[0]))
 
         var xmlText = ""
-        for(lessons in golubinaIntroLessons.lessons) {
+        for (lessons in golubinaIntroLessons.lessons) {
             xmlText += (toXml(lessons) + "\n")
         }
 

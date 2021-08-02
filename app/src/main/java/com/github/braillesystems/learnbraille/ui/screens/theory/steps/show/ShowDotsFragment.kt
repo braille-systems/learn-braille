@@ -44,7 +44,7 @@ class ShowDotsFragment : AbstractShowStepFragment(R.string.lessons_help_show_dot
 
         val data = step.data
         require(data is ShowDots)
-        val text = data.xmlBody
+        val text = data.text
             ?: getString(R.string.lessons_show_dots_info_template).format(data.brailleDots.spelling)
         infoTextView.text = text.parseAsHtml()
         checkedAnnounce(text.removeHtmlMarkup())
