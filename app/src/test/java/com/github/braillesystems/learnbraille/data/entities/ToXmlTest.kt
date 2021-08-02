@@ -31,14 +31,15 @@ internal fun toXml(material: Material): HtmlText {
         SymbolType.ru to "RussianSymbols",
         SymbolType.digit to "Numbers",
         SymbolType.math to "ArithmeticSymbols",
-        SymbolType.special to "Signs",
-        SymbolType.greek to "TODO", // TODO
-        SymbolType.latin to "TODO" // TODO
+        SymbolType.special to "PunctuationSymbols",
+        SymbolType.greek to "GreekSymbols(TODO)", // TODO
+        SymbolType.latin to "LatinSymbols(TODO)" // TODO
     )
+
     with(material.data) {
         val result = when (this) {
             is Symbol -> "${sectionType[this.type]}:${this.char}"
-            is MarkerSymbol -> "TODO" // TODO consult @braille-systems/ios-development
+            is MarkerSymbol -> "Signs:(TODO)" + this.brailleDots.spelling // TODO consult @braille-systems/ios-development
         }
         return "<p>$result</p>"
     }
