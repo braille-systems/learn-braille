@@ -7,7 +7,9 @@ import org.junit.Test
 
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
+import com.github.braillesystems.learnbraille.res.MarkerType
 import com.github.braillesystems.learnbraille.res.golubinaIntroLessons
+import com.github.braillesystems.learnbraille.res.SymbolType
 import java.io.File
 
 internal val testLessons by lessons {
@@ -25,7 +27,21 @@ internal fun toXml(brailleDots: BrailleDots): HtmlText {
 }
 
 internal fun toXml(material: Material): HtmlText {
-    return "TODO" // TODO (not easy)
+    val sectionType = mapOf(
+        SymbolType.ru to "RussianSymbols",
+        SymbolType.digit to "Numbers",
+        SymbolType.math to "ArithmeticSymbols",
+        SymbolType.special to "Signs",
+        SymbolType.greek to "TODO", // TODO
+        SymbolType.latin to "TODO" // TODO
+    )
+    with(material.data) {
+        val result = when (this) {
+            is Symbol -> "${sectionType[this.type]}:${this.char}"
+            is MarkerSymbol -> "TODO" // TODO consult @braille-systems/ios-development
+        }
+        return "<p>$result</p>"
+    }
 }
 
 internal fun breaksToParagraphs(xmlBody: HtmlText): HtmlText {
