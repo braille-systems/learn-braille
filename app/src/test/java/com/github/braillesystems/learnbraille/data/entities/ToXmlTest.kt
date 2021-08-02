@@ -28,12 +28,19 @@ internal fun toXml(material: Material): HtmlText {
     return "TODO" // TODO (not easy)
 }
 
+internal fun breaksToParagraphs(xmlBody: HtmlText): HtmlText {
+    val regex = "<br>".toRegex()
+    if (regex.find(xmlBody) == null) return xmlBody
+    val result = xmlBody.replace(regex, "</p>\n<p>")
+    return "<p>$result</p>"
+}
+
 internal fun toXml(stepData: StepData): HtmlText =
     when (stepData) {
         is BaseInfo -> object : XmlAble {
             override val xmlTag: String = "text"
             override val xmlParams: Map<String, String> = mapOf("type" to "info")
-            override val xmlBody: HtmlText = stepData.text
+            override val xmlBody: HtmlText = breaksToParagraphs(stepData.text)
         }
         is BaseInput -> object : XmlAble {
             override val xmlTag: String = "practice"
@@ -71,7 +78,7 @@ internal fun toXml(lesson: LessonWithSteps): HtmlText {
         override val xmlTag: String = "lesson"
 
         override val xmlParams: Map<String, String> =
-            mapOf("name" to lesson.first.name.replace("\"", "'"))
+            mapOf("name" to lesson.first.name)
 
         override val xmlBody: HtmlText
             get() = {

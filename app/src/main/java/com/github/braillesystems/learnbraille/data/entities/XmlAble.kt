@@ -7,8 +7,11 @@ interface XmlAble {
     fun toXml(): HtmlText {
         var paramsString = ""
         for ((key, value) in xmlParams) {
-            paramsString += " $key=\"$value\""
+            val formattedValue = value.replace("\"", "'")
+            paramsString += " $key=\"$formattedValue\""
         }
-        return "<$xmlTag$paramsString>\n$xmlBody\n</$xmlTag>"
+
+        val formattedBody = xmlBody.replace("\n +".toRegex(), "\n")
+        return "<$xmlTag$paramsString>\n$formattedBody\n</$xmlTag>"
     }
 }
