@@ -78,7 +78,7 @@ internal fun toXml(stepData: StepData): HtmlText =
             )
             override val xmlBody: HtmlText = when (stepData) {
                 is ShowDots -> toXml(stepData.brailleDots)
-                is Input -> toXml(stepData.material)
+                is Show -> toXml(stepData.material)
                 else -> "toXml not implemented for this class"
             }
         }
