@@ -7,10 +7,10 @@ import org.junit.Test
 
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
-import com.github.braillesystems.learnbraille.res.MarkerType
 import com.github.braillesystems.learnbraille.res.golubinaIntroLessons
 import com.github.braillesystems.learnbraille.res.SymbolType
 import java.io.File
+import java.lang.StringBuilder
 
 internal val testLessons by lessons {
     lesson(name = "first lesson") {
@@ -99,11 +99,12 @@ internal fun toXml(lesson: LessonWithSteps): HtmlText {
 
         override val xmlBody: HtmlText
             get() = {
-                var stepBuilder: HtmlText = ""
+                val stepBuilder = StringBuilder()
                 for (step in lesson.second.dropLast(1)) {
-                    stepBuilder += (toXml(step.first.data) + "\n") // TODO [... <br>] -> [<p>...</p>]
+                    stepBuilder.append(toXml(step.first.data) + "\n")
                 }
-                stepBuilder + toXml(lesson.second.takeLast(1)[0].first.data)
+                stepBuilder.append(toXml(lesson.second.takeLast(1)[0].first.data))
+                stepBuilder.toString()
             }()
     }.toXml()
 }
@@ -126,19 +127,27 @@ class ToXmlTest {
 
     @Test
     fun lessonToXml() {
-        println(toXml(testLessons.lessons[0]))
+        assertEquals(
+            """<lesson name="first lesson"><text type="info">first title</text></lesson>""",
+            toXml(testLessons.lessons[0]).replace("\n", "")
+        )
+    }
 
+    @Test
+    fun dumpGolubinaLessons() {
         var xmlText = ""
         for (lessons in golubinaIntroLessons.lessons) {
             xmlText += (toXml(lessons) + "\n")
         }
 
         val xmlLinesList = xmlText.split("\n")
-        File("course.xml").printWriter().use { out ->
+        val outputPath = "course.xml"
+        File(outputPath).printWriter().use { out ->
             out.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
             out.println("<root>")
             xmlLinesList.forEach { out.println(it) }
             out.println("</root>")
         }
+        print("course dumped to file: `$outputPath`")
     }
 }

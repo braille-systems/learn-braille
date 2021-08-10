@@ -5,13 +5,13 @@ interface XmlAble {
     val xmlParams: Map<String, String>
     val xmlBody: HtmlText
     fun toXml(): HtmlText {
-        var paramsString = ""
+        val paramsStringBuilder = StringBuilder()
         for ((key, value) in xmlParams) {
-            val formattedValue = value.replace("\"", "'")
-            paramsString += " $key=\"$formattedValue\""
+            val formattedValue = value.replace("\"", "'").replace("<br>", "")
+            paramsStringBuilder.append(" $key=\"$formattedValue\"")
         }
 
         val formattedBody = xmlBody.replace("\n +".toRegex(), "\n")
-        return "<$xmlTag$paramsString>\n$formattedBody\n</$xmlTag>"
+        return "<$xmlTag$paramsStringBuilder>\n$formattedBody\n</$xmlTag>"
     }
 }
