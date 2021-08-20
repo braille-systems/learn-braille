@@ -22,14 +22,17 @@ interface MutableActionsRepository : ActionsRepository {
 
 class ActionsRepositoryImpl(
     private val actionsDao: ActionDao,
+    private val preferenceRepository: PreferenceRepository,
     private val getCurrDate: () -> Date = { Date() },
     private val keepActionsTime: Days = Days(30)
 ) : MutableActionsRepository {
 
-    override suspend fun addAction(type: ActionType) =
-        actionsDao.insert(
-            Action(type = type, date = getCurrDate())
-        )
+    override suspend fun addAction(type: ActionType) {
+        if (!preferenceRepository.teacherModeEnabled) {
+            val action = Action(type = type, date = getCurrDate())
+            actionsDao.insert(action)
+        }
+    }
 
     override suspend fun clearAllStats() = actionsDao.clear()
 
