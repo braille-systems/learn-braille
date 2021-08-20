@@ -57,11 +57,15 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             navigate(R.id.action_menuFragment_to_browserFragment)
         })
 
-        binding.statsButton.also {
-            buttons += it
-        }.setOnClickListener(interruptingOnClickListener {
-            navigate(R.id.action_menuFragment_to_statsFragment)
-        })
+        if (!preferenceRepository.teacherModeEnabled) {
+            binding.statsButton.also {
+                buttons += it
+            }.setOnClickListener(interruptingOnClickListener {
+                navigate(R.id.action_menuFragment_to_statsFragment)
+            })
+        } else {
+            binding.statsButton.visibility = View.GONE
+        }
 
         if (preferenceRepository.additionalQrCodeButtonEnabled) {
             binding.qrPracticeButton.also {
