@@ -87,14 +87,23 @@ class TheoryRepositoryImpl(
     /**
      * LessonId is supposed to exist for this courseId.
      */
-    override suspend fun lastLessonOrCurrentStepAndMove(courseId: DBid, lessonId: DBid): Step =
-        stepDao
-            .lastStep(preferenceRepository.currentUserId, courseId, lessonId)
-            ?.also { updateLast(it) }
-            ?: error(
-                "No such lessonId ($lessonId) exists for course ($courseId) " +
-                        "or current step is behind lesson with such lessonId"
-            )
+    override suspend fun lastLessonOrCurrentStepAndMove(courseId: DBid, lessonId: DBid): Step {
+        val lastStep = stepDao.lastStep(preferenceRepository.currentUserId, courseId, lessonId)
+        if (lastStep != null) {
+            updateLast(lastStep)
+            return lastStep
+        }
+        if (preferenceRepository.teacherModeEnabled) {
+            val step = stepDao.step(courseId, lessonId)
+                ?: error("No such lessonId ($lessonId) exists for course ($courseId)")
+            updateLast(step)
+            return step
+        }
+        error(
+            "No such lessonId ($lessonId) exists for course ($courseId) " +
+                    "or current step is behind lesson with such lessonId"
+        )
+    }
 
     override suspend fun currentStep(courseId: DBid): Step =
         stepDao

@@ -1,6 +1,7 @@
 package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
+import com.github.braillesystems.learnbraille.data.dsl.CourseID
 import com.github.braillesystems.learnbraille.utils.compareTo
 import kotlinx.serialization.Serializable
 
@@ -36,6 +37,14 @@ interface StepDao {
 
     @Query("select * from steps where id = :id")
     suspend fun step(id: DBid): Step?
+
+    @Query(
+        """
+        select * from steps
+        where course_id = :courseId and lesson_id = :lessonId
+        """
+    )
+    suspend fun step(courseId: DBid, lessonId: DBid): Step?
 
     @Query(
         """
