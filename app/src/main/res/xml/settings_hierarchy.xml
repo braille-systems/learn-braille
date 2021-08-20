@@ -89,4 +89,12 @@
         android:title="@string/preference_title_additional_announcements"
         app:iconSpaceReserved="false" />
 
+    <androidx.preference.SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="@string/preference_teacher_mode_enabled"
+        android:summary="@string/preference_summary_teacher_mode"
+        android:theme="@style/SwitchPreferenceButton"
+        android:title="@string/preference_title_teacher_mode"
+        app:iconSpaceReserved="false" />
+
 </androidx.preference.PreferenceScreen>
