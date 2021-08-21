@@ -3,12 +3,12 @@ package com.github.braillesystems.learnbraille.data.repository
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.github.braillesystems.learnbraille.data.UnreachablePreferencesRepository
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
-import com.github.braillesystems.learnbraille.data.entities.Action
-import com.github.braillesystems.learnbraille.data.entities.PracticeHintAction
-import com.github.braillesystems.learnbraille.data.entities.TheoryPassStep
+import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.utils.Days
 import com.github.braillesystems.learnbraille.utils.minus
+import com.github.braillesystems.learnbraille.utils.unreachable
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -42,6 +42,7 @@ class ActionsRepositoryTest {
             }
         repo = ActionsRepositoryImpl(
             db.actionDao,
+            UnreachablePreferencesRepository(),
             getCurrDate = { currDate },
             keepActionsTime = Days(100)
         )
