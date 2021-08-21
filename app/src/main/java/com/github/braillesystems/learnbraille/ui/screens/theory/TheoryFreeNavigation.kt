@@ -77,12 +77,17 @@ fun AbstractStepFragment.toCurrentStep(
     toStep(currStep)
 }.devnull
 
-fun Fragment.toLastCourseStep(
+fun Fragment.toLastOrCurrCourseStep(
     courseId: Long,
     theoryRepository: TheoryRepository = get()
 ): Unit = scope().launch {
+    val currStep = theoryRepository.currentStep(courseId)
     val lastStep = theoryRepository.lastCourseStep(courseId)
-    toStep(lastStep)
+    toStep(
+        // currStep < lastStep can occur after disabling teacher mode
+        if (currStep < lastStep) currStep
+        else lastStep
+    )
 }.devnull
 
 fun Fragment.toLastLessonStep(
