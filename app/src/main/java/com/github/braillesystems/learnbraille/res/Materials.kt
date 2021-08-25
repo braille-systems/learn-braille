@@ -34,7 +34,14 @@ enum class MarkerType {
     LatinSmall,
     BoldFont,
     ItalicFont,
-    NumberSign
+    NumberSign,
+    NoteC,
+    NoteD,
+    NoteE,
+    NoteF,
+    NoteG,
+    NoteA,
+    NoteB,
 }
 
 /**
@@ -50,6 +57,7 @@ val content by materials {
     +greekLetters
     +mathSigns
     +ms
+    +musicalNotes
 }
 
 val knownMaterials by known(
@@ -214,6 +222,16 @@ private val ms by markers {
     marker(MarkerType.BoldFont, BrailleDots(F, F, E, F, F, F))
     marker(MarkerType.ItalicFont, BrailleDots(E, E, E, F, F, F))
     marker(MarkerType.NumberSign, BrailleDots(E, E, F, F, F, F))
+}
+
+private val musicalNotes by markers {
+    marker(MarkerType.NoteC, BrailleDots(F, E, E, F, F, E))
+    marker(MarkerType.NoteD, BrailleDots(F, E, E, E, F, E))
+    marker(MarkerType.NoteE, BrailleDots(F, F, E, F, E, E))
+    marker(MarkerType.NoteF, BrailleDots(F, F, E, F, F, E))
+    marker(MarkerType.NoteG, BrailleDots(F, F, E, E, F, E))
+    marker(MarkerType.NoteA, BrailleDots(E, F, E, F, E, E))
+    marker(MarkerType.NoteB, BrailleDots(E, F, E, F, F, E))
 }
 
 
@@ -475,6 +493,46 @@ val Context.inputMarkerPrintRules by rules<Context, MarkerType, String>(
     {
         val s = getString(R.string.input_mod_num_sign)
         MarkerType.NumberSign::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_music_note_c)
+        MarkerType.NoteC::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_music_note_d)
+        MarkerType.NoteD::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_music_note_e)
+        MarkerType.NoteE::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_music_note_e)
+        MarkerType.NoteE::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_music_note_f)
+        MarkerType.NoteF::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_music_note_g)
+        MarkerType.NoteG::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_music_note_a)
+        MarkerType.NoteA::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_music_note_b)
+        MarkerType.NoteB::equals to { _: MarkerType -> s }
     }
 )
 
@@ -517,5 +575,36 @@ val Context.showMarkerPrintRules by rules<Context, MarkerType, String>(
     {
         val s = getString(R.string.show_mod_num_sign)
         MarkerType.NumberSign::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_music_note_c)
+        MarkerType.NoteC::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_music_note_d)
+        MarkerType.NoteD::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_music_note_e)
+        MarkerType.NoteE::equals to { _: MarkerType -> s }
+    },
+    {
+        val s = getString(R.string.show_music_note_f)
+        MarkerType.NoteF::equals to { _: MarkerType -> s }
+    },
+    {
+        val s = getString(R.string.show_music_note_g)
+        MarkerType.NoteG::equals to { _: MarkerType -> s }
+    },
+    {
+        val s = getString(R.string.show_music_note_a)
+        MarkerType.NoteA::equals to { _: MarkerType -> s }
+    },
+    {
+        val s = getString(R.string.show_music_note_b)
+        MarkerType.NoteB::equals to { _: MarkerType -> s }
     }
 )
