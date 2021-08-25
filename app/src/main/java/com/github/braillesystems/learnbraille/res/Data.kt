@@ -9,6 +9,16 @@ import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.utils.contextNotNull
 import com.github.braillesystems.learnbraille.utils.lazyWithContext
 
+val musicalNotesTypes = listOf(
+    MarkerType.NoteC,
+    MarkerType.NoteD,
+    MarkerType.NoteE,
+    MarkerType.NoteF,
+    MarkerType.NoteG,
+    MarkerType.NoteA,
+    MarkerType.NoteB
+)
+
 val prepopulationData by data(
     materials = content,
     stepAnnotationNames = listOf(
@@ -66,15 +76,6 @@ val prepopulationData by data(
         deck(DeckTags.special) { data ->
             data is Symbol && data.type == SymbolType.special
         }
-        val musicalNotesTypes = listOf(
-            MarkerType.NoteC,
-            MarkerType.NoteD,
-            MarkerType.NoteE,
-            MarkerType.NoteF,
-            MarkerType.NoteG,
-            MarkerType.NoteA,
-            MarkerType.NoteB
-        )
         deck(DeckTags.musical_notes) { data ->
             data is MarkerSymbol && data.type in musicalNotesTypes
         }
