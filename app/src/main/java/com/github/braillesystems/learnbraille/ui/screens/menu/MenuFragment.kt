@@ -14,7 +14,7 @@ import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.databinding.FragmentMenuBinding
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
-import com.github.braillesystems.learnbraille.ui.screens.theory.toLastCourseStep
+import com.github.braillesystems.learnbraille.ui.screens.theory.toLastOrCurrCourseStep
 import com.github.braillesystems.learnbraille.utils.*
 import com.google.android.material.button.MaterialButton
 import org.koin.android.ext.android.inject
@@ -42,7 +42,7 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
         binding.lessonsButton.also {
             buttons += it
         }.setOnClickListener(interruptingOnClickListener {
-            toLastCourseStep(COURSE.id)
+            toLastOrCurrCourseStep(COURSE.id)
         })
 
         binding.practiceButton.also {
@@ -57,11 +57,15 @@ class MenuFragment : AbstractFragmentWithHelp(R.string.menu_help) {
             navigate(R.id.action_menuFragment_to_browserFragment)
         })
 
-        binding.statsButton.also {
-            buttons += it
-        }.setOnClickListener(interruptingOnClickListener {
-            navigate(R.id.action_menuFragment_to_statsFragment)
-        })
+        if (!preferenceRepository.teacherModeEnabled) {
+            binding.statsButton.also {
+                buttons += it
+            }.setOnClickListener(interruptingOnClickListener {
+                navigate(R.id.action_menuFragment_to_statsFragment)
+            })
+        } else {
+            binding.statsButton.visibility = View.GONE
+        }
 
         if (preferenceRepository.additionalQrCodeButtonEnabled) {
             binding.qrPracticeButton.also {

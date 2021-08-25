@@ -25,13 +25,6 @@ class LearnBrailleApplication : Application() {
 
             single { LearnBrailleDatabase.buildDatabase(this@LearnBrailleApplication) }
 
-            factory<ActionsRepository> {
-                ActionsRepositoryImpl(get<LearnBrailleDatabase>().actionDao)
-            }
-            factory<MutableActionsRepository> {
-                ActionsRepositoryImpl(get<LearnBrailleDatabase>().actionDao)
-            }
-
             factory<PreferenceRepository> {
                 PreferenceRepositoryImpl(
                     this@LearnBrailleApplication,
@@ -43,6 +36,13 @@ class LearnBrailleApplication : Application() {
                     this@LearnBrailleApplication,
                     get<LearnBrailleDatabase>().userDao
                 )
+            }
+
+            factory<ActionsRepository> {
+                ActionsRepositoryImpl(get<LearnBrailleDatabase>().actionDao, get())
+            }
+            factory<MutableActionsRepository> {
+                ActionsRepositoryImpl(get<LearnBrailleDatabase>().actionDao, get())
             }
 
             factory<MaterialsRepository> {

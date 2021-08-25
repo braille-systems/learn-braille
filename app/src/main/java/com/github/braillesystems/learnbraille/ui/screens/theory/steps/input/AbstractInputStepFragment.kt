@@ -88,7 +88,10 @@ abstract class AbstractInputStepFragment(helpMsgId: HelpMsgId) : AbstractStepFra
                 )
             }
             if (userTouchedDots) notify()
-            else toNextStep(step, markThisAsPassed = false) { notify() }
+            else toNextStep(
+                step,
+                markThisAsPassed = preferenceRepository.teacherModeEnabled
+            ) { notify() }
         }
 
         viewModel.observeEventPassHint(

@@ -23,6 +23,7 @@
     <string name="preference_extended_accessibility">extended_accessibility</string>
     <string name="preference_additional_qrcode_button_enabled">additional_qrcode_button_enabled</string>
     <string name="preferences_is_write_mode_first">is_write_mode_first</string>
+    <string name="preference_teacher_mode_enabled">teacher_mode_enabled</string>
 
     <string name="braille_dots_mode_writing">Порядок точек: "письмо"</string>
     <string name="braille_dots_mode_reading">Порядок точек: "чтение"</string>
@@ -539,6 +540,24 @@
     <string name="preference_summary_is_write_mode_forst">
         При заходе в практику или шаг с вводом точек столбец с точками 1, 2, 3 находится справа,
         как при письме на брайлевском приборе.
+    </string>
+    <string name="preference_title_teacher_mode">
+        Режим преподавателя
+    </string>
+    <string name="preference_summary_teacher_mode">
+        В режиме преподавателя доступны все уроки и не ведётся учёт статистики. Для активации потребуется ввести код преподавателя.
+    </string>
+    <string name="preference_wrong_code_teacher_mode">
+        Неверный код, попробуйте ещё раз
+    </string>
+    <string name="preference_code_dialog_title">
+        Введите код преподавателя
+    </string>
+    <string name="preference_code_dialog_ok">
+        Ввод
+    </string>
+    <string name="preference_code_dialog_cancel">
+        Отмена
     </string>
 
     <!--    Stats-->

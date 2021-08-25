@@ -17,9 +17,9 @@ import com.github.braillesystems.learnbraille.ui.screens.theory.getStepArg
 import com.github.braillesystems.learnbraille.ui.screens.theory.toCurrentStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toNextStep
 import com.github.braillesystems.learnbraille.ui.screens.theory.toPrevStep
-import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import com.github.braillesystems.learnbraille.utils.navigate
 import com.github.braillesystems.learnbraille.utils.title
+import com.github.braillesystems.learnbraille.utils.unreachable
 
 interface StepBinding {
     val prevButton: Button? get() = null
@@ -82,13 +82,17 @@ abstract class AbstractStepFragment(helpMsgId: HelpMsgId) : AbstractFragmentWith
 
     protected open fun iniStepHelper() = Unit
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) =
         inflater.inflate(
-            if (preferenceRepository.extendedAccessibilityEnabled) R.menu.steps_menu_hide
-            else R.menu.steps_menu,
+            when (preferenceRepository.extendedAccessibilityEnabled to preferenceRepository.teacherModeEnabled) {
+                true to true -> R.menu.steps_menu_hide_no_curr
+                true to false -> R.menu.steps_menu_hide
+                false to true -> R.menu.steps_menu_no_curr
+                false to false -> R.menu.steps_menu
+                else -> unreachable
+            },
             menu
         )
-    }
 
     override fun onOptionsItemSelected(item: MenuItem) = false.also {
         when (item.itemId) {

@@ -2,7 +2,7 @@
 
 complexity:
   TooManyFunctions:
-    excludes: ['**/utils/**', '**/DotsChecker.kt']
+    excludes: ['**/utils/**', '**/DotsChecker.kt', '**/TheoryRepository.kt']
   LongMethod:
     excludes: ['**/*Fragment.kt', '**/*Application.kt', '**/LearnBrailleDatabase.kt']
   ComplexMethod:
