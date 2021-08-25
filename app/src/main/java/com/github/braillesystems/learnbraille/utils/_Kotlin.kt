@@ -46,6 +46,8 @@ operator fun <A, B> Pair<A, B>.compareTo(other: Pair<A, B>): Int
 
 fun String.removeHtmlMarkup() = Regex("""<[^>]*>|&""").replace(this, "")
 
+fun String.reduceWhitespaces() = Regex("  +|\n").replace(this, " ")
+
 inline fun runIf(cond: Boolean, block: () -> Unit) {
     if (cond) block()
 }
