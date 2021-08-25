@@ -9,6 +9,7 @@ on:
       - master
       - dev
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build-and-test: # instrumental tests run on MacOS to enable hardware acceleration
@@ -27,7 +28,7 @@ jobs:
         run: ./gradlew test
       - name: Run instrumental tests
         # warning: it depends on "grant permission to gradlew" step
-        uses: reactivecircus/android-emulator-runner@v1
+        uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
           script: ./gradlew connectedCheck
