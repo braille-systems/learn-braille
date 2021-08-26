@@ -502,6 +502,15 @@
         ]]>
     </string>
 
+    <string name="note_duration_description">Длительность ноты</string>
+    <string name="note_title_duration_template">\n(Длительность: %s)</string>
+    <string name="browser_note_duration_dialog_title">Выберите длительность ноты</string>
+    <string name="browser_note_duration_dialog_confirm">ОК</string>
+    <string name="note_duration_8th">восьмая</string>
+    <string name="note_duration_4th">четвертная</string>
+    <string name="note_duration_half">половинная</string>
+    <string name="note_duration_full">целая</string>
+
     <!--    Settings-->
 
     <string name="preferences_actionbar_title">Настройки</string>
