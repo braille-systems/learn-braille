@@ -503,6 +503,7 @@
     </string>
 
     <string name="note_duration_description">Длительность ноты</string>
+    <string name="note_play_description">Воспроизвести ноту</string>
     <string name="note_title_duration_template">\n(Длительность: %s)</string>
     <string name="browser_note_duration_dialog_title">Выберите длительность ноты</string>
     <string name="browser_note_duration_dialog_confirm">ОК</string>

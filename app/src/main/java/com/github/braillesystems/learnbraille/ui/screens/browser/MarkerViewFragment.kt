@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.*
 import com.github.braillesystems.learnbraille.databinding.FragmentMarkerViewBinding
+import com.github.braillesystems.learnbraille.res.MarkerType
 import com.github.braillesystems.learnbraille.res.musicalNotesTypes
 import com.github.braillesystems.learnbraille.res.showMarkerPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
@@ -22,12 +23,20 @@ import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.ui.views.display
 import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.*
+import com.karlotoy.perfectune.instance.PerfectTune
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
-enum class NoteDuration(val titleStrId: Int, val dot3: Boolean, val dot6: Boolean) {
-    EIGHTH(titleStrId = R.string.note_duration_8th, dot3 = false, dot6 = false),
-    QUARTER(titleStrId = R.string.note_duration_4th, dot3 = false, dot6 = true),
-    HALF(titleStrId = R.string.note_duration_half, dot3 = true, dot6 = false),
-    FULL(titleStrId = R.string.note_duration_full, dot3 = true, dot6 = true);
+enum class NoteDuration(
+    val titleStrId: Int,
+    val dot3: Boolean,
+    val dot6: Boolean,
+    val valueMillis: Long
+) {
+    EIGHTH(titleStrId = R.string.note_duration_8th, dot3 = false, dot6 = false, valueMillis = 125),
+    QUARTER(titleStrId = R.string.note_duration_4th, dot3 = false, dot6 = true, valueMillis = 250),
+    HALF(titleStrId = R.string.note_duration_half, dot3 = true, dot6 = false, valueMillis = 500),
+    FULL(titleStrId = R.string.note_duration_full, dot3 = true, dot6 = true, valueMillis = 1000);
 
     fun modifiedNote(note: BrailleDots): BrailleDots {
         return BrailleDots(
@@ -36,6 +45,16 @@ enum class NoteDuration(val titleStrId: Int, val dot3: Boolean, val dot6: Boolea
         )
     }
 }
+
+private val noteToFreq = mapOf(
+    MarkerType.NoteC to 261.63, // C4 https://pages.mtu.edu/~suits/notefreqs.html
+    MarkerType.NoteD to 293.66,
+    MarkerType.NoteE to 329.63,
+    MarkerType.NoteF to 349.23,
+    MarkerType.NoteG to 392.00,
+    MarkerType.NoteA to 440.00,
+    MarkerType.NoteB to 493.88
+)
 
 class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view_help) {
 
@@ -75,6 +94,7 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
             override val textView: TextView? = this@ini.infoTextView
             override val rightButton: Button? = this@ini.flipButton
             override val leftButton: Button? = this@ini.durationButton
+            override val rightMiddleButton: Button? = this@ini.playButton
             override val brailleDotsInfo: BrailleDotsInfo? = this@ini.run {
                 BrailleDotsInfo(brailleDots, BrailleDotsViewMode.Reading, infoTextView, flipButton)
             }
@@ -89,11 +109,13 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
 
         var dots: BrailleDots = m.data.brailleDots
         if (m.data.type in musicalNotesTypes) {
+            var noteDuration = NoteDuration.EIGHTH
             val noteDurationTemplate = getString(R.string.note_title_duration_template)
-            text += noteDurationTemplate.format(getString(R.string.note_duration_8th))
+            text += noteDurationTemplate.format(getString(noteDuration.titleStrId))
             durationButton.visibility = View.VISIBLE
             durationButton.setOnClickListener {
                 chooseNoteDuration({
+                    noteDuration = it
                     dots = it.modifiedNote(m.data.brailleDots)
                     brailleDots.dotsState.display(dots)
                     text = baseText + noteDurationTemplate.format(getString(it.titleStrId))
@@ -101,6 +123,16 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
                     checkedAnnounce(text)
                 }, brailleDots = dots)
             }
+
+            val defaultFrequency = 100.0
+            val perfectTune = PerfectTune()
+            perfectTune.tuneFreq = noteToFreq[m.data.type] ?: defaultFrequency
+            playButton.setOnClickListener {
+                perfectTune.playTune()
+                runBlocking { delay(noteDuration.valueMillis) }
+                perfectTune.stopTune()
+            }
+            playButton.visibility = View.VISIBLE
         }
 
         infoTextView.text = text

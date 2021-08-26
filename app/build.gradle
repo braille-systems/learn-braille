@@ -113,6 +113,9 @@ dependencies {
 
     //Settings
     implementation 'androidx.preference:preference:1.1.1'
+
+    // Playing musical notes
+    implementation 'com.github.karlotoy:perfectTune:1.0.2'
 }
 
 android {
