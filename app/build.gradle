@@ -115,7 +115,7 @@ dependencies {
     implementation 'androidx.preference:preference:1.1.1'
 
     // Playing musical notes
-    implementation 'com.github.karlotoy:perfectTune:1.0.2'
+    implementation 'com.github.braille-systems:perfectTune:bc09ec2890'
 }
 
 android {

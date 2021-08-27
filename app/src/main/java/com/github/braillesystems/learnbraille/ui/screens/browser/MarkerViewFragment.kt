@@ -127,6 +127,7 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
             val defaultFrequency = 100.0
             val perfectTune = PerfectTune()
             perfectTune.tuneFreq = noteToFreq[m.data.type] ?: defaultFrequency
+            perfectTune.tuneAmplitude = 60000
             playButton.setOnClickListener {
                 perfectTune.playTune()
                 runBlocking { delay(noteDuration.valueMillis) }
