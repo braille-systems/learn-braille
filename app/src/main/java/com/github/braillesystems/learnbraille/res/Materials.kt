@@ -42,6 +42,9 @@ enum class MarkerType {
     NoteG,
     NoteA,
     NoteB,
+    NoteCQuarter,
+    NoteDHalf,
+    NoteEFull,
 }
 
 /**
@@ -232,6 +235,11 @@ private val musicalNotes by markers {
     marker(MarkerType.NoteG, BrailleDots(F, F, E, E, F, E))
     marker(MarkerType.NoteA, BrailleDots(E, F, E, F, E, E))
     marker(MarkerType.NoteB, BrailleDots(E, F, E, F, F, E))
+}
+
+private val notesWithDuration by markers {
+    marker(MarkerType.NoteCQuarter, BrailleDots(F, E, E, F, F, F))
+    marker(MarkerType.NoteDHalf, BrailleDots(F, E, F, E, F, E))
 }
 
 

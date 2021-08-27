@@ -25,7 +25,7 @@ import com.github.braillesystems.learnbraille.ui.views.dotsState
 import com.github.braillesystems.learnbraille.utils.*
 import com.karlotoy.perfectune.instance.PerfectTune
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
 
 enum class NoteDuration(
     val titleStrId: Int,
@@ -129,9 +129,11 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
             perfectTune.tuneFreq = noteToFreq[m.data.type] ?: defaultFrequency
             perfectTune.tuneAmplitude = 60000
             playButton.setOnClickListener {
-                perfectTune.playTune()
-                runBlocking { delay(noteDuration.valueMillis) }
-                perfectTune.stopTune()
+                scope().launch {
+                    perfectTune.playTune()
+                    delay(noteDuration.valueMillis)
+                    perfectTune.stopTune()
+                }
             }
             playButton.visibility = View.VISIBLE
         }
