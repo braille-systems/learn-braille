@@ -7,4 +7,5 @@
     <color name="colorBackground">#ffffff</color>
     <color name="colorOnBackgroundDark">#000000</color>
     <color name="colorOnBackgroundLight">#504c51</color>
+    <color name="colorLightPurple">#ffc4ee</color>
 </resources>
