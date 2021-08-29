@@ -111,7 +111,7 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
         if (m.data.type in musicalNotesTypes) {
             var noteDuration = NoteDuration.EIGHTH
             val noteDurationTemplate = getString(R.string.note_title_duration_template)
-            text += noteDurationTemplate.format(getString(noteDuration.titleStrId))
+            text = noteDurationTemplate.format(text, getString(noteDuration.titleStrId))
             durationButton.visibility = View.VISIBLE
             durationButton.setOnClickListener {
                 chooseNoteDuration({
