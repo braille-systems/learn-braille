@@ -118,7 +118,7 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
                     noteDuration = it
                     dots = it.modifiedNote(m.data.brailleDots)
                     brailleDots.dotsState.display(dots)
-                    text = baseText + noteDurationTemplate.format(getString(it.titleStrId))
+                    text = noteDurationTemplate.format(baseText, getString(it.titleStrId))
                     infoTextView.text = text
                     checkedAnnounce(text)
                 }, brailleDots = dots)
