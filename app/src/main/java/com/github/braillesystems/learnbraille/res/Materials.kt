@@ -63,6 +63,10 @@ val content by materials {
     +musicalNotes
 }
 
+val additionalContent by materials {  // for the course, but not for the browser / practice
+    +notesWithDuration
+}
+
 val knownMaterials by known(
     'А', 'Б', 'Ц', 'Д', 'Е', 'Ф', 'Г'
 )
@@ -240,6 +244,7 @@ private val musicalNotes by markers {
 private val notesWithDuration by markers {
     marker(MarkerType.NoteCQuarter, BrailleDots(F, E, E, F, F, F))
     marker(MarkerType.NoteDHalf, BrailleDots(F, E, F, E, F, E))
+    marker(MarkerType.NoteEFull, BrailleDots(F, F, F, F, E, F))
 }
 
 
@@ -541,6 +546,27 @@ val Context.inputMarkerPrintRules by rules<Context, MarkerType, String>(
     {
         val s = getString(R.string.input_music_note_b)
         MarkerType.NoteB::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_music_note_c) +
+                getString(R.string.note_title_duration_template)
+                    .format(getString(R.string.note_duration_4th))
+        MarkerType.NoteCQuarter::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_music_note_d) +
+                getString(R.string.note_title_duration_template)
+                    .format(getString(R.string.note_duration_half))
+        MarkerType.NoteDHalf::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.input_music_note_e) +
+                getString(R.string.note_title_duration_template)
+                    .format(getString(R.string.note_duration_full))
+        MarkerType.NoteEFull::equals to { _: MarkerType -> s }
     }
 )
 
@@ -614,5 +640,26 @@ val Context.showMarkerPrintRules by rules<Context, MarkerType, String>(
     {
         val s = getString(R.string.show_music_note_b)
         MarkerType.NoteB::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_music_note_c) +
+                getString(R.string.note_title_duration_template)
+                    .format(getString(R.string.note_duration_4th))
+        MarkerType.NoteCQuarter::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_music_note_d) +
+                getString(R.string.note_title_duration_template)
+                    .format(getString(R.string.note_duration_half))
+        MarkerType.NoteDHalf::equals to { _: MarkerType -> s }
+    },
+
+    {
+        val s = getString(R.string.show_music_note_e) +
+                getString(R.string.note_title_duration_template)
+                    .format(getString(R.string.note_duration_full))
+        MarkerType.NoteEFull::equals to { _: MarkerType -> s }
     }
 )

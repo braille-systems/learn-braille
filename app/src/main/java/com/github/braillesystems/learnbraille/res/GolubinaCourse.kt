@@ -2242,6 +2242,9 @@ internal val golubinaIntroLessons by lessons {
                <b>Целая нота</b> -- путём добавления точек 3 и 6 вместе.
             """
         )
+        +Input(additionalContent.markers.getValue(MarkerType.NoteCQuarter))
+        +Input(additionalContent.markers.getValue(MarkerType.NoteDHalf))
+        +Input(additionalContent.markers.getValue(MarkerType.NoteEFull))
         +Info(InfoInterpolation.run {
             """
                 Урок $iLesson на этом завершается.
