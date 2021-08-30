@@ -105,13 +105,13 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
                 is MarkerSymbol -> {
                     binding.letter.visibility = View.GONE
                     binding.markerDescription.visibility = View.VISIBLE
-                    binding.markerDescription.text = with(inputMarkerPrintRules[it.type]) {
-                        when (it.type) {
-                            in musicalNotesTypes -> getString(R.string.note_title_duration_template)
-                                .format(this, getString(R.string.note_duration_8th))
-                            else -> this
-                        }
+                    val baseDescription = inputMarkerPrintRules[it.type]
+                    binding.markerDescription.text = when (it.type) {
+                        in musicalNotesTypes -> getString(R.string.note_title_duration_template)
+                            .format(baseDescription, getString(R.string.note_duration_8th))
+                        else -> baseDescription
                     }
+
                     binding.letterCaption.text = ""
                 }
             }
