@@ -443,6 +443,7 @@
     <!--    Browser-->
 
     <string name="browser_title">Список символов</string>
+    <string name="browser_deck_title">Колода</string>
     <string name="browser_represent_template">%s: точки %s</string>
     <string name="browser_symbol_view_title">Просмотр символа</string>
 

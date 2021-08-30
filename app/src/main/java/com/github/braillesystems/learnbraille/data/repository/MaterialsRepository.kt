@@ -1,6 +1,7 @@
 package com.github.braillesystems.learnbraille.data.repository
 
 import com.github.braillesystems.learnbraille.data.entities.*
+import com.github.braillesystems.learnbraille.res.DeckTags
 
 data class DeckWithAvailability(
     val deck: Deck,
@@ -14,6 +15,7 @@ interface MaterialsRepository {
     suspend fun allDecks(): List<Deck>
     suspend fun availableDecks(): List<Deck>
     suspend fun allDecksWithAvailability(): List<DeckWithAvailability>
+    suspend fun allDecksWithUniqueMaterials(): List<Deck>
 }
 
 open class MaterialsRepositoryImpl(
@@ -44,4 +46,7 @@ open class MaterialsRepositoryImpl(
         } else {
             deckDao.allDecks().map { DeckWithAvailability(it, true) }
         }
+
+    override suspend fun allDecksWithUniqueMaterials(): List<Deck> = DeckTags.Unique.values()
+        .mapNotNull { deckDao.deckByTag(it.tag) }
 }

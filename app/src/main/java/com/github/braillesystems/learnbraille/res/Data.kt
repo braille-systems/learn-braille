@@ -46,33 +46,33 @@ val prepopulationData by data(
 
     decks {
         // All cards deck should always exist and be first in the list
-        deck(DeckTags.all) { true }
+        deck(DeckTags.Grouping.all) { true }
 
-        deck(DeckTags.allWithRus) { data ->
+        deck(DeckTags.Grouping.allWithRus) { data ->
             val isNative = data is Symbol
                     && data.type != SymbolType.greek
                     && data.type != SymbolType.latin
             isNative || data !is Symbol
         }
-        deck(DeckTags.ruLetters) { data ->
+        deck(DeckTags.Unique.RuLetters.tag) { data ->
             data is Symbol && data.type == SymbolType.ru
         }
-        deck(DeckTags.latinLetters) { data ->
+        deck(DeckTags.Unique.LatinLetters.tag) { data ->
             data is Symbol && data.type == SymbolType.latin
         }
-        deck(DeckTags.greekLetters) { data ->
+        deck(DeckTags.Unique.GreekLetters.tag) { data ->
             data is Symbol && data.type == SymbolType.greek
         }
-        deck(DeckTags.special) { data ->
+        deck(DeckTags.Unique.Special.tag) { data ->
             data is Symbol && data.type == SymbolType.special
         }
-        deck(DeckTags.markers) { data ->
+        deck(DeckTags.Unique.Markers.tag) { data ->
             data is MarkerSymbol
         }
-        deck(DeckTags.digits) { data ->
+        deck(DeckTags.Unique.Digits.tag) { data ->
             data is Symbol && data.type == SymbolType.digit
         }
-        deck(DeckTags.math) { data ->
+        deck(DeckTags.Unique.Math.tag) { data ->
             data is Symbol && data.type == SymbolType.math
         }
     }
@@ -84,31 +84,38 @@ object StepAnnotation {
 }
 
 object DeckTags {
-    const val all = "all"
-    const val allWithRus = "all_with_rus"
-    const val ruLetters = "ru_letters"
-    const val latinLetters = "latin_letters"
-    const val greekLetters = "greek_letters"
-    const val digits = "digits"
-    const val markers = "markers"
-    const val special = "special"
-    const val math = "math"
+    object Grouping {
+        const val all = "all"
+        const val allWithRus = "all_with_rus"
+    }
+
+    enum class Unique(val tag: String) {
+        RuLetters("ru_letters"),
+        LatinLetters("latin_letters"),
+        GreekLetters("greek_letters"),
+        Digits("digits"),
+        Markers("markers"),
+        Special("special"),
+        Math("math")
+    }
 }
 
 val Context.deckTagToName: Map<String, String> by lazyWithContext {
-    DeckTags.run {
+    val generalizing = DeckTags.Grouping.run {
         mapOf(
             all to getString(R.string.deck_name_all),
-            allWithRus to getString(R.string.deck_name_all_but_foreign),
-            ruLetters to getString(R.string.deck_name_ru_letters),
-            latinLetters to getString(R.string.deck_name_latin_letters),
-            greekLetters to getString(R.string.deck_name_greek_letters),
-            digits to getString(R.string.deck_name_digits),
-            markers to getString(R.string.deck_name_markers),
-            special to getString(R.string.deck_name_punctuation),
-            math to getString(R.string.deck_name_math)
+            allWithRus to getString(R.string.deck_name_all_but_foreign)
         )
     }
+    generalizing + mapOf(
+        DeckTags.Unique.RuLetters.tag to getString(R.string.deck_name_ru_letters),
+        DeckTags.Unique.LatinLetters.tag to getString(R.string.deck_name_latin_letters),
+        DeckTags.Unique.GreekLetters.tag to getString(R.string.deck_name_greek_letters),
+        DeckTags.Unique.Digits.tag to getString(R.string.deck_name_digits),
+        DeckTags.Unique.Markers.tag to getString(R.string.deck_name_markers),
+        DeckTags.Unique.Special.tag to getString(R.string.deck_name_punctuation),
+        DeckTags.Unique.Math.tag to getString(R.string.deck_name_math)
+    )
 }
 
 val Fragment.deckTagToName
