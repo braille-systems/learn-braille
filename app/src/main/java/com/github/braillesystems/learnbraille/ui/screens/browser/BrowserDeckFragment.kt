@@ -12,18 +12,18 @@ import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.data.repository.BrowserRepository
 import com.github.braillesystems.learnbraille.databinding.FragmentBrowserBinding
+import com.github.braillesystems.learnbraille.res.deckTagToName
 import com.github.braillesystems.learnbraille.res.showMarkerPrintRules
 import com.github.braillesystems.learnbraille.res.showSymbolPrintRules
 import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHelp
 import com.github.braillesystems.learnbraille.utils.getValue
 import com.github.braillesystems.learnbraille.utils.navigate
 import com.github.braillesystems.learnbraille.utils.stringify
+import com.github.braillesystems.learnbraille.utils.title
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
-class BrowserDeckFragment : AbstractFragmentWithHelp(R.string.browser_help) {
-    // TODO change help in this and parent fragment
-    // TODO change title in the top app bar
+class BrowserDeckFragment : AbstractFragmentWithHelp(R.string.browser_deck_help) {
 
     private val browserRepository: BrowserRepository by inject()
 
@@ -37,9 +37,9 @@ class BrowserDeckFragment : AbstractFragmentWithHelp(R.string.browser_help) {
         container,
         false
     ).ini().also { binding ->
-
         lifecycleScope.launch {
             val deckId = browserRepository.currentDeckId
+            browserRepository.deck(deckId)?.also { title = deckTagToName.getValue(it.tag) }
             val materials =
                 browserRepository.allMaterialsFromDeck(deckId).map { DeckOrMaterial(it) }
             binding.materialsList.adapter = BrowserListAdapter(materials) { item ->

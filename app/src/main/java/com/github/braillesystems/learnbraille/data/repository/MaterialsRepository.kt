@@ -9,6 +9,7 @@ data class DeckWithAvailability(
 )
 
 interface MaterialsRepository {
+    suspend fun deck(id: DBid): Deck?
     suspend fun randomMaterialFromDeck(id: DBid): Material?
     suspend fun randomKnownMaterialFromDeck(id: DBid): Material?
     suspend fun allMaterialsFromDeck(id: DBid): List<Material>
@@ -23,6 +24,8 @@ open class MaterialsRepositoryImpl(
     private val cardDao: CardDao,
     private val preferenceRepository: PreferenceRepository
 ) : MaterialsRepository {
+
+    override suspend fun deck(id: DBid): Deck? = deckDao.deck(id)
 
     override suspend fun randomMaterialFromDeck(id: DBid): Material? =
         cardDao.randomMaterialFromDeck(id)
