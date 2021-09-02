@@ -59,27 +59,40 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
 
     private fun chooseNoteDurationDialog(
         brailleDots: BrailleDots,
+        previousDuration: NoteDuration,
         block: (NoteDuration) -> Unit
     ) {
         val input = RadioGroup(context)
-        var noteDuration = NoteDuration.EIGHTH
-        NoteDuration.values().map { duration ->
+        var noteDuration = previousDuration
+        val durationToButtonsMap: MutableMap<NoteDuration, RadioButton> = mutableMapOf()
+        NoteDuration.values().forEach { duration ->
             input.addView(RadioButton(context).apply {
                 text = getString(R.string.browser_represent_template).format(
                     getString(duration.titleStrId),
                     duration.modifiedNote(brailleDots).spelling
                 )
-                setOnClickListener { noteDuration = duration }
+                durationToButtonsMap[duration] = this
             })
         }
 
-        AlertDialog.Builder(context)
+        val dialog = AlertDialog.Builder(context)
             .setTitle(getString(R.string.browser_note_duration_dialog_title))
             .setView(input)
-            .setPositiveButton(getString(R.string.browser_note_duration_dialog_confirm)) { _, _ ->
-                block(noteDuration)
+            .create()
+
+        durationToButtonsMap.forEach {
+            val duration = it.key
+            val button = it.value
+            if (it.key == noteDuration) {
+                input.check(button.id)
             }
-            .show()
+            button.setOnClickListener {
+                noteDuration = duration
+                block(noteDuration)
+                dialog.cancel()
+            }
+        }
+        dialog.show()
     }
 
     override fun onCreateView(
@@ -116,14 +129,14 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
             text = noteDurationTemplate.format(text, getString(noteDuration.titleStrId))
             durationButton.visibility = View.VISIBLE
             durationButton.setOnClickListener {
-                chooseNoteDurationDialog(brailleDots = dots, block = {
+                chooseNoteDurationDialog(brailleDots = dots, previousDuration = noteDuration) {
                     noteDuration = it
                     dots = it.modifiedNote(m.data.brailleDots)
                     brailleDots.dotsState.display(dots)
                     text = noteDurationTemplate.format(baseText, getString(it.titleStrId))
                     infoTextView.text = text
                     checkedAnnounce(text)
-                })
+                }
             }
 
             val defaultFrequency = 100.0

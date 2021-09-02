@@ -106,11 +106,10 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
                     binding.letter.visibility = View.GONE
                     binding.markerDescription.visibility = View.VISIBLE
                     val baseDescription = inputMarkerPrintRules[it.type]
-                    binding.markerDescription.text = when (it.type) {
-                        in musicalNotesTypes -> getString(R.string.note_title_duration_template)
+                    binding.markerDescription.text = if (it.type in musicalNotesTypes) {
+                        getString(R.string.note_title_duration_template)
                             .format(baseDescription, getString(R.string.note_duration_8th))
-                        else -> baseDescription
-                    }
+                    } else baseDescription
 
                     binding.letterCaption.text = ""
                 }
