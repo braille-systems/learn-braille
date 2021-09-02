@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
+import androidx.core.view.setPadding
 import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.*
@@ -62,7 +63,9 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
         previousDuration: NoteDuration,
         block: (NoteDuration) -> Unit
     ) {
-        val input = RadioGroup(context)
+        val input = RadioGroup(context).apply {
+            setPadding(resources.getDimension(R.dimen.margin_text).toInt())
+        }
         var noteDuration = previousDuration
         val durationToButtonsMap: MutableMap<NoteDuration, RadioButton> = mutableMapOf()
         NoteDuration.values().forEach { duration ->
