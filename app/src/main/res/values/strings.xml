@@ -96,9 +96,9 @@
     <string name="input_music_octave6">Введите обозначение шестой октавы</string>
     <string name="input_music_octave7">Введите обозначение седьмой октавы</string>
     <string name="input_music_hyphen">Введите музыкальный знак переноса</string>
-    <string name="input_music_sharp">Введите диез ♯</string>
-    <string name="input_music_flat">Введите бемоль ♭</string>
-    <string name="input_music_natural">Введите бекар ♮</string>
+    <string name="input_music_sharp">Введите диез</string>
+    <string name="input_music_flat">Введите бемоль</string>
+    <string name="input_music_natural">Введите бекар</string>
 
     <string name="input_math_plus">Введите знак Плюс</string>
     <string name="input_math_minus">Введите знак Минус</string>
@@ -156,9 +156,9 @@
     <string name="show_music_octave6">Обозначение шестой октавы</string>
     <string name="show_music_octave7">Обозначение седьмой октавы</string>
     <string name="show_music_hyphen">Музыкальный знак переноса</string>
-    <string name="show_music_sharp">Диез ♯</string>
-    <string name="show_music_flat">Бемоль ♭</string>
-    <string name="show_music_natural">Бекар ♮</string>
+    <string name="show_music_sharp">Диез</string>
+    <string name="show_music_flat">Бемоль</string>
+    <string name="show_music_natural">Бекар</string>
 
     <string name="show_math_plus">Знак Плюс</string>
     <string name="show_math_minus">Знак Минус</string>
