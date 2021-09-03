@@ -230,9 +230,14 @@ internal val golubinaIntroLessons by lessons {
                     Они получаются из букв А, Б, Ц, Д, Е добавлением цифрового знака.
                     Например, цифра 3, как и число 3 - это цифровой знак + Ц.
                     Число двадцать четыре - это цифровой знак, затем буквы Б и Д. 
-                    В уроках мы для краткости не будем всякий раз ставить цифровой знак."""
+                    В следующих шагах просмотрите, а затем введите число «двенадцать тысяч
+                    триста сорок пять»."""
         )
-        showAndInputChars("12345")
+        +Show(content.markers.getValue(MarkerType.NumberSign))
+        for (char in "12345") {
+            +Input(content.symbols.getValue(char))
+        }
+        inputNumber(12345)
         +Info(
             """
                 На пятой сверху строчке на странице 14 пособия, под строкой с цифровым знаком,
@@ -307,8 +312,7 @@ internal val golubinaIntroLessons by lessons {
                     <br>
                     В следующих трёх шагах введите число ШЕСТЬДЕСЯТ СЕМЬ."""
         )
-        +Input(content.markers.getValue(MarkerType.NumberSign))
-        inputChars("67")
+        inputNumber(67)
         +Info(
             """Напишите слово БЕГ и число "ШЕСТДЕСЯТ СЕМЬ" при помощи брайлевского прибора."""
         ).annotate(StepAnnotation.slateStylusRequired)
@@ -335,8 +339,7 @@ internal val golubinaIntroLessons by lessons {
                цифровой знак.
             """
         )
-        +Input(content.markers.getValue(MarkerType.NumberSign))
-        inputChars("123")
+        inputNumber(123)
         +Info(
             """
                     Буква Х  обозначается точками 1, 2 и 5.
@@ -360,8 +363,7 @@ internal val golubinaIntroLessons by lessons {
         +Info("""Наберите восклицание АХ""")
         inputChars("АХ")
         +Info("""Далее введите, поставив цифровой знак, число "ВОСЕМЬСОТ СЕМЬДЕСЯТ ШЕСТЬ" """)
-        +Input(content.markers.getValue(MarkerType.NumberSign))
-        inputChars("876")
+        inputNumber(876)
         +Info(
             """Введите на брайлевском приборе слова ЦЕХ, АХ и число ВОСЕМЬСОТ СЕМЬДЕСЯТ ШЕСТЬ."""
         ).annotate(StepAnnotation.slateStylusRequired)
@@ -415,8 +417,7 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите по символам число 850"""
         )
-        +Input(content.markers.getValue(MarkerType.NumberSign))
-        inputChars("850")
+        inputNumber(850)
         +Info(
             """
                     Напишите с помощью брайлевского прибора слова, набранные до этого на экране:
@@ -717,8 +718,7 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите отдельными символами число 215, поставив перед ним цифровой знак"""
         )
-        +Input(content.markers.getValue(MarkerType.NumberSign))
-        inputChars("215")
+        inputNumber(215)
 
         +Info(
             """
@@ -904,8 +904,7 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Теперь наберите число 870, сначала поставив цифровой знак"""
         )
-        +Input(content.markers.getValue(MarkerType.NumberSign))
-        inputChars("870")
+        inputNumber(870)
         +Info(
             """
                     Теперь рассмотрим букву 'Т'.
@@ -1171,8 +1170,7 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Также в качестве повторения введите цифровой знак, а за ним число 964"""
         )
-        +Input(content.markers.getValue(MarkerType.NumberSign))
-        inputChars("964")
+        inputNumber(964)
         +Info(
             """
                     Переходим к главному в сегодняшнем уроке: ознакомимся с буквой 'И краткое'.
@@ -1678,8 +1676,7 @@ internal val golubinaIntroLessons by lessons {
                     за ним число 1984
                     """
         )
-        +Input(content.markers.getValue(MarkerType.NumberSign))
-        inputChars("1984")
+        inputNumber(1984)
         +Info(
             """
                     Давайте изучим букву 'Э'.
@@ -2151,10 +2148,11 @@ internal val golubinaIntroLessons by lessons {
         ).annotate(StepAnnotation.golubinaBookRequired)
 
         +Info("""В следующих шагах запишите: ДВА ПЛЮС ДВА РАВНО ЧЕТЫРЕ""")
-        +Input(content.markers.getValue(MarkerType.NumberSign))
-        inputChars("2+")
-        +Input(content.markers.getValue(MarkerType.NumberSign))
-        inputChars("2=4")
+        inputNumber(2)
+        +Input(content.symbols.getValue('+'))
+        inputNumber(2)
+        +Input(content.symbols.getValue('='))
+        inputNumber(4)
         +Info(
             """
                     Запишите на брайлевском приборе примеры:
