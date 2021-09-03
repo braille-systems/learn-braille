@@ -33,7 +33,8 @@ val otherMusicalTypes = listOf(
     MarkerType.OctaveMark7,
     MarkerType.MusicSharp,
     MarkerType.MusicFlat,
-    MarkerType.MusicNatural
+    MarkerType.MusicNatural,
+    MarkerType.MusicHyphen
 )
 
 val prepopulationData by data(
