@@ -9,6 +9,33 @@ import com.github.braillesystems.learnbraille.data.entities.Symbol
 import com.github.braillesystems.learnbraille.utils.contextNotNull
 import com.github.braillesystems.learnbraille.utils.lazyWithContext
 
+val musicalNotesTypes = listOf(
+    MarkerType.NoteC,
+    MarkerType.NoteD,
+    MarkerType.NoteE,
+    MarkerType.NoteF,
+    MarkerType.NoteG,
+    MarkerType.NoteA,
+    MarkerType.NoteB
+)
+
+val otherMusicalTypes = listOf(
+    MarkerType.MusicRest8th,
+    MarkerType.MusicRest4th,
+    MarkerType.MusicRestHalf,
+    MarkerType.MusicRestFull,
+    MarkerType.OctaveMark1,
+    MarkerType.OctaveMark2,
+    MarkerType.OctaveMark3,
+    MarkerType.OctaveMark4,
+    MarkerType.OctaveMark5,
+    MarkerType.OctaveMark6,
+    MarkerType.OctaveMark7,
+    MarkerType.MusicSharp,
+    MarkerType.MusicFlat,
+    MarkerType.MusicNatural
+)
+
 val prepopulationData by data(
     materials = content,
     stepAnnotationNames = listOf(
@@ -66,8 +93,11 @@ val prepopulationData by data(
         deck(DeckTags.special) { data ->
             data is Symbol && data.type == SymbolType.special
         }
+        deck(DeckTags.musical_notes) { data ->
+            data is MarkerSymbol && data.type in musicalNotesTypes
+        }
         deck(DeckTags.markers) { data ->
-            data is MarkerSymbol
+            data is MarkerSymbol && data.type !in (musicalNotesTypes + otherMusicalTypes)
         }
         deck(DeckTags.digits) { data ->
             data is Symbol && data.type == SymbolType.digit
@@ -75,6 +105,10 @@ val prepopulationData by data(
         deck(DeckTags.math) { data ->
             data is Symbol && data.type == SymbolType.math
         }
+        deck(DeckTags.other_music) {data ->
+            data is MarkerSymbol && data.type in otherMusicalTypes
+        }
+
     }
 }
 
@@ -93,6 +127,8 @@ object DeckTags {
     const val markers = "markers"
     const val special = "special"
     const val math = "math"
+    const val musical_notes = "notes"
+    const val other_music = "other_music"
 }
 
 val Context.deckTagToName: Map<String, String> by lazyWithContext {
@@ -106,7 +142,9 @@ val Context.deckTagToName: Map<String, String> by lazyWithContext {
             digits to getString(R.string.deck_name_digits),
             markers to getString(R.string.deck_name_markers),
             special to getString(R.string.deck_name_punctuation),
-            math to getString(R.string.deck_name_math)
+            math to getString(R.string.deck_name_math),
+            musical_notes to getString(R.string.deck_name_musical_notes),
+            other_music to getString(R.string.deck_other_musical_symbols)
         )
     }
 }

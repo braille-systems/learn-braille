@@ -2220,6 +2220,80 @@ internal val golubinaIntroLessons by lessons {
             """
         })
     }
+    lesson("Ноты") {
+        +Info(InfoInterpolation.run {
+            """
+               <b>Урок $iLesson: Основы нотной грамоты.</b>
+                <br><br>
+                В этом кратком уроке мы узнаем, как в брайлевской нотации записываются семь нот,
+                начиная с ДО и заканчивая СИ.
+                <br>
+                В зависимости от длительности ноты обозначаются разными шеститочечными символами.
+                Здесь приведены те, что соответствуют продолжительности <b>одна восьмая</b>.
+            """
+        })
+        showAndInputMarkers(musicalNotesTypes)
+        +Info(
+            """
+               Ноты длительности <b>четвертная</b> образуются путём добавления точки 6.
+               <br>
+               Длительности <b>половинная</b> -- путём добавления точки 3.
+               <br>
+               <b>Целая нота</b> -- путём добавления точек 3 и 6 вместе.
+            """
+        )
+        +Input(additionalContent.markers.getValue(MarkerType.NoteCQuarter))
+        +Input(additionalContent.markers.getValue(MarkerType.NoteDHalf))
+        +Input(additionalContent.markers.getValue(MarkerType.NoteEFull))
+        +Info(
+            """
+               Есть обозначения для пауз разной длительности (восьмая, четвертная, половинная 
+               и целая), но они образованы не путём изменений в точках 5 и 6, а немного иначе.
+               В следующих  шагах ознакомимся с этими символами.
+            """
+        )
+        showAndInputMarkers(
+            listOf(
+                MarkerType.MusicRest8th,
+                MarkerType.MusicRest4th,
+                MarkerType.MusicRestHalf,
+                MarkerType.MusicRestFull
+            )
+        )
+        +Info("""
+            Каждая строка в нотах должна начинаться с обозначения октавы. В следующих шагах
+            посмотрим на их обозначения. 
+        """)
+        +Show(content.markers.getValue(MarkerType.OctaveMark1))
+        +Show(content.markers.getValue(MarkerType.OctaveMark2))
+        +Show(content.markers.getValue(MarkerType.OctaveMark3))
+        +Show(content.markers.getValue(MarkerType.OctaveMark4))
+        +Show(content.markers.getValue(MarkerType.OctaveMark5))
+        +Show(content.markers.getValue(MarkerType.OctaveMark6))
+        +Show(content.markers.getValue(MarkerType.OctaveMark7))
+        +Info("""
+            Последний набор символов, с которыми мы сегодня ознакомимся:
+            <br>
+            Знаки альтерации - диез, бемоль и бекар;
+            <b>Музыкальный перенос</b> - аналог обычного текстового переноса в нотах.
+            Он обозначается точкой 4, как и обозначение шестой октавы, но, поскольку ставится всегда
+            в конце строки, а не в начале, то неоднозначности не возникает.
+        """)
+        +Show(content.markers.getValue(MarkerType.MusicSharp))
+        +Show(content.markers.getValue(MarkerType.MusicFlat))
+        +Show(content.markers.getValue(MarkerType.MusicNatural))
+        +Info(InfoInterpolation.run {
+            """
+                Урок $iLesson на этом завершается.
+                <br>
+                В заключение стоит отметить:
+                Луи Брайль был музыкантом и изначально позаботился о том, чтобы его система могла
+                представить ноты любой сложности. В рельефно-точечной нотной грамоте более 60
+                различных символов; некоторые из них обозначаются несколькими шеститочиями.
+                Конечно же, мы не имеем возможности изучить их все.
+            """
+        })
+    }
     lesson("Греческий алфавит") {
         +Info(InfoInterpolation.run {
             """
