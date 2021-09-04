@@ -17,6 +17,13 @@ fun StepsBuilder.showAndInputChars(chars: String): Unit =
         +Input(content.symbols.getValue(it))
     }
 
+fun StepsBuilder.showAndInputMarkers(markers: List<MarkerType>) {
+    markers.forEach {
+        +Show(content.markers.getValue(it))
+        +Input(content.markers.getValue(it))
+    }
+}
+
 fun StepsBuilder.slateStylusLine(char: Char) {
     +Info(
         "Запишите на брайлевском приборе строку, состоящую из одного символа: $char."
