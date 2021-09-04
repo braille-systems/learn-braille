@@ -16,6 +16,7 @@ import com.github.braillesystems.learnbraille.databinding.FragmentCardBinding
 import com.github.braillesystems.learnbraille.res.captionRules
 import com.github.braillesystems.learnbraille.res.deckTagToName
 import com.github.braillesystems.learnbraille.res.inputMarkerPrintRules
+import com.github.braillesystems.learnbraille.res.musicalNotesTypes
 import com.github.braillesystems.learnbraille.ui.*
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainer
 import com.github.braillesystems.learnbraille.ui.brailletrainer.BrailleTrainerSignalHandler
@@ -104,7 +105,12 @@ class CardFragment : AbstractFragmentWithHelp(R.string.practice_help) {
                 is MarkerSymbol -> {
                     binding.letter.visibility = View.GONE
                     binding.markerDescription.visibility = View.VISIBLE
-                    binding.markerDescription.text = inputMarkerPrintRules[it.type]
+                    val baseDescription = inputMarkerPrintRules[it.type]
+                    binding.markerDescription.text = if (it.type in musicalNotesTypes) {
+                        getString(R.string.note_title_duration_template)
+                            .format(baseDescription, getString(R.string.note_duration_8th))
+                    } else baseDescription
+
                     binding.letterCaption.text = ""
                 }
             }
