@@ -235,7 +235,7 @@ internal val golubinaIntroLessons by lessons {
         )
         +Show(content.markers.getValue(MarkerType.NumberSign))
         for (char in "12345") {
-            +Input(content.symbols.getValue(char))
+            +Show(content.symbols.getValue(char))
         }
         inputNumber(12345)
         +Info(
