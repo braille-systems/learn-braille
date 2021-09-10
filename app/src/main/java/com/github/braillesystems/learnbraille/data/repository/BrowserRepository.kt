@@ -6,7 +6,7 @@ import com.github.braillesystems.learnbraille.data.entities.DBid
 import com.github.braillesystems.learnbraille.utils.preferences
 
 interface BrowserRepository : MaterialsRepository {
-    var currentDeckId: DBid
+    val currentDeckId: DBid
 }
 
 interface MutableBrowserRepository : BrowserRepository {

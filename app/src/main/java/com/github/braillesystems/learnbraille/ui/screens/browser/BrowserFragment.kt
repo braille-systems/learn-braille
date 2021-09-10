@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.Deck
 import com.github.braillesystems.learnbraille.data.entities.Material
-import com.github.braillesystems.learnbraille.data.repository.BrowserRepository
+import com.github.braillesystems.learnbraille.data.repository.MutableBrowserRepository
 import com.github.braillesystems.learnbraille.databinding.BrowserListItemBinding
 import com.github.braillesystems.learnbraille.databinding.FragmentBrowserBinding
 import com.github.braillesystems.learnbraille.res.deckTagToName
@@ -20,7 +20,7 @@ import org.koin.android.ext.android.inject
 
 class BrowserFragment : AbstractFragmentWithHelp(R.string.browser_help) {
 
-    private val browserRepository: BrowserRepository by inject()
+    private val browserRepository: MutableBrowserRepository by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +43,8 @@ class BrowserFragment : AbstractFragmentWithHelp(R.string.browser_help) {
                 clickListener = object : BrowserItemListener {
                     override fun onClick(item: DeckOrMaterial) {
                         item.deck?.apply {
+                            // TODO Pass deck id to the BrowserDeckFragment via the fragment arguments
+                            // TODO instead of the global persistent state.
                             browserRepository.currentDeckId = id
                             navigate(BrowserFragmentDirections.actionBrowserFragmentToBrowserDeckFragment())
                         }
