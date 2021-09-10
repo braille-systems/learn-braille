@@ -72,6 +72,7 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
                     getString(duration.titleStrId),
                     duration.modifiedNote(brailleDots).spelling
                 )
+                textSize = resources.getDimension(R.dimen.dialog_items_text_size)
                 durationToButtonsMap[duration] = this
             })
         }
