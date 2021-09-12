@@ -2,17 +2,24 @@ package com.github.braillesystems.learnbraille.res
 
 import com.github.braillesystems.learnbraille.data.dsl.StepsBuilder
 import com.github.braillesystems.learnbraille.data.dsl.annotate
-import com.github.braillesystems.learnbraille.data.entities.Info
-import com.github.braillesystems.learnbraille.data.entities.Input
-import com.github.braillesystems.learnbraille.data.entities.Show
+import com.github.braillesystems.learnbraille.data.entities.*
 
 fun StepsBuilder.inputChars(chars: String): Unit =
     chars
-        .map(Char::toUpperCase)
+        .map(Char::uppercaseChar)
         .forEach { c -> +Input(content.symbols.getValue(c)) }
 
+fun StepsBuilder.inputPhraseByLetters(phrase: String) {
+    val materials = phrase
+        .map(Char::uppercaseChar)
+        .map(content.symbols::getValue)
+    materials.forEachIndexed { i, _ ->
+        +InputPhraseLetter(materials, i)
+    }
+}
+
 fun StepsBuilder.showAndInputChars(chars: String): Unit =
-    chars.map(Char::toUpperCase).forEach {
+    chars.map(Char::uppercaseChar).forEach {
         +Show(content.symbols.getValue(it))
         +Input(content.symbols.getValue(it))
     }

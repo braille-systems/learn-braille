@@ -83,6 +83,20 @@ data class Input(
         }
 }
 
+typealias Phrase = List<Material>
+
+@Serializable
+data class InputPhraseLetter(
+    val phrase: Phrase,
+    val pos: Int
+) : BaseInput() {
+
+    override val brailleDots: BrailleDots
+        get() = when (phrase[pos].data) {
+            is OneBrailleSymbol -> material.data.brailleDots
+        }
+}
+
 /**
  * Step prompts the user to enter dots with specific numbers.
  *
