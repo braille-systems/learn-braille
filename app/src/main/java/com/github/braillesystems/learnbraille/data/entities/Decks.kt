@@ -19,9 +19,6 @@ interface DeckDao {
     @Query("select * from decks where id = :id")
     suspend fun deck(id: DBid): Deck?
 
-    @Query("select * from decks where tag = :tag limit 1")
-    suspend fun deckByTag(tag: DeckTag): Deck?
-
     @Query("select * from decks")
     suspend fun allDecks(): List<Deck>
 

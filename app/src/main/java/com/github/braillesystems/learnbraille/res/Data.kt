@@ -74,9 +74,9 @@ val prepopulationData by data(
 
     decks {
         // All cards deck should always exist and be first in the list
-        deck(DeckTags.Grouping.all) { true }
+        deck(DeckTags.Grouping.All.tag) { true }
 
-        deck(DeckTags.Grouping.allWithRus) { data ->
+        deck(DeckTags.Grouping.AllWithRus.tag) { data ->
             val isNative = data is Symbol
                     && data.type != SymbolType.greek
                     && data.type != SymbolType.latin
@@ -106,7 +106,7 @@ val prepopulationData by data(
         deck(DeckTags.Unique.Math.tag) { data ->
             data is Symbol && data.type == SymbolType.math
         }
-        deck(DeckTags.Unique.OtherMusic.tag) {data ->
+        deck(DeckTags.Unique.OtherMusic.tag) { data ->
             data is MarkerSymbol && data.type in otherMusicalTypes
         }
 
@@ -119,9 +119,9 @@ object StepAnnotation {
 }
 
 object DeckTags {
-    object Grouping {
-        const val all = "all"
-        const val allWithRus = "all_with_rus"
+    enum class Grouping(val tag: String) {
+        All("all"),
+        AllWithRus("all_with_rus")
     }
 
     enum class Unique(val tag: String) {
@@ -133,18 +133,14 @@ object DeckTags {
         Special("special"),
         Math("math"),
         MusicalNotes("notes"),
-        OtherMusic("otherMusic")
+        OtherMusic("other_music")
     }
 }
 
 val Context.deckTagToName: Map<String, String> by lazyWithContext {
-    val generalizing = DeckTags.Grouping.run {
-        mapOf(
-            all to getString(R.string.deck_name_all),
-            allWithRus to getString(R.string.deck_name_all_but_foreign)
-        )
-    }
-    generalizing + mapOf(
+    mapOf(
+        DeckTags.Grouping.All.tag to getString(R.string.deck_name_all),
+        DeckTags.Grouping.AllWithRus.tag to getString(R.string.deck_name_all_but_foreign),
         DeckTags.Unique.RuLetters.tag to getString(R.string.deck_name_ru_letters),
         DeckTags.Unique.LatinLetters.tag to getString(R.string.deck_name_latin_letters),
         DeckTags.Unique.GreekLetters.tag to getString(R.string.deck_name_greek_letters),

@@ -34,7 +34,7 @@ class BrowserFragment : AbstractFragmentWithHelp(R.string.browser_help) {
     ).ini().also { binding ->
 
         lifecycleScope.launch {
-            val decks = browserRepository.allDecksWithUniqueMaterials().map { DeckOrMaterial(it) }
+            val decks = browserRepository.allUniqueDecks().map { DeckOrMaterial(it) }
             binding.materialsList.adapter = BrowserListAdapter(decks) { item ->
                 this.item = item
                 item.deck?.apply {

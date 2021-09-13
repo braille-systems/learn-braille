@@ -16,7 +16,7 @@ interface MaterialsRepository {
     suspend fun allDecks(): List<Deck>
     suspend fun availableDecks(): List<Deck>
     suspend fun allDecksWithAvailability(): List<DeckWithAvailability>
-    suspend fun allDecksWithUniqueMaterials(): List<Deck>
+    suspend fun allUniqueDecks(): List<Deck>
 }
 
 open class MaterialsRepositoryImpl(
@@ -50,6 +50,8 @@ open class MaterialsRepositoryImpl(
             deckDao.allDecks().map { DeckWithAvailability(it, true) }
         }
 
-    override suspend fun allDecksWithUniqueMaterials(): List<Deck> = DeckTags.Unique.values()
-        .mapNotNull { deckDao.deckByTag(it.tag) }
+    override suspend fun allUniqueDecks(): List<Deck> {
+        val uniqueDecksTags = DeckTags.Unique.values().map { it.tag }
+        return deckDao.allDecks().filter { it.tag in uniqueDecksTags }
+    }
 }
