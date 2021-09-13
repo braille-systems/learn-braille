@@ -33,7 +33,8 @@ val otherMusicalTypes = listOf(
     MarkerType.OctaveMark7,
     MarkerType.MusicSharp,
     MarkerType.MusicFlat,
-    MarkerType.MusicNatural
+    MarkerType.MusicNatural,
+    MarkerType.MusicHyphen
 )
 
 val prepopulationData by data(
@@ -73,39 +74,39 @@ val prepopulationData by data(
 
     decks {
         // All cards deck should always exist and be first in the list
-        deck(DeckTags.all) { true }
+        deck(DeckTags.Grouping.All.tag) { true }
 
-        deck(DeckTags.allWithRus) { data ->
+        deck(DeckTags.Grouping.AllWithRus.tag) { data ->
             val isNative = data is Symbol
                     && data.type != SymbolType.greek
                     && data.type != SymbolType.latin
             isNative || data !is Symbol
         }
-        deck(DeckTags.ruLetters) { data ->
+        deck(DeckTags.Unique.RuLetters.tag) { data ->
             data is Symbol && data.type == SymbolType.ru
         }
-        deck(DeckTags.latinLetters) { data ->
+        deck(DeckTags.Unique.LatinLetters.tag) { data ->
             data is Symbol && data.type == SymbolType.latin
         }
-        deck(DeckTags.greekLetters) { data ->
+        deck(DeckTags.Unique.GreekLetters.tag) { data ->
             data is Symbol && data.type == SymbolType.greek
         }
-        deck(DeckTags.special) { data ->
+        deck(DeckTags.Unique.Special.tag) { data ->
             data is Symbol && data.type == SymbolType.special
         }
-        deck(DeckTags.musical_notes) { data ->
-            data is MarkerSymbol && data.type in musicalNotesTypes
-        }
-        deck(DeckTags.markers) { data ->
+        deck(DeckTags.Unique.Markers.tag) { data ->
             data is MarkerSymbol && data.type !in (musicalNotesTypes + otherMusicalTypes)
         }
-        deck(DeckTags.digits) { data ->
+        deck(DeckTags.Unique.MusicalNotes.tag) { data ->
+            data is MarkerSymbol && data.type in musicalNotesTypes
+        }
+        deck(DeckTags.Unique.Digits.tag) { data ->
             data is Symbol && data.type == SymbolType.digit
         }
-        deck(DeckTags.math) { data ->
+        deck(DeckTags.Unique.Math.tag) { data ->
             data is Symbol && data.type == SymbolType.math
         }
-        deck(DeckTags.other_music) {data ->
+        deck(DeckTags.Unique.OtherMusic.tag) { data ->
             data is MarkerSymbol && data.type in otherMusicalTypes
         }
 
@@ -118,35 +119,38 @@ object StepAnnotation {
 }
 
 object DeckTags {
-    const val all = "all"
-    const val allWithRus = "all_with_rus"
-    const val ruLetters = "ru_letters"
-    const val latinLetters = "latin_letters"
-    const val greekLetters = "greek_letters"
-    const val digits = "digits"
-    const val markers = "markers"
-    const val special = "special"
-    const val math = "math"
-    const val musical_notes = "notes"
-    const val other_music = "other_music"
+    enum class Grouping(val tag: String) {
+        All("all"),
+        AllWithRus("all_with_rus")
+    }
+
+    enum class Unique(val tag: String) {
+        RuLetters("ru_letters"),
+        LatinLetters("latin_letters"),
+        GreekLetters("greek_letters"),
+        Digits("digits"),
+        Markers("markers"),
+        Special("special"),
+        Math("math"),
+        MusicalNotes("notes"),
+        OtherMusic("other_music")
+    }
 }
 
 val Context.deckTagToName: Map<String, String> by lazyWithContext {
-    DeckTags.run {
-        mapOf(
-            all to getString(R.string.deck_name_all),
-            allWithRus to getString(R.string.deck_name_all_but_foreign),
-            ruLetters to getString(R.string.deck_name_ru_letters),
-            latinLetters to getString(R.string.deck_name_latin_letters),
-            greekLetters to getString(R.string.deck_name_greek_letters),
-            digits to getString(R.string.deck_name_digits),
-            markers to getString(R.string.deck_name_markers),
-            special to getString(R.string.deck_name_punctuation),
-            math to getString(R.string.deck_name_math),
-            musical_notes to getString(R.string.deck_name_musical_notes),
-            other_music to getString(R.string.deck_other_musical_symbols)
-        )
-    }
+    mapOf(
+        DeckTags.Grouping.All.tag to getString(R.string.deck_name_all),
+        DeckTags.Grouping.AllWithRus.tag to getString(R.string.deck_name_all_but_foreign),
+        DeckTags.Unique.RuLetters.tag to getString(R.string.deck_name_ru_letters),
+        DeckTags.Unique.LatinLetters.tag to getString(R.string.deck_name_latin_letters),
+        DeckTags.Unique.GreekLetters.tag to getString(R.string.deck_name_greek_letters),
+        DeckTags.Unique.Digits.tag to getString(R.string.deck_name_digits),
+        DeckTags.Unique.Markers.tag to getString(R.string.deck_name_markers),
+        DeckTags.Unique.Special.tag to getString(R.string.deck_name_punctuation),
+        DeckTags.Unique.Math.tag to getString(R.string.deck_name_math),
+        DeckTags.Unique.MusicalNotes.tag to getString(R.string.deck_name_musical_notes),
+        DeckTags.Unique.OtherMusic.tag to getString(R.string.deck_other_musical_symbols)
+    )
 }
 
 val Fragment.deckTagToName

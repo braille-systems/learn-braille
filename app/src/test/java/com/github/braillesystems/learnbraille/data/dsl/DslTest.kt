@@ -86,7 +86,7 @@ private val prepopulationData by data(
         deck("En letters") {
             it is Symbol && it.type == "en"
         }
-        deck(DeckTags.all) { true }
+        deck(DeckTags.Grouping.All.tag) { true }
         // ...
     }
 }
@@ -164,7 +164,7 @@ private val mats = listOf(
 private val decks = listOf(
     Deck(2, "Ru letters"),
     Deck(3, "En letters"),
-    Deck(1, DeckTags.all)
+    Deck(1, DeckTags.Grouping.All.tag)
 )
 
 private val cards = listOf(
