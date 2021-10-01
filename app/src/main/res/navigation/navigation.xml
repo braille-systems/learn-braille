@@ -91,11 +91,22 @@
         android:name="com.github.braillesystems.learnbraille.ui.screens.browser.BrowserFragment"
         android:label="@string/browser_title">
         <action
-            android:id="@+id/action_browserFragment_to_symbolViewFragment"
+            android:id="@+id/action_browserFragment_to_browserDeckFragment"
+            app:destination="@id/browserDeckFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/browserDeckFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.browser.BrowserDeckFragment"
+        android:label="@string/browser_deck_title">
+        <action
+            android:id="@+id/action_browserDeckFragment_to_symbolViewFragment"
             app:destination="@id/symbolViewFragment" />
         <action
-            android:id="@+id/action_browserFragment_to_markerViewFragment"
+            android:id="@+id/action_browserDeckFragment_to_markerViewFragment"
             app:destination="@id/markerViewFragment" />
+
     </fragment>
 
     <fragment
