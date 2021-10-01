@@ -245,4 +245,17 @@
         app:destination="@id/showMarkerFragment"
         app:popUpTo="@id/menuFragment" />
 
+    <fragment
+        android:id="@+id/inputPhraseSymbolFragment"
+        android:name="com.github.braillesystems.learnbraille.ui.screens.theory.steps.input.InputPhraseSymbolFragment"
+        android:label="@string/lessons_title_input_symbol">
+        <argument
+            android:name="step"
+            app:argType="string" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_inputPhraseSymbolFragment"
+        app:destination="@id/inputPhraseSymbolFragment"
+        app:popUpTo="@id/menuFragment" />
+
 </navigation>

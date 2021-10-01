@@ -18,12 +18,13 @@
         <LinearLayout
             android:id = "@+id/top_text_pane"
             android:focusable="true"
-            android:importantForAccessibility="yes"
+            android:importantForAccessibility="no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/letter">
+            app:layout_constraintTop_toTopOf="@id/letter"
+            tools:contentDescription="ПАРИЖ - СТОЛИЦА ФРАНЦИИ">
 
             <TextView
                 android:id="@+id/prev_letters"

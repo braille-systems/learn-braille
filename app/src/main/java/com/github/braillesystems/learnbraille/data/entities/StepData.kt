@@ -92,8 +92,8 @@ data class InputPhraseLetter(
 ) : BaseInput() {
 
     override val brailleDots: BrailleDots
-        get() = when (phrase[pos].data) {
-            is OneBrailleSymbol -> material.data.brailleDots
+        get() = when (val data = phrase[pos].data) {
+            is OneBrailleSymbol -> data.brailleDots
         }
 }
 

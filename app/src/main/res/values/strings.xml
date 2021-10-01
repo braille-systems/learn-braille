@@ -108,6 +108,10 @@
     <string name="input_math_division">Введите знак деления (двумя точками)</string>
     <string name="input_math_equality">Введите знак равенства</string>
 
+    <string name="input_word_template">Ввод слова: %s. </string>>
+    <string name="input_phrase_template">Ввод фразы: %s; </string>
+    <string name="input_phrase_complete_template">Введены символы: %s; </string>
+
     <string name="show_letter_intro_template">Буква %s</string>
     <string name="show_latin_letter_intro_template">Латинская буква %s</string>
     <string name="show_greek_letter_intro_template">Греческая буква %s</string>

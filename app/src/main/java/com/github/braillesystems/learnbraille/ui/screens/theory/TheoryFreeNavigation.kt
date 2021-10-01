@@ -16,6 +16,7 @@ import com.github.braillesystems.learnbraille.utils.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 import timber.log.Timber
+import java.security.InvalidParameterException
 
 fun getAction(step: Step): NavDirections =
     stringify(Step.serializer(), step).let { arg ->
@@ -32,6 +33,11 @@ fun getAction(step: Step): NavDirections =
             is Show -> when (step.data.material.data) {
                 is Symbol -> MenuFragmentDirections.actionGlobalShowSymbolFragment(arg)
                 is MarkerSymbol -> MenuFragmentDirections.actionGlobalShowMarkerFragment(arg)
+            }
+            is InputPhraseLetter -> if (step.data.phrase[step.data.pos].data is Symbol) {
+                MenuFragmentDirections.actionGlobalInputPhraseSymbolFragment(arg)
+            } else {
+                throw InvalidParameterException("Only symbols are supported in InputPhraseLetter")
             }
         }
     }
