@@ -16,7 +16,7 @@ import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode
 import com.github.braillesystems.learnbraille.utils.checkedAnnounce
 import com.github.braillesystems.learnbraille.utils.getValue
 
-class InputPhraseSymbolFragment : AbstractInputStepFragment(R.string.lessons_help_input_phrase) {
+class InputPhraseSymbolFragment : AbstractInputStepFragment(R.string.lessons_help_input_symbol) {
 
     override fun onCreateView(
         inflater: LayoutInflater,

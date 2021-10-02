@@ -408,10 +408,6 @@
         ]]>
     </string>
 
-    <string name="lessons_help_input_phrase">
-        TODO
-    </string>
-
     <string name="lessons_help_show_symbol">
         <![CDATA[
         Пошаговый курс - <b>шаг с демонстрацией символа.</b>
