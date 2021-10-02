@@ -176,11 +176,11 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Е'))
         +Input(content.symbols.getValue('Е'))
         +Info("""В следующих трёх шагах нужно ввести буквы Б, А, Ц (вместе это слово БАЦ).""")
-        inputChars("БАЦ")
+        inputPhraseByLetters("БАЦ")
         +Info("""Теперь наберите в следующих трёх шагах, вводя букву за буквой, слово ДЕД.""")
-        inputChars("ДЕД")
+        inputPhraseByLetters("ДЕД")
         +Info("""Далее в следующих четырёх шагах введите слово БАБА.""")
-        inputChars("БАБА")
+        inputPhraseByLetters("БАБА")
         +Info(
             """Запишите на брайлевском приборе три строки: из букв Ц, Д и Е.
                     <br>
