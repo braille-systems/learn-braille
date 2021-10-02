@@ -76,7 +76,7 @@ class InputPhraseSymbolFragment : AbstractInputStepFragment(R.string.lessons_hel
     private fun taskDescription(currentChar: Char, prevText: String, nextText: String): String {
         val fullText = prevText + currentChar + nextText
         var enterPrompt = getString(
-            if (" " in fullText) R.string.input_phrase_template
+            if (fullText.contains(Regex("[ !?.,:;]"))) R.string.input_phrase_template
             else R.string.input_word_template
         ).format(fullText)
         if (prevText.isNotEmpty()) enterPrompt += getString(R.string.input_phrase_complete_template)
