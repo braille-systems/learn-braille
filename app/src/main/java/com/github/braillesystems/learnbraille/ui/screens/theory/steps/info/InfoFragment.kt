@@ -1,6 +1,7 @@
 package com.github.braillesystems.learnbraille.ui.screens.theory.steps.info
 
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -29,5 +30,7 @@ class InfoFragment : AbstractInfoStepFragment(R.string.lessons_help_info) {
             override val nextButton: Button? = this@iniStep.nextButton
             override val textView: TextView? = this@iniStep.infoTextView
         }
+    }.apply {
+        infoTextView.movementMethod = LinkMovementMethod.getInstance()
     }.root
 }

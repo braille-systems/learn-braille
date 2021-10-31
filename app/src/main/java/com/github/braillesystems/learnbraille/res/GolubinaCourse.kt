@@ -176,17 +176,26 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.symbols.getValue('Е'))
         +Input(content.symbols.getValue('Е'))
         +Info("""В следующих трёх шагах нужно ввести буквы Б, А, Ц (вместе это слово БАЦ).""")
-        inputChars("БАЦ")
+        inputPhraseByLetters("БАЦ")
         +Info("""Теперь наберите в следующих трёх шагах, вводя букву за буквой, слово ДЕД.""")
-        inputChars("ДЕД")
+        inputPhraseByLetters("ДЕД")
         +Info("""Далее в следующих четырёх шагах введите слово БАБА.""")
-        inputChars("БАБА")
+        inputPhraseByLetters("БАБА")
         +Info(
             """Запишите на брайлевском приборе три строки: из букв Ц, Д и Е.
                     <br>
                     После этого запишите через пробел слова: БАЦ, ДЕД, БАБА.
             """
         ).annotate(StepAnnotation.slateStylusRequired)
+        +Info("""Отметим, что правила написания букв и других символов соответствуют
+                 <b>стандартам общеупотребительного Брайля</b>, принятым в России, которые 
+                 утверждены Комиссией Центрального 
+                 правления Всероссийского общества слепых в 2013 году.
+                 Подробнее об этом можно прочесть на сайте комиссии:
+                 <br>
+                 <a href="http://www.chtenie.spb.ru/komissia.htm">www.chtenie.spb.ru/komissia.htm</a>
+           """
+        )
         +Info(InfoInterpolation.run {
             """Урок $iLesson закончен. В следующем занятии займёмся повторением букв А, Б, Ц, Д, Е
                  и потренируемся писать цифры от 1 до 5, образуемые с помощью этих букв. Рекомендуем
@@ -272,7 +281,7 @@ internal val golubinaIntroLessons by lessons {
                     Перед прохождением нового материала повторим пройденное.
                     В следующих пяти шагах нужно ввести буквы Б, E, Д, А (вместе это слово БЕДА)."""
         })
-        inputChars("БЕДА")
+        inputPhraseByLetters("БЕДА")
         +Info(
             """
                     Теперь познакомимся с буквами Ф и Г.
@@ -305,7 +314,7 @@ internal val golubinaIntroLessons by lessons {
             """
                     В следующих трёх шагах введите по буквам слово БЕГ."""
         )
-        inputChars("БЕГ")
+        inputPhraseByLetters("БЕГ")
         +Info(
             """
                     Цифровой знак и буква Ф за ним обозначают арабскую цифру 6 или число 6.
@@ -333,9 +342,9 @@ internal val golubinaIntroLessons by lessons {
                     По окончании этого урока Вы узнаете букву Х и цифру 8. 
                     Но перед изучением нового повторим пройденное. Введите по буквам слово ФЕБ."""
         })
-        inputChars("ФЕБ")
+        inputPhraseByLetters("ФЕБ")
         +Info("""В следующих шести шагах введите по буквам слово БАГДАД.""")
-        inputChars("БАГДАД")
+        inputPhraseByLetters("БАГДАД")
         +Info(
             """Наберите в следующих четырёх шагах число СТО ДВАДЦАТЬ ТРИ, поставив перед ним
                цифровой знак.
@@ -361,9 +370,9 @@ internal val golubinaIntroLessons by lessons {
         +Input(content.symbols.getValue('8'))
         slateStylusLine('Х')
         +Info("""В следующих шагах введите по буквам слово ЦЕХ""")
-        inputChars("ЦЕХ")
+        inputPhraseByLetters("ЦЕХ")
         +Info("""Наберите восклицание АХ""")
-        inputChars("АХ")
+        inputPhraseByLetters("АХ")
         +Info("""Далее введите, поставив цифровой знак, число "ВОСЕМЬСОТ СЕМЬДЕСЯТ ШЕСТЬ" """)
         inputNumber(876)
         +Info(
@@ -402,20 +411,20 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите буквы, составляющие слово БАГАЖ"""
         )
-        inputChars("БАГАЖ")
+        inputPhraseByLetters("БАГАЖ")
         +Info(
             """Введите буквы, составляющие слово ЖАЖДА"""
         )
-        inputChars("ЖАЖДА")
+        inputPhraseByLetters("ЖАЖДА")
         +Info(
             """Напомним, буква И кодируется двумя точками с номерами 2 и 4.
                     Введите буквы, образующие слово ГИД"""
         )
-        inputChars("ГИД")
+        inputPhraseByLetters("ГИД")
         +Info(
             """Введите буквы, которые образуют слово ИЖИЦА"""
         )
-        inputChars("ИЖИЦА")
+        inputPhraseByLetters("ИЖИЦА")
         +Info(
             """Введите по символам число 850"""
         )
@@ -450,7 +459,7 @@ internal val golubinaIntroLessons by lessons {
                     Перед занятием повторим пройденное. Введите по буквам слово ЕЖИХА.
                     """
         })
-        inputChars("ЕЖИХА")
+        inputPhraseByLetters("ЕЖИХА")
         +Info(
             """
                     Теперь перейдём к изучению материала.
@@ -475,11 +484,11 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите по буквам слово КЛАД"""
         )
-        inputChars("КЛАД")
+        inputPhraseByLetters("КЛАД")
         +Info(
             """Введите по буквам слово БЕЛКА"""
         )
-        inputChars("БЕЛКА")
+        inputPhraseByLetters("БЕЛКА")
         +Info(
             """
                     Сегодня осталось изучить букву М.
@@ -501,15 +510,15 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """В следующих трёх шагах ведите по буквам слово МЕЛ"""
         )
-        inputChars("МЕЛ")
+        inputPhraseByLetters("МЕЛ")
         +Info(
             """Введите по буквам слово МАК"""
         )
-        inputChars("МАК")
+        inputPhraseByLetters("МАК")
         +Info(
             """Напоследок введите по буквам слово ФИАЛКА"""
         )
-        inputChars("ФИАЛКА")
+        inputPhraseByLetters("ФИАЛКА")
         +Info(
             """
                     Напишите на брайлевском приборе пройденные в уроке слова:
@@ -538,7 +547,7 @@ internal val golubinaIntroLessons by lessons {
                     Начнём занятие с повторения. Введите по буквам слово КАМБАЛА.
                     """
         })
-        inputChars("КАМБАЛА")
+        inputPhraseByLetters("КАМБАЛА")
         +Info(
             """
                     Отлично, теперь познакомимся с буквой Н.
@@ -560,15 +569,15 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите по буквам слово БАНАН"""
         )
-        inputChars("БАНАН")
+        inputPhraseByLetters("БАНАН")
         +Info(
             """Введите по буквам слово ЦЕНА"""
         )
-        inputChars("ЦЕНА")
+        inputPhraseByLetters("ЦЕНА")
         +Info(
             """Теперь введите по буквам слово БЛАНК"""
         )
-        inputChars("БЛАНК")
+        inputPhraseByLetters("БЛАНК")
         +Info(
             """
                     С помощью брайлевского прибора запишите введённые ранее слова:
@@ -596,7 +605,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите по буквам слово НАДЕЖДА.
                     """
         })
-        inputChars("НАДЕЖДА")
+        inputPhraseByLetters("НАДЕЖДА")
         +Info(
             """
                     Идём дальше: теперь изучим букву 'О'.
@@ -616,7 +625,7 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Наберите по буквам слово ОБЛАКО"""
         )
-        inputChars("ОБЛАКО")
+        inputPhraseByLetters("ОБЛАКО")
         +Info(
             """
                     Кратко ознакомимся со знаком 'Запятая'.
@@ -629,15 +638,15 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Наберите по символам слово ЛОДКА и поставьте в конце запятую"""
         )
-        inputChars("ЛОДКА,")
+        inputPhraseByLetters("ЛОДКА,")
         +Info(
             """Аналогично предыдущему, введите слово КОФЕ и запятую"""
         )
-        inputChars("КОФЕ,")
+        inputPhraseByLetters("КОФЕ,")
         +Info(
             """Напоследок введите слово ГЕОЛОГ и тоже поставьте запятую в конце"""
         )
-        inputChars("ГЕОЛОГ,")
+        inputPhraseByLetters("ГЕОЛОГ,")
         +Info(
             """
                     Используя брайлевский прибор, запишите фразу:
@@ -665,7 +674,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите по буквам слово МОЛОКО и поставьте после него запятую.
                     """
         })
-        inputChars("МОЛОКО,")
+        inputPhraseByLetters("МОЛОКО,")
         +Info(
             """
                     Давайте познакомимся с буквой 'П'.
@@ -684,19 +693,19 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите отдельными символами слово ПЕНА"""
         )
-        inputChars("ПЕНА")
+        inputPhraseByLetters("ПЕНА")
         +Info(
             """Теперь нужно набрать по буквам слово ЛАМПА"""
         )
-        inputChars("ЛАМПА")
+        inputPhraseByLetters("ЛАМПА")
         +Info(
             """Наберите по буквам слово ПЛАН"""
         )
-        inputChars("ПЛАН")
+        inputPhraseByLetters("ПЛАН")
         +Info(
             """И последнее в этом уроке: введите по буквам слово КАПКАН"""
         )
-        inputChars("КАПКАН")
+        inputPhraseByLetters("КАПКАН")
         +Info(InfoInterpolation.run {
             """
                 Вот и пройден урок $iLesson. Следующее занятие отведено для изучения буквы Ч.
@@ -716,7 +725,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите по буквам слово ХЛОПОК.
                     """
         })
-        inputChars("ХЛОПОК")
+        inputPhraseByLetters("ХЛОПОК")
         +Info(
             """Введите отдельными символами число 215, поставив перед ним цифровой знак"""
         )
@@ -739,19 +748,19 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите по буквам слово ЧЕК"""
         )
-        inputChars("ЧЕК")
+        inputPhraseByLetters("ЧЕК")
         +Info(
             """Наберите отдельными буквами слово ОЧКИ"""
         )
-        inputChars("ОЧКИ")
+        inputPhraseByLetters("ОЧКИ")
         +Info(
             """Далее введите по буквам слово КОЧАН"""
         )
-        inputChars("КОЧАН")
+        inputPhraseByLetters("КОЧАН")
         +Info(
             """Введите по буквам ещё одно, последнее слово: БОЧОНОК"""
         )
-        inputChars("БОЧОНОК")
+        inputPhraseByLetters("БОЧОНОК")
         +Info(
             """
                     Запишите на брайлевском приборе изученные слова, разделяя их запятыми:
@@ -779,7 +788,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите по символам слово ПЧЕЛА.
                     """
         })
-        inputChars("ПЧЕЛА")
+        inputPhraseByLetters("ПЧЕЛА")
         +Info(
             """
                     Сегодня мы изучим букву 'Р'.
@@ -798,23 +807,23 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Наберите последовательно, по буквам слово РЕКА"""
         )
-        inputChars("РЕКА")
+        inputPhraseByLetters("РЕКА")
         +Info(
             """Наберите отдельными символами слово КРАН"""
         )
-        inputChars("КРАН")
+        inputPhraseByLetters("КРАН")
         +Info(
             """Далее в четырёх шагах введите по буквам слово КРЕМ"""
         )
-        inputChars("КРЕМ")
+        inputPhraseByLetters("КРЕМ")
         +Info(
             """Теперь введите по символам слово ФАРА"""
         )
-        inputChars("ФАРА")
+        inputPhraseByLetters("ФАРА")
         +Info(
             """Наберите аналогичным образом последнее слово в сегодняшнем уроке: ГАРАЖ"""
         )
-        inputChars("ГАРАЖ")
+        inputPhraseByLetters("ГАРАЖ")
         +Info(
             """
                     Возьмите брайлевский прибор и запишите через запятую пройденные слова:
@@ -840,7 +849,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите по буквам слово МАРАФОН
                     """
         })
-        inputChars("МАРАФОН")
+        inputPhraseByLetters("МАРАФОН")
         +Info(
             """
                     Предмет этого урока - буква 'С'.
@@ -860,23 +869,23 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """В следующих шагах наберите слово САЖА"""
         )
-        inputChars("САЖА")
+        inputPhraseByLetters("САЖА")
         +Info(
             """Наберите по буквам слово СЛЕД"""
         )
-        inputChars("СЛЕД")
+        inputPhraseByLetters("СЛЕД")
         +Info(
             """Введите буквы, образующие слово ФАСАД"""
         )
-        inputChars("ФАСАД")
+        inputPhraseByLetters("ФАСАД")
         +Info(
             """Введите буквы, которые составляют слово ДОСКА"""
         )
-        inputChars("ДОСКА")
+        inputPhraseByLetters("ДОСКА")
         +Info(
             """В завершение урока введите по буквам слово ЧЕСНОК"""
         )
-        inputChars("ЧЕСНОК")
+        inputPhraseByLetters("ЧЕСНОК")
         +Info(
             """
                     Осталось немного поработать с брайлевским прибором. Запишите на нём слова:
@@ -902,7 +911,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите символы, составляющие слово СОЛНЦЕ
                     """
         })
-        inputChars("СОЛНЦЕ")
+        inputPhraseByLetters("СОЛНЦЕ")
         +Info(
             """Теперь наберите число 870, сначала поставив цифровой знак"""
         )
@@ -925,11 +934,11 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Далее, пожалуйста, введите слово ТЕКСТ"""
         )
-        inputChars("ТЕКСТ")
+        inputPhraseByLetters("ТЕКСТ")
         +Info(
             """Введите по буквам слово ТОРТ"""
         )
-        inputChars("ТОРТ")
+        inputPhraseByLetters("ТОРТ")
         +Info(
             """
                     С этого момента мы начинаем осваивать символы, содержащие точку 6.
@@ -949,11 +958,11 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите по символам слово ПОЛ-ЛИМОНА"""
         )
-        inputChars("ПОЛ${Hyphen.c}ЛИМОНА")
+        inputPhraseByLetters("ПОЛ${Hyphen.c}ЛИМОНА")
         +Info(
             """И последнее слово, которое нужно ввести в этом уроке — местоимение ГДЕ-ЛИБО"""
         )
-        inputChars("ГДЕ${Hyphen.c}ЛИБО")
+        inputPhraseByLetters("ГДЕ${Hyphen.c}ЛИБО")
         +Info(
             """
                     Теперь рекомендуем Вам записать на брайлевском приборе изученные слова:
@@ -980,7 +989,7 @@ internal val golubinaIntroLessons by lessons {
                     На следующих этапах введите по буквам слово ТЕЛЕФОН
                     """
         })
-        inputChars("ТЕЛЕФОН")
+        inputPhraseByLetters("ТЕЛЕФОН")
         +Info(
             """
                     Начинаем знакомство с буквой У. Эта буква первая в нашем курсе содержит точку 6.
@@ -1000,23 +1009,23 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """В следующих шагах введите, пожалуйста, слово УГОЛ"""
         )
-        inputChars("УГОЛ")
+        inputPhraseByLetters("УГОЛ")
         +Info(
             """Наберите, последовательно вводя буквы, слово ЛУНА"""
         )
-        inputChars("ЛУНА")
+        inputPhraseByLetters("ЛУНА")
         +Info(
             """Введите буквы, формирующие слово КРУГ"""
         )
-        inputChars("КРУГ")
+        inputPhraseByLetters("КРУГ")
         +Info(
             """Введите буквы, которые бы составили слово ТРУД"""
         )
-        inputChars("ТРУД")
+        inputPhraseByLetters("ТРУД")
         +Info(
             """Последнее, что нужно набрать в этом уроке — слово ЧУДЕСА"""
         )
-        inputChars("ЧУДЕСА")
+        inputPhraseByLetters("ЧУДЕСА")
         +Info(
             """
                     Набранные в этом уроке слова запишем и на брайлевском приборе через запятую:
@@ -1043,7 +1052,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите буквы, которые сложатся в слово ХУДОЖНИК
                     """
         })
-        inputChars("ХУДОЖНИК")
+        inputPhraseByLetters("ХУДОЖНИК")
         +Info(
             """
                     Ознакомимся с буквой Щ.
@@ -1064,23 +1073,23 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Вводя букву за буквой, составьте слово ЩЕГОЛ"""
         )
-        inputChars("ЩЕГОЛ")
+        inputPhraseByLetters("ЩЕГОЛ")
         +Info(
             """Теперь наберите, пожалуйста, слово ПЛАЩ"""
         )
-        inputChars("ПЛАЩ")
+        inputPhraseByLetters("ПЛАЩ")
         +Info(
             """Наберите отдельными буквами слово КЛЕЩ"""
         )
-        inputChars("КЛЕЩ")
+        inputPhraseByLetters("КЛЕЩ")
         +Info(
             """Наберите буквы, которые бы составили слово ЩЕПКА"""
         )
-        inputChars("ЩЕПКА")
+        inputPhraseByLetters("ЩЕПКА")
         +Info(
             """И последнее: введите слово ОЩУЩЕНИЕ"""
         )
-        inputChars("ОЩУЩЕНИЕ")
+        inputPhraseByLetters("ОЩУЩЕНИЕ")
         +Info(
             """
                     Перед тем, как мы закончим занятие, запишите на брайлевском приборе все пройденные слова:
@@ -1106,7 +1115,7 @@ internal val golubinaIntroLessons by lessons {
                     Далее введите буквы слова ЩЕПОТКА
                     """
         })
-        inputChars("ЩЕПОТКА")
+        inputPhraseByLetters("ЩЕПОТКА")
         +Info(
             """
                     Новая буква, которую нам надо изучить - З.
@@ -1126,23 +1135,23 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Последовательно, по буквам введите слово ЗАКАЗ"""
         )
-        inputChars("ЗАКАЗ")
+        inputPhraseByLetters("ЗАКАЗ")
         +Info(
             """Теперь из отдельных букв наберите слово ЗЕРНО"""
         )
-        inputChars("ЗЕРНО")
+        inputPhraseByLetters("ЗЕРНО")
         +Info(
             """Наберите по буквам очень важное для нас слово АЗБУКА"""
         )
-        inputChars("АЗБУКА")
+        inputPhraseByLetters("АЗБУКА")
         +Info(
             """В следующих пяти шагах введите слово АРБУЗ"""
         )
-        inputChars("АРБУЗ")
+        inputPhraseByLetters("АРБУЗ")
         +Info(
             """И последнее, что сегодня осталось ввести: слово ЗАДАЧА"""
         )
-        inputChars("ЗАДАЧА")
+        inputPhraseByLetters("ЗАДАЧА")
         +Info(
             """
                     Для закрепления материала напишите слова на брайлевском приборе:
@@ -1168,7 +1177,7 @@ internal val golubinaIntroLessons by lessons {
                     Пожалуйста, введите буквы, образующие слово МИМОЗА
                     """
         })
-        inputChars("МИМОЗА")
+        inputPhraseByLetters("МИМОЗА")
         +Info(
             """Также в качестве повторения введите цифровой знак, а за ним число 964"""
         )
@@ -1194,23 +1203,23 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Буква за буквой, введите точечным шрифтом слово КЛЕЙ"""
         )
-        inputChars("КЛЕЙ")
+        inputPhraseByLetters("КЛЕЙ")
         +Info(
             """Введите отдельными символами второе слово с буквой Й: УЛЕЙ"""
         )
-        inputChars("УЛЕЙ")
+        inputPhraseByLetters("УЛЕЙ")
         +Info(
             """Наберите, пожалуйста, по буквам слово РЕЙС"""
         )
-        inputChars("РЕЙС")
+        inputPhraseByLetters("РЕЙС")
         +Info(
             """Осталось ещё два задания. В следующих четырёх шагах введите слово ЗНОЙ"""
         )
-        inputChars("ЗНОЙ")
+        inputPhraseByLetters("ЗНОЙ")
         +Info(
             """Наконец, введите последнее слово в этом уроке: РАЙОН"""
         )
-        inputChars("РАЙОН")
+        inputPhraseByLetters("РАЙОН")
         +Info(
             """
                     Все пройденные слова следует записать на брайлевском приборе. Напомним, это слова
@@ -1239,7 +1248,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите по буквам прилагательное ОСЕННИЙ
                     """
         })
-        inputChars("ОСЕННИЙ")
+        inputPhraseByLetters("ОСЕННИЙ")
         +Info(
             """
                     Мы готовы к изучению твёрдого знака.
@@ -1260,11 +1269,11 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите по буквам слово СЪЕЗД"""
         )
-        inputChars("СЪЕЗД")
+        inputPhraseByLetters("СЪЕЗД")
         +Info(
             """Символ за символом, наберите слово СУБЪЕКТ"""
         )
-        inputChars("СУБЪЕКТ")
+        inputPhraseByLetters("СУБЪЕКТ")
         +Info(
             """
                     Теперь постараемся запомнить обозначение литературной точки.
@@ -1291,7 +1300,7 @@ internal val golubinaIntroLessons by lessons {
                     В конце поставьте литературную точку.
                     """
         )
-        inputChars("ЛЕНИНГРАД${Hyphen.c}ГОРОД${Hyphen.c}ГЕРОЙ.")
+        inputPhraseByLetters("ЛЕНИНГРАД${Hyphen.c}ГОРОД${Hyphen.c}ГЕРОЙ.")
         +Info(
             """
                     Теперь запишите на брайлевском приборе то же самое предложение:
@@ -1317,7 +1326,7 @@ internal val golubinaIntroLessons by lessons {
                     Ради закрепления пройденного введите по символам слово ОБЪЕДИНЕНИЕ
                     """
         })
-        inputChars("ОБЪЕДИНЕНИЕ")
+        inputPhraseByLetters("ОБЪЕДИНЕНИЕ")
         +Info(
             """Также повторим специальные символы.
                     Введите цифровой знак, запятую, дефис и точку"""
@@ -1343,23 +1352,23 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Набирая буквы одна за одной, введите слово МЫЛО"""
         )
-        inputChars("МЫЛО")
+        inputPhraseByLetters("МЫЛО")
         +Info(
             """Далее введите ещё одно слово по буквам: ЛЫЖИ"""
         )
-        inputChars("ЛЫЖИ")
+        inputPhraseByLetters("ЛЫЖИ")
         +Info(
             """Теперь введите буквы, из которых складывается слово КЛЫК"""
         )
-        inputChars("КЛЫК")
+        inputPhraseByLetters("КЛЫК")
         +Info(
             """Наберите предпоследнее слово в этом уроке - слово МУЗЫКА"""
         )
-        inputChars("МУЗЫКА")
+        inputPhraseByLetters("МУЗЫКА")
         +Info(
             """Введите последнее слово - существительное во множественном числе: КОЗЫ"""
         )
-        inputChars("КОЗЫ")
+        inputPhraseByLetters("КОЗЫ")
         +Info(
             """
                     Все изученные слова, пожалуйста, запишите и на брайлевском приборе:
@@ -1386,7 +1395,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите, набирая отдельные буквы, прилагательное РЫЖИЙ
                     """
         })
-        inputChars("РЫЖИЙ")
+        inputPhraseByLetters("РЫЖИЙ")
         +Info(
             """
                     Два урока назад мы изучали твёрдый знак, а теперь освоим и мягкий знак тоже.
@@ -1408,24 +1417,24 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите по буквам существительное СОЛЬ"""
         )
-        inputChars("СОЛЬ")
+        inputPhraseByLetters("СОЛЬ")
         +Info(
             """Теперь нужно ввести слово МЕЛЬ"""
         )
-        inputChars("МЕЛЬ")
+        inputPhraseByLetters("МЕЛЬ")
         +Info(
             """Далее, пожалуйста, составьте из букв слово КОНЬ"""
         )
-        inputChars("КОНЬ")
+        inputPhraseByLetters("КОНЬ")
         +Info(
             """Осталось ввести два слова.
                     Первое - существительное во множественном числе: РУЧЬИ"""
         )
-        inputChars("РУЧЬИ")
+        inputPhraseByLetters("РУЧЬИ")
         +Info(
             """Введите последнее в этом занятии слово: СТАЛЬ"""
         )
-        inputChars("СТАЛЬ")
+        inputPhraseByLetters("СТАЛЬ")
         +Info(
             """
                     Как обычно, напишите на брайлевском приборе изученные слова:
@@ -1451,7 +1460,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите шаг за шагом слово АПЕЛЬСИН
                     """
         })
-        inputChars("АПЕЛЬСИН")
+        inputPhraseByLetters("АПЕЛЬСИН")
         +Info(
             """
                     Теперь приступим к изучению буквы, которая сравнительно недавно появилась 
@@ -1473,11 +1482,11 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Шаг за шагом введите слово ЁЛКА"""
         )
-        inputChars("ЁЛКА")
+        inputPhraseByLetters("ЁЛКА")
         +Info(
             """Введите далее название имя ещё одного дерева - КЛЁН"""
         )
-        inputChars("КЛЁН")
+        inputPhraseByLetters("КЛЁН")
         +Info(
             """
                     Теперь давайте посмотрим на букву Ш.
@@ -1496,19 +1505,19 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Наберите отдельными символами слово ШЁЛК"""
         )
-        inputChars("ШЁЛК")
+        inputPhraseByLetters("ШЁЛК")
         +Info(
             """Теперь введите буквы, которые вместе складываются в слово ШЕСТ"""
         )
-        inputChars("ШЕСТ")
+        inputPhraseByLetters("ШЕСТ")
         +Info(
             """Введите предпоследнее слово в нашем уроке, слово ШАРФ"""
         )
-        inputChars("ШАРФ")
+        inputPhraseByLetters("ШАРФ")
         +Info(
             """Наконец, перед тем, как мы закончим урок, введите слово КОШКА"""
         )
-        inputChars("КОШКА")
+        inputPhraseByLetters("КОШКА")
         +Info(
             """
                     Используя брайлевский прибор, запишите изученные в этом уроке существительные:
@@ -1536,7 +1545,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите по буквам слово МИШЕНЬ
                     """
         })
-        inputChars("МИШЕНЬ")
+        inputPhraseByLetters("МИШЕНЬ")
         +Info(
             """
                     Познакомимся с точечным составом буквы, последней в русском алфавите, 
@@ -1558,25 +1567,25 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите брайлевские буквы, которые составляют слово ЯБЛОКО"""
         )
-        inputChars("ЯБЛОКО")
+        inputPhraseByLetters("ЯБЛОКО")
         +Info(
             """В следующих пяти шагах нужно ввести слово ЯГОДА"""
         )
-        inputChars("ЯГОДА")
+        inputPhraseByLetters("ЯГОДА")
         +Info(
             """Далее, пожалуйста, наберите отдельными буквами слово ПЯТНО"""
         )
-        inputChars("ПЯТНО")
+        inputPhraseByLetters("ПЯТНО")
         +Info(
             """Ещё два слова нужно ввести в этом уроке.
                     <br>
                     Первое - название птицы: ЦАПЛЯ"""
         )
-        inputChars("ЦАПЛЯ")
+        inputPhraseByLetters("ЦАПЛЯ")
         +Info(
             """Последнее слово в сегодняшнем уроке - ЗЕМЛЯ"""
         )
-        inputChars("ЗЕМЛЯ")
+        inputPhraseByLetters("ЗЕМЛЯ")
         +Info(
             """
                     Запишите на брайлевском приборе изученные слова с буквой Я:
@@ -1602,7 +1611,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите, набирая отдельные буквы, слово ПОЛЯНА и поставьте после него запятую
                     """
         })
-        inputChars("ПОЛЯНА,")
+        inputPhraseByLetters("ПОЛЯНА,")
         +Info(
             """
                     В этом уроке нам надо познакомиться с буквой Ю.
@@ -1623,28 +1632,28 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Наберите по символам слово с новой буквой: ЮБКА"""
         )
-        inputChars("ЮБКА")
+        inputPhraseByLetters("ЮБКА")
         +Info(
             """В следующих четырёх шагах наберите слово УТЮГ"""
         )
-        inputChars("УТЮГ")
+        inputPhraseByLetters("УТЮГ")
         +Info(
             """Заметьте, что буква Т и буква Ю получаются друг из друга отражением 
                     по вертикали. 
                     <br>
                     После этого шага, пожалуйста, введите по буквам слово ТЮБИК"""
         )
-        inputChars("ТЮБИК")
+        inputPhraseByLetters("ТЮБИК")
         +Info(
             """Нам осталось выполнить два задания, после чего урок заканчивается.
                     <br>
                     Первое: введите слово ТРЮК"""
         )
-        inputChars("ТРЮК")
+        inputPhraseByLetters("ТРЮК")
         +Info(
             """Завершающее задание в этом уроке - введите буквы слова СЮЖЕТ"""
         )
-        inputChars("СЮЖЕТ")
+        inputPhraseByLetters("СЮЖЕТ")
         +Info(
             """
                     Снова возьмите брайлевский прибор и напишите пройденные слова с буквами Ю, Т:
@@ -1672,7 +1681,7 @@ internal val golubinaIntroLessons by lessons {
                     Введите по буквам слово ИНТЕРЕСНЫЙ
                     """
         })
-        inputChars("ИНТЕРЕСНЫЙ")
+        inputPhraseByLetters("ИНТЕРЕСНЫЙ")
         +Info(
             """Ещё перед началом урока мы чуть-чуть повторим числа. Введите цифровой знак и
                     за ним число 1984
@@ -1700,29 +1709,29 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Вводя отдельные буквы, составьте слово ЭХО"""
         )
-        inputChars("ЭХО")
+        inputPhraseByLetters("ЭХО")
         +Info(
             """Обратите внимание, буква 'Э' образуется зеркальным отражением буквы 'О'
                     вдоль вертикальной оси.
                     <br>
                     В следующих пяти шагах наберите по буквам слово ПОЭМА"""
         )
-        inputChars("ПОЭМА")
+        inputPhraseByLetters("ПОЭМА")
         +Info(
             """Теперь мы попросим Вас ввести слово ЭКРАН"""
         )
-        inputChars("ЭКРАН")
+        inputPhraseByLetters("ЭКРАН")
         +Info(
             """
                     В этом уроке ещё два задания на ввод слов.
                     <br>
                     Первое из них: составьте слово ЭПИЗОД"""
         )
-        inputChars("ЭПИЗОД")
+        inputPhraseByLetters("ЭПИЗОД")
         +Info(
             """В последнем задании нужно ввести слово ЭСТРАДА"""
         )
-        inputChars("ЭСТРАДА")
+        inputPhraseByLetters("ЭСТРАДА")
         +Info(
             """
                     Теперь запишите введённые ранее слова на брайлевском приборе:
@@ -1749,7 +1758,7 @@ internal val golubinaIntroLessons by lessons {
                     Пожалуйста, наберите буквы, составляющие слово ЭНЦИКЛОПЕДИЯ
                     """
         })
-        inputChars("ЭНЦИКЛОПЕДИЯ")
+        inputPhraseByLetters("ЭНЦИКЛОПЕДИЯ")
         +Info(
             """
                     Изучим последнюю букву, которую мы пока не рассматривали - букву 'В'.
@@ -1772,29 +1781,29 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Наберите первое слово с буквой 'В' - слово ВОР"""
         )
-        inputChars("ВОР")
+        inputPhraseByLetters("ВОР")
         +Info(
             """Мы не случайно привели слово, содержащее буквы 'В' и 'Р'. Обратите внимание, что
                     каждая из них получается зеркальным отражением другой по вертикали.
                     <br>
                     Далее введите по символам слово ВРАЧ"""
         )
-        inputChars("ВРАЧ")
+        inputPhraseByLetters("ВРАЧ")
         +Info(
             """В следующих шести шагах введите, пожалуйста, буквы слова ВОРОНА"""
         )
-        inputChars("ВОРОНА")
+        inputPhraseByLetters("ВОРОНА")
         +Info(
             """
                     Нужно составить ещё два слова.
                     <br>
                     Введите по буквам слово СЕВЕР"""
         )
-        inputChars("СЕВЕР")
+        inputPhraseByLetters("СЕВЕР")
         +Info(
             """Заключительное упражнение: наберите слово КОРОВА"""
         )
-        inputChars("КОРОВА")
+        inputPhraseByLetters("КОРОВА")
         +Info(
             """
                     Не забудьте для тренировки написать на брайлевском приборе набранные слова:
@@ -1822,7 +1831,7 @@ internal val golubinaIntroLessons by lessons {
                 В виде разминки перед уроком введите по буквам слово ДВОЕТОЧИЕ
                 """
         })
-        inputChars("ДВОЕТОЧИЕ")
+        inputPhraseByLetters("ДВОЕТОЧИЕ")
         +Info(
             """
                     В рельефно-точечном алфавите точка с запятой обозначается точками с номерами 2
@@ -1847,7 +1856,7 @@ internal val golubinaIntroLessons by lessons {
                     В следующих шагах введите слово РАЗДЕЛЕНИЕ; и поставьте в конце точку с запятой.
             """
         )
-        inputChars("РАЗДЕЛЕНИЕ;")
+        inputPhraseByLetters("РАЗДЕЛЕНИЕ;")
         +Info(
             """
                     Двоеточие записывается в азбуке Брайля с помощью точек 2 и 5. Похоже на дефис,
@@ -1870,7 +1879,7 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите по буквам слово ВЫВОД: и поставьте в конце двоеточие"""
         )
-        inputChars("ВЫВОД:")
+        inputPhraseByLetters("ВЫВОД:")
         +Info(
             """
                     Перепишите, используя брайлевский прибор, предложение со страницы 54 пособия:
@@ -1897,7 +1906,7 @@ internal val golubinaIntroLessons by lessons {
                     Перед стартом немного повторения. Введите слово <b>"ВОСКЛИЦАНИЕ"</b>
                     """
         })
-        inputChars("ВОСКЛИЦАНИЕ")
+        inputPhraseByLetters("ВОСКЛИЦАНИЕ")
         +Info(
             """
                     Вопросительный знак - точки 2 и 6. Как буква Е, но точки сдвинуты на один ряд вниз.
@@ -1919,9 +1928,9 @@ internal val golubinaIntroLessons by lessons {
         +Info(
             """Введите вопрос: ГДЕ?"""
         )
-        inputChars("ГДЕ?")
+        inputPhraseByLetters("ГДЕ?")
         +Info("""Наберите по буквам вопрос: КОГДА?""")
-        inputChars("КОГДА?")
+        inputPhraseByLetters("КОГДА?")
 
         +Info(
             """
@@ -1941,7 +1950,7 @@ internal val golubinaIntroLessons by lessons {
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Info("""В завершение урока введите слово с восклицательным знаком на конце: ЧУДЕСНО!""")
-        inputChars("ЧУДЕСНО!")
+        inputPhraseByLetters("ЧУДЕСНО!")
         +Info(InfoInterpolation.run {
             """
                 Поздравляем. Урок $iLesson - восклицательный и вопросительный знак - завершён.
@@ -1962,7 +1971,7 @@ internal val golubinaIntroLessons by lessons {
                 восклицательный знак.
                 """
         })
-        inputChars("ВНИМАНИЕ!")
+        inputPhraseByLetters("ВНИМАНИЕ!")
         +Info(
             """
                     Левая открывающая скобка обозначается точками с номерами 1, 2 и 6, правая - 3,
@@ -1982,7 +1991,7 @@ internal val golubinaIntroLessons by lessons {
             """
         ).annotate(StepAnnotation.golubinaBookRequired)
         +Info("""Введите слово <b>(ВЕРОЯТНО)</b>, заключив его в скобки""")
-        inputChars("(ВЕРОЯТНО)")
+        inputPhraseByLetters("(ВЕРОЯТНО)")
         +Info(
             """
                     Теперь изучим кавычки. Левая (открывающая) кавычка - это точки 2, 3 и 6, правая
@@ -1994,7 +2003,7 @@ internal val golubinaIntroLessons by lessons {
         )
         showAndInputChars("«»")
         +Info("""Введите название повести Тургенева - <b>«НАКАНУНЕ»</b>, заключив его в кавычки""")
-        inputChars("«НАКАНУНЕ»")
+        inputPhraseByLetters("«НАКАНУНЕ»")
         +Info(
             """
                     Нам осталось изучить ещё один символ в этом уроке - знак "Звёздочка".
@@ -2212,7 +2221,7 @@ internal val golubinaIntroLessons by lessons {
                     """
         )
         +Input(content.markers.getValue(MarkerType.LatinCapital))
-        inputChars("BRAILLE")
+        inputPhraseByLetters("BRAILLE")
         +Info(InfoInterpolation.run {
             """
                На этом урок $iLesson завершается. В следующем занятии аналогичным образом 
@@ -2316,10 +2325,8 @@ internal val golubinaIntroLessons by lessons {
         ).annotate(StepAnnotation.golubinaBookRequired)
         showAndInputChars("ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ")
         +Info("""
-            Изученное нами соответствие греческих букв шеститочиям - лишь один из возможных вариантов,
-            принятый в советской и российской математической нотации.
-            Распространены также два других стандарта: международный и греческий литературный,
-            которые отличаются в нескольких символах и не изучаются в нашем кратком курсе.
+            Мы изучили греческие символы так, как они пишутся в советских и российских математических учебниках.
+            Есть и другие варианты записи греческих брайлевских букв, но в нашем кратком курсе они не рассматриваются.
         """)
         +LastInfo(InfoInterpolation.run {
             """

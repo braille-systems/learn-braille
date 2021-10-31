@@ -141,7 +141,7 @@ class DataBuilder(
         DecksBuilder(block).side {
             it.deckToPredicate.forEach { (deck, p) ->
                 val deckId =
-                    if (deck.tag == DeckTags.all) ALL_CARDS_DECK_ID
+                    if (deck.tag == DeckTags.Grouping.All.tag) ALL_CARDS_DECK_ID
                     else decks.size + 2L
                 val deckMaterials = materials.filter { material -> p(material.data) }
                 if (deckMaterials.isNotEmpty()) {

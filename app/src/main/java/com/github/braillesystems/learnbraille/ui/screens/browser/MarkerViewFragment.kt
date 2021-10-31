@@ -39,11 +39,9 @@ enum class NoteDuration(
     HALF(titleStrId = R.string.note_duration_half, dot3 = true, dot6 = false, valueMillis = 500),
     FULL(titleStrId = R.string.note_duration_full, dot3 = true, dot6 = true, valueMillis = 1000);
 
-    // Converts a note of any duration in Braille to the note of the current duration
-    fun modifiedNote(note: BrailleDots): BrailleDots = BrailleDots(
-        note.b1, note.b2, BrailleDot.valueOf(dot3),
-        note.b4, note.b5, BrailleDot.valueOf(dot6)
-    )
+    /// Converts a note of any duration in Braille to the note of the current duration
+    fun modifiedNote(note: BrailleDots): BrailleDots =
+        note.copy(b3 = BrailleDot.valueOf(dot3), b6 = BrailleDot.valueOf(dot6))
 }
 
 private val noteToFreq = mapOf(
@@ -74,6 +72,7 @@ class MarkerViewFragment : AbstractFragmentWithHelp(R.string.browser_marker_view
                     getString(duration.titleStrId),
                     duration.modifiedNote(brailleDots).spelling
                 )
+                textSize = resources.getDimension(R.dimen.dialog_items_text_size)
                 durationToButtonsMap[duration] = this
             })
         }

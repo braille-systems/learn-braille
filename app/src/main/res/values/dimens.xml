@@ -46,4 +46,6 @@
     <dimen name="list_item_margin">8dp</dimen>
     <dimen name="margin_text">20dp</dimen>
 
+    <dimen name="dialog_items_text_size">7.5sp</dimen>
+
 </resources>
