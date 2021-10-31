@@ -326,7 +326,7 @@ fun updateTheoryAndMaterials(database: SupportSQLiteDatabase) {
 private val MIGRATION_18_19 = object : Migration(18, 19) {
     override fun migrate(database: SupportSQLiteDatabase) {
         Timber.i("Start 18-19 migration")
-        updateTheoryAndMaterials(database = database)
+        updateTheoryAndMaterials(database)
         Timber.i("Finish 18-19 migration")
     }
 }
@@ -334,7 +334,7 @@ private val MIGRATION_18_19 = object : Migration(18, 19) {
 private val MIGRATION_19_20 = object : Migration(19, 20) {
     override fun migrate(database: SupportSQLiteDatabase) {
         Timber.i("Start 19-20 migration")
-        updateTheoryAndMaterials(database = database)
+        updateTheoryAndMaterials(database)
         Timber.i("Finish 19-20 migration")
     }
 }
