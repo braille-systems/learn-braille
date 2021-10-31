@@ -6,7 +6,7 @@ complexity:
   LongMethod:
     excludes: ['**/*Fragment.kt', '**/*Application.kt', '**/LearnBrailleDatabase.kt']
   ComplexMethod:
-    excludes: ['**/*Fragment.kt']
+    excludes: ['**/*Fragment.kt', '**/LearnBrailleDatabase.kt']
   LongParameterList:
     excludes: ['**/*Repository.kt']  # Dependency injection
 
