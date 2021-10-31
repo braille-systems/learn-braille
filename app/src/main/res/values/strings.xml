@@ -23,6 +23,7 @@
     <string name="preference_extended_accessibility">extended_accessibility</string>
     <string name="preference_additional_qrcode_button_enabled">additional_qrcode_button_enabled</string>
     <string name="preferences_is_write_mode_first">is_write_mode_first</string>
+    <string name="preference_teacher_mode_enabled">teacher_mode_enabled</string>
 
     <string name="braille_dots_mode_writing">Порядок точек: "письмо"</string>
     <string name="braille_dots_mode_reading">Порядок точек: "чтение"</string>
@@ -75,6 +76,30 @@
     <string name="input_mod_bold">Введите признак жирного шрифта</string>
     <string name="input_mod_italic">Введите признак курсивного шрифта</string>
 
+    <string name="input_music_note_c">Введите ноту ДО</string>
+    <string name="input_music_note_d">Введите ноту РЕ</string>
+    <string name="input_music_note_e">Введите ноту МИ</string>
+    <string name="input_music_note_f">Введите ноту ФА</string>
+    <string name="input_music_note_g">Введите ноту СОЛЬ</string>
+    <string name="input_music_note_a">Введите ноту ЛЯ</string>
+    <string name="input_music_note_b">Введите ноту СИ</string>
+
+    <string name="input_music_rest_8th">Введите паузу длительности одна восьмая</string>
+    <string name="input_music_rest_4th">Введите паузу длительности одна четверть</string>
+    <string name="input_music_rest_half">Введите паузу половинной длительности</string>
+    <string name="input_music_rest_full">Введите целую паузу</string>
+    <string name="input_music_octave1">Введите обозначение первой октавы</string>
+    <string name="input_music_octave2">Введите обозначение второй октавы</string>
+    <string name="input_music_octave3">Введите обозначение третьей октавы</string>
+    <string name="input_music_octave4">Введите обозначение четвёртой октавы</string>
+    <string name="input_music_octave5">Введите обозначение пятой октавы</string>
+    <string name="input_music_octave6">Введите обозначение шестой октавы</string>
+    <string name="input_music_octave7">Введите обозначение седьмой октавы</string>
+    <string name="input_music_hyphen">Введите музыкальный знак переноса</string>
+    <string name="input_music_sharp">Введите диез</string>
+    <string name="input_music_flat">Введите бемоль</string>
+    <string name="input_music_natural">Введите бекар</string>
+
     <string name="input_math_plus">Введите знак Плюс</string>
     <string name="input_math_minus">Введите знак Минус</string>
     <string name="input_math_dot_mult">Введите знак умножения точкой</string>
@@ -82,6 +107,10 @@
     <string name="input_math_division_fraction">Введите знак деления (углом)</string>
     <string name="input_math_division">Введите знак деления (двумя точками)</string>
     <string name="input_math_equality">Введите знак равенства</string>
+
+    <string name="input_word_template">Ввод слова: %s. </string>>
+    <string name="input_phrase_template">Ввод фразы: %s; </string>
+    <string name="input_phrase_complete_template">Введены символы: %s; </string>
 
     <string name="show_letter_intro_template">Буква %s</string>
     <string name="show_latin_letter_intro_template">Латинская буква %s</string>
@@ -110,6 +139,30 @@
     <string name="show_mod_num_sign">Цифровой знак</string>
     <string name="show_mod_bold">Признак жирного шрифта</string>
     <string name="show_mod_italic">Признак курсивного шрифта</string>
+
+    <string name="show_music_note_c">Нота ДО</string>
+    <string name="show_music_note_d">Нота РЕ</string>
+    <string name="show_music_note_e">Нота МИ</string>
+    <string name="show_music_note_f">Нота ФА</string>
+    <string name="show_music_note_g">Нота СОЛЬ</string>
+    <string name="show_music_note_a">Нота ЛЯ</string>
+    <string name="show_music_note_b">Нота СИ</string>
+
+    <string name="show_music_rest_8th">Пауза длительности одна восьмая</string>
+    <string name="show_music_rest_4th">Пауза длительности одна четверть</string>
+    <string name="show_music_rest_half">Пауза половинной длительности</string>
+    <string name="show_music_rest_full">Целая пауза</string>
+    <string name="show_music_octave1">Обозначение первой октавы</string>
+    <string name="show_music_octave2">Обозначение второй октавы</string>
+    <string name="show_music_octave3">Обозначение третьей октавы</string>
+    <string name="show_music_octave4">Обозначение четвёртой октавы</string>
+    <string name="show_music_octave5">Обозначение пятой октавы</string>
+    <string name="show_music_octave6">Обозначение шестой октавы</string>
+    <string name="show_music_octave7">Обозначение седьмой октавы</string>
+    <string name="show_music_hyphen">Музыкальный знак переноса</string>
+    <string name="show_music_sharp">Диез</string>
+    <string name="show_music_flat">Бемоль</string>
+    <string name="show_music_natural">Бекар</string>
 
     <string name="show_math_plus">Знак Плюс</string>
     <string name="show_math_minus">Знак Минус</string>
@@ -157,6 +210,8 @@
     <string name="deck_name_punctuation">Знаки препинания</string>
     <string name="deck_name_markers">Специальные символы</string>
     <string name="deck_name_math">Математические символы</string>
+    <string name="deck_name_musical_notes">Ноты</string>
+    <string name="deck_other_musical_symbols">Прочие музыкальные знаки</string>
 
 
     <string name="practice_help">
@@ -187,6 +242,9 @@
         По нажатию этой кнопки будет выведено сообщение с верными номерами точек, шеститочие будет
         заполнено правильными точками и недоступно для переключения. После этого нужно нажать кнопку
         <b>\"далее\"</b> и ввести тот же символ ещё раз.
+        &<br>
+        При вводе цифр мы не требуем вводить цифровой знак, но помните, что его всегда нужно ставить
+        перед числами при письме.
         ]]>
     </string>
 
@@ -442,6 +500,7 @@
     <!--    Browser-->
 
     <string name="browser_title">Список символов</string>
+    <string name="browser_deck_title">Колода</string>
     <string name="browser_represent_template">%s: точки %s</string>
     <string name="browser_symbol_view_title">Просмотр символа</string>
 
@@ -451,14 +510,31 @@
         цифры или специального символа. Буквы расположены здесь в алфавитном порядке,
         а не в порядке \"ключа Брайля\", как они изучаются в курсе.
         &<br>
+        Нажмите на название группы символов в списке групп (например, "русские буквы"), чтобы
+        перейти к списку символов в этой группе.
+        &<br>
         Помните, что при написании чисел нужно вначале ставить цифровой знак. При написании слов на
         латинице или по-гречески внутри русского текста в начале слова надо ставить признак
-        латинской / греческой буквы.
-        &<br>
-        Нажатие на символ в списке (или двойное нажатие, если Вы используете программу TalkBack)
-        открывает окно, где этот символ крупным шрифтом выведен на экран.
+        латинской / греческой буквы. Греческие буквы указаны в соответствии с советским (российским)
+        математическим стандартом.
         &<br>
         Из этого раздела можно выйти в главное меню, нажав кнопку <b>\"Перейти вверх\"</b>
+        в левом верхнем углу экрана.
+        ]]>
+    </string>
+
+    <string name="browser_deck_help">
+        <![CDATA[
+        В этом разделе показаны символы, отнесённые к группе, выбранной Вами в предыдущем меню.
+        &<br>
+        Нажатие на элемент в списке (или двойное нажатие, если Вы используете средство экранного чтения)
+        открывает окно, где шеститочечное обозначение символа выведено на экран.
+        &<br>
+        Напоминаем: при написании чисел нужно вначале ставить цифровой знак. При написании слов на
+        латинице или по-гречески внутри русского текста в начале слова надо ставить признак
+        латинской или греческой буквы соответственно.
+        &<br>
+        Из этого разделела можно вернуться к предыдущему, нажав кнопку <b>\"Перейти вверх\"</b>
         в левом верхнем углу экрана.
         ]]>
     </string>
@@ -482,6 +558,16 @@
         в левом верхнем углу экрана.
         ]]>
     </string>
+
+    <string name="note_duration_description">Длительность ноты</string>
+    <string name="note_play_description">Воспроизвести ноту</string>
+    <string name="note_title_duration_template">%s\n(Длительность: %s)</string>
+    <string name="browser_note_duration_dialog_title">Выберите длительность ноты</string>
+    <string name="browser_note_duration_dialog_confirm">ОК</string>
+    <string name="note_duration_8th">восьмая</string>
+    <string name="note_duration_4th">четвертная</string>
+    <string name="note_duration_half">половинная</string>
+    <string name="note_duration_full">целая</string>
 
     <!--    Settings-->
 
@@ -539,6 +625,24 @@
     <string name="preference_summary_is_write_mode_forst">
         При заходе в практику или шаг с вводом точек столбец с точками 1, 2, 3 находится справа,
         как при письме на брайлевском приборе.
+    </string>
+    <string name="preference_title_teacher_mode">
+        Режим преподавателя
+    </string>
+    <string name="preference_summary_teacher_mode">
+        В режиме преподавателя доступны все уроки и не ведётся учёт статистики. Для активации потребуется ввести код преподавателя.
+    </string>
+    <string name="preference_wrong_code_teacher_mode">
+        Неверный код, попробуйте ещё раз
+    </string>
+    <string name="preference_code_dialog_title">
+        Введите код преподавателя
+    </string>
+    <string name="preference_code_dialog_ok">
+        Ввод
+    </string>
+    <string name="preference_code_dialog_cancel">
+        Отмена
     </string>
 
     <!--    Stats-->

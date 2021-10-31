@@ -9,10 +9,16 @@
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
         <item name="android:colorBackground">@color/colorBackground</item>>
+        <item name="android:alertDialogTheme">@style/AlertDialogCustom</item>
 
         <item name="materialButtonStyle">
             @style/Widget.MaterialComponents.Button
         </item>
+    </style>
+
+    <style name="AlertDialogCustom" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorBackground</item>
     </style>
 
     <style name="bigButtonsShape">
@@ -61,10 +67,22 @@
     <style name="bigLetterCaptionStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_text</item>
+        <item name="android:layout_marginEnd">@dimen/margin_text</item>
         <item name="android:importantForAccessibility">no</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">@dimen/lessons_title_text_size</item>
         <item name="android:paddingTop">@dimen/big_letter_caption_padding</item>
+    </style>
+
+    <style name="dotsInfoStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/lessons_dots_info_height</item>
+        <item name="android:layout_marginStart">@dimen/margin_text</item>
+        <item name="android:layout_marginEnd">@dimen/margin_text</item>
+        <item name="android:text" />
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/lessons_info_text_size</item>
     </style>
 
     <style name="SwitchPreferenceButton" parent="Theme.AppCompat.Light">

@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.github.braillesystems.learnbraille.data.entities.Material" />
+            type="com.github.braillesystems.learnbraille.ui.screens.browser.DeckOrMaterial" />
 
         <variable
             name="clickListener"

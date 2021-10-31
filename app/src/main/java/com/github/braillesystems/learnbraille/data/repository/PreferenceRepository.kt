@@ -25,6 +25,7 @@ interface PreferenceRepository {
     val extendedAccessibilityEnabled: Boolean
     val additionalQrCodeButtonEnabled: Boolean
     val isWriteModeFirst: Boolean
+    val teacherModeEnabled: Boolean
 
     val currentUserId: DBid
     suspend fun getCurrentUser(): User
@@ -119,6 +120,13 @@ class PreferenceRepositoryImpl(
         context.preferences.getBoolean(
             context.getString(R.string.preferences_is_write_mode_first),
             true
+        )
+    }
+
+    override val teacherModeEnabled: Boolean by logged {
+        context.preferences.getBoolean(
+            context.getString(R.string.preference_teacher_mode_enabled),
+            false
         )
     }
 

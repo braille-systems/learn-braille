@@ -29,12 +29,7 @@
     <dimen name="lessons_info_width">270dp</dimen>
     <dimen name="lessons_info_height">0dp</dimen>
     <dimen name="lessons_info_text_size">18sp</dimen>
-    <dimen name="lessons_letter_vertical_bias">0.0</dimen>
-    <dimen name="lessons_dots_info_width">394dp</dimen>
     <dimen name="lessons_dots_info_height">175dp</dimen>
-    <dimen name="lessons_info_horizontal_bias">0.5</dimen>
-    <dimen name="lessons_info_top_margin">10dp</dimen>
-    <dimen name="lessons_info_vertical_bias">0.2</dimen>
 
     <dimen name="big_letter_text_size">170sp</dimen>
     <dimen name="big_letter_caption_padding">5dp</dimen>
@@ -50,5 +45,7 @@
     <dimen name="list_item_padding">18dp</dimen>
     <dimen name="list_item_margin">8dp</dimen>
     <dimen name="margin_text">20dp</dimen>
+
+    <dimen name="dialog_items_text_size">7.5sp</dimen>
 
 </resources>

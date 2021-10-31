@@ -3,13 +3,13 @@ package com.github.braillesystems.learnbraille.data.repository
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.github.braillesystems.learnbraille.data.UnreachablePreferencesRepository
 import com.github.braillesystems.learnbraille.data.db.LearnBrailleDatabase
 import com.github.braillesystems.learnbraille.data.entities.*
-import com.github.braillesystems.learnbraille.data.entities.BrailleDot.E
-import com.github.braillesystems.learnbraille.data.entities.BrailleDot.F
-import com.github.braillesystems.learnbraille.res.MarkerType
+import com.github.braillesystems.learnbraille.data.entities.StepAnnotation
+import com.github.braillesystems.learnbraille.data.entities.BrailleDot.*
+import com.github.braillesystems.learnbraille.res.*
 import com.github.braillesystems.learnbraille.res.SymbolType
-import com.github.braillesystems.learnbraille.utils.unreachable
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -157,29 +157,9 @@ class MaterialsRepositoryTest {
 
         repo = MaterialsRepositoryImpl(
             db.deckDao, db.cardDao,
-            object : PreferenceRepository {
-                override val buzzEnabled: Boolean
-                    get() = unreachable
-                override val toastsEnabled: Boolean
-                    get() = unreachable
-                override val golubinaBookStepsEnabled: Boolean
-                    get() = unreachable
-                override val slateStylusStepsEnabled: Boolean
-                    get() = unreachable
-                override val traverseDotsInEnumerationOrder: Boolean
-                    get() = unreachable
-                override val inputOnFlyCheck: Boolean
-                    get() = unreachable
-                override val additionalAnnouncementsEnabled: Boolean
-                    get() = unreachable
+            object : UnreachablePreferencesRepository() {
                 override val practiceUseOnlyKnownMaterials: Boolean
                     get() = true
-                override val extendedAccessibilityEnabled: Boolean
-                    get() = unreachable
-                override val additionalQrCodeButtonEnabled: Boolean
-                    get() = unreachable
-                override val isWriteModeFirst: Boolean
-                    get() = unreachable
                 override val currentUserId: DBid
                     get() = 1
 

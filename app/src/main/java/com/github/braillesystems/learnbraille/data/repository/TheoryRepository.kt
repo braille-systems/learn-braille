@@ -13,6 +13,7 @@ interface TheoryRepository {
 }
 
 interface MutableTheoryRepository : TheoryRepository {
+    suspend fun setCurrentStep(curr: CurrentStep)
     suspend fun nextStepAndMove(thisStep: Step, markThisAsPassed: Boolean = false): Step?
     suspend fun prevStepAndMove(thisStep: Step): Step?
     suspend fun currentStepAndMove(courseId: DBid): Step
@@ -37,6 +38,9 @@ class TheoryRepositoryImpl(
             if (preferenceRepository.slateStylusStepsEnabled) null
             else StepAnnotation.slateStylusRequired
         )
+
+    override suspend fun setCurrentStep(curr: CurrentStep) =
+        currentStepDao.update(curr)
 
     @Suppress("ReturnCount")
     override suspend fun nextStepAndMove(thisStep: Step, markThisAsPassed: Boolean): Step? {
@@ -87,14 +91,23 @@ class TheoryRepositoryImpl(
     /**
      * LessonId is supposed to exist for this courseId.
      */
-    override suspend fun lastLessonOrCurrentStepAndMove(courseId: DBid, lessonId: DBid): Step =
-        stepDao
-            .lastStep(preferenceRepository.currentUserId, courseId, lessonId)
-            ?.also { updateLast(it) }
-            ?: error(
-                "No such lessonId ($lessonId) exists for course ($courseId) " +
-                        "or current step is behind lesson with such lessonId"
-            )
+    override suspend fun lastLessonOrCurrentStepAndMove(courseId: DBid, lessonId: DBid): Step {
+        val lastStep = stepDao.lastStep(preferenceRepository.currentUserId, courseId, lessonId)
+        if (lastStep != null) {
+            updateLast(lastStep)
+            return lastStep
+        }
+        if (preferenceRepository.teacherModeEnabled) {
+            val step = stepDao.step(courseId, lessonId)
+                ?: error("No such lessonId ($lessonId) exists for course ($courseId)")
+            updateLast(step)
+            return step
+        }
+        error(
+            "No such lessonId ($lessonId) exists for course ($courseId) " +
+                    "or current step is behind lesson with such lessonId"
+        )
+    }
 
     override suspend fun currentStep(courseId: DBid): Step =
         stepDao

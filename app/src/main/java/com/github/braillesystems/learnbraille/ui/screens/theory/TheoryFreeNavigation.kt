@@ -16,6 +16,7 @@ import com.github.braillesystems.learnbraille.utils.*
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 import timber.log.Timber
+import java.security.InvalidParameterException
 
 fun getAction(step: Step): NavDirections =
     stringify(Step.serializer(), step).let { arg ->
@@ -33,7 +34,15 @@ fun getAction(step: Step): NavDirections =
                 is Symbol -> MenuFragmentDirections.actionGlobalShowSymbolFragment(arg)
                 is MarkerSymbol -> MenuFragmentDirections.actionGlobalShowMarkerFragment(arg)
             }
+            is InputPhraseLetter -> inputPhraseNavigation(step.data.phrase, step.data.pos, arg)
         }
+    }
+
+fun inputPhraseNavigation(phrase: Phrase, pos: Int, destination: String): NavDirections =
+    if (phrase[pos].data is Symbol) {
+        MenuFragmentDirections.actionGlobalInputPhraseSymbolFragment(destination)
+    } else {
+        throw InvalidParameterException("Only symbols are supported in InputPhraseLetter")
     }
 
 fun AbstractStepFragment.getStepArg(): Step =
@@ -77,12 +86,17 @@ fun AbstractStepFragment.toCurrentStep(
     toStep(currStep)
 }.devnull
 
-fun Fragment.toLastCourseStep(
+fun Fragment.toLastOrCurrCourseStep(
     courseId: Long,
     theoryRepository: TheoryRepository = get()
 ): Unit = scope().launch {
+    val currStep = theoryRepository.currentStep(courseId)
     val lastStep = theoryRepository.lastCourseStep(courseId)
-    toStep(lastStep)
+    toStep(
+        // currStep < lastStep can occur after disabling teacher mode
+        if (currStep < lastStep) currStep
+        else lastStep
+    )
 }.devnull
 
 fun Fragment.toLastLessonStep(

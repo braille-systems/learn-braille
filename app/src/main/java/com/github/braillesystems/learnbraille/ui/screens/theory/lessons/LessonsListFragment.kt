@@ -60,7 +60,7 @@ class LessonsListFragment : AbstractFragment() {
                     if (item.id == last.lessonId) Typeface.BOLD
                     else Typeface.NORMAL
                 )
-                if (item.id <= curr.lessonId) {
+                if (preferenceRepository.teacherModeEnabled || item.id <= curr.lessonId) {
                     clickListener = activeListener
                     lessonName.setTextColor(
                         ContextCompat.getColor(
