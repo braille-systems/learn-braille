@@ -36,3 +36,8 @@ fun StepsBuilder.slateStylusLine(char: Char) {
         "Запишите на брайлевском приборе строку, состоящую из одного символа: $char."
     ).annotate(StepAnnotation.slateStylusRequired)
 }
+
+fun StepsBuilder.inputNumber(number: Int) {
+    +Input(content.markers.getValue(MarkerType.NumberSign))
+    inputChars(number.toString())
+}
