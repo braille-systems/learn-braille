@@ -2270,17 +2270,6 @@ internal val golubinaIntroLessons by lessons {
             )
         )
         +Info("""
-            Каждая строка в нотах должна начинаться с обозначения октавы. В следующих шагах
-            посмотрим на их обозначения. 
-        """)
-        +Show(content.markers.getValue(MarkerType.OctaveMark1))
-        +Show(content.markers.getValue(MarkerType.OctaveMark2))
-        +Show(content.markers.getValue(MarkerType.OctaveMark3))
-        +Show(content.markers.getValue(MarkerType.OctaveMark4))
-        +Show(content.markers.getValue(MarkerType.OctaveMark5))
-        +Show(content.markers.getValue(MarkerType.OctaveMark6))
-        +Show(content.markers.getValue(MarkerType.OctaveMark7))
-        +Info("""
             Последний набор символов, с которыми мы сегодня ознакомимся:
             <br>
             Знаки альтерации - диез, бемоль и бекар;

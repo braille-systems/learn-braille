@@ -49,13 +49,6 @@ enum class MarkerType {
     MusicRest4th,
     MusicRestHalf,
     MusicRestFull,
-    OctaveMark1,
-    OctaveMark2,
-    OctaveMark3,
-    OctaveMark4,
-    OctaveMark5,
-    OctaveMark6,
-    OctaveMark7,
     MusicHyphen,
     MusicSharp,
     MusicFlat,
@@ -262,13 +255,6 @@ private val otherMusicalSymbols by markers {
     marker(MarkerType.MusicRest4th, BrailleDots(F, F, F, E, E, F))
     marker(MarkerType.MusicRestHalf, BrailleDots(F, E, F, E, E, F))
     marker(MarkerType.MusicRestFull, BrailleDots(F, E, F, F, E, E))
-    marker(MarkerType.OctaveMark1, BrailleDots(E, E, E, F, E, E))
-    marker(MarkerType.OctaveMark2, BrailleDots(E, E, E, F, F, E))
-    marker(MarkerType.OctaveMark3, BrailleDots(E, E, E, F, F, F))
-    marker(MarkerType.OctaveMark4, BrailleDots(E, E, E, E, F, E))
-    marker(MarkerType.OctaveMark5, BrailleDots(E, E, E, F, E, F))
-    marker(MarkerType.OctaveMark6, BrailleDots(E, E, E, E, F, F))
-    marker(MarkerType.OctaveMark7, BrailleDots(E, E, E, E, E, F))
     marker(MarkerType.MusicHyphen, BrailleDots(E, E, E, E, F, E))
     marker(MarkerType.MusicSharp, brailleDots = BrailleDots(F, E, E, F, E, F))
     marker(MarkerType.MusicFlat, brailleDots = BrailleDots(F, F, E, E, E, F))
@@ -622,46 +608,6 @@ val Context.inputMarkerPrintRules by rules<Context, MarkerType, String>(
     },
 
     {
-        val s = getString(R.string.input_music_octave1)
-        MarkerType.OctaveMark1::equals to { _: MarkerType -> s }
-    },
-
-    {
-        val s = getString(R.string.input_music_octave2)
-        MarkerType.OctaveMark2::equals to { _: MarkerType -> s }
-    },
-
-    {
-        val s = getString(R.string.input_music_octave3)
-        MarkerType.OctaveMark3::equals to { _: MarkerType -> s }
-    },
-
-    {
-        val s = getString(R.string.input_music_octave4)
-        MarkerType.OctaveMark4::equals to { _: MarkerType -> s }
-    },
-
-    {
-        val s = getString(R.string.input_music_octave5)
-        MarkerType.OctaveMark5::equals to { _: MarkerType -> s }
-    },
-
-    {
-        val s = getString(R.string.input_music_octave6)
-        MarkerType.OctaveMark6::equals to { _: MarkerType -> s }
-    },
-
-    {
-        val s = getString(R.string.input_music_octave7)
-        MarkerType.OctaveMark7::equals to { _: MarkerType -> s }
-    },
-
-    {
-        val s = getString(R.string.input_music_hyphen)
-        MarkerType.MusicHyphen::equals to { _: MarkerType -> s }
-    },
-
-    {
         val s = getString(R.string.input_music_sharp)
         MarkerType.MusicSharp::equals to { _: MarkerType -> s }
     },
@@ -785,41 +731,6 @@ val Context.showMarkerPrintRules by rules<Context, MarkerType, String>(
     {
         val s = getString(R.string.show_music_rest_full)
         MarkerType.MusicRestFull::equals to { _: MarkerType -> s }
-    },
-
-    {
-        val s = getString(R.string.show_music_octave1)
-        MarkerType.OctaveMark1::equals to { _: MarkerType -> s }
-    },
-
-    {
-        val s = getString(R.string.show_music_octave2)
-        MarkerType.OctaveMark2::equals to { _: MarkerType -> s }
-    },
-
-    {
-        val s = getString(R.string.show_music_octave3)
-        MarkerType.OctaveMark3::equals to { _: MarkerType -> s }
-    },
-
-    {
-        val s = getString(R.string.show_music_octave4)
-        MarkerType.OctaveMark4::equals to { _: MarkerType -> s }
-    },
-
-    {
-        val s = getString(R.string.show_music_octave5)
-        MarkerType.OctaveMark5::equals to { _: MarkerType -> s }
-    },
-
-    {
-        val s = getString(R.string.show_music_octave6)
-        MarkerType.OctaveMark6::equals to { _: MarkerType -> s }
-    },
-
-    {
-        val s = getString(R.string.show_music_octave7)
-        MarkerType.OctaveMark7::equals to { _: MarkerType -> s }
     },
 
     {
