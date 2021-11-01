@@ -608,6 +608,11 @@ val Context.inputMarkerPrintRules by rules<Context, MarkerType, String>(
     },
 
     {
+        val s = getString(R.string.input_music_hyphen)
+        MarkerType.MusicHyphen::equals to { _: MarkerType -> s }
+    },
+
+    {
         val s = getString(R.string.input_music_sharp)
         MarkerType.MusicSharp::equals to { _: MarkerType -> s }
     },
