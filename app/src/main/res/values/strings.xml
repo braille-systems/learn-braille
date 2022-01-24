@@ -88,6 +88,13 @@
     <string name="input_music_rest_4th">Введите паузу длительности одна четверть</string>
     <string name="input_music_rest_half">Введите паузу половинной длительности</string>
     <string name="input_music_rest_full">Введите целую паузу</string>
+    <string name="input_music_counter_octave">Введите обозначение контроктавы</string>
+    <string name="input_music_octave_big">Введите обозначение большой октавы</string>
+    <string name="input_music_octave_small">Введите обозначение малой октавы</string>
+    <string name="input_music_octave1">Введите обозначение первой октавы</string>
+    <string name="input_music_octave2">Введите обозначение второй октавы</string>
+    <string name="input_music_octave3">Введите обозначение третьей октавы</string>
+    <string name="input_music_octave4">Введите обозначение четвёртой октавы</string>
     <string name="input_music_hyphen">Введите музыкальный знак переноса</string>
     <string name="input_music_sharp">Введите диез</string>
     <string name="input_music_flat">Введите бемоль</string>
@@ -145,6 +152,13 @@
     <string name="show_music_rest_4th">Пауза длительности одна четверть</string>
     <string name="show_music_rest_half">Пауза половинной длительности</string>
     <string name="show_music_rest_full">Целая пауза</string>
+    <string name="show_music_counter_octave">Обозначение контроктавы</string>
+    <string name="show_music_octave_big">Обозначение большой октавы</string>
+    <string name="show_music_octave_small">Обозначение малой октавы</string>
+    <string name="show_music_octave1">Обозначение первой октавы</string>
+    <string name="show_music_octave2">Обозначение второй октавы</string>
+    <string name="show_music_octave3">Обозначение третьей октавы</string>
+    <string name="show_music_octave4">Обозначение четвёртой октавы</string>
     <string name="show_music_hyphen">Музыкальный знак переноса</string>
     <string name="show_music_sharp">Диез</string>
     <string name="show_music_flat">Бемоль</string>

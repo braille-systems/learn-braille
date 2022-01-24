@@ -2280,6 +2280,18 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.markers.getValue(MarkerType.MusicSharp))
         +Show(content.markers.getValue(MarkerType.MusicFlat))
         +Show(content.markers.getValue(MarkerType.MusicNatural))
+        +Show(content.markers.getValue(MarkerType.MusicHyphen))
+        +Info("""
+            Каждая строка в нотах должна начинаться с обозначения октавы. В следующих шагах
+            посмотрим на их обозначения. 
+        """)
+        +Show(content.markers.getValue(MarkerType.OctaveMarkBig))
+        +Show(content.markers.getValue(MarkerType.OctaveMarkSmall))
+        +Show(content.markers.getValue(MarkerType.OctaveMark1))
+        +Show(content.markers.getValue(MarkerType.OctaveMark2))
+        +Show(content.markers.getValue(MarkerType.OctaveMark3))
+        +Show(content.markers.getValue(MarkerType.OctaveMark4))
+        +Show(content.markers.getValue(MarkerType.CounterOctaveMark))
         +Info(InfoInterpolation.run {
             """
                 Урок $iLesson на этом завершается.
