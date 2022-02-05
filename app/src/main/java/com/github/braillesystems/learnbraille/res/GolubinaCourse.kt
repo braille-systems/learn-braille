@@ -2270,7 +2270,7 @@ internal val golubinaIntroLessons by lessons {
             )
         )
         +Info("""
-            Последний набор символов, с которыми мы сегодня ознакомимся:
+            Ещё один набор символов, с которыми мы сегодня ознакомимся:
             <br>
             Знаки альтерации - диез, бемоль и бекар;
             <b>Музыкальный перенос</b> - аналог обычного текстового переноса в нотах.
@@ -2283,7 +2283,7 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.markers.getValue(MarkerType.MusicHyphen))
         +Info("""
             Каждая строка в нотах должна начинаться с обозначения октавы. В следующих шагах
-            посмотрим на их обозначения. 
+            посмотрим на эти символы.
         """)
         +Show(content.markers.getValue(MarkerType.OctaveMarkBig))
         +Show(content.markers.getValue(MarkerType.OctaveMarkSmall))
