@@ -31,7 +31,7 @@ import timber.log.Timber
         CurrentStep::class, LastCourseStep::class, LastLessonStep::class,
         Action::class
     ],
-    version = 21,
+    version = 22,
     exportSchema = true
 )
 @TypeConverters(
@@ -136,7 +136,8 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
                 MIGRATION_17_18,
                 MIGRATION_18_19,
                 MIGRATION_19_20,
-                MIGRATION_20_21
+                MIGRATION_20_21,
+                MIGRATION_21_22
             )
             .build()
             .init()
@@ -340,7 +341,7 @@ private val MIGRATION_19_20 = object : Migration(19, 20) {
     }
 }
 
-private val MIGRATION_20_21 = object: Migration(20, 21) {
+private val MIGRATION_20_21 = object : Migration(20, 21) {
     override fun migrate(database: SupportSQLiteDatabase) {
         Timber.i("Start 20-21 migration")
         updateTheoryAndMaterials(database)
@@ -348,3 +349,10 @@ private val MIGRATION_20_21 = object: Migration(20, 21) {
     }
 }
 
+private val MIGRATION_21_22 = object : Migration(21, 22) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        Timber.i("Start 21-22 migration")
+        updateTheoryAndMaterials(database)
+        Timber.i("Finish 21-22 migration")
+    }
+}
