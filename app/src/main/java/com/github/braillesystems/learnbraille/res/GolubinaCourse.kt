@@ -2270,18 +2270,7 @@ internal val golubinaIntroLessons by lessons {
             )
         )
         +Info("""
-            Каждая строка в нотах должна начинаться с обозначения октавы. В следующих шагах
-            посмотрим на их обозначения. 
-        """)
-        +Show(content.markers.getValue(MarkerType.OctaveMark1))
-        +Show(content.markers.getValue(MarkerType.OctaveMark2))
-        +Show(content.markers.getValue(MarkerType.OctaveMark3))
-        +Show(content.markers.getValue(MarkerType.OctaveMark4))
-        +Show(content.markers.getValue(MarkerType.OctaveMark5))
-        +Show(content.markers.getValue(MarkerType.OctaveMark6))
-        +Show(content.markers.getValue(MarkerType.OctaveMark7))
-        +Info("""
-            Последний набор символов, с которыми мы сегодня ознакомимся:
+            Ещё один набор символов, с которыми мы сегодня ознакомимся:
             <br>
             Знаки альтерации - диез, бемоль и бекар;
             <b>Музыкальный перенос</b> - аналог обычного текстового переноса в нотах.
@@ -2291,6 +2280,18 @@ internal val golubinaIntroLessons by lessons {
         +Show(content.markers.getValue(MarkerType.MusicSharp))
         +Show(content.markers.getValue(MarkerType.MusicFlat))
         +Show(content.markers.getValue(MarkerType.MusicNatural))
+        +Show(content.markers.getValue(MarkerType.MusicHyphen))
+        +Info("""
+            Каждая строка в нотах должна начинаться с обозначения октавы. В следующих шагах
+            посмотрим на эти символы.
+        """)
+        +Show(content.markers.getValue(MarkerType.OctaveMarkBig))
+        +Show(content.markers.getValue(MarkerType.OctaveMarkSmall))
+        +Show(content.markers.getValue(MarkerType.OctaveMark1))
+        +Show(content.markers.getValue(MarkerType.OctaveMark2))
+        +Show(content.markers.getValue(MarkerType.OctaveMark3))
+        +Show(content.markers.getValue(MarkerType.OctaveMark4))
+        +Show(content.markers.getValue(MarkerType.CounterOctaveMark))
         +Info(InfoInterpolation.run {
             """
                 Урок $iLesson на этом завершается.
