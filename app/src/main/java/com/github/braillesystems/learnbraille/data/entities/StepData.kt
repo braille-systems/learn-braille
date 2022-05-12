@@ -123,7 +123,6 @@ sealed class BaseShow : StepData() {
 data class Show(
     val material: Material
 ) : BaseShow() {
-
     override val brailleDots: BrailleDots
         get() = when (material.data) {
             is OneBrailleSymbol -> material.data.brailleDots
