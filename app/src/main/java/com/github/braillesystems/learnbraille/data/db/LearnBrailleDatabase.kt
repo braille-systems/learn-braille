@@ -18,8 +18,8 @@ import com.github.braillesystems.learnbraille.utils.logged
 import com.github.braillesystems.learnbraille.utils.scope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.get
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 import timber.log.Timber
 
 @Database(

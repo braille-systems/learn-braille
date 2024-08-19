@@ -10,18 +10,19 @@ import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.CheckBox
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.list
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
+import com.github.braillesystems.learnbraille.databinding.BrailleDotsViewBinding
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode.Reading
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode.Writing
 import com.github.braillesystems.learnbraille.utils.*
-import kotlinx.android.synthetic.main.braille_dots_view.view.*
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import timber.log.Timber
 
 @SuppressLint("AppCompatCustomView") // Causes BrailleDotView misplacement
@@ -62,6 +63,12 @@ val BrailleDotsViewMode.reflected: BrailleDotsViewMode
 class BrailleDotsView : ConstraintLayout, KoinComponent {
 
     private val preferenceRepository: PreferenceRepository by inject()
+    val dotButton1: BrailleDotView
+    val dotButton2: BrailleDotView
+    val dotButton3: BrailleDotView
+    val dotButton4: BrailleDotView
+    val dotButton5: BrailleDotView
+    val dotButton6: BrailleDotView
 
     constructor(context: Context) : super(context)
 
@@ -74,9 +81,13 @@ class BrailleDotsView : ConstraintLayout, KoinComponent {
     )
 
     init {
-        LayoutInflater
-            .from(context)
-            .inflate(R.layout.braille_dots_view, this, true)
+        val binding = BrailleDotsViewBinding.inflate(LayoutInflater.from(context), this, false)
+        dotButton1 = binding.dotButton1
+        dotButton2 = binding.dotButton2
+        dotButton3 = binding.dotButton3
+        dotButton4 = binding.dotButton4
+        dotButton5 = binding.dotButton5
+        dotButton6 = binding.dotButton6
     }
 
     // After changing traversal order neighbor views forget that braille dots are next

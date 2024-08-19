@@ -34,8 +34,7 @@ abstract class AbstractFragmentWithHelp(private val helpMsgId: HelpMsgId) : Abst
 
     private fun navigateToHelp(helpMsg: String) {
         Timber.i("Navigate to help")
-        val action = HelpFragmentDirections.actionGlobalHelpFragment()
-        action.helpMessage = helpMsg
+        val action = HelpFragmentDirections.actionGlobalHelpFragment(helpMsg)
         navigate(action)
     }
 }
