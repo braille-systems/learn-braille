@@ -50,7 +50,9 @@ class StatsFragment : AbstractFragmentWithHelp(R.string.stats_help) {
                 }
 
                 view.theoryStepsPassed.text = actions.count { it.type is TheoryPassStep }.toString()
-                view.theoryInputStepsPassed.text = actions.count { it.type is TheoryPassStep && it.type.isInput }.toString()
+                view.theoryInputStepsPassed.text = actions
+                    .count { it.type is TheoryPassStep && it.type.isInput }
+                    .toString()
             }
         }
 

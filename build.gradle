@@ -17,7 +17,3 @@ plugins {
     id 'org.jetbrains.kotlin.kapt' version "$kotlin_version" apply false
     id 'org.jetbrains.dokka' version "$version_dokka" apply false
 }
-
-//tasks.register('clean', Delete) {
-//    delete rootProject.buildDir
-//}
