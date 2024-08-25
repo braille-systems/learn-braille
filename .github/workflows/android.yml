@@ -33,7 +33,7 @@ jobs:
 #          api-level: 29
 #          script: ./gradlew connectedCheck
       - name: Generate documentation
-        run: ./gradlew dokka
+        run: ./gradlew dokkaHtml
       - name: Upload APK to artifacts
         uses: actions/upload-artifact@v1
         with:

@@ -23,11 +23,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    compileSdkVersion 34
     defaultConfig {
         applicationId "com.github.braillesystems.learnbraille"
         minSdkVersion 24
-        targetSdkVersion 34
+        targetSdkVersion 33
+        compileSdk 34
         versionCode 21
         versionName "1.3.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -41,17 +41,6 @@ android {
         }
     }
     productFlavors {
-    }
-    dokka {
-        outputDirectory = "$buildDir/dokka"
-        packageOptions {
-            prefix = "android"
-            suppress = true
-        }
-        packageOptions{
-            prefix = "androidx"
-            suppress = true
-        }
     }
     buildFeatures {
         viewBinding true
