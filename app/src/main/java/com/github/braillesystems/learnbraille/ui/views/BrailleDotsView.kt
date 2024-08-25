@@ -10,7 +10,6 @@ import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.CheckBox
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.databinding.DataBindingUtil
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.entities.BrailleDot
 import com.github.braillesystems.learnbraille.data.entities.BrailleDots
@@ -20,7 +19,10 @@ import com.github.braillesystems.learnbraille.data.repository.PreferenceReposito
 import com.github.braillesystems.learnbraille.databinding.BrailleDotsViewBinding
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode.Reading
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode.Writing
-import com.github.braillesystems.learnbraille.utils.*
+import com.github.braillesystems.learnbraille.utils.announce
+import com.github.braillesystems.learnbraille.utils.chainify
+import com.github.braillesystems.learnbraille.utils.forEach
+import com.github.braillesystems.learnbraille.utils.unreachable
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import timber.log.Timber
@@ -63,25 +65,32 @@ val BrailleDotsViewMode.reflected: BrailleDotsViewMode
 class BrailleDotsView : ConstraintLayout, KoinComponent {
 
     private val preferenceRepository: PreferenceRepository by inject()
-    val dotButton1: BrailleDotView
-    val dotButton2: BrailleDotView
-    val dotButton3: BrailleDotView
-    val dotButton4: BrailleDotView
-    val dotButton5: BrailleDotView
-    val dotButton6: BrailleDotView
+    lateinit var dotButton1: BrailleDotView
+    lateinit var dotButton2: BrailleDotView
+    lateinit var dotButton3: BrailleDotView
+    lateinit var dotButton4: BrailleDotView
+    lateinit var dotButton5: BrailleDotView
+    lateinit var dotButton6: BrailleDotView
 
-    constructor(context: Context) : super(context)
+    constructor(context: Context) : super(context) {
+        init()
+    }
 
-    constructor(context: Context, attrSet: AttributeSet) : super(context, attrSet)
+    constructor(context: Context, attrSet: AttributeSet) : super(context, attrSet) {
+        init()
+    }
 
     constructor(
         context: Context, attrSet: AttributeSet, defStyleAttr: Int
     ) : super(
         context, attrSet, defStyleAttr
-    )
+    ) {
+        init()
+    }
 
-    init {
-        val binding = BrailleDotsViewBinding.inflate(LayoutInflater.from(context), this, false)
+    private fun init() {
+        Timber.d("Inflating dots")
+        val binding = BrailleDotsViewBinding.inflate(LayoutInflater.from(context), this, true)
         dotButton1 = binding.dotButton1
         dotButton2 = binding.dotButton2
         dotButton3 = binding.dotButton3
