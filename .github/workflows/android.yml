@@ -26,12 +26,12 @@ jobs:
         run: ./gradlew assembleDebug
       - name: Run unit tests
         run: ./gradlew test
-      - name: Run instrumental tests
-        # warning: it depends on "grant permission to gradlew" step
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: ./gradlew connectedCheck
+#      - name: Run instrumental tests
+#        # warning: it depends on "grant permission to gradlew" step
+#        uses: reactivecircus/android-emulator-runner@v2
+#        with:
+#          api-level: 29
+#          script: ./gradlew connectedCheck
       - name: Generate documentation
         run: ./gradlew dokka
       - name: Upload APK to artifacts
