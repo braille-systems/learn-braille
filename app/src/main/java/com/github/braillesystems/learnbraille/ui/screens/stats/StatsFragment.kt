@@ -15,8 +15,6 @@ import com.github.braillesystems.learnbraille.ui.screens.AbstractFragmentWithHel
 import com.github.braillesystems.learnbraille.utils.Days
 import com.github.braillesystems.learnbraille.utils.forEach
 import com.github.braillesystems.learnbraille.utils.scope
-import kotlinx.android.synthetic.main.fragment_stats.*
-import kotlinx.android.synthetic.main.fragment_stats_table.view.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -35,10 +33,10 @@ class StatsFragment : AbstractFragmentWithHelp(R.string.stats_help) {
         R.layout.fragment_stats,
         container,
         false
-    ).ini().also {
+    ).ini().also { binding ->
 
         scope(job).launch {
-            forEach(stats_week to 7, stats_month to 30) { (view, days) ->
+            forEach(binding.statsWeek to 7, binding.statsMonth to 30) { (view, days) ->
                 val actions: Actions = actionsRepository.actionsFrom(Days(days))
 
                 val cardsMastered =
@@ -46,18 +44,15 @@ class StatsFragment : AbstractFragmentWithHelp(R.string.stats_help) {
                 val hintsUsed = actions.count { it.type is PracticeHintAction }
                 val totalAttempts = actions.count { it.type is PracticeSubmission }
                 view.apply {
-                    practice_mastered_cards.text = cardsMastered.toString()
-                    practice_hints.text = hintsUsed.toString()
-                    practice_total_attempts.text = totalAttempts.toString()
+                    practiceMasteredCards.text = cardsMastered.toString()
+                    practiceHints.text = hintsUsed.toString()
+                    practiceTotalAttempts.text = totalAttempts.toString()
                 }
 
-                val theoryStepsPassed = actions.count { it.type is TheoryPassStep }
-                val theoryInputStepsPassed =
-                    actions.count { it.type is TheoryPassStep && it.type.isInput }
-                view.apply {
-                    theory_steps_passed.text = theoryStepsPassed.toString()
-                    theory_input_steps_passed.text = theoryInputStepsPassed.toString()
-                }
+                view.theoryStepsPassed.text = actions.count { it.type is TheoryPassStep }.toString()
+                view.theoryInputStepsPassed.text = actions
+                    .count { it.type is TheoryPassStep && it.type.isInput }
+                    .toString()
             }
         }
 

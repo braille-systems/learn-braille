@@ -89,8 +89,8 @@ fun Fragment.updateTitle(title: String) {
 }
 
 
-fun <T> stringify(s: SerializationStrategy<T>, obj: T) = Json.stringify(s, obj)
-fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.parse(d, s)
+fun <T> stringify(s: SerializationStrategy<T>, obj: T) = Json.encodeToString(s, obj)
+fun <T> parse(d: DeserializationStrategy<T>, s: String) = Json.decodeFromString(d, s)
 
 
 val Context.extendedTextSize: Float by lazyWithContext {

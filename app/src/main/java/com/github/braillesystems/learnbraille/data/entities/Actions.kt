@@ -2,8 +2,9 @@ package com.github.braillesystems.learnbraille.data.entities
 
 import androidx.room.*
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.UnstableDefault
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.encodeToStream
 import java.util.*
 
 @Entity(tableName = "actions")
@@ -60,11 +61,9 @@ data class TheoryPassStep(val isInput: Boolean) : TheoryActions()
 
 class ActionTypeConverters {
 
-    @UnstableDefault
     @TypeConverter
-    fun to(t: ActionType) = Json.stringify(ActionType.serializer(), t)
+    fun to(t: ActionType) = Json.encodeToString(ActionType.serializer(), t)
 
-    @UnstableDefault
     @TypeConverter
-    fun from(s: String) = Json.parse(ActionType.serializer(), s)
+    fun from(s: String) = Json.decodeFromString(ActionType.serializer(), s)
 }
