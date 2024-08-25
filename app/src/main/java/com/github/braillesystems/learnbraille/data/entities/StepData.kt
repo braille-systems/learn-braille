@@ -3,7 +3,7 @@ package com.github.braillesystems.learnbraille.data.entities
 import androidx.room.TypeConverter
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.UnstableDefault
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
 /**
@@ -17,13 +17,11 @@ sealed class StepData
 
 class StepDataConverters {
 
-    @UnstableDefault
     @TypeConverter
-    fun to(stepData: StepData) = Json.stringify(StepData.serializer(), stepData)
+    fun to(stepData: StepData) = Json.encodeToString(StepData.serializer(), stepData)
 
-    @UnstableDefault
     @TypeConverter
-    fun from(string: String) = Json.parse(StepData.serializer(), string)
+    fun from(string: String) = Json.decodeFromString(StepData.serializer(), string)
 }
 
 typealias HtmlText = String

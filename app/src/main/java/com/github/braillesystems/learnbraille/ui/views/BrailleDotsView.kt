@@ -16,12 +16,15 @@ import com.github.braillesystems.learnbraille.data.entities.BrailleDots
 import com.github.braillesystems.learnbraille.data.entities.list
 import com.github.braillesystems.learnbraille.data.entities.spelling
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
+import com.github.braillesystems.learnbraille.databinding.BrailleDotsViewBinding
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode.Reading
 import com.github.braillesystems.learnbraille.ui.views.BrailleDotsViewMode.Writing
-import com.github.braillesystems.learnbraille.utils.*
-import kotlinx.android.synthetic.main.braille_dots_view.view.*
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import com.github.braillesystems.learnbraille.utils.announce
+import com.github.braillesystems.learnbraille.utils.chainify
+import com.github.braillesystems.learnbraille.utils.forEach
+import com.github.braillesystems.learnbraille.utils.unreachable
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import timber.log.Timber
 
 @SuppressLint("AppCompatCustomView") // Causes BrailleDotView misplacement
@@ -62,21 +65,38 @@ val BrailleDotsViewMode.reflected: BrailleDotsViewMode
 class BrailleDotsView : ConstraintLayout, KoinComponent {
 
     private val preferenceRepository: PreferenceRepository by inject()
+    lateinit var dotButton1: BrailleDotView
+    lateinit var dotButton2: BrailleDotView
+    lateinit var dotButton3: BrailleDotView
+    lateinit var dotButton4: BrailleDotView
+    lateinit var dotButton5: BrailleDotView
+    lateinit var dotButton6: BrailleDotView
 
-    constructor(context: Context) : super(context)
+    constructor(context: Context) : super(context) {
+        init()
+    }
 
-    constructor(context: Context, attrSet: AttributeSet) : super(context, attrSet)
+    constructor(context: Context, attrSet: AttributeSet) : super(context, attrSet) {
+        init()
+    }
 
     constructor(
         context: Context, attrSet: AttributeSet, defStyleAttr: Int
     ) : super(
         context, attrSet, defStyleAttr
-    )
+    ) {
+        init()
+    }
 
-    init {
-        LayoutInflater
-            .from(context)
-            .inflate(R.layout.braille_dots_view, this, true)
+    private fun init() {
+        Timber.d("Inflating dots")
+        val binding = BrailleDotsViewBinding.inflate(LayoutInflater.from(context), this, true)
+        dotButton1 = binding.dotButton1
+        dotButton2 = binding.dotButton2
+        dotButton3 = binding.dotButton3
+        dotButton4 = binding.dotButton4
+        dotButton5 = binding.dotButton5
+        dotButton6 = binding.dotButton6
     }
 
     // After changing traversal order neighbor views forget that braille dots are next

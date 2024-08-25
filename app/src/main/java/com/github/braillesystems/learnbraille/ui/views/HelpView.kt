@@ -9,8 +9,8 @@ import androidx.core.text.parseAsHtml
 import com.github.braillesystems.learnbraille.R
 import com.github.braillesystems.learnbraille.data.repository.PreferenceRepository
 import com.github.braillesystems.learnbraille.utils.extendedTextSize
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class HelpView : LinearLayout, KoinComponent {
 
