@@ -86,7 +86,7 @@ class SymbolsBuilder(private val symbolType: String, block: SymbolsBuilder.() ->
     operator fun get(symbol: Char): Symbol? = _map[symbol]
 
     fun symbol(char: Char, brailleDots: BrailleDots) {
-        @Suppress("NAME_SHADOWING") val char = char.toUpperCase()
+        @Suppress("NAME_SHADOWING") val char = char.uppercaseChar()
         _map[char] = Symbol(char, brailleDots, symbolType)
     }
 }
@@ -119,7 +119,7 @@ class MarkersBuilder(private val block: MarkersBuilder.() -> Unit) {
 
 class known(vararg chars: Char) {
 
-    private val cs = chars.map(Char::toUpperCase)
+    private val cs = chars.map(Char::uppercaseChar)
     private var knownMaterials: List<KnownMaterial>? = null
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>): List<KnownMaterial> =

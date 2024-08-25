@@ -6,12 +6,12 @@ import com.github.braillesystems.learnbraille.data.entities.*
 
 fun StepsBuilder.inputChars(chars: String): Unit =
     chars
-        .map(Char::toUpperCase)
+        .map(Char::uppercaseChar)
         .forEach { c -> +Input(content.symbols.getValue(c)) }
 
 fun StepsBuilder.inputPhraseByLetters(phrase: String) {
     val materials = phrase
-        .map(Char::toUpperCase)
+        .map(Char::uppercaseChar)
         .map(content.symbols::getValue)
     materials.forEachIndexed { i, _ ->
         +InputPhraseLetter(materials, i)
@@ -19,7 +19,7 @@ fun StepsBuilder.inputPhraseByLetters(phrase: String) {
 }
 
 fun StepsBuilder.showAndInputChars(chars: String): Unit =
-    chars.map(Char::toUpperCase).forEach {
+    chars.map(Char::uppercaseChar).forEach {
         +Show(content.symbols.getValue(it))
         +Input(content.symbols.getValue(it))
     }

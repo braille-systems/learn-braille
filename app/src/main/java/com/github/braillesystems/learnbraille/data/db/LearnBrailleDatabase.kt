@@ -84,7 +84,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
 
     companion object {
 
-        const val name = "learn_braille_database"
+        private const val DB_NAME = "learn_braille_database"
 
         /**
          * Try to run `buildDatabase` before first user's request (mb in Application's `onCreate`)
@@ -94,7 +94,7 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
             .databaseBuilder(
                 context.applicationContext,
                 LearnBrailleDatabase::class.java,
-                name
+                DB_NAME
             )
             .addCallback(object : Callback(), KoinComponent {
 
@@ -145,18 +145,18 @@ abstract class LearnBrailleDatabase : RoomDatabase(), KoinComponent {
 }
 
 private val MIGRATION_16_17 = object : Migration(16, 17), KoinComponent {
-    override fun migrate(database: SupportSQLiteDatabase) {
+    override fun migrate(db: SupportSQLiteDatabase) {
         Timber.i("Start 16-17 migration")
 
-        database.execSQL("delete from materials")
-        database.execSQL("delete from steps")
-        database.execSQL("delete from step_has_annotations")
+        db.execSQL("delete from materials")
+        db.execSQL("delete from steps")
+        db.execSQL("delete from step_has_annotations")
 
         Timber.i("Removed old content")
 
         prepopulationData.run {
             materials?.forEach {
-                database.insert(
+                db.insert(
                     "materials",
                     SQLiteDatabase.CONFLICT_IGNORE,
                     it.run {
@@ -170,7 +170,7 @@ private val MIGRATION_16_17 = object : Migration(16, 17), KoinComponent {
             Timber.i("Materials loaded")
 
             steps?.forEach {
-                database.insert(
+                db.insert(
                     "steps",
                     SQLiteDatabase.CONFLICT_IGNORE,
                     it.run {
@@ -186,7 +186,7 @@ private val MIGRATION_16_17 = object : Migration(16, 17), KoinComponent {
             Timber.i("Steps loaded")
 
             stepsHasAnnotations?.forEach {
-                database.insert(
+                db.insert(
                     "step_has_annotations",
                     SQLiteDatabase.CONFLICT_IGNORE,
                     it.run {
@@ -205,9 +205,9 @@ private val MIGRATION_16_17 = object : Migration(16, 17), KoinComponent {
 }
 
 private val MIGRATION_17_18 = object : Migration(17, 18) {
-    override fun migrate(database: SupportSQLiteDatabase) {
+    override fun migrate(db: SupportSQLiteDatabase) {
         Timber.i("Start 17-18 migration")
-        database.execSQL(Action.creationQuery)
+        db.execSQL(Action.creationQuery)
         Timber.i("Actions table created")
     }
 }
@@ -326,33 +326,33 @@ fun updateTheoryAndMaterials(database: SupportSQLiteDatabase) {
 }
 
 private val MIGRATION_18_19 = object : Migration(18, 19) {
-    override fun migrate(database: SupportSQLiteDatabase) {
+    override fun migrate(db: SupportSQLiteDatabase) {
         Timber.i("Start 18-19 migration")
-        updateTheoryAndMaterials(database)
+        updateTheoryAndMaterials(db)
         Timber.i("Finish 18-19 migration")
     }
 }
 
 private val MIGRATION_19_20 = object : Migration(19, 20) {
-    override fun migrate(database: SupportSQLiteDatabase) {
+    override fun migrate(db: SupportSQLiteDatabase) {
         Timber.i("Start 19-20 migration")
-        updateTheoryAndMaterials(database)
+        updateTheoryAndMaterials(db)
         Timber.i("Finish 19-20 migration")
     }
 }
 
 private val MIGRATION_20_21 = object : Migration(20, 21) {
-    override fun migrate(database: SupportSQLiteDatabase) {
+    override fun migrate(db: SupportSQLiteDatabase) {
         Timber.i("Start 20-21 migration")
-        updateTheoryAndMaterials(database)
+        updateTheoryAndMaterials(db)
         Timber.i("Finish 20-21 migration")
     }
 }
 
 private val MIGRATION_21_22 = object : Migration(21, 22) {
-    override fun migrate(database: SupportSQLiteDatabase) {
+    override fun migrate(db: SupportSQLiteDatabase) {
         Timber.i("Start 21-22 migration")
-        updateTheoryAndMaterials(database)
+        updateTheoryAndMaterials(db)
         Timber.i("Finish 21-22 migration")
     }
 }
