@@ -20,7 +20,7 @@ class MaterialDataTypeConverters {
     fun from(s: String): MaterialData = Json.decodeFromString(MaterialData.serializer(), s)
 }
 
-typealias SymbolType = String
+typealias SymbolTypeName = String
 
 @Serializable
 sealed class OneBrailleSymbol : MaterialData() {
@@ -32,7 +32,7 @@ data class Symbol(
     val char: Char,
     override val brailleDots: BrailleDots,
     @SerialName("symbol_type")
-    val type: SymbolType
+    val type: SymbolTypeName
 ) : OneBrailleSymbol()
 
 @Serializable
